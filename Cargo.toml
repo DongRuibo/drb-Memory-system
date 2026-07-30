@@ -26,6 +26,7 @@ async-trait = "0.1.89"
 axum = "0.8"
 base64 = "0.22.1"
 chrono = { version = "0.4.42", features = ["serde"] }
+chrono-tz = { version = "0.10.4", features = ["serde"] }
 hex = "0.4.3"
 futures-util = { version = "0.3.31", default-features = false, features = ["std"] }
 hmac = "0.12.1"

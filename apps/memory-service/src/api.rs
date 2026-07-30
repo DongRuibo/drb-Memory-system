@@ -1,4 +1,4 @@
-use std::collections::BTreeSet;
+use std::collections::{BTreeSet, HashSet};
 use std::sync::{Arc, LazyLock};
 
 use axum::extract::{DefaultBodyLimit, FromRequestParts, Path, State};
@@ -12,8 +12,9 @@ use memory_application::{
     ExtractCandidateProposal, ExtractMemoryRequest, ExtractorError, IndexError,
     MIN_TRANSPARENT_RELEVANCE_SCORE, MemoryExtractor, MemoryReranker, ProjectionHit,
     ProjectionSearch, RerankCandidate, RerankRequest, RetrievalIndex, SecurityAction,
-    SecurityFinding, SecurityPipeline, TransparentReranker,
-    is_memory_applicable_without_semantic_threshold, weighted_reciprocal_rank_fusion,
+    SecurityFinding, SecurityPipeline, TemporalWindow, TransparentReranker,
+    is_memory_applicable_without_semantic_threshold, parse_temporal_query,
+    weighted_reciprocal_rank_fusion,
 };
 use memory_postgres::{
     AuthorizedMemory, CanonicalStatus, ConsumeContextPackCommand, ContextPackCommand,
@@ -556,10 +557,18 @@ struct SearchRequest {
     scope_selectors: Vec<ScopeSelector>,
     #[serde(default)]
     memory_types: Vec<String>,
+    #[serde(default)]
+    reference_time: Option<DateTime<Utc>>,
+    #[serde(default = "default_timezone")]
+    timezone: String,
 }
 
 fn default_limit() -> usize {
     10
+}
+
+fn default_timezone() -> String {
+    "Asia/Shanghai".into()
 }
 
 #[derive(Debug, Serialize)]
@@ -569,6 +578,7 @@ struct SearchResponse {
     projection_generation: String,
     degraded: bool,
     degradation_reason: Option<String>,
+    temporal_window: Option<TemporalWindow>,
 }
 
 async fn search_memory(
@@ -594,6 +604,11 @@ async fn search_memory(
     }
     let memory_types = normalized_memory_types(&request.memory_types, false)?;
     let query = sanitize_boundary_text(&request.query)?.redacted_text;
+    let temporal_window = resolve_temporal_window(
+        &query,
+        request.reference_time.unwrap_or_else(Utc::now),
+        &request.timezone,
+    )?;
     let _attempt_binding = (
         request.task_context.task_id,
         request.task_context.attempt_id,
@@ -605,6 +620,7 @@ async fn search_memory(
         &query,
         candidate_limit,
         &request.scope_selectors,
+        temporal_window.as_ref(),
     )
     .await?;
     let mut authorized = state
@@ -631,6 +647,7 @@ async fn search_memory(
         projection_generation: candidates.generation,
         degraded: candidates.degraded || ranked.degraded,
         degradation_reason,
+        temporal_window,
     }))
 }
 
@@ -650,6 +667,10 @@ struct ContextPackRequest {
     memory_required: bool,
     #[serde(default)]
     pinned_memory_version_ids: Vec<Uuid>,
+    #[serde(default)]
+    reference_time: Option<DateTime<Utc>>,
+    #[serde(default = "default_timezone")]
+    timezone: String,
 }
 
 async fn compile_context_pack(
@@ -689,6 +710,11 @@ async fn compile_context_pack(
     }
     let memory_types = normalized_memory_types(&request.memory_types, true)?;
     let query = sanitize_boundary_text(&request.query)?.redacted_text;
+    let temporal_window = resolve_temporal_window(
+        &query,
+        request.reference_time.unwrap_or_else(Utc::now),
+        &request.timezone,
+    )?;
 
     let candidate_limit = request.limit.saturating_mul(4).clamp(request.limit, 50);
     let candidates = search_authorized_scopes(
@@ -697,6 +723,7 @@ async fn compile_context_pack(
         &query,
         candidate_limit,
         &request.scope_selectors,
+        temporal_window.as_ref(),
     )
     .await?;
     let mut authorized = state
@@ -732,6 +759,7 @@ async fn compile_context_pack(
                 tokenizer_id: request.tokenizer_id,
                 memory_required: request.memory_required,
                 pinned_memory_version_ids: request.pinned_memory_version_ids,
+                temporal_window_hash: temporal_window_binding(temporal_window.as_ref()),
             },
             &ranked_hits,
         )
@@ -1332,6 +1360,7 @@ async fn search_authorized_scopes(
     query: &str,
     limit: usize,
     selectors: &[ScopeSelector],
+    temporal_window: Option<&TemporalWindow>,
 ) -> Result<RetrievalCandidates, ApiError> {
     let scopes = requested_authorized_scopes(selectors, authority)?;
     let generation = require_runtime_projection_model(state, authority)
@@ -1340,6 +1369,29 @@ async fn search_authorized_scopes(
     let mut sources = Vec::<(f64, Vec<ProjectionHit>)>::new();
     let mut degradation_reasons = BTreeSet::new();
     for (scope_kind, scope_id) in scopes {
+        let temporal_hits = if let Some(window) = temporal_window {
+            Some(
+                state
+                    .repository
+                    .search_temporal_projection(
+                        authority,
+                        &scope_kind,
+                        scope_id.as_deref(),
+                        window,
+                        &generation,
+                        limit,
+                    )
+                    .await
+                    .map_err(ApiError::from)?,
+            )
+        } else {
+            None
+        };
+        let temporal_versions = temporal_hits.as_ref().map(|hits| {
+            hits.iter()
+                .map(|hit| hit.memory_version_id)
+                .collect::<HashSet<_>>()
+        });
         let namespace_key = authorized_namespace_key(authority, &scope_kind, scope_id.as_deref())
             .expect("requested scopes were authorized");
         match state
@@ -1352,7 +1404,12 @@ async fn search_authorized_scopes(
             })
             .await
         {
-            Ok(hits) => sources.push((1.0, hits)),
+            Ok(mut hits) => {
+                if let Some(versions) = &temporal_versions {
+                    hits.retain(|hit| versions.contains(&hit.memory_version_id));
+                }
+                sources.push((1.0, hits));
+            }
             Err(_) => {
                 degradation_reasons.insert("PROVIDER_UNAVAILABLE_LOCAL_FALLBACK");
             }
@@ -1369,7 +1426,12 @@ async fn search_authorized_scopes(
             )
             .await
         {
-            Ok(hits) => sources.push((1.15, hits)),
+            Ok(mut hits) => {
+                if let Some(versions) = &temporal_versions {
+                    hits.retain(|hit| versions.contains(&hit.memory_version_id));
+                }
+                sources.push((1.15, hits));
+            }
             Err(_) => {
                 degradation_reasons.insert("BM25_RETRIEVAL_UNAVAILABLE");
             }
@@ -1386,13 +1448,21 @@ async fn search_authorized_scopes(
             )
             .await
         {
-            Ok(hits) => sources.push((0.65, hits)),
+            Ok(mut hits) => {
+                if let Some(versions) = &temporal_versions {
+                    hits.retain(|hit| versions.contains(&hit.memory_version_id));
+                }
+                sources.push((0.65, hits));
+            }
             Err(error) => {
                 degradation_reasons.insert("LOCAL_RETRIEVAL_UNAVAILABLE");
                 if sources.is_empty() {
                     return Err(ApiError::from(error));
                 }
             }
+        }
+        if let Some(hits) = temporal_hits {
+            sources.push((1.10, hits));
         }
     }
     if sources.is_empty() {
@@ -1418,6 +1488,33 @@ async fn search_authorized_scopes(
                     .join(","),
             )
         },
+    })
+}
+
+fn resolve_temporal_window(
+    query: &str,
+    reference_time: DateTime<Utc>,
+    timezone: &str,
+) -> Result<Option<TemporalWindow>, ApiError> {
+    if timezone.trim().is_empty() || timezone.len() > 64 {
+        return Err(ApiError::bad_request(
+            "INVALID_TEMPORAL_QUERY",
+            "timezone must be a valid IANA name with at most 64 characters",
+        ));
+    }
+    parse_temporal_query(query, reference_time, timezone)
+        .map_err(|error| ApiError::bad_request("INVALID_TEMPORAL_QUERY", error.to_string()))
+}
+
+fn temporal_window_binding(window: Option<&TemporalWindow>) -> Option<String> {
+    window.map(|window| {
+        format!(
+            "{}\u{0}{}\u{0}{}\u{0}{}",
+            window.start.to_rfc3339(),
+            window.end.to_rfc3339(),
+            window.timezone,
+            window.precision
+        )
     })
 }
 
@@ -1785,6 +1882,8 @@ impl IntoResponse for ApiError {
 
 #[cfg(test)]
 mod tests {
+    use chrono::TimeZone;
+
     use super::*;
 
     #[test]
@@ -1835,6 +1934,30 @@ mod tests {
         }))
         .unwrap_err();
         assert_eq!(error.code, "SECRET_REJECTED");
+    }
+
+    #[test]
+    fn temporal_query_uses_explicit_reference_time_and_timezone() {
+        let reference = Utc.with_ymd_and_hms(2026, 7, 30, 4, 0, 0).unwrap();
+        let window = resolve_temporal_window("昨天处理了什么？", reference, "Asia/Shanghai")
+            .unwrap()
+            .unwrap();
+        assert_eq!(
+            window.start,
+            Utc.with_ymd_and_hms(2026, 7, 28, 16, 0, 0).unwrap()
+        );
+        assert_eq!(
+            window.end,
+            Utc.with_ymd_and_hms(2026, 7, 29, 16, 0, 0).unwrap()
+        );
+        assert!(temporal_window_binding(Some(&window)).is_some());
+        assert!(temporal_window_binding(None).is_none());
+    }
+
+    #[test]
+    fn invalid_temporal_timezone_is_a_client_error() {
+        let error = resolve_temporal_window("昨天", Utc::now(), "Mars/Olympus").unwrap_err();
+        assert_eq!(error.code, "INVALID_TEMPORAL_QUERY");
     }
 
     #[test]

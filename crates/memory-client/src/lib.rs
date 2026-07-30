@@ -144,6 +144,8 @@ pub struct MemoryExtractionCommand {
 pub struct ContextPackCommand {
     pub task_context: TaskContext,
     pub query: String,
+    pub reference_time: Option<DateTime<Utc>>,
+    pub timezone: Option<String>,
     pub scope_selectors: Vec<ScopeSelector>,
     pub memory_types: Vec<String>,
     pub limit: usize,
@@ -658,6 +660,10 @@ struct MemoryExtractionRequest<'a> {
 struct ContextPackRequest<'a> {
     task_context: &'a TaskContext,
     query: &'a str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    reference_time: Option<DateTime<Utc>>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    timezone: Option<&'a str>,
     scope_selectors: &'a [ScopeSelector],
     memory_types: &'a [String],
     limit: usize,
@@ -797,6 +803,8 @@ impl MemoryPort for MemoryHttpClient {
             &ContextPackRequest {
                 task_context: &command.task_context,
                 query: &command.query,
+                reference_time: command.reference_time,
+                timezone: command.timezone.as_deref(),
                 scope_selectors: &command.scope_selectors,
                 memory_types: &command.memory_types,
                 limit: command.limit,
@@ -1202,6 +1210,8 @@ mod tests {
                 purpose: "answer_user".into(),
             },
             query: "解释事务型 Outbox".into(),
+            reference_time: None,
+            timezone: None,
             scope_selectors: vec![ScopeSelector::user("alice")],
             memory_types: vec!["preference".into()],
             limit: 5,

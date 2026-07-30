@@ -40,6 +40,8 @@ struct Dataset {
 struct EvalDocument {
     id: String,
     content: String,
+    #[serde(default)]
+    occurred_at: Option<DateTime<Utc>>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -48,6 +50,10 @@ struct EvalQuery {
     query: String,
     relevant_document_ids: Vec<String>,
     top_k: usize,
+    #[serde(default)]
+    reference_time: Option<DateTime<Utc>>,
+    #[serde(default)]
+    timezone: Option<String>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -232,7 +238,7 @@ impl MemoryClient {
                 "source_type": "conversation_message",
                 "source_ref": format!("evaluation:{}:{}", run_id, document.id),
                 "content": format!("请记住：{}", document.content),
-                "occurred_at": Utc::now(),
+                "occurred_at": document.occurred_at.unwrap_or_else(Utc::now),
                 "scope_selector": {"kind": "user", "id": &self.user_id}
             }))
             .send()
@@ -276,7 +282,7 @@ impl MemoryClient {
         }
     }
 
-    async fn search(&self, query: &str, top_k: usize) -> EvalResult<SearchResponse> {
+    async fn search(&self, case: &SearchCase) -> EvalResult<SearchResponse> {
         let response = self
             .client
             .post(format!("{}/v1/memory/search", self.base_url))
@@ -286,10 +292,12 @@ impl MemoryClient {
                     "attempt_id": Uuid::new_v4(),
                     "purpose": "answer_user"
                 },
-                "query": query,
+                "query": &case.query,
+                "reference_time": case.reference_time,
+                "timezone": case.timezone.as_deref().unwrap_or("Asia/Shanghai"),
                 "scope_selectors": [{"kind": "user", "id": &self.user_id}],
                 "memory_types": ["preference"],
-                "limit": top_k
+                "limit": case.top_k
             }))
             .send()
             .await?
@@ -808,6 +816,8 @@ async fn evaluate_hybrid(
                 id: query.id.clone(),
                 query: query.query.clone(),
                 top_k: query.top_k,
+                reference_time: query.reference_time,
+                timezone: query.timezone.clone(),
             })
             .collect(),
         concurrency,
@@ -870,6 +880,8 @@ async fn evaluate_negative_queries(
                 id: query.id.clone(),
                 query: query.query.clone(),
                 top_k: query.top_k,
+                reference_time: None,
+                timezone: None,
             })
             .collect(),
         concurrency,
@@ -910,6 +922,8 @@ async fn count_forgotten_injections(
                 id: query.id.clone(),
                 query: query.query.clone(),
                 top_k: query.top_k,
+                reference_time: query.reference_time,
+                timezone: query.timezone.clone(),
             })
             .collect(),
         concurrency,
@@ -936,6 +950,8 @@ struct SearchCase {
     id: String,
     query: String,
     top_k: usize,
+    reference_time: Option<DateTime<Utc>>,
+    timezone: Option<String>,
 }
 
 struct SearchAttempt {
@@ -960,7 +976,7 @@ async fn run_searches(
             let client = client.clone();
             tasks.spawn(async move {
                 let response = client
-                    .search(&case.query, case.top_k)
+                    .search(&case)
                     .await
                     .map_err(|error| error.to_string());
                 SearchAttempt {
@@ -1188,5 +1204,22 @@ mod tests {
                 "exact identifier query {query_id} should rank its document first"
             );
         }
+        let temporal_query = dataset
+            .positive_queries
+            .iter()
+            .find(|query| query.id == "q19")
+            .unwrap();
+        assert_eq!(
+            temporal_query.reference_time,
+            Some("2026-07-30T04:00:00Z".parse().unwrap())
+        );
+        assert_eq!(temporal_query.timezone.as_deref(), Some("Asia/Shanghai"));
+        let temporal_documents = dataset
+            .documents
+            .iter()
+            .filter(|document| document.id.starts_with("release_"))
+            .filter(|document| document.occurred_at.is_some())
+            .count();
+        assert_eq!(temporal_documents, 2);
     }
 }

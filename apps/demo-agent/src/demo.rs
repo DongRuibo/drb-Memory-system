@@ -254,6 +254,8 @@ where
                 purpose: "answer_user".into(),
             },
             query: query.into(),
+            reference_time: None,
+            timezone: None,
             scope_selectors: vec![ScopeSelector::user(&self.config.user_id)],
             memory_types: vec!["preference".into()],
             limit: 5,

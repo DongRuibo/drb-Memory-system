@@ -3,7 +3,9 @@ use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use uuid::Uuid;
 
-use crate::{MIN_TRANSPARENT_RELEVANCE_SCORE, transparent_relevance_score};
+use crate::{
+    MIN_TRANSPARENT_RELEVANCE_SCORE, query_has_temporal_intent, transparent_relevance_score,
+};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct RerankCandidate {
@@ -75,16 +77,19 @@ pub fn is_memory_applicable_without_semantic_threshold(query: &str, memory_type:
                     .iter()
                     .any(|marker| normalized.contains(marker))
         }
-        "episodic_summary" => [
-            "踩坑",
-            "过去经验",
-            "历史经验",
-            "以前处理",
-            "曾经处理",
-            "处理经验",
-        ]
-        .iter()
-        .any(|marker| normalized.contains(marker)),
+        "episodic_summary" => {
+            query_has_temporal_intent(&normalized)
+                || [
+                    "踩坑",
+                    "过去经验",
+                    "历史经验",
+                    "以前处理",
+                    "曾经处理",
+                    "处理经验",
+                ]
+                .iter()
+                .any(|marker| normalized.contains(marker))
+        }
         _ => false,
     }
 }
@@ -233,5 +238,26 @@ mod tests {
                 .iter()
                 .all(|item| item.reason_code == "TRANSPARENT_POLICY_APPLICABILITY")
         );
+    }
+
+    #[tokio::test]
+    async fn transparent_reranker_retains_temporally_selected_episode() {
+        let episode_id = Uuid::new_v4();
+        let result = TransparentReranker
+            .rerank(RerankRequest {
+                query: "昨天处理了什么？".into(),
+                candidates: vec![RerankCandidate {
+                    memory_version_id: episode_id,
+                    content: "修复了队列重复消费".into(),
+                    memory_type: "episodic_summary".into(),
+                    retrieval_score: 1.0,
+                }],
+                limit: 5,
+            })
+            .await
+            .unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].memory_version_id, episode_id);
+        assert_eq!(result[0].reason_code, "TRANSPARENT_POLICY_APPLICABILITY");
     }
 }

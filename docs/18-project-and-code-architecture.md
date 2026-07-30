@@ -204,6 +204,8 @@ Source Event
 
 ```text
 当前问题 + Principal + Purpose + Scope
+  -> 中文时间表达解析（可选 reference_time + IANA timezone）
+  -> 按 Source Event occurred_at 生成时间候选与硬过滤集合
   -> Mem0 候选 + PostgreSQL 中文 BM25 候选 + 字符词法降级候选
   -> 加权 RRF 融合
   -> canonical pre-rerank 授权
@@ -215,6 +217,12 @@ Source Event
   -> 原子 Consume
   -> Prompt Compiler
 ```
+
+“昨天/上周/最近 48 小时/2026 年第 2 季度”等表达先被解析为半开区间
+`[start, end)`。时间约束使用来源事件的 `occurred_at`，不把事实生效时间
+`effective_from` 混作事件发生时间。即使本地时间投影或外部 Provider 留有旧记录，候选
+仍需经过同样的 pre/post-rerank canonical authorization；Forget 后不能重新进入结果。
+`reference_time` 会连同时间窗口绑定 Context Pack 幂等请求，便于回放相对时间查询。
 
 当前交互式 Web 默认查询 User Scope 和 Project Scope，允许四类记忆：
 
@@ -346,6 +354,7 @@ crates/
 │   ├── reranker.rs          # MemoryReranker、透明降级与意图适用策略
 │   ├── ranking.rs           # 词法分数、加权 RRF、透明相关性
 │   ├── security.rs          # Prompt Injection、密钥与 PII 边界清洗
+│   ├── temporal.rs          # 中文相对/绝对时间解析与 IANA 时区窗口
 │   └── text.rs              # NFKC 规范化与 Jieba 中文搜索分词
 ├── memory-client/src/lib.rs # Agent 侧 MemoryPort、HTTP Client、全部命令/响应契约
 ├── memory-postgres/src/
@@ -367,12 +376,13 @@ crates/
 ### 9.3 数据库、部署和验证
 
 ```text
-migrations/                  # 0010...0017 等按序演进的 PostgreSQL Schema
+migrations/                  # 0001...0020 按序演进的 PostgreSQL Schema
 ├── 0001...0004              # Ledger、Head guard、Projection fencing、event_id
 ├── 0005...0006              # Context Pack 幂等与原子 Consume
 ├── 0007...0009              # Semantic identity、Review、Erasure
 ├── 0010...0014              # Ranking/Generation/Receipt/Manifest/Extraction snapshot
-└── 0015...0017              # demo_chat、client message id、精确 Version 证据
+├── 0015...0017              # demo_chat、client message id、精确 Version 证据
+└── 0018...0020              # 来源安全策略、中文 BM25、来源时间查询索引
 
 deploy/
 ├── local/postgres.compose.yaml # 本机 PostgreSQL 17
@@ -386,7 +396,8 @@ scripts/
 ├── demo-agent-v1.sh               # Kimi Agent 链
 ├── demo-v0.sh                     # 后端生命周期链
 ├── rebuild-projection.sh          # generation rebuild/switch/rollback
-└── eval-retrieval-v1.sh           # 固定检索评测
+├── eval-retrieval-v1.sh           # 历史固定检索评测
+└── eval-retrieval-v2.sh           # 中文 BM25 与固定时间窗口评测
 
 tools/                         # 本地模型网关、假模型和 POC server
 tests/sql/ledger_invariants.sql # 数据库不变量测试
@@ -518,6 +529,7 @@ inclusion reason 和 allowed effect。记忆中的文本不能提升为 System I
 - Inspect、Export、Expiry、Forget、Erasure；
 - Qwen3 Embedding、独立 Rerank 和真实 Kimi `k3`；
 - Projection generation rebuild/canary/finalize/rollback 状态机；
+- 中文 Jieba BM25、多通道加权 RRF、中文时间窗口与来源时间硬过滤；
 - Web 长对话滚动、SSE 重连和精确 Memory Version 证据。
 
 ### 14.2 尚未完成的生产能力
@@ -528,7 +540,7 @@ inclusion reason 和 allowed effect。记忆中的文本不能提升为 System I
 - 生产 tokenizer、容量/P95/故障压测和正式质量基线；
 - HA、灾备、跨实例 Worker 协调和零停机双 generation 部署；
 - 目标平台模型 artifact/SBOM/供应链与合规验收；
-- Procedure/Skill 自动晋升、Reflection、知识图谱和复杂时间推理；
+- Procedure/Skill 自动晋升、Reflection、知识图谱和跨事件复杂时间推理；
 - Production Readiness Review 与真实用户数据准入。
 
 当前准确表述是：可信的本地真实业务演示和 Agent 记忆集成参考已经完成，MVP 开发中，

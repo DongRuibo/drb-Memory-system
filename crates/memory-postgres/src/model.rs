@@ -516,6 +516,7 @@ pub struct ContextPackCommand {
     pub tokenizer_id: String,
     pub memory_required: bool,
     pub pinned_memory_version_ids: Vec<Uuid>,
+    pub temporal_window_hash: Option<String>,
 }
 
 #[derive(Debug, Clone)]

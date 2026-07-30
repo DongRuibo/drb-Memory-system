@@ -662,6 +662,15 @@ components:
       properties:
         task_context: {$ref: '#/components/schemas/TaskContext'}
         query: {type: string, minLength: 1, maxLength: 4096}
+        reference_time:
+          type: [string, 'null']
+          format: date-time
+          description: Stable UTC anchor for relative expressions; defaults to service time.
+        timezone:
+          type: string
+          default: Asia/Shanghai
+          maxLength: 64
+          description: IANA timezone used to resolve calendar boundaries.
         scope_selectors:
           type: array
           maxItems: 8
@@ -686,7 +695,7 @@ components:
     SearchResponse:
       type: object
       additionalProperties: false
-      required: [hits, ranking_version, projection_generation, degraded, degradation_reason]
+      required: [hits, ranking_version, projection_generation, degraded, degradation_reason, temporal_window]
       properties:
         hits: {type: array, items: {$ref: '#/components/schemas/MemoryHit'}}
         ranking_version:
@@ -695,6 +704,20 @@ components:
         projection_generation: {type: string}
         degraded: {type: boolean, default: false}
         degradation_reason: {type: [string, 'null']}
+        temporal_window:
+          anyOf:
+            - {$ref: '#/components/schemas/TemporalWindow'}
+            - {type: 'null'}
+    TemporalWindow:
+      type: object
+      additionalProperties: false
+      required: [start, end, precision, timezone, source_expression]
+      properties:
+        start: {type: string, format: date-time}
+        end: {type: string, format: date-time}
+        precision: {type: string, enum: [rolling_hours, rolling_days, day, part_of_day, week, month, quarter, year]}
+        timezone: {type: string}
+        source_expression: {type: string}
     ContextPackRequest:
       type: object
       additionalProperties: false
@@ -702,6 +725,15 @@ components:
       properties:
         task_context: {$ref: '#/components/schemas/TaskContext'}
         query: {type: string, minLength: 1, maxLength: 4096}
+        reference_time:
+          type: [string, 'null']
+          format: date-time
+          description: Stable UTC anchor for relative expressions; defaults to service time.
+        timezone:
+          type: string
+          default: Asia/Shanghai
+          maxLength: 64
+          description: IANA timezone used to resolve calendar boundaries.
         scope_selectors:
           type: array
           maxItems: 8

@@ -6,7 +6,8 @@ use chrono::{DateTime, Utc};
 use memory_application::{
     CHINESE_TOKENIZER_VERSION, ChineseTokenizer, ExtractCandidateProposal,
     MIN_TRANSPARENT_RELEVANCE_SCORE, ProjectionHit, SECURITY_POLICY_VERSION, SecurityFinding,
-    SecurityPipeline, is_memory_applicable_without_semantic_threshold, lexical_relevance_score,
+    SecurityPipeline, TemporalWindow, is_memory_applicable_without_semantic_threshold,
+    lexical_relevance_score,
 };
 use serde_json::json;
 use sha2::{Digest, Sha256};
@@ -3448,6 +3449,77 @@ impl MemoryRepository {
             .collect())
     }
 
+    pub async fn search_temporal_projection(
+        &self,
+        authority: &DemoAuthority,
+        scope_kind: &str,
+        scope_id: Option<&str>,
+        window: &TemporalWindow,
+        generation: &str,
+        limit: usize,
+    ) -> Result<Vec<ProjectionHit>, RepositoryError> {
+        let namespace_key = authorized_namespace_key(authority, scope_kind, scope_id)
+            .ok_or(RepositoryError::NotFound)?;
+        if window.start >= window.end || limit == 0 || limit > 200 {
+            return Err(RepositoryError::Invariant(
+                "temporal projection search requires a valid window and limit between 1 and 200"
+                    .into(),
+            ));
+        }
+        let limit = i64::try_from(limit)
+            .map_err(|_| RepositoryError::Invariant("temporal search limit overflowed".into()))?;
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        let rows = sqlx::query(
+            "SELECT rd.memory_record_id,rd.memory_version_id,rd.head_revision,rd.generation,\
+                    rd.content_hash,\
+                    max(1.0/(1.0+abs(extract(epoch FROM (se.occurred_at-$5::timestamptz)))\
+                                  /86400.0))::float8 AS temporal_score \
+             FROM memory_search.retrieval_documents rd \
+             JOIN memory_core.memory_version_sources mvs \
+               ON mvs.tenant_id=rd.tenant_id \
+              AND mvs.memory_version_id=rd.memory_version_id \
+             JOIN memory_core.source_events se \
+               ON se.tenant_id=mvs.tenant_id AND se.id=mvs.source_event_id \
+             WHERE rd.tenant_id=$1 AND rd.namespace_key=$2 AND rd.generation=$3 \
+               AND se.occurred_at>=$4 AND se.occurred_at<$5 \
+             GROUP BY rd.memory_record_id,rd.memory_version_id,rd.head_revision,rd.generation,\
+                      rd.content_hash \
+             ORDER BY temporal_score DESC,rd.memory_record_id,rd.memory_version_id \
+             LIMIT $6",
+        )
+        .bind(&authority.tenant_id)
+        .bind(&namespace_key)
+        .bind(generation)
+        .bind(window.start)
+        .bind(window.end)
+        .bind(limit)
+        .fetch_all(&mut *tx)
+        .await?;
+        tx.commit().await?;
+
+        Ok(rows
+            .into_iter()
+            .filter_map(|row| {
+                let head_revision = row.try_get::<i64, _>("head_revision").ok()?;
+                let score = row.try_get::<f64, _>("temporal_score").ok()?;
+                if head_revision < 0 || score <= 0.0 {
+                    return None;
+                }
+                let memory_version_id = row.try_get::<Uuid, _>("memory_version_id").ok()?;
+                Some(ProjectionHit {
+                    provider_object_id: format!("local-temporal:{memory_version_id}"),
+                    memory_record_id: row.try_get("memory_record_id").ok()?,
+                    memory_version_id,
+                    head_revision: u64::try_from(head_revision).ok()?,
+                    generation: row.try_get("generation").ok()?,
+                    content_hash: row.try_get("content_hash").ok()?,
+                    provider_score: score.clamp(0.0, 1.0),
+                })
+            })
+            .collect())
+    }
+
     pub async fn compile_context_pack(
         &self,
         authority: &DemoAuthority,
@@ -4218,7 +4290,7 @@ fn authority_snapshot_id(authority: &DemoAuthority, purpose: &str) -> String {
 fn context_pack_request_hash(command: &ContextPackCommand) -> String {
     let mut memory_types = command.memory_types.clone();
     memory_types.sort();
-    content_hash(&format!(
+    let base = format!(
         "{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}",
         command.task_id,
         command.attempt_id,
@@ -4237,6 +4309,10 @@ fn context_pack_request_hash(command: &ContextPackCommand) -> String {
             .map(Uuid::to_string)
             .collect::<Vec<_>>()
             .join("\u{1f}")
+    );
+    content_hash(&format!(
+        "{base}\u{0}{}",
+        command.temporal_window_hash.as_deref().unwrap_or_default()
     ))
 }
 
@@ -5886,6 +5962,8 @@ async fn complete_outbox(
 
 #[cfg(test)]
 mod tests {
+    use chrono::TimeZone;
+
     use super::*;
 
     fn test_projection_model_manifest() -> ProjectionModelManifest {
@@ -5937,6 +6015,7 @@ mod tests {
             tokenizer_id: DEMO_CONTEXT_TOKENIZER_ID.into(),
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
+            temporal_window_hash: None,
         };
         let manifest = repository
             .compile_context_pack(
@@ -5997,6 +6076,7 @@ mod tests {
             tokenizer_id: DEMO_CONTEXT_TOKENIZER_ID.into(),
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
+            temporal_window_hash: None,
         };
         let manifest = repository
             .compile_context_pack(
@@ -6231,6 +6311,7 @@ mod tests {
             tokenizer_id: DEMO_CONTEXT_TOKENIZER_ID.into(),
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
+            temporal_window_hash: None,
         };
         let mut changed = base.clone();
         changed.token_budget = 256;
@@ -6266,6 +6347,13 @@ mod tests {
         assert_ne!(
             context_pack_request_hash(&base),
             context_pack_request_hash(&changed_generation)
+        );
+        let mut changed_temporal_window = base.clone();
+        changed_temporal_window.temporal_window_hash =
+            Some("2026-07-28T16:00:00Z\0 2026-07-29T16:00:00Z\0 Asia/Shanghai\0 day".into());
+        assert_ne!(
+            context_pack_request_hash(&base),
+            context_pack_request_hash(&changed_temporal_window)
         );
     }
 
@@ -6541,6 +6629,128 @@ mod tests {
 
     #[tokio::test]
     #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
+    async fn temporal_candidates_use_source_time_and_still_require_canonical_authorization() {
+        let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
+            "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into()
+        });
+        let repository = MemoryRepository::connect(&database_url).await.unwrap();
+        repository.migrate().await.unwrap();
+        let test_id = Uuid::new_v4();
+        let authority = DemoAuthority::user(format!("temporal-test-{test_id}"), "alice");
+        let reference_time = Utc.with_ymd_and_hms(2026, 7, 30, 4, 0, 0).unwrap();
+        let episodes = [
+            (
+                "yesterday",
+                "昨天修复了队列重复消费",
+                Utc.with_ymd_and_hms(2026, 7, 29, 2, 0, 0).unwrap(),
+            ),
+            (
+                "older",
+                "十天前完成了数据库迁移",
+                Utc.with_ymd_and_hms(2026, 7, 20, 2, 0, 0).unwrap(),
+            ),
+        ];
+        let mut operations = HashMap::new();
+        for (label, content, occurred_at) in episodes {
+            let operation = repository
+                .ingest_extracted(
+                    &authority,
+                    IngestCandidateCommand {
+                        idempotency_key: format!("temporal-{label}-{test_id}"),
+                        event_id: format!("temporal-event-{label}-{test_id}"),
+                        source_type: "conversation_message".into(),
+                        source_ref: format!("conversation:temporal:{label}:{test_id}"),
+                        source_content: content.into(),
+                        memory_content: content.into(),
+                        occurred_at,
+                        memory_type: "episodic_summary".into(),
+                        semantic_key: format!("episode.temporal.{label}.{test_id}"),
+                        confidence: 0.95,
+                        importance: 0.8,
+                        inference_kind: "derived".into(),
+                        extractor_name: "temporal-test".into(),
+                        extractor_version: "v1".into(),
+                        scope_kind: "user".into(),
+                        scope_id: Some("alice".into()),
+                    },
+                )
+                .await
+                .unwrap();
+            let work = repository
+                .claim_projection(&authority, &format!("temporal-worker-{label}"))
+                .await
+                .unwrap()
+                .unwrap();
+            repository
+                .complete_ready(
+                    &authority,
+                    &work,
+                    &format!("provider-temporal-{label}-{test_id}"),
+                )
+                .await
+                .unwrap();
+            operations.insert(label, operation);
+        }
+
+        let window = memory_application::parse_temporal_query(
+            "昨天处理了什么？",
+            reference_time,
+            "Asia/Shanghai",
+        )
+        .unwrap()
+        .unwrap();
+        let hits = repository
+            .search_temporal_projection(
+                &authority,
+                "user",
+                Some("alice"),
+                &window,
+                DEMO_GENERATION,
+                10,
+            )
+            .await
+            .unwrap();
+        assert_eq!(hits.len(), 1);
+        assert_eq!(
+            hits[0].memory_record_id,
+            operations["yesterday"].memory_record_id
+        );
+
+        repository
+            .forget(
+                &authority,
+                ForgetCommand {
+                    idempotency_key: format!("temporal-forget-{test_id}"),
+                    memory_record_id: operations["yesterday"].memory_record_id,
+                    expected_revision: operations["yesterday"].head_revision,
+                    reason: "temporal authorization regression".into(),
+                },
+            )
+            .await
+            .unwrap();
+        let stale_projection_hits = repository
+            .search_temporal_projection(
+                &authority,
+                "user",
+                Some("alice"),
+                &window,
+                DEMO_GENERATION,
+                10,
+            )
+            .await
+            .unwrap();
+        assert_eq!(stale_projection_hits.len(), 1);
+        assert!(
+            repository
+                .authorized_hits(&authority, &stale_projection_hits)
+                .await
+                .unwrap()
+                .is_empty()
+        );
+    }
+
+    #[tokio::test]
+    #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
     async fn context_pack_retains_authorized_preference_below_topical_threshold() {
         let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
             "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into()
@@ -6578,6 +6788,7 @@ mod tests {
             tokenizer_id: DEMO_CONTEXT_TOKENIZER_ID.into(),
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
+            temporal_window_hash: None,
         };
         let manifest = repository
             .compile_context_pack(
@@ -6641,6 +6852,7 @@ mod tests {
             tokenizer_id: DEMO_CONTEXT_TOKENIZER_ID.into(),
             memory_required: true,
             pinned_memory_version_ids: vec![operation.memory_version_id.unwrap()],
+            temporal_window_hash: None,
         };
         let manifest = repository
             .compile_context_pack(&authority, &command, &[])
@@ -7937,6 +8149,7 @@ mod tests {
             tokenizer_id: DEMO_CONTEXT_TOKENIZER_ID.into(),
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
+            temporal_window_hash: None,
         };
         let manifest = repository
             .compile_context_pack(

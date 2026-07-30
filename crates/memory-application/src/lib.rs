@@ -5,6 +5,7 @@ mod provider;
 mod ranking;
 mod reranker;
 mod security;
+mod temporal;
 mod text;
 
 pub use extractor::{
@@ -24,5 +25,8 @@ pub use reranker::{
 };
 pub use security::{
     SECURITY_POLICY_VERSION, SanitizedValue, SecurityAction, SecurityFinding, SecurityPipeline,
+};
+pub use temporal::{
+    TemporalError, TemporalWindow, parse_temporal_query, query_has_temporal_intent,
 };
 pub use text::{CHINESE_TOKENIZER_VERSION, ChineseTokenizer, normalize_text};

@@ -293,6 +293,8 @@ impl ChatRuntime {
                 &ContextPackCommand {
                     task_context: task_context.clone(),
                     query: work.content.clone(),
+                    reference_time: None,
+                    timezone: None,
                     scope_selectors: vec![
                         ScopeSelector::user(&self.user_id),
                         ScopeSelector::project(&self.project_id),

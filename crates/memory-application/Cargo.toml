@@ -7,6 +7,8 @@ rust-version.workspace = true
 
 [dependencies]
 async-trait.workspace = true
+chrono.workspace = true
+chrono-tz.workspace = true
 jieba-rs.workspace = true
 regex.workspace = true
 serde.workspace = true

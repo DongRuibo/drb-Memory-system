@@ -81,9 +81,10 @@ sequenceDiagram
     participant D as PostgreSQL
     participant C as Context Compiler
 
-    R->>A: compile(attempt, purpose, query, budget)
+    R->>A: compile(attempt, purpose, query, budget, reference_time, timezone)
     A->>G: derive authorized scope set
     G-->>A: authority snapshot + allowed scopes
+    A->>D: resolve temporal window against source occurred_at
     A->>I: search only allowed scope partitions
     I-->>A: projection hits
     A->>D: map version IDs and load current heads
@@ -97,6 +98,8 @@ sequenceDiagram
 要求：
 
 - Provider 不可用时 MAY 使用本地 FTS 精确检索；没有合法结果时返回空 Pack；
+- 相对时间查询必须绑定明确时区；可回放调用应显式传 `reference_time`，时间过滤使用
+  Source Event `occurred_at` 的半开区间，不使用事实 `effective_from` 代替；
 - 对声明 `memory_required=true` 的 Task，无法完成权威检查时返回 `MEMORY_UNAVAILABLE`，不得静默继续；
 - 权限不确定、版本陈旧、争议或已遗忘一律省略；
 - Agent Runtime 重试 Attempt 时必须重新编译。

@@ -1,5 +1,5 @@
 {
-  "version": "retrieval-v2.0.0",
+  "version": "retrieval-v2.1.0",
   "documents": [
     {"id": "answer_style", "content": "回答风格：回答技术问题时先给结论，再解释原理"},
     {"id": "code_language", "content": "代码语言：代码示例优先使用 Rust"},
@@ -18,7 +18,9 @@
     {"id": "projection_table", "content": "投影表名：projection_operations 保存投影操作状态"},
     {"id": "datacenter", "content": "灾备地点：海淀机房承载 PostgreSQL 只读副本"},
     {"id": "absolute_deadline", "content": "交付日期：记忆检索验收安排在 2026年8月15日"},
-    {"id": "tokenizer_version", "content": "分词版本：jieba-rs-0.7.4-search-v1 用于中文 BM25"}
+    {"id": "tokenizer_version", "content": "分词版本：jieba-rs-0.7.4-search-v1 用于中文 BM25"},
+    {"id": "release_yesterday", "content": "发布记录：结算服务完成灰度发布", "occurred_at": "2026-07-29T02:00:00Z"},
+    {"id": "release_old", "content": "发布记录：搜索服务完成灰度发布", "occurred_at": "2026-07-20T02:00:00Z"}
   ],
   "positive_queries": [
     {"id": "q01", "query": "回答技术问题应该先说什么？", "relevant_document_ids": ["answer_style"], "top_k": 3},
@@ -38,7 +40,8 @@
     {"id": "q15", "query": "投影操作状态存在哪张表？", "relevant_document_ids": ["projection_table"], "top_k": 3},
     {"id": "q16", "query": "PostgreSQL 的只读副本位于哪里？", "relevant_document_ids": ["datacenter"], "top_k": 3},
     {"id": "q17", "query": "记忆检索验收的具体日期是什么？", "relevant_document_ids": ["absolute_deadline"], "top_k": 3},
-    {"id": "q18", "query": "中文 BM25 使用哪个 jieba 分词版本？", "relevant_document_ids": ["tokenizer_version"], "top_k": 3}
+    {"id": "q18", "query": "中文 BM25 使用哪个 jieba 分词版本？", "relevant_document_ids": ["tokenizer_version"], "top_k": 3},
+    {"id": "q19", "query": "昨天完成灰度发布的是哪个服务？", "relevant_document_ids": ["release_yesterday"], "top_k": 3, "reference_time": "2026-07-30T04:00:00Z", "timezone": "Asia/Shanghai"}
   ],
   "negative_queries": [
     {"id": "n01", "query": "用户最喜欢哪支足球队？", "top_k": 3},

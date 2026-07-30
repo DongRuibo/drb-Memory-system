@@ -32,9 +32,10 @@ Provider 更换、模型/Embedding/Reranker/Prompt/Policy 版本变化必须跑�
 
 ## 当前可执行的 Retrieval v2 smoke
 
-仓库内 `evals/retrieval-v2/dataset.json` 固定为 `retrieval-v2.0.0`，包含 18 条
-合成记忆、18 条正查询和 5 条负查询。除中文释义外，v2 增加错误码、接口路径、
-表名、中文项目代号和 tokenizer version 等精确标识符。隔离的评测
+仓库内 `evals/retrieval-v2/dataset.json` 当前固定为 `retrieval-v2.1.0`，包含 20 条
+合成记忆、19 条正查询和 5 条负查询。除中文释义外，v2 增加错误码、接口路径、
+表名、中文项目代号和 tokenizer version 等精确标识符，并用固定 `occurred_at`、
+`reference_time` 与 `Asia/Shanghai` 时区验证“昨天”只返回窗口内来源事件。隔离的评测
 Tenant/User 写入完成并等待投影 ready 后，执行：
 
 ```bash
@@ -62,7 +63,7 @@ nDCG 均为 `1.000`，无关注入率、负查询命中率和 Forgotten 注入�
 Gate 通过。完整证据见
 [真实语义检索固定评测](../poc/evidence/demo-retrieval-evaluation-validation.md)。
 
-这组 18 条正查询只能证明实现与回归门槛可运行，不能用于声明生产检索质量。MVP/
+这组 19 条正查询只能证明实现与回归门槛可运行，不能用于声明生产检索质量。MVP/
 Production gate 仍需按类别扩充样本、加入真实但脱敏的代表性分布、报告不确定性，
 并进行延迟、费用、限流和供应商失败评测。
 
