@@ -4,6 +4,7 @@ mod extractor;
 mod provider;
 mod ranking;
 mod reranker;
+mod security;
 
 pub use extractor::{
     ExtractCandidateProposal, ExtractMemoryRequest, ExtractorError, MemoryExtractor,
@@ -19,4 +20,7 @@ pub use ranking::{
 pub use reranker::{
     MemoryReranker, RerankCandidate, RerankRequest, RerankedCandidate, RerankerError,
     TransparentReranker, is_memory_applicable_without_semantic_threshold,
+};
+pub use security::{
+    SECURITY_POLICY_VERSION, SanitizedValue, SecurityAction, SecurityFinding, SecurityPipeline,
 };

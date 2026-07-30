@@ -1,9 +1,11 @@
 use std::collections::{BTreeMap, HashMap, HashSet};
+use std::sync::LazyLock;
 use std::time::Duration;
 
 use chrono::{DateTime, Utc};
 use memory_application::{
     ExtractCandidateProposal, MIN_TRANSPARENT_RELEVANCE_SCORE, ProjectionHit,
+    SECURITY_POLICY_VERSION, SecurityFinding, SecurityPipeline,
     is_memory_applicable_without_semantic_threshold, lexical_relevance_score,
 };
 use serde_json::json;
@@ -31,6 +33,7 @@ pub const DEMO_CONTEXT_POLICY_VERSION: &str = "demo-policy-v1";
 pub const DEMO_CONTEXT_COMPILER_VERSION: &str = "demo-context-compiler-v1";
 const DEMO_ID_NAMESPACE: Uuid = Uuid::from_u128(0x7bc8_5039_50f0_4ff1_8200_7e73_a455_f372);
 const DEMO_CONTEXT_ITEM_OVERHEAD: i32 = 32;
+static SECURITY_PIPELINE: LazyLock<SecurityPipeline> = LazyLock::new(SecurityPipeline::default);
 const SUPPORTED_CONTEXT_MEMORY_TYPES: [&str; 4] = [
     "preference",
     "profile_fact",
@@ -56,6 +59,8 @@ pub enum RepositoryError {
     Unauthorized,
     #[error("conflict: {0}")]
     Conflict(String),
+    #[error("validation failed: {0}")]
+    Validation(String),
     #[error("lease was lost before the worker could commit")]
     LeaseLost,
     #[error("repository invariant violated: {0}")]
@@ -225,14 +230,29 @@ impl MemoryRepository {
     async fn ingest_candidate(
         &self,
         authority: &DemoAuthority,
-        command: IngestCandidateCommand,
+        mut command: IngestCandidateCommand,
     ) -> Result<OperationView, RepositoryError> {
         validate_ingest_candidate(&command)?;
+        let source_finding = SECURITY_PIPELINE.inspect(&command.source_content);
+        ensure_safe_for_storage(&source_finding)?;
+        let memory_finding = SECURITY_PIPELINE.inspect(&command.memory_content);
+        ensure_safe_for_storage(&memory_finding)?;
+        let semantic_key_finding = SECURITY_PIPELINE.inspect(&command.semantic_key);
+        ensure_safe_for_storage(&semantic_key_finding)?;
+        let mut security_flags = source_finding.flags.clone();
+        security_flags.extend(memory_finding.flags.clone());
+        security_flags.extend(semantic_key_finding.flags.clone());
+        security_flags.sort();
+        security_flags.dedup();
+        command.memory_content = memory_finding.redacted_text;
+        command.semantic_key = semantic_key_finding.redacted_text;
         if !authority.authorizes_scope(&command.scope_kind, command.scope_id.as_deref()) {
             return Err(RepositoryError::Unauthorized);
         }
         let scope_id = command.scope_id.as_deref();
-        let classification = if command.scope_kind == "project" {
+        let classification = if !security_flags.is_empty() {
+            "sensitive"
+        } else if command.scope_kind == "project" {
             "internal"
         } else {
             "personal"
@@ -306,19 +326,22 @@ impl MemoryRepository {
         sqlx::query(
             "INSERT INTO memory_core.source_events (\
                  tenant_id, id, source_type, source_ref, content_hash, redacted_excerpt,\
-                 classification, occurred_at, idempotency_key,client_event_id\
-             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)",
+                 classification, occurred_at, idempotency_key,client_event_id,\
+                 redaction_policy_version,security_flags\
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)",
         )
         .bind(&authority.tenant_id)
         .bind(source_id)
         .bind(&command.source_type)
         .bind(&command.source_ref)
         .bind(&source_hash)
-        .bind(&command.source_content)
+        .bind(&source_finding.redacted_text)
         .bind(classification)
         .bind(command.occurred_at)
         .bind(&command.idempotency_key)
         .bind(&command.event_id)
+        .bind(SECURITY_POLICY_VERSION)
+        .bind(&security_flags)
         .execute(&mut *tx)
         .await?;
 
@@ -754,7 +777,7 @@ impl MemoryRepository {
     pub async fn correct(
         &self,
         authority: &DemoAuthority,
-        command: CorrectionCommand,
+        mut command: CorrectionCommand,
     ) -> Result<OperationView, RepositoryError> {
         let source_id = stable_id(&format!("correction-source:{}", command.idempotency_key));
         let decision_id = stable_id(&format!("correction-decision:{}", command.idempotency_key));
@@ -766,6 +789,9 @@ impl MemoryRepository {
         ));
         let outbox_id = stable_id(&format!("correction-outbox:{}", command.idempotency_key));
         let request_hash = correction_request_hash(&command);
+        let security_finding = SECURITY_PIPELINE.inspect(&command.new_content);
+        ensure_safe_for_storage(&security_finding)?;
+        command.new_content = security_finding.redacted_text.clone();
         let version_hash = content_hash(&command.new_content);
 
         let mut tx = self.pool.begin().await?;
@@ -866,17 +892,25 @@ impl MemoryRepository {
         sqlx::query(
             "INSERT INTO memory_core.source_events (\
                  tenant_id,id,source_type,source_ref,content_hash,redacted_excerpt,\
-                 classification,occurred_at,idempotency_key,client_event_id\
-             ) VALUES ($1,$2,'user_correction',$3,$4,$5,'personal',$6,$7,$8)",
+                 classification,occurred_at,idempotency_key,client_event_id,\
+                 redaction_policy_version,security_flags\
+             ) VALUES ($1,$2,'user_correction',$3,$4,$5,$6,$7,$8,$9,$10,$11)",
         )
         .bind(&authority.tenant_id)
         .bind(source_id)
         .bind(&command.source_ref)
         .bind(&request_hash)
         .bind(&command.new_content)
+        .bind(if security_finding.flags.is_empty() {
+            "personal"
+        } else {
+            "sensitive"
+        })
         .bind(occurred_at)
         .bind(&command.idempotency_key)
         .bind(format!("correction-{}", command.idempotency_key))
+        .bind(SECURITY_POLICY_VERSION)
+        .bind(&security_finding.flags)
         .execute(&mut *tx)
         .await?;
 
@@ -4138,6 +4172,20 @@ fn correction_request_hash(command: &CorrectionCommand) -> String {
     ))
 }
 
+fn ensure_safe_for_storage(finding: &SecurityFinding) -> Result<(), RepositoryError> {
+    if finding.contains_prompt_injection() {
+        return Err(RepositoryError::Validation(
+            "prompt-injection content cannot enter the canonical ledger".into(),
+        ));
+    }
+    if finding.contains_secret() {
+        return Err(RepositoryError::Validation(
+            "credential or secret-like content cannot enter the canonical ledger".into(),
+        ));
+    }
+    Ok(())
+}
+
 fn review_request_hash(command: &ReviewDecisionCommand) -> String {
     content_hash(&format!(
         "{}\u{0}{}\u{0}{}\u{0}{}",
@@ -6144,6 +6192,84 @@ mod tests {
         changed.outcome = ReviewOutcome::Reject;
         assert_eq!(review_request_hash(&base), review_request_hash(&base));
         assert_ne!(review_request_hash(&base), review_request_hash(&changed));
+    }
+
+    #[tokio::test]
+    #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
+    async fn ingest_redacts_pii_before_ledger_and_version_storage() {
+        let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
+            "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into()
+        });
+        let repository = MemoryRepository::connect(&database_url).await.unwrap();
+        repository.migrate().await.unwrap();
+        let test_id = Uuid::new_v4();
+        let authority = DemoAuthority::user(format!("security-test-{test_id}"), "alice");
+        let idempotency_key = format!("security-ingest-{test_id}");
+        let raw_source = format!("请记住：紧急联系电话是 13800138000，标识 {test_id}");
+        let raw_memory = format!("紧急联系电话是 13800138000，标识 {test_id}");
+        let operation = repository
+            .ingest_explicit(
+                &authority,
+                IngestCommand {
+                    idempotency_key: idempotency_key.clone(),
+                    event_id: format!("security-event-{test_id}"),
+                    source_type: "conversation_message".into(),
+                    source_ref: format!("conversation:security:{test_id}"),
+                    source_content: raw_source.clone(),
+                    memory_content: raw_memory,
+                    occurred_at: Utc::now(),
+                },
+            )
+            .await
+            .unwrap();
+
+        let mut tx = repository.pool.begin().await.unwrap();
+        set_tenant(&mut tx, &authority.tenant_id).await.unwrap();
+        let source = sqlx::query(
+            "SELECT content_hash,redacted_excerpt,redaction_policy_version,security_flags \
+             FROM memory_core.source_events \
+             WHERE tenant_id=$1 AND idempotency_key=$2",
+        )
+        .bind(&authority.tenant_id)
+        .bind(&idempotency_key)
+        .fetch_one(&mut *tx)
+        .await
+        .unwrap();
+        assert_eq!(
+            source.try_get::<String, _>("content_hash").unwrap(),
+            content_hash(&raw_source)
+        );
+        assert_eq!(
+            source
+                .try_get::<String, _>("redaction_policy_version")
+                .unwrap(),
+            SECURITY_POLICY_VERSION
+        );
+        assert!(
+            source
+                .try_get::<Vec<String>, _>("security_flags")
+                .unwrap()
+                .contains(&"cn_phone".to_owned())
+        );
+        assert!(
+            !source
+                .try_get::<String, _>("redacted_excerpt")
+                .unwrap()
+                .contains("13800138000")
+        );
+
+        let version_content = sqlx::query_scalar::<_, String>(
+            "SELECT content FROM memory_core.memory_versions \
+             WHERE tenant_id=$1 AND id=$2",
+        )
+        .bind(&authority.tenant_id)
+        .bind(operation.memory_version_id.unwrap())
+        .fetch_one(&mut *tx)
+        .await
+        .unwrap();
+        assert!(!version_content.contains("13800138000"));
+        assert!(version_content.contains("[REDACTED_cn_phone]"));
+        tx.commit().await.unwrap();
     }
 
     #[tokio::test]
