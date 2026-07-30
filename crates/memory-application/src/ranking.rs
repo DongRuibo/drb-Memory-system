@@ -70,7 +70,8 @@ pub fn weighted_reciprocal_rank_fusion(
             if !seen.insert(hit.memory_version_id) {
                 continue;
             }
-            let contribution = *weight / (RRF_K + index as f64 + 1.0);
+            let contribution = reciprocal_rank_contribution(*weight, index)
+                .expect("active source weights are finite and positive");
             let entry = fused
                 .entry(hit.memory_version_id)
                 .or_insert_with(|| (hit.clone(), 0.0));
@@ -93,6 +94,14 @@ pub fn weighted_reciprocal_rank_fusion(
     });
     hits.truncate(limit);
     hits
+}
+
+/// Returns the exact contribution used by weighted RRF for a zero-based channel rank.
+///
+/// Explain/audit callers use this helper so their persisted evidence cannot drift from the
+/// ranking implementation.
+pub fn reciprocal_rank_contribution(weight: f64, zero_based_rank: usize) -> Option<f64> {
+    (weight.is_finite() && weight > 0.0).then(|| weight / (RRF_K + zero_based_rank as f64 + 1.0))
 }
 
 fn normalized_chars(value: &str) -> Vec<char> {
@@ -210,5 +219,13 @@ mod tests {
         );
         assert_eq!(fused[0].memory_version_id, lexical_version);
         assert!(fused[0].provider_score > fused[1].provider_score);
+    }
+
+    #[test]
+    fn explain_contribution_matches_weighted_rrf_formula() {
+        assert_eq!(reciprocal_rank_contribution(1.15, 0), Some(1.15 / 61.0));
+        assert_eq!(reciprocal_rank_contribution(1.15, 1), Some(1.15 / 62.0));
+        assert_eq!(reciprocal_rank_contribution(0.0, 0), None);
+        assert_eq!(reciprocal_rank_contribution(f64::NAN, 0), None);
     }
 }

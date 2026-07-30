@@ -9,8 +9,9 @@ pub use model::{
     IngestCommand, MemoryEventView, MemoryExportView, MemoryRecordView, MemoryScopeView,
     MemoryVersionView, OperationView, OutcomeReceiptCommand, OutcomeReceiptView,
     ProjectionGenerationView, ProjectionModelManifest, ProjectionOperationStatus,
-    ProjectionOperationType, ProjectionRebuildCommand, ProjectionWork, ReviewDecisionCommand,
-    ReviewOutcome,
+    ProjectionOperationType, ProjectionRebuildCommand, ProjectionWork,
+    RetrievalCandidateReceiptCommand, RetrievalCandidateTraceView, RetrievalRunCommand,
+    RetrievalRunView, ReviewDecisionCommand, ReviewOutcome,
 };
 pub use repository::{
     DEMO_CONTEXT_COMPILER_VERSION, DEMO_CONTEXT_POLICY_VERSION, DEMO_CONTEXT_TOKENIZER_ID,

@@ -111,6 +111,9 @@ paths:
       x-demo-v0-implemented: true
       x-required-permission: memory:read
       summary: Search authorized current memory versions
+      description: >-
+        Executes the retrieval pipeline and persists a content-minimized Retrieval Run receipt.
+        The raw query is not stored; retrieval_run_id can be inspected only with memory:admin.
       requestBody:
         required: true
         content:
@@ -127,6 +130,44 @@ paths:
         '400': {$ref: '#/components/responses/BadRequest'}
         '403': {$ref: '#/components/responses/Forbidden'}
         '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/memory/retrieval:explain:
+    post:
+      tags: [Retrieval, Operations]
+      operationId: explainMemoryRetrieval
+      x-demo-v1-implemented: true
+      x-required-permission: memory:admin
+      summary: Execute a retrieval and return its per-channel decision trace
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/SearchRequest'}
+      responses:
+        '200':
+          description: Authorized hits plus the persisted Retrieval Run receipt
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RetrievalExplainResponse'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/memory/retrieval-runs/{retrieval_run_id}:
+    get:
+      tags: [Retrieval, Operations]
+      operationId: getMemoryRetrievalRun
+      x-demo-v1-implemented: true
+      x-required-permission: memory:admin
+      summary: Load a tenant-isolated persisted Retrieval Run receipt
+      parameters:
+        - $ref: '#/components/parameters/RetrievalRunId'
+      responses:
+        '200':
+          description: Content-minimized retrieval evidence
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RetrievalRun'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
   /v1/memory/context-packs:
     post:
       tags: [Retrieval]
@@ -504,6 +545,11 @@ components:
       in: path
       required: true
       schema: {$ref: '#/components/schemas/Uuid'}
+    RetrievalRunId:
+      name: retrieval_run_id
+      in: path
+      required: true
+      schema: {$ref: '#/components/schemas/Uuid'}
     CandidateId:
       name: candidate_id
       in: path
@@ -695,8 +741,9 @@ components:
     SearchResponse:
       type: object
       additionalProperties: false
-      required: [hits, ranking_version, projection_generation, degraded, degradation_reason, temporal_window]
+      required: [retrieval_run_id, hits, ranking_version, projection_generation, degraded, degradation_reason, temporal_window]
       properties:
+        retrieval_run_id: {$ref: '#/components/schemas/Uuid'}
         hits: {type: array, items: {$ref: '#/components/schemas/MemoryHit'}}
         ranking_version:
           type: string
@@ -718,6 +765,68 @@ components:
         precision: {type: string, enum: [rolling_hours, rolling_days, day, part_of_day, week, month, quarter, year]}
         timezone: {type: string}
         source_expression: {type: string}
+    RetrievalCandidateTrace:
+      type: object
+      additionalProperties: false
+      required: [scope_kind, scope_id, channel, memory_record_id, memory_version_id, channel_rank, raw_score, channel_weight, rrf_contribution, fused_score, preauthorized, rerank_score, postauthorized, final_rank, included, exclusion_reason]
+      properties:
+        scope_kind: {type: string, enum: [tenant, user, project, agent]}
+        scope_id: {type: [string, 'null']}
+        channel: {type: string, enum: [provider, bm25, lexical, temporal]}
+        memory_record_id: {$ref: '#/components/schemas/Uuid'}
+        memory_version_id: {$ref: '#/components/schemas/Uuid'}
+        channel_rank: {type: integer, minimum: 1, maximum: 200}
+        raw_score: {type: number, minimum: 0, maximum: 1}
+        channel_weight: {type: number, exclusiveMinimum: 0}
+        rrf_contribution: {type: number, exclusiveMinimum: 0}
+        fused_score: {type: [number, 'null'], minimum: 0, maximum: 1}
+        preauthorized: {type: boolean}
+        rerank_score: {type: [number, 'null'], minimum: 0, maximum: 1}
+        postauthorized: {type: boolean}
+        final_rank: {type: [integer, 'null'], minimum: 1, maximum: 50}
+        included: {type: boolean}
+        exclusion_reason:
+          type: [string, 'null']
+          enum: [RRF_LIMIT, PRE_RERANK_POLICY_DENIED, RERANKER_OMITTED, POST_RERANK_AUTHORIZATION_DENIED, BELOW_RELEVANCE_THRESHOLD, FINAL_LIMIT, null]
+    RetrievalRun:
+      type: object
+      additionalProperties: false
+      required: [retrieval_run_id, task_id, attempt_id, purpose, query_hash, requested_limit, candidate_limit, reference_time, timezone, temporal_window, projection_generation, ranking_version, degraded, degradation_reason, candidates, created_at]
+      properties:
+        retrieval_run_id: {$ref: '#/components/schemas/Uuid'}
+        task_id: {$ref: '#/components/schemas/Uuid'}
+        attempt_id: {$ref: '#/components/schemas/Uuid'}
+        purpose: {type: string, const: answer_user}
+        query_hash:
+          type: string
+          minLength: 71
+          maxLength: 71
+          pattern: '^sha256:[0-9a-f]{64}$'
+          description: Hash of the boundary-sanitized query; raw query text is not persisted.
+        requested_limit: {type: integer, minimum: 1, maximum: 50}
+        candidate_limit: {type: integer, minimum: 1, maximum: 200}
+        reference_time: {type: string, format: date-time}
+        timezone: {type: string}
+        temporal_window:
+          anyOf:
+            - {$ref: '#/components/schemas/TemporalWindow'}
+            - {type: 'null'}
+        projection_generation: {type: string}
+        ranking_version: {type: string}
+        degraded: {type: boolean}
+        degradation_reason: {type: [string, 'null']}
+        candidates:
+          type: array
+          maxItems: 1600
+          items: {$ref: '#/components/schemas/RetrievalCandidateTrace'}
+        created_at: {type: string, format: date-time}
+    RetrievalExplainResponse:
+      type: object
+      additionalProperties: false
+      required: [search, run]
+      properties:
+        search: {$ref: '#/components/schemas/SearchResponse'}
+        run: {$ref: '#/components/schemas/RetrievalRun'}
     ContextPackRequest:
       type: object
       additionalProperties: false

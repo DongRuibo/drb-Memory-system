@@ -1,7 +1,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 
 use chrono::{DateTime, Utc};
-use memory_application::ExtractCandidateProposal;
+use memory_application::{ExtractCandidateProposal, TemporalWindow};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use uuid::Uuid;
@@ -438,6 +438,84 @@ pub struct AuthorizedMemory {
     pub score: f64,
     pub source_refs: Vec<String>,
     pub effective_from: Option<DateTime<Utc>>,
+}
+
+#[derive(Debug, Clone)]
+pub struct RetrievalCandidateReceiptCommand {
+    pub scope_kind: String,
+    pub scope_id: Option<String>,
+    pub channel: String,
+    pub memory_record_id: Uuid,
+    pub memory_version_id: Uuid,
+    pub channel_rank: i32,
+    pub raw_score: f64,
+    pub channel_weight: f64,
+    pub rrf_contribution: f64,
+    pub fused_score: Option<f64>,
+    pub preauthorized: bool,
+    pub rerank_score: Option<f64>,
+    pub postauthorized: bool,
+    pub final_rank: Option<i32>,
+    pub included: bool,
+    pub exclusion_reason: Option<String>,
+}
+
+#[derive(Debug, Clone)]
+pub struct RetrievalRunCommand {
+    pub task_id: Uuid,
+    pub attempt_id: Uuid,
+    pub purpose: String,
+    pub query_hash: String,
+    pub requested_limit: i32,
+    pub candidate_limit: i32,
+    pub reference_time: DateTime<Utc>,
+    pub timezone: String,
+    pub temporal_window: Option<TemporalWindow>,
+    pub projection_generation: String,
+    pub ranking_version: String,
+    pub degraded: bool,
+    pub degradation_reason: Option<String>,
+    pub candidates: Vec<RetrievalCandidateReceiptCommand>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct RetrievalCandidateTraceView {
+    pub scope_kind: String,
+    pub scope_id: Option<String>,
+    pub channel: String,
+    pub memory_record_id: Uuid,
+    pub memory_version_id: Uuid,
+    pub channel_rank: i32,
+    pub raw_score: f64,
+    pub channel_weight: f64,
+    pub rrf_contribution: f64,
+    pub fused_score: Option<f64>,
+    pub preauthorized: bool,
+    pub rerank_score: Option<f64>,
+    pub postauthorized: bool,
+    pub final_rank: Option<i32>,
+    pub included: bool,
+    pub exclusion_reason: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct RetrievalRunView {
+    pub retrieval_run_id: Uuid,
+    pub task_id: Uuid,
+    pub attempt_id: Uuid,
+    pub purpose: String,
+    pub query_hash: String,
+    pub requested_limit: i32,
+    pub candidate_limit: i32,
+    pub reference_time: DateTime<Utc>,
+    pub timezone: String,
+    pub temporal_window: Option<TemporalWindow>,
+    pub projection_generation: String,
+    pub ranking_version: String,
+    pub degraded: bool,
+    pub degradation_reason: Option<String>,
+    pub candidates: Vec<RetrievalCandidateTraceView>,
+    pub created_at: DateTime<Utc>,
 }
 
 #[derive(Debug, Clone, Serialize)]

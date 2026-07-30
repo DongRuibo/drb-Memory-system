@@ -90,6 +90,7 @@ sequenceDiagram
     A->>D: map version IDs and load current heads
     A->>G: re-check scope/purpose/consent/policy
     G-->>A: allowed versions + reason codes
+    A->>D: persist content-minimized Retrieval Run receipt
     A->>C: rank, dedupe, budget, quote safely
     C->>D: persist context pack and receipts
     C-->>R: immutable attempt-bound pack
@@ -102,6 +103,8 @@ sequenceDiagram
   Source Event `occurred_at` 的半开区间，不使用事实 `effective_from` 代替；
 - 对声明 `memory_required=true` 的 Task，无法完成权威检查时返回 `MEMORY_UNAVAILABLE`，不得静默继续；
 - 权限不确定、版本陈旧、争议或已遗忘一律省略；
+- 直接 Search 必须返回 `retrieval_run_id`；逐通道候选、RRF、Rerank、pre/post 授权和
+  排除理由只允许 `memory:admin` 查询，回执不得保存原始 Query 或记忆正文；
 - Agent Runtime 重试 Attempt 时必须重新编译。
 
 ## 4. 修正

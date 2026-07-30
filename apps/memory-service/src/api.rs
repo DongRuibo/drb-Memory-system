@@ -1,4 +1,4 @@
-use std::collections::{BTreeSet, HashSet};
+use std::collections::{BTreeSet, HashMap, HashSet};
 use std::sync::{Arc, LazyLock};
 
 use axum::extract::{DefaultBodyLimit, FromRequestParts, Path, State};
@@ -14,7 +14,7 @@ use memory_application::{
     ProjectionSearch, RerankCandidate, RerankRequest, RetrievalIndex, SecurityAction,
     SecurityFinding, SecurityPipeline, TemporalWindow, TransparentReranker,
     is_memory_applicable_without_semantic_threshold, parse_temporal_query,
-    weighted_reciprocal_rank_fusion,
+    reciprocal_rank_contribution, weighted_reciprocal_rank_fusion,
 };
 use memory_postgres::{
     AuthorizedMemory, CanonicalStatus, ConsumeContextPackCommand, ContextPackCommand,
@@ -23,7 +23,8 @@ use memory_postgres::{
     ExtractionSnapshotCommand, ForgetCommand, IngestCandidateCommand, IngestCommand,
     MemoryExportView, MemoryRecordView, MemoryRepository, OperationView, OutcomeReceiptCommand,
     OutcomeReceiptView, ProjectionGenerationView, ProjectionModelManifest,
-    ProjectionOperationStatus, ProjectionRebuildCommand, RepositoryError, ReviewDecisionCommand,
+    ProjectionOperationStatus, ProjectionRebuildCommand, RepositoryError,
+    RetrievalCandidateReceiptCommand, RetrievalRunCommand, RetrievalRunView, ReviewDecisionCommand,
     ReviewOutcome, authorized_namespace_key,
 };
 use serde::{Deserialize, Serialize};
@@ -100,6 +101,11 @@ pub fn router(state: Arc<AppState>) -> Router {
             get(get_memory_operation),
         )
         .route("/v1/memory/search", post(search_memory))
+        .route("/v1/memory/retrieval:explain", post(explain_retrieval))
+        .route(
+            "/v1/memory/retrieval-runs/{retrieval_run_id}",
+            get(get_retrieval_run),
+        )
         .route("/v1/memory/context-packs", post(compile_context_pack))
         .route(
             "/v1/memory/context-packs/{context_pack_id}/consume",
@@ -169,6 +175,7 @@ async fn root(State(state): State<Arc<AppState>>) -> Json<serde_json::Value> {
             "contest",
             "review",
             "search",
+            "explain_retrieval",
             "record_outcome",
             "forget",
             "expire",
@@ -573,6 +580,7 @@ fn default_timezone() -> String {
 
 #[derive(Debug, Serialize)]
 struct SearchResponse {
+    retrieval_run_id: Uuid,
     hits: Vec<memory_postgres::AuthorizedMemory>,
     ranking_version: String,
     projection_generation: String,
@@ -581,12 +589,60 @@ struct SearchResponse {
     temporal_window: Option<TemporalWindow>,
 }
 
+#[derive(Debug, Serialize)]
+struct RetrievalExplainResponse {
+    search: SearchResponse,
+    run: RetrievalRunView,
+}
+
+struct SearchExecution {
+    search: SearchResponse,
+    run: RetrievalRunView,
+}
+
 async fn search_memory(
     State(state): State<Arc<AppState>>,
     principal: RequestPrincipal,
     Json(request): Json<SearchRequest>,
 ) -> Result<Json<SearchResponse>, ApiError> {
     let authority = principal.require(MEMORY_READ)?;
+    Ok(Json(
+        execute_retrieval(&state, authority, request).await?.search,
+    ))
+}
+
+async fn explain_retrieval(
+    State(state): State<Arc<AppState>>,
+    principal: RequestPrincipal,
+    Json(request): Json<SearchRequest>,
+) -> Result<Json<RetrievalExplainResponse>, ApiError> {
+    let authority = principal.require(MEMORY_ADMIN)?;
+    let execution = execute_retrieval(&state, authority, request).await?;
+    Ok(Json(RetrievalExplainResponse {
+        search: execution.search,
+        run: execution.run,
+    }))
+}
+
+async fn get_retrieval_run(
+    State(state): State<Arc<AppState>>,
+    principal: RequestPrincipal,
+    Path(retrieval_run_id): Path<Uuid>,
+) -> Result<Json<RetrievalRunView>, ApiError> {
+    let authority = principal.require(MEMORY_ADMIN)?;
+    Ok(Json(
+        state
+            .repository
+            .retrieval_run(authority, retrieval_run_id)
+            .await?,
+    ))
+}
+
+async fn execute_retrieval(
+    state: &AppState,
+    authority: &DemoAuthority,
+    request: SearchRequest,
+) -> Result<SearchExecution, ApiError> {
     if request.query.trim().is_empty()
         || request.query.len() > 4_096
         || !(1..=50).contains(&request.limit)
@@ -604,18 +660,11 @@ async fn search_memory(
     }
     let memory_types = normalized_memory_types(&request.memory_types, false)?;
     let query = sanitize_boundary_text(&request.query)?.redacted_text;
-    let temporal_window = resolve_temporal_window(
-        &query,
-        request.reference_time.unwrap_or_else(Utc::now),
-        &request.timezone,
-    )?;
-    let _attempt_binding = (
-        request.task_context.task_id,
-        request.task_context.attempt_id,
-    );
+    let reference_time = request.reference_time.unwrap_or_else(Utc::now);
+    let temporal_window = resolve_temporal_window(&query, reference_time, &request.timezone)?;
     let candidate_limit = request.limit.saturating_mul(4).clamp(request.limit, 50);
     let candidates = search_authorized_scopes(
-        &state,
+        state,
         authority,
         &query,
         candidate_limit,
@@ -628,27 +677,99 @@ async fn search_memory(
         .authorized_hits(authority, &candidates.hits)
         .await?;
     authorized.retain(|hit| memory_types.binary_search(&hit.memory_type).is_ok());
-    let ranked = rerank_authorized(&state, &query, request.limit, authorized).await?;
+    let preauthorized = authorized
+        .iter()
+        .map(|memory| memory.memory_version_id)
+        .collect::<HashSet<_>>();
+    let ranked = rerank_authorized(state, &query, request.limit, authorized).await?;
+    let rerank_scores = ranked
+        .memories
+        .iter()
+        .map(|memory| (memory.memory_version_id, memory.score))
+        .collect::<HashMap<_, _>>();
     let ranked_hits = align_ranked_projection_hits(&candidates.hits, &ranked.memories);
     let mut hits = state
         .repository
         .authorized_hits(authority, &ranked_hits)
         .await?;
+    let postauthorized = hits
+        .iter()
+        .map(|memory| memory.memory_version_id)
+        .collect::<HashSet<_>>();
+    let relevance_eligible = hits
+        .iter()
+        .filter(|hit| {
+            hit.score >= MIN_TRANSPARENT_RELEVANCE_SCORE
+                || is_memory_applicable_without_semantic_threshold(&query, &hit.memory_type)
+        })
+        .map(|memory| memory.memory_version_id)
+        .collect::<HashSet<_>>();
     hits.retain(|hit| {
         hit.score >= MIN_TRANSPARENT_RELEVANCE_SCORE
             || is_memory_applicable_without_semantic_threshold(&query, &hit.memory_type)
     });
     hits.truncate(request.limit);
+    let final_ranks = hits
+        .iter()
+        .enumerate()
+        .map(|(index, memory)| (memory.memory_version_id, index + 1))
+        .collect::<HashMap<_, _>>();
     let degradation_reason =
         merge_degradation_reasons(candidates.degradation_reason, ranked.degradation_reason);
-    Ok(Json(SearchResponse {
-        hits,
-        ranking_version: ranked.version,
-        projection_generation: candidates.generation,
-        degraded: candidates.degraded || ranked.degraded,
-        degradation_reason,
-        temporal_window,
-    }))
+    let degraded = candidates.degraded || ranked.degraded;
+    let fused_scores = candidates
+        .hits
+        .iter()
+        .map(|hit| (hit.memory_version_id, hit.provider_score))
+        .collect::<HashMap<_, _>>();
+    let receipts = build_retrieval_receipts(
+        candidates.channel_candidates,
+        &fused_scores,
+        &preauthorized,
+        &rerank_scores,
+        &postauthorized,
+        &relevance_eligible,
+        &final_ranks,
+    )?;
+    let query_hash = format!("sha256:{}", hex::encode(Sha256::digest(query.as_bytes())));
+    let run = state
+        .repository
+        .record_retrieval_run(
+            authority,
+            &RetrievalRunCommand {
+                task_id: request.task_context.task_id,
+                attempt_id: request.task_context.attempt_id,
+                purpose: request.task_context.purpose,
+                query_hash,
+                requested_limit: i32::try_from(request.limit).map_err(|_| {
+                    ApiError::bad_request("INVALID_SEARCH", "limit cannot be represented")
+                })?,
+                candidate_limit: i32::try_from(candidate_limit).map_err(|_| {
+                    ApiError::bad_request("INVALID_SEARCH", "candidate limit cannot be represented")
+                })?,
+                reference_time,
+                timezone: request.timezone,
+                temporal_window: temporal_window.clone(),
+                projection_generation: candidates.generation.clone(),
+                ranking_version: ranked.version.clone(),
+                degraded,
+                degradation_reason: degradation_reason.clone(),
+                candidates: receipts,
+            },
+        )
+        .await?;
+    Ok(SearchExecution {
+        search: SearchResponse {
+            retrieval_run_id: run.retrieval_run_id,
+            hits,
+            ranking_version: ranked.version,
+            projection_generation: candidates.generation,
+            degraded,
+            degradation_reason,
+            temporal_window,
+        },
+        run,
+    })
 }
 
 #[derive(Debug, Deserialize)]
@@ -1367,6 +1488,7 @@ async fn search_authorized_scopes(
         .await?
         .generation;
     let mut sources = Vec::<(f64, Vec<ProjectionHit>)>::new();
+    let mut channel_candidates = Vec::new();
     let mut degradation_reasons = BTreeSet::new();
     for (scope_kind, scope_id) in scopes {
         let temporal_hits = if let Some(window) = temporal_window {
@@ -1408,7 +1530,15 @@ async fn search_authorized_scopes(
                 if let Some(versions) = &temporal_versions {
                     hits.retain(|hit| versions.contains(&hit.memory_version_id));
                 }
-                sources.push((1.0, hits));
+                add_retrieval_channel(
+                    &mut sources,
+                    &mut channel_candidates,
+                    &scope_kind,
+                    scope_id.as_deref(),
+                    "provider",
+                    1.0,
+                    hits,
+                );
             }
             Err(_) => {
                 degradation_reasons.insert("PROVIDER_UNAVAILABLE_LOCAL_FALLBACK");
@@ -1430,7 +1560,15 @@ async fn search_authorized_scopes(
                 if let Some(versions) = &temporal_versions {
                     hits.retain(|hit| versions.contains(&hit.memory_version_id));
                 }
-                sources.push((1.15, hits));
+                add_retrieval_channel(
+                    &mut sources,
+                    &mut channel_candidates,
+                    &scope_kind,
+                    scope_id.as_deref(),
+                    "bm25",
+                    1.15,
+                    hits,
+                );
             }
             Err(_) => {
                 degradation_reasons.insert("BM25_RETRIEVAL_UNAVAILABLE");
@@ -1452,7 +1590,15 @@ async fn search_authorized_scopes(
                 if let Some(versions) = &temporal_versions {
                     hits.retain(|hit| versions.contains(&hit.memory_version_id));
                 }
-                sources.push((0.65, hits));
+                add_retrieval_channel(
+                    &mut sources,
+                    &mut channel_candidates,
+                    &scope_kind,
+                    scope_id.as_deref(),
+                    "lexical",
+                    0.65,
+                    hits,
+                );
             }
             Err(error) => {
                 degradation_reasons.insert("LOCAL_RETRIEVAL_UNAVAILABLE");
@@ -1462,7 +1608,15 @@ async fn search_authorized_scopes(
             }
         }
         if let Some(hits) = temporal_hits {
-            sources.push((1.10, hits));
+            add_retrieval_channel(
+                &mut sources,
+                &mut channel_candidates,
+                &scope_kind,
+                scope_id.as_deref(),
+                "temporal",
+                1.10,
+                hits,
+            );
         }
     }
     if sources.is_empty() {
@@ -1476,6 +1630,7 @@ async fn search_authorized_scopes(
         .collect::<Vec<_>>();
     Ok(RetrievalCandidates {
         hits: weighted_reciprocal_rank_fusion(&weighted_sources, limit),
+        channel_candidates,
         generation,
         degraded: !degradation_reasons.is_empty(),
         degradation_reason: if degradation_reasons.is_empty() {
@@ -1542,9 +1697,110 @@ async fn require_runtime_projection_model(
 
 struct RetrievalCandidates {
     hits: Vec<ProjectionHit>,
+    channel_candidates: Vec<RetrievalChannelCandidate>,
     generation: String,
     degraded: bool,
     degradation_reason: Option<String>,
+}
+
+struct RetrievalChannelCandidate {
+    scope_kind: String,
+    scope_id: Option<String>,
+    channel: String,
+    hit: ProjectionHit,
+    channel_rank: i32,
+    channel_weight: f64,
+    rrf_contribution: f64,
+}
+
+fn add_retrieval_channel(
+    sources: &mut Vec<(f64, Vec<ProjectionHit>)>,
+    candidates: &mut Vec<RetrievalChannelCandidate>,
+    scope_kind: &str,
+    scope_id: Option<&str>,
+    channel: &str,
+    weight: f64,
+    hits: Vec<ProjectionHit>,
+) {
+    let mut seen = HashSet::new();
+    let deduplicated = hits
+        .into_iter()
+        .filter(|hit| seen.insert(hit.memory_version_id))
+        .collect::<Vec<_>>();
+    for (index, hit) in deduplicated.iter().enumerate() {
+        candidates.push(RetrievalChannelCandidate {
+            scope_kind: scope_kind.into(),
+            scope_id: scope_id.map(str::to_owned),
+            channel: channel.into(),
+            hit: hit.clone(),
+            channel_rank: i32::try_from(index + 1)
+                .expect("retrieval channel limit is bounded below i32::MAX"),
+            channel_weight: weight,
+            rrf_contribution: reciprocal_rank_contribution(weight, index)
+                .expect("retrieval channel weights are finite and positive"),
+        });
+    }
+    sources.push((weight, deduplicated));
+}
+
+fn build_retrieval_receipts(
+    candidates: Vec<RetrievalChannelCandidate>,
+    fused_scores: &HashMap<Uuid, f64>,
+    preauthorized: &HashSet<Uuid>,
+    rerank_scores: &HashMap<Uuid, f64>,
+    postauthorized: &HashSet<Uuid>,
+    relevance_eligible: &HashSet<Uuid>,
+    final_ranks: &HashMap<Uuid, usize>,
+) -> Result<Vec<RetrievalCandidateReceiptCommand>, ApiError> {
+    candidates
+        .into_iter()
+        .map(|candidate| {
+            let version_id = candidate.hit.memory_version_id;
+            let final_rank = final_ranks
+                .get(&version_id)
+                .copied()
+                .map(i32::try_from)
+                .transpose()
+                .map_err(|_| {
+                    ApiError::provider(IndexError::InvalidResponse(
+                        "final retrieval rank overflowed".into(),
+                    ))
+                })?;
+            let exclusion_reason = if final_rank.is_some() {
+                None
+            } else if !fused_scores.contains_key(&version_id) {
+                Some("RRF_LIMIT".into())
+            } else if !preauthorized.contains(&version_id) {
+                Some("PRE_RERANK_POLICY_DENIED".into())
+            } else if !rerank_scores.contains_key(&version_id) {
+                Some("RERANKER_OMITTED".into())
+            } else if !postauthorized.contains(&version_id) {
+                Some("POST_RERANK_AUTHORIZATION_DENIED".into())
+            } else if !relevance_eligible.contains(&version_id) {
+                Some("BELOW_RELEVANCE_THRESHOLD".into())
+            } else {
+                Some("FINAL_LIMIT".into())
+            };
+            Ok(RetrievalCandidateReceiptCommand {
+                scope_kind: candidate.scope_kind,
+                scope_id: candidate.scope_id,
+                channel: candidate.channel,
+                memory_record_id: candidate.hit.memory_record_id,
+                memory_version_id: version_id,
+                channel_rank: candidate.channel_rank,
+                raw_score: candidate.hit.provider_score,
+                channel_weight: candidate.channel_weight,
+                rrf_contribution: candidate.rrf_contribution,
+                fused_score: fused_scores.get(&version_id).copied(),
+                preauthorized: preauthorized.contains(&version_id),
+                rerank_score: rerank_scores.get(&version_id).copied(),
+                postauthorized: postauthorized.contains(&version_id),
+                final_rank,
+                included: final_rank.is_some(),
+                exclusion_reason,
+            })
+        })
+        .collect()
 }
 
 struct RankedAuthorized {
@@ -2189,6 +2445,48 @@ mod tests {
                 .collect::<Vec<_>>(),
             vec![0.92, 0.81]
         );
+    }
+
+    #[test]
+    fn retrieval_receipts_explain_each_gate_without_storing_content() {
+        let included_version = Uuid::new_v4();
+        let truncated_version = Uuid::new_v4();
+        let candidate = |version_id: Uuid, rank: i32| RetrievalChannelCandidate {
+            scope_kind: "user".into(),
+            scope_id: Some("alice".into()),
+            channel: "bm25".into(),
+            hit: ProjectionHit {
+                provider_object_id: format!("local-bm25:{version_id}"),
+                memory_record_id: Uuid::new_v4(),
+                memory_version_id: version_id,
+                head_revision: 0,
+                generation: memory_postgres::DEMO_GENERATION.into(),
+                content_hash: format!("sha256:{version_id}"),
+                provider_score: 0.8,
+            },
+            channel_rank: rank,
+            channel_weight: 1.15,
+            rrf_contribution: reciprocal_rank_contribution(1.15, (rank - 1) as usize).unwrap(),
+        };
+        let receipts = build_retrieval_receipts(
+            vec![
+                candidate(included_version, 1),
+                candidate(truncated_version, 2),
+            ],
+            &HashMap::from([(included_version, 1.0)]),
+            &HashSet::from([included_version]),
+            &HashMap::from([(included_version, 0.91)]),
+            &HashSet::from([included_version]),
+            &HashSet::from([included_version]),
+            &HashMap::from([(included_version, 1)]),
+        )
+        .unwrap();
+
+        assert!(receipts[0].included);
+        assert_eq!(receipts[0].final_rank, Some(1));
+        assert_eq!(receipts[0].exclusion_reason, None);
+        assert!(!receipts[1].included);
+        assert_eq!(receipts[1].exclusion_reason.as_deref(), Some("RRF_LIMIT"));
     }
 
     #[test]

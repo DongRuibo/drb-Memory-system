@@ -45,6 +45,10 @@ Memory Service 默认执行 SQLx Migration。新环境不需要手工运行 SQL�
 python3 tools/poc_embedding_server.py --host 0.0.0.0 --port 18080
 ```
 
+默认输出 1536 维确定性向量。若复用一个已经由 1024 维语义模型创建的本地 Mem0 collection，
+可显式传 `--dimensions 1024`；Memory Service 的 `MEMORY_EMBEDDING_DIMENSIONS` 必须使用
+相同数值。
+
 Mem0 `server/.env`：
 
 ```dotenv

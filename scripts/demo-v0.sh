@@ -101,6 +101,24 @@ search_response="$(curl --fail --silent --show-error \
 printf '%s\n' "$search_response" | jq .
 test "$(printf '%s' "$search_response" | jq -r '.hits | length')" -eq 1
 test "$(printf '%s' "$search_response" | jq -r '.hits[0].content')" = "$expected_memory"
+retrieval_run_id="$(printf '%s' "$search_response" | jq -r '.retrieval_run_id')"
+test -n "$retrieval_run_id"
+test "$retrieval_run_id" != "null"
+
+printf '\n[4a/7] Explain the same retrieval without persisting raw query text\n'
+explain_response="$(curl --fail --silent --show-error \
+  -H 'content-type: application/json' \
+  -d "$search_payload" \
+  "${demo_base_url}/v1/memory/retrieval:explain")"
+printf '%s\n' "$explain_response" | jq .
+explain_run_id="$(printf '%s' "$explain_response" | jq -r '.run.retrieval_run_id')"
+test "$(printf '%s' "$explain_response" | jq -r '.search.retrieval_run_id')" = "$explain_run_id"
+test "$(printf '%s' "$explain_response" | jq -r '.run.query_hash | startswith("sha256:")')" = "true"
+test "$(printf '%s' "$explain_response" | jq -r '.run.candidates | length')" -ge 1
+
+persisted_run="$(curl --fail --silent --show-error \
+  "${demo_base_url}/v1/memory/retrieval-runs/${explain_run_id}")"
+test "$(printf '%s' "$persisted_run" | jq -r '.retrieval_run_id')" = "$explain_run_id"
 
 printf '\n[5/7] Commit canonical Forget\n'
 forget_payload="$(jq -n \

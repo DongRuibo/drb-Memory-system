@@ -32,10 +32,18 @@ def deterministic_embedding(text: str, dimensions: int) -> list[float]:
 
 class EmbeddingHandler(BaseHTTPRequestHandler):
     server_version = "LazyTTPOCEmbedder/1.0"
+    default_dimensions = DEFAULT_DIMENSIONS
 
     def do_GET(self) -> None:  # noqa: N802 - BaseHTTPRequestHandler API
         if self.path == "/health":
-            self._json_response(200, {"status": "ok", "semantic": False})
+            self._json_response(
+                200,
+                {
+                    "status": "ok",
+                    "semantic": False,
+                    "dimensions": self.default_dimensions,
+                },
+            )
             return
         self._json_response(404, {"error": "not_found"})
 
@@ -51,7 +59,7 @@ class EmbeddingHandler(BaseHTTPRequestHandler):
             inputs = raw_input if isinstance(raw_input, list) else [raw_input]
             if not all(isinstance(value, str) for value in inputs):
                 raise ValueError("input must be a string or list of strings")
-            dimensions = int(payload.get("dimensions", DEFAULT_DIMENSIONS))
+            dimensions = int(payload.get("dimensions", self.default_dimensions))
             if dimensions <= 0 or dimensions > 4096:
                 raise ValueError("dimensions must be between 1 and 4096")
         except (KeyError, TypeError, ValueError, json.JSONDecodeError) as error:
@@ -117,8 +125,12 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=18080)
+    parser.add_argument("--dimensions", type=int, default=DEFAULT_DIMENSIONS)
     args = parser.parse_args()
+    if args.dimensions <= 0 or args.dimensions > 4096:
+        parser.error("--dimensions must be between 1 and 4096")
 
+    EmbeddingHandler.default_dimensions = args.dimensions
     server = ThreadingHTTPServer((args.host, args.port), EmbeddingHandler)
     print(
         json.dumps(
@@ -126,6 +138,7 @@ def main() -> None:
                 "status": "started",
                 "host": args.host,
                 "port": args.port,
+                "dimensions": args.dimensions,
                 "semantic": False,
                 "started_at_unix": int(time.time()),
             },

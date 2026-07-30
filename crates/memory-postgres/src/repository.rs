@@ -24,8 +24,8 @@ use crate::model::{
     IngestCommand, MemoryEventView, MemoryExportView, MemoryRecordView, MemoryScopeView,
     MemoryVersionView, OperationView, OutcomeReceiptCommand, OutcomeReceiptView,
     ProjectionGenerationView, ProjectionModelManifest, ProjectionOperationStatus,
-    ProjectionOperationType, ProjectionRebuildCommand, ProjectionWork, ReviewDecisionCommand,
-    ReviewOutcome,
+    ProjectionOperationType, ProjectionRebuildCommand, ProjectionWork, RetrievalCandidateTraceView,
+    RetrievalRunCommand, RetrievalRunView, ReviewDecisionCommand, ReviewOutcome,
 };
 
 pub const DEMO_GENERATION: &str = "demo-v0-generation-1";
@@ -3520,6 +3520,196 @@ impl MemoryRepository {
             .collect())
     }
 
+    pub async fn record_retrieval_run(
+        &self,
+        authority: &DemoAuthority,
+        command: &RetrievalRunCommand,
+    ) -> Result<RetrievalRunView, RepositoryError> {
+        validate_retrieval_run(authority, command)?;
+        let retrieval_run_id = Uuid::new_v4();
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        sqlx::query(
+            "INSERT INTO memory_core.retrieval_runs (\
+                 tenant_id,id,task_id,attempt_id,purpose,query_hash,requested_limit,\
+                 candidate_limit,reference_time,timezone,temporal_start,temporal_end,\
+                 temporal_precision,temporal_source_expression,projection_generation,\
+                 ranking_version,degraded,degradation_reason\
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)",
+        )
+        .bind(&authority.tenant_id)
+        .bind(retrieval_run_id)
+        .bind(command.task_id)
+        .bind(command.attempt_id)
+        .bind(&command.purpose)
+        .bind(&command.query_hash)
+        .bind(command.requested_limit)
+        .bind(command.candidate_limit)
+        .bind(command.reference_time)
+        .bind(&command.timezone)
+        .bind(command.temporal_window.as_ref().map(|window| window.start))
+        .bind(command.temporal_window.as_ref().map(|window| window.end))
+        .bind(
+            command
+                .temporal_window
+                .as_ref()
+                .map(|window| window.precision.as_str()),
+        )
+        .bind(
+            command
+                .temporal_window
+                .as_ref()
+                .map(|window| window.source_expression.as_str()),
+        )
+        .bind(&command.projection_generation)
+        .bind(&command.ranking_version)
+        .bind(command.degraded)
+        .bind(&command.degradation_reason)
+        .execute(&mut *tx)
+        .await?;
+
+        for candidate in &command.candidates {
+            let receipt_id = stable_id(&format!(
+                "retrieval-candidate:{retrieval_run_id}:{}:{}",
+                candidate.channel, candidate.memory_version_id
+            ));
+            sqlx::query(
+                "INSERT INTO memory_core.retrieval_candidate_receipts (\
+                     tenant_id,id,retrieval_run_id,scope_kind,scope_id,channel,memory_record_id,\
+                     memory_version_id,channel_rank,raw_score,channel_weight,rrf_contribution,\
+                     fused_score,preauthorized,rerank_score,postauthorized,final_rank,included,\
+                     exclusion_reason\
+                 ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)",
+            )
+            .bind(&authority.tenant_id)
+            .bind(receipt_id)
+            .bind(retrieval_run_id)
+            .bind(&candidate.scope_kind)
+            .bind(&candidate.scope_id)
+            .bind(&candidate.channel)
+            .bind(candidate.memory_record_id)
+            .bind(candidate.memory_version_id)
+            .bind(candidate.channel_rank)
+            .bind(candidate.raw_score)
+            .bind(candidate.channel_weight)
+            .bind(candidate.rrf_contribution)
+            .bind(candidate.fused_score)
+            .bind(candidate.preauthorized)
+            .bind(candidate.rerank_score)
+            .bind(candidate.postauthorized)
+            .bind(candidate.final_rank)
+            .bind(candidate.included)
+            .bind(&candidate.exclusion_reason)
+            .execute(&mut *tx)
+            .await?;
+        }
+        tx.commit().await?;
+        self.retrieval_run(authority, retrieval_run_id).await
+    }
+
+    pub async fn retrieval_run(
+        &self,
+        authority: &DemoAuthority,
+        retrieval_run_id: Uuid,
+    ) -> Result<RetrievalRunView, RepositoryError> {
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        let row = sqlx::query(
+            "SELECT task_id,attempt_id,purpose,query_hash,requested_limit,candidate_limit,\
+                    reference_time,timezone,temporal_start,temporal_end,temporal_precision,\
+                    temporal_source_expression,projection_generation,ranking_version,degraded,\
+                    degradation_reason,created_at \
+             FROM memory_core.retrieval_runs WHERE tenant_id=$1 AND id=$2",
+        )
+        .bind(&authority.tenant_id)
+        .bind(retrieval_run_id)
+        .fetch_optional(&mut *tx)
+        .await?
+        .ok_or(RepositoryError::NotFound)?;
+        let candidate_rows = sqlx::query(
+            "SELECT scope_kind,scope_id,channel,memory_record_id,memory_version_id,channel_rank,\
+                    raw_score,channel_weight,rrf_contribution,fused_score,preauthorized,\
+                    rerank_score,postauthorized,final_rank,included,exclusion_reason \
+             FROM memory_core.retrieval_candidate_receipts \
+             WHERE tenant_id=$1 AND retrieval_run_id=$2 \
+             ORDER BY channel,channel_rank,memory_record_id,memory_version_id",
+        )
+        .bind(&authority.tenant_id)
+        .bind(retrieval_run_id)
+        .fetch_all(&mut *tx)
+        .await?;
+        tx.commit().await?;
+
+        let temporal_start = row.try_get::<Option<DateTime<Utc>>, _>("temporal_start")?;
+        let temporal_end = row.try_get::<Option<DateTime<Utc>>, _>("temporal_end")?;
+        let temporal_precision = row.try_get::<Option<String>, _>("temporal_precision")?;
+        let temporal_source_expression =
+            row.try_get::<Option<String>, _>("temporal_source_expression")?;
+        let timezone = row.try_get::<String, _>("timezone")?;
+        let temporal_window = match (
+            temporal_start,
+            temporal_end,
+            temporal_precision,
+            temporal_source_expression,
+        ) {
+            (Some(start), Some(end), Some(precision), Some(source_expression)) => {
+                Some(TemporalWindow {
+                    start,
+                    end,
+                    precision,
+                    timezone: timezone.clone(),
+                    source_expression,
+                })
+            }
+            (None, None, None, None) => None,
+            _ => {
+                return Err(RepositoryError::Invariant(
+                    "retrieval run contains a partial temporal window".into(),
+                ));
+            }
+        };
+        Ok(RetrievalRunView {
+            retrieval_run_id,
+            task_id: row.try_get("task_id")?,
+            attempt_id: row.try_get("attempt_id")?,
+            purpose: row.try_get("purpose")?,
+            query_hash: row.try_get("query_hash")?,
+            requested_limit: row.try_get("requested_limit")?,
+            candidate_limit: row.try_get("candidate_limit")?,
+            reference_time: row.try_get("reference_time")?,
+            timezone,
+            temporal_window,
+            projection_generation: row.try_get("projection_generation")?,
+            ranking_version: row.try_get("ranking_version")?,
+            degraded: row.try_get("degraded")?,
+            degradation_reason: row.try_get("degradation_reason")?,
+            candidates: candidate_rows
+                .into_iter()
+                .map(|candidate| {
+                    Ok(RetrievalCandidateTraceView {
+                        scope_kind: candidate.try_get("scope_kind")?,
+                        scope_id: candidate.try_get("scope_id")?,
+                        channel: candidate.try_get("channel")?,
+                        memory_record_id: candidate.try_get("memory_record_id")?,
+                        memory_version_id: candidate.try_get("memory_version_id")?,
+                        channel_rank: candidate.try_get("channel_rank")?,
+                        raw_score: candidate.try_get("raw_score")?,
+                        channel_weight: candidate.try_get("channel_weight")?,
+                        rrf_contribution: candidate.try_get("rrf_contribution")?,
+                        fused_score: candidate.try_get("fused_score")?,
+                        preauthorized: candidate.try_get("preauthorized")?,
+                        rerank_score: candidate.try_get("rerank_score")?,
+                        postauthorized: candidate.try_get("postauthorized")?,
+                        final_rank: candidate.try_get("final_rank")?,
+                        included: candidate.try_get("included")?,
+                        exclusion_reason: candidate.try_get("exclusion_reason")?,
+                    })
+                })
+                .collect::<Result<Vec<_>, sqlx::Error>>()?,
+            created_at: row.try_get("created_at")?,
+        })
+    }
+
     pub async fn compile_context_pack(
         &self,
         authority: &DemoAuthority,
@@ -4959,6 +5149,102 @@ fn stable_id(value: &str) -> Uuid {
 
 fn content_hash(content: &str) -> String {
     format!("sha256:{}", hex::encode(Sha256::digest(content.as_bytes())))
+}
+
+fn validate_retrieval_run(
+    authority: &DemoAuthority,
+    command: &RetrievalRunCommand,
+) -> Result<(), RepositoryError> {
+    let query_digest = command.query_hash.strip_prefix("sha256:");
+    if command.purpose != "answer_user"
+        || query_digest.is_none_or(|digest| {
+            digest.len() != 64
+                || digest
+                    .bytes()
+                    .any(|byte| !byte.is_ascii_hexdigit() || byte.is_ascii_uppercase())
+        })
+        || !(1..=50).contains(&command.requested_limit)
+        || !(command.requested_limit..=200).contains(&command.candidate_limit)
+        || command.timezone.trim().is_empty()
+        || command.timezone.len() > 64
+        || command.projection_generation.trim().is_empty()
+        || command.projection_generation.len() > 128
+        || command.ranking_version.trim().is_empty()
+        || command.ranking_version.len() > 128
+        || command
+            .degradation_reason
+            .as_ref()
+            .is_some_and(|reason| reason.is_empty() || reason.len() > 512)
+        || command.candidates.len() > 1_600
+        || command.temporal_window.as_ref().is_some_and(|window| {
+            window.start >= window.end
+                || window.timezone != command.timezone
+                || window.precision.is_empty()
+                || window.source_expression.is_empty()
+        })
+    {
+        return Err(RepositoryError::Validation(
+            "retrieval run fields violate the explain receipt contract".into(),
+        ));
+    }
+
+    let allowed_channels = ["provider", "bm25", "lexical", "temporal"];
+    let allowed_exclusions = [
+        "RRF_LIMIT",
+        "PRE_RERANK_POLICY_DENIED",
+        "RERANKER_OMITTED",
+        "POST_RERANK_AUTHORIZATION_DENIED",
+        "BELOW_RELEVANCE_THRESHOLD",
+        "FINAL_LIMIT",
+    ];
+    let mut identities = HashSet::new();
+    for candidate in &command.candidates {
+        let scope_is_valid = match (candidate.scope_kind.as_str(), candidate.scope_id.as_deref()) {
+            ("tenant", None) => true,
+            ("user" | "project" | "agent", Some(id)) => !id.trim().is_empty() && id.len() <= 256,
+            _ => false,
+        };
+        let exclusion_is_valid = if candidate.included {
+            candidate.exclusion_reason.is_none()
+        } else {
+            candidate
+                .exclusion_reason
+                .as_ref()
+                .is_some_and(|reason| allowed_exclusions.contains(&reason.as_str()))
+        };
+        if !scope_is_valid
+            || !authority.authorizes_scope(&candidate.scope_kind, candidate.scope_id.as_deref())
+            || !allowed_channels.contains(&candidate.channel.as_str())
+            || !identities.insert((candidate.channel.as_str(), candidate.memory_version_id))
+            || !(1..=200).contains(&candidate.channel_rank)
+            || !candidate.raw_score.is_finite()
+            || !(0.0..=1.0).contains(&candidate.raw_score)
+            || !candidate.channel_weight.is_finite()
+            || !(0.0..=10.0).contains(&candidate.channel_weight)
+            || candidate.channel_weight == 0.0
+            || !candidate.rrf_contribution.is_finite()
+            || candidate.rrf_contribution <= 0.0
+            || candidate
+                .fused_score
+                .is_some_and(|score| !score.is_finite() || !(0.0..=1.0).contains(&score))
+            || candidate
+                .rerank_score
+                .is_some_and(|score| !score.is_finite() || !(0.0..=1.0).contains(&score))
+            || (candidate.rerank_score.is_some() && !candidate.preauthorized)
+            || (candidate.postauthorized && !candidate.preauthorized)
+            || candidate.included != candidate.final_rank.is_some()
+            || candidate
+                .final_rank
+                .is_some_and(|rank| !(1..=command.requested_limit).contains(&rank))
+            || (candidate.included && !candidate.postauthorized)
+            || !exclusion_is_valid
+        {
+            return Err(RepositoryError::Validation(
+                "retrieval candidate fields violate the explain receipt contract".into(),
+            ));
+        }
+    }
+    Ok(())
 }
 
 fn validate_ingest_candidate(command: &IngestCandidateCommand) -> Result<(), RepositoryError> {
@@ -6458,6 +6744,74 @@ mod tests {
         changed.outcome = ReviewOutcome::Reject;
         assert_eq!(review_request_hash(&base), review_request_hash(&base));
         assert_ne!(review_request_hash(&base), review_request_hash(&changed));
+    }
+
+    #[tokio::test]
+    #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
+    async fn retrieval_explain_receipt_is_tenant_isolated_and_content_minimized() {
+        let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
+            "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into()
+        });
+        let repository = MemoryRepository::connect(&database_url).await.unwrap();
+        repository.migrate().await.unwrap();
+        let test_id = Uuid::new_v4();
+        let authority = DemoAuthority::user(format!("explain-test-{test_id}"), "alice");
+        let memory_record_id = Uuid::new_v4();
+        let memory_version_id = Uuid::new_v4();
+        let command = RetrievalRunCommand {
+            task_id: Uuid::new_v4(),
+            attempt_id: Uuid::new_v4(),
+            purpose: "answer_user".into(),
+            query_hash: format!("sha256:{}", "a".repeat(64)),
+            requested_limit: 5,
+            candidate_limit: 20,
+            reference_time: Utc::now(),
+            timezone: "Asia/Shanghai".into(),
+            temporal_window: None,
+            projection_generation: DEMO_GENERATION.into(),
+            ranking_version: "transparent-lexical-v1".into(),
+            degraded: false,
+            degradation_reason: None,
+            candidates: vec![crate::model::RetrievalCandidateReceiptCommand {
+                scope_kind: "user".into(),
+                scope_id: Some("alice".into()),
+                channel: "bm25".into(),
+                memory_record_id,
+                memory_version_id,
+                channel_rank: 1,
+                raw_score: 0.9,
+                channel_weight: 1.15,
+                rrf_contribution: 1.15 / 61.0,
+                fused_score: Some(1.0),
+                preauthorized: true,
+                rerank_score: Some(0.95),
+                postauthorized: true,
+                final_rank: Some(1),
+                included: true,
+                exclusion_reason: None,
+            }],
+        };
+
+        let created = repository
+            .record_retrieval_run(&authority, &command)
+            .await
+            .unwrap();
+        assert_eq!(created.query_hash, command.query_hash);
+        assert_eq!(created.candidates.len(), 1);
+        assert!(created.candidates[0].included);
+        let loaded = repository
+            .retrieval_run(&authority, created.retrieval_run_id)
+            .await
+            .unwrap();
+        assert_eq!(loaded.candidates[0].memory_version_id, memory_version_id);
+
+        let other_tenant = DemoAuthority::user(format!("other-{test_id}"), "alice");
+        assert!(matches!(
+            repository
+                .retrieval_run(&other_tenant, created.retrieval_run_id)
+                .await,
+            Err(RepositoryError::NotFound)
+        ));
     }
 
     #[tokio::test]

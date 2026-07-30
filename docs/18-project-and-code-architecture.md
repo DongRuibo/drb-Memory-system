@@ -72,7 +72,7 @@ flowchart LR
 
 | Schema | 是否权威 | 保存内容 |
 |---|---:|---|
-| `memory_core` | 是 | Source、Candidate、Decision、Record、Version、Head、Ledger Event、Outbox、Context Pack、Receipt、Erasure |
+| `memory_core` | 是 | Source、Candidate、Decision、Record、Version、Head、Ledger Event、Outbox、Context Pack、Usage/Outcome/Retrieval Receipt、Erasure |
 | `memory_search` | 否 | 可重建的 PostgreSQL 本地检索文档、Jieba 词项与 BM25 投影 |
 | `demo_chat` | 仅对话运行时权威 | Session、Message、Turn、SSE Event、每轮使用的精确 Memory Version ID |
 
@@ -212,6 +212,7 @@ Source Event
   -> Qwen3 / Kimi / Transparent Rerank
   -> canonical post-rerank 二次授权
   -> 当前 Head/Version、Consent、Retention、Tombstone 检查
+  -> Retrieval Run 回执（仅 hash、ID、分数、理由码）
   -> Token Budget 与条数预算
   -> Context Pack
   -> 原子 Consume
@@ -223,6 +224,11 @@ Source Event
 `effective_from` 混作事件发生时间。即使本地时间投影或外部 Provider 留有旧记录，候选
 仍需经过同样的 pre/post-rerank canonical authorization；Forget 后不能重新进入结果。
 `reference_time` 会连同时间窗口绑定 Context Pack 幂等请求，便于回放相对时间查询。
+
+直接 Search 每次都会生成 `retrieval_run_id`，把各通道原始排名、权重、RRF 贡献、
+pre/post-rerank 授权、Rerank 分数、最终名次或排除理由写入 PostgreSQL。普通调用只拿到
+Run ID；`memory:admin` 才能调用 Explain 或读取持久化 Run。回执不保存原始 Query 和记忆
+正文，只保存边界清洗后 Query 的 SHA-256 与 canonical Record/Version ID。
 
 当前交互式 Web 默认查询 User Scope 和 Project Scope，允许四类记忆：
 
@@ -376,13 +382,13 @@ crates/
 ### 9.3 数据库、部署和验证
 
 ```text
-migrations/                  # 0001...0020 按序演进的 PostgreSQL Schema
+migrations/                  # 0001...0021 按序演进的 PostgreSQL Schema
 ├── 0001...0004              # Ledger、Head guard、Projection fencing、event_id
 ├── 0005...0006              # Context Pack 幂等与原子 Consume
 ├── 0007...0009              # Semantic identity、Review、Erasure
 ├── 0010...0014              # Ranking/Generation/Receipt/Manifest/Extraction snapshot
 ├── 0015...0017              # demo_chat、client message id、精确 Version 证据
-└── 0018...0020              # 来源安全策略、中文 BM25、来源时间查询索引
+└── 0018...0021              # 来源安全、中文 BM25、来源时间索引、Retrieval Explain 回执
 
 deploy/
 ├── local/postgres.compose.yaml # 本机 PostgreSQL 17
@@ -530,6 +536,7 @@ inclusion reason 和 allowed effect。记忆中的文本不能提升为 System I
 - Qwen3 Embedding、独立 Rerank 和真实 Kimi `k3`；
 - Projection generation rebuild/canary/finalize/rollback 状态机；
 - 中文 Jieba BM25、多通道加权 RRF、中文时间窗口与来源时间硬过滤；
+- 内容最小化的 Retrieval Run、逐通道 Recall Explain 与 `memory:admin` 查询接口；
 - Web 长对话滚动、SSE 重连和精确 Memory Version 证据。
 
 ### 14.2 尚未完成的生产能力
@@ -540,7 +547,7 @@ inclusion reason 和 allowed effect。记忆中的文本不能提升为 System I
 - 生产 tokenizer、容量/P95/故障压测和正式质量基线；
 - HA、灾备、跨实例 Worker 协调和零停机双 generation 部署；
 - 目标平台模型 artifact/SBOM/供应链与合规验收；
-- Procedure/Skill 自动晋升、Reflection、知识图谱和跨事件复杂时间推理；
+- Procedure/Skill 自动晋升、Reflection、受治理的实体关系图和跨事件复杂时间推理；
 - Production Readiness Review 与真实用户数据准入。
 
 当前准确表述是：可信的本地真实业务演示和 Agent 记忆集成参考已经完成，MVP 开发中，

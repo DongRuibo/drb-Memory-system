@@ -16,8 +16,8 @@ pub use provider::{
     ProjectionSearch, ProjectionStatus, ProjectionUpsert, RetrievalIndex,
 };
 pub use ranking::{
-    MIN_TRANSPARENT_RELEVANCE_SCORE, lexical_relevance_score, reciprocal_rank_fusion,
-    transparent_relevance_score, weighted_reciprocal_rank_fusion,
+    MIN_TRANSPARENT_RELEVANCE_SCORE, lexical_relevance_score, reciprocal_rank_contribution,
+    reciprocal_rank_fusion, transparent_relevance_score, weighted_reciprocal_rank_fusion,
 };
 pub use reranker::{
     MemoryReranker, RerankCandidate, RerankRequest, RerankedCandidate, RerankerError,
