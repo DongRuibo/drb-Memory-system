@@ -3,7 +3,7 @@ use std::sync::Arc;
 
 use chrono::Utc;
 use demo_agent::{
-    CompletionCommand, DemoError, KimiClient, ModelAnswer, PreparedPrompt, assemble_prompt,
+    CompletionCommand, DemoError, KimiClient, ModelAnswer, assemble_empty_prompt, assemble_prompt,
 };
 use memory_client::{
     ContextPackCommand, ContextPackResponse, CorrectionCommand, ForgetCommand,
@@ -104,6 +104,7 @@ impl ChatRuntime {
                             turn.session_id, turn.user_message_id
                         ),
                         effective_from: Some(Utc::now()),
+                        new_structured_content: None,
                     })
                     .await?;
                 if operation.canonical_status != "memory_corrected" {
@@ -184,6 +185,11 @@ impl ChatRuntime {
                     .await
                 {
                     Ok(extraction) => {
+                        let candidate_count = extraction.candidate_count;
+                        let diagnostics = extraction.diagnostics;
+                        let mut remembered_count = 0usize;
+                        let mut source_merged_count = 0usize;
+                        let mut corrected_count = 0usize;
                         for candidate in extraction.candidates {
                             let operation = candidate.operation;
                             if matches!(
@@ -192,6 +198,11 @@ impl ChatRuntime {
                             ) {
                                 let source_was_merged =
                                     existing_record_ids.contains(&operation.memory_record_id);
+                                if source_was_merged {
+                                    source_merged_count += 1;
+                                } else {
+                                    remembered_count += 1;
+                                }
                                 if let Some(version_id) = operation.memory_version_id {
                                     pinned_versions.push(version_id);
                                 }
@@ -235,6 +246,7 @@ impl ChatRuntime {
                                         resolved.canonical_status
                                     )));
                                 }
+                                corrected_count += 1;
                                 if let Some(version_id) = resolved.memory_version_id {
                                     pinned_versions.push(version_id);
                                 }
@@ -251,6 +263,21 @@ impl ChatRuntime {
                                 }));
                             }
                         }
+                        let applied_count =
+                            remembered_count + source_merged_count + corrected_count;
+                        memory_effects.push(json!({
+                            "kind": "extraction_summary",
+                            "model_candidate_count": diagnostics.model_candidate_count,
+                            "valid_model_candidate_count": diagnostics.valid_model_candidate_count,
+                            "candidate_count": candidate_count,
+                            "filtered_reason_counts": diagnostics.filtered_reason_counts,
+                            "coverage_added_count": diagnostics.coverage_added_count,
+                            "coverage_enriched_count": diagnostics.coverage_enriched_count,
+                            "remembered_count": remembered_count,
+                            "source_merged_count": source_merged_count,
+                            "corrected_count": corrected_count,
+                            "ignored_count": candidate_count.saturating_sub(applied_count),
+                        }));
                     }
                     Err(error) => {
                         warn!(turn_id = %turn.id, %error, "memory extraction failed; answering without new memory");
@@ -288,14 +315,16 @@ impl ChatRuntime {
             attempt_id: turn.attempt_id,
             purpose: "answer_user".into(),
         };
+        let reference_time = Utc::now();
+        let timezone = "Asia/Shanghai";
         let (context_pack, prepared) = match self
             .memory
             .acquire_context_pack(
                 &ContextPackCommand {
                     task_context: task_context.clone(),
                     query: work.content.clone(),
-                    reference_time: None,
-                    timezone: None,
+                    reference_time: Some(reference_time),
+                    timezone: Some(timezone.into()),
                     scope_selectors: vec![
                         ScopeSelector::user(&self.user_id),
                         ScopeSelector::project(&self.project_id),
@@ -332,7 +361,10 @@ impl ChatRuntime {
                         }),
                     )
                     .await?;
-                (None, empty_memory_prompt(&work.content)?)
+                (
+                    None,
+                    assemble_empty_prompt(&work.content, reference_time, timezone)?,
+                )
             }
         };
         let used_memory_ids = prepared.memory_ids.clone();
@@ -342,6 +374,7 @@ impl ChatRuntime {
             .begin_streaming(
                 turn.id,
                 context_pack.as_ref().map(|pack| pack.context_pack_id),
+                &prepared.context_snapshot,
                 &used_memory_ids,
                 &used_memory_version_ids,
                 &memory_effects_value,
@@ -492,19 +525,6 @@ impl ChatRuntime {
             .await?;
         Ok(receipt.outcome_receipt_id)
     }
-}
-
-fn empty_memory_prompt(question: &str) -> Result<PreparedPrompt, RuntimeError> {
-    let payload = serde_json::to_string_pretty(&json!({
-        "question": question,
-        "memory_context": [],
-    }))?;
-    Ok(PreparedPrompt {
-        system_prompt: demo_agent::SYSTEM_PROMPT.into(),
-        user_payload: payload,
-        memory_ids: Vec::new(),
-        memory_version_ids: Vec::new(),
-    })
 }
 
 fn checked_tokens(tokens: Option<u64>) -> Result<Option<i64>, RuntimeError> {

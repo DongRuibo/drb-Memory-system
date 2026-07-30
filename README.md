@@ -95,10 +95,45 @@ Memory Service 就绪后，可先执行 `./scripts/demo-v0.sh` 验证后端生�
 链路已经完成本机全量运行验收，可作为会议主 Demo；首次模型下载、MPS 预热和外部
 Kimi 网络延迟仍应在会前完成。
 
-面向非技术观众时，可执行 `./scripts/demo-web.sh`，然后打开
-`http://localhost:3000`。Web 界面采用常见大模型对话布局，通过“自然认识用户与
-项目、跨对话按需使用、项目事实自动更新并提示、指定经历立即忘记”展示一条统一业务链。
-偏好、用户事实和经历进入 User Scope；已授权的高置信项目事实进入 Project Scope。
-对话、流式事件和 Outcome Receipt 均持久化，刷新或 SSE 重连不会把已生成内容丢掉。
+面向非技术观众时，可执行 `./scripts/demo-web-stack.sh`，然后打开
+`http://localhost:3000`。Web 通过六步真实链路展示自然提取、类型与范围、Event Time、
+Structured Content、跨对话回忆、事实版本更新和精确 Forget。Alice/Bob/Carol 三个固定
+演示身份用于验证个人隔离、同项目共享与项目外不可见；浏览器不持有 Memory Service
+JWT。对话、流式事件、Memory Version 和 Outcome Receipt 均可检查。
+
+## 在新机器上启动 Web 演示
+
+运行环境需要 Docker、Rust/Cargo、Node.js/npm 和 Python 3。项目不会提交真实密钥、
+编译产物、Node/Python 依赖、模型权重或 PostgreSQL 数据卷；它们需要在新机器上重新配置。
+
+```bash
+cp .env.example .env
+chmod 600 .env
+# 编辑 .env，填入自己的 KIMI_API_KEY
+
+docker compose -f deploy/local/postgres.compose.yaml up -d
+
+python3 -m venv .venv-retrieval-models
+source .venv-retrieval-models/bin/activate
+python -m pip install -r deploy/models/requirements.lock.txt
+
+(cd apps/demo-web && npm ci)
+```
+
+先在一个终端启动本地 Qwen3 模型网关：
+
+```bash
+source .venv-retrieval-models/bin/activate
+./scripts/retrieval-models.sh
+```
+
+模型网关就绪后，在另一个终端启动 Memory Service、Demo Web API 和 Web：
+
+```bash
+./scripts/demo-web-stack.sh
+```
+
+首次启动会下载固定版本的 Qwen3 Embedding 与 Reranker 模型。页面地址为
+`http://localhost:3000`。
 
 `doc/` 保存早期调研和设计输入；`docs/` 是当前规范性文档。两者冲突时，以 `docs/`、OpenAPI/事件契约和已接受 ADR 为准。

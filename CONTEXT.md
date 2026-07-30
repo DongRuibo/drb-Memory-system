@@ -43,8 +43,12 @@ _Avoid_: User Permission, Account State
 _Avoid_: Project Fact, Semantic Search Result, Canonical State
 
 **Episodic Summary**:
-从明确发生的历史经历中提炼出的简洁、来源支持且可复用的经验摘要，而不是原始对话、运行日志或当前 Task 状态。
+对用户明确陈述的已发生历史经历所作的简洁、来源支持摘要；当前策略不以显著性或日常程度过滤用户已经完成的事件。
 _Avoid_: Chat History, Runtime State, Unverified Lesson
+
+**User-Reported Completed Event**:
+用户自己明确陈述已经实施或完成的动作；未来、假设、否定、疑问和仅由助手推断的动作不属于此概念。
+_Avoid_: Important Event, Future Plan, Assistant Inference
 
 **Memory Record**:
 同一个长期记忆命题的逻辑身份；它关联多个不可变 Memory Version，但本身不代表当前内容。
@@ -85,6 +89,21 @@ _Avoid_: Chat History, Vector Store
 _Avoid_: Source Event, Outbox Event
 
 ## Access and use
+
+**Demo Identity**:
+本地产品演示中预先定义、用于验证隔离与共享行为的固定身份资料。它不是登录账户、
+外部身份来源或生产授权依据。
+_Avoid_: User Account, Production Principal
+
+**Demo Viewer Session**:
+将一个浏览器演示窗口与当前 Demo Identity 选择关联的临时、不透明会话。它只服务于
+本地演示交互，不携带正式 Memory 权限。
+_Avoid_: Login Session, Memory Token
+
+**Active Principal**:
+为当前请求从可信身份和成员关系来源解析出的主体及其 Authority。演示环境可从
+Demo Identity 构造它；正式环境必须来自外部身份与成员关系权威，不能由浏览器声明。
+_Avoid_: Selected User Label, Memory Profile
 
 **Memory Scope**:
 一条 Memory Record 所属的单一、带类型的访问边界，由 Tenant 和一个 Scope Kind/Scope ID 确定。

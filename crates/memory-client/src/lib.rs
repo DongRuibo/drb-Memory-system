@@ -182,6 +182,7 @@ pub struct CorrectionCommand {
     pub reason: String,
     pub source_ref: String,
     pub effective_from: Option<DateTime<Utc>>,
+    pub new_structured_content: Option<StructuredContent>,
 }
 
 #[derive(Debug, Clone)]
@@ -249,10 +250,21 @@ pub struct ExtractedMemoryResult {
     pub operation: OperationResponse,
 }
 
+#[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq)]
+pub struct ExtractionDiagnostics {
+    pub model_candidate_count: Option<usize>,
+    pub valid_model_candidate_count: usize,
+    #[serde(default)]
+    pub filtered_reason_counts: BTreeMap<String, usize>,
+    pub coverage_added_count: usize,
+    pub coverage_enriched_count: usize,
+}
+
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct MemoryExtractionResponse {
     pub extractor_version: String,
     pub candidate_count: usize,
+    pub diagnostics: ExtractionDiagnostics,
     pub candidates: Vec<ExtractedMemoryResult>,
 }
 
@@ -263,6 +275,7 @@ pub struct ContextPackItem {
     pub text: String,
     pub source_refs: Vec<String>,
     pub effective_from: Option<DateTime<Utc>>,
+    pub event_time: Option<EventTime>,
     pub inclusion_reason: String,
     pub trust: String,
 }
@@ -284,6 +297,8 @@ pub struct ContextPackManifestResponse {
     pub compiler_version: String,
     pub ranking_version: String,
     pub projection_generation: String,
+    pub reference_time: DateTime<Utc>,
+    pub timezone: String,
     pub created_at: DateTime<Utc>,
     pub expires_at: DateTime<Utc>,
     pub tokenizer_id: String,
@@ -306,6 +321,8 @@ pub struct ContextPackResponse {
     pub compiler_version: String,
     pub ranking_version: String,
     pub projection_generation: String,
+    pub reference_time: DateTime<Utc>,
+    pub timezone: String,
     pub created_at: DateTime<Utc>,
     pub expires_at: DateTime<Utc>,
     pub consumed_at: DateTime<Utc>,
@@ -700,6 +717,7 @@ struct CorrectionRequest<'a> {
     reason: &'a str,
     source_ref: &'a str,
     effective_from: Option<DateTime<Utc>>,
+    new_structured_content: Option<&'a StructuredContent>,
 }
 
 #[derive(Serialize)]
@@ -893,6 +911,7 @@ impl MemoryPort for MemoryHttpClient {
                 reason: &command.reason,
                 source_ref: &command.source_ref,
                 effective_from: command.effective_from,
+                new_structured_content: command.new_structured_content.as_ref(),
             },
             true,
         )
@@ -1020,6 +1039,26 @@ fn validate_extraction_response(
         || response.extractor_version.len() > 256
         || response.candidate_count != response.candidates.len()
         || response.candidates.len() > max_candidates
+        || response.diagnostics.valid_model_candidate_count > max_candidates
+        || response.diagnostics.coverage_added_count > max_candidates
+        || response.diagnostics.coverage_enriched_count > max_candidates
+        || response
+            .diagnostics
+            .model_candidate_count
+            .is_some_and(|count| count > 128)
+        || response.diagnostics.filtered_reason_counts.len() > 16
+        || response
+            .diagnostics
+            .filtered_reason_counts
+            .iter()
+            .any(|(reason, count)| {
+                reason.is_empty()
+                    || reason.len() > 64
+                    || !reason.bytes().all(|byte| {
+                        byte.is_ascii_lowercase() || byte.is_ascii_digit() || byte == b'_'
+                    })
+                    || *count > 128
+            })
     {
         return Err(MemoryClientError::InvalidResponse(
             "extraction metadata or candidate count was invalid".into(),
@@ -1086,6 +1125,7 @@ fn validate_manifest(
     manifest: &ContextPackManifestResponse,
     command: &ContextPackCommand,
 ) -> Result<(), MemoryClientError> {
+    let requested_timezone = command.timezone.as_deref().unwrap_or("Asia/Shanghai");
     let valid_consumed_at = manifest.consumed_at.is_none_or(|consumed_at| {
         consumed_at >= manifest.created_at && consumed_at < manifest.expires_at
     });
@@ -1096,6 +1136,11 @@ fn validate_manifest(
         || manifest.token_budget != command.token_budget
         || manifest.ranking_version.trim().is_empty()
         || manifest.projection_generation.trim().is_empty()
+        || manifest.timezone != requested_timezone
+        || manifest.timezone.parse::<chrono_tz::Tz>().is_err()
+        || command
+            .reference_time
+            .is_some_and(|reference_time| manifest.reference_time != reference_time)
         || manifest.created_at >= manifest.expires_at
         || manifest.expires_at <= Utc::now()
         || manifest.estimated_tokens < 0
@@ -1132,7 +1177,14 @@ fn validate_consumed_pack(
         .sections
         .iter()
         .flat_map(|section| &section.items)
-        .all(|item| item.trust == "untrusted_memory_data" && !item.source_refs.is_empty());
+        .all(|item| {
+            item.trust == "untrusted_memory_data"
+                && !item.source_refs.is_empty()
+                && item
+                    .event_time
+                    .as_ref()
+                    .is_none_or(|event_time| event_time.validate().is_ok())
+        });
     if pack.context_pack_id != manifest.context_pack_id
         || pack.task_id != manifest.task_id
         || pack.attempt_id != manifest.attempt_id
@@ -1142,6 +1194,8 @@ fn validate_consumed_pack(
         || pack.compiler_version != manifest.compiler_version
         || pack.ranking_version != manifest.ranking_version
         || pack.projection_generation != manifest.projection_generation
+        || pack.reference_time != manifest.reference_time
+        || pack.timezone != manifest.timezone
         || pack.created_at != manifest.created_at
         || pack.expires_at != manifest.expires_at
         || pack.tokenizer_id != manifest.tokenizer_id
@@ -1270,6 +1324,11 @@ mod tests {
             compiler_version: "compiler-v1".into(),
             ranking_version: "ranker-v1".into(),
             projection_generation: "generation-1".into(),
+            reference_time: command.reference_time.unwrap_or(now),
+            timezone: command
+                .timezone
+                .clone()
+                .unwrap_or_else(|| "Asia/Shanghai".into()),
             created_at: now,
             expires_at: now + chrono::Duration::minutes(5),
             tokenizer_id: command.tokenizer_id.clone(),
@@ -1293,6 +1352,8 @@ mod tests {
             compiler_version: manifest.compiler_version.clone(),
             ranking_version: manifest.ranking_version.clone(),
             projection_generation: manifest.projection_generation.clone(),
+            reference_time: manifest.reference_time,
+            timezone: manifest.timezone.clone(),
             created_at: manifest.created_at,
             expires_at: manifest.expires_at,
             consumed_at: manifest.created_at,
@@ -1307,6 +1368,7 @@ mod tests {
                     text: "先给生活类比".into(),
                     source_refs: vec!["conversation:test:message-1".into()],
                     effective_from: Some(manifest.created_at),
+                    event_time: None,
                     inclusion_reason: "EXPLICIT_PREFERENCE_AND_TASK_RELEVANT".into(),
                     trust: "untrusted_memory_data".into(),
                 }],
@@ -1392,6 +1454,13 @@ mod tests {
         let response = MemoryExtractionResponse {
             extractor_version: "test-extractor-v1".into(),
             candidate_count: 1,
+            diagnostics: ExtractionDiagnostics {
+                model_candidate_count: Some(1),
+                valid_model_candidate_count: 1,
+                filtered_reason_counts: BTreeMap::new(),
+                coverage_added_count: 0,
+                coverage_enriched_count: 0,
+            },
             candidates: vec![ExtractedMemoryResult {
                 proposal: proposal.clone(),
                 operation: operation.clone(),

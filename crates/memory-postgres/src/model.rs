@@ -1,7 +1,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 
 use chrono::{DateTime, Utc};
-use memory_application::{ExtractCandidateProposal, TemporalWindow};
+use memory_application::{ExtractCandidateProposal, ExtractionDiagnostics, TemporalWindow};
 use memory_domain::{EventTime, StructuredContent};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
@@ -92,6 +92,7 @@ pub struct ExtractionSnapshotCommand {
 pub struct ExtractionSnapshotView {
     pub extractor_version: String,
     pub proposals: Option<Vec<ExtractCandidateProposal>>,
+    pub diagnostics: Option<ExtractionDiagnostics>,
 }
 
 #[derive(Debug, Clone)]
@@ -111,6 +112,7 @@ pub struct CorrectionCommand {
     pub reason: String,
     pub source_ref: String,
     pub effective_from: Option<DateTime<Utc>>,
+    pub new_structured_content: Option<StructuredContent>,
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -441,6 +443,7 @@ pub struct AuthorizedMemory {
     pub score: f64,
     pub source_refs: Vec<String>,
     pub effective_from: Option<DateTime<Utc>>,
+    pub event_time: Option<EventTime>,
 }
 
 #[derive(Debug, Clone)]
@@ -600,6 +603,8 @@ pub struct ContextPackCommand {
     pub memory_required: bool,
     pub pinned_memory_version_ids: Vec<Uuid>,
     pub temporal_window_hash: Option<String>,
+    pub reference_time: DateTime<Utc>,
+    pub timezone: String,
 }
 
 #[derive(Debug, Clone)]
@@ -655,6 +660,8 @@ pub struct ContextPackManifestView {
     pub compiler_version: String,
     pub ranking_version: String,
     pub projection_generation: String,
+    pub reference_time: DateTime<Utc>,
+    pub timezone: String,
     pub created_at: DateTime<Utc>,
     pub expires_at: DateTime<Utc>,
     pub tokenizer_id: String,
@@ -673,6 +680,7 @@ pub struct ContextPackItem {
     pub text: String,
     pub source_refs: Vec<String>,
     pub effective_from: Option<DateTime<Utc>>,
+    pub event_time: Option<EventTime>,
     pub inclusion_reason: String,
     pub trust: &'static str,
 }
@@ -694,6 +702,8 @@ pub struct ContextPackView {
     pub compiler_version: String,
     pub ranking_version: String,
     pub projection_generation: String,
+    pub reference_time: DateTime<Utc>,
+    pub timezone: String,
     pub created_at: DateTime<Utc>,
     pub expires_at: DateTime<Utc>,
     pub consumed_at: DateTime<Utc>,

@@ -53,11 +53,31 @@ the canonical Head, scope, purpose, retention, consent, and tombstone rules insi
 the caller cannot inject arbitrary memory text. Pinned canonical memories are merged ahead of
 semantic candidates and remain subject to the token budget.
 
+The Web runtime generates one UTC reference time per turn and sends it with the IANA timezone to
+Context Pack compilation. The service persists that anchor and snapshots each selected Version's
+source-supported Event Time. The Prompt Compiler sends both `runtime_context` and `memory_context`
+to the model: the former defines “now”, while `memory_context[].event_time` describes when a
+historical event occurred. The evidence drawer reads the same persisted Context Pack fields instead
+of joining against the current memory export, so it cannot silently show a newer Version than the
+model received.
+
+Immediately before streaming, `demo-web-api` deserializes the database evidence into the same typed
+`PromptContextSnapshot` used by the Prompt Compiler and compares every runtime field, item, order,
+Version ID, Event Time, source, trust label, and allowed effect. A mismatch fails closed before the
+model call. If Context Pack compilation is unavailable, only the server runtime context plus an
+empty memory array is persisted on the Turn; no memory text is duplicated outside `memory_core`.
+
 This write-through path means a memory can affect the current answer even while its Mem0 projection
 operation is still pending. When an authorized low-risk memory explicitly supersedes the same
 semantic identity, the Web runtime automatically accepts the conflict through the deterministic
 Review API, pins the resulting new version, and emits an `automatic_supersede` result notice. The
 browser does not ask the user to choose between versions.
+
+Each completed automatic extraction also persists an `extraction_summary` item in the turn's
+`memory_effects`. It contains only counts and reason codes: model candidates, deterministic valid
+candidates, bounded coverage additions/enrichments, accepted records, source merges, corrections,
+and ignored results. The assistant message renders this summary after refresh, so “not stored” can
+be distinguished from “filtered”, “merged into an existing record”, and “stored as a new record”.
 
 ## Public API
 

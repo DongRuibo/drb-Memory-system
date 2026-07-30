@@ -1,12 +1,14 @@
 openapi: 3.1.0
 info:
   title: LazyTT Interactive Memory Agent Demo API
-  version: 0.2.0
+  version: 0.3.0
   description: >-
-    Local product-demo API. PostgreSQL demo_chat owns conversations and turns; memory_core remains
-    the only memory authority. This contract is not a production authentication boundary.
+    Local product-demo API. An opaque HttpOnly viewer cookie selects one allowlisted demo identity;
+    the Demo Web API then issues short-lived server-to-server Memory Service credentials.
+    PostgreSQL demo_chat owns conversations and turns; memory_core remains the only memory
+    authority. Demo identities are fixed fixtures, not a production authentication boundary.
 servers:
-  - url: http://127.0.0.1:8090
+  - url: http://localhost:8090
 paths:
   /api/health:
     get:
@@ -17,10 +19,58 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/Health'}
+  /api/demo/bootstrap:
+    get:
+      operationId: bootstrapDemoViewer
+      description: Resolves or creates the opaque viewer session and returns one identity-consistent UI snapshot.
+      responses:
+        '200':
+          description: Current demo identity, available identities, readiness, chats, and canonical memories
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/DemoBootstrap'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/demo/principal:
+    get:
+      operationId: getDemoPrincipal
+      responses:
+        '200':
+          description: Current and available allowlisted demo identities
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/DemoPrincipal'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/demo/users/switch:
+    post:
+      operationId: switchDemoUser
+      description: >-
+        Changes the active allowlisted identity inside the current opaque viewer session. The
+        request is rejected while that identity has a non-terminal turn.
+      parameters:
+        - $ref: '#/components/parameters/IdentityRevision'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [user_id]
+              properties:
+                user_id: {type: string, enum: [demo-alice, demo-bob, demo-carol]}
+      responses:
+        '200':
+          description: Snapshot after the identity switch
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/DemoBootstrap'}
+        default: {$ref: '#/components/responses/Error'}
   /api/demo/reset:
     post:
       operationId: resetDemoUser
-      description: Physically erases the configured demo user and project memories, clears demo chats, and creates a clean guided session.
+      description: >-
+        Physically erases only the current demo user's user-scoped memories, clears only that
+        user's chats, and creates a clean guided session. Shared project memory is unchanged.
       responses:
         '200':
           description: Reset completed
@@ -33,8 +83,30 @@ paths:
                   session: {$ref: '#/components/schemas/SessionSummary'}
                   erasures:
                     type: array
-                    minItems: 2
-                    maxItems: 2
+                    minItems: 1
+                    maxItems: 1
+                    items: {$ref: '#/components/schemas/ErasureRequest'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/demo/reset-project:
+    post:
+      operationId: resetDemoProject
+      description: >-
+        Physically erases the current identity's primary project-scoped memories. Only a demo
+        identity with can_reset_project may call this operation; personal memories and chats remain.
+      responses:
+        '200':
+          description: Shared project reset completed
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [project_id, erasures]
+                properties:
+                  project_id: {type: string}
+                  erasures:
+                    type: array
+                    minItems: 1
+                    maxItems: 1
                     items: {$ref: '#/components/schemas/ErasureRequest'}
         default: {$ref: '#/components/responses/Error'}
   /api/chat/sessions:
@@ -239,6 +311,12 @@ paths:
         default: {$ref: '#/components/responses/Error'}
 components:
   parameters:
+    IdentityRevision:
+      name: x-demo-identity-revision
+      in: header
+      required: false
+      description: Last identity revision observed by the browser; stale values are rejected.
+      schema: {type: integer, minimum: 1}
     SessionId:
       name: session_id
       in: path
@@ -270,6 +348,38 @@ components:
             properties:
               operation: {$ref: '#/components/schemas/Operation'}
   schemas:
+    DemoUserProfile:
+      type: object
+      required: [user_id, display_name, role_label, avatar_initial, project_ids, primary_project_id, primary_project_label, can_reset_project]
+      properties:
+        user_id: {type: string, enum: [demo-alice, demo-bob, demo-carol]}
+        display_name: {type: string}
+        role_label: {type: string}
+        avatar_initial: {type: string, minLength: 1, maxLength: 2}
+        project_ids: {type: array, items: {type: string}}
+        primary_project_id: {type: string}
+        primary_project_label: {type: string}
+        can_reset_project: {type: boolean}
+    DemoPrincipal:
+      type: object
+      required: [current_user, available_users, identity_revision]
+      properties:
+        current_user: {$ref: '#/components/schemas/DemoUserProfile'}
+        available_users:
+          type: array
+          items: {$ref: '#/components/schemas/DemoUserProfile'}
+        identity_revision: {type: integer, minimum: 1}
+    DemoBootstrap:
+      allOf:
+        - $ref: '#/components/schemas/DemoPrincipal'
+        - type: object
+          required: [health, sessions, memories]
+          properties:
+            health: {$ref: '#/components/schemas/Health'}
+            sessions:
+              type: array
+              items: {$ref: '#/components/schemas/SessionSummary'}
+            memories: {$ref: '#/components/schemas/MemoryExport'}
     Health:
       type: object
       required: [ready, memory_service, chat_store, model_configuration]
@@ -344,7 +454,7 @@ components:
         created: {type: boolean}
     Turn:
       type: object
-      required: [id, session_id, task_id, attempt_id, user_message_id, assistant_message_id, status, used_memory_ids, used_memory_version_ids, memory_effects, created_at, updated_at]
+      required: [id, session_id, task_id, attempt_id, user_message_id, assistant_message_id, status, used_memory_ids, used_memory_version_ids, memory_effects, prompt_context, created_at, updated_at]
       properties:
         id: {type: string, format: uuid}
         session_id: {type: string, format: uuid}
@@ -361,6 +471,10 @@ components:
           description: Version IDs aligned by position with used_memory_ids for immutable evidence.
           items: {type: string, format: uuid}
         memory_effects: {type: array, items: {$ref: '#/components/schemas/MemoryEffect'}}
+        prompt_context:
+          oneOf:
+            - $ref: '#/components/schemas/PromptContextSnapshot'
+            - type: 'null'
         model_id: {type: [string, 'null']}
         model_request_id_hash: {type: [string, 'null']}
         prompt_tokens: {type: [integer, 'null']}
@@ -370,11 +484,49 @@ components:
         error_detail: {type: [string, 'null']}
         created_at: {type: string, format: date-time}
         updated_at: {type: string, format: date-time}
+    PromptContextSnapshot:
+      type: object
+      additionalProperties: false
+      required: [runtime_context, memory_context]
+      properties:
+        runtime_context: {$ref: '#/components/schemas/RuntimeContext'}
+        memory_context:
+          type: array
+          items: {$ref: '#/components/schemas/PromptMemoryContext'}
+    RuntimeContext:
+      type: object
+      additionalProperties: false
+      required: [current_time_utc, timezone, local_date]
+      properties:
+        current_time_utc: {type: string, format: date-time}
+        timezone: {type: string, example: Asia/Shanghai}
+        local_date: {type: string, format: date}
+    PromptMemoryContext:
+      type: object
+      additionalProperties: false
+      required: [memory_record_id, memory_version_id, section_kind, memory_data, source_refs, event_time, inclusion_reason, trust, allowed_effect]
+      properties:
+        memory_record_id: {type: string, format: uuid}
+        memory_version_id: {type: string, format: uuid}
+        section_kind: {type: string, enum: [user_preference, current_fact, relevant_experience]}
+        memory_data: {type: [string, 'null']}
+        source_refs:
+          type: array
+          items: {type: string}
+        event_time:
+          oneOf:
+            - $ref: '#/components/schemas/EventTime'
+            - type: 'null'
+        inclusion_reason: {type: string}
+        trust: {type: string, const: untrusted_memory_data}
+        allowed_effect:
+          type: string
+          enum: [response_style_only, factual_personalization_only, contextual_example_only]
     MemoryEffect:
       type: object
       required: [kind]
       properties:
-        kind: {type: string, enum: [remembered, source_merged, corrected, forgotten, needs_review]}
+        kind: {type: string, enum: [remembered, source_merged, corrected, forgotten, needs_review, extraction_summary]}
         memory_record_id: {type: [string, 'null'], format: uuid}
         memory_version_id: {type: [string, 'null'], format: uuid}
         candidate_ids: {type: array, items: {type: string, format: uuid}}
@@ -383,6 +535,18 @@ components:
         resolution: {type: [string, 'null'], enum: [automatic_supersede, null]}
         operation_id: {type: [string, 'null'], format: uuid}
         projection_status: {type: [string, 'null']}
+        model_candidate_count: {type: [integer, 'null'], minimum: 0, maximum: 128}
+        valid_model_candidate_count: {type: integer, minimum: 0}
+        candidate_count: {type: integer, minimum: 0}
+        filtered_reason_counts:
+          type: object
+          additionalProperties: {type: integer, minimum: 0, maximum: 128}
+        coverage_added_count: {type: integer, minimum: 0}
+        coverage_enriched_count: {type: integer, minimum: 0}
+        remembered_count: {type: integer, minimum: 0}
+        source_merged_count: {type: integer, minimum: 0}
+        corrected_count: {type: integer, minimum: 0}
+        ignored_count: {type: integer, minimum: 0}
     MemoryExport:
       type: object
       required: [format_version, generated_at, record_count, records]
@@ -396,7 +560,9 @@ components:
       required: [memory_record_id, memory_type, semantic_key, scope, head_state, revision, versions, events]
       properties:
         memory_record_id: {type: string, format: uuid}
-        memory_type: {type: string}
+        memory_type:
+          type: string
+          enum: [preference, profile_fact, semantic_fact, episodic_summary]
         semantic_key: {type: string}
         scope:
           type: object
@@ -407,25 +573,71 @@ components:
         head_state: {type: string}
         revision: {type: integer, minimum: 0}
         current_version_id: {type: [string, 'null'], format: uuid}
+        identity_retired_at: {type: [string, 'null'], format: date-time}
         versions: {type: array, items: {$ref: '#/components/schemas/MemoryVersion'}}
         events: {type: array, items: {$ref: '#/components/schemas/MemoryEvent'}}
     MemoryVersion:
       type: object
-      required: [memory_version_id, version_no, source_refs]
+      required: [memory_version_id, version_no, content, content_hash, normalized_key, confidence, importance, inference_kind, source_refs, effective_from, effective_to, event_time, structured_content, classification, allowed_purposes, consent_ref, retention_policy_id, retain_until, created_at, content_erased_at]
       properties:
         memory_version_id: {type: string, format: uuid}
         version_no: {type: integer, minimum: 1}
         content: {type: [string, 'null']}
+        content_hash: {type: string}
+        normalized_key: {type: [string, 'null']}
+        confidence: {type: number, minimum: 0, maximum: 1}
+        importance: {type: number, minimum: 0, maximum: 1}
+        inference_kind: {type: string}
         source_refs: {type: array, items: {type: string}}
+        effective_from: {type: [string, 'null'], format: date-time}
+        effective_to: {type: [string, 'null'], format: date-time}
+        event_time:
+          oneOf:
+            - $ref: '#/components/schemas/EventTime'
+            - type: 'null'
+        structured_content:
+          oneOf:
+            - $ref: '#/components/schemas/StructuredContent'
+            - type: 'null'
+        classification: {type: string}
+        allowed_purposes: {type: array, items: {type: string}}
+        consent_ref: {type: [string, 'null']}
+        retention_policy_id: {type: string}
+        retain_until: {type: [string, 'null'], format: date-time}
         created_at: {type: string, format: date-time}
         content_erased_at: {type: [string, 'null'], format: date-time}
+    EventTime:
+      type: object
+      additionalProperties: false
+      required: [start, end, timezone, precision]
+      properties:
+        start: {type: string, format: date-time}
+        end: {type: string, format: date-time}
+        timezone: {type: string, example: Asia/Shanghai}
+        precision:
+          type: string
+          enum: [instant, minute, hour, part_of_day, day, week, month, quarter, year]
+    StructuredContent:
+      type: object
+      additionalProperties: false
+      required: [schema_name, schema_version, payload]
+      properties:
+        schema_name:
+          type: string
+          enum: [lazytt.preference, lazytt.profile_fact, lazytt.semantic_fact, lazytt.episodic_summary]
+        schema_version: {type: integer, const: 1}
+        payload: {type: object}
     MemoryEvent:
       type: object
-      required: [sequence_no, event_type, reason_code, occurred_at]
+      required: [sequence_no, event_type, memory_version_id, actor_type, actor_id, reason_code, payload, occurred_at]
       properties:
         sequence_no: {type: integer, minimum: 1}
         event_type: {type: string}
+        memory_version_id: {type: [string, 'null'], format: uuid}
+        actor_type: {type: string}
+        actor_id: {type: string}
         reason_code: {type: string}
+        payload: {type: object}
         occurred_at: {type: string, format: date-time}
     Operation:
       type: object

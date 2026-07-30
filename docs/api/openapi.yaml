@@ -687,13 +687,31 @@ components:
       properties:
         proposal: {$ref: '#/components/schemas/ExtractedCandidateProposal'}
         operation: {$ref: '#/components/schemas/OperationResponse'}
+    ExtractionDiagnostics:
+      type: object
+      additionalProperties: false
+      required: [model_candidate_count, valid_model_candidate_count, filtered_reason_counts, coverage_added_count, coverage_enriched_count]
+      properties:
+        model_candidate_count:
+          type: [integer, 'null']
+          minimum: 0
+          maximum: 128
+          description: Raw model candidate count; null only for snapshots created before diagnostics existed.
+        valid_model_candidate_count: {type: integer, minimum: 0, maximum: 8}
+        filtered_reason_counts:
+          type: object
+          additionalProperties: {type: integer, minimum: 0, maximum: 128}
+          description: Content-free deterministic rejection or structured-degradation reason counts.
+        coverage_added_count: {type: integer, minimum: 0, maximum: 8}
+        coverage_enriched_count: {type: integer, minimum: 0, maximum: 8}
     MemoryExtractionResponse:
       type: object
       additionalProperties: false
-      required: [extractor_version, candidate_count, candidates]
+      required: [extractor_version, candidate_count, diagnostics, candidates]
       properties:
         extractor_version: {type: string, minLength: 1, maxLength: 256}
         candidate_count: {type: integer, minimum: 0, maximum: 8}
+        diagnostics: {$ref: '#/components/schemas/ExtractionDiagnostics'}
         candidates:
           type: array
           maxItems: 8
@@ -987,13 +1005,17 @@ components:
     ContextPackItem:
       type: object
       additionalProperties: false
-      required: [memory_record_id, memory_version_id, text, source_refs, inclusion_reason, trust]
+      required: [memory_record_id, memory_version_id, text, source_refs, event_time, inclusion_reason, trust]
       properties:
         memory_record_id: {$ref: '#/components/schemas/Uuid'}
         memory_version_id: {$ref: '#/components/schemas/Uuid'}
         text: {type: string}
         source_refs: {type: array, minItems: 1, items: {type: string}}
         effective_from: {type: [string, 'null'], format: date-time}
+        event_time:
+          oneOf:
+            - $ref: '#/components/schemas/EventTime'
+            - type: 'null'
         inclusion_reason: {type: string}
         trust: {type: string, const: untrusted_memory_data}
     ContextSection:
@@ -1006,7 +1028,7 @@ components:
     ContextPackManifest:
       type: object
       additionalProperties: false
-      required: [context_pack_id, task_id, attempt_id, purpose, authority_snapshot_id, policy_version, compiler_version, ranking_version, projection_generation, created_at, expires_at, tokenizer_id, token_budget, estimated_tokens, item_count, delivery_status, consumed_at, omission_summary]
+      required: [context_pack_id, task_id, attempt_id, purpose, authority_snapshot_id, policy_version, compiler_version, ranking_version, projection_generation, reference_time, timezone, created_at, expires_at, tokenizer_id, token_budget, estimated_tokens, item_count, delivery_status, consumed_at, omission_summary]
       properties:
         context_pack_id: {$ref: '#/components/schemas/Uuid'}
         task_id: {$ref: '#/components/schemas/Uuid'}
@@ -1017,6 +1039,8 @@ components:
         compiler_version: {type: string}
         ranking_version: {type: string}
         projection_generation: {type: string}
+        reference_time: {type: string, format: date-time}
+        timezone: {type: string, example: Asia/Shanghai}
         created_at: {type: string, format: date-time}
         expires_at: {type: string, format: date-time}
         tokenizer_id: {type: string}
@@ -1029,7 +1053,7 @@ components:
     ContextPack:
       type: object
       additionalProperties: false
-      required: [context_pack_id, task_id, attempt_id, purpose, authority_snapshot_id, policy_version, compiler_version, ranking_version, projection_generation, created_at, expires_at, consumed_at, tokenizer_id, token_budget, estimated_tokens, sections, omission_summary]
+      required: [context_pack_id, task_id, attempt_id, purpose, authority_snapshot_id, policy_version, compiler_version, ranking_version, projection_generation, reference_time, timezone, created_at, expires_at, consumed_at, tokenizer_id, token_budget, estimated_tokens, sections, omission_summary]
       properties:
         context_pack_id: {$ref: '#/components/schemas/Uuid'}
         task_id: {$ref: '#/components/schemas/Uuid'}
@@ -1040,6 +1064,8 @@ components:
         compiler_version: {type: string}
         ranking_version: {type: string}
         projection_generation: {type: string}
+        reference_time: {type: string, format: date-time}
+        timezone: {type: string, example: Asia/Shanghai}
         created_at: {type: string, format: date-time}
         expires_at: {type: string, format: date-time}
         consumed_at: {type: string, format: date-time}
@@ -1092,6 +1118,14 @@ components:
       properties:
         expected_revision: {type: integer, minimum: 0}
         new_content: {type: string, minLength: 1, maxLength: 32768}
+        new_structured_content:
+          description: >-
+            Optional type-specific auxiliary structure for the new immutable version. If omitted,
+            the corrected version explicitly has no Structured Content rather than retaining stale
+            fields from the superseded version.
+          anyOf:
+            - {$ref: '#/components/schemas/StructuredContent'}
+            - {type: 'null'}
         reason: {type: string, minLength: 1, maxLength: 1024}
         source_ref: {type: string, minLength: 1, maxLength: 512}
         effective_from: {type: [string, 'null'], format: date-time}

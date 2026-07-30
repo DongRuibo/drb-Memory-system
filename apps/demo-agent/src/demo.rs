@@ -435,8 +435,8 @@ mod tests {
     use crate::model::ModelUsage;
     use memory_client::{
         ConsumeContextPackCommand, ContextPackItem, ContextPackManifestResponse, ContextSection,
-        ExtractedCandidateProposal, ExtractedMemoryResult, MemoryClientError,
-        MemoryExtractionResponse, OutcomeReceiptResponse,
+        ExtractedCandidateProposal, ExtractedMemoryResult, ExtractionDiagnostics,
+        MemoryClientError, MemoryExtractionResponse, OutcomeReceiptResponse,
     };
 
     struct FakeMemory {
@@ -507,6 +507,13 @@ mod tests {
             Ok(MemoryExtractionResponse {
                 extractor_version: "test-extractor-v1".into(),
                 candidate_count: 1,
+                diagnostics: ExtractionDiagnostics {
+                    model_candidate_count: Some(1),
+                    valid_model_candidate_count: 1,
+                    filtered_reason_counts: BTreeMap::new(),
+                    coverage_added_count: 0,
+                    coverage_enriched_count: 0,
+                },
                 candidates: vec![ExtractedMemoryResult {
                     proposal: ExtractedCandidateProposal {
                         memory_type: "preference".into(),
@@ -552,9 +559,14 @@ mod tests {
                 purpose: command.task_context.purpose.clone(),
                 authority_snapshot_id: "authz-test".into(),
                 policy_version: "demo-policy-v1".into(),
-                compiler_version: "demo-context-compiler-v1".into(),
+                compiler_version: "demo-context-compiler-v2".into(),
                 ranking_version: "transparent-lexical-v1".into(),
                 projection_generation: "demo-v0-generation-1".into(),
+                reference_time: command.reference_time.unwrap_or(now),
+                timezone: command
+                    .timezone
+                    .clone()
+                    .unwrap_or_else(|| "Asia/Shanghai".into()),
                 created_at: now,
                 expires_at: now + chrono::Duration::minutes(5),
                 tokenizer_id: CONTEXT_TOKENIZER_ID.into(),
@@ -585,6 +597,7 @@ mod tests {
                         text: "固定使用【原理】和【示例】两个标题".into(),
                         source_refs: vec!["conversation:test:message-1".into()],
                         effective_from: Some(now),
+                        event_time: None,
                         inclusion_reason: "EXPLICIT_PREFERENCE_AND_TASK_RELEVANT".into(),
                         trust: "untrusted_memory_data".into(),
                     }],
@@ -599,9 +612,11 @@ mod tests {
                 purpose: command.task_context.purpose.clone(),
                 authority_snapshot_id: "authz-test".into(),
                 policy_version: "demo-policy-v1".into(),
-                compiler_version: "demo-context-compiler-v1".into(),
+                compiler_version: "demo-context-compiler-v2".into(),
                 ranking_version: "transparent-lexical-v1".into(),
                 projection_generation: "demo-v0-generation-1".into(),
+                reference_time: now,
+                timezone: "Asia/Shanghai".into(),
                 created_at: now,
                 expires_at: now + chrono::Duration::minutes(5),
                 consumed_at: now,

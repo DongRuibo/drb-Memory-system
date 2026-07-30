@@ -11,7 +11,10 @@ pub use error::DemoError;
 pub use kimi_client::{CompletionCommand, KimiClient, KimiConfig, ModelAnswer};
 pub use memory_client::OperationResponse;
 pub use model::{AnswerTurn, DemoReport, ModelUsage};
-pub use prompt::{PreparedPrompt, SYSTEM_PROMPT, assemble_prompt};
+pub use prompt::{
+    PreparedPrompt, PromptContextSnapshot, PromptMemory, RuntimeContext, SYSTEM_PROMPT,
+    assemble_empty_prompt, assemble_prompt,
+};
 
 use demo::{DemoAgent, DemoRunConfig};
 use memory_client::{MemoryClientConfig, MemoryHttpClient, MemoryPort};

@@ -3,13 +3,16 @@ set -euo pipefail
 
 script_dir="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repository_root="$(CDPATH= cd -- "${script_dir}/.." && pwd)"
-memory_base_url="${MEMORY_BASE_URL:-http://127.0.0.1:8080}"
-web_api_url="${DEMO_WEB_API_URL:-http://127.0.0.1:8090}"
+memory_base_url="${MEMORY_BASE_URL:-http://localhost:8080}"
+web_api_url="${DEMO_WEB_API_URL:-http://localhost:8090}"
 api_pid=""
 web_pid=""
 
-export DEMO_USER_ID="${DEMO_USER_ID:-semantic-demo}"
-export DEMO_PROJECT_ID="${DEMO_PROJECT_ID:-lazytt-memory-system-demo}"
+if [ -z "${MEMORY_JWT_HS256_SECRET:-}" ]; then
+  printf 'MEMORY_JWT_HS256_SECRET is required for the multi-user Demo Web API.\n' >&2
+  printf 'Use ./scripts/demo-web-stack.sh for the recommended one-command startup.\n' >&2
+  exit 1
+fi
 
 cleanup() {
   if [ -n "$web_pid" ]; then
@@ -34,19 +37,25 @@ if [ ! -d "${repository_root}/apps/demo-web/node_modules" ]; then
 fi
 
 cd "$repository_root"
-if ! curl --fail --silent --max-time 2 "${web_api_url}/api/health" >/dev/null 2>&1; then
+if curl --fail --silent --max-time 2 "${web_api_url}/api/health" >/dev/null 2>&1; then
+  if ! curl --fail --silent --max-time 5 \
+    "${web_api_url}/api/demo/bootstrap" >/dev/null 2>&1; then
+    printf 'An incompatible Demo Web API is already listening at %s.\n' "$web_api_url" >&2
+    exit 1
+  fi
+else
   if command -v cargo >/dev/null 2>&1; then
     cargo run -p demo-web-api &
   elif [ -x "${repository_root}/target/debug/demo-web-api" ]; then
     "${repository_root}/target/debug/demo-web-api" &
   else
-    printf 'cargo is unavailable and target/debug/demo-web-api is missing.\n' >&2
+    printf 'cargo is unavailable and target/debug/demo-web-api is missing. Install Rust with cargo on PATH, or build the binary first.\n' >&2
     exit 1
   fi
   api_pid="$!"
 
   api_ready="false"
-  for _ in $(seq 1 30); do
+  for _ in $(seq 1 150); do
     if curl --fail --silent --max-time 1 "${web_api_url}/api/health" >/dev/null 2>&1; then
       api_ready="true"
       break
@@ -57,6 +66,11 @@ if ! curl --fail --silent --max-time 2 "${web_api_url}/api/health" >/dev/null 2>
     printf 'Demo Web API did not become ready at %s.\n' "$web_api_url" >&2
     exit 1
   fi
+fi
+
+if lsof -nP -iTCP:3000 -sTCP:LISTEN >/dev/null 2>&1; then
+  printf 'Port 3000 is already in use; stop the existing Web process first.\n' >&2
+  exit 1
 fi
 
 printf '\nLazyTT Memory Web Demo is ready.\n'

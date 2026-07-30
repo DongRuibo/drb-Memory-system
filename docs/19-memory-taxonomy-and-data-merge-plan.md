@@ -312,7 +312,8 @@ Scope，不更新 Memory Version、Head revision、Source、正文或内容 hash
   Forget 后授权阻断。
 
 2026-07-30 已在隔离空库执行 `0001` 至 `0024` 全量 migration，16 个 Memory Repository
-PostgreSQL 集成测试全部通过。现有开发 `memory` 库没有被修改。Context Pack 目前只携带
+PostgreSQL 集成测试全部通过。后续 `0025` 只负责幂等清理已经放弃的外部记忆导入暂存表，
+不改变统一分类、Event Time 或 Structured Content 的正式模型。Context Pack 目前只携带
 canonical content，不单独暴露 Event Time；显式时间元数据进入 Context 属于 Phase 4。
 
 退出条件：写入、查询、Inspect 和 Export 对同一时间语义解释一致，且干净 PostgreSQL

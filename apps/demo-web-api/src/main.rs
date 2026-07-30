@@ -1,21 +1,26 @@
+mod demo_identity;
 mod orchestrator;
 mod store;
+mod token_issuer;
 
 use std::collections::VecDeque;
 use std::convert::Infallible;
 use std::env;
 use std::net::SocketAddr;
 use std::sync::Arc;
-use std::sync::atomic::{AtomicBool, Ordering};
 use std::time::Duration;
 
-use axum::extract::{Path, Query, State};
+use axum::extract::{Path, Query, Request, State};
 use axum::http::{HeaderMap, HeaderName, HeaderValue, Method, StatusCode, header};
+use axum::middleware::{self, Next};
 use axum::response::sse::{Event, KeepAlive, Sse};
 use axum::response::{IntoResponse, Response};
 use axum::routing::{get, post};
-use axum::{Json, Router};
-use demo_agent::{DemoConfig, KimiClient, memory_client_from_config};
+use axum::{Extension, Json, Router};
+use demo_agent::{DemoConfig, KimiClient};
+use demo_identity::{
+    DemoIdentityError, DemoUserRegistry, DemoViewerSessions, ResolvedDemoIdentity,
+};
 use futures_util::stream::{self, Stream};
 use memory_client::{
     CorrectionCommand, ErasureCommand, ErasureRequestView, ForgetCommand, MemoryPort,
@@ -25,6 +30,7 @@ use serde::{Deserialize, Serialize};
 use serde_json::{Value, json};
 use sha2::{Digest, Sha256};
 use store::{ChatStore, CreateTurnCommand, StoreError};
+use token_issuer::{DemoMemoryClientFactory, DemoTokenError};
 use tokio::net::TcpListener;
 use tokio::time::{Instant, sleep};
 use tower_http::cors::CorsLayer;
@@ -34,11 +40,29 @@ use uuid::Uuid;
 
 #[derive(Clone)]
 struct AppState {
-    runtime: Arc<ChatRuntime>,
-    legacy_demo_running: Arc<AtomicBool>,
+    chat_store: ChatStore,
+    memory_clients: DemoMemoryClientFactory,
+    model: Arc<KimiClient>,
+    users: DemoUserRegistry,
+    viewer_sessions: DemoViewerSessions,
 }
 
-#[derive(Serialize)]
+impl AppState {
+    fn runtime_for(
+        &self,
+        identity: &ResolvedDemoIdentity,
+    ) -> Result<Arc<ChatRuntime>, WebApiError> {
+        Ok(Arc::new(ChatRuntime {
+            store: self.chat_store.for_user(identity.profile.user_id.clone()),
+            memory: Arc::new(self.memory_clients.client_for(&identity.profile)?),
+            model: Arc::clone(&self.model),
+            user_id: identity.profile.user_id.clone(),
+            project_id: identity.profile.primary_project_id.clone(),
+        }))
+    }
+}
+
+#[derive(Clone, Serialize)]
 struct ReadinessResponse {
     ready: bool,
     memory_service: &'static str,
@@ -62,44 +86,46 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Err("Demo Web API must bind to a loopback address".into());
     }
     let config = DemoConfig::from_env()?;
-    let memory = Arc::new(memory_client_from_config(&config)?);
     let model = Arc::new(KimiClient::new(config.kimi.clone())?);
     let tenant_id = env::var("DEMO_TENANT_ID").unwrap_or_else(|_| "demo-tenant".into());
-    let project_id =
-        env::var("DEMO_PROJECT_ID").unwrap_or_else(|_| "lazytt-memory-system-demo".into());
-    if project_id.trim().is_empty()
-        || project_id.len() > 256
-        || project_id.chars().any(char::is_control)
-    {
-        return Err("DEMO_PROJECT_ID must contain 1 to 256 visible characters".into());
-    }
     let database_url = env::var("DATABASE_URL")
         .unwrap_or_else(|_| "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into());
-    let store =
-        ChatStore::connect_and_migrate(&database_url, tenant_id, config.user_id.clone()).await?;
-    let runtime = Arc::new(ChatRuntime {
-        store,
-        memory,
-        model,
-        user_id: config.user_id,
-        project_id,
-    });
+    let users = DemoUserRegistry::standard();
+    let default_user = users.default_user();
+    let chat_store =
+        ChatStore::connect_and_migrate(&database_url, tenant_id.clone(), default_user.user_id)
+            .await?;
+    let memory_clients = DemoMemoryClientFactory::from_env(
+        config.memory_base_url,
+        config.memory_timeout,
+        tenant_id,
+    )?;
     let state = AppState {
-        runtime,
-        legacy_demo_running: Arc::new(AtomicBool::new(false)),
+        chat_store,
+        memory_clients,
+        model,
+        users,
+        viewer_sessions: DemoViewerSessions::new(
+            env::var("DEMO_WEB_SECURE_COOKIE").is_ok_and(|value| value == "true"),
+        ),
     };
 
     let cors = CorsLayer::new()
         .allow_origin(allowed_origins()?)
+        .allow_credentials(true)
         .allow_methods([Method::GET, Method::POST])
         .allow_headers([
             header::CONTENT_TYPE,
             HeaderName::from_static("last-event-id"),
+            HeaderName::from_static("x-demo-identity-revision"),
         ]);
     let app = Router::new()
         .route("/api/health", get(readiness))
-        .route("/api/demo/run", post(run_demo))
+        .route("/api/demo/bootstrap", get(demo_bootstrap))
+        .route("/api/demo/principal", get(demo_principal))
+        .route("/api/demo/users/switch", post(switch_demo_user))
         .route("/api/demo/reset", post(reset_demo))
+        .route("/api/demo/reset-project", post(reset_demo_project))
         .route(
             "/api/chat/sessions",
             get(list_sessions).post(create_session),
@@ -121,6 +147,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         )
         .route("/api/memories/{memory_record_id}/erase", post(erase_memory))
         .layer(cors)
+        .layer(middleware::from_fn_with_state(
+            state.clone(),
+            resolve_demo_identity,
+        ))
         .with_state(state);
 
     let listener = TcpListener::bind(bind).await?;
@@ -151,41 +181,146 @@ fn allowed_origins() -> Result<Vec<HeaderValue>, Box<dyn std::error::Error>> {
         .collect()
 }
 
-async fn readiness(State(state): State<AppState>) -> Json<ReadinessResponse> {
+async fn resolve_demo_identity(
+    State(state): State<AppState>,
+    mut request: Request,
+    next: Next,
+) -> Response {
+    let (identity, set_cookie) = state
+        .viewer_sessions
+        .resolve(request.headers(), &state.users);
+    let is_bootstrap = request.uri().path() == "/api/demo/bootstrap";
+    if !is_bootstrap
+        && let Some(requested_revision) = request
+            .headers()
+            .get("x-demo-identity-revision")
+            .and_then(|value| value.to_str().ok())
+            .and_then(|value| value.parse::<u64>().ok())
+        && requested_revision != identity.revision
+    {
+        return WebApiError {
+            status: StatusCode::CONFLICT,
+            code: "STALE_DEMO_IDENTITY",
+            detail: "演示身份已在另一个页面切换，请刷新当前页面后继续。".into(),
+        }
+        .into_response();
+    }
+    request.extensions_mut().insert(identity);
+    let mut response = next.run(request).await;
+    if let Some(cookie) = set_cookie {
+        response.headers_mut().append(header::SET_COOKIE, cookie);
+    }
+    response
+}
+
+async fn readiness(
+    State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
+) -> Json<ReadinessResponse> {
+    let response = readiness_for(&state, &identity).await;
+    Json(response)
+}
+
+async fn readiness_for(state: &AppState, identity: &ResolvedDemoIdentity) -> ReadinessResponse {
+    let runtime = match state.runtime_for(identity) {
+        Ok(runtime) => runtime,
+        Err(error) => {
+            return ReadinessResponse {
+                ready: false,
+                memory_service: "check_required",
+                chat_store: "check_required",
+                model_configuration: "check_required",
+                detail: Some(error.detail),
+            };
+        }
+    };
     let result = async {
-        state.runtime.memory.ready().await?;
-        state.runtime.store.list_sessions().await.map_err(|error| {
+        runtime.memory.ready().await?;
+        runtime.store.list_sessions().await.map_err(|error| {
             memory_client::MemoryClientError::Contract(format!("chat store failed: {error}"))
         })?;
         Ok::<(), memory_client::MemoryClientError>(())
     }
     .await;
     match result {
-        Ok(()) => Json(ReadinessResponse {
+        Ok(()) => ReadinessResponse {
             ready: true,
             memory_service: "ready",
             chat_store: "ready",
             model_configuration: "ready",
             detail: None,
-        }),
-        Err(error) => Json(ReadinessResponse {
+        },
+        Err(error) => ReadinessResponse {
             ready: false,
             memory_service: "check_required",
             chat_store: "check_required",
             model_configuration: "configured",
             detail: Some(error.to_string()),
-        }),
+        },
     }
 }
 
-async fn run_demo(
+async fn demo_bootstrap(
     State(state): State<AppState>,
-) -> Result<Json<demo_agent::DemoReport>, WebApiError> {
-    let _permit = RunPermit::acquire(Arc::clone(&state.legacy_demo_running))?;
-    let report = demo_agent::run_from_env()
-        .await
-        .map_err(WebApiError::upstream)?;
-    Ok(Json(report))
+    Extension(identity): Extension<ResolvedDemoIdentity>,
+) -> Result<Json<Value>, WebApiError> {
+    Ok(Json(bootstrap_payload(&state, &identity).await?))
+}
+
+async fn demo_principal(
+    State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
+) -> Json<Value> {
+    Json(json!({
+        "current_user": identity.profile,
+        "available_users": state.users.users(),
+        "identity_revision": identity.revision,
+    }))
+}
+
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields)]
+struct SwitchDemoUserRequest {
+    user_id: String,
+}
+
+async fn switch_demo_user(
+    State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
+    Json(request): Json<SwitchDemoUserRequest>,
+) -> Result<Json<Value>, WebApiError> {
+    let current = state.runtime_for(&identity)?;
+    if current.store.has_active_turns().await? {
+        return Err(WebApiError {
+            status: StatusCode::CONFLICT,
+            code: "ACTIVE_TURN",
+            detail: "当前回答仍在生成，请等待完成或先停止生成。".into(),
+        });
+    }
+    let switched = state.viewer_sessions.switch(
+        identity.viewer_session_id,
+        request.user_id.trim(),
+        &state.users,
+    )?;
+    Ok(Json(bootstrap_payload(&state, &switched).await?))
+}
+
+async fn bootstrap_payload(
+    state: &AppState,
+    identity: &ResolvedDemoIdentity,
+) -> Result<Value, WebApiError> {
+    let runtime = state.runtime_for(identity)?;
+    let health = readiness_for(state, identity).await;
+    let sessions = runtime.store.list_sessions().await?;
+    let memories = runtime.memory.export_memories().await?;
+    Ok(json!({
+        "current_user": identity.profile,
+        "available_users": state.users.users(),
+        "identity_revision": identity.revision,
+        "health": health,
+        "sessions": sessions,
+        "memories": memories,
+    }))
 }
 
 #[derive(Deserialize)]
@@ -207,6 +342,7 @@ fn default_session_mode() -> String {
 
 async fn create_session(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Json(request): Json<CreateSessionRequest>,
 ) -> Result<(StatusCode, Json<Value>), WebApiError> {
     if request.title.trim().is_empty()
@@ -218,24 +354,32 @@ async fn create_session(
             "title or mode is invalid",
         ));
     }
-    let session = state
-        .runtime
+    let runtime = state.runtime_for(&identity)?;
+    let session = runtime
         .store
         .create_session(request.title.trim(), &request.mode)
         .await?;
     Ok((StatusCode::CREATED, Json(json!({"session": session}))))
 }
 
-async fn list_sessions(State(state): State<AppState>) -> Result<Json<Value>, WebApiError> {
-    let sessions = state.runtime.store.list_sessions().await?;
+async fn list_sessions(
+    State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
+) -> Result<Json<Value>, WebApiError> {
+    let sessions = state.runtime_for(&identity)?.store.list_sessions().await?;
     Ok(Json(json!({"sessions": sessions})))
 }
 
 async fn get_session(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Path(session_id): Path<Uuid>,
 ) -> Result<Json<Value>, WebApiError> {
-    let session = state.runtime.store.session(session_id).await?;
+    let session = state
+        .runtime_for(&identity)?
+        .store
+        .session(session_id)
+        .await?;
     Ok(Json(json!({"session": session})))
 }
 
@@ -252,6 +396,7 @@ struct CreateTurnRequest {
 
 async fn create_turn(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Json(request): Json<CreateTurnRequest>,
 ) -> Result<(StatusCode, Json<Value>), WebApiError> {
     if request.message.trim().is_empty()
@@ -273,8 +418,8 @@ async fn create_turn(
         ));
     }
     let request_hash = request_hash(&request)?;
-    let created = state
-        .runtime
+    let runtime = state.runtime_for(&identity)?;
+    let created = runtime
         .store
         .create_turn(CreateTurnCommand {
             session_id: request.session_id,
@@ -285,7 +430,7 @@ async fn create_turn(
         })
         .await?;
     if created.created {
-        Arc::clone(&state.runtime).spawn_turn(TurnWork {
+        Arc::clone(&runtime).spawn_turn(TurnWork {
             turn: created.turn.clone(),
             content: request.message,
             memory_action: request.memory_action,
@@ -303,11 +448,11 @@ async fn create_turn(
 
 async fn get_turn(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Path(turn_id): Path<Uuid>,
 ) -> Result<Json<Value>, WebApiError> {
-    Ok(Json(
-        json!({"turn": state.runtime.store.turn(turn_id).await?}),
-    ))
+    let runtime = state.runtime_for(&identity)?;
+    Ok(Json(json!({"turn": runtime.store.turn(turn_id).await?})))
 }
 
 #[derive(Deserialize)]
@@ -318,18 +463,20 @@ struct EventsQuery {
 
 async fn turn_events(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Path(turn_id): Path<Uuid>,
     headers: HeaderMap,
     Query(query): Query<EventsQuery>,
 ) -> Result<Sse<impl Stream<Item = Result<Event, Infallible>>>, WebApiError> {
-    state.runtime.store.turn(turn_id).await?;
+    let runtime = state.runtime_for(&identity)?;
+    runtime.store.turn(turn_id).await?;
     let last_event_id = headers
         .get("last-event-id")
         .and_then(|value| value.to_str().ok())
         .and_then(|value| value.parse::<i64>().ok())
         .unwrap_or(0);
     let initial = EventStreamState {
-        store: state.runtime.store.clone(),
+        store: runtime.store.clone(),
         turn_id,
         cursor: query.after.max(last_event_id).max(0),
         queued: VecDeque::new(),
@@ -383,23 +530,34 @@ struct EventStreamState {
 
 async fn cancel_turn(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Path(turn_id): Path<Uuid>,
 ) -> Result<Json<Value>, WebApiError> {
-    let turn = state.runtime.store.request_cancel(turn_id).await?;
+    let runtime = state.runtime_for(&identity)?;
+    runtime.store.turn(turn_id).await?;
+    let turn = runtime.store.request_cancel(turn_id).await?;
     Ok(Json(json!({"turn": turn})))
 }
 
-async fn list_memories(State(state): State<AppState>) -> Result<Json<Value>, WebApiError> {
-    let memories = state.runtime.memory.export_memories().await?;
+async fn list_memories(
+    State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
+) -> Result<Json<Value>, WebApiError> {
+    let memories = state
+        .runtime_for(&identity)?
+        .memory
+        .export_memories()
+        .await?;
     Ok(Json(json!({"memories": memories})))
 }
 
 async fn get_memory(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Path(memory_record_id): Path<Uuid>,
 ) -> Result<Json<Value>, WebApiError> {
     let memory = state
-        .runtime
+        .runtime_for(&identity)?
         .memory
         .inspect_memory(memory_record_id)
         .await?;
@@ -414,6 +572,7 @@ struct CorrectMemoryRequest {
 
 async fn correct_memory(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Path(memory_record_id): Path<Uuid>,
     Json(request): Json<CorrectMemoryRequest>,
 ) -> Result<(StatusCode, Json<Value>), WebApiError> {
@@ -423,13 +582,9 @@ async fn correct_memory(
             "new_content must contain 1 to 2048 characters",
         ));
     }
-    let current = state
-        .runtime
-        .memory
-        .inspect_memory(memory_record_id)
-        .await?;
-    let operation = state
-        .runtime
+    let runtime = state.runtime_for(&identity)?;
+    let current = runtime.memory.inspect_memory(memory_record_id).await?;
+    let operation = runtime
         .memory
         .correct(&CorrectionCommand {
             memory_record_id,
@@ -439,6 +594,7 @@ async fn correct_memory(
             reason: "User corrected memory from memory panel".into(),
             source_ref: format!("memory-panel:{memory_record_id}:{}", Uuid::new_v4()),
             effective_from: Some(chrono::Utc::now()),
+            new_structured_content: None,
         })
         .await?;
     Ok((StatusCode::ACCEPTED, Json(json!({"operation": operation}))))
@@ -446,15 +602,12 @@ async fn correct_memory(
 
 async fn forget_memory(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Path(memory_record_id): Path<Uuid>,
 ) -> Result<(StatusCode, Json<Value>), WebApiError> {
-    let current = state
-        .runtime
-        .memory
-        .inspect_memory(memory_record_id)
-        .await?;
-    let operation = state
-        .runtime
+    let runtime = state.runtime_for(&identity)?;
+    let current = runtime.memory.inspect_memory(memory_record_id).await?;
+    let operation = runtime
         .memory
         .forget(&ForgetCommand {
             memory_record_id,
@@ -469,10 +622,11 @@ async fn forget_memory(
 
 async fn erase_memory(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
     Path(memory_record_id): Path<Uuid>,
 ) -> Result<(StatusCode, Json<Value>), WebApiError> {
-    let erasure = state
-        .runtime
+    let runtime = state.runtime_for(&identity)?;
+    let erasure = runtime
         .memory
         .create_erasure_request(&ErasureCommand {
             idempotency_key: format!("web-erase-{}", Uuid::new_v4()),
@@ -486,39 +640,57 @@ async fn erase_memory(
 
 async fn reset_demo(
     State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
 ) -> Result<(StatusCode, Json<Value>), WebApiError> {
-    let targets = [
-        ("project", state.runtime.project_id.as_str()),
-        ("user", state.runtime.store.user_id()),
-    ];
-    let mut erasures = Vec::with_capacity(targets.len());
-    for (target_kind, target_id) in targets {
-        let erasure = state
-            .runtime
-            .memory
-            .create_erasure_request(&ErasureCommand {
-                idempotency_key: format!("demo-reset-{}", Uuid::new_v4()),
-                target_kind: target_kind.into(),
-                target_id: target_id.to_owned(),
-                reason: format!("Reset the interactive demo {target_kind} scope"),
-            })
-            .await?;
-        erasures.push(wait_for_erasure(&state, erasure).await?);
-    }
-    state.runtime.store.reset_sessions().await?;
-    let session = state
-        .runtime
-        .store
-        .create_session("记忆演示", "guided")
+    let runtime = state.runtime_for(&identity)?;
+    let erasure = runtime
+        .memory
+        .create_erasure_request(&ErasureCommand {
+            idempotency_key: format!("demo-reset-user-{}", Uuid::new_v4()),
+            target_kind: "user".into(),
+            target_id: identity.profile.user_id.clone(),
+            reason: "Reset the current interactive demo user scope".into(),
+        })
         .await?;
+    let erasure = wait_for_erasure(&runtime, erasure).await?;
+    runtime.store.reset_sessions().await?;
+    let session = runtime.store.create_session("记忆演示", "guided").await?;
     Ok((
         StatusCode::OK,
-        Json(json!({"session": session, "erasures": erasures})),
+        Json(json!({"session": session, "erasures": [erasure]})),
+    ))
+}
+
+async fn reset_demo_project(
+    State(state): State<AppState>,
+    Extension(identity): Extension<ResolvedDemoIdentity>,
+) -> Result<(StatusCode, Json<Value>), WebApiError> {
+    if !identity.profile.can_reset_project {
+        return Err(WebApiError {
+            status: StatusCode::FORBIDDEN,
+            code: "PROJECT_RESET_FORBIDDEN",
+            detail: "当前演示身份无权重置共享项目记忆。".into(),
+        });
+    }
+    let runtime = state.runtime_for(&identity)?;
+    let erasure = runtime
+        .memory
+        .create_erasure_request(&ErasureCommand {
+            idempotency_key: format!("demo-reset-project-{}", Uuid::new_v4()),
+            target_kind: "project".into(),
+            target_id: identity.profile.primary_project_id.clone(),
+            reason: "Reset the shared interactive demo project scope".into(),
+        })
+        .await?;
+    let erasure = wait_for_erasure(&runtime, erasure).await?;
+    Ok((
+        StatusCode::OK,
+        Json(json!({"project_id": identity.profile.primary_project_id, "erasures": [erasure]})),
     ))
 }
 
 async fn wait_for_erasure(
-    state: &AppState,
+    runtime: &ChatRuntime,
     mut current: ErasureRequestView,
 ) -> Result<ErasureRequestView, WebApiError> {
     let deadline = Instant::now() + Duration::from_secs(30);
@@ -536,8 +708,7 @@ async fn wait_for_erasure(
             ));
         }
         sleep(Duration::from_millis(250)).await;
-        current = state
-            .runtime
+        current = runtime
             .memory
             .erasure_request(current.erasure_request_id)
             .await?;
@@ -555,29 +726,6 @@ fn request_hash<T: Serialize>(value: &T) -> Result<String, WebApiError> {
         "sha256:{}",
         hex::encode(Sha256::digest(encoded.as_slice()))
     ))
-}
-
-struct RunPermit {
-    running: Arc<AtomicBool>,
-}
-
-impl RunPermit {
-    fn acquire(running: Arc<AtomicBool>) -> Result<Self, WebApiError> {
-        running
-            .compare_exchange(false, true, Ordering::AcqRel, Ordering::Acquire)
-            .map_err(|_| WebApiError {
-                status: StatusCode::CONFLICT,
-                code: "DEMO_ALREADY_RUNNING",
-                detail: "A legacy scripted demo is already running".into(),
-            })?;
-        Ok(Self { running })
-    }
-}
-
-impl Drop for RunPermit {
-    fn drop(&mut self) {
-        self.running.store(false, Ordering::Release);
-    }
 }
 
 struct WebApiError {
@@ -638,6 +786,27 @@ impl From<StoreError> for WebApiError {
 impl From<memory_client::MemoryClientError> for WebApiError {
     fn from(error: memory_client::MemoryClientError) -> Self {
         Self::upstream(error)
+    }
+}
+
+impl From<DemoTokenError> for WebApiError {
+    fn from(error: DemoTokenError) -> Self {
+        Self::upstream_detail("DEMO_AUTHORITY_FAILED", error.to_string())
+    }
+}
+
+impl From<DemoIdentityError> for WebApiError {
+    fn from(error: DemoIdentityError) -> Self {
+        match error {
+            DemoIdentityError::UnknownUser => {
+                Self::bad_request("UNKNOWN_DEMO_USER", "只能切换到服务器配置的演示身份。")
+            }
+            DemoIdentityError::ExpiredViewerSession => Self {
+                status: StatusCode::UNAUTHORIZED,
+                code: "DEMO_SESSION_EXPIRED",
+                detail: error.to_string(),
+            },
+        }
     }
 }
 

@@ -7,7 +7,9 @@ license.workspace = true
 [dependencies]
 async-trait.workspace = true
 chrono.workspace = true
+chrono-tz.workspace = true
 memory-client = { path = "../../crates/memory-client" }
+memory-domain = { path = "../../crates/memory-domain" }
 reqwest.workspace = true
 serde.workspace = true
 serde_json.workspace = true

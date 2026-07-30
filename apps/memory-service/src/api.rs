@@ -9,14 +9,14 @@ use axum::routing::{get, post};
 use axum::{Json, Router};
 use chrono::{DateTime, Utc};
 use memory_application::{
-    ExtractCandidateProposal, ExtractMemoryRequest, ExtractorError, IndexError,
-    MIN_TRANSPARENT_RELEVANCE_SCORE, MemoryExtractor, MemoryReranker, ProjectionHit,
+    ExtractCandidateProposal, ExtractMemoryRequest, ExtractionDiagnostics, ExtractorError,
+    IndexError, MIN_TRANSPARENT_RELEVANCE_SCORE, MemoryExtractor, MemoryReranker, ProjectionHit,
     ProjectionSearch, RerankCandidate, RerankRequest, RetrievalIndex, SecurityAction,
     SecurityFinding, SecurityPipeline, TemporalWindow, TransparentReranker,
     is_memory_applicable_without_semantic_threshold, parse_temporal_query,
     reciprocal_rank_contribution, weighted_reciprocal_rank_fusion,
 };
-use memory_domain::{MEMORY_TAXONOMY_VERSION, MemoryType, MemoryTypeMapping};
+use memory_domain::{MEMORY_TAXONOMY_VERSION, MemoryType, MemoryTypeMapping, StructuredContent};
 use memory_postgres::{
     AuthorizedMemory, CanonicalStatus, ConsumeContextPackCommand, ContextPackCommand,
     ContextPackManifestView, ContextPackView, CorrectionCommand, DEMO_CONTEXT_TOKENIZER_ID,
@@ -329,6 +329,7 @@ fn default_max_extracted_candidates() -> usize {
 struct MemoryExtractionResponse {
     extractor_version: String,
     candidate_count: usize,
+    diagnostics: ExtractionDiagnostics,
     candidates: Vec<ExtractedMemoryResult>,
 }
 
@@ -399,7 +400,7 @@ async fn extract_memory_candidates(
         if request.project_scope_selector.is_some() {
             allowed_memory_types.push(MemoryType::SemanticFact.as_str().into());
         }
-        let proposals = extractor
+        let extraction = extractor
             .extract(ExtractMemoryRequest {
                 source_ref: request.source_ref.clone(),
                 content: safe_source_content,
@@ -410,21 +411,31 @@ async fn extract_memory_candidates(
             })
             .await
             .map_err(ApiError::extractor)?;
-        let mut safe_proposals = Vec::with_capacity(proposals.len());
-        for mut proposal in proposals {
+        let mut safe_proposals = Vec::with_capacity(extraction.proposals.len());
+        for mut proposal in extraction.proposals {
             proposal.content = sanitize_boundary_text(&proposal.content)?.redacted_text;
             proposal.semantic_key = sanitize_boundary_text(&proposal.semantic_key)?.redacted_text;
             safe_proposals.push(proposal);
         }
         state
             .repository
-            .complete_extraction_snapshot(authority, &snapshot_command, safe_proposals)
+            .complete_extraction_snapshot(
+                authority,
+                &snapshot_command,
+                safe_proposals,
+                extraction.diagnostics,
+            )
             .await?
     };
     let extractor_version = snapshot.extractor_version;
     let proposals = snapshot.proposals.ok_or_else(|| {
         RepositoryError::Invariant(
             "completed extraction did not contain a proposal snapshot".into(),
+        )
+    })?;
+    let diagnostics = snapshot.diagnostics.ok_or_else(|| {
+        RepositoryError::Invariant(
+            "completed extraction did not contain a diagnostics snapshot".into(),
         )
     })?;
 
@@ -487,6 +498,7 @@ async fn extract_memory_candidates(
         Json(MemoryExtractionResponse {
             extractor_version,
             candidate_count: candidates.len(),
+            diagnostics,
             candidates,
         }),
     ))
@@ -862,11 +874,8 @@ async fn compile_context_pack(
         !request.pinned_memory_version_ids.is_empty(),
     )?;
     let query = sanitize_boundary_text(&request.query)?.redacted_text;
-    let temporal_window = resolve_temporal_window(
-        &query,
-        request.reference_time.unwrap_or_else(Utc::now),
-        &request.timezone,
-    )?;
+    let reference_time = request.reference_time.unwrap_or_else(Utc::now);
+    let temporal_window = resolve_temporal_window(&query, reference_time, &request.timezone)?;
 
     let candidate_limit = request.limit.saturating_mul(4).clamp(request.limit, 50);
     let candidates = search_authorized_scopes(
@@ -912,6 +921,8 @@ async fn compile_context_pack(
                 memory_required: request.memory_required,
                 pinned_memory_version_ids: request.pinned_memory_version_ids,
                 temporal_window_hash: temporal_window_binding(temporal_window.as_ref()),
+                reference_time,
+                timezone: request.timezone,
             },
             &ranked_hits,
         )
@@ -1067,6 +1078,8 @@ struct CorrectionRequest {
     source_ref: String,
     #[serde(default)]
     effective_from: Option<DateTime<Utc>>,
+    #[serde(default)]
+    new_structured_content: Option<StructuredContent>,
 }
 
 async fn correct_memory(
@@ -1104,6 +1117,7 @@ async fn correct_memory(
                 reason: request.reason,
                 source_ref: request.source_ref,
                 effective_from: request.effective_from,
+                new_structured_content: request.new_structured_content,
             },
         )
         .await?;
@@ -2548,6 +2562,7 @@ mod tests {
             score,
             source_refs: vec!["test".into()],
             effective_from: None,
+            event_time: None,
         };
         let candidates = vec![
             projection(first_version, 0.1),

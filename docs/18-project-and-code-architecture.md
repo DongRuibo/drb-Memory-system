@@ -156,8 +156,19 @@ sequenceDiagram
 当前 Kimi 请求包含：
 
 ```text
-System Prompt + 当前用户问题 + 本轮 Context Pack
+System Prompt
++ 当前用户问题
++ runtime_context（Context Pack 的 reference_time、timezone、local_date）
++ memory_context（Context Pack Item 的正文、来源、event_time 与允许影响）
 ```
+
+`demo-web-api` 每轮只生成一次服务器时间锚点；Memory Service 用它解析相对时间并将其固化
+到 Context Pack。Prompt Compiler 和证据面板读取同一 Pack，因此“现在是什么时间”、
+“历史事件何时发生”以及“模型实际看到了哪一版记忆”可一起审计。证据面板不再从当前
+Memory Head 重建过去输入；旧轮次或 Context Pack 不可用时会明确显示证据不可用。
+模型调用前，Web Runtime 还会把两侧反序列化为同一个 `PromptContextSnapshot` 并逐字段
+比较；不一致则不调用模型。Context Pack 不可用时只持久化运行时上下文和空记忆数组，
+因此降级回答同样可审计，但不会形成第二份记忆正文副本。
 
 它尚未加入“最近 N 轮原始消息 + 更早历史摘要”。因此 `demo_chat` 虽然保存全部对话，
 “继续”“刚才第二点”这类仅依赖最近对话指代的问题仍可能不稳定。后续完整 Agent 应加入
@@ -227,7 +238,9 @@ Source Event
 `occurred_at`，并且不把事实生效时间 `effective_from/effective_to` 混作事件发生时间。
 即使本地时间投影或外部 Provider 留有旧记录，候选仍需经过同样的 pre/post-rerank
 canonical authorization；Forget 后不能重新进入结果。
-`reference_time` 会连同时间窗口绑定 Context Pack 幂等请求，便于回放相对时间查询。
+`reference_time` 与 `timezone` 会连同时间窗口绑定 Context Pack 幂等请求并持久化；选中
+Version 的 Event Time 也保存到 Context Pack Item。它们共同构成该 Attempt 的不可变时间
+快照，既用于 Prompt，也用于证据面板回放。
 
 直接 Search 每次都会生成 `retrieval_run_id`，把各通道原始排名、权重、RRF 贡献、
 pre/post-rerank 授权、Rerank 分数、最终名次或排除理由写入 PostgreSQL。普通调用只拿到
@@ -341,14 +354,19 @@ apps/
 │       └── error.rs         # Demo 错误类型
 ├── demo-web-api/
 │   └── src/
-│       ├── main.rs          # Session/Turn/Memory Web API 与 SSE 路由
+│       ├── main.rs          # 请求级 Active Principal、Session/Turn/Memory API 与 SSE
+│       ├── demo_identity.rs # 三个固定身份与不透明 Viewer Session
+│       ├── token_issuer.rs  # 服务端短期 Memory Service JWT
 │       ├── orchestrator.rs  # 自动提取、自动更新、Context Pack、Kimi、Receipt 主链
-│       └── store.rs         # demo_chat 事务、幂等、Turn 状态机、Event replay
+│       └── store.rs         # 按用户隔离的 demo_chat、Turn 状态机、Event replay
 ├── demo-web/                # 非 Cargo workspace 的前端工程
 │   ├── app/
-│   │   ├── page.tsx         # 当前主要 UI、状态、SSE、演示流程和证据抽屉
+│   │   ├── page.tsx         # 身份一致的页面编排、请求与 SSE
+│   │   ├── types.ts         # Demo、Chat 与 canonical Memory 导出类型
+│   │   ├── memory-formatters.ts # 类型/范围/事件时间/结构化内容的产品表示
 │   │   ├── globals.css      # 三栏布局、消息滚动、记忆卡片和响应式样式
 │   │   └── layout.tsx       # 页面元数据和根布局
+│   ├── components/          # 用户切换、六步演示、记忆面板与版本证据
 │   ├── worker/index.ts      # Vinext/Cloudflare-compatible Worker 入口
 │   ├── db/schema.ts         # 当前为空；Web 不使用 D1 保存正式数据
 │   └── tests/               # SSR 文本与长对话滚动布局测试
@@ -390,13 +408,14 @@ crates/
 ### 9.3 数据库、部署和验证
 
 ```text
-migrations/                  # 0001...0024 按序演进的 PostgreSQL Schema
+migrations/                  # 0001...0029 按序演进的 PostgreSQL Schema
 ├── 0001...0004              # Ledger、Head guard、Projection fencing、event_id
 ├── 0005...0006              # Context Pack 幂等与原子 Consume
 ├── 0007...0009              # Semantic identity、Review、Erasure
 ├── 0010...0014              # Ranking/Generation/Receipt/Manifest/Extraction snapshot
 ├── 0015...0017              # demo_chat、client message id、精确 Version 证据
-└── 0018...0024              # 来源安全、BM25、时间、Explain、Taxonomy、Structured Content
+├── 0018...0026              # 来源安全、BM25、时间、Explain、Taxonomy、Structured Content、废弃暂存表清理、提取诊断
+└── 0027...0029              # Context Pack 时间快照、Prompt v2 历史门禁与降级运行时证据
 
 deploy/
 ├── local/postgres.compose.yaml # 本机 PostgreSQL 17
@@ -405,7 +424,8 @@ deploy/
 
 scripts/
 ├── run-memory-service-semantic.sh # 真实语义 Memory Service profile
-├── demo-web.sh                    # Web + Demo API 本地启动
+├── demo-web-stack.sh              # 推荐：共享临时 JWT 启动 Memory Service + Demo
+├── demo-web.sh                    # 已有 JWT Memory Service 下启动 Web + Demo API
 ├── demo-auto-memory.sh            # 自然对话自动记忆链
 ├── demo-agent-v1.sh               # Kimi Agent 链
 ├── demo-v0.sh                     # 后端生命周期链
@@ -445,6 +465,9 @@ docs/adr/                      # 架构决策记录
 - `projection_generations`
 - `projection_generation_transitions`
 
+其中 `extraction_operations` 同时固化首个 Candidate Proposal 数组和不含正文的诊断
+计数，用于抵抗模型重试漂移，并解释候选过滤、受限覆盖补齐与最终来源合并。
+
 ### 10.3 Context 与审计
 
 - `context_packs`
@@ -483,13 +506,16 @@ docs/adr/                      # 架构决策记录
 
 ### 11.2 Demo Web API
 
+- Demo Viewer Session、固定身份列表与身份切换；
+- 仅服务端可见的短期 JWT 签发和请求级 Memory Client；
 - Session 与 Turn 创建/读取；
 - SSE Turn Event replay；
 - Cancel；
 - Memory 列表、详情、Correction、Forget、Erase；
-- Demo reset。
+- 当前用户 reset 与受权的共享项目 reset。
 
-浏览器不直接连接 PostgreSQL、Mem0 或 Kimi，也不读取模型 API Key。规范以
+浏览器不直接连接 PostgreSQL、Mem0、Kimi 或 Memory Service，也不读取模型 API Key
+与 JWT。固定 Demo Identity 只用于验证隔离行为，不是生产登录或成员关系权威。规范以
 [`api/demo-web-openapi.yaml`](./api/demo-web-openapi.yaml) 为准。
 
 ## 12. 本机部署拓扑
@@ -497,7 +523,7 @@ docs/adr/                      # 架构决策记录
 | 服务 | 默认地址 | 说明 |
 |---|---|---|
 | Demo Web | `http://localhost:3000` | 用户界面 |
-| Demo Web API | `http://127.0.0.1:8090` | 对话编排与 SSE |
+| Demo Web API | `http://localhost:8090` | 身份编排、对话与 SSE |
 | Memory Service | `http://127.0.0.1:8080` | 记忆控制面 |
 | Qwen3 Model Gateway | `http://127.0.0.1:18082` | Embedding + Rerank |
 | Mem0 | `http://127.0.0.1:18888` | 向量检索投影，避开代理常用 8888 |
@@ -537,6 +563,7 @@ inclusion reason 和 allowed effect。记忆中的文本不能提升为 System I
 - Transactional Outbox、Projection Operation、unknown-result reconciliation；
 - Mem0 `infer=false` 投影与 canonical re-authorization；
 - User/Project typed Scope 与短期 JWT permission；
+- 三个固定 Demo Identity 的个人隔离、同项目共享与项目外隔离；
 - 四类自动记忆、精确去重、来源合并和版本修正；
 - Web 项目事实自动 supersede、版本提示和同轮生效；
 - Context Pack、原子 Consume、Usage/Outcome Receipt；
@@ -574,10 +601,11 @@ Production Gate 未通过。
 - projection/rebuild；
 - operation/idempotency。
 
-### 15.2 `apps/demo-web/app/page.tsx`
+### 15.2 Demo Web 前端边界
 
-当前同时管理 API、SSE、页面状态、四步演示、对话渲染、记忆面板和证据抽屉。产品继续
-演进时应拆为 API client、hooks、chat、memory panel、evidence 和 guided demo 组件。
+`page.tsx` 保留请求、SSE 和身份一致性编排；`components/` 分别承载用户切换、六步演示、
+记忆档案与版本证据；`types.ts` 对齐 canonical export。若继续产品化，下一步可把
+fetch/SSE 状态机下沉为专用 hooks，但不能让组件自己保存第二份身份或 Authority 状态。
 
 ### 15.3 `memory-domain` 未接入主链
 
@@ -604,7 +632,7 @@ API，应删除或明确隔离模板文件，避免新成员误以为存在第�
 | Kimi Prompt/Streaming | `apps/demo-agent/src/prompt.rs`、`kimi_client.rs` |
 | Web 一轮完整编排 | `apps/demo-web-api/src/orchestrator.rs` |
 | 对话持久化与 SSE | `apps/demo-web-api/src/store.rs` |
-| Web UI | `apps/demo-web/app/page.tsx`、`globals.css` |
+| Web UI | `apps/demo-web/app/page.tsx`、`components/`、`memory-formatters.ts`、`globals.css` |
 | 数据表变更 | `migrations/`、`docs/05-data-model-and-invariants.md` |
 | 模型部署 | `deploy/models/README.md`、`scripts/retrieval-models.sh` |
 | 发布缺口 | `docs/14-release-readiness-checklist.md` |
@@ -618,11 +646,8 @@ docker compose -f deploy/local/postgres.compose.yaml up -d
 # Qwen3 Embedding / Rerank
 ./scripts/retrieval-models.sh
 
-# Memory Service
-./scripts/run-memory-service-semantic.sh
-
-# Demo Web API + Web
-./scripts/demo-web.sh
+# Memory Service + Demo Web API + Web，共享本次进程的临时 JWT secret
+./scripts/demo-web-stack.sh
 
 # Rust 回归
 cargo test --workspace

@@ -4,7 +4,7 @@ use std::time::Duration;
 
 use chrono::{DateTime, Utc};
 use memory_application::{
-    CHINESE_TOKENIZER_VERSION, ChineseTokenizer, ExtractCandidateProposal,
+    CHINESE_TOKENIZER_VERSION, ChineseTokenizer, ExtractCandidateProposal, ExtractionDiagnostics,
     MIN_TRANSPARENT_RELEVANCE_SCORE, ProjectionHit, SECURITY_POLICY_VERSION, SecurityFinding,
     SecurityPipeline, TemporalWindow, is_memory_applicable_without_semantic_threshold,
     lexical_relevance_score,
@@ -34,7 +34,7 @@ use crate::model::{
 pub const DEMO_GENERATION: &str = "demo-v0-generation-1";
 pub const DEMO_CONTEXT_TOKENIZER_ID: &str = "demo-conservative-char-v1";
 pub const DEMO_CONTEXT_POLICY_VERSION: &str = "demo-policy-v1";
-pub const DEMO_CONTEXT_COMPILER_VERSION: &str = "demo-context-compiler-v1";
+pub const DEMO_CONTEXT_COMPILER_VERSION: &str = "demo-context-compiler-v2";
 const DEMO_ID_NAMESPACE: Uuid = Uuid::from_u128(0x7bc8_5039_50f0_4ff1_8200_7e73_a455_f372);
 const DEMO_CONTEXT_ITEM_OVERHEAD: i32 = 32;
 static SECURITY_PIPELINE: LazyLock<SecurityPipeline> = LazyLock::new(SecurityPipeline::default);
@@ -128,6 +128,7 @@ impl MemoryRepository {
         Ok(ExtractionSnapshotView {
             extractor_version: view.1,
             proposals: view.2,
+            diagnostics: view.3,
         })
     }
 
@@ -136,9 +137,11 @@ impl MemoryRepository {
         authority: &DemoAuthority,
         command: &ExtractionSnapshotCommand,
         proposals: Vec<ExtractCandidateProposal>,
+        diagnostics: ExtractionDiagnostics,
     ) -> Result<ExtractionSnapshotView, RepositoryError> {
         validate_extraction_snapshot_command(command)?;
         validate_extraction_proposals(&proposals)?;
+        validate_extraction_diagnostics(&diagnostics)?;
         let mut tx = self.pool.begin().await?;
         set_tenant(&mut tx, &authority.tenant_id).await?;
         let existing = load_extraction_snapshot_tx(
@@ -158,6 +161,7 @@ impl MemoryRepository {
             return Ok(ExtractionSnapshotView {
                 extractor_version: existing.1,
                 proposals: Some(stored),
+                diagnostics: existing.3,
             });
         }
         if existing.1 != command.extractor_version {
@@ -167,7 +171,7 @@ impl MemoryRepository {
         }
         sqlx::query(
             "UPDATE memory_core.extraction_operations
-             SET status='completed',proposals=$3,completed_at=now()
+             SET status='completed',proposals=$3,diagnostics=$4,completed_at=now()
              WHERE tenant_id=$1 AND idempotency_key=$2 AND status='pending'",
         )
         .bind(&authority.tenant_id)
@@ -175,12 +179,16 @@ impl MemoryRepository {
         .bind(serde_json::to_value(&proposals).map_err(|error| {
             RepositoryError::Invariant(format!("failed to encode extraction proposals: {error}"))
         })?)
+        .bind(serde_json::to_value(&diagnostics).map_err(|error| {
+            RepositoryError::Invariant(format!("failed to encode extraction diagnostics: {error}"))
+        })?)
         .execute(&mut *tx)
         .await?;
         tx.commit().await?;
         Ok(ExtractionSnapshotView {
             extractor_version: command.extractor_version.clone(),
             proposals: Some(proposals),
+            diagnostics: Some(diagnostics),
         })
     }
 
@@ -858,6 +866,26 @@ impl MemoryRepository {
         let security_finding = SECURITY_PIPELINE.inspect(&command.new_content);
         ensure_safe_for_storage(&security_finding)?;
         command.new_content = security_finding.redacted_text.clone();
+        let mut security_flags = security_finding.flags.clone();
+        if let Some(structured_content) = command.new_structured_content.take() {
+            let raw = serde_json::to_value(&structured_content).map_err(|error| {
+                RepositoryError::Validation(format!(
+                    "correction structured content could not be serialized: {error}"
+                ))
+            })?;
+            let sanitized = SECURITY_PIPELINE.sanitize_json(&raw);
+            security_flags.extend(sanitized.flags.clone());
+            if !sanitized.contains_prompt_injection() && !sanitized.contains_secret() {
+                command.new_structured_content =
+                    Some(serde_json::from_value(sanitized.value).map_err(|error| {
+                        RepositoryError::Validation(format!(
+                            "sanitized correction structured content violated its envelope: {error}"
+                        ))
+                    })?);
+            }
+        }
+        security_flags.sort();
+        security_flags.dedup();
         let version_hash = content_hash(&command.new_content);
 
         let mut tx = self.pool.begin().await?;
@@ -894,7 +922,7 @@ impl MemoryRepository {
 
         let generation = projection_write_generation_tx(&mut tx, &authority.tenant_id).await?;
         let record = sqlx::query(
-            "SELECT scope_kind,scope_id,semantic_key \
+            "SELECT scope_kind,scope_id,semantic_key,memory_type \
              FROM memory_core.memory_records \
              WHERE tenant_id=$1 AND id=$2",
         )
@@ -908,6 +936,31 @@ impl MemoryRepository {
         if !authority.authorizes_scope(&scope_kind, scope_id.as_deref()) {
             return Err(RepositoryError::NotFound);
         }
+        let memory_type_name: String = record.try_get("memory_type")?;
+        let memory_type = canonical_memory_type(&memory_type_name).ok_or_else(|| {
+            RepositoryError::Invariant(format!(
+                "record has unsupported memory type {memory_type_name:?}"
+            ))
+        })?;
+        if let Some(structured_content) = command.new_structured_content.as_ref() {
+            structured_content
+                .validate_for(memory_type)
+                .map_err(|error| {
+                    RepositoryError::Validation(format!(
+                        "correction structured content violates the memory type schema: {error}"
+                    ))
+                })?;
+        }
+        let new_structured_content = command
+            .new_structured_content
+            .as_ref()
+            .map(serde_json::to_value)
+            .transpose()
+            .map_err(|error| {
+                RepositoryError::Validation(format!(
+                    "correction structured content could not be persisted: {error}"
+                ))
+            })?;
         let head = sqlx::query(
             "SELECT revision,state,current_version_id \
              FROM memory_core.memory_heads \
@@ -968,7 +1021,7 @@ impl MemoryRepository {
         .bind(&command.source_ref)
         .bind(&request_hash)
         .bind(&command.new_content)
-        .bind(if security_finding.flags.is_empty() {
+        .bind(if security_flags.is_empty() {
             "personal"
         } else {
             "sensitive"
@@ -977,7 +1030,7 @@ impl MemoryRepository {
         .bind(&command.idempotency_key)
         .bind(format!("correction-{}", command.idempotency_key))
         .bind(SECURITY_POLICY_VERSION)
-        .bind(&security_finding.flags)
+        .bind(&security_flags)
         .execute(&mut *tx)
         .await?;
 
@@ -998,9 +1051,10 @@ impl MemoryRepository {
                  tenant_id,id,memory_record_id,version_no,content,content_hash,normalized_key,\
                  confidence,importance,inference_kind,effective_from,classification,\
                  allowed_purposes,consent_ref,retention_policy_id,retain_until,decision_id,\
-                 event_time_start,event_time_end,event_timezone,event_time_precision\
+                 event_time_start,event_time_end,event_timezone,event_time_precision,\
+                 structured_content\
              ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'explicit',$10,$11,$12,$13,$14,$15,$16,\
-                       $17,$18,$19,$20)",
+                       $17,$18,$19,$20,$21)",
         )
         .bind(&authority.tenant_id)
         .bind(version_id)
@@ -1022,6 +1076,7 @@ impl MemoryRepository {
         .bind(current_version.try_get::<Option<DateTime<Utc>>, _>("event_time_end")?)
         .bind(current_version.try_get::<Option<String>, _>("event_timezone")?)
         .bind(current_version.try_get::<Option<String>, _>("event_time_precision")?)
+        .bind(new_structured_content)
         .execute(&mut *tx)
         .await?;
 
@@ -2295,7 +2350,9 @@ impl MemoryRepository {
             .await?;
             sqlx::query(
                 "UPDATE memory_core.context_pack_items \
-                 SET content_snapshot=NULL,source_refs='[]'::jsonb \
+                 SET content_snapshot=NULL,source_refs='[]'::jsonb,\
+                     event_time_start=NULL,event_time_end=NULL,event_timezone=NULL,\
+                     event_time_precision=NULL \
                  WHERE tenant_id=$1 AND memory_record_id=$2",
             )
             .bind(&authority.tenant_id)
@@ -3810,6 +3867,15 @@ impl MemoryRepository {
         hits: &[ProjectionHit],
     ) -> Result<ContextPackManifestView, RepositoryError> {
         let memory_types = validated_context_memory_types(&command.memory_types)?;
+        if command.timezone.is_empty()
+            || command.timezone.len() > 64
+            || command.timezone.trim() != command.timezone
+            || command.timezone.parse::<chrono_tz::Tz>().is_err()
+        {
+            return Err(RepositoryError::Invariant(
+                "context pack timezone must be a valid bounded IANA timezone".into(),
+            ));
+        }
         let authority_snapshot_id = authority_snapshot_id(authority, &command.purpose);
         let query_hash = context_pack_request_hash(command);
         let pack_id = stable_id(&format!(
@@ -3871,8 +3937,8 @@ impl MemoryRepository {
             "INSERT INTO memory_core.context_packs (\
                  tenant_id,id,task_id,attempt_id,purpose,authority_snapshot_id,\
                  policy_version,compiler_version,ranking_version,projection_generation,query_hash,\
-                 tokenizer_id,token_budget,estimated_tokens,expires_at\
-             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,\
+                 reference_time,timezone,tokenizer_id,token_budget,estimated_tokens,expires_at\
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,\
                        now() + interval '5 minutes') \
              ON CONFLICT DO NOTHING \
              RETURNING created_at,expires_at",
@@ -3888,6 +3954,8 @@ impl MemoryRepository {
         .bind(&command.ranking_version)
         .bind(&command.projection_generation)
         .bind(&query_hash)
+        .bind(command.reference_time)
+        .bind(&command.timezone)
         .bind(&command.tokenizer_id)
         .bind(command.token_budget)
         .bind(
@@ -3915,8 +3983,9 @@ impl MemoryRepository {
                 sqlx::query(
                     "INSERT INTO memory_core.context_pack_items (\
                          tenant_id,context_pack_id,position,memory_record_id,memory_version_id,\
-                         section_kind,inclusion_reason,content_snapshot,source_refs\
-                     ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)",
+                         section_kind,inclusion_reason,content_snapshot,source_refs,\
+                         event_time_start,event_time_end,event_timezone,event_time_precision\
+                     ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)",
                 )
                 .bind(&authority.tenant_id)
                 .bind(pack_id)
@@ -3927,6 +3996,34 @@ impl MemoryRepository {
                 .bind(inclusion_reason)
                 .bind(&candidate.memory.content)
                 .bind(json!(&candidate.memory.source_refs))
+                .bind(
+                    candidate
+                        .memory
+                        .event_time
+                        .as_ref()
+                        .map(|event_time| event_time.start),
+                )
+                .bind(
+                    candidate
+                        .memory
+                        .event_time
+                        .as_ref()
+                        .map(|event_time| event_time.end),
+                )
+                .bind(
+                    candidate
+                        .memory
+                        .event_time
+                        .as_ref()
+                        .map(|event_time| event_time.timezone.as_str()),
+                )
+                .bind(
+                    candidate
+                        .memory
+                        .event_time
+                        .as_ref()
+                        .map(|event_time| event_time.precision.as_str()),
+                )
                 .execute(&mut *tx)
                 .await?;
                 position += 1;
@@ -4358,7 +4455,8 @@ async fn authorized_hits_tx(
     let version_ids: Vec<Uuid> = hits.iter().map(|hit| hit.memory_version_id).collect();
     let rows = sqlx::query(
         "SELECT r.id AS memory_record_id,v.id AS memory_version_id,v.content,\
-                v.content_hash,v.effective_from,r.memory_type,h.revision,\
+                v.content_hash,v.effective_from,v.event_time_start,v.event_time_end,\
+                v.event_timezone,v.event_time_precision,r.memory_type,h.revision,\
                 COALESCE((\
                     SELECT array_agg(DISTINCT se.source_ref ORDER BY se.source_ref) \
                     FROM memory_core.memory_version_sources mvs \
@@ -4411,6 +4509,7 @@ async fn authorized_hits_tx(
                 row.try_get::<i64, _>("revision")?,
                 row.try_get::<Vec<String>, _>("source_refs")?,
                 row.try_get("effective_from")?,
+                event_time_from_row(&row)?,
             ),
         );
     }
@@ -4418,8 +4517,16 @@ async fn authorized_hits_tx(
     let mut seen_records = HashSet::new();
     let mut authorized = Vec::new();
     for hit in hits {
-        let Some((record_id, content, hash, memory_type, revision, source_refs, effective_from)) =
-            canonical.get(&hit.memory_version_id)
+        let Some((
+            record_id,
+            content,
+            hash,
+            memory_type,
+            revision,
+            source_refs,
+            effective_from,
+            event_time,
+        )) = canonical.get(&hit.memory_version_id)
         else {
             continue;
         };
@@ -4443,6 +4550,7 @@ async fn authorized_hits_tx(
             score: hit.provider_score.clamp(0.0, 1.0),
             source_refs: source_refs.clone(),
             effective_from: *effective_from,
+            event_time: event_time.clone(),
         });
     }
     Ok(authorized)
@@ -4459,7 +4567,8 @@ async fn authorized_pinned_versions_tx(
     }
     let rows = sqlx::query(
         "SELECT r.id AS memory_record_id,v.id AS memory_version_id,v.content,\
-                v.effective_from,r.memory_type,\
+                v.effective_from,v.event_time_start,v.event_time_end,v.event_timezone,\
+                v.event_time_precision,r.memory_type,\
                 COALESCE((\
                     SELECT array_agg(DISTINCT se.source_ref ORDER BY se.source_ref) \
                     FROM memory_core.memory_version_sources mvs \
@@ -4520,6 +4629,7 @@ async fn authorized_pinned_versions_tx(
             score: 1.0,
             source_refs,
             effective_from: row.try_get("effective_from")?,
+            event_time: event_time_from_row(&row)?,
         });
     }
     Ok(memories)
@@ -4604,8 +4714,10 @@ fn context_pack_request_hash(command: &ContextPackCommand) -> String {
             .join("\u{1f}")
     );
     content_hash(&format!(
-        "{base}\u{0}{}",
-        command.temporal_window_hash.as_deref().unwrap_or_default()
+        "{base}\u{0}{}\u{0}{}\u{0}{}",
+        command.temporal_window_hash.as_deref().unwrap_or_default(),
+        command.reference_time.to_rfc3339(),
+        command.timezone
     ))
 }
 
@@ -4643,8 +4755,15 @@ fn context_item_metadata(
 }
 
 fn correction_request_hash(command: &CorrectionCommand) -> String {
+    let structured_content = command
+        .new_structured_content
+        .as_ref()
+        .map(serde_json::to_string)
+        .transpose()
+        .expect("validated Structured Content must serialize")
+        .unwrap_or_default();
     content_hash(&format!(
-        "{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}",
+        "{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}\u{0}{}",
         command.memory_record_id,
         command.expected_revision,
         command.new_content,
@@ -4653,7 +4772,8 @@ fn correction_request_hash(command: &CorrectionCommand) -> String {
         command
             .effective_from
             .map(|value| value.to_rfc3339())
-            .unwrap_or_default()
+            .unwrap_or_default(),
+        structured_content,
     ))
 }
 
@@ -4856,6 +4976,8 @@ struct ContextPackMetadata {
     compiler_version: String,
     ranking_version: String,
     projection_generation: String,
+    reference_time: DateTime<Utc>,
+    timezone: String,
     created_at: DateTime<Utc>,
     expires_at: DateTime<Utc>,
     invalidated_at: Option<DateTime<Utc>>,
@@ -4879,6 +5001,8 @@ impl ContextPackMetadata {
             compiler_version: row.try_get("compiler_version")?,
             ranking_version: row.try_get("ranking_version")?,
             projection_generation: row.try_get("projection_generation")?,
+            reference_time: row.try_get("reference_time")?,
+            timezone: row.try_get("timezone")?,
             created_at: row.try_get("created_at")?,
             expires_at: row.try_get("expires_at")?,
             invalidated_at: row.try_get("invalidated_at")?,
@@ -4907,6 +5031,8 @@ impl ContextPackMetadata {
             compiler_version: self.compiler_version,
             ranking_version: self.ranking_version,
             projection_generation: self.projection_generation,
+            reference_time: self.reference_time,
+            timezone: self.timezone,
             created_at: self.created_at,
             expires_at: self.expires_at,
             consumed_at,
@@ -4928,7 +5054,8 @@ async fn load_context_pack_metadata_tx(
     let row = if for_update {
         sqlx::query(
             "SELECT id,task_id,attempt_id,purpose,authority_snapshot_id,policy_version,\
-                    compiler_version,ranking_version,projection_generation,created_at,expires_at,\
+                    compiler_version,ranking_version,projection_generation,reference_time,timezone,\
+                    created_at,expires_at,\
                     invalidated_at,tokenizer_id,token_budget,estimated_tokens,consumed_at,\
                     consume_idempotency_key,consume_request_hash \
              FROM memory_core.context_packs \
@@ -4941,7 +5068,8 @@ async fn load_context_pack_metadata_tx(
     } else {
         sqlx::query(
             "SELECT id,task_id,attempt_id,purpose,authority_snapshot_id,policy_version,\
-                    compiler_version,ranking_version,projection_generation,created_at,expires_at,\
+                    compiler_version,ranking_version,projection_generation,reference_time,timezone,\
+                    created_at,expires_at,\
                     invalidated_at,tokenizer_id,token_budget,estimated_tokens,consumed_at,\
                     consume_idempotency_key,consume_request_hash \
              FROM memory_core.context_packs \
@@ -5005,6 +5133,8 @@ async fn load_context_pack_manifest_tx(
         compiler_version: metadata.compiler_version,
         ranking_version: metadata.ranking_version,
         projection_generation: metadata.projection_generation,
+        reference_time: metadata.reference_time,
+        timezone: metadata.timezone,
         created_at: metadata.created_at,
         expires_at: metadata.expires_at,
         tokenizer_id: metadata.tokenizer_id,
@@ -5048,7 +5178,15 @@ async fn load_current_context_sections_tx(
     let item_rows = sqlx::query(
         "SELECT cpi.position,cpi.memory_record_id,cpi.memory_version_id,cpi.section_kind,\
                 cpi.inclusion_reason,cpi.content_snapshot,cpi.source_refs,\
+                cpi.event_time_start AS snapshot_event_time_start,\
+                cpi.event_time_end AS snapshot_event_time_end,\
+                cpi.event_timezone AS snapshot_event_timezone,\
+                cpi.event_time_precision AS snapshot_event_time_precision,\
                 v.content AS canonical_content,v.effective_from,\
+                v.event_time_start AS canonical_event_time_start,\
+                v.event_time_end AS canonical_event_time_end,\
+                v.event_timezone AS canonical_event_timezone,\
+                v.event_time_precision AS canonical_event_time_precision,\
                 COALESCE((\
                     SELECT array_agg(DISTINCT se.source_ref ORDER BY se.source_ref) \
                     FROM memory_core.memory_version_sources mvs \
@@ -5110,9 +5248,24 @@ async fn load_current_context_sections_tx(
             })?;
         let stored_source_refs = parse_source_refs(&item_row, "source_refs")?;
         let canonical_source_refs: Vec<String> = item_row.try_get("canonical_source_refs")?;
+        let snapshot_event_time = event_time_from_columns(
+            &item_row,
+            "snapshot_event_time_start",
+            "snapshot_event_time_end",
+            "snapshot_event_timezone",
+            "snapshot_event_time_precision",
+        )?;
+        let canonical_event_time = event_time_from_columns(
+            &item_row,
+            "canonical_event_time_start",
+            "canonical_event_time_end",
+            "canonical_event_timezone",
+            "canonical_event_time_precision",
+        )?;
         if content_snapshot != canonical_content
             || canonical_source_refs.is_empty()
             || stored_source_refs != canonical_source_refs
+            || snapshot_event_time != canonical_event_time
         {
             return Err(RepositoryError::Conflict(
                 "context pack content or provenance changed before consumption".into(),
@@ -5127,6 +5280,7 @@ async fn load_current_context_sections_tx(
                 text: canonical_content,
                 source_refs: canonical_source_refs,
                 effective_from: item_row.try_get("effective_from")?,
+                event_time: snapshot_event_time,
                 inclusion_reason: item_row.try_get("inclusion_reason")?,
                 trust: "untrusted_memory_data",
             },
@@ -5149,14 +5303,22 @@ async fn load_extraction_snapshot_tx(
     tenant_id: &str,
     idempotency_key: &str,
     lock: bool,
-) -> Result<(String, String, Option<Vec<ExtractCandidateProposal>>), RepositoryError> {
+) -> Result<
+    (
+        String,
+        String,
+        Option<Vec<ExtractCandidateProposal>>,
+        Option<ExtractionDiagnostics>,
+    ),
+    RepositoryError,
+> {
     let statement = if lock {
-        "SELECT request_hash,extractor_version,status,proposals
+        "SELECT request_hash,extractor_version,status,proposals,diagnostics
          FROM memory_core.extraction_operations
          WHERE tenant_id=$1 AND idempotency_key=$2
          FOR UPDATE"
     } else {
-        "SELECT request_hash,extractor_version,status,proposals
+        "SELECT request_hash,extractor_version,status,proposals,diagnostics
          FROM memory_core.extraction_operations
          WHERE tenant_id=$1 AND idempotency_key=$2"
     };
@@ -5168,26 +5330,41 @@ async fn load_extraction_snapshot_tx(
         .ok_or(RepositoryError::NotFound)?;
     let status: String = row.try_get("status")?;
     let raw: Option<serde_json::Value> = row.try_get("proposals")?;
-    let proposals: Option<Vec<ExtractCandidateProposal>> = match (status.as_str(), raw) {
-        ("pending", None) => None,
-        ("completed", Some(raw)) => Some(serde_json::from_value(raw).map_err(|error| {
-            RepositoryError::Invariant(format!(
-                "stored extraction proposals violated their schema: {error}"
-            ))
-        })?),
+    let raw_diagnostics: Option<serde_json::Value> = row.try_get("diagnostics")?;
+    let (proposals, diagnostics): (
+        Option<Vec<ExtractCandidateProposal>>,
+        Option<ExtractionDiagnostics>,
+    ) = match (status.as_str(), raw, raw_diagnostics) {
+        ("pending", None, None) => (None, None),
+        ("completed", Some(raw), Some(raw_diagnostics)) => (
+            Some(serde_json::from_value(raw).map_err(|error| {
+                RepositoryError::Invariant(format!(
+                    "stored extraction proposals violated their schema: {error}"
+                ))
+            })?),
+            Some(serde_json::from_value(raw_diagnostics).map_err(|error| {
+                RepositoryError::Invariant(format!(
+                    "stored extraction diagnostics violated their schema: {error}"
+                ))
+            })?),
+        ),
         _ => {
             return Err(RepositoryError::Invariant(
-                "extraction operation status and proposal snapshot diverged".into(),
+                "extraction operation status, proposal snapshot, and diagnostics diverged".into(),
             ));
         }
     };
     if let Some(proposals) = &proposals {
         validate_extraction_proposals(proposals)?;
     }
+    if let Some(diagnostics) = &diagnostics {
+        validate_extraction_diagnostics(diagnostics)?;
+    }
     Ok((
         row.try_get("request_hash")?,
         row.try_get("extractor_version")?,
         proposals,
+        diagnostics,
     ))
 }
 
@@ -5255,10 +5432,26 @@ fn content_hash(content: &str) -> String {
 }
 
 fn event_time_from_row(row: &PgRow) -> Result<Option<EventTime>, sqlx::Error> {
-    let start = row.try_get::<Option<DateTime<Utc>>, _>("event_time_start")?;
-    let end = row.try_get::<Option<DateTime<Utc>>, _>("event_time_end")?;
-    let timezone = row.try_get::<Option<String>, _>("event_timezone")?;
-    let precision = row.try_get::<Option<String>, _>("event_time_precision")?;
+    event_time_from_columns(
+        row,
+        "event_time_start",
+        "event_time_end",
+        "event_timezone",
+        "event_time_precision",
+    )
+}
+
+fn event_time_from_columns(
+    row: &PgRow,
+    start_column: &str,
+    end_column: &str,
+    timezone_column: &str,
+    precision_column: &str,
+) -> Result<Option<EventTime>, sqlx::Error> {
+    let start = row.try_get::<Option<DateTime<Utc>>, _>(start_column)?;
+    let end = row.try_get::<Option<DateTime<Utc>>, _>(end_column)?;
+    let timezone = row.try_get::<Option<String>, _>(timezone_column)?;
+    let precision = row.try_get::<Option<String>, _>(precision_column)?;
     match (start, end, timezone, precision) {
         (None, None, None, None) => Ok(None),
         (Some(start), Some(end), Some(timezone), Some(precision)) => {
@@ -5578,6 +5771,36 @@ fn validate_extraction_proposals(
                 "extraction proposal violated the canonical snapshot contract".into(),
             ));
         }
+    }
+    Ok(())
+}
+
+fn validate_extraction_diagnostics(
+    diagnostics: &ExtractionDiagnostics,
+) -> Result<(), RepositoryError> {
+    if diagnostics
+        .model_candidate_count
+        .is_some_and(|count| count > 128)
+        || diagnostics.valid_model_candidate_count > 8
+        || diagnostics.coverage_added_count > 8
+        || diagnostics.coverage_enriched_count > 8
+        || diagnostics.valid_model_candidate_count + diagnostics.coverage_added_count > 8
+        || diagnostics.filtered_reason_counts.len() > 16
+        || diagnostics
+            .filtered_reason_counts
+            .iter()
+            .any(|(reason, count)| {
+                reason.is_empty()
+                    || reason.len() > 64
+                    || !reason.bytes().all(|byte| {
+                        byte.is_ascii_lowercase() || byte.is_ascii_digit() || byte == b'_'
+                    })
+                    || *count > 128
+            })
+    {
+        return Err(RepositoryError::Conflict(
+            "extraction diagnostics exceeded the bounded audit contract".into(),
+        ));
     }
     Ok(())
 }
@@ -6493,6 +6716,8 @@ mod tests {
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
             temporal_window_hash: None,
+            reference_time: Utc::now(),
+            timezone: "Asia/Shanghai".into(),
         };
         let manifest = repository
             .compile_context_pack(
@@ -6554,6 +6779,8 @@ mod tests {
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
             temporal_window_hash: None,
+            reference_time: Utc::now(),
+            timezone: "Asia/Shanghai".into(),
         };
         let manifest = repository
             .compile_context_pack(
@@ -6810,6 +7037,7 @@ mod tests {
             score: 1.0,
             source_refs: vec!["source:first".into()],
             effective_from: None,
+            event_time: None,
         };
         let second = AuthorizedMemory {
             memory_record_id: Uuid::new_v4(),
@@ -6819,6 +7047,7 @@ mod tests {
             score: 0.9,
             source_refs: vec!["source:second".into()],
             effective_from: None,
+            event_time: None,
         };
 
         let evaluated = evaluate_context_budget(vec![first, second], 40);
@@ -6846,6 +7075,8 @@ mod tests {
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
             temporal_window_hash: None,
+            reference_time: Utc::now(),
+            timezone: "Asia/Shanghai".into(),
         };
         let mut changed = base.clone();
         changed.token_budget = 256;
@@ -6967,6 +7198,7 @@ mod tests {
             reason: "用户明确修正".into(),
             source_ref: "conversation:correction:test".into(),
             effective_from: None,
+            new_structured_content: None,
         };
         let mut changed = base.clone();
         changed.expected_revision = 1;
@@ -6977,6 +7209,20 @@ mod tests {
         assert_ne!(
             correction_request_hash(&base),
             correction_request_hash(&changed)
+        );
+        let mut structured = base.clone();
+        structured.new_structured_content = Some(
+            StructuredContent::new(
+                "lazytt.preference",
+                1,
+                json!({"subject": "user", "value": "先给结论"}),
+                MemoryType::Preference,
+            )
+            .unwrap(),
+        );
+        assert_ne!(
+            correction_request_hash(&base),
+            correction_request_hash(&structured)
         );
     }
 
@@ -7356,6 +7602,77 @@ mod tests {
             operations["yesterday"].memory_record_id
         );
 
+        let pack_command = ContextPackCommand {
+            task_id: Uuid::new_v4(),
+            attempt_id: Uuid::new_v4(),
+            purpose: "answer_user".into(),
+            query: "昨天处理了什么？".into(),
+            limit: 5,
+            memory_types: vec!["episodic_summary".into()],
+            ranking_version: "transparent-lexical-v1".into(),
+            projection_generation: DEMO_GENERATION.into(),
+            token_budget: 512,
+            tokenizer_id: DEMO_CONTEXT_TOKENIZER_ID.into(),
+            memory_required: true,
+            pinned_memory_version_ids: Vec::new(),
+            temporal_window_hash: Some("sha256:temporal-test".into()),
+            reference_time,
+            timezone: "Asia/Shanghai".into(),
+        };
+        let manifest = repository
+            .compile_context_pack(&authority, &pack_command, &hits)
+            .await
+            .unwrap();
+        assert_eq!(manifest.reference_time, reference_time);
+        assert_eq!(manifest.timezone, "Asia/Shanghai");
+        let pack = repository
+            .consume_context_pack(
+                &authority,
+                manifest.context_pack_id,
+                &ConsumeContextPackCommand {
+                    idempotency_key: format!("temporal-consume-{test_id}"),
+                    task_id: pack_command.task_id,
+                    attempt_id: pack_command.attempt_id,
+                    purpose: pack_command.purpose.clone(),
+                },
+            )
+            .await
+            .unwrap();
+        assert_eq!(pack.reference_time, reference_time);
+        assert_eq!(pack.timezone, "Asia/Shanghai");
+        assert_eq!(
+            pack.sections[0].items[0]
+                .event_time
+                .as_ref()
+                .map(|value| value.start),
+            Some(Utc.with_ymd_and_hms(2026, 7, 29, 2, 0, 0).unwrap())
+        );
+        let mut evidence_tx = repository.pool.begin().await.unwrap();
+        set_tenant(&mut evidence_tx, &authority.tenant_id)
+            .await
+            .unwrap();
+        let prompt_context = sqlx::query_scalar::<_, serde_json::Value>(
+            "SELECT demo_chat.prompt_context_for_turn($1,$2)",
+        )
+        .bind(&authority.tenant_id)
+        .bind(manifest.context_pack_id)
+        .fetch_one(&mut *evidence_tx)
+        .await
+        .unwrap();
+        evidence_tx.commit().await.unwrap();
+        assert_eq!(
+            prompt_context["runtime_context"]["local_date"],
+            json!("2026-07-30")
+        );
+        assert_eq!(
+            prompt_context["runtime_context"]["timezone"],
+            json!("Asia/Shanghai")
+        );
+        assert_eq!(
+            prompt_context["memory_context"][0]["event_time"]["start"],
+            json!("2026-07-29T02:00:00+00:00")
+        );
+
         repository
             .forget(
                 &authority,
@@ -7429,6 +7746,8 @@ mod tests {
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
             temporal_window_hash: None,
+            reference_time: Utc::now(),
+            timezone: "Asia/Shanghai".into(),
         };
         let manifest = repository
             .compile_context_pack(
@@ -7493,6 +7812,8 @@ mod tests {
             memory_required: true,
             pinned_memory_version_ids: vec![operation.memory_version_id.unwrap()],
             temporal_window_hash: None,
+            reference_time: Utc::now(),
+            timezone: "Asia/Shanghai".into(),
         };
         let manifest = repository
             .compile_context_pack(&authority, &command, &[])
@@ -7617,6 +7938,7 @@ mod tests {
             .await
             .unwrap();
         assert!(pending.proposals.is_none());
+        assert!(pending.diagnostics.is_none());
 
         let proposal = ExtractCandidateProposal {
             memory_type: "preference".into(),
@@ -7628,15 +7950,25 @@ mod tests {
             structured_content: None,
         };
         let completed = repository
-            .complete_extraction_snapshot(&authority, &command, vec![proposal.clone()])
+            .complete_extraction_snapshot(
+                &authority,
+                &command,
+                vec![proposal.clone()],
+                ExtractionDiagnostics::legacy(1),
+            )
             .await
             .unwrap();
         assert_eq!(completed.proposals, Some(vec![proposal.clone()]));
+        assert_eq!(
+            completed.diagnostics,
+            Some(ExtractionDiagnostics::legacy(1))
+        );
         let replay = repository
             .begin_extraction_snapshot(&authority, &command)
             .await
             .unwrap();
         assert_eq!(replay.proposals, Some(vec![proposal]));
+        assert_eq!(replay.diagnostics, Some(ExtractionDiagnostics::legacy(1)));
 
         let zero_command = ExtractionSnapshotCommand {
             idempotency_key: format!("extraction-snapshot-zero-{test_id}"),
@@ -7648,10 +7980,16 @@ mod tests {
             .await
             .unwrap();
         let zero = repository
-            .complete_extraction_snapshot(&authority, &zero_command, vec![])
+            .complete_extraction_snapshot(
+                &authority,
+                &zero_command,
+                vec![],
+                ExtractionDiagnostics::legacy(0),
+            )
             .await
             .unwrap();
         assert_eq!(zero.proposals, Some(vec![]));
+        assert_eq!(zero.diagnostics, Some(ExtractionDiagnostics::legacy(0)));
     }
 
     #[tokio::test]
@@ -8164,6 +8502,15 @@ mod tests {
             reason: "用户明确修正回答顺序".into(),
             source_ref: format!("conversation:correction:{test_id}:first"),
             effective_from: None,
+            new_structured_content: Some(
+                StructuredContent::new(
+                    "lazytt.preference",
+                    1,
+                    json!({"subject": "user", "value": "先给结论"}),
+                    MemoryType::Preference,
+                )
+                .unwrap(),
+            ),
         };
 
         let corrected = repository
@@ -8179,6 +8526,22 @@ mod tests {
         assert_ne!(corrected.memory_version_id, Some(original_version_id));
         assert_eq!(corrected.head_revision, original.head_revision + 1);
         assert_eq!(corrected.canonical_status, CanonicalStatus::MemoryCorrected);
+        let corrected_record = repository
+            .inspect_memory(&authority, original.memory_record_id)
+            .await
+            .unwrap();
+        let corrected_version = corrected_record
+            .versions
+            .iter()
+            .find(|version| Some(version.memory_version_id) == corrected.memory_version_id)
+            .unwrap();
+        assert_eq!(
+            corrected_version
+                .structured_content
+                .as_ref()
+                .map(|structured| structured.payload.clone()),
+            Some(json!({"subject": "user", "value": "先给结论"}))
+        );
 
         let mut changed_replay = correction.clone();
         changed_replay.reason = "同一个幂等键但请求内容变化".into();
@@ -8216,6 +8579,7 @@ mod tests {
                     reason: "并发修正左侧".into(),
                     source_ref: format!("conversation:correction:{test_id}:left"),
                     effective_from: None,
+                    new_structured_content: None,
                 }
             ),
             right_repository.correct(
@@ -8228,6 +8592,7 @@ mod tests {
                     reason: "并发修正右侧".into(),
                     source_ref: format!("conversation:correction:{test_id}:right"),
                     effective_from: None,
+                    new_structured_content: None,
                 }
             )
         );
@@ -8794,6 +9159,8 @@ mod tests {
             memory_required: true,
             pinned_memory_version_ids: Vec::new(),
             temporal_window_hash: None,
+            reference_time: Utc::now(),
+            timezone: "Asia/Shanghai".into(),
         };
         let manifest = repository
             .compile_context_pack(
@@ -9266,7 +9633,9 @@ mod tests {
         let pack_snapshot_count = sqlx::query_scalar::<_, i64>(
             "SELECT count(*) FROM memory_core.context_pack_items \
              WHERE tenant_id=$1 AND memory_record_id=$2 \
-               AND (content_snapshot IS NOT NULL OR source_refs<>'[]'::jsonb)",
+               AND (content_snapshot IS NOT NULL OR source_refs<>'[]'::jsonb \
+                    OR event_time_start IS NOT NULL OR event_time_end IS NOT NULL \
+                    OR event_timezone IS NOT NULL OR event_time_precision IS NOT NULL)",
         )
         .bind(&authority.tenant_id)
         .bind(original.memory_record_id)

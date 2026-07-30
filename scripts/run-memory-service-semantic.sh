@@ -27,5 +27,5 @@ fi
 if [ -x "${repository_root}/target/debug/memory-service" ]; then
   exec "${repository_root}/target/debug/memory-service"
 fi
-printf 'cargo is unavailable and target/debug/memory-service does not exist.\n' >&2
+printf 'cargo is unavailable and target/debug/memory-service does not exist. Install Rust with cargo on PATH, or build the binary first.\n' >&2
 exit 1

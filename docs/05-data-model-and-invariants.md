@@ -30,9 +30,11 @@ mem0           Mem0 自管数据，业务代码禁止直接读取
 ### `extraction_operations`
 
 保存自动提取主请求的 Tenant 级 Idempotency-Key、完整 request hash、Extractor 版本、
-`pending/completed` 状态和首个完整 Proposal JSON 快照。`completed` 必须同时具有数组
-快照和完成时间，数组可以为空；`pending` 不得含部分快照。它解决模型重试非确定性，
-不替代每个 Candidate 的正式 Policy/Decision/Ledger 事务。
+`pending/completed` 状态、首个完整 Proposal JSON 快照和不含正文的 Diagnostics。
+`completed` 必须同时具有数组快照、诊断对象和完成时间，数组可以为空；`pending` 不得
+含部分快照或诊断。Diagnostics 只保存模型候选数、确定性有效候选数、过滤原因计数和
+受限覆盖计数。它解决模型重试非确定性并提供可审计解释，不替代每个 Candidate 的正式
+Policy/Decision/Ledger 事务。
 
 ### `memory_candidates` 与 `memory_decisions`
 
@@ -180,8 +182,13 @@ generation 切换后不会错误复用旧 Pack。
 ### `context_packs`、`context_pack_items`、`usage_receipts`
 
 Context Pack 保存 Attempt、Authority/Policy/Compiler/Ranking/Projection generation、
-query hash、tokenizer、预算、创建和过期时间。Item 引用不可变 Version，保存顺序、
-分区、引用、内容快照或加密引用。Usage Receipt 保存
+query hash、tokenizer、预算、创建和过期时间，以及本轮唯一的 `reference_time + timezone`
+运行时锚点。Item 引用不可变 Version，保存顺序、分区、引用、内容快照，并把该 Version
+的 `event_time` 一并快照。Prompt Compiler 与证据面板都读取这同一份快照，不允许用当前
+Head 或浏览器记忆列表反推历史模型输入。物理 Erase 会按合规要求销毁其中的正文、来源和
+Event Time 快照。Web Runtime 在模型调用前对 Prompt Compiler 结果和数据库证据做强类型
+等值校验；不一致时失败关闭。无 Pack 的降级轮次只在 `demo_chat.turns` 保存非敏感运行时
+上下文和空记忆数组，不复制记忆正文。Usage Receipt 保存
 considered/injected/omitted 与稳定 reason code。
 
 ### `outbox_events`

@@ -325,7 +325,9 @@ dependencies = [
  "async-trait",
  "axum",
  "chrono",
+ "chrono-tz",
  "memory-client",
+ "memory-domain",
  "reqwest",
  "serde",
  "serde_json",
@@ -339,10 +341,12 @@ name = "demo-web-api"
 version = "0.1.0"
 dependencies = [
  "axum",
+ "base64",
  "chrono",
  "demo-agent",
  "futures-util",
  "hex",
+ "hmac",
  "memory-client",
  "serde",
  "serde_json",
@@ -1022,6 +1026,7 @@ name = "kimi-extractor"
 version = "0.1.0"
 dependencies = [
  "async-trait",
+ "chrono",
  "chrono-tz",
  "memory-application",
  "memory-domain",
@@ -1235,6 +1240,7 @@ name = "memory-postgres"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "chrono-tz",
  "hex",
  "memory-application",
  "memory-domain",

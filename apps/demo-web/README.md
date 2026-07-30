@@ -1,32 +1,60 @@
 # LazyTT Memory Agent Web
 
-这是面向产品和管理人员的本地交互式演示。界面采用常见的大模型产品布局：左侧是
-对话，中间是真实 Kimi 流式聊天，右侧是“它记住了什么”。
+这是面向产品、研发和管理人员的本地交互式演示。页面用一条真实链路展示四种正式记忆
+类型、Typed Scope、Event Time、Structured Content、不可变版本、Context Pack 证据和
+Forget/Erase。
 
-推荐按四个按钮依次演示一条连续业务链：
+每轮由服务端生成唯一的当前时间锚点，和被选中记忆的 Event Time 一起固化到 Context
+Pack。最终提示词会收到 `runtime_context + memory_context`；证据抽屉直接展示同一份 Pack
+快照，不再用当前记忆状态重建模型输入。
+
+## 六步演示
 
 ```text
-自然认识用户与项目 → 新对话按需带回 → 项目事实自动更新 → 指定经历立即忘记
+自然形成记忆
+→ 查看类型、范围、事件时间和结构化内容
+→ 新对话按需回忆
+→ 按事件时间回忆
+→ 项目事实生成新版本
+→ 指定经历立即忘记
 ```
 
-第一步不使用“请记住”等口令。Kimi Extractor 最多生成 8 个受限候选；偏好、用户
-事实和经历进入 User Scope，明确且置信度不低于 0.90 的项目事实进入
-`DEMO_PROJECT_ID` 对应的 Project Scope。普通记忆自动保存并提供撤销；同一
-semantic key 出现明确新值时，系统自动追加版本、切换当前值并显示结果提示。
+四种正式类型是 `preference`、`profile_fact`、`semantic_fact` 和
+`episodic_summary`；`user`、`project`、`tenant`、`agent` 是独立的可见范围，不是
+第五类记忆。
 
-浏览器不读取 Kimi API Key，也不直接访问 PostgreSQL 或 Mem0。`demo-web-api` 负责
-服务端编排；对话数据位于 PostgreSQL `demo_chat`，正式记忆位于 `memory_core`。
+## 演示用户
 
-## 启动
+页面提供三个服务端 allowlist 身份：
 
-先按 [`deploy/models/README.md`](../../deploy/models/README.md) 启动 PostgreSQL、Mem0、
-Qwen3 Embedding/Rerank 网关和 Memory Service，再从仓库根目录执行：
+| 身份 | 项目 | 预期行为 |
+| --- | --- | --- |
+| Alice | LazyTT 项目 | 个人记忆隔离；可重置共享项目 |
+| Bob | LazyTT 项目 | 看不到 Alice 的个人记忆；可共享 LazyTT 项目事实 |
+| Carol | 外部沙盒项目 | 看不到 Alice/Bob 的个人记忆和 LazyTT 项目事实 |
+
+浏览器只持有不透明 HttpOnly Viewer Session。`demo-web-api` 根据当前固定身份签发短期
+HS256 JWT 调用 Memory Service；JWT 不进入浏览器。该选择器不是生产登录系统。
+
+## 推荐启动
+
+先启动 PostgreSQL、Mem0 和 Qwen3 Embedding/Rerank 网关，并在当前 shell 中提供
+`KIMI_API_KEY`。然后从仓库根目录执行：
 
 ```bash
-./scripts/demo-web.sh
+./scripts/demo-web-stack.sh
 ```
 
-打开 `http://localhost:3000`。默认端口如下：
+脚本生成本次进程使用的临时 JWT secret，以相同 issuer/audience 启动 Memory Service
+和 Demo Web API，再启动 Web。打开 `http://localhost:3000`。
+
+若 Memory Service 已由你以相同 JWT 配置启动，也可直接运行：
+
+```bash
+MEMORY_JWT_HS256_SECRET='至少 32 字节的本地临时值' ./scripts/demo-web.sh
+```
+
+默认端口：
 
 | 服务 | 本机端口 |
 | --- | ---: |
@@ -37,15 +65,10 @@ Qwen3 Embedding/Rerank 网关和 Memory Service，再从仓库根目录执行：
 | Mem0 | 18888 |
 | PostgreSQL | 55432 |
 
-Memory Service 和 Demo Web API 必须使用相同的 `DEMO_USER_ID` 与 `DEMO_PROJECT_ID`。
-脚本默认项目为 `lazytt-memory-system-demo`；重置演示会同时物理清理隔离的用户 Scope、
-项目 Scope 和演示对话。
+“重置当前用户”只清理当前用户的 User Scope 和对话；“重置共享项目”是独立操作，仅
+Alice 可执行，并会影响同项目成员。
 
-Mem0 不再占用代理软件常用的 `8888`。如需修改 Web API 地址，在构建前设置
-`NEXT_PUBLIC_DEMO_API_URL`；如需修改 API 监听地址，设置 `DEMO_WEB_API_BIND`，但
-本演示服务会拒绝绑定非 loopback 地址。
-
-## 验证
+## 验证与边界
 
 ```bash
 cd apps/demo-web
@@ -53,6 +76,8 @@ npm run lint
 npm test
 ```
 
-完整讲解脚本见 [`docs/demo-web-presentation-plan.md`](../../docs/demo-web-presentation-plan.md)，
-HTTP 契约见 [`docs/api/demo-web-openapi.yaml`](../../docs/api/demo-web-openapi.yaml)。当前
-应用是本地受控演示，不应在缺少正式认证、TLS 和公网 API 网关时作为多用户产品发布。
+HTTP 契约见
+[`docs/api/demo-web-openapi.yaml`](../../docs/api/demo-web-openapi.yaml)，讲解路线见
+[`docs/demo-web-presentation-plan.md`](../../docs/demo-web-presentation-plan.md)。
+当前应用只允许 loopback，是本地真实业务演示和集成参考；没有正式认证、TLS、OIDC/JWKS、
+撤权和公网网关时不得作为多用户产品发布。

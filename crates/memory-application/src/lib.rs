@@ -9,7 +9,8 @@ mod temporal;
 mod text;
 
 pub use extractor::{
-    ExtractCandidateProposal, ExtractMemoryRequest, ExtractorError, MemoryExtractor,
+    ExtractCandidateProposal, ExtractMemoryOutput, ExtractMemoryRequest, ExtractionDiagnostics,
+    ExtractorError, MemoryExtractor,
 };
 pub use provider::{
     IndexError, ProjectionDelete, ProjectionHit, ProjectionLookup, ProjectionReceipt,

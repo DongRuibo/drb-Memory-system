@@ -31,16 +31,21 @@ test("server-renders the interactive memory agent", async () => {
   const html = await response.text();
   assert.match(html, /<title>LazyTT Memory · 会记忆的 AI<\/title>/i);
   assert.match(html, /会记忆的 AI/);
-  assert.match(html, /一条自然演示路线/);
-  assert.match(html, /自然认识你/);
-  assert.match(html, /跨对话使用/);
-  assert.match(html, /自动更新事实/);
-  assert.match(html, /自然忘记/);
-  assert.match(html, /稳定信息自动记，事实变化自动更新并提示/);
+  assert.match(html, /当前演示身份/);
+  assert.match(html, /个人记忆彼此隔离；同项目成员共享项目事实/);
+  assert.match(html, /六步验证核心能力/);
+  assert.match(html, /自然形成记忆/);
+  assert.match(html, /查看记忆结构/);
+  assert.match(html, /跨对话回忆/);
+  assert.match(html, /按时间回忆/);
+  assert.match(html, /事实更新/);
+  assert.match(html, /忘记与清除/);
+  assert.match(html, /分类、范围、时间、结构、版本、遗忘都可检查/);
   assert.doesNotMatch(html, /采用新信息|保留原记忆|需要你确认/);
-  assert.ok(html.includes("个人记忆 + 项目记忆"));
-  assert.match(html, /它记住了什么/);
-  assert.match(html, /和普通 AI 一样输入消息/);
+  assert.ok(html.includes("个人隔离 · 项目共享"));
+  assert.match(html, /记忆档案/);
+  assert.match(html, /事件时间与结构化字段均可审计/);
+  assert.match(html, /自然输入/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
 });
 
@@ -55,11 +60,31 @@ test("keeps application chrome fixed while only the conversation scrolls", async
   assert.match(css, /\.composer-area\s*\{[^}]*flex:0 0 auto;/s);
   assert.match(page, /messageScrollerRef/);
   assert.match(page, /scrollConversationToBottom/);
+  assert.match(page, /credentials:\s*"include"/);
+  assert.match(page, /withCredentials:\s*true/);
+  assert.match(page, /x-demo-identity-revision/);
+  assert.match(page, /\/api\/demo\/users\/switch/);
+  assert.match(page, /\/api\/demo\/reset-project/);
   assert.match(page, /<MarkdownMessage content=\{item\.content\}/);
+  assert.match(page, /effect\.kind === "extraction_summary"/);
+  assert.match(page, /本轮形成/);
+  assert.match(page, /受限覆盖补齐/);
+  assert.match(page, /过滤详情/);
+  assert.match(page, /事件时间不合规/);
+  assert.match(page, /<EvidenceDrawer turn=\{turn\}/);
+  const evidence = await readFile(
+    new URL("../components/EvidenceDrawer.tsx", import.meta.url),
+    "utf8",
+  );
+  assert.match(evidence, /turn\.prompt_context/);
+  assert.match(evidence, /模型实际收到的上下文快照/);
+  assert.match(evidence, /服务器运行时上下文/);
+  assert.doesNotMatch(evidence, /memories\.find|currentVersion/);
   assert.match(markdown, /markdown-code-block/);
   assert.match(markdown, /markdown-table-wrap/);
   assert.doesNotMatch(markdown, /dangerouslySetInnerHTML/);
   assert.match(css, /\.markdown-content\s*\{/);
   assert.match(css, /\.markdown-content ul\s*\{\s*list-style:disc outside;/);
   assert.match(css, /\.markdown-content ol\s*\{\s*list-style:decimal outside;/);
+  assert.match(css, /\.memory-extraction-note\s*\{/);
 });

@@ -7,6 +7,7 @@ rust-version.workspace = true
 
 [dependencies]
 chrono.workspace = true
+chrono-tz.workspace = true
 hex.workspace = true
 memory-application = { path = "../memory-application" }
 memory-domain = { path = "../memory-domain" }

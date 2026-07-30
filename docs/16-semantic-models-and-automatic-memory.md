@@ -11,7 +11,8 @@ Kimi Extractor 负责从对话中划重点
 PostgreSQL + Policy 负责决定能不能记、如何去重和冲突
 Qwen Embedding 负责从大量记忆中找候选
 Qwen Reranker 负责把最相关的候选排到前面
-Kimi k3 负责基于受控 Context Pack 生成最终回答
+Kimi k3 负责基于受控 Context Pack 生成最终回答；Pack 内的服务器运行时锚点和每条记忆的
+Event Time 快照会作为 `runtime_context + memory_context` 一起进入最终提示词
 ```
 
 PostgreSQL `memory_core` 始终是权威数据；Mem0 和模型都只是可替换、可重建的
@@ -83,8 +84,12 @@ Search、透明降级和 Context Compiler 使用同一规则，避免前一层�
    允许提出 Project Scope 的 `semantic_fact`；
 5. 对类型、规范化 semantic key、正文、置信度、重要性、重复 identity 和 Secret
    再次校验；单条不合格候选被丢弃，不会让同批其他合格候选一起失败；
-6. PostgreSQL 原子固化首个完成的候选快照，包括“零候选”；
-7. 每个候选使用由主 Idempotency-Key + type + semantic key 派生的稳定子操作，进入
+6. 对原文明示“具体日期 + Outbox 重复消费 + event_id 去重并解决”的受控模式执行
+   确定性覆盖检查：模型漏提时补齐 `episodic_summary`，已有候选缺少可证明的时间或
+   结构时只补充对应字段；不满足全部证据条件时不推断；
+7. PostgreSQL 原子固化首个完成的候选快照以及不含正文的提取诊断，包括“零候选”、
+   过滤原因计数和受限覆盖计数；
+8. 每个候选使用由主 Idempotency-Key + type + semantic key 派生的稳定子操作，进入
    现有 Policy、精确去重、来源合并、冲突/Review、Ledger 和 Outbox 链。
 
 因此同一个 Idempotency-Key 重试不会再次接受一组漂移的模型结果；不同请求复用
