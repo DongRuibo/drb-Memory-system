@@ -1,0 +1,56 @@
+{
+  "version": "retrieval-v2.0.0",
+  "documents": [
+    {"id": "answer_style", "content": "回答风格：回答技术问题时先给结论，再解释原理"},
+    {"id": "code_language", "content": "代码语言：代码示例优先使用 Rust"},
+    {"id": "food_preference", "content": "饮食偏好：不要在食物里加入香菜"},
+    {"id": "meeting_time", "content": "会议时间：团队短会尽量安排在上午十点"},
+    {"id": "deployment_flow", "content": "部署流程：生产上线前必须先做灰度发布"},
+    {"id": "document_style", "content": "文档风格：架构文档先给整体图，再展开模块细节"},
+    {"id": "database_choice", "content": "数据库选择：项目权威数据使用 PostgreSQL"},
+    {"id": "alert_method", "content": "告警方式：P0 严重故障先通过电话通知值班人员"},
+    {"id": "billing_currency", "content": "支付货币：报价和结算统一使用人民币 CNY"},
+    {"id": "office_schedule", "content": "办公地点：每周三在望京办公室现场办公"},
+    {"id": "contact_name", "content": "称呼偏好：与用户交流时称呼他为 DRB"},
+    {"id": "release_codename", "content": "发布代号：玄武七号负责生产灰度开关"},
+    {"id": "error_code", "content": "错误码：MEMORY_AUTHZ_STALE_REVISION 表示授权后版本已经变化"},
+    {"id": "consume_route", "content": "接口路径：POST /v1/context-packs/{id}/consume 用于原子消费 Context Pack"},
+    {"id": "projection_table", "content": "投影表名：projection_operations 保存投影操作状态"},
+    {"id": "datacenter", "content": "灾备地点：海淀机房承载 PostgreSQL 只读副本"},
+    {"id": "absolute_deadline", "content": "交付日期：记忆检索验收安排在 2026年8月15日"},
+    {"id": "tokenizer_version", "content": "分词版本：jieba-rs-0.7.4-search-v1 用于中文 BM25"}
+  ],
+  "positive_queries": [
+    {"id": "q01", "query": "回答技术问题应该先说什么？", "relevant_document_ids": ["answer_style"], "top_k": 3},
+    {"id": "q02", "query": "代码示例默认用哪种语言？", "relevant_document_ids": ["code_language"], "top_k": 3},
+    {"id": "q03", "query": "食物里不要放什么？", "relevant_document_ids": ["food_preference"], "top_k": 3},
+    {"id": "q04", "query": "团队短会安排在几点？", "relevant_document_ids": ["meeting_time"], "top_k": 3},
+    {"id": "q05", "query": "生产环境发布之前要先做什么？", "relevant_document_ids": ["deployment_flow"], "top_k": 3},
+    {"id": "q06", "query": "架构文档应按什么顺序写？", "relevant_document_ids": ["document_style"], "top_k": 3},
+    {"id": "q07", "query": "权威数据使用 Postgres 还是别的数据库？", "relevant_document_ids": ["database_choice"], "top_k": 3},
+    {"id": "q08", "query": "P0 出现后如何联系值班人？", "relevant_document_ids": ["alert_method"], "top_k": 3},
+    {"id": "q09", "query": "发票用 RMB 或 CNY 计价可以吗？", "relevant_document_ids": ["billing_currency"], "top_k": 3},
+    {"id": "q10", "query": "一周中哪天去望京坐班？", "relevant_document_ids": ["office_schedule"], "top_k": 3},
+    {"id": "q11", "query": "和这个人打招呼时应该怎么称呼？", "relevant_document_ids": ["contact_name"], "top_k": 3},
+    {"id": "q12", "query": "玄武七号控制什么？", "relevant_document_ids": ["release_codename"], "top_k": 3},
+    {"id": "q13", "query": "MEMORY_AUTHZ_STALE_REVISION 代表什么？", "relevant_document_ids": ["error_code"], "top_k": 3},
+    {"id": "q14", "query": "哪个 POST 路径负责消费 Context Pack？", "relevant_document_ids": ["consume_route"], "top_k": 3},
+    {"id": "q15", "query": "投影操作状态存在哪张表？", "relevant_document_ids": ["projection_table"], "top_k": 3},
+    {"id": "q16", "query": "PostgreSQL 的只读副本位于哪里？", "relevant_document_ids": ["datacenter"], "top_k": 3},
+    {"id": "q17", "query": "记忆检索验收的具体日期是什么？", "relevant_document_ids": ["absolute_deadline"], "top_k": 3},
+    {"id": "q18", "query": "中文 BM25 使用哪个 jieba 分词版本？", "relevant_document_ids": ["tokenizer_version"], "top_k": 3}
+  ],
+  "negative_queries": [
+    {"id": "n01", "query": "用户最喜欢哪支足球队？", "top_k": 3},
+    {"id": "n02", "query": "明天北京天气如何？", "top_k": 3},
+    {"id": "n03", "query": "周末去哪里看电影？", "top_k": 3},
+    {"id": "n04", "query": "生产数据库的管理员密码是什么？", "top_k": 3},
+    {"id": "n05", "query": "其他租户的 Context Pack 里有什么？", "top_k": 3}
+  ],
+  "thresholds": {
+    "recall_at_3": 0.85,
+    "mean_reciprocal_rank": 0.75,
+    "negative_query_hit_rate": 0.0,
+    "forgotten_injection_count": 0
+  }
+}

@@ -73,7 +73,7 @@ flowchart LR
 | Schema | 是否权威 | 保存内容 |
 |---|---:|---|
 | `memory_core` | 是 | Source、Candidate、Decision、Record、Version、Head、Ledger Event、Outbox、Context Pack、Receipt、Erasure |
-| `memory_search` | 否 | 可重建的 PostgreSQL 本地 FTS 检索文档 |
+| `memory_search` | 否 | 可重建的 PostgreSQL 本地检索文档、Jieba 词项与 BM25 投影 |
 | `demo_chat` | 仅对话运行时权威 | Session、Message、Turn、SSE Event、每轮使用的精确 Memory Version ID |
 
 `demo_chat` 不是第二套长期记忆库。历史聊天被保存，不代表会自动成为正式记忆，也不代表
@@ -204,8 +204,8 @@ Source Event
 
 ```text
 当前问题 + Principal + Purpose + Scope
-  -> Mem0 候选 + PostgreSQL FTS 候选
-  -> RRF 融合
+  -> Mem0 候选 + PostgreSQL 中文 BM25 候选 + 字符词法降级候选
+  -> 加权 RRF 融合
   -> canonical pre-rerank 授权
   -> Qwen3 / Kimi / Transparent Rerank
   -> canonical post-rerank 二次授权
@@ -344,7 +344,9 @@ crates/
 │   ├── provider.rs          # RetrievalIndex 与投影 DTO
 │   ├── extractor.rs         # MemoryExtractor 与候选 DTO
 │   ├── reranker.rs          # MemoryReranker、透明降级与意图适用策略
-│   └── ranking.rs           # 词法分数、RRF、透明相关性
+│   ├── ranking.rs           # 词法分数、加权 RRF、透明相关性
+│   ├── security.rs          # Prompt Injection、密钥与 PII 边界清洗
+│   └── text.rs              # NFKC 规范化与 Jieba 中文搜索分词
 ├── memory-client/src/lib.rs # Agent 侧 MemoryPort、HTTP Client、全部命令/响应契约
 ├── memory-postgres/src/
 │   ├── model.rs             # Repository 命令、View、状态与模型

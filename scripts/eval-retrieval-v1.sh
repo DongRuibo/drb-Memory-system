@@ -16,6 +16,8 @@ fi
 export MEMORY_BASE_URL="$memory_base_url"
 export EVAL_DATASET="${EVAL_DATASET:-evals/retrieval-v1/dataset.json}"
 export EVAL_PROVIDER_PROFILE="${EVAL_PROVIDER_PROFILE:-hash-only-poc}"
+export EVAL_TENANT_ID="${EVAL_TENANT_ID:-retrieval-eval-v1}"
+export EVAL_USER_ID="${EVAL_USER_ID:-evaluator}"
 
 if command -v cargo >/dev/null 2>&1; then
   exec cargo run -p retrieval-eval

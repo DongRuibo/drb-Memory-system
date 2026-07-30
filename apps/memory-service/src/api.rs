@@ -13,7 +13,7 @@ use memory_application::{
     MIN_TRANSPARENT_RELEVANCE_SCORE, MemoryExtractor, MemoryReranker, ProjectionHit,
     ProjectionSearch, RerankCandidate, RerankRequest, RetrievalIndex, SecurityAction,
     SecurityFinding, SecurityPipeline, TransparentReranker,
-    is_memory_applicable_without_semantic_threshold, reciprocal_rank_fusion,
+    is_memory_applicable_without_semantic_threshold, weighted_reciprocal_rank_fusion,
 };
 use memory_postgres::{
     AuthorizedMemory, CanonicalStatus, ConsumeContextPackCommand, ContextPackCommand,
@@ -30,6 +30,9 @@ use serde_json::json;
 use sha2::{Digest, Sha256};
 use tracing::warn;
 use uuid::Uuid;
+
+#[cfg(test)]
+use memory_application::reciprocal_rank_fusion;
 
 use crate::auth::{
     AuthenticatedPrincipal, Authenticator, MEMORY_ADMIN, MEMORY_CORRECT, MEMORY_ERASE,
@@ -1334,7 +1337,7 @@ async fn search_authorized_scopes(
     let generation = require_runtime_projection_model(state, authority)
         .await?
         .generation;
-    let mut sources = Vec::new();
+    let mut sources = Vec::<(f64, Vec<ProjectionHit>)>::new();
     let mut degradation_reasons = BTreeSet::new();
     for (scope_kind, scope_id) in scopes {
         let namespace_key = authorized_namespace_key(authority, &scope_kind, scope_id.as_deref())
@@ -1349,9 +1352,26 @@ async fn search_authorized_scopes(
             })
             .await
         {
-            Ok(hits) => sources.push(hits),
+            Ok(hits) => sources.push((1.0, hits)),
             Err(_) => {
                 degradation_reasons.insert("PROVIDER_UNAVAILABLE_LOCAL_FALLBACK");
+            }
+        }
+        match state
+            .repository
+            .search_bm25_projection(
+                authority,
+                &scope_kind,
+                scope_id.as_deref(),
+                query,
+                &generation,
+                limit,
+            )
+            .await
+        {
+            Ok(hits) => sources.push((1.15, hits)),
+            Err(_) => {
+                degradation_reasons.insert("BM25_RETRIEVAL_UNAVAILABLE");
             }
         }
         match state
@@ -1366,7 +1386,7 @@ async fn search_authorized_scopes(
             )
             .await
         {
-            Ok(hits) => sources.push(hits),
+            Ok(hits) => sources.push((0.65, hits)),
             Err(error) => {
                 degradation_reasons.insert("LOCAL_RETRIEVAL_UNAVAILABLE");
                 if sources.is_empty() {
@@ -1380,8 +1400,12 @@ async fn search_authorized_scopes(
             "all retrieval candidate sources were unavailable".into(),
         )));
     }
+    let weighted_sources = sources
+        .iter()
+        .map(|(weight, hits)| (*weight, hits.as_slice()))
+        .collect::<Vec<_>>();
     Ok(RetrievalCandidates {
-        hits: reciprocal_rank_fusion(&sources, limit),
+        hits: weighted_reciprocal_rank_fusion(&weighted_sources, limit),
         generation,
         degraded: !degradation_reasons.is_empty(),
         degradation_reason: if degradation_reasons.is_empty() {

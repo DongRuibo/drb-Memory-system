@@ -4,9 +4,9 @@ use std::time::Duration;
 
 use chrono::{DateTime, Utc};
 use memory_application::{
-    ExtractCandidateProposal, MIN_TRANSPARENT_RELEVANCE_SCORE, ProjectionHit,
-    SECURITY_POLICY_VERSION, SecurityFinding, SecurityPipeline,
-    is_memory_applicable_without_semantic_threshold, lexical_relevance_score,
+    CHINESE_TOKENIZER_VERSION, ChineseTokenizer, ExtractCandidateProposal,
+    MIN_TRANSPARENT_RELEVANCE_SCORE, ProjectionHit, SECURITY_POLICY_VERSION, SecurityFinding,
+    SecurityPipeline, is_memory_applicable_without_semantic_threshold, lexical_relevance_score,
 };
 use serde_json::json;
 use sha2::{Digest, Sha256};
@@ -34,6 +34,7 @@ pub const DEMO_CONTEXT_COMPILER_VERSION: &str = "demo-context-compiler-v1";
 const DEMO_ID_NAMESPACE: Uuid = Uuid::from_u128(0x7bc8_5039_50f0_4ff1_8200_7e73_a455_f372);
 const DEMO_CONTEXT_ITEM_OVERHEAD: i32 = 32;
 static SECURITY_PIPELINE: LazyLock<SecurityPipeline> = LazyLock::new(SecurityPipeline::default);
+static CHINESE_TOKENIZER: LazyLock<ChineseTokenizer> = LazyLock::new(ChineseTokenizer::default);
 const SUPPORTED_CONTEXT_MEMORY_TYPES: [&str; 4] = [
     "preference",
     "profile_fact",
@@ -3089,6 +3090,15 @@ impl MemoryRepository {
         .bind(hash)
         .execute(&mut *tx)
         .await?;
+        replace_retrieval_terms_tx(
+            &mut tx,
+            &authority.tenant_id,
+            work.memory_record_id,
+            version_id,
+            &work.generation,
+            content,
+        )
+        .await?;
         sqlx::query(
             "DELETE FROM memory_search.retrieval_documents \
              WHERE tenant_id=$1 AND memory_record_id=$2 AND generation=$3 \
@@ -3330,6 +3340,112 @@ impl MemoryRepository {
         });
         hits.truncate(limit);
         Ok(hits)
+    }
+
+    pub async fn search_bm25_projection(
+        &self,
+        authority: &DemoAuthority,
+        scope_kind: &str,
+        scope_id: Option<&str>,
+        query: &str,
+        generation: &str,
+        limit: usize,
+    ) -> Result<Vec<ProjectionHit>, RepositoryError> {
+        let namespace_key = authorized_namespace_key(authority, scope_kind, scope_id)
+            .ok_or(RepositoryError::NotFound)?;
+        if query.trim().is_empty() || limit == 0 || limit > 200 {
+            return Err(RepositoryError::Invariant(
+                "BM25 projection search requires a query and limit between 1 and 200".into(),
+            ));
+        }
+        let mut terms = CHINESE_TOKENIZER.tokenize(query);
+        terms.sort();
+        terms.dedup();
+        if terms.is_empty() {
+            return Ok(Vec::new());
+        }
+        let limit = i64::try_from(limit)
+            .map_err(|_| RepositoryError::Invariant("BM25 search limit overflowed".into()))?;
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        let rows = sqlx::query(
+            "WITH corpus_docs AS (\
+                 SELECT memory_record_id,memory_version_id,head_revision,generation,content_hash \
+                 FROM memory_search.retrieval_documents \
+                 WHERE tenant_id=$1 AND namespace_key=$2 AND generation=$3\
+             ), corpus AS (\
+                 SELECT count(*)::float8 AS n FROM corpus_docs\
+             ), doc_lengths AS (\
+                 SELECT rt.memory_version_id,max(rt.document_length)::float8 AS dl \
+                 FROM memory_search.retrieval_terms rt \
+                 JOIN corpus_docs cd ON cd.memory_version_id=rt.memory_version_id \
+                 WHERE rt.tenant_id=$1 AND rt.generation=$3 \
+                 GROUP BY rt.memory_version_id\
+             ), average AS (\
+                 SELECT COALESCE(avg(dl),1.0)::float8 AS avgdl FROM doc_lengths\
+             ), dfs AS (\
+                 SELECT rt.term,count(DISTINCT rt.memory_version_id)::float8 AS df \
+                 FROM memory_search.retrieval_terms rt \
+                 JOIN corpus_docs cd ON cd.memory_version_id=rt.memory_version_id \
+                 WHERE rt.tenant_id=$1 AND rt.generation=$3 AND rt.term=ANY($4::text[]) \
+                 GROUP BY rt.term\
+             ) \
+             SELECT cd.memory_record_id,cd.memory_version_id,cd.head_revision,cd.generation,\
+                    cd.content_hash,\
+                    sum(\
+                        ln(1.0+((corpus.n-dfs.df+0.5)/(dfs.df+0.5))) \
+                        *((rt.term_frequency::float8*2.2)\
+                          /(rt.term_frequency::float8+1.2\
+                            *(0.25+0.75*rt.document_length::float8\
+                              /NULLIF(average.avgdl,0))))\
+                    )::float8 AS bm25_score \
+             FROM memory_search.retrieval_terms rt \
+             JOIN corpus_docs cd ON cd.memory_version_id=rt.memory_version_id \
+             JOIN dfs ON dfs.term=rt.term \
+             CROSS JOIN corpus CROSS JOIN average \
+             WHERE rt.tenant_id=$1 AND rt.generation=$3 AND rt.term=ANY($4::text[]) \
+             GROUP BY cd.memory_record_id,cd.memory_version_id,cd.head_revision,cd.generation,\
+                      cd.content_hash,corpus.n,average.avgdl \
+             ORDER BY bm25_score DESC,cd.memory_record_id,cd.memory_version_id \
+             LIMIT $5",
+        )
+        .bind(&authority.tenant_id)
+        .bind(&namespace_key)
+        .bind(generation)
+        .bind(&terms)
+        .bind(limit)
+        .fetch_all(&mut *tx)
+        .await?;
+        tx.commit().await?;
+
+        let maximum_score = rows
+            .iter()
+            .filter_map(|row| row.try_get::<f64, _>("bm25_score").ok())
+            .fold(0.0_f64, f64::max);
+        Ok(rows
+            .into_iter()
+            .filter_map(|row| {
+                let raw_score = row.try_get::<f64, _>("bm25_score").ok()?;
+                let head_revision = row.try_get::<i64, _>("head_revision").ok()?;
+                if raw_score <= 0.0 || head_revision < 0 {
+                    return None;
+                }
+                let memory_version_id = row.try_get::<Uuid, _>("memory_version_id").ok()?;
+                Some(ProjectionHit {
+                    provider_object_id: format!("local-bm25:{memory_version_id}"),
+                    memory_record_id: row.try_get("memory_record_id").ok()?,
+                    memory_version_id,
+                    head_revision: u64::try_from(head_revision).ok()?,
+                    generation: row.try_get("generation").ok()?,
+                    content_hash: row.try_get("content_hash").ok()?,
+                    provider_score: if maximum_score > 0.0 {
+                        (raw_score / maximum_score).clamp(0.0, 1.0)
+                    } else {
+                        0.0
+                    },
+                })
+            })
+            .collect())
     }
 
     pub async fn compile_context_pack(
@@ -5621,6 +5737,68 @@ async fn fence_operation(
     Ok(())
 }
 
+async fn replace_retrieval_terms_tx(
+    tx: &mut Transaction<'_, Postgres>,
+    tenant_id: &str,
+    memory_record_id: Uuid,
+    memory_version_id: Uuid,
+    generation: &str,
+    content: &str,
+) -> Result<(), RepositoryError> {
+    sqlx::query(
+        "DELETE FROM memory_search.retrieval_terms \
+         WHERE tenant_id=$1 AND memory_version_id=$2 AND generation=$3",
+    )
+    .bind(tenant_id)
+    .bind(memory_version_id)
+    .bind(generation)
+    .execute(&mut **tx)
+    .await?;
+
+    let tokens = CHINESE_TOKENIZER.tokenize(content);
+    if tokens.is_empty() {
+        return Ok(());
+    }
+    let document_length = i32::try_from(tokens.len())
+        .map_err(|_| RepositoryError::Invariant("BM25 document length overflowed".into()))?;
+    let mut frequencies = HashMap::<String, i32>::new();
+    for term in tokens {
+        let frequency = frequencies.entry(term).or_default();
+        *frequency = frequency
+            .checked_add(1)
+            .ok_or_else(|| RepositoryError::Invariant("BM25 term frequency overflowed".into()))?;
+    }
+    let mut frequencies = frequencies.into_iter().collect::<Vec<_>>();
+    frequencies.sort_by(|left, right| left.0.cmp(&right.0));
+    let terms = frequencies
+        .iter()
+        .map(|(term, _)| term.clone())
+        .collect::<Vec<_>>();
+    let term_frequencies = frequencies
+        .iter()
+        .map(|(_, frequency)| *frequency)
+        .collect::<Vec<_>>();
+    sqlx::query(
+        "INSERT INTO memory_search.retrieval_terms (\
+             tenant_id,memory_record_id,memory_version_id,generation,term,\
+             term_frequency,document_length,tokenizer_version\
+         ) \
+         SELECT $1,$2,$3,$4,term,term_frequency,$7,$8 \
+         FROM unnest($5::text[],$6::int[]) AS tokens(term,term_frequency)",
+    )
+    .bind(tenant_id)
+    .bind(memory_record_id)
+    .bind(memory_version_id)
+    .bind(generation)
+    .bind(&terms)
+    .bind(&term_frequencies)
+    .bind(document_length)
+    .bind(CHINESE_TOKENIZER_VERSION)
+    .execute(&mut **tx)
+    .await?;
+    Ok(())
+}
+
 async fn update_erasure_projection_status_tx(
     tx: &mut Transaction<'_, Postgres>,
     authority: &DemoAuthority,
@@ -6270,6 +6448,95 @@ mod tests {
         assert!(!version_content.contains("13800138000"));
         assert!(version_content.contains("[REDACTED_cn_phone]"));
         tx.commit().await.unwrap();
+    }
+
+    #[tokio::test]
+    #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
+    async fn chinese_bm25_prefers_exact_identifier_and_is_generation_bound() {
+        let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
+            "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into()
+        });
+        let repository = MemoryRepository::connect(&database_url).await.unwrap();
+        repository.migrate().await.unwrap();
+        let test_id = Uuid::new_v4();
+        let authority = DemoAuthority::user(format!("bm25-test-{test_id}"), "alice");
+        let documents = [
+            ("identifier", "发布代号：玄武七号负责生产灰度开关"),
+            ("generic", "发布策略：生产上线采用普通灰度发布流程"),
+        ];
+        let mut records = HashMap::new();
+        for (label, content) in documents {
+            let operation = repository
+                .ingest_explicit(
+                    &authority,
+                    IngestCommand {
+                        idempotency_key: format!("bm25-{label}-{test_id}"),
+                        event_id: format!("bm25-event-{label}-{test_id}"),
+                        source_type: "conversation_message".into(),
+                        source_ref: format!("conversation:bm25:{label}:{test_id}"),
+                        source_content: format!("请记住：{content}"),
+                        memory_content: content.into(),
+                        occurred_at: Utc::now(),
+                    },
+                )
+                .await
+                .unwrap();
+            records.insert(label, operation.memory_record_id);
+            let work = repository
+                .claim_projection(&authority, &format!("bm25-worker-{label}"))
+                .await
+                .unwrap()
+                .unwrap();
+            repository
+                .complete_ready(
+                    &authority,
+                    &work,
+                    &format!("provider-bm25-{label}-{test_id}"),
+                )
+                .await
+                .unwrap();
+        }
+
+        let hits = repository
+            .search_bm25_projection(
+                &authority,
+                "user",
+                Some("alice"),
+                "玄武七号的灰度开关",
+                DEMO_GENERATION,
+                10,
+            )
+            .await
+            .unwrap();
+        assert!(!hits.is_empty());
+        assert_eq!(hits[0].memory_record_id, records["identifier"]);
+        assert!(hits[0].provider_object_id.starts_with("local-bm25:"));
+
+        let stale_generation = repository
+            .search_bm25_projection(
+                &authority,
+                "user",
+                Some("alice"),
+                "玄武七号",
+                "retired-generation",
+                10,
+            )
+            .await
+            .unwrap();
+        assert!(stale_generation.is_empty());
+
+        let mut tx = repository.pool.begin().await.unwrap();
+        set_tenant(&mut tx, &authority.tenant_id).await.unwrap();
+        let tokenizer_versions = sqlx::query_scalar::<_, String>(
+            "SELECT DISTINCT tokenizer_version \
+             FROM memory_search.retrieval_terms WHERE tenant_id=$1",
+        )
+        .bind(&authority.tenant_id)
+        .fetch_all(&mut *tx)
+        .await
+        .unwrap();
+        tx.commit().await.unwrap();
+        assert_eq!(tokenizer_versions, vec![CHINESE_TOKENIZER_VERSION]);
     }
 
     #[tokio::test]

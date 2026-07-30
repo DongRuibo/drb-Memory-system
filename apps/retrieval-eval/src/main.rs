@@ -8,7 +8,9 @@ use std::time::Duration;
 
 use chrono::{DateTime, Utc};
 use mem0_adapter::{Mem0Adapter, Mem0Config};
-use memory_application::{ProjectionSearch, RetrievalIndex, lexical_relevance_score};
+use memory_application::{
+    ChineseTokenizer, ProjectionSearch, RetrievalIndex, lexical_relevance_score,
+};
 use memory_postgres::{DEMO_GENERATION, DemoAuthority, authorized_namespace_key};
 use reqwest::header::{AUTHORIZATION, HeaderMap, HeaderValue};
 use serde::{Deserialize, Serialize};
@@ -19,11 +21,11 @@ use uuid::Uuid;
 
 type EvalResult<T> = Result<T, Box<dyn Error + Send + Sync>>;
 
-const DEFAULT_DATASET: &str = "evals/retrieval-v1/dataset.json";
+const DEFAULT_DATASET: &str = "evals/retrieval-v2/dataset.json";
 const DEFAULT_MEMORY_BASE_URL: &str = "http://127.0.0.1:18084";
 const DEFAULT_MEM0_BASE_URL: &str = "http://127.0.0.1:18888";
-const EVAL_TENANT_ID: &str = "retrieval-eval-v1";
-const EVAL_USER_ID: &str = "evaluator";
+const DEFAULT_EVAL_TENANT_ID: &str = "retrieval-eval-v2";
+const DEFAULT_EVAL_USER_ID: &str = "evaluator";
 
 #[derive(Debug, Deserialize, Serialize)]
 struct Dataset {
@@ -160,16 +162,19 @@ struct EvalConfig {
     bearer_token: Option<String>,
     enforce_gate: bool,
     query_concurrency: usize,
+    tenant_id: String,
+    user_id: String,
 }
 
 #[derive(Clone)]
 struct MemoryClient {
     base_url: String,
     client: reqwest::Client,
+    user_id: String,
 }
 
 impl MemoryClient {
-    fn new(base_url: &str, bearer_token: Option<&str>) -> EvalResult<Self> {
+    fn new(base_url: &str, bearer_token: Option<&str>, user_id: &str) -> EvalResult<Self> {
         let parsed = reqwest::Url::parse(base_url)?;
         if parsed.scheme() != "http"
             || parsed.query().is_some()
@@ -192,6 +197,7 @@ impl MemoryClient {
                 .default_headers(headers)
                 .timeout(Duration::from_secs(120))
                 .build()?,
+            user_id: user_id.to_owned(),
         })
     }
 
@@ -227,7 +233,7 @@ impl MemoryClient {
                 "source_ref": format!("evaluation:{}:{}", run_id, document.id),
                 "content": format!("请记住：{}", document.content),
                 "occurred_at": Utc::now(),
-                "scope_selector": {"kind": "user", "id": EVAL_USER_ID}
+                "scope_selector": {"kind": "user", "id": &self.user_id}
             }))
             .send()
             .await?
@@ -281,7 +287,7 @@ impl MemoryClient {
                     "purpose": "answer_user"
                 },
                 "query": query,
-                "scope_selectors": [{"kind": "user", "id": EVAL_USER_ID}],
+                "scope_selectors": [{"kind": "user", "id": &self.user_id}],
                 "memory_types": ["preference"],
                 "limit": top_k
             }))
@@ -325,7 +331,11 @@ async fn main() -> EvalResult<()> {
     validate_dataset(&dataset)?;
     let evaluation_id = Uuid::new_v4();
     let started_at = Utc::now();
-    let client = MemoryClient::new(&config.memory_base_url, config.bearer_token.as_deref())?;
+    let client = MemoryClient::new(
+        &config.memory_base_url,
+        config.bearer_token.as_deref(),
+        &config.user_id,
+    )?;
     client.ready().await?;
     let service_info = client.info().await?;
 
@@ -334,8 +344,8 @@ async fn main() -> EvalResult<()> {
         api_key: env::var("MEM0_API_KEY").ok(),
         timeout: Duration::from_secs(10),
     })?;
-    let authority = DemoAuthority::user(EVAL_TENANT_ID, EVAL_USER_ID);
-    let namespace = authorized_namespace_key(&authority, "user", Some(EVAL_USER_ID))
+    let authority = DemoAuthority::user(&config.tenant_id, &config.user_id);
+    let namespace = authorized_namespace_key(&authority, "user", Some(&config.user_id))
         .ok_or("failed to derive evaluation namespace")?;
 
     let mut record_to_document = HashMap::new();
@@ -380,6 +390,7 @@ async fn main() -> EvalResult<()> {
         })
         .collect::<Vec<_>>();
     let local_results = evaluate_local(&dataset);
+    let local_bm25_results = evaluate_local_bm25(&dataset);
     let provider_results = evaluate_provider(
         &provider,
         &namespace,
@@ -439,6 +450,10 @@ async fn main() -> EvalResult<()> {
             evaluate_metrics(&dataset, &local_results),
         ),
         (
+            "local_chinese_bm25".into(),
+            evaluate_metrics(&dataset, &local_bm25_results),
+        ),
+        (
             "current_provider".into(),
             evaluate_metrics(&dataset, &provider_results),
         ),
@@ -471,6 +486,7 @@ async fn main() -> EvalResult<()> {
         &dataset,
         &[
             ("local_lexical", &local_results),
+            ("local_chinese_bm25", &local_bm25_results),
             ("current_provider", &provider_results),
             ("hybrid_service", &hybrid_results),
         ],
@@ -501,7 +517,7 @@ async fn main() -> EvalResult<()> {
         generation: observed_generation,
         ranking_version: format!("hybrid-rrf60-{}", service_info.reranker),
         query_concurrency: config.query_concurrency,
-        tenant_id: EVAL_TENANT_ID.into(),
+        tenant_id: config.tenant_id,
         synthetic_data_only: true,
     };
     write_artifacts(
@@ -511,6 +527,7 @@ async fn main() -> EvalResult<()> {
         &failures,
         &BTreeMap::from([
             ("local_lexical", local_results),
+            ("local_chinese_bm25", local_bm25_results),
             ("current_provider", provider_results),
             ("hybrid_service", hybrid_results),
         ]),
@@ -537,9 +554,15 @@ async fn main() -> EvalResult<()> {
 fn load_config() -> EvalResult<EvalConfig> {
     let dataset_path =
         PathBuf::from(env::var("EVAL_DATASET").unwrap_or_else(|_| DEFAULT_DATASET.into()));
+    let dataset_family = dataset_path
+        .parent()
+        .and_then(Path::file_name)
+        .and_then(|value| value.to_str())
+        .filter(|value| value.starts_with("retrieval-v"))
+        .unwrap_or("retrieval-v2");
     let output_dir = PathBuf::from(
         env::var("EVAL_OUTPUT_DIR")
-            .unwrap_or_else(|_| format!("target/evals/retrieval-v1/{}", Uuid::new_v4())),
+            .unwrap_or_else(|_| format!("target/evals/{dataset_family}/{}", Uuid::new_v4())),
     );
     let query_concurrency = env::var("EVAL_QUERY_CONCURRENCY")
         .unwrap_or_else(|_| "2".into())
@@ -559,6 +582,8 @@ fn load_config() -> EvalResult<EvalConfig> {
         bearer_token: env::var("MEMORY_BEARER_TOKEN").ok(),
         enforce_gate: env::var("EVAL_ENFORCE_GATE").is_ok_and(|value| value == "true"),
         query_concurrency,
+        tenant_id: env::var("EVAL_TENANT_ID").unwrap_or_else(|_| DEFAULT_EVAL_TENANT_ID.into()),
+        user_id: env::var("EVAL_USER_ID").unwrap_or_else(|_| DEFAULT_EVAL_USER_ID.into()),
     })
 }
 
@@ -568,7 +593,7 @@ fn validate_dataset(dataset: &Dataset) -> EvalResult<()> {
         || dataset.positive_queries.is_empty()
         || dataset.negative_queries.is_empty()
     {
-        return Err("dataset shape is outside the retrieval-v1 contract".into());
+        return Err("dataset shape is outside the retrieval smoke contract".into());
     }
     let document_ids = dataset
         .documents
@@ -626,6 +651,86 @@ fn evaluate_local(dataset: &Dataset) -> Vec<QueryResult> {
                 returned_document_ids: ranked.iter().map(|(id, _)| id.clone()).collect(),
                 scores: ranked.iter().map(|(_, score)| *score).collect(),
                 ranking_version: Some("local-lexical-v1".into()),
+                projection_generation: None,
+                degraded: false,
+                degradation_reason: None,
+            }
+        })
+        .collect()
+}
+
+fn evaluate_local_bm25(dataset: &Dataset) -> Vec<QueryResult> {
+    let tokenizer = ChineseTokenizer::default();
+    let tokenized_documents = dataset
+        .documents
+        .iter()
+        .map(|document| (document, tokenizer.tokenize(&document.content)))
+        .collect::<Vec<_>>();
+    let average_document_length = tokenized_documents
+        .iter()
+        .map(|(_, terms)| terms.len() as f64)
+        .sum::<f64>()
+        / tokenized_documents.len().max(1) as f64;
+    dataset
+        .positive_queries
+        .iter()
+        .map(|query| {
+            let query_terms = tokenizer
+                .tokenize(&query.query)
+                .into_iter()
+                .collect::<HashSet<_>>();
+            let mut document_frequencies = HashMap::<&str, usize>::new();
+            for term in &query_terms {
+                for (_, document_terms) in &tokenized_documents {
+                    if document_terms.iter().any(|candidate| candidate == term) {
+                        *document_frequencies.entry(term).or_default() += 1;
+                    }
+                }
+            }
+            let corpus_size = tokenized_documents.len() as f64;
+            let mut ranked = tokenized_documents
+                .iter()
+                .filter_map(|(document, document_terms)| {
+                    let document_length = document_terms.len().max(1) as f64;
+                    let mut frequencies = HashMap::<&str, usize>::new();
+                    for term in document_terms {
+                        *frequencies.entry(term).or_default() += 1;
+                    }
+                    let score = query_terms
+                        .iter()
+                        .filter_map(|term| {
+                            let frequency = *frequencies.get(term.as_str())? as f64;
+                            let document_frequency =
+                                *document_frequencies.get(term.as_str()).unwrap_or(&0) as f64;
+                            let inverse_document_frequency = (1.0
+                                + ((corpus_size - document_frequency + 0.5)
+                                    / (document_frequency + 0.5)))
+                                .ln();
+                            Some(
+                                inverse_document_frequency * (frequency * 2.2)
+                                    / (frequency
+                                        + 1.2
+                                            * (0.25
+                                                + 0.75 * document_length
+                                                    / average_document_length.max(1.0))),
+                            )
+                        })
+                        .sum::<f64>();
+                    (score > 0.0).then(|| (document.id.clone(), score))
+                })
+                .collect::<Vec<_>>();
+            ranked.sort_by(|left, right| {
+                right
+                    .1
+                    .total_cmp(&left.1)
+                    .then_with(|| left.0.cmp(&right.0))
+            });
+            ranked.truncate(query.top_k);
+            QueryResult {
+                query_id: query.id.clone(),
+                returned_document_ids: ranked.iter().map(|(id, _)| id.clone()).collect(),
+                scores: ranked.iter().map(|(_, score)| *score).collect(),
+                ranking_version: Some("local-chinese-bm25-v1".into()),
                 projection_generation: None,
                 degraded: false,
                 degradation_reason: None,
@@ -1047,10 +1152,41 @@ fn write_artifacts(
         failures.len()
     )?;
     report.push_str(
-        "本报告只使用合成数据。`current_provider` 表示直接 Mem0 结果；\
+        "本报告只使用合成数据。`local_chinese_bm25` 表示使用相同 Jieba 规则的离线 BM25；\
+         `current_provider` 表示直接 Mem0 结果；\
          `hybrid_service` 表示在线 Memory API 的 Provider + PostgreSQL 本地候选、\
          RRF、canonical 重新授权和服务当前配置的 Reranker。\n",
     );
     fs::write(output_dir.join("comparison-report.md"), report)?;
     Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn retrieval_v2_dataset_is_valid_and_bm25_finds_exact_chinese_identifiers() {
+        let dataset: Dataset =
+            serde_json::from_str(include_str!("../../../evals/retrieval-v2/dataset.json")).unwrap();
+        validate_dataset(&dataset).unwrap();
+        let results = evaluate_local_bm25(&dataset);
+        for (query_id, expected_document_id) in [
+            ("q12", "release_codename"),
+            ("q13", "error_code"),
+            ("q14", "consume_route"),
+            ("q15", "projection_table"),
+            ("q18", "tokenizer_version"),
+        ] {
+            let result = results
+                .iter()
+                .find(|result| result.query_id == query_id)
+                .unwrap();
+            assert_eq!(
+                result.returned_document_ids.first().map(String::as_str),
+                Some(expected_document_id),
+                "exact identifier query {query_id} should rank its document first"
+            );
+        }
+    }
 }

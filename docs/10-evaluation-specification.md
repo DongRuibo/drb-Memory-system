@@ -30,23 +30,24 @@
 
 Provider 更换、模型/Embedding/Reranker/Prompt/Policy 版本变化必须跑同一数据集。
 
-## 当前可执行的 Retrieval v1 smoke
+## 当前可执行的 Retrieval v2 smoke
 
-仓库内 `evals/retrieval-v1/dataset.json` 固定为 `retrieval-v1.0.0`，包含 12 条
-合成记忆、15 条正查询（其中 5 条为较难的中文释义）和 3 条负查询。隔离的评测
+仓库内 `evals/retrieval-v2/dataset.json` 固定为 `retrieval-v2.0.0`，包含 18 条
+合成记忆、18 条正查询和 5 条负查询。除中文释义外，v2 增加错误码、接口路径、
+表名、中文项目代号和 tokenizer version 等精确标识符。隔离的评测
 Tenant/User 写入完成并等待投影 ready 后，执行：
 
 ```bash
-./scripts/eval-retrieval-v1.sh
+./scripts/eval-retrieval-v2.sh
 ```
 
-评测程序比较 `no_memory`、`local_lexical`、`current_provider`、
+评测程序比较 `no_memory`、`local_lexical`、`local_chinese_bm25`、`current_provider`、
 `hybrid_service` 和 `oracle`，随后 Forget 所有合成记录并再次检索，确保遗忘记录
 注入数为 0。查询默认使用 2 路、最多 4 路有界并发；可通过
 `EVAL_QUERY_CONCURRENCY=1..4` 调整，实际值写入 Manifest。每次运行生成：
 
 ```text
-target/evals/retrieval-v1/<evaluation-id>/
+target/evals/retrieval-v2/<evaluation-id>/
   evaluation-manifest.json
   metric-results.json
   raw-results.json
@@ -54,13 +55,14 @@ target/evals/retrieval-v1/<evaluation-id>/
   comparison-report.md
 ```
 
-2026-07-28 的透明排序对照为 Recall@3/MRR `0.667/0.667`，Release Gate 未通过；
+Retrieval v1 仍保留为历史回归集，可用 `./scripts/eval-retrieval-v1.sh` 执行。
+2026-07-28 的 v1 透明排序对照为 Recall@3/MRR `0.667/0.667`，Release Gate 未通过；
 相同数据集接入 `kimi-k3-semantic-v1` 后，混合服务 Recall@1、Recall@3、MRR、
 nDCG 均为 `1.000`，无关注入率、负查询命中率和 Forgotten 注入数均为 `0`，smoke
 Gate 通过。完整证据见
 [真实语义检索固定评测](../poc/evidence/demo-retrieval-evaluation-validation.md)。
 
-这组 15 条正查询只能证明实现与回归门槛可运行，不能用于声明生产检索质量。MVP/
+这组 18 条正查询只能证明实现与回归门槛可运行，不能用于声明生产检索质量。MVP/
 Production gate 仍需按类别扩充样本、加入真实但脱敏的代表性分布、报告不确定性，
 并进行延迟、费用、限流和供应商失败评测。
 

@@ -29,6 +29,7 @@ chrono = { version = "0.4.42", features = ["serde"] }
 hex = "0.4.3"
 futures-util = { version = "0.3.31", default-features = false, features = ["std"] }
 hmac = "0.12.1"
+jieba-rs = "0.7.4"
 reqwest = { version = "0.12.24", default-features = false, features = ["json", "rustls-tls"] }
 regex = "1.12.2"
 serde = { version = "1.0.228", features = ["derive"] }
