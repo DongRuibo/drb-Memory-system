@@ -12,6 +12,10 @@ _Avoid_: Raw Memory, Memory Record
 从 Source Event 提出的待决声明，尚未获得正式记忆的地位，也不能进入运行时 Context。
 _Avoid_: Memory, Stored Memory
 
+**LazyTT-native Memory**:
+证据来自 LazyTT 自身后续真实交互所记录 Source Event 的长期记忆。其他项目的历史记忆只可作为设计参考，不是可继承的 Memory Source。
+_Avoid_: Imported Memory, Migrated User Profile
+
 **Decision**:
 确定性 Policy 或获授权审核者对 Memory Candidate 作出的 Accept、Reject 或 Needs Review 结论。
 _Avoid_: Model Decision
@@ -49,6 +53,24 @@ _Avoid_: Vector, Provider Memory
 **Memory Version**:
 被接受的、不可变的记忆内容及其来源、有效期、分类和创建依据。
 _Avoid_: Mutable Memory Row
+
+**Structured Content**:
+绑定到单个不可变 Memory Version、经过类型专属版本化 Schema 和安全校验的辅助表示；
+canonical readable content 仍是权威内容。Structured Content 不携带 Policy、Permission
+或执行指令，失败时可安全降级为空。
+_Avoid_: Canonical State, Arbitrary Metadata, Executable Payload
+
+**Event Time**:
+记忆所描述事件在现实中发生的、来源支持的半开时间区间，携带原始时区和精度；没有明确证据时为空。
+_Avoid_: Source Occurrence Time, Recorded At, Effective Time
+
+**Source Occurrence Time**:
+Source Event 本身发生的时间，例如消息发送或工具结果产生的时间；它不能自动充当被叙述历史事件的 Event Time。
+_Avoid_: Event Time, Recorded At
+
+**Effective Time**:
+某个 Memory Version 所表达命题适用的时间范围，主要用于事实的生效与失效，不表示证据或事件何时产生。
+_Avoid_: Event Time, Source Occurrence Time
 
 **Memory Head**:
 Memory Record 当前可见状态和当前版本的权威读取投影。它可由 Memory Ledger 重建。

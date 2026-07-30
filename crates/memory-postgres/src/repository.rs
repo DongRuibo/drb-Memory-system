@@ -9,7 +9,9 @@ use memory_application::{
     SecurityPipeline, TemporalWindow, is_memory_applicable_without_semantic_threshold,
     lexical_relevance_score,
 };
-use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, MemoryType};
+use memory_domain::{
+    CANONICAL_MEMORY_TYPE_NAMES, EventTime, EventTimePrecision, MemoryType, StructuredContent,
+};
 use serde_json::json;
 use sha2::{Digest, Sha256};
 use sqlx::postgres::{PgPoolOptions, PgRow};
@@ -198,6 +200,8 @@ impl MemoryRepository {
                 source_content: command.source_content,
                 memory_content: command.memory_content,
                 occurred_at: command.occurred_at,
+                event_time: None,
+                structured_content: None,
                 memory_type: "preference".into(),
                 semantic_key,
                 confidence: 1.0,
@@ -235,6 +239,28 @@ impl MemoryRepository {
         let mut security_flags = source_finding.flags.clone();
         security_flags.extend(memory_finding.flags.clone());
         security_flags.extend(semantic_key_finding.flags.clone());
+        if let Some(structured_content) = command.structured_content.take() {
+            let raw = serde_json::to_value(&structured_content).map_err(|error| {
+                RepositoryError::Validation(format!(
+                    "structured content could not be serialized: {error}"
+                ))
+            })?;
+            let sanitized = SECURITY_PIPELINE.sanitize_json(&raw);
+            security_flags.extend(sanitized.flags.clone());
+            if !sanitized.contains_prompt_injection() && !sanitized.contains_secret() {
+                let sanitized: StructuredContent = serde_json::from_value(sanitized.value)
+                    .map_err(|error| {
+                        RepositoryError::Validation(format!(
+                            "sanitized structured content violated its envelope: {error}"
+                        ))
+                    })?;
+                if canonical_memory_type(&command.memory_type)
+                    .is_some_and(|memory_type| sanitized.validate_for(memory_type).is_ok())
+                {
+                    command.structured_content = Some(sanitized);
+                }
+            }
+        }
         security_flags.sort();
         security_flags.dedup();
         command.memory_content = memory_finding.redacted_text;
@@ -261,6 +287,26 @@ impl MemoryRepository {
         let outbox_id = stable_id(&format!("outbox:{}", command.idempotency_key));
         let version_hash = content_hash(&command.memory_content);
         let semantic_key = command.semantic_key.clone();
+        let event_time_start = command.event_time.as_ref().map(|value| value.start);
+        let event_time_end = command.event_time.as_ref().map(|value| value.end);
+        let event_timezone = command
+            .event_time
+            .as_ref()
+            .map(|value| value.timezone.as_str());
+        let event_time_precision = command
+            .event_time
+            .as_ref()
+            .map(|value| value.precision.as_str());
+        let structured_content = command
+            .structured_content
+            .as_ref()
+            .map(serde_json::to_value)
+            .transpose()
+            .map_err(|error| {
+                RepositoryError::Validation(format!(
+                    "structured content could not be persisted: {error}"
+                ))
+            })?;
 
         let mut tx = self.pool.begin().await?;
         set_tenant(&mut tx, &authority.tenant_id).await?;
@@ -342,9 +388,10 @@ impl MemoryRepository {
             "INSERT INTO memory_core.memory_candidates (\
                  tenant_id,id,scope_kind,scope_id,memory_type,content,normalized_key,\
                  confidence,importance,inference_kind,extractor_name,extractor_version,\
-                 policy_version,state\
+                 policy_version,state,event_time_start,event_time_end,event_timezone,\
+                 event_time_precision,structured_content\
              ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,\
-                       'demo-policy-v1','accepted')",
+                       'demo-policy-v1','accepted',$13,$14,$15,$16,$17)",
         )
         .bind(&authority.tenant_id)
         .bind(candidate_id)
@@ -358,6 +405,11 @@ impl MemoryRepository {
         .bind(&command.inference_kind)
         .bind(&command.extractor_name)
         .bind(&command.extractor_version)
+        .bind(event_time_start)
+        .bind(event_time_end)
+        .bind(event_timezone)
+        .bind(event_time_precision)
+        .bind(&structured_content)
         .execute(&mut *tx)
         .await?;
 
@@ -391,7 +443,9 @@ impl MemoryRepository {
         .await?;
 
         let existing_semantic_record = sqlx::query(
-            "SELECT r.id,h.current_version_id,h.state,h.revision,v.content_hash \
+            "SELECT r.id,h.current_version_id,h.state,h.revision,v.content_hash,\
+                    v.event_time_start,v.event_time_end,v.event_timezone,\
+                    v.event_time_precision \
              FROM memory_core.memory_records r \
              JOIN memory_core.memory_heads h \
                ON h.tenant_id=r.tenant_id AND h.memory_record_id=r.id \
@@ -421,12 +475,25 @@ impl MemoryRepository {
                 })?;
             let existing_state: String = existing.try_get("state")?;
             let existing_hash: String = existing.try_get("content_hash")?;
+            let same_event_time = existing
+                .try_get::<Option<DateTime<Utc>>, _>("event_time_start")?
+                == event_time_start
+                && existing.try_get::<Option<DateTime<Utc>>, _>("event_time_end")?
+                    == event_time_end
+                && existing
+                    .try_get::<Option<String>, _>("event_timezone")?
+                    .as_deref()
+                    == event_timezone
+                && existing
+                    .try_get::<Option<String>, _>("event_time_precision")?
+                    .as_deref()
+                    == event_time_precision;
             if existing_state != "active" {
                 return Err(RepositoryError::Conflict(format!(
                     "semantic memory is in state {existing_state:?}; review or correct it first"
                 )));
             }
-            if existing_hash != version_hash {
+            if existing_hash != version_hash || !same_event_time {
                 let existing_revision: i64 = existing.try_get("revision")?;
                 let contested_revision = existing_revision + 1;
                 let provider_object_id = sqlx::query_scalar::<_, String>(
@@ -658,8 +725,9 @@ impl MemoryRepository {
             "INSERT INTO memory_core.memory_versions (\
                  tenant_id,id,memory_record_id,version_no,content,content_hash,normalized_key,\
                  confidence,importance,inference_kind,classification,allowed_purposes,\
-                 retention_policy_id,decision_id\
-             ) VALUES ($1,$2,$3,1,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)",
+                 retention_policy_id,decision_id,event_time_start,event_time_end,event_timezone,\
+                 event_time_precision,structured_content\
+             ) VALUES ($1,$2,$3,1,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)",
         )
         .bind(&authority.tenant_id)
         .bind(version_id)
@@ -677,6 +745,11 @@ impl MemoryRepository {
             command.scope_kind, command.memory_type
         ))
         .bind(decision_id)
+        .bind(event_time_start)
+        .bind(event_time_end)
+        .bind(event_timezone)
+        .bind(event_time_precision)
+        .bind(&structured_content)
         .execute(&mut *tx)
         .await?;
 
@@ -861,7 +934,8 @@ impl MemoryRepository {
         let previous_version_id: Uuid = head.try_get("current_version_id")?;
         let current_version = sqlx::query(
             "SELECT version_no,content_hash,confidence,importance,classification,\
-                    allowed_purposes,consent_ref,retention_policy_id,retain_until \
+                    allowed_purposes,consent_ref,retention_policy_id,retain_until,\
+                    event_time_start,event_time_end,event_timezone,event_time_precision \
              FROM memory_core.memory_versions \
              WHERE tenant_id=$1 AND memory_record_id=$2 AND id=$3",
         )
@@ -923,8 +997,10 @@ impl MemoryRepository {
             "INSERT INTO memory_core.memory_versions (\
                  tenant_id,id,memory_record_id,version_no,content,content_hash,normalized_key,\
                  confidence,importance,inference_kind,effective_from,classification,\
-                 allowed_purposes,consent_ref,retention_policy_id,retain_until,decision_id\
-             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'explicit',$10,$11,$12,$13,$14,$15,$16)",
+                 allowed_purposes,consent_ref,retention_policy_id,retain_until,decision_id,\
+                 event_time_start,event_time_end,event_timezone,event_time_precision\
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,'explicit',$10,$11,$12,$13,$14,$15,$16,\
+                       $17,$18,$19,$20)",
         )
         .bind(&authority.tenant_id)
         .bind(version_id)
@@ -942,6 +1018,10 @@ impl MemoryRepository {
         .bind(current_version.try_get::<String, _>("retention_policy_id")?)
         .bind(current_version.try_get::<Option<DateTime<Utc>>, _>("retain_until")?)
         .bind(decision_id)
+        .bind(current_version.try_get::<Option<DateTime<Utc>>, _>("event_time_start")?)
+        .bind(current_version.try_get::<Option<DateTime<Utc>>, _>("event_time_end")?)
+        .bind(current_version.try_get::<Option<String>, _>("event_timezone")?)
+        .bind(current_version.try_get::<Option<String>, _>("event_time_precision")?)
         .execute(&mut *tx)
         .await?;
 
@@ -1132,7 +1212,8 @@ impl MemoryRepository {
         .ok_or(RepositoryError::NotFound)?;
         let candidate = sqlx::query(
             "SELECT revision,state,content,normalized_key,confidence,importance,inference_kind,\
-                    target_memory_record_id \
+                    target_memory_record_id,event_time_start,event_time_end,event_timezone,\
+                    event_time_precision,structured_content \
              FROM memory_core.memory_candidates \
              WHERE tenant_id=$1 AND id=$2 FOR UPDATE",
         )
@@ -1242,8 +1323,10 @@ impl MemoryRepository {
                          tenant_id,id,memory_record_id,version_no,content,content_hash,\
                          normalized_key,confidence,importance,inference_kind,effective_from,\
                          classification,allowed_purposes,consent_ref,retention_policy_id,\
-                         retain_until,decision_id\
-                     ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17)",
+                         retain_until,decision_id,event_time_start,event_time_end,event_timezone,\
+                         event_time_precision,structured_content\
+                     ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,\
+                               $18,$19,$20,$21,$22)",
                 )
                 .bind(&authority.tenant_id)
                 .bind(version_id)
@@ -1262,6 +1345,11 @@ impl MemoryRepository {
                 .bind(current_version.try_get::<String, _>("retention_policy_id")?)
                 .bind(current_version.try_get::<Option<DateTime<Utc>>, _>("retain_until")?)
                 .bind(decision_id)
+                .bind(candidate.try_get::<Option<DateTime<Utc>>, _>("event_time_start")?)
+                .bind(candidate.try_get::<Option<DateTime<Utc>>, _>("event_time_end")?)
+                .bind(candidate.try_get::<Option<String>, _>("event_timezone")?)
+                .bind(candidate.try_get::<Option<String>, _>("event_time_precision")?)
+                .bind(candidate.try_get::<Option<serde_json::Value>, _>("structured_content")?)
                 .execute(&mut *tx)
                 .await?;
                 sqlx::query(
@@ -2117,7 +2205,8 @@ impl MemoryRepository {
                 "UPDATE memory_core.memory_candidates \
                  SET state=CASE WHEN state='needs_review' THEN 'rejected' ELSE state END,\
                      revision=revision+CASE WHEN state='needs_review' THEN 1 ELSE 0 END,\
-                     content=NULL,normalized_key=NULL,\
+                     content=NULL,normalized_key=NULL,event_time_start=NULL,event_time_end=NULL,\
+                     event_timezone=NULL,event_time_precision=NULL,structured_content=NULL,\
                      content_erased_at=COALESCE(content_erased_at,now()) \
                  WHERE tenant_id=$1 AND target_memory_record_id=$2",
             )
@@ -2217,6 +2306,8 @@ impl MemoryRepository {
                 "UPDATE memory_core.memory_versions \
                  SET content=NULL,content_hash='erased:' || id::text,normalized_key=NULL,\
                      effective_from=NULL,effective_to=NULL,consent_ref=NULL,retain_until=NULL,\
+                     event_time_start=NULL,event_time_end=NULL,event_timezone=NULL,\
+                     event_time_precision=NULL,structured_content=NULL,\
                      content_erased_at=COALESCE(content_erased_at,now()) \
                  WHERE tenant_id=$1 AND memory_record_id=$2",
             )
@@ -3464,16 +3555,27 @@ impl MemoryRepository {
         let rows = sqlx::query(
             "SELECT rd.memory_record_id,rd.memory_version_id,rd.head_revision,rd.generation,\
                     rd.content_hash,\
-                    max(1.0/(1.0+abs(extract(epoch FROM (se.occurred_at-$5::timestamptz)))\
-                                  /86400.0))::float8 AS temporal_score \
+                    max(1.0/(1.0+abs(extract(epoch FROM (\
+                        CASE \
+                            WHEN v.event_time_start IS NOT NULL \
+                            THEN v.event_time_start + (v.event_time_end-v.event_time_start)/2 \
+                            ELSE se.occurred_at \
+                        END-$5::timestamptz))) /86400.0))::float8 AS temporal_score \
              FROM memory_search.retrieval_documents rd \
+             JOIN memory_core.memory_versions v \
+               ON v.tenant_id=rd.tenant_id AND v.id=rd.memory_version_id \
              JOIN memory_core.memory_version_sources mvs \
                ON mvs.tenant_id=rd.tenant_id \
               AND mvs.memory_version_id=rd.memory_version_id \
              JOIN memory_core.source_events se \
                ON se.tenant_id=mvs.tenant_id AND se.id=mvs.source_event_id \
              WHERE rd.tenant_id=$1 AND rd.namespace_key=$2 AND rd.generation=$3 \
-               AND se.occurred_at>=$4 AND se.occurred_at<$5 \
+               AND (\
+                    (v.event_time_start IS NOT NULL \
+                     AND v.event_time_end>$4 AND v.event_time_start<$5) \
+                 OR (v.event_time_start IS NULL \
+                     AND se.occurred_at>=$4 AND se.occurred_at<$5)\
+               ) \
              GROUP BY rd.memory_record_id,rd.memory_version_id,rd.head_revision,rd.generation,\
                       rd.content_hash \
              ORDER BY temporal_score DESC,rd.memory_record_id,rd.memory_version_id \
@@ -4125,6 +4227,12 @@ async fn load_memory_record_view_tx(
     .ok_or(RepositoryError::NotFound)?;
     let scope_kind: String = record.try_get("scope_kind")?;
     let scope_id: Option<String> = record.try_get("scope_id")?;
+    let memory_type_name: String = record.try_get("memory_type")?;
+    let memory_type = canonical_memory_type(&memory_type_name).ok_or_else(|| {
+        RepositoryError::Invariant(format!(
+            "stored Memory Record has unknown canonical type {memory_type_name:?}"
+        ))
+    })?;
     if !authority.authorizes_scope(&scope_kind, scope_id.as_deref()) {
         return Err(RepositoryError::NotFound);
     }
@@ -4132,6 +4240,8 @@ async fn load_memory_record_view_tx(
     let version_rows = sqlx::query(
         "SELECT v.id,v.version_no,v.content,v.content_hash,v.normalized_key,v.confidence,\
                 v.importance,v.inference_kind,v.effective_from,v.effective_to,\
+                v.event_time_start,v.event_time_end,v.event_timezone,v.event_time_precision,\
+                v.structured_content,\
                 v.classification,v.allowed_purposes,v.consent_ref,v.retention_policy_id,\
                 v.retain_until,v.created_at,v.content_erased_at,\
                 COALESCE(ARRAY(\
@@ -4165,6 +4275,8 @@ async fn load_memory_record_view_tx(
                 source_refs: row.try_get("source_refs")?,
                 effective_from: row.try_get("effective_from")?,
                 effective_to: row.try_get("effective_to")?,
+                event_time: event_time_from_row(&row)?,
+                structured_content: structured_content_from_row(&row, memory_type)?,
                 classification: row.try_get("classification")?,
                 allowed_purposes: row.try_get("allowed_purposes")?,
                 consent_ref: row.try_get("consent_ref")?,
@@ -4215,7 +4327,7 @@ async fn load_memory_record_view_tx(
             kind: scope_kind,
             id: scope_id,
         },
-        memory_type: record.try_get("memory_type")?,
+        memory_type: memory_type_name,
         semantic_key: record.try_get("semantic_key")?,
         head_state: record.try_get("state")?,
         revision: record.try_get("revision")?,
@@ -5142,6 +5254,71 @@ fn content_hash(content: &str) -> String {
     format!("sha256:{}", hex::encode(Sha256::digest(content.as_bytes())))
 }
 
+fn event_time_from_row(row: &PgRow) -> Result<Option<EventTime>, sqlx::Error> {
+    let start = row.try_get::<Option<DateTime<Utc>>, _>("event_time_start")?;
+    let end = row.try_get::<Option<DateTime<Utc>>, _>("event_time_end")?;
+    let timezone = row.try_get::<Option<String>, _>("event_timezone")?;
+    let precision = row.try_get::<Option<String>, _>("event_time_precision")?;
+    match (start, end, timezone, precision) {
+        (None, None, None, None) => Ok(None),
+        (Some(start), Some(end), Some(timezone), Some(precision)) => {
+            let precision = match precision.as_str() {
+                "instant" => EventTimePrecision::Instant,
+                "minute" => EventTimePrecision::Minute,
+                "hour" => EventTimePrecision::Hour,
+                "part_of_day" => EventTimePrecision::PartOfDay,
+                "day" => EventTimePrecision::Day,
+                "week" => EventTimePrecision::Week,
+                "month" => EventTimePrecision::Month,
+                "quarter" => EventTimePrecision::Quarter,
+                "year" => EventTimePrecision::Year,
+                _ => {
+                    return Err(sqlx::Error::Protocol(format!(
+                        "stored Memory Version has unknown event time precision {precision:?}"
+                    )));
+                }
+            };
+            EventTime::new(start, end, timezone, precision)
+                .map(Some)
+                .map_err(|error| sqlx::Error::Protocol(error.to_string()))
+        }
+        _ => Err(sqlx::Error::Protocol(
+            "stored Memory Version has a partial event time".into(),
+        )),
+    }
+}
+
+fn structured_content_from_row(
+    row: &PgRow,
+    memory_type: MemoryType,
+) -> Result<Option<StructuredContent>, sqlx::Error> {
+    let raw = row.try_get::<Option<serde_json::Value>, _>("structured_content")?;
+    let Some(raw) = raw else {
+        return Ok(None);
+    };
+    let structured: StructuredContent = serde_json::from_value(raw).map_err(|error| {
+        sqlx::Error::Protocol(format!(
+            "stored Memory Version has invalid structured content: {error}"
+        ))
+    })?;
+    structured.validate_for(memory_type).map_err(|error| {
+        sqlx::Error::Protocol(format!(
+            "stored Memory Version structured content violates its schema: {error}"
+        ))
+    })?;
+    Ok(Some(structured))
+}
+
+fn canonical_memory_type(value: &str) -> Option<MemoryType> {
+    match value {
+        "preference" => Some(MemoryType::Preference),
+        "profile_fact" => Some(MemoryType::ProfileFact),
+        "semantic_fact" => Some(MemoryType::SemanticFact),
+        "episodic_summary" => Some(MemoryType::EpisodicSummary),
+        _ => None,
+    }
+}
+
 fn validate_retrieval_run(
     authority: &DemoAuthority,
     command: &RetrievalRunCommand,
@@ -5296,6 +5473,17 @@ fn validate_ingest_candidate(command: &IngestCandidateCommand) -> Result<(), Rep
         || !(0.0..=1.0).contains(&command.confidence)
         || !command.importance.is_finite()
         || !(0.0..=1.0).contains(&command.importance)
+        || command.event_time.as_ref().is_some_and(|event_time| {
+            command.memory_type != MemoryType::EpisodicSummary.as_str()
+                || event_time.validate().is_err()
+        })
+        || command
+            .structured_content
+            .as_ref()
+            .is_some_and(|structured| {
+                canonical_memory_type(&command.memory_type)
+                    .is_none_or(|memory_type| structured.validate_for(memory_type).is_err())
+            })
     {
         return Err(RepositoryError::Conflict(
             "candidate type, inference metadata, or score is invalid".into(),
@@ -5370,6 +5558,17 @@ fn validate_extraction_proposals(
             || !(0.80..=1.0).contains(&proposal.confidence)
             || !proposal.importance.is_finite()
             || !(0.0..=1.0).contains(&proposal.importance)
+            || proposal.event_time.as_ref().is_some_and(|event_time| {
+                proposal.memory_type != MemoryType::EpisodicSummary.as_str()
+                    || event_time.validate().is_err()
+            })
+            || proposal
+                .structured_content
+                .as_ref()
+                .is_some_and(|structured| {
+                    canonical_memory_type(&proposal.memory_type)
+                        .is_none_or(|memory_type| structured.validate_for(memory_type).is_err())
+                })
             || !identities.insert((
                 proposal.memory_type.as_str(),
                 proposal.semantic_key.as_str(),
@@ -6494,6 +6693,8 @@ mod tests {
             source_content: "我希望回答先讲原理".into(),
             memory_content: "用户偏好回答先讲原理".into(),
             occurred_at: Utc::now(),
+            event_time: None,
+            structured_content: None,
             memory_type: "preference".into(),
             semantic_key: "user.answer.style".into(),
             confidence: 0.91,
@@ -6511,6 +6712,38 @@ mod tests {
         invalid = command.clone();
         invalid.semantic_key = "用户.偏好".into();
         assert!(validate_ingest_candidate(&invalid).is_err());
+        let mut structured = command.clone();
+        structured.structured_content = Some(
+            StructuredContent::new(
+                "lazytt.preference",
+                1,
+                json!({"subject": "user", "value": "先讲原理"}),
+                MemoryType::Preference,
+            )
+            .unwrap(),
+        );
+        validate_ingest_candidate(&structured).unwrap();
+        structured.structured_content = Some(StructuredContent {
+            schema_name: "lazytt.profile_fact".into(),
+            schema_version: 1,
+            payload: json!({"subject": "user", "attribute": "role", "value": "engineer"}),
+        });
+        assert!(validate_ingest_candidate(&structured).is_err());
+        invalid = command.clone();
+        invalid.event_time = Some(
+            EventTime::new(
+                DateTime::parse_from_rfc3339("2026-07-01T00:00:00Z")
+                    .unwrap()
+                    .with_timezone(&Utc),
+                DateTime::parse_from_rfc3339("2026-07-02T00:00:00Z")
+                    .unwrap()
+                    .with_timezone(&Utc),
+                "Asia/Shanghai",
+                EventTimePrecision::Day,
+            )
+            .unwrap(),
+        );
+        assert!(validate_ingest_candidate(&invalid).is_err());
 
         let mut project = command;
         project.memory_type = "semantic_fact".into();
@@ -6524,6 +6757,24 @@ mod tests {
         project.memory_type = "project_fact".into();
         project.confidence = 0.95;
         assert!(validate_ingest_candidate(&project).is_err());
+
+        project.memory_type = "episodic_summary".into();
+        project.semantic_key = "episode.project.release".into();
+        project.scope_kind = "user".into();
+        project.event_time = Some(
+            EventTime::new(
+                DateTime::parse_from_rfc3339("2026-07-01T00:00:00Z")
+                    .unwrap()
+                    .with_timezone(&Utc),
+                DateTime::parse_from_rfc3339("2026-07-02T00:00:00Z")
+                    .unwrap()
+                    .with_timezone(&Utc),
+                "Asia/Shanghai",
+                EventTimePrecision::Day,
+            )
+            .unwrap(),
+        );
+        validate_ingest_candidate(&project).unwrap();
     }
 
     #[test]
@@ -6535,6 +6786,8 @@ mod tests {
             content: "回答先给结论".into(),
             confidence: 0.92,
             importance: 0.8,
+            event_time: None,
+            structured_content: None,
         };
         validate_extraction_proposals(std::slice::from_ref(&proposal)).unwrap();
         assert!(validate_extraction_proposals(&[proposal.clone(), proposal]).is_err());
@@ -6979,7 +7232,7 @@ mod tests {
 
     #[tokio::test]
     #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
-    async fn temporal_candidates_use_source_time_and_still_require_canonical_authorization() {
+    async fn temporal_candidates_use_event_time_and_still_require_canonical_authorization() {
         let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
             "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into()
         });
@@ -7001,7 +7254,7 @@ mod tests {
             ),
         ];
         let mut operations = HashMap::new();
-        for (label, content, occurred_at) in episodes {
+        for (label, content, event_time_start) in episodes {
             let operation = repository
                 .ingest_extracted(
                     &authority,
@@ -7012,7 +7265,25 @@ mod tests {
                         source_ref: format!("conversation:temporal:{label}:{test_id}"),
                         source_content: content.into(),
                         memory_content: content.into(),
-                        occurred_at,
+                        occurred_at: reference_time,
+                        event_time: Some(
+                            EventTime::new(
+                                event_time_start,
+                                event_time_start + chrono::Duration::seconds(1),
+                                "Asia/Shanghai",
+                                EventTimePrecision::Instant,
+                            )
+                            .unwrap(),
+                        ),
+                        structured_content: Some(
+                            StructuredContent::new(
+                                "lazytt.episodic_summary",
+                                1,
+                                json!({"event_kind": label, "outcome": content}),
+                                MemoryType::EpisodicSummary,
+                            )
+                            .unwrap(),
+                        ),
                         memory_type: "episodic_summary".into(),
                         semantic_key: format!("episode.temporal.{label}.{test_id}"),
                         confidence: 0.95,
@@ -7041,6 +7312,25 @@ mod tests {
                 .unwrap();
             operations.insert(label, operation);
         }
+
+        let yesterday_record = repository
+            .inspect_memory(&authority, operations["yesterday"].memory_record_id)
+            .await
+            .unwrap();
+        assert_eq!(
+            yesterday_record.versions[0]
+                .event_time
+                .as_ref()
+                .map(|value| value.start),
+            Some(Utc.with_ymd_and_hms(2026, 7, 29, 2, 0, 0).unwrap())
+        );
+        assert_eq!(
+            yesterday_record.versions[0]
+                .structured_content
+                .as_ref()
+                .map(|value| value.schema_name.as_str()),
+            Some("lazytt.episodic_summary")
+        );
 
         let window = memory_application::parse_temporal_query(
             "昨天处理了什么？",
@@ -7245,6 +7535,8 @@ mod tests {
             source_content: "当前项目使用 PostgreSQL 作为权威数据库".into(),
             memory_content: "当前项目使用PostgreSQL作为权威数据库。".into(),
             occurred_at: Utc::now(),
+            event_time: None,
+            structured_content: None,
             memory_type: "semantic_fact".into(),
             semantic_key: "project.architecture.authority_store".into(),
             confidence: 0.94,
@@ -7332,6 +7624,8 @@ mod tests {
             content: "回答先给结论".into(),
             confidence: 0.93,
             importance: 0.8,
+            event_time: None,
+            structured_content: None,
         };
         let completed = repository
             .complete_extraction_snapshot(&authority, &command, vec![proposal.clone()])
@@ -8931,7 +9225,10 @@ mod tests {
             "SELECT count(*) FROM memory_core.memory_versions \
              WHERE tenant_id=$1 AND memory_record_id=$2 \
                AND (content IS NOT NULL OR content_erased_at IS NULL \
-                    OR content_hash NOT LIKE 'erased:%')",
+                    OR content_hash NOT LIKE 'erased:%' \
+                    OR event_time_start IS NOT NULL OR event_time_end IS NOT NULL \
+                    OR event_timezone IS NOT NULL OR event_time_precision IS NOT NULL \
+                    OR structured_content IS NOT NULL)",
         )
         .bind(&authority.tenant_id)
         .bind(original.memory_record_id)
@@ -8941,7 +9238,10 @@ mod tests {
         let candidate_content_count = sqlx::query_scalar::<_, i64>(
             "SELECT count(*) FROM memory_core.memory_candidates \
              WHERE tenant_id=$1 AND target_memory_record_id=$2 \
-               AND (content IS NOT NULL OR content_erased_at IS NULL)",
+               AND (content IS NOT NULL OR content_erased_at IS NULL \
+                    OR event_time_start IS NOT NULL OR event_time_end IS NOT NULL \
+                    OR event_timezone IS NOT NULL OR event_time_precision IS NOT NULL \
+                    OR structured_content IS NOT NULL)",
         )
         .bind(&authority.tenant_id)
         .bind(original.memory_record_id)

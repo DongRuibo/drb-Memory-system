@@ -4,7 +4,7 @@ use std::time::Duration;
 
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
-use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, MemoryType};
+use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, EventTime, MemoryType, StructuredContent};
 use reqwest::header::{AUTHORIZATION, HeaderMap, HeaderValue};
 use reqwest::redirect::Policy;
 use reqwest::{Response, StatusCode, Url};
@@ -134,6 +134,7 @@ pub struct MemoryExtractionCommand {
     pub source_ref: String,
     pub content: String,
     pub occurred_at: DateTime<Utc>,
+    pub timezone: String,
     pub max_candidates: usize,
     pub scope_selector: Option<ScopeSelector>,
     /// Optional project scope used only for project-scoped `semantic_fact` proposals. Personal
@@ -237,6 +238,9 @@ pub struct ExtractedCandidateProposal {
     pub content: String,
     pub confidence: f64,
     pub importance: f64,
+    pub event_time: Option<EventTime>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub structured_content: Option<StructuredContent>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -349,6 +353,8 @@ pub struct MemoryVersionView {
     pub source_refs: Vec<String>,
     pub effective_from: Option<DateTime<Utc>>,
     pub effective_to: Option<DateTime<Utc>>,
+    pub event_time: Option<EventTime>,
+    pub structured_content: Option<StructuredContent>,
     pub classification: String,
     pub allowed_purposes: Vec<String>,
     pub consent_ref: Option<String>,
@@ -652,6 +658,7 @@ struct MemoryExtractionRequest<'a> {
     source_ref: &'a str,
     content: &'a str,
     occurred_at: DateTime<Utc>,
+    timezone: &'a str,
     max_candidates: usize,
     scope_selector: &'a Option<ScopeSelector>,
     project_scope_selector: &'a Option<ScopeSelector>,
@@ -763,9 +770,15 @@ impl MemoryPort for MemoryHttpClient {
         &self,
         command: &MemoryExtractionCommand,
     ) -> Result<MemoryExtractionResponse, MemoryClientError> {
-        if !(1..=8).contains(&command.max_candidates) {
+        if !(1..=8).contains(&command.max_candidates)
+            || command.timezone.is_empty()
+            || command.timezone.len() > 64
+            || command.timezone.trim() != command.timezone
+            || command.timezone.parse::<chrono_tz::Tz>().is_err()
+        {
             return Err(MemoryClientError::Contract(
-                "max_candidates must be between 1 and 8".into(),
+                "extraction requires max_candidates between 1 and 8 and a valid IANA timezone"
+                    .into(),
             ));
         }
         let response: MemoryExtractionResponse = self
@@ -778,6 +791,7 @@ impl MemoryPort for MemoryHttpClient {
                     source_ref: &command.source_ref,
                     content: &command.content,
                     occurred_at: command.occurred_at,
+                    timezone: &command.timezone,
                     max_candidates: command.max_candidates,
                     scope_selector: &command.scope_selector,
                     project_scope_selector: &command.project_scope_selector,
@@ -785,7 +799,7 @@ impl MemoryPort for MemoryHttpClient {
                 true,
             )
             .await?;
-        validate_extraction_response(&response, command.max_candidates)?;
+        validate_extraction_response(&response, command.max_candidates, &command.timezone)?;
         Ok(response)
     }
 
@@ -1000,6 +1014,7 @@ fn validate_idempotency_key(key: &str) -> Result<(), MemoryClientError> {
 fn validate_extraction_response(
     response: &MemoryExtractionResponse,
     max_candidates: usize,
+    timezone: &str,
 ) -> Result<(), MemoryClientError> {
     if response.extractor_version.trim().is_empty()
         || response.extractor_version.len() > 256
@@ -1032,6 +1047,18 @@ fn validate_extraction_response(
                 .contains(&proposal.confidence)
             || !proposal.importance.is_finite()
             || !(0.0..=1.0).contains(&proposal.importance)
+            || proposal.event_time.as_ref().is_some_and(|event_time| {
+                proposal.memory_type != MemoryType::EpisodicSummary.as_str()
+                    || event_time.timezone != timezone
+                    || event_time.validate().is_err()
+            })
+            || proposal
+                .structured_content
+                .as_ref()
+                .is_some_and(|structured| {
+                    canonical_memory_type(&proposal.memory_type)
+                        .is_none_or(|memory_type| structured.validate_for(memory_type).is_err())
+                })
             || !identities.insert((
                 proposal.memory_type.as_str(),
                 proposal.semantic_key.as_str(),
@@ -1043,6 +1070,16 @@ fn validate_extraction_response(
         }
     }
     Ok(())
+}
+
+fn canonical_memory_type(value: &str) -> Option<MemoryType> {
+    match value {
+        "preference" => Some(MemoryType::Preference),
+        "profile_fact" => Some(MemoryType::ProfileFact),
+        "semantic_fact" => Some(MemoryType::SemanticFact),
+        "episodic_summary" => Some(MemoryType::EpisodicSummary),
+        _ => None,
+    }
 }
 
 fn validate_manifest(
@@ -1349,6 +1386,8 @@ mod tests {
             content: "先给结论，再解释细节".into(),
             confidence: 0.95,
             importance: 0.8,
+            event_time: None,
+            structured_content: None,
         };
         let response = MemoryExtractionResponse {
             extractor_version: "test-extractor-v1".into(),
@@ -1358,11 +1397,11 @@ mod tests {
                 operation: operation.clone(),
             }],
         };
-        validate_extraction_response(&response, 2).unwrap();
+        validate_extraction_response(&response, 2, "Asia/Shanghai").unwrap();
 
         let mut wrong_count = response.clone();
         wrong_count.candidate_count = 2;
-        assert!(validate_extraction_response(&wrong_count, 2).is_err());
+        assert!(validate_extraction_response(&wrong_count, 2, "Asia/Shanghai").is_err());
 
         let mut duplicate = response;
         duplicate.candidate_count = 2;
@@ -1370,6 +1409,24 @@ mod tests {
             proposal,
             operation,
         });
-        assert!(validate_extraction_response(&duplicate, 2).is_err());
+        assert!(validate_extraction_response(&duplicate, 2, "Asia/Shanghai").is_err());
+
+        let mut event_response = wrong_count;
+        event_response.candidate_count = 1;
+        event_response.candidates[0].proposal.memory_type = "episodic_summary".into();
+        event_response.candidates[0].proposal.event_time = Some(
+            EventTime::new(
+                DateTime::parse_from_rfc3339("2026-07-01T00:00:00Z")
+                    .unwrap()
+                    .with_timezone(&Utc),
+                DateTime::parse_from_rfc3339("2026-07-02T00:00:00Z")
+                    .unwrap()
+                    .with_timezone(&Utc),
+                "America/New_York",
+                memory_domain::EventTimePrecision::Day,
+            )
+            .unwrap(),
+        );
+        assert!(validate_extraction_response(&event_response, 2, "Asia/Shanghai").is_err());
     }
 }

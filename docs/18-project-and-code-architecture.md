@@ -205,7 +205,8 @@ Source Event
 ```text
 当前问题 + Principal + Purpose + Scope
   -> 中文时间表达解析（可选 reference_time + IANA timezone）
-  -> 按 Source Event occurred_at 生成时间候选与硬过滤集合
+  -> 按 Memory Version Event Time 生成时间候选与硬过滤集合
+     （Event Time 缺失时才回退到 Source Event occurred_at）
   -> Mem0 候选 + PostgreSQL 中文 BM25 候选 + 字符词法降级候选
   -> 加权 RRF 融合
   -> canonical pre-rerank 授权
@@ -220,9 +221,12 @@ Source Event
 ```
 
 “昨天/上周/最近 48 小时/2026 年第 2 季度”等表达先被解析为半开区间
-`[start, end)`。时间约束使用来源事件的 `occurred_at`，不把事实生效时间
-`effective_from` 混作事件发生时间。即使本地时间投影或外部 Provider 留有旧记录，候选
-仍需经过同样的 pre/post-rerank canonical authorization；Forget 后不能重新进入结果。
+`[start, end)`。新产生的 `episodic_summary` 可以保存来源支持的 Event Time 半开区间、
+原始 IANA 时区和精度；没有明确事件时间时不得把消息时间伪装成历史事件时间。时间通道
+优先按 Event Time 区间相交检索，旧版本或无 Event Time 的版本才回退到 Source Event
+`occurred_at`，并且不把事实生效时间 `effective_from/effective_to` 混作事件发生时间。
+即使本地时间投影或外部 Provider 留有旧记录，候选仍需经过同样的 pre/post-rerank
+canonical authorization；Forget 后不能重新进入结果。
 `reference_time` 会连同时间窗口绑定 Context Pack 幂等请求，便于回放相对时间查询。
 
 直接 Search 每次都会生成 `retrieval_run_id`，把各通道原始排名、权重、RRF 贡献、
@@ -307,8 +311,9 @@ flowchart TD
     DOMAIN["crates/memory-domain<br/>独立不变量原型"]
 ```
 
-`memory-domain` 当前不在主运行依赖链中。它保存纯领域状态机与测试原型，但当前生产路径
-的主要规则仍集中在 `memory-postgres/model.rs` 和 `memory-postgres/repository.rs`。
+`memory-domain` 保存无 HTTP/数据库依赖的 Memory Type、Family、Scope 和状态机不变量；
+Memory Service、Repository、Client 和 Extractor 共享它的 Canonical Taxonomy。
+事务级 Authority、Ledger、Outbox 和 Context 规则仍集中在 `memory-postgres`。
 
 ## 9. 代码文件架构
 
@@ -369,8 +374,10 @@ crates/
 │   └── repository.rs        # 当前核心事务、Policy、检索、Context、Outbox 实现
 ├── memory-domain/src/
 │   ├── candidate.rs         # Candidate 状态机原型
+│   ├── event_time.rs        # 事件半开区间、IANA 时区和精度约束
 │   ├── memory.rs            # Record/Head/Version 纯不变量原型
-│   └── scope.rs             # Typed Scope 不变量原型
+│   ├── scope.rs             # Typed Scope 不变量原型
+│   └── structured_content.rs # 四类版本化 Structured Content Schema
 ├── provider-adapters/mem0-adapter/src/lib.rs
 │                              # RetrievalIndex -> Mem0 REST，infer=false 与 bounded response
 ├── extractors/kimi-extractor/src/lib.rs
@@ -383,13 +390,13 @@ crates/
 ### 9.3 数据库、部署和验证
 
 ```text
-migrations/                  # 0001...0021 按序演进的 PostgreSQL Schema
+migrations/                  # 0001...0024 按序演进的 PostgreSQL Schema
 ├── 0001...0004              # Ledger、Head guard、Projection fencing、event_id
 ├── 0005...0006              # Context Pack 幂等与原子 Consume
 ├── 0007...0009              # Semantic identity、Review、Erasure
 ├── 0010...0014              # Ranking/Generation/Receipt/Manifest/Extraction snapshot
 ├── 0015...0017              # demo_chat、client message id、精确 Version 证据
-└── 0018...0021              # 来源安全、中文 BM25、来源时间索引、Retrieval Explain 回执
+└── 0018...0024              # 来源安全、BM25、时间、Explain、Taxonomy、Structured Content
 
 deploy/
 ├── local/postgres.compose.yaml # 本机 PostgreSQL 17

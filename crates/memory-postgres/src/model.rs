@@ -2,6 +2,7 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use chrono::{DateTime, Utc};
 use memory_application::{ExtractCandidateProposal, TemporalWindow};
+use memory_domain::{EventTime, StructuredContent};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use uuid::Uuid;
@@ -67,6 +68,8 @@ pub struct IngestCandidateCommand {
     pub source_content: String,
     pub memory_content: String,
     pub occurred_at: DateTime<Utc>,
+    pub event_time: Option<EventTime>,
+    pub structured_content: Option<StructuredContent>,
     pub memory_type: String,
     pub semantic_key: String,
     pub confidence: f64,
@@ -537,6 +540,8 @@ pub struct MemoryVersionView {
     pub source_refs: Vec<String>,
     pub effective_from: Option<DateTime<Utc>>,
     pub effective_to: Option<DateTime<Utc>>,
+    pub event_time: Option<EventTime>,
+    pub structured_content: Option<StructuredContent>,
     pub classification: String,
     pub allowed_purposes: Vec<String>,
     pub consent_ref: Option<String>,

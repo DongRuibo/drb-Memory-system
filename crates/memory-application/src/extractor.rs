@@ -1,4 +1,6 @@
 use async_trait::async_trait;
+use chrono::{DateTime, Utc};
+use memory_domain::{EventTime, StructuredContent};
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 
@@ -9,12 +11,18 @@ pub struct ExtractCandidateProposal {
     pub content: String,
     pub confidence: f64,
     pub importance: f64,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub event_time: Option<EventTime>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub structured_content: Option<StructuredContent>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Serialize, Deserialize)]
 pub struct ExtractMemoryRequest {
     pub source_ref: String,
     pub content: String,
+    pub source_event_time: DateTime<Utc>,
+    pub timezone: String,
     pub max_candidates: usize,
     /// The service, not the model, decides which memory types may be proposed
     /// for this request. This keeps scope and policy authority outside the LLM.

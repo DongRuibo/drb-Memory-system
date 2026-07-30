@@ -619,7 +619,7 @@ components:
         event_id: {type: string, minLength: 1, maxLength: 256}
         source_type:
           type: string
-          enum: [conversation_message, tool_result, task_result, user_correction, imported_record]
+          enum: [conversation_message]
         source_ref: {type: string, minLength: 1, maxLength: 512}
         content: {type: string, minLength: 1, maxLength: 32768}
         occurred_at: {type: string, format: date-time}
@@ -635,6 +635,11 @@ components:
         source_ref: {type: string, minLength: 1, maxLength: 440}
         content: {type: string, minLength: 1, maxLength: 32768}
         occurred_at: {type: string, format: date-time}
+        timezone:
+          type: string
+          default: Asia/Shanghai
+          maxLength: 64
+          description: IANA timezone used only to interpret explicit event time in episodic proposals.
         max_candidates: {type: integer, minimum: 1, maximum: 8, default: 4}
         scope_selector: {$ref: '#/components/schemas/ScopeSelector'}
         project_scope_selector:
@@ -663,6 +668,18 @@ components:
           maximum: 1.0
           description: semantic_fact requires at least 0.90; other extracted types require 0.80.
         importance: {type: number, minimum: 0.0, maximum: 1.0}
+        event_time:
+          anyOf:
+            - {$ref: '#/components/schemas/EventTime'}
+            - {type: 'null'}
+          description: Source-supported event interval; permitted only for episodic_summary.
+        structured_content:
+          anyOf:
+            - {$ref: '#/components/schemas/StructuredContent'}
+            - {type: 'null'}
+          description: >-
+            Optional schema-v1 auxiliary representation. Invalid model structure is omitted while
+            canonical text remains eligible for the normal policy path.
     ExtractedMemoryResult:
       type: object
       additionalProperties: false
@@ -770,6 +787,93 @@ components:
         precision: {type: string, enum: [rolling_hours, rolling_days, day, part_of_day, week, month, quarter, year]}
         timezone: {type: string}
         source_expression: {type: string}
+    EventTime:
+      type: object
+      additionalProperties: false
+      required: [start, end, timezone, precision]
+      description: >-
+        Source-supported half-open interval for when an episodic event occurred. It is distinct
+        from Source Event occurred_at, Memory Version effective time, and retrieval query windows.
+      properties:
+        start: {type: string, format: date-time}
+        end: {type: string, format: date-time}
+        timezone: {type: string, maxLength: 64}
+        precision:
+          type: string
+          enum: [instant, minute, hour, part_of_day, day, week, month, quarter, year]
+    StructuredContent:
+      oneOf:
+        - {$ref: '#/components/schemas/PreferenceStructuredContent'}
+        - {$ref: '#/components/schemas/ProfileFactStructuredContent'}
+        - {$ref: '#/components/schemas/SemanticFactStructuredContent'}
+        - {$ref: '#/components/schemas/EpisodicSummaryStructuredContent'}
+      description: >-
+        Versioned auxiliary representation of canonical readable content. It carries no policy,
+        permission, or execution authority.
+    PreferenceStructuredContent:
+      type: object
+      additionalProperties: false
+      required: [schema_name, schema_version, payload]
+      properties:
+        schema_name: {type: string, const: lazytt.preference}
+        schema_version: {type: integer, const: 1}
+        payload:
+          type: object
+          additionalProperties: false
+          required: [subject, value]
+          properties:
+            subject: {type: string, minLength: 1, maxLength: 256}
+            value: {type: string, minLength: 1, maxLength: 256}
+            qualifier: {type: string, minLength: 1, maxLength: 256}
+    ProfileFactStructuredContent:
+      type: object
+      additionalProperties: false
+      required: [schema_name, schema_version, payload]
+      properties:
+        schema_name: {type: string, const: lazytt.profile_fact}
+        schema_version: {type: integer, const: 1}
+        payload:
+          type: object
+          additionalProperties: false
+          required: [subject, attribute, value]
+          properties:
+            subject: {type: string, minLength: 1, maxLength: 256}
+            attribute: {type: string, minLength: 1, maxLength: 256}
+            value: {type: string, minLength: 1, maxLength: 256}
+    SemanticFactStructuredContent:
+      type: object
+      additionalProperties: false
+      required: [schema_name, schema_version, payload]
+      properties:
+        schema_name: {type: string, const: lazytt.semantic_fact}
+        schema_version: {type: integer, const: 1}
+        payload:
+          type: object
+          additionalProperties: false
+          required: [subject, predicate, object]
+          properties:
+            subject: {type: string, minLength: 1, maxLength: 256}
+            predicate: {type: string, minLength: 1, maxLength: 256}
+            object: {type: string, minLength: 1, maxLength: 256}
+    EpisodicSummaryStructuredContent:
+      type: object
+      additionalProperties: false
+      required: [schema_name, schema_version, payload]
+      properties:
+        schema_name: {type: string, const: lazytt.episodic_summary}
+        schema_version: {type: integer, const: 1}
+        payload:
+          type: object
+          additionalProperties: false
+          required: [event_kind]
+          properties:
+            event_kind: {type: string, minLength: 1, maxLength: 256}
+            participants:
+              type: array
+              minItems: 1
+              maxItems: 8
+              items: {type: string, minLength: 1, maxLength: 256}
+            outcome: {type: string, minLength: 1, maxLength: 256}
     RetrievalCandidateTrace:
       type: object
       additionalProperties: false
@@ -1125,7 +1229,7 @@ components:
     MemoryVersionView:
       type: object
       additionalProperties: false
-      required: [memory_version_id, version_no, content, content_hash, normalized_key, confidence, importance, inference_kind, source_refs, classification, allowed_purposes, consent_ref, retention_policy_id, retain_until, created_at, content_erased_at]
+      required: [memory_version_id, version_no, content, content_hash, normalized_key, confidence, importance, inference_kind, source_refs, effective_from, effective_to, event_time, structured_content, classification, allowed_purposes, consent_ref, retention_policy_id, retain_until, created_at, content_erased_at]
       properties:
         memory_version_id: {$ref: '#/components/schemas/Uuid'}
         version_no: {type: integer, minimum: 1}
@@ -1138,6 +1242,14 @@ components:
         source_refs: {type: array, minItems: 1, items: {type: string}}
         effective_from: {type: [string, 'null'], format: date-time}
         effective_to: {type: [string, 'null'], format: date-time}
+        event_time:
+          anyOf:
+            - {$ref: '#/components/schemas/EventTime'}
+            - {type: 'null'}
+        structured_content:
+          anyOf:
+            - {$ref: '#/components/schemas/StructuredContent'}
+            - {type: 'null'}
         classification: {type: string, enum: [public, internal, personal, sensitive]}
         allowed_purposes: {type: array, items: {type: string}}
         consent_ref: {type: [string, 'null']}

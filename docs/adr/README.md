@@ -8,3 +8,5 @@ ADR 记录难以逆转、存在真实取舍且仅看代码不容易理解的决�
 - [0004：Provider 投影采用最终一致性](./0004-eventually-consistent-provider-projection.md)
 - [0005：读取采用权限交集](./0005-authority-intersection-for-read.md)
 - [0006：统一正式记忆分类](./0006-unified-memory-taxonomy.md)
+- [0007：通过 LazyTT 重新认识而非导入外部记忆](./0007-relearn-instead-of-importing-external-memory.md)
+- [0008：版本化结构化内容只是权威正文的辅助表示](./0008-versioned-structured-content-is-auxiliary.md)

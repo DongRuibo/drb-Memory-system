@@ -176,6 +176,7 @@ impl ChatRuntime {
                         ),
                         content: work.content.clone(),
                         occurred_at: Utc::now(),
+                        timezone: "Asia/Shanghai".into(),
                         max_candidates: 8,
                         scope_selector: Some(ScopeSelector::user(&self.user_id)),
                         project_scope_selector: Some(ScopeSelector::project(&self.project_id)),

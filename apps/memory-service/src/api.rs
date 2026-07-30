@@ -311,6 +311,8 @@ struct MemoryExtractionRequest {
     source_ref: String,
     content: String,
     occurred_at: DateTime<Utc>,
+    #[serde(default = "default_timezone")]
+    timezone: String,
     #[serde(default = "default_max_extracted_candidates")]
     max_candidates: usize,
     #[serde(default)]
@@ -364,6 +366,7 @@ async fn extract_memory_candidates(
             "automatic extraction accepts conversation_message events only",
         ));
     }
+    resolve_temporal_window("", request.occurred_at, &request.timezone)?;
     validate_user_write_scope(request.scope_selector.as_ref(), authority)?;
     if request.project_scope_selector.is_some() {
         principal.require(MEMORY_WRITE)?;
@@ -400,6 +403,8 @@ async fn extract_memory_candidates(
             .extract(ExtractMemoryRequest {
                 source_ref: request.source_ref.clone(),
                 content: safe_source_content,
+                source_event_time: request.occurred_at,
+                timezone: request.timezone.clone(),
                 max_candidates: request.max_candidates,
                 allowed_memory_types,
             })
@@ -458,6 +463,8 @@ async fn extract_memory_candidates(
                     source_content: request.content.clone(),
                     memory_content: proposal.content.clone(),
                     occurred_at: request.occurred_at,
+                    event_time: proposal.event_time.clone(),
+                    structured_content: proposal.structured_content.clone(),
                     memory_type: proposal.memory_type.clone(),
                     semantic_key: proposal.semantic_key.clone(),
                     confidence: proposal.confidence,
@@ -522,6 +529,7 @@ fn extraction_request_hash(authority: &DemoAuthority, request: &MemoryExtraction
         "source_ref": request.source_ref,
         "content": request.content,
         "occurred_at": request.occurred_at.to_rfc3339(),
+        "timezone": request.timezone,
         "max_candidates": request.max_candidates,
         "scope_selector": scope,
         "project_scope_selector": project_scope,
@@ -2321,6 +2329,7 @@ mod tests {
             source_ref: "conversation:one:message-1".into(),
             content: content.into(),
             occurred_at,
+            timezone: "Asia/Shanghai".into(),
             max_candidates: 4,
             scope_selector: Some(ScopeSelector {
                 kind: "user".into(),
@@ -2343,6 +2352,9 @@ mod tests {
             id: Some("project-a".into()),
         });
         assert_ne!(first, extraction_request_hash(&authority, &project_scoped));
+        let mut other_timezone = request("回答先给结论");
+        other_timezone.timezone = "Europe/London".into();
+        assert_ne!(first, extraction_request_hash(&authority, &other_timezone));
     }
 
     #[test]

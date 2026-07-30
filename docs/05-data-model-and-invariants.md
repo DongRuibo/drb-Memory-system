@@ -23,7 +23,7 @@ mem0           Mem0 自管数据，业务代码禁止直接读取
 | `client_event_id` | API 事件标识；`UNIQUE(tenant_id, client_event_id)` |
 | `content_hash` | 对规范化输入计算 |
 | `redacted_excerpt` | 可空；不得保存 Secret |
-| `occurred_at`, `recorded_at` | 事实发生时间与系统记录时间 |
+| `occurred_at`, `recorded_at` | Source Event 自身发生时间与系统记录时间；不能自动充当被叙述历史事件的时间 |
 | `classification`, `consent_ref` | Policy 输入 |
 | `idempotency_key` | `UNIQUE(tenant_id, idempotency_key)` |
 
@@ -36,7 +36,14 @@ mem0           Mem0 自管数据，业务代码禁止直接读取
 
 ### `memory_candidates` 与 `memory_decisions`
 
-Candidate 保存 typed scope、memory type、候选正文、normalized key、置信度、推断类型、Extractor 版本和创建时 Policy 版本。Decision 保存 outcome、reason code、actor、决策时 Policy 版本和时间；候选准入 Decision 与 Candidate 一对一，用户修正等直接治理操作也必须创建独立 Decision，因此 `candidate_id` 可以为空。
+Candidate 保存 typed scope、memory type、候选正文、normalized key、置信度、推断类型、
+Extractor 版本、创建时 Policy 版本、可选的版本化 `structured_content`，以及
+`episodic_summary` 可选的 `event_time_start/end/timezone/precision`。Event Time 必须是
+来源支持的 UTC 半开区间，并保留解释原始表达所用的 IANA 时区和精度；其他类型不得携带
+Event Time。Structured Content 必须与 Memory Type 的 v1 Schema 对应、JSON envelope
+不超过 4096 bytes，模型结构失败时降级为空。Decision 保存 outcome、reason code、actor、
+决策时 Policy 版本和时间；候选准入 Decision 与 Candidate 一对一，用户修正等直接治理
+操作也必须创建独立 Decision，因此 `candidate_id` 可以为空。
 
 Candidate 与 Source 通过 `candidate_sources` 多对多关联，所有复合外键包含 `tenant_id`。
 
@@ -79,6 +86,9 @@ id, tenant_id, memory_record_id, version_no
 content, content_hash, normalized_key
 confidence, importance, inference_kind
 effective_from, effective_to
+event_time_start, event_time_end
+event_timezone, event_time_precision
+structured_content
 classification, allowed_purposes
 consent_ref, retention_policy_id, retain_until
 decision_id, created_at
@@ -88,6 +98,13 @@ decision_id, created_at
 
 - `UNIQUE(tenant_id, memory_record_id, version_no)`；
 - `effective_to IS NULL OR effective_to > effective_from`；
+- Event Time 四个字段必须全部为空或全部非空，非空时使用 `[start, end)` 且
+  `start < end`；应用层只允许 `episodic_summary` 写入；
+- Event Time 描述被记忆事件，`source_events.occurred_at` 描述证据事件，
+  `effective_from/effective_to` 描述命题适用期，三者不可互相默认替代；
+- `structured_content` 可空；非空时必须是与 Record `memory_type` 匹配的 v1 白名单
+  Schema。它和正文属于同一 Version，不是独立真相源；
+- Correction 不复制旧结构，防止新正文与旧 payload 不一致；Erase 必须清空结构；
 - accepted Version 必须关联最终 Accept Decision 和至少一个 Source；
 - 数据库角色禁止 UPDATE/DELETE；Erasure 由专用受审计过程清除受保护正文。
 

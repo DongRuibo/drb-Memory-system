@@ -62,6 +62,7 @@ where
                     source_ref: format!("conversation:{session_id}:message-1"),
                     content: format!("这是我的稳定偏好：{}。以后请遵守。", self.config.preference),
                     occurred_at: Utc::now(),
+                    timezone: "Asia/Shanghai".into(),
                     max_candidates: 1,
                     scope_selector: Some(ScopeSelector::user(&self.config.user_id)),
                     project_scope_selector: None,
@@ -513,6 +514,8 @@ mod tests {
                         content: "用户偏好固定使用两个标题".into(),
                         confidence: 0.95,
                         importance: 0.8,
+                        event_time: None,
+                        structured_content: None,
                     },
                     operation: self.operation_response(
                         self.remember_operation_id,

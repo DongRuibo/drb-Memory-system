@@ -1,10 +1,13 @@
-# 记忆分类与跨项目数据合并方案
+# 记忆分类与跨项目机制吸收方案
 
-状态：Taxonomy 已于 2026-07-30 实施；跨项目外部数据导入仍是计划。本文定义 LazyTT
-Memory System 与“语义、情景、偏好、画像”方案的统一分类、兼容协议、权威数据迁移和
-后续导入验收门槛，并明确区分已落地能力与未实施范围。
+状态：Taxonomy、Event Time 和版本化 Structured Content 已于 2026-07-30 实施并通过空库
+迁移与集成测试。项目明确不迁移另一系统的历史记忆，用户与项目知识由 LazyTT 在后续真实
+交互中重新认识和生成。本文只吸收“语义、情景、偏好、画像”的分类设计，以及时间、
+结构化内容和多路召回机制，不建设跨项目数据导入链路。
 
-关联决策：[ADR-0006](./adr/0006-unified-memory-taxonomy.md)。
+关联决策：[ADR-0006](./adr/0006-unified-memory-taxonomy.md)、
+[ADR-0007](./adr/0007-relearn-instead-of-importing-external-memory.md)、
+[ADR-0008](./adr/0008-versioned-structured-content-is-auxiliary.md)。
 
 ## 1. 合并结论
 
@@ -45,15 +48,17 @@ Memory Version：这个命题在某个时间点被接受的内容
 
 ### 2.1 目标
 
-- 为两个项目建立一套可共享、可版本化的正式 Memory Type 协议；
+- 为 LazyTT 建立一套稳定、可版本化的正式 Memory Type 协议；
 - 保留 LazyTT 的 Authority、Ledger、Version、Head、Outbox、Context Pack 和 Forget/Erase 不变量；
-- 保留另一方案的中文语义、时间、实体关系和多路召回能力，但只把它们作为 Candidate 特征或可重建投影；
-- 在不丢来源、不静默覆盖冲突、不产生重复正式记忆的前提下导入已有数据；
-- 为旧客户端提供有限期兼容路径，并能够安全停止迁移。
+- 吸收另一方案的时间、结构化内容、中文语义、实体关系和多路召回能力，但只把它们作为
+  LazyTT 原生 Source、Candidate 特征或可重建投影；
+- 让 LazyTT 只通过后续真实交互产生新记忆，不继承另一系统的用户画像、偏好和历史结论；
+- 为 LazyTT 旧客户端提供有限期分类兼容路径，并能够安全停止旧类型兼容。
 
 ### 2.2 非目标
 
 - 不合并两个代码仓库的目录、Git 历史或部署脚本；
+- 不读取、暂存或导入另一系统的历史 Memory Record、History、Embedding 或用户数据；
 - 不把聊天记录、Provider/向量索引或管理后台数据直接提升为正式记忆；
 - 不在本方案中引入完整 GraphRAG、Reflection 或自动 Skill 发布；
 - 不用记忆替代业务 Canonical State、身份、权限、Approval 或工具执行权。
@@ -85,7 +90,8 @@ Memory Version：这个命题在某个时间点被接受的内容
 | `semantic_fact` | `tenant`、`user`、`project`、`agent` | 影响真实操作前仍须回查 Canonical State |
 | `episodic_summary` | `user`、`project`、`agent` | `tenant` 共享必须人工审核并去除个人/项目敏感信息 |
 
-服务端根据 Principal、Membership、Task Context 和 Policy 决定最终 Scope；Extractor、Importer 和客户端只能请求收窄，不能自行扩大 Scope。
+服务端根据 Principal、Membership、Task Context 和 Policy 决定最终 Scope；Extractor 和
+客户端只能请求收窄，不能自行扩大 Scope。
 
 ### 3.3 正式身份
 
@@ -100,7 +106,7 @@ Memory Version：这个命题在某个时间点被接受的内容
 - 相同 identity + 不同内容进入 `NeedsReview/Contested`；
 - 不得仅凭更新时间、Embedding 分数或 Provider ID 自动覆盖当前 Head。
 
-## 4. 两个项目的类型映射
+## 4. 两个项目的类型语义对照
 
 | 来源 | 来源类型 | Canonical Type | Scope 规则 | 说明 |
 |---|---|---|---|---|
@@ -113,12 +119,16 @@ Memory Version：这个命题在某个时间点被接受的内容
 | 另一项目 | 语义 | `semantic_fact` | 按来源所属 Tenant/User/Project/Agent 派生 | 不能把“向量命中”当成事实来源 |
 | 另一项目 | 情景 | `episodic_summary` | 按经历所属主体/项目派生 | 原始事件先形成 Source Event，再提炼摘要 |
 
+这张表只用于学习和校准 LazyTT 的分类语义，不代表建立跨项目 Adapter，也不授权读取或
+迁移另一项目的真实数据。LazyTT 的新记忆仍必须来自自身运行期间记录的 Source Event。
+
 ### 4.1 `procedural_candidate` 的处理
 
 `procedural_candidate` 不映射到四类正式记忆：
 
 - `pending/needs_review`：以 `TYPE_MOVED_TO_PROCEDURE_PIPELINE` 拒绝或导出到独立人工审核队列；
-- 已经形成正式 Record：禁止自动重分类，逐条决定转为 `episodic_summary`、`semantic_fact`，或迁移到未来 Skill/Procedure 子系统；
+- LazyTT 历史上已经形成正式 Record：禁止自动重分类，逐条决定转为
+  `episodic_summary`、`semantic_fact`，或迁移到未来 Skill/Procedure 子系统；
 - 仍有未处理的正式 `procedural_candidate` Record 时，不允许执行最终约束收紧；
 - 无论迁移结果如何，都不得自动注册 Tool、Skill 或获得执行权限。
 
@@ -133,12 +143,12 @@ Memory Version：这个命题在某个时间点被接受的内容
 - 项目规则或组织 Policy 必须由 Canonical State/只读配置提供，记忆只能引用，不能获得
   Policy 或执行权。
 
-## 5. 统一写入链路
+## 5. LazyTT 原生写入链路
 
 ```text
-两个项目的 Source
-  -> Source Adapter（保留 external_ref / source hash / occurred_at）
-  -> Staging Import Batch
+LazyTT Conversation / Tool Result / Task Result / User Correction
+  -> Source Event（保留 occurred_at、来源引用和内容 hash）
+  -> 时间与结构化信息提取
   -> Taxonomy v2 Normalizer
   -> Memory Candidate
   -> Secret / Scope / Consent / Policy / Confidence Guard
@@ -148,29 +158,36 @@ Memory Version：这个命题在某个时间点被接受的内容
   -> Mem0 / pgvector / FTS-BM25 / Graph / Time Projection
 ```
 
-必须坚持单一权威入口：Importer、Mem0、DeepSeek/Kimi、Embedding、Reranker 和图/时间检索都只能提出 Candidate 或维护投影，不能绕过 Policy 直接写 Head。
+必须坚持单一权威入口：DeepSeek/Kimi、Mem0、Embedding、Reranker 和图/时间检索都只能
+提出 Candidate 或维护投影，不能绕过 Policy 直接写 Head。
 
-### 5.1 导入暂存数据
+### 5.1 时间机制
 
-每个外部对象先进入可重跑的 Import Batch，至少保存：
+LazyTT 已具备 `SourceEvent.occurred_at`、`MemoryVersion.effective_from/effective_to`、
+中文时间查询解析和 Temporal Retrieval，并已把另一方案中有价值的 Event Time 契约接入
+原生提取、Candidate、Version、Inspect/Export 和时间候选通道：
 
-- `import_batch_id`、`source_system`、`external_id`；
-- 原始类型、原始 Scope、来源引用和 source hash；
-- 内容、发生时间、有效时间和删除/过期状态；
-- 映射后的 Canonical Type、Semantic Key 与映射 reason code；
-- `pending/mapped/rejected/conflict/imported` 状态；
-- 最终 Candidate、Record、Version ID，或拒绝/冲突原因。
+- 区分“事件什么时候发生”“记忆什么时候被记录”“命题什么时候有效”；
+- 仅对 `episodic_summary` 支持事件开始、结束、IANA 时区和受控时间精度；
+- 使用 UTC 半开区间存储，保留解释原始表达所用时区和精度，不伪造到秒级；
+- 没有来源证据时 Event Time 为空，不拿 `SourceEvent.occurred_at` 冒充历史事件时间；
+- 检索时使用结构化时间窗作为候选通道，最终仍回表校验 Head、Scope 和生命周期；
+- 时间变化不能静默覆盖旧 Version；当前 Correction 保留原 Event Time，后续增加显式
+  Event Time 修正契约后才能变更或清空。
 
-唯一键使用 `(tenant_id, source_system, external_id)`；同一批次或同一外部对象重跑不得创建新的 Record/Version。
+### 5.2 结构化内容机制
 
-### 5.2 来源与版本规则
+正文仍是可读、可擦除、可版本化的 canonical content；结构化内容是经过 Schema 校验的
+辅助表示，而不是第二份权威记忆。当前 v1 已实现：
 
-- 外部当前值不能覆盖 LazyTT 当前 Head，只能形成带来源的 Candidate；
-- 相同内容追加 `memory_version_sources`，不创建无意义新版本；
-- 内容不同且时间/来源权威性足够明确时，按 Correct/Supersede 流程追加新 Version；
-- 无法判断时进入 Contested，正常召回立即 fail closed；
-- 外部软删除先映射为 Forget Candidate；确认属于法定/隐私擦除时才进入 Erase；
-- 外部索引 ID 只保存在 Projection Mapping 或 Import Audit 中，不作为权威 Record ID。
+- `schema_name`、`schema_version` 和受限 JSON payload；
+- preference 的 subject/value/qualifier；
+- profile fact 的 subject/attribute/value；
+- semantic fact 的 subject/predicate/object；
+- episode 的 event kind、participants 和 outcome；Event Time 继续使用独立字段；
+- 所有字段经过大小、深度、键白名单、PII/Secret 和 Prompt Injection 检查；
+- Correction 不复制可能过期的旧 payload，Forget 阻断读取，Erase 同步清空；
+- Embedding、图边和时间索引只能从已接受 Version 重建。
 
 ## 6. API 兼容策略（已实施）
 
@@ -197,8 +214,8 @@ Memory Version：这个命题在某个时间点被接受的内容
 - 旧 Extraction Snapshot 中的 `project_fact` 在回放时规范化为 `semantic_fact`，但候选
   Idempotency-Key 继续绑定原始类型，避免重放创建第二条正式记忆；
 - Extractor、Inspect、Export、Search、Context Pack 和 Web UI 响应只返回 Canonical Type；
-- `semantic`、`episodic`、`profile` 是跨项目 Import Adapter 的来源别名，不作为 HTTP API
-  输入；`procedural` 进入独立候选处置，不规范化为正式 Memory Type。
+- `semantic`、`episodic`、`profile` 只用于跨项目设计语义对照，不作为 HTTP API 输入；
+  `procedural` 进入独立候选处置，不规范化为正式 Memory Type。
 
 兼容层只存在于 HTTP/Extraction 回放边界，不进入 PostgreSQL Canonical Type、Ledger 新事件
 或 Provider metadata。
@@ -255,7 +272,7 @@ Scope，不更新 Memory Version、Head revision、Source、正文或内容 hash
 
 - [x] 禁止新写 `project_fact`；
 - [x] 正式 `memory_records.memory_type` 约束只保留四个 Canonical Type；
-- 历史原始类型保留在 Candidate/Import Audit，不篡改来源证据；
+- 历史原始类型保留在重分类审计中，不篡改来源证据；
 - 下线旧 `project_fact` 别名与兼容指标；
 - [x] ADR-0006 经实现和迁移验证后从 `proposed` 改为 `accepted`。
 
@@ -274,47 +291,63 @@ Scope，不更新 Memory Version、Head revision、Source、正文或内容 hash
 
 ## 9. 分阶段交付
 
-### Phase 0：分类审计与样本集（分类部分完成）
+### Phase 0：统一分类（已完成）
 
-- 固化两个系统的类型、Scope、状态和来源分布；
-- 建立至少覆盖四类、四种 Scope、冲突、删除、Procedure 和中文时间表达的黄金样本；
-- 输出映射覆盖率、碰撞报告和不可迁移清单。
+- 固化四个 Canonical Type、两个 Memory Family 和 Scope Matrix；
+- 完成 `project_fact -> semantic_fact` 迁移、碰撞预检和重分类审计；
+- Extractor、API、Repository、Context Pack 和 UI 统一使用 Canonical Type。
 
-退出条件：100% 数据有明确映射结果或明确拒绝/人工处理原因。
+退出条件：新写入不再产生 `project_fact`，正式 Record 只保留四类。
 
-### Phase 1：契约与兼容层（已完成）
+### Phase 1：时间语义基线（已完成）
 
-- 落地 Canonical Taxonomy、reason code、API schema 和 Client Adapter；
-- Extractor 只产生 Canonical Type；
-- `project_fact` 请求别名实现 fail-closed Project Scope 契约测试；调用指标留待接入统一
-  Metrics 后补充。
+- 分离 Source Occurrence Time、Event Time、Recorded Time 和 Effective Time；
+- 保持中文显式日期和相对时间窗解析；
+- 增加事件结束时间、原始时区、时间精度和不确定性契约；
+- Extractor 仅在来源明确支持时为 `episodic_summary` 产生 Event Time；
+- Candidate/Version 持久化，Inspect/Export 返回；Erase 同步清空；
+- 时间检索优先使用 Event Time 区间，无 Event Time 时兼容旧数据并回退 Source
+  Occurrence Time；
+- 已覆盖 IANA 时区、半开区间、非法区间、消息时间与事件时间分离、Event Time 检索与
+  Forget 后授权阻断。
 
-退出条件：新写入不再产生 `project_fact`；Project Scope 别名 fail closed，历史 Tenant
-Scope 调用方完成 Canonical Type 升级。
+2026-07-30 已在隔离空库执行 `0001` 至 `0024` 全量 migration，16 个 Memory Repository
+PostgreSQL 集成测试全部通过。现有开发 `memory` 库没有被修改。Context Pack 目前只携带
+canonical content，不单独暴露 Event Time；显式时间元数据进入 Context 属于 Phase 4。
 
-### Phase 2：Schema、迁移审计与 Dry Run（Taxonomy 已完成）
+退出条件：写入、查询、Inspect 和 Export 对同一时间语义解释一致，且干净 PostgreSQL
+通过 migration 与集成测试。
 
-- 增加审计字段、事件和扩展约束；
-- 运行只读/回滚事务 Dry Run；
-- 对碰撞和 Procedure 逐条生成处理工单。
+### Phase 2：结构化内容契约（已完成）
 
-退出条件：Dry Run 行数、identity、Head、Version、Source 和 hash 对账一致。
+- 已为四类记忆分别定义 `lazytt.*` v1 JSON Schema；
+- v1 只允许白名单字段、最多 4096 bytes、最多 8 个 participants，文本字段不超过
+  256 bytes；
+- 模型返回先作为非可信 JSON，再由确定性边界解析；结构失败时保留普通正文；
+- Repository 再次执行 Schema 与安全校验，禁止结构携带 Secret、Prompt Injection、
+  Policy、Permission 或执行权；
+- 当前只在 Inspect/Export 展示，尚不单独进入 Prompt 或作为检索授权条件。
 
-### Phase 3：Backfill 与投影核对（Taxonomy 已完成）
+退出条件：未知 Schema、未知字段、超限和不安全内容全部 fail closed。
 
-- 本地数据库先备份，再以事务 migration 完成无碰撞 backfill；
-- 验证 Mem0 metadata 不含类型、BM25/授权链回表读取新类型，无需仅因改名重建投影；
-- 对比 Canonical/旧别名查询、Rerank 和 Context Pack 结果。
+### Phase 3：原生持久化与生命周期（已完成）
 
-退出条件：无越权、无重复 Record、无被遗忘内容复活，黄金查询满足质量门槛。
+- 结构化 payload 绑定到 Candidate，Accept 后复制到不可变 Memory Version，而不是
+  Record 或 Provider；
+- Correction 追加新 Version，并把结构清空，避免复制与新正文不一致的旧 payload；
+- Forget 继续由 Head 阻断读取；Erase、Inspect 和 Export 已覆盖结构化字段；
+- 只对 LazyTT 新产生的记忆启用，不回填另一项目数据。
 
-### Phase 4：切换与收缩（部分完成）
+退出条件：无双重权威、无越权字段泄漏、擦除后无法从投影恢复 payload。
 
-- Runtime 默认使用 Canonical Taxonomy；
-- 观察旧 alias、错误率、冲突率和召回差异；
-- 达到观察期后收紧数据库约束并下线兼容层。
+### Phase 4：投影、Context 与评测（计划）
 
-退出条件：正式 Record 只剩四类，兼容调用归零，ADR 经评审接受。
+- 从已接受 Version 生成时间、实体关系和检索字段；
+- RRF/Reranker 融合后继续执行 canonical authorization；
+- Context Compiler 按类型和预算选择正文或安全结构化摘要；
+- 评测 Recall、Precision、时间命中、跨语言、Prompt Injection 和 Forget/Erase 零复活。
+
+退出条件：质量指标达到门槛，且关闭任一投影都不影响 PostgreSQL 权威状态。
 
 ## 10. 回滚策略
 
@@ -332,12 +365,12 @@ Scope 调用方完成 Canonical Type 升级。
 至少增加以下指标和审计字段：
 
 - `memory_type_alias_total{source_type,client}`；
-- `memory_taxonomy_mapping_total{source_system,source_type,target_type,outcome}`；
 - `memory_taxonomy_collision_total{tenant,outcome}`；
 - `memory_taxonomy_unresolved_procedure_total`；
-- `memory_import_idempotency_conflict_total`；
+- `memory_structured_extraction_total{schema_name,outcome}`；
+- `memory_temporal_precision_total{precision,outcome}`；
 - `memory_projection_type_mismatch_total{provider,generation}`；
-- 每批次 source/candidate/record/version/head/projection 对账结果；
+- Source/Candidate/Record/Version/Head/Projection 对账结果；
 - 每次自动或人工重分类的 actor、reason、旧类型、新类型和关联 ID。
 
 指标标签不得包含原始正文、用户 ID、Semantic Key 或其他高基数字段。
@@ -348,19 +381,20 @@ Scope 调用方完成 Canonical Type 升级。
 
 - [x] 正式 Record 只包含四个 Canonical Type；
 - [x] `project_fact` 全部转换为保留原 typed Scope 的 `semantic_fact`；
-- [ ] 所有 Procedure 有拒绝、人工重分类或外部迁移结果；
-- [ ] 导入重复执行不新增 Record/Version/Event；
-- [ ] 精确重复只增加来源，冲突内容不会静默覆盖；
+- [ ] 所有 Procedure 有拒绝、人工重分类或进入未来 Procedure/Skill Pipeline 的结果；
+- [x] 明确不导入另一项目的历史 Memory、History 或用户画像；
+- [x] LazyTT 原生重复 Source 不新增 Record/Version/Event；
+- [x] 精确重复只增加来源，原生冲突内容不会静默覆盖；
 - [x] 类型迁移不改写 Version、Head、Source、Ledger 或内容 hash，Candidate/Record 与审计
   行数对账通过。
 
 ### 12.2 安全与生命周期
 
-- [ ] Tenant/User/Project/Agent Scope 交叉访问测试全部 fail closed；
+- [x] Tenant/User/Project/Agent Scope 交叉访问测试全部 fail closed；
 - [ ] Profile 跨 Scope 必须有 Consent 和独立 Decision；
-- [ ] Forget 在投影离线时仍立即阻断读取；
-- [ ] Erased 正文和来源摘录不因导入重跑、Outbox 回放或投影重建复活；
-- [ ] 记忆内容不能改变 System Prompt、ACL、工具参数或执行授权。
+- [x] Forget 在投影离线时仍立即阻断读取；
+- [x] Erased 正文、结构化字段和来源摘录不因 Outbox 回放或投影重建复活；
+- [x] 记忆内容不能改变 System Prompt、ACL、工具参数或执行授权。
 
 ### 12.3 API、检索与 Context
 
@@ -374,15 +408,16 @@ Scope 调用方完成 Canonical Type 升级。
 
 ## 13. 实施改动面
 
-本次分类合并已完成第 1、3、4、6、7、8 项的 Taxonomy 范围；跨项目数据导入仍需：
+分类合并已经完成。后续不建设 Importer，实施顺序调整为：
 
-1. 规范：`CONTEXT.md`、ADR、OpenAPI、Context Pack 和 Policy 文档；
-2. 数据库：新增 migration、约束、Import Batch/Audit、重分类事件和碰撞报告；
-3. 领域/应用层：统一 `MemoryType` 值对象、Canonical/Legacy normalizer 和 Scope matrix；
-4. Extractor：提示词白名单、确定性重分类、置信度与 Procedure 拒绝；
-5. Repository：identity lock、去重、冲突、backfill 和 reclassification ledger；
-6. Retrieval：Provider metadata、RRF/Rerank、授权回表和 generation rebuild；
-7. Runtime/UI：Context section、中文标签、Inspect/Export 和兼容提示；
-8. 验证：单元测试、SQL 集成测试、HTTP E2E、迁移演练、安全回归和查询评测。
+1. 时间：补齐事件结束、时区、精度和不确定性，保持现有时间检索链；
+2. 结构：定义四类记忆的版本化 JSON Schema 和安全边界；
+3. 数据库：将结构化 payload 绑定到不可变 Version，补齐 Forget/Erase/Export；
+4. Extractor：同时生成可读正文和受限结构化字段，失败时安全降级为正文；
+5. Retrieval：从正式 Version 派生时间和实体投影，继续执行授权回表；
+6. Context：按类型、Purpose 和预算选择安全字段，不让结构化内容获得工具权限；
+7. Runtime/UI：展示时间精度和结构化字段来源，支持 Inspect；
+8. 验证：SQL 集成、HTTP E2E、安全回归、时间与结构化黄金查询评测。
 
-建议拆成三个独立交付批次：先落契约与兼容层，再做 Schema/数据迁移，最后切换 Runtime 与清理旧类型。任何批次都不能绕过 Authority-first 原则。
+建议先完成时间契约，再实现结构化 Schema，最后接入投影与 Context。任何阶段都只处理
+LazyTT 原生产生的新 Source/Candidate，不能绕过 Authority-first 原则。
