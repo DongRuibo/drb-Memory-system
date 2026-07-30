@@ -19,7 +19,7 @@ type ApiError = { code?: string; detail?: string };
 const memoryTypeLabel: Record<string, string> = {
   preference: "回答偏好",
   profile_fact: "个人信息",
-  project_fact: "项目信息",
+  semantic_fact: "事实知识",
   episodic_summary: "相关经历",
 };
 
@@ -33,7 +33,7 @@ const guidedSteps = [
 const memoryAllowedEffect: Record<string, string> = {
   preference: "调整回答方式",
   profile_fact: "按你的背景个性化",
-  project_fact: "使用当前项目事实",
+  semantic_fact: "使用当前事实知识",
   episodic_summary: "参考相关历史经验",
 };
 
@@ -127,7 +127,7 @@ export default function Home() {
   }
 
   const activeMemories = useMemo(() => memories.filter((memory) => memory.head_state === "active" && memory.current_version_id), [memories]);
-  const projectMemory = activeMemories.find((memory) => memory.memory_type === "project_fact");
+  const projectMemory = activeMemories.find((memory) => memory.memory_type === "semantic_fact" && memory.scope.kind === "project");
   const experienceMemory = activeMemories.find((memory) => memory.memory_type === "episodic_summary");
   const activeTurn = session?.turns.find((turn) => ["accepted", "processing", "streaming"].includes(turn.status));
 

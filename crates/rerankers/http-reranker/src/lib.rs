@@ -330,7 +330,7 @@ mod tests {
                 RerankCandidate {
                     memory_version_id: Uuid::from_u128(1),
                     content: "缓存问题先查权威账本".into(),
-                    memory_type: "project_fact".into(),
+                    memory_type: "semantic_fact".into(),
                     retrieval_score: 0.5,
                 },
                 RerankCandidate {

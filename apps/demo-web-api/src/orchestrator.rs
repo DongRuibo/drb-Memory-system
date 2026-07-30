@@ -302,7 +302,7 @@ impl ChatRuntime {
                     memory_types: vec![
                         "preference".into(),
                         "profile_fact".into(),
-                        "project_fact".into(),
+                        "semantic_fact".into(),
                         "episodic_summary".into(),
                     ],
                     limit: 8,

@@ -7,6 +7,7 @@ license.workspace = true
 [dependencies]
 async-trait.workspace = true
 chrono.workspace = true
+memory-domain = { path = "../memory-domain" }
 reqwest.workspace = true
 serde.workspace = true
 serde_json.workspace = true

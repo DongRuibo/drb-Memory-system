@@ -189,7 +189,7 @@ KIMI_BASE_URL=http://127.0.0.1:18081/coding/v1 \
 
 ## 当前限制
 
-- Demo Context Compiler 支持 `preference`、`profile_fact`、`project_fact`、
+- Demo Context Compiler 支持 `preference`、`profile_fact`、`semantic_fact`、
   `episodic_summary` 和 Tenant/User/Project/Agent typed scope，但仍只支持
   `purpose=answer_user`。它使用 `demo-conservative-char-v1`（每个 Unicode 字符加
   固定结构开销）的保守估算器；这不是 Kimi `k3` 的真实 tokenizer。

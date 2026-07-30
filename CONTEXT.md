@@ -18,6 +18,30 @@ _Avoid_: Model Decision
 
 ## Canonical memory
 
+**Memory Type**:
+Memory 内容语义、治理策略和允许用途的稳定分类，与 Memory Scope 相互独立。正式记忆只使用 Preference、Profile Fact、Semantic Fact 和 Episodic Summary 四个治理类型；它们不是四个同级的认知类别。
+_Avoid_: Retrieval Channel, Scope, Semantic Search Type
+
+**Memory Family**:
+Memory Type 的认知语义上卷维度。Preference、Profile Fact、Semantic Fact 属于 Semantic Family，Episodic Summary 属于 Episodic Family。Working Memory 属于 Runtime State，Procedure/Skill 属于独立的受治理能力系统，因此都不扩充正式 Memory Type 枚举。
+_Avoid_: Memory Scope, Storage Tier, Procedure Authority
+
+**Preference**:
+主体明确表达的、可长期复用的回答或工作方式偏好；它只能影响表达和非权限型协作方式。
+_Avoid_: Policy, Permission, Project Requirement
+
+**Profile Fact**:
+关于用户身份、背景或稳定特征的来源支持事实；它不构成身份认证、成员关系或授权依据。
+_Avoid_: User Permission, Account State
+
+**Semantic Fact**:
+关于项目、领域或环境的来源支持稳定命题；这里的 Semantic 表示事实性知识，不表示向量相似度，也不替代 Canonical State。
+_Avoid_: Project Fact, Semantic Search Result, Canonical State
+
+**Episodic Summary**:
+从明确发生的历史经历中提炼出的简洁、来源支持且可复用的经验摘要，而不是原始对话、运行日志或当前 Task 状态。
+_Avoid_: Chat History, Runtime State, Unverified Lesson
+
 **Memory Record**:
 同一个长期记忆命题的逻辑身份；它关联多个不可变 Memory Version，但本身不代表当前内容。
 _Avoid_: Vector, Provider Memory

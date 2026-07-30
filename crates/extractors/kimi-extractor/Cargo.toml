@@ -8,8 +8,8 @@ rust-version.workspace = true
 [dependencies]
 async-trait.workspace = true
 memory-application = { path = "../../memory-application" }
+memory-domain = { path = "../../memory-domain" }
 reqwest.workspace = true
 serde.workspace = true
 serde_json.workspace = true
 uuid.workspace = true
-

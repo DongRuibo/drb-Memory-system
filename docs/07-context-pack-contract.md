@@ -158,7 +158,7 @@ relevance
 
 当前 `POST /v1/memory/context-packs` 已实现一条受限但真实的链路：
 
-- 支持 `preference`、`profile_fact`、`project_fact` 和 `episodic_summary`，分别进入
+- 支持 `preference`、`profile_fact`、`semantic_fact` 和 `episodic_summary`，分别进入
   `user_preference`、`current_fact` 和 `relevant_experience` section；仍只支持
   `answer_user` purpose；
 - 请求可选择 Tenant/User/Project/Agent scope，但只能收窄签名 Principal 中的

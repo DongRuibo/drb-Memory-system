@@ -230,11 +230,12 @@ pre/post-rerank 授权、Rerank 分数、最终名次或排除理由写入 Postg
 Run ID；`memory:admin` 才能调用 Explain 或读取持久化 Run。回执不保存原始 Query 和记忆
 正文，只保存边界清洗后 Query 的 SHA-256 与 canonical Record/Version ID。
 
-当前交互式 Web 默认查询 User Scope 和 Project Scope，允许四类记忆：
+当前交互式 Web 默认查询 User Scope 和 Project Scope，允许四个治理类型。前三个向上归入
+Semantic Family，最后一个归入 Episodic Family：
 
 - `preference`：回答偏好；
 - `profile_fact`：用户事实；
-- `project_fact`：项目事实；
+- `semantic_fact`：项目、领域或环境的稳定事实，Scope 独立表达归属；
 - `episodic_summary`：可复用历史经验。
 
 Web Runtime 当前每轮最多选择 8 条，Context Pack 预算为 1200；这些是当前演示 profile，

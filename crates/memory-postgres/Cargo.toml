@@ -9,6 +9,7 @@ rust-version.workspace = true
 chrono.workspace = true
 hex.workspace = true
 memory-application = { path = "../memory-application" }
+memory-domain = { path = "../memory-domain" }
 serde.workspace = true
 serde_json.workspace = true
 sha2.workspace = true

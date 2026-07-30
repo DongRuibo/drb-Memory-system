@@ -641,15 +641,16 @@ components:
           allOf:
             - $ref: '#/components/schemas/ScopeSelector'
           description: >-
-            Optional authenticated project scope. When present, the service may allow project_fact
-            proposals and routes only those proposals to this scope; personal types remain in the
-            user scope. The principal must also have memory:write and project membership.
+            Optional authenticated project scope. When present, the service may allow
+            project-scoped semantic_fact proposals and routes only those proposals to this scope;
+            personal types remain in the user scope. The principal must also have memory:write and
+            project membership. The field name remains stable for client compatibility.
     ExtractedCandidateProposal:
       type: object
       additionalProperties: false
       required: [memory_type, semantic_key, content, confidence, importance]
       properties:
-        memory_type: {type: string, enum: [preference, profile_fact, project_fact, episodic_summary]}
+        memory_type: {type: string, enum: [preference, profile_fact, semantic_fact, episodic_summary]}
         semantic_key:
           type: string
           minLength: 3
@@ -660,7 +661,7 @@ components:
           type: number
           minimum: 0.8
           maximum: 1.0
-          description: project_fact requires at least 0.90; other extracted types require 0.80.
+          description: semantic_fact requires at least 0.90; other extracted types require 0.80.
         importance: {type: number, minimum: 0.0, maximum: 1.0}
     ExtractedMemoryResult:
       type: object
@@ -723,8 +724,12 @@ components:
           items: {$ref: '#/components/schemas/ScopeSelector'}
         memory_types:
           type: array
+          maxItems: 4
           uniqueItems: true
-          items: {type: string, enum: [preference, profile_fact, project_fact, episodic_summary]}
+          description: >-
+            Canonical taxonomy values. Deprecated project_fact is accepted only as an alias for
+            semantic_fact when every requested scope selector is explicitly project-scoped.
+          items: {type: string, enum: [preference, profile_fact, semantic_fact, episodic_summary, project_fact]}
         limit: {type: integer, minimum: 1, maximum: 50, default: 10}
     MemoryHit:
       type: object
@@ -734,7 +739,7 @@ components:
         memory_record_id: {$ref: '#/components/schemas/Uuid'}
         memory_version_id: {$ref: '#/components/schemas/Uuid'}
         content: {type: string}
-        memory_type: {type: string}
+        memory_type: {type: string, enum: [preference, profile_fact, semantic_fact, episodic_summary]}
         score: {type: number, minimum: 0, maximum: 1}
         source_refs: {type: array, items: {type: string}}
         effective_from: {type: [string, 'null'], format: date-time}
@@ -849,8 +854,13 @@ components:
           items: {$ref: '#/components/schemas/ScopeSelector'}
         memory_types:
           type: array
+          maxItems: 4
           uniqueItems: true
-          items: {type: string, enum: [preference, profile_fact, project_fact, episodic_summary]}
+          description: >-
+            Canonical taxonomy values. Deprecated project_fact is accepted only as an alias for
+            semantic_fact when every requested scope selector is explicitly project-scoped and no
+            pinned_memory_version_ids are supplied.
+          items: {type: string, enum: [preference, profile_fact, semantic_fact, episodic_summary, project_fact]}
         limit: {type: integer, minimum: 1, maximum: 50, default: 10}
         token_budget: {type: integer, minimum: 0, maximum: 8192}
         tokenizer_id: {type: string, minLength: 1, maxLength: 128}
@@ -1093,7 +1103,7 @@ components:
       properties:
         memory_record_id: {$ref: '#/components/schemas/Uuid'}
         scope: {$ref: '#/components/schemas/ScopeSelector'}
-        memory_type: {type: string}
+        memory_type: {type: string, enum: [preference, profile_fact, semantic_fact, episodic_summary]}
         semantic_key: {type: string}
         head_state: {type: string, enum: [active, contested, expired, forgotten, erased]}
         revision: {type: integer, minimum: 0}

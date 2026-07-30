@@ -1,4 +1,5 @@
 use async_trait::async_trait;
+use memory_domain::MemoryType;
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use uuid::Uuid;
@@ -52,12 +53,12 @@ pub trait MemoryReranker: Send + Sync {
 /// user's profile, current project, or past experience must not be vetoed only
 /// because a small reranker scores an indirect Chinese reference too low.
 pub fn is_memory_applicable_without_semantic_threshold(query: &str, memory_type: &str) -> bool {
-    if memory_type == "preference" {
+    if memory_type == MemoryType::Preference.as_str() {
         return true;
     }
     let normalized = query.to_lowercase();
     match memory_type {
-        "profile_fact" => {
+        value if value == MemoryType::ProfileFact.as_str() => {
             normalized.contains("我的")
                 && [
                     "工作角色",
@@ -71,13 +72,13 @@ pub fn is_memory_applicable_without_semantic_threshold(query: &str, memory_type:
                 .iter()
                 .any(|marker| normalized.contains(marker))
         }
-        "project_fact" => {
+        value if value == MemoryType::SemanticFact.as_str() => {
             normalized.contains("项目")
                 && ["架构", "数据库", "权威存储", "权威事实", "项目事实"]
                     .iter()
                     .any(|marker| normalized.contains(marker))
         }
-        "episodic_summary" => {
+        value if value == MemoryType::EpisodicSummary.as_str() => {
             query_has_temporal_intent(&normalized)
                 || [
                     "踩坑",
@@ -163,7 +164,7 @@ mod tests {
                     RerankCandidate {
                         memory_version_id: Uuid::new_v4(),
                         content: "无关的数据库迁移说明".into(),
-                        memory_type: "project_fact".into(),
+                        memory_type: "semantic_fact".into(),
                         retrieval_score: 1.0,
                     },
                     RerankCandidate {
@@ -217,7 +218,7 @@ mod tests {
                     RerankCandidate {
                         memory_version_id: Uuid::new_v4(),
                         content: "当前项目使用PostgreSQL作为权威数据库。".into(),
-                        memory_type: "project_fact".into(),
+                        memory_type: "semantic_fact".into(),
                         retrieval_score: 0.0,
                     },
                     RerankCandidate {

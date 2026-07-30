@@ -16,6 +16,7 @@ use memory_application::{
     is_memory_applicable_without_semantic_threshold, parse_temporal_query,
     reciprocal_rank_contribution, weighted_reciprocal_rank_fusion,
 };
+use memory_domain::{MEMORY_TAXONOMY_VERSION, MemoryType, MemoryTypeMapping};
 use memory_postgres::{
     AuthorizedMemory, CanonicalStatus, ConsumeContextPackCommand, ContextPackCommand,
     ContextPackManifestView, ContextPackView, CorrectionCommand, DEMO_CONTEXT_TOKENIZER_ID,
@@ -184,6 +185,7 @@ async fn root(State(state): State<Arc<AppState>>) -> Json<serde_json::Value> {
             "rebuild_projection"
         ],
         "authority": "postgresql",
+        "memory_taxonomy_version": MEMORY_TAXONOMY_VERSION,
         "authentication": state.authenticator.mode_name(),
         "projection": "mem0",
         "projection_model_manifest": state.projection_model_manifest,
@@ -392,7 +394,7 @@ async fn extract_memory_candidates(
             "episodic_summary".into(),
         ];
         if request.project_scope_selector.is_some() {
-            allowed_memory_types.push("project_fact".into());
+            allowed_memory_types.push(MemoryType::SemanticFact.as_str().into());
         }
         let proposals = extractor
             .extract(ExtractMemoryRequest {
@@ -423,13 +425,15 @@ async fn extract_memory_candidates(
 
     let mut candidates = Vec::with_capacity(proposals.len());
     for mut proposal in proposals {
+        let source_memory_type = proposal.memory_type.clone();
+        proposal.memory_type = canonical_extracted_memory_type(&source_memory_type)?;
         proposal.content = sanitize_boundary_text(&proposal.content)?.redacted_text;
         proposal.semantic_key = sanitize_boundary_text(&proposal.semantic_key)?.redacted_text;
-        let (scope_kind, scope_id) = if proposal.memory_type == "project_fact" {
+        let (scope_kind, scope_id) = if proposal.memory_type == MemoryType::SemanticFact.as_str() {
             let selector = request.project_scope_selector.as_ref().ok_or_else(|| {
                 ApiError::forbidden(
                     "PROJECT_SCOPE_REQUIRED",
-                    "project_fact requires an authorized project_scope_selector",
+                    "project-scoped semantic_fact requires an authorized project_scope_selector",
                 )
             })?;
             (selector.kind.clone(), selector.id.clone())
@@ -438,7 +442,7 @@ async fn extract_memory_candidates(
         };
         let candidate_key = extraction_candidate_key(
             &request_idempotency_key,
-            &proposal.memory_type,
+            &source_memory_type,
             &proposal.semantic_key,
         );
         let suffix = candidate_key[candidate_key.len() - 16..].to_owned();
@@ -479,6 +483,19 @@ async fn extract_memory_candidates(
             candidates,
         }),
     ))
+}
+
+fn canonical_extracted_memory_type(memory_type: &str) -> Result<String, ApiError> {
+    match MemoryType::map_input(memory_type) {
+        Ok(MemoryTypeMapping::Canonical(memory_type)) => Ok(memory_type.as_str().into()),
+        Ok(MemoryTypeMapping::Alias(memory_type)) if memory_type == MemoryType::SemanticFact => {
+            Ok(memory_type.as_str().into())
+        }
+        _ => Err(ApiError::bad_request(
+            "INVALID_MEMORY_TYPE",
+            "extracted candidates must use a canonical memory type",
+        )),
+    }
 }
 
 fn extraction_candidate_key(master: &str, memory_type: &str, semantic_key: &str) -> String {
@@ -659,6 +676,7 @@ async fn execute_retrieval(
         ));
     }
     let memory_types = normalized_memory_types(&request.memory_types, false)?;
+    validate_legacy_project_fact_scope(&memory_types, &request.scope_selectors, false)?;
     let query = sanitize_boundary_text(&request.query)?.redacted_text;
     let reference_time = request.reference_time.unwrap_or_else(Utc::now);
     let temporal_window = resolve_temporal_window(&query, reference_time, &request.timezone)?;
@@ -676,7 +694,7 @@ async fn execute_retrieval(
         .repository
         .authorized_hits(authority, &candidates.hits)
         .await?;
-    authorized.retain(|hit| memory_types.binary_search(&hit.memory_type).is_ok());
+    authorized.retain(|hit| memory_types.values.binary_search(&hit.memory_type).is_ok());
     let preauthorized = authorized
         .iter()
         .map(|memory| memory.memory_version_id)
@@ -830,6 +848,11 @@ async fn compile_context_pack(
         ));
     }
     let memory_types = normalized_memory_types(&request.memory_types, true)?;
+    validate_legacy_project_fact_scope(
+        &memory_types,
+        &request.scope_selectors,
+        !request.pinned_memory_version_ids.is_empty(),
+    )?;
     let query = sanitize_boundary_text(&request.query)?.redacted_text;
     let temporal_window = resolve_temporal_window(
         &query,
@@ -851,7 +874,7 @@ async fn compile_context_pack(
         .repository
         .authorized_hits(authority, &candidates.hits)
         .await?;
-    authorized.retain(|hit| memory_types.binary_search(&hit.memory_type).is_ok());
+    authorized.retain(|hit| memory_types.values.binary_search(&hit.memory_type).is_ok());
     let ranked = rerank_authorized(&state, &query, request.limit, authorized).await?;
     let ranked_hits = align_ranked_projection_hits(&candidates.hits, &ranked.memories);
     let degradation_reason =
@@ -873,7 +896,7 @@ async fn compile_context_pack(
                 purpose: request.task_context.purpose,
                 query,
                 limit: request.limit,
-                memory_types,
+                memory_types: memory_types.values,
                 ranking_version: ranked.version,
                 projection_generation: candidates.generation,
                 token_budget: request.token_budget,
@@ -1436,10 +1459,16 @@ fn requested_authorized_scopes(
     Ok(scopes.into_iter().collect())
 }
 
+#[derive(Debug, PartialEq, Eq)]
+struct NormalizedMemoryTypes {
+    values: Vec<String>,
+    used_legacy_project_fact: bool,
+}
+
 fn normalized_memory_types(
     requested: &[String],
     require_explicit: bool,
-) -> Result<Vec<String>, ApiError> {
+) -> Result<NormalizedMemoryTypes, ApiError> {
     if requested.is_empty() {
         if require_explicit {
             return Err(ApiError::bad_request(
@@ -1447,7 +1476,10 @@ fn normalized_memory_types(
                 "memory_types must contain at least one supported memory type",
             ));
         }
-        return Ok(vec!["preference".into()]);
+        return Ok(NormalizedMemoryTypes {
+            values: vec![MemoryType::Preference.as_str().into()],
+            used_legacy_project_fact: false,
+        });
     }
     if requested.len() > 4 {
         return Err(ApiError::bad_request(
@@ -1455,24 +1487,61 @@ fn normalized_memory_types(
             "memory_types may contain at most four unique entries",
         ));
     }
-    let supported = [
-        "preference",
-        "profile_fact",
-        "project_fact",
-        "episodic_summary",
-    ];
-    let normalized = requested.iter().cloned().collect::<BTreeSet<_>>();
-    if normalized.len() != requested.len()
-        || normalized
-            .iter()
-            .any(|memory_type| !supported.contains(&memory_type.as_str()))
-    {
+    if requested.iter().collect::<HashSet<_>>().len() != requested.len() {
         return Err(ApiError::bad_request(
             "INVALID_MEMORY_TYPE",
-            "memory_types must be unique and one of preference, profile_fact, project_fact, episodic_summary",
+            "memory_types must not contain duplicate values",
         ));
     }
-    Ok(normalized.into_iter().collect())
+    let mut normalized = BTreeSet::new();
+    let mut used_legacy_project_fact = false;
+    for requested_type in requested {
+        let memory_type = match MemoryType::map_input(requested_type) {
+            Ok(MemoryTypeMapping::Canonical(memory_type)) => memory_type,
+            Ok(MemoryTypeMapping::Alias(memory_type)) if requested_type == "project_fact" => {
+                used_legacy_project_fact = true;
+                memory_type
+            }
+            _ => {
+                return Err(ApiError::bad_request(
+                    "INVALID_MEMORY_TYPE",
+                    "memory_types must use preference, profile_fact, semantic_fact, or episodic_summary; project_fact is a deprecated project-scoped alias",
+                ));
+            }
+        };
+        if !normalized.insert(memory_type.as_str().to_owned()) {
+            return Err(ApiError::bad_request(
+                "INVALID_MEMORY_TYPE",
+                "memory_types must not contain canonical and alias values for the same type",
+            ));
+        }
+    }
+    Ok(NormalizedMemoryTypes {
+        values: normalized.into_iter().collect(),
+        used_legacy_project_fact,
+    })
+}
+
+fn validate_legacy_project_fact_scope(
+    memory_types: &NormalizedMemoryTypes,
+    selectors: &[ScopeSelector],
+    has_pinned_versions: bool,
+) -> Result<(), ApiError> {
+    if memory_types.used_legacy_project_fact
+        && (selectors.is_empty() || selectors.iter().any(|selector| selector.kind != "project"))
+    {
+        return Err(ApiError::bad_request(
+            "LEGACY_MEMORY_TYPE_SCOPE_REQUIRED",
+            "project_fact is a deprecated alias for semantic_fact and requires explicit project scope selectors",
+        ));
+    }
+    if memory_types.used_legacy_project_fact && has_pinned_versions {
+        return Err(ApiError::bad_request(
+            "LEGACY_MEMORY_TYPE_PINNING_UNSUPPORTED",
+            "project_fact cannot be combined with pinned memory versions; use canonical semantic_fact for version-specific context",
+        ));
+    }
+    Ok(())
 }
 
 async fn search_authorized_scopes(
@@ -2302,7 +2371,10 @@ mod tests {
     fn memory_types_are_validated_and_canonicalized() {
         assert_eq!(
             normalized_memory_types(&[], false).unwrap(),
-            vec!["preference"]
+            NormalizedMemoryTypes {
+                values: vec!["preference".into()],
+                used_legacy_project_fact: false,
+            }
         );
         assert!(normalized_memory_types(&[], true).is_err());
         assert_eq!(
@@ -2315,12 +2387,58 @@ mod tests {
                 true
             )
             .unwrap(),
-            vec!["episodic_summary", "preference", "project_fact"]
+            NormalizedMemoryTypes {
+                values: vec![
+                    "episodic_summary".into(),
+                    "preference".into(),
+                    "semantic_fact".into()
+                ],
+                used_legacy_project_fact: true,
+            }
         );
         assert!(
             normalized_memory_types(&["preference".into(), "preference".into()], true).is_err()
         );
+        assert!(
+            normalized_memory_types(&["project_fact".into(), "semantic_fact".into()], true)
+                .is_err()
+        );
         assert!(normalized_memory_types(&["procedural_candidate".into()], true).is_err());
+    }
+
+    #[test]
+    fn legacy_project_fact_alias_is_fail_closed_to_explicit_project_scope() {
+        let legacy = normalized_memory_types(&["project_fact".into()], true).unwrap();
+        assert!(
+            validate_legacy_project_fact_scope(
+                &legacy,
+                &[ScopeSelector {
+                    kind: "project".into(),
+                    id: Some("project-a".into()),
+                }],
+                false,
+            )
+            .is_ok()
+        );
+        assert_eq!(
+            validate_legacy_project_fact_scope(&legacy, &[], false)
+                .unwrap_err()
+                .code,
+            "LEGACY_MEMORY_TYPE_SCOPE_REQUIRED"
+        );
+        assert_eq!(
+            validate_legacy_project_fact_scope(
+                &legacy,
+                &[ScopeSelector {
+                    kind: "project".into(),
+                    id: Some("project-a".into()),
+                }],
+                true,
+            )
+            .unwrap_err()
+            .code,
+            "LEGACY_MEMORY_TYPE_PINNING_UNSUPPORTED"
+        );
     }
 
     #[test]

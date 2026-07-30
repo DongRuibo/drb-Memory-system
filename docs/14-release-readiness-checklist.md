@@ -105,7 +105,7 @@
   用户明确请求工作角色、项目事实或历史经验时按查询意图保留对应低分候选且不篡改分数；
 - [x] Kimi `k3` Extractor 只输出服务端按 Scope 授权的严格 Proposal；User Scope 的
   `preference`、`profile_fact`、`episodic_summary` 门槛为 0.80，Project Scope 的
-  `project_fact` 门槛为 0.90，模型不能自行选择 Scope；
+  `semantic_fact` 门槛为 0.90，模型不能自行选择 Scope；
 - [x] 自动提取在模型前后执行 Secret/结构校验，候选继续经过 Policy、精确去重、
   来源合并、冲突/Review、Ledger 与 Outbox；
 - [x] 抽取主 Idempotency-Key 固化首个完整候选快照（包括零候选），候选子操作使用

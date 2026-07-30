@@ -35,6 +35,8 @@
 17. [真实语义模型与自动记忆](./16-semantic-models-and-automatic-memory.md)
 18. [交互式 Memory Agent V2](./17-interactive-memory-agent.md)
 19. [项目与代码架构](./18-project-and-code-architecture.md)
+20. [记忆分类与跨项目数据合并方案](./19-memory-taxonomy-and-data-merge-plan.md)
+21. [Recall Explain 合并结果与实体图决策](./20-recall-explain-and-entity-graph-decision.md)
 
 演示应用自身的 HTTP 契约见 [Demo Web OpenAPI](./api/demo-web-openapi.yaml)。
 

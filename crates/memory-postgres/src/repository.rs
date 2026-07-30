@@ -9,6 +9,7 @@ use memory_application::{
     SecurityPipeline, TemporalWindow, is_memory_applicable_without_semantic_threshold,
     lexical_relevance_score,
 };
+use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, MemoryType};
 use serde_json::json;
 use sha2::{Digest, Sha256};
 use sqlx::postgres::{PgPoolOptions, PgRow};
@@ -36,18 +37,8 @@ const DEMO_ID_NAMESPACE: Uuid = Uuid::from_u128(0x7bc8_5039_50f0_4ff1_8200_7e73_
 const DEMO_CONTEXT_ITEM_OVERHEAD: i32 = 32;
 static SECURITY_PIPELINE: LazyLock<SecurityPipeline> = LazyLock::new(SecurityPipeline::default);
 static CHINESE_TOKENIZER: LazyLock<ChineseTokenizer> = LazyLock::new(ChineseTokenizer::default);
-const SUPPORTED_CONTEXT_MEMORY_TYPES: [&str; 4] = [
-    "preference",
-    "profile_fact",
-    "project_fact",
-    "episodic_summary",
-];
-const SUPPORTED_EXTRACTED_MEMORY_TYPES: [&str; 4] = [
-    "preference",
-    "profile_fact",
-    "project_fact",
-    "episodic_summary",
-];
+const SUPPORTED_CONTEXT_MEMORY_TYPES: [&str; 4] = CANONICAL_MEMORY_TYPE_NAMES;
+const SUPPORTED_EXTRACTED_MEMORY_TYPES: [&str; 4] = CANONICAL_MEMORY_TYPE_NAMES;
 
 #[derive(Debug, Error)]
 pub enum RepositoryError {
@@ -391,8 +382,8 @@ impl MemoryRepository {
         .bind(candidate_id)
         .bind(if command.inference_kind == "explicit" {
             "EXPLICIT_LOW_RISK_PREFERENCE"
-        } else if command.memory_type == "project_fact" {
-            "AUTHORIZED_HIGH_CONFIDENCE_PROJECT_FACT"
+        } else if command.memory_type == MemoryType::SemanticFact.as_str() {
+            "AUTHORIZED_HIGH_CONFIDENCE_SEMANTIC_FACT"
         } else {
             "DERIVED_HIGH_CONFIDENCE_MEMORY"
         })
@@ -4531,7 +4522,7 @@ fn context_item_metadata(
 ) -> Result<(&'static str, &'static str), RepositoryError> {
     match memory_type {
         "preference" => Ok(("user_preference", "AUTHORIZED_USER_PREFERENCE")),
-        "profile_fact" | "project_fact" => Ok(("current_fact", "AUTHORIZED_CURRENT_FACT")),
+        "profile_fact" | "semantic_fact" => Ok(("current_fact", "AUTHORIZED_CURRENT_FACT")),
         "episodic_summary" => Ok(("relevant_experience", "AUTHORIZED_RELEVANT_EXPERIENCE")),
         _ => Err(RepositoryError::Invariant(format!(
             "unsupported context memory type {memory_type}"
@@ -5298,7 +5289,8 @@ fn validate_ingest_candidate(command: &IngestCandidateCommand) -> Result<(), Rep
             .scope_id
             .as_deref()
             .is_none_or(|id| id.trim().is_empty() || id.len() > 256)
-        || (command.memory_type == "project_fact") != (command.scope_kind == "project")
+        || (command.memory_type == MemoryType::SemanticFact.as_str())
+            != (command.scope_kind == "project")
         || !matches!(command.inference_kind.as_str(), "explicit" | "derived")
         || !command.confidence.is_finite()
         || !(0.0..=1.0).contains(&command.confidence)
@@ -5311,7 +5303,7 @@ fn validate_ingest_candidate(command: &IngestCandidateCommand) -> Result<(), Rep
     }
     if command.inference_kind == "derived"
         && (command.confidence
-            < if command.memory_type == "project_fact" {
+            < if command.memory_type == MemoryType::SemanticFact.as_str() {
                 0.90
             } else {
                 0.80
@@ -6521,13 +6513,16 @@ mod tests {
         assert!(validate_ingest_candidate(&invalid).is_err());
 
         let mut project = command;
-        project.memory_type = "project_fact".into();
+        project.memory_type = "semantic_fact".into();
         project.semantic_key = "project.architecture.authority_store".into();
         project.scope_kind = "project".into();
         project.scope_id = Some("project-a".into());
         project.confidence = 0.90;
         validate_ingest_candidate(&project).unwrap();
         project.confidence = 0.89;
+        assert!(validate_ingest_candidate(&project).is_err());
+        project.memory_type = "project_fact".into();
+        project.confidence = 0.95;
         assert!(validate_ingest_candidate(&project).is_err());
     }
 
@@ -6611,7 +6606,7 @@ mod tests {
         );
 
         let mut multi_type = base.clone();
-        multi_type.memory_types = vec!["project_fact".into(), "preference".into()];
+        multi_type.memory_types = vec!["semantic_fact".into(), "preference".into()];
         let mut reordered = multi_type.clone();
         reordered.memory_types.reverse();
         assert_eq!(
@@ -6659,13 +6654,14 @@ mod tests {
             ("user_preference", "AUTHORIZED_USER_PREFERENCE")
         );
         assert_eq!(
-            context_item_metadata("project_fact").unwrap(),
+            context_item_metadata("semantic_fact").unwrap(),
             ("current_fact", "AUTHORIZED_CURRENT_FACT")
         );
         assert_eq!(
             context_item_metadata("episodic_summary").unwrap(),
             ("relevant_experience", "AUTHORIZED_RELEVANT_EXPERIENCE")
         );
+        assert!(validated_context_memory_types(&["project_fact".into()]).is_err());
         assert!(context_item_metadata("procedural_candidate").is_err());
     }
 
@@ -7231,7 +7227,7 @@ mod tests {
 
     #[tokio::test]
     #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
-    async fn extracted_project_fact_is_project_scoped_authorized_and_conflict_safe() {
+    async fn extracted_semantic_fact_is_project_scoped_authorized_and_conflict_safe() {
         let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
             "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into()
         });
@@ -7249,7 +7245,7 @@ mod tests {
             source_content: "当前项目使用 PostgreSQL 作为权威数据库".into(),
             memory_content: "当前项目使用PostgreSQL作为权威数据库。".into(),
             occurred_at: Utc::now(),
-            memory_type: "project_fact".into(),
+            memory_type: "semantic_fact".into(),
             semantic_key: "project.architecture.authority_store".into(),
             confidence: 0.94,
             importance: 0.9,
@@ -8305,7 +8301,7 @@ mod tests {
             &format!("tenant-{test_id}"),
             "tenant",
             None,
-            "project_fact",
+            "semantic_fact",
         )
         .await;
         let (project_memory, project_content) = create_rescoped_test_memory(
@@ -8314,7 +8310,7 @@ mod tests {
             &format!("project-{test_id}"),
             "project",
             Some("project-a"),
-            "project_fact",
+            "semantic_fact",
         )
         .await;
         let (agent_memory, agent_content) = create_rescoped_test_memory(
@@ -8496,7 +8492,7 @@ mod tests {
             purpose: "answer_user".into(),
             query: "project-a verified value".into(),
             limit: 5,
-            memory_types: vec!["project_fact".into()],
+            memory_types: vec!["semantic_fact".into()],
             ranking_version: "transparent-lexical-v1".into(),
             projection_generation: DEMO_GENERATION.into(),
             token_budget: 512,

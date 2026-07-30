@@ -4,6 +4,7 @@ use std::time::Duration;
 
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
+use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, MemoryType};
 use reqwest::header::{AUTHORIZATION, HeaderMap, HeaderValue};
 use reqwest::redirect::Policy;
 use reqwest::{Response, StatusCode, Url};
@@ -135,7 +136,7 @@ pub struct MemoryExtractionCommand {
     pub occurred_at: DateTime<Utc>,
     pub max_candidates: usize,
     pub scope_selector: Option<ScopeSelector>,
-    /// Optional project scope used only for `project_fact` proposals. Personal
+    /// Optional project scope used only for project-scoped `semantic_fact` proposals. Personal
     /// memories continue to use `scope_selector`.
     pub project_scope_selector: Option<ScopeSelector>,
 }
@@ -1012,10 +1013,8 @@ fn validate_extraction_response(
     let mut identities = std::collections::HashSet::new();
     for result in &response.candidates {
         let proposal = &result.proposal;
-        if !matches!(
-            proposal.memory_type.as_str(),
-            "preference" | "profile_fact" | "project_fact" | "episodic_summary"
-        ) || !(3..=128).contains(&proposal.semantic_key.len())
+        if !CANONICAL_MEMORY_TYPE_NAMES.contains(&proposal.memory_type.as_str())
+            || !(3..=128).contains(&proposal.semantic_key.len())
             || !proposal.semantic_key.bytes().all(|byte| {
                 byte.is_ascii_lowercase()
                     || byte.is_ascii_digit()
@@ -1025,7 +1024,7 @@ fn validate_extraction_response(
             || proposal.content.trim() != proposal.content
             || proposal.content.len() > 2_048
             || !proposal.confidence.is_finite()
-            || !(if proposal.memory_type == "project_fact" {
+            || !(if proposal.memory_type == MemoryType::SemanticFact.as_str() {
                 0.90
             } else {
                 0.80

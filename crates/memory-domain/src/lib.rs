@@ -7,5 +7,8 @@ mod memory;
 mod scope;
 
 pub use candidate::{CandidateDecision, CandidateState, DecisionActor, DecisionOutcome};
-pub use memory::{HeadState, MemoryHead, MemoryType};
+pub use memory::{
+    CANONICAL_MEMORY_TYPE_NAMES, HeadState, MEMORY_TAXONOMY_VERSION, MemoryFamily, MemoryHead,
+    MemoryType, MemoryTypeError, MemoryTypeMapping,
+};
 pub use scope::{MemoryScope, ScopeKind};

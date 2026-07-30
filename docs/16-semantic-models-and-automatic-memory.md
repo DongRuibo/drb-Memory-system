@@ -62,7 +62,7 @@ Retrieval Index Adapter 分开调用查询与文档接口。
 
 Rerank 同时区分“主题相关性”和“记忆类型/查询意图适用性”。`preference` 属于跨问题
 行为约束，不能仅因当前问题没有复述“回答风格”而被否决。`profile_fact`、
-`project_fact`、`episodic_summary` 通常仍须达到语义阈值；但用户明确询问自己的工作
+`semantic_fact`、`episodic_summary` 通常仍须达到语义阈值；但用户明确询问自己的工作
 角色/编程语言、当前项目数据库或过去处理经验时，对应已授权且已召回的类别按确定性
 查询意图保留，避免小模型对指代式中文的低分误删。系统保留模型原始低分，不伪造
 相关性，并通过 `DEDICATED_RERANK_POLICY_APPLICABILITY` reason code 标明策略保留。
@@ -80,7 +80,7 @@ Search、透明降级和 Context Compiler 使用同一规则，避免前一层�
 3. 在 `memory_core.extraction_operations` 建立 Tenant 隔离的幂等操作；
 4. 服务端按当前已授权 Scope 决定允许提取的类型，Kimi 只返回最多 8 个严格 JSON
    Candidate Proposal；个人类型固定写入 User Scope，只有携带已认证 Project Scope 时才
-   允许提出 `project_fact`；
+   允许提出 Project Scope 的 `semantic_fact`；
 5. 对类型、规范化 semantic key、正文、置信度、重要性、重复 identity 和 Secret
    再次校验；单条不合格候选被丢弃，不会让同批其他合格候选一起失败；
 6. PostgreSQL 原子固化首个完成的候选快照，包括“零候选”；
@@ -93,7 +93,7 @@ Search、透明降级和 Context Compiler 使用同一规则，避免前一层�
 
 当前自动提取允许 `preference`、`profile_fact`、`episodic_summary`，derived 候选
 置信度必须至少为 `0.80`。当请求同时携带服务端验证过的 Project Scope 和
-`memory:write` 权限时，还允许显式来源支持的 `project_fact`，门槛为 `0.90`；模型不能
+`memory:write` 权限时，还允许显式来源支持的 `semantic_fact`，门槛为 `0.90`；模型不能
 自行选择 Scope。新项目事实可自动接纳，同一 Project + semantic key 的不同值进入
 `needs_review`，不能由模型静默覆盖。交互式 Web Demo 的受控 Runtime 会对已经通过
 权限、类型、来源和置信度检查的低风险冲突自动提交 accept，追加新版本并向用户提示；
