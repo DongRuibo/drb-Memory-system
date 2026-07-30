@@ -1,0 +1,459 @@
+openapi: 3.1.0
+info:
+  title: LazyTT Interactive Memory Agent Demo API
+  version: 0.2.0
+  description: >-
+    Local product-demo API. PostgreSQL demo_chat owns conversations and turns; memory_core remains
+    the only memory authority. This contract is not a production authentication boundary.
+servers:
+  - url: http://127.0.0.1:8090
+paths:
+  /api/health:
+    get:
+      operationId: getDemoReadiness
+      responses:
+        '200':
+          description: Dependency readiness snapshot
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Health'}
+  /api/demo/reset:
+    post:
+      operationId: resetDemoUser
+      description: Physically erases the configured demo user and project memories, clears demo chats, and creates a clean guided session.
+      responses:
+        '200':
+          description: Reset completed
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [session, erasures]
+                properties:
+                  session: {$ref: '#/components/schemas/SessionSummary'}
+                  erasures:
+                    type: array
+                    minItems: 2
+                    maxItems: 2
+                    items: {$ref: '#/components/schemas/ErasureRequest'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/chat/sessions:
+    get:
+      operationId: listChatSessions
+      responses:
+        '200':
+          description: Sessions newest first
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [sessions]
+                properties:
+                  sessions: {type: array, items: {$ref: '#/components/schemas/SessionSummary'}}
+        default: {$ref: '#/components/responses/Error'}
+    post:
+      operationId: createChatSession
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                title: {type: string, minLength: 1, maxLength: 120, default: 新的对话}
+                mode: {type: string, enum: [guided, free], default: guided}
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [session]
+                properties:
+                  session: {$ref: '#/components/schemas/SessionSummary'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/chat/sessions/{session_id}:
+    parameters:
+      - $ref: '#/components/parameters/SessionId'
+    get:
+      operationId: getChatSession
+      responses:
+        '200':
+          description: Persisted session, messages, and turns
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [session]
+                properties:
+                  session: {$ref: '#/components/schemas/SessionDetail'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/chat/turns:
+    post:
+      operationId: createChatTurn
+      description: >-
+        Creates one persisted Attempt. Reusing idempotency_key with the same body returns the same
+        turn; a different body conflicts. Only one turn may be active per session.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CreateTurnRequest'}
+      responses:
+        '202':
+          description: New turn accepted
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CreateTurnResponse'}
+        '200':
+          description: Idempotent replay of an existing turn
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CreateTurnResponse'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/chat/turns/{turn_id}:
+    parameters:
+      - $ref: '#/components/parameters/TurnId'
+    get:
+      operationId: getChatTurn
+      responses:
+        '200':
+          description: Current persisted turn state
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [turn]
+                properties:
+                  turn: {$ref: '#/components/schemas/Turn'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/chat/turns/{turn_id}/events:
+    parameters:
+      - $ref: '#/components/parameters/TurnId'
+      - name: after
+        in: query
+        schema: {type: integer, minimum: 0, default: 0}
+        description: Replay only events with sequence_no greater than this cursor.
+      - name: Last-Event-ID
+        in: header
+        schema: {type: integer, minimum: 0}
+        description: SSE reconnect cursor; the greater of this value and after is used.
+    get:
+      operationId: streamChatTurnEvents
+      responses:
+        '200':
+          description: Ordered persisted events until the turn reaches a terminal state
+          content:
+            text/event-stream:
+              schema: {type: string}
+        default: {$ref: '#/components/responses/Error'}
+  /api/chat/turns/{turn_id}/cancel:
+    parameters:
+      - $ref: '#/components/parameters/TurnId'
+    post:
+      operationId: cancelChatTurn
+      responses:
+        '202':
+          description: Cancellation requested
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [turn]
+                properties:
+                  turn: {$ref: '#/components/schemas/Turn'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/memories:
+    get:
+      operationId: listDemoMemories
+      responses:
+        '200':
+          description: Canonical export for the configured demo user
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [memories]
+                properties:
+                  memories: {$ref: '#/components/schemas/MemoryExport'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/memories/{memory_record_id}:
+    parameters:
+      - $ref: '#/components/parameters/MemoryRecordId'
+    get:
+      operationId: inspectDemoMemory
+      responses:
+        '200':
+          description: Canonical memory and immutable history
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [memory]
+                properties:
+                  memory: {$ref: '#/components/schemas/MemoryRecord'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/memories/{memory_record_id}/correct:
+    parameters:
+      - $ref: '#/components/parameters/MemoryRecordId'
+    post:
+      operationId: correctDemoMemory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              required: [new_content]
+              properties:
+                new_content: {type: string, minLength: 1, maxLength: 2048}
+      responses:
+        '202': {$ref: '#/components/responses/OperationAccepted'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/memories/{memory_record_id}/forget:
+    parameters:
+      - $ref: '#/components/parameters/MemoryRecordId'
+    post:
+      operationId: forgetDemoMemory
+      responses:
+        '202': {$ref: '#/components/responses/OperationAccepted'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/memories/{memory_record_id}/erase:
+    parameters:
+      - $ref: '#/components/parameters/MemoryRecordId'
+    post:
+      operationId: eraseDemoMemory
+      responses:
+        '202':
+          description: Auditable physical Erase request accepted
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [erasure]
+                properties:
+                  erasure: {$ref: '#/components/schemas/ErasureRequest'}
+        default: {$ref: '#/components/responses/Error'}
+components:
+  parameters:
+    SessionId:
+      name: session_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+    TurnId:
+      name: turn_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+    MemoryRecordId:
+      name: memory_record_id
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+  responses:
+    Error:
+      description: Structured error
+      content:
+        application/json:
+          schema: {$ref: '#/components/schemas/Error'}
+    OperationAccepted:
+      description: Canonical operation accepted; projection may still be pending
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [operation]
+            properties:
+              operation: {$ref: '#/components/schemas/Operation'}
+  schemas:
+    Health:
+      type: object
+      required: [ready, memory_service, chat_store, model_configuration]
+      properties:
+        ready: {type: boolean}
+        memory_service: {type: string}
+        chat_store: {type: string}
+        model_configuration: {type: string}
+        detail: {type: [string, 'null']}
+    SessionSummary:
+      type: object
+      required: [id, title, mode, guided_step, created_at, updated_at]
+      properties:
+        id: {type: string, format: uuid}
+        title: {type: string}
+        mode: {type: string, enum: [guided, free]}
+        guided_step: {type: string}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+    SessionDetail:
+      allOf:
+        - $ref: '#/components/schemas/SessionSummary'
+        - type: object
+          required: [messages, turns]
+          properties:
+            messages: {type: array, items: {$ref: '#/components/schemas/Message'}}
+            turns: {type: array, items: {$ref: '#/components/schemas/Turn'}}
+    Message:
+      type: object
+      required: [id, session_id, role, content, status, created_at]
+      properties:
+        id: {type: string, format: uuid}
+        session_id: {type: string, format: uuid}
+        turn_id: {type: [string, 'null'], format: uuid}
+        role: {type: string, enum: [user, assistant, system]}
+        content: {type: string}
+        status: {type: string, enum: [pending, streaming, completed, failed, cancelled]}
+        created_at: {type: string, format: date-time}
+    CreateTurnRequest:
+      type: object
+      additionalProperties: false
+      required: [session_id, message, client_message_id, idempotency_key]
+      properties:
+        session_id: {type: string, format: uuid}
+        message: {type: string, minLength: 1, maxLength: 16384}
+        client_message_id: {type: string, minLength: 1, maxLength: 128}
+        idempotency_key: {type: string, minLength: 16, maxLength: 128}
+        memory_action:
+          oneOf:
+            - $ref: '#/components/schemas/CorrectAction'
+            - $ref: '#/components/schemas/ForgetAction'
+    CorrectAction:
+      type: object
+      additionalProperties: false
+      required: [kind, memory_record_id, new_content]
+      properties:
+        kind: {const: correct}
+        memory_record_id: {type: string, format: uuid}
+        new_content: {type: string, minLength: 1, maxLength: 2048}
+    ForgetAction:
+      type: object
+      additionalProperties: false
+      required: [kind, memory_record_id]
+      properties:
+        kind: {const: forget}
+        memory_record_id: {type: string, format: uuid}
+    CreateTurnResponse:
+      type: object
+      required: [turn, created]
+      properties:
+        turn: {$ref: '#/components/schemas/Turn'}
+        created: {type: boolean}
+    Turn:
+      type: object
+      required: [id, session_id, task_id, attempt_id, user_message_id, assistant_message_id, status, used_memory_ids, used_memory_version_ids, memory_effects, created_at, updated_at]
+      properties:
+        id: {type: string, format: uuid}
+        session_id: {type: string, format: uuid}
+        task_id: {type: string, format: uuid}
+        attempt_id: {type: string, format: uuid}
+        user_message_id: {type: string, format: uuid}
+        assistant_message_id: {type: string, format: uuid}
+        status: {type: string, enum: [accepted, processing, streaming, completed, failed, cancelled]}
+        context_pack_id: {type: [string, 'null'], format: uuid}
+        outcome_receipt_id: {type: [string, 'null'], format: uuid}
+        used_memory_ids: {type: array, items: {type: string, format: uuid}}
+        used_memory_version_ids:
+          type: array
+          description: Version IDs aligned by position with used_memory_ids for immutable evidence.
+          items: {type: string, format: uuid}
+        memory_effects: {type: array, items: {$ref: '#/components/schemas/MemoryEffect'}}
+        model_id: {type: [string, 'null']}
+        model_request_id_hash: {type: [string, 'null']}
+        prompt_tokens: {type: [integer, 'null']}
+        completion_tokens: {type: [integer, 'null']}
+        total_tokens: {type: [integer, 'null']}
+        error_code: {type: [string, 'null']}
+        error_detail: {type: [string, 'null']}
+        created_at: {type: string, format: date-time}
+        updated_at: {type: string, format: date-time}
+    MemoryEffect:
+      type: object
+      required: [kind]
+      properties:
+        kind: {type: string, enum: [remembered, source_merged, corrected, forgotten, needs_review]}
+        memory_record_id: {type: [string, 'null'], format: uuid}
+        memory_version_id: {type: [string, 'null'], format: uuid}
+        candidate_ids: {type: array, items: {type: string, format: uuid}}
+        content: {type: [string, 'null']}
+        revision: {type: [integer, 'null']}
+        resolution: {type: [string, 'null'], enum: [automatic_supersede, null]}
+        operation_id: {type: [string, 'null'], format: uuid}
+        projection_status: {type: [string, 'null']}
+    MemoryExport:
+      type: object
+      required: [format_version, generated_at, record_count, records]
+      properties:
+        format_version: {type: string}
+        generated_at: {type: string, format: date-time}
+        record_count: {type: integer, minimum: 0}
+        records: {type: array, items: {$ref: '#/components/schemas/MemoryRecord'}}
+    MemoryRecord:
+      type: object
+      required: [memory_record_id, memory_type, semantic_key, scope, head_state, revision, versions, events]
+      properties:
+        memory_record_id: {type: string, format: uuid}
+        memory_type: {type: string}
+        semantic_key: {type: string}
+        scope:
+          type: object
+          required: [kind]
+          properties:
+            kind: {type: string, enum: [tenant, user, project, agent]}
+            id: {type: [string, 'null']}
+        head_state: {type: string}
+        revision: {type: integer, minimum: 0}
+        current_version_id: {type: [string, 'null'], format: uuid}
+        versions: {type: array, items: {$ref: '#/components/schemas/MemoryVersion'}}
+        events: {type: array, items: {$ref: '#/components/schemas/MemoryEvent'}}
+    MemoryVersion:
+      type: object
+      required: [memory_version_id, version_no, source_refs]
+      properties:
+        memory_version_id: {type: string, format: uuid}
+        version_no: {type: integer, minimum: 1}
+        content: {type: [string, 'null']}
+        source_refs: {type: array, items: {type: string}}
+        created_at: {type: string, format: date-time}
+        content_erased_at: {type: [string, 'null'], format: date-time}
+    MemoryEvent:
+      type: object
+      required: [sequence_no, event_type, reason_code, occurred_at]
+      properties:
+        sequence_no: {type: integer, minimum: 1}
+        event_type: {type: string}
+        reason_code: {type: string}
+        occurred_at: {type: string, format: date-time}
+    Operation:
+      type: object
+      required: [operation_id, memory_record_id, head_revision, canonical_status, projection_status, attempts]
+      properties:
+        operation_id: {type: string, format: uuid}
+        candidate_ids: {type: array, items: {type: string, format: uuid}}
+        memory_record_id: {type: string, format: uuid}
+        memory_version_id: {type: [string, 'null'], format: uuid}
+        head_revision: {type: integer, minimum: 0}
+        canonical_status: {type: string}
+        projection_status: {type: string}
+        reason_code: {type: [string, 'null']}
+        provider_object_id: {type: [string, 'null']}
+        attempts: {type: integer, minimum: 0}
+    ErasureRequest:
+      type: object
+      required: [erasure_request_id, target_kind, target_ref, status, record_count, records]
+      properties:
+        erasure_request_id: {type: string, format: uuid}
+        target_kind: {type: string}
+        target_ref: {type: string}
+        status: {type: string}
+        record_count: {type: integer, minimum: 0}
+        records: {type: array, items: {type: object}}
+    Error:
+      type: object
+      required: [code, detail]
+      properties:
+        code: {type: string}
+        detail: {type: string}

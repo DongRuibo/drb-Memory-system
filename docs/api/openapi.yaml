@@ -1,0 +1,1022 @@
+openapi: 3.1.0
+info:
+  title: LazyTT Memory API
+  version: 0.1.0
+  description: >-
+    Canonical API for proposing, governing, retrieving, correcting and forgetting
+    Agent memory. Tenant and principal are derived from authentication; request
+    scope fields can only narrow server-authorized scopes.
+servers:
+  - url: https://memory.internal
+security:
+  - bearerAuth: []
+tags:
+  - name: Ingestion
+  - name: Retrieval
+  - name: Governance
+  - name: Operations
+  - name: Health
+paths:
+  /v1/memory/events:
+    post:
+      tags: [Ingestion]
+      operationId: submitMemoryEvent
+      x-demo-v0-implemented: true
+      x-required-permission: memory:write
+      summary: Submit a source event for candidate extraction
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceEventRequest'
+      responses:
+        '202':
+          description: Event accepted for processing; no memory is implied yet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/memory/extractions:
+    post:
+      tags: [Ingestion]
+      operationId: extractMemoryCandidates
+      x-demo-v1-implemented: true
+      x-required-permission: memory:extract
+      summary: Extract bounded untrusted candidates and submit them through canonical policy
+      description: >-
+        The first complete proposal set, including an empty set, is persisted by tenant,
+        Idempotency-Key and request hash. Replays reuse that snapshot and stable child
+        operations instead of accepting a second model result.
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/MemoryExtractionRequest'}
+      responses:
+        '202':
+          description: Extraction completed and every returned candidate has a canonical operation
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/MemoryExtractionResponse'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '502': {$ref: '#/components/responses/BadGateway'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/memory/operations/{operation_id}:
+    get:
+      tags: [Operations]
+      operationId: getMemoryOperation
+      x-demo-v0-implemented: true
+      x-required-permission: memory:read
+      summary: Inspect canonical and projection processing status
+      parameters:
+        - $ref: '#/components/parameters/OperationId'
+      responses:
+        '200':
+          description: Operation status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        '404': {$ref: '#/components/responses/NotFound'}
+  /v1/memory/export:
+    get:
+      tags: [Governance]
+      operationId: exportMemories
+      x-demo-v1-implemented: true
+      x-required-permission: memory:export
+      summary: Export all non-erased memory records authorized for the current user
+      responses:
+        '200':
+          description: Snapshot-consistent versioned memory export
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemoryExportView'
+  /v1/memory/search:
+    post:
+      tags: [Retrieval]
+      operationId: searchMemory
+      x-demo-v0-implemented: true
+      x-required-permission: memory:read
+      summary: Search authorized current memory versions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+      responses:
+        '200':
+          description: Canonically authorized hits
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResponse'
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/memory/context-packs:
+    post:
+      tags: [Retrieval]
+      operationId: compileMemoryContextPack
+      x-demo-v1-implemented: true
+      x-required-permission: memory:read
+      summary: Compile an immutable memory pack for one Attempt
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContextPackRequest'
+      responses:
+        '201':
+          description: Context pack manifest compiled; memory text is not delivered yet
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextPackManifest'
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/memory/context-packs/{context_pack_id}/consume:
+    post:
+      tags: [Retrieval]
+      operationId: consumeMemoryContextPack
+      x-demo-v1-implemented: true
+      x-required-permission: memory:read
+      summary: Atomically reauthorize and consume one Attempt-bound context pack
+      parameters:
+        - $ref: '#/components/parameters/ContextPackId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContextPackConsumeRequest'
+      responses:
+        '200':
+          description: Pack consumed and memory text delivered
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContextPack'
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/memory/context-packs/{context_pack_id}/outcomes:
+    post:
+      tags: [Retrieval]
+      operationId: recordMemoryContextOutcome
+      x-demo-v1-implemented: true
+      x-required-permission: memory:outcome
+      summary: Record one idempotent model outcome for a consumed Context Pack
+      parameters:
+        - $ref: '#/components/parameters/ContextPackId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OutcomeReceiptRequest'
+      responses:
+        '201':
+          description: Outcome Receipt created or idempotently replayed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OutcomeReceipt'
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/memories/{memory_record_id}:
+    get:
+      tags: [Governance]
+      operationId: inspectMemoryRecord
+      x-demo-v1-implemented: true
+      x-required-permission: memory:read
+      summary: Inspect current and historical memory metadata
+      parameters:
+        - $ref: '#/components/parameters/MemoryRecordId'
+      responses:
+        '200':
+          description: Authorized record view
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MemoryRecordView'
+        '404': {$ref: '#/components/responses/NotFound'}
+  /v1/memories/{memory_record_id}/corrections:
+    post:
+      tags: [Governance]
+      operationId: correctMemoryRecord
+      x-demo-v1-implemented: true
+      x-required-permission: memory:correct
+      summary: Append a corrected immutable version
+      parameters:
+        - $ref: '#/components/parameters/MemoryRecordId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CorrectionRequest'
+      responses:
+        '201':
+          description: Corrected version committed; projection may be pending
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/memories/{memory_record_id}/forget:
+    post:
+      tags: [Governance]
+      operationId: forgetMemoryRecord
+      x-demo-v0-implemented: true
+      x-required-permission: memory:forget
+      summary: Immediately remove a memory from the authorized read set
+      parameters:
+        - $ref: '#/components/parameters/MemoryRecordId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ForgetRequest'
+      responses:
+        '202':
+          description: Canonical forget committed; deletion propagation continues
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/memory-candidates/{candidate_id}/decisions:
+    post:
+      tags: [Governance]
+      operationId: decideMemoryCandidate
+      x-demo-v1-implemented: true
+      x-required-permission: memory:review
+      summary: Accept or reject a candidate requiring review
+      parameters:
+        - $ref: '#/components/parameters/CandidateId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CandidateDecisionRequest'
+      responses:
+        '201':
+          description: Final decision recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResponse'
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/erasure-requests:
+    post:
+      tags: [Governance]
+      operationId: createErasureRequest
+      x-demo-v1-implemented: true
+      x-required-permission: memory:erase
+      summary: Start a tracked privacy erasure workflow
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErasureRequest'
+      responses:
+        '202':
+          description: Erasure workflow created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErasureRequestView'
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/erasure-requests/{erasure_request_id}:
+    get:
+      tags: [Governance]
+      operationId: getErasureRequest
+      x-demo-v1-implemented: true
+      x-required-permission: memory:erase
+      summary: Inspect canonical and projection erasure progress
+      parameters:
+        - $ref: '#/components/parameters/ErasureRequestId'
+      responses:
+        '200':
+          description: Erasure request progress
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErasureRequestView'
+        '404': {$ref: '#/components/responses/NotFound'}
+  /v1/projection-generations/rebuilds:
+    post:
+      tags: [Operations]
+      operationId: startProjectionRebuild
+      x-demo-v1-implemented: true
+      x-required-permission: memory:admin
+      summary: Rebuild all currently authorized heads into an isolated generation
+      parameters:
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ProjectionRebuildRequest'}
+      responses:
+        '202':
+          description: Rebuild created or replayed
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectionGeneration'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/projection-generations/{generation}:
+    get:
+      tags: [Operations]
+      operationId: getProjectionGeneration
+      x-demo-v1-implemented: true
+      x-required-permission: memory:admin
+      summary: Inspect rebuild, validation and switch progress
+      parameters:
+        - $ref: '#/components/parameters/Generation'
+      responses:
+        '200':
+          description: Projection generation state
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectionGeneration'}
+        '404': {$ref: '#/components/responses/NotFound'}
+  /v1/projection-generations/{generation}/activate:
+    post:
+      tags: [Operations]
+      operationId: activateProjectionGeneration
+      x-demo-v1-implemented: true
+      x-required-permission: memory:admin
+      summary: Validate and switch reads to a canary generation
+      parameters:
+        - $ref: '#/components/parameters/Generation'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/ProjectionActivateRequest'}
+      responses:
+        '200':
+          description: Reads now use the canary; writes remain frozen
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectionGeneration'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/projection-generations/{generation}/finalize:
+    post:
+      tags: [Operations]
+      operationId: finalizeProjectionGeneration
+      x-demo-v1-implemented: true
+      x-required-permission: memory:admin
+      summary: Make the validated canary active and release the write freeze
+      parameters:
+        - $ref: '#/components/parameters/Generation'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '200':
+          description: Generation finalized
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectionGeneration'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/projection-generations/{generation}/rollback:
+    post:
+      tags: [Operations]
+      operationId: rollbackProjectionGeneration
+      x-demo-v1-implemented: true
+      x-required-permission: memory:admin
+      summary: Restore the standby generation before writes resume
+      parameters:
+        - $ref: '#/components/parameters/Generation'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '200':
+          description: Standby generation restored
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectionGeneration'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/projection-generations/{generation}/abort:
+    post:
+      tags: [Operations]
+      operationId: abortProjectionRebuild
+      x-demo-v1-implemented: true
+      x-required-permission: memory:admin
+      summary: Mark an unactivated rebuild failed and release the write freeze
+      parameters:
+        - $ref: '#/components/parameters/Generation'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      responses:
+        '200':
+          description: Rebuild aborted
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ProjectionGeneration'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /health/live:
+    get:
+      tags: [Health]
+      security: []
+      operationId: liveness
+      x-demo-v0-implemented: true
+      responses:
+        '200': {description: Process is alive}
+  /health/ready:
+    get:
+      tags: [Health]
+      security: []
+      operationId: readiness
+      x-demo-v0-implemented: true
+      responses:
+        '200': {description: Canonical dependencies are ready}
+        '503': {description: Canonical database or policy is unavailable}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        Short-lived HS256 JWT in the current internal-service implementation.
+        The service verifies signature, issuer, audience, configured tenant allowlist,
+        iat, nbf, exp and a maximum one-hour lifetime. Required claims are sub,
+        tenant_id, user_id and permissions; sub must equal user_id. Optional
+        tenant_scope, project_ids and agent_ids claims form the signed typed-scope
+        authority snapshot used by read and governance operations.
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: true
+      schema: {type: string, minLength: 16, maxLength: 128}
+    OperationId:
+      name: operation_id
+      in: path
+      required: true
+      schema: {$ref: '#/components/schemas/Uuid'}
+    MemoryRecordId:
+      name: memory_record_id
+      in: path
+      required: true
+      schema: {$ref: '#/components/schemas/Uuid'}
+    ContextPackId:
+      name: context_pack_id
+      in: path
+      required: true
+      schema: {$ref: '#/components/schemas/Uuid'}
+    CandidateId:
+      name: candidate_id
+      in: path
+      required: true
+      schema: {$ref: '#/components/schemas/Uuid'}
+    ErasureRequestId:
+      name: erasure_request_id
+      in: path
+      required: true
+      schema: {$ref: '#/components/schemas/Uuid'}
+    Generation:
+      name: generation
+      in: path
+      required: true
+      schema:
+        type: string
+        minLength: 1
+        maxLength: 128
+        pattern: '^[A-Za-z0-9._-]+$'
+  responses:
+    BadRequest:
+      description: Invalid request
+      content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}
+    Unauthorized:
+      description: Authentication required
+      content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}
+    Forbidden:
+      description: Current authority does not allow this operation
+      content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}
+    NotFound:
+      description: Resource absent or intentionally hidden
+      content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}
+    Conflict:
+      description: Revision, idempotency or state conflict
+      content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}
+    BadGateway:
+      description: An enabled model or provider returned an invalid response
+      content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}
+    Unavailable:
+      description: Required canonical memory capability is unavailable
+      content: {application/problem+json: {schema: {$ref: '#/components/schemas/Problem'}}}
+  schemas:
+    Uuid:
+      type: string
+      format: uuid
+    ScopeSelector:
+      type: object
+      additionalProperties: false
+      description: Requested narrowing; the server intersects it with authorized scopes.
+      required: [kind]
+      properties:
+        kind: {type: string, enum: [tenant, user, project, agent]}
+        id: {type: [string, 'null'], maxLength: 256}
+    TaskContext:
+      type: object
+      additionalProperties: false
+      required: [task_id, attempt_id, purpose]
+      properties:
+        task_id: {$ref: '#/components/schemas/Uuid'}
+        attempt_id: {$ref: '#/components/schemas/Uuid'}
+        purpose: {type: string, minLength: 1, maxLength: 64}
+    SourceEventRequest:
+      type: object
+      additionalProperties: false
+      required: [event_id, source_type, source_ref, content, occurred_at]
+      properties:
+        event_id: {type: string, minLength: 1, maxLength: 256}
+        source_type:
+          type: string
+          enum: [conversation_message, tool_result, task_result, user_correction, imported_record]
+        source_ref: {type: string, minLength: 1, maxLength: 512}
+        content: {type: string, minLength: 1, maxLength: 32768}
+        occurred_at: {type: string, format: date-time}
+        scope_selector: {$ref: '#/components/schemas/ScopeSelector'}
+        metadata: {type: object, additionalProperties: true, maxProperties: 32}
+    MemoryExtractionRequest:
+      type: object
+      additionalProperties: false
+      required: [event_id, source_type, source_ref, content, occurred_at]
+      properties:
+        event_id: {type: string, minLength: 1, maxLength: 256}
+        source_type: {type: string, enum: [conversation_message]}
+        source_ref: {type: string, minLength: 1, maxLength: 440}
+        content: {type: string, minLength: 1, maxLength: 32768}
+        occurred_at: {type: string, format: date-time}
+        max_candidates: {type: integer, minimum: 1, maximum: 8, default: 4}
+        scope_selector: {$ref: '#/components/schemas/ScopeSelector'}
+        project_scope_selector:
+          allOf:
+            - $ref: '#/components/schemas/ScopeSelector'
+          description: >-
+            Optional authenticated project scope. When present, the service may allow project_fact
+            proposals and routes only those proposals to this scope; personal types remain in the
+            user scope. The principal must also have memory:write and project membership.
+    ExtractedCandidateProposal:
+      type: object
+      additionalProperties: false
+      required: [memory_type, semantic_key, content, confidence, importance]
+      properties:
+        memory_type: {type: string, enum: [preference, profile_fact, project_fact, episodic_summary]}
+        semantic_key:
+          type: string
+          minLength: 3
+          maxLength: 128
+          pattern: '^[a-z0-9._-]+$'
+        content: {type: string, minLength: 1, maxLength: 2048}
+        confidence:
+          type: number
+          minimum: 0.8
+          maximum: 1.0
+          description: project_fact requires at least 0.90; other extracted types require 0.80.
+        importance: {type: number, minimum: 0.0, maximum: 1.0}
+    ExtractedMemoryResult:
+      type: object
+      additionalProperties: false
+      required: [proposal, operation]
+      properties:
+        proposal: {$ref: '#/components/schemas/ExtractedCandidateProposal'}
+        operation: {$ref: '#/components/schemas/OperationResponse'}
+    MemoryExtractionResponse:
+      type: object
+      additionalProperties: false
+      required: [extractor_version, candidate_count, candidates]
+      properties:
+        extractor_version: {type: string, minLength: 1, maxLength: 256}
+        candidate_count: {type: integer, minimum: 0, maximum: 8}
+        candidates:
+          type: array
+          maxItems: 8
+          items: {$ref: '#/components/schemas/ExtractedMemoryResult'}
+    OperationResponse:
+      type: object
+      additionalProperties: false
+      required: [operation_id, head_revision, canonical_status, projection_status]
+      properties:
+        operation_id: {$ref: '#/components/schemas/Uuid'}
+        candidate_ids:
+          type: array
+          items: {$ref: '#/components/schemas/Uuid'}
+        memory_record_id: {$ref: '#/components/schemas/Uuid'}
+        memory_version_id: {$ref: '#/components/schemas/Uuid'}
+        head_revision: {type: integer, minimum: 0}
+        canonical_status:
+          type: string
+          enum: [processing, candidate_rejected, needs_review, memory_accepted, memory_corrected, expired, forgotten, erasure_pending, erasure_complete, failed]
+        projection_status:
+          type: string
+          enum: [not_applicable, pending, ready, failed, deleted]
+        reason_code: {type: [string, 'null']}
+        provider_object_id: {type: [string, 'null']}
+        attempts: {type: integer, minimum: 0}
+    SearchRequest:
+      type: object
+      additionalProperties: false
+      required: [task_context, query]
+      properties:
+        task_context: {$ref: '#/components/schemas/TaskContext'}
+        query: {type: string, minLength: 1, maxLength: 4096}
+        scope_selectors:
+          type: array
+          maxItems: 8
+          items: {$ref: '#/components/schemas/ScopeSelector'}
+        memory_types:
+          type: array
+          uniqueItems: true
+          items: {type: string, enum: [preference, profile_fact, project_fact, episodic_summary]}
+        limit: {type: integer, minimum: 1, maximum: 50, default: 10}
+    MemoryHit:
+      type: object
+      additionalProperties: false
+      required: [memory_record_id, memory_version_id, content, memory_type, score, source_refs]
+      properties:
+        memory_record_id: {$ref: '#/components/schemas/Uuid'}
+        memory_version_id: {$ref: '#/components/schemas/Uuid'}
+        content: {type: string}
+        memory_type: {type: string}
+        score: {type: number, minimum: 0, maximum: 1}
+        source_refs: {type: array, items: {type: string}}
+        effective_from: {type: [string, 'null'], format: date-time}
+    SearchResponse:
+      type: object
+      additionalProperties: false
+      required: [hits, ranking_version, projection_generation, degraded, degradation_reason]
+      properties:
+        hits: {type: array, items: {$ref: '#/components/schemas/MemoryHit'}}
+        ranking_version:
+          type: string
+          description: The actual ranking strategy used for this response, including fallback.
+        projection_generation: {type: string}
+        degraded: {type: boolean, default: false}
+        degradation_reason: {type: [string, 'null']}
+    ContextPackRequest:
+      type: object
+      additionalProperties: false
+      required: [task_context, query, memory_types, token_budget, tokenizer_id, memory_required]
+      properties:
+        task_context: {$ref: '#/components/schemas/TaskContext'}
+        query: {type: string, minLength: 1, maxLength: 4096}
+        scope_selectors:
+          type: array
+          maxItems: 8
+          items: {$ref: '#/components/schemas/ScopeSelector'}
+        memory_types:
+          type: array
+          uniqueItems: true
+          items: {type: string, enum: [preference, profile_fact, project_fact, episodic_summary]}
+        limit: {type: integer, minimum: 1, maximum: 50, default: 10}
+        token_budget: {type: integer, minimum: 0, maximum: 8192}
+        tokenizer_id: {type: string, minLength: 1, maxLength: 128}
+        memory_required: {type: boolean}
+        pinned_memory_version_ids:
+          type: array
+          description: >-
+            Newly accepted or corrected Version IDs that may be used before projection catches up.
+            The service resolves and authorizes every ID against the canonical Head; callers never
+            inject memory text directly.
+          maxItems: 8
+          uniqueItems: true
+          items: {type: string, format: uuid}
+    ContextPackConsumeRequest:
+      type: object
+      additionalProperties: false
+      required: [task_context]
+      properties:
+        task_context: {$ref: '#/components/schemas/TaskContext'}
+    ContextPackItem:
+      type: object
+      additionalProperties: false
+      required: [memory_record_id, memory_version_id, text, source_refs, inclusion_reason, trust]
+      properties:
+        memory_record_id: {$ref: '#/components/schemas/Uuid'}
+        memory_version_id: {$ref: '#/components/schemas/Uuid'}
+        text: {type: string}
+        source_refs: {type: array, minItems: 1, items: {type: string}}
+        effective_from: {type: [string, 'null'], format: date-time}
+        inclusion_reason: {type: string}
+        trust: {type: string, const: untrusted_memory_data}
+    ContextSection:
+      type: object
+      additionalProperties: false
+      required: [kind, items]
+      properties:
+        kind: {type: string, enum: [user_preference, current_fact, relevant_experience, background]}
+        items: {type: array, items: {$ref: '#/components/schemas/ContextPackItem'}}
+    ContextPackManifest:
+      type: object
+      additionalProperties: false
+      required: [context_pack_id, task_id, attempt_id, purpose, authority_snapshot_id, policy_version, compiler_version, ranking_version, projection_generation, created_at, expires_at, tokenizer_id, token_budget, estimated_tokens, item_count, delivery_status, consumed_at, omission_summary]
+      properties:
+        context_pack_id: {$ref: '#/components/schemas/Uuid'}
+        task_id: {$ref: '#/components/schemas/Uuid'}
+        attempt_id: {$ref: '#/components/schemas/Uuid'}
+        purpose: {type: string}
+        authority_snapshot_id: {type: string}
+        policy_version: {type: string}
+        compiler_version: {type: string}
+        ranking_version: {type: string}
+        projection_generation: {type: string}
+        created_at: {type: string, format: date-time}
+        expires_at: {type: string, format: date-time}
+        tokenizer_id: {type: string}
+        token_budget: {type: integer, minimum: 0}
+        estimated_tokens: {type: integer, minimum: 0}
+        item_count: {type: integer, minimum: 0}
+        delivery_status: {type: string, enum: [compiled, consumed]}
+        consumed_at: {type: [string, 'null'], format: date-time}
+        omission_summary: {type: object, additionalProperties: {type: integer, minimum: 0}}
+    ContextPack:
+      type: object
+      additionalProperties: false
+      required: [context_pack_id, task_id, attempt_id, purpose, authority_snapshot_id, policy_version, compiler_version, ranking_version, projection_generation, created_at, expires_at, consumed_at, tokenizer_id, token_budget, estimated_tokens, sections, omission_summary]
+      properties:
+        context_pack_id: {$ref: '#/components/schemas/Uuid'}
+        task_id: {$ref: '#/components/schemas/Uuid'}
+        attempt_id: {$ref: '#/components/schemas/Uuid'}
+        purpose: {type: string}
+        authority_snapshot_id: {type: string}
+        policy_version: {type: string}
+        compiler_version: {type: string}
+        ranking_version: {type: string}
+        projection_generation: {type: string}
+        created_at: {type: string, format: date-time}
+        expires_at: {type: string, format: date-time}
+        consumed_at: {type: string, format: date-time}
+        tokenizer_id: {type: string}
+        token_budget: {type: integer, minimum: 0}
+        estimated_tokens: {type: integer, minimum: 0}
+        sections: {type: array, items: {$ref: '#/components/schemas/ContextSection'}}
+        omission_summary: {type: object, additionalProperties: {type: integer, minimum: 0}}
+    OutcomeReceiptRequest:
+      type: object
+      additionalProperties: false
+      required: [task_context, outcome, model_id, latency_ms]
+      properties:
+        task_context: {$ref: '#/components/schemas/TaskContext'}
+        outcome: {type: string, enum: [succeeded, failed, cancelled]}
+        model_id: {type: string, minLength: 1, maxLength: 256}
+        model_request_id:
+          type: [string, 'null']
+          minLength: 1
+          maxLength: 512
+          description: Accepted in transit but persisted only as a SHA-256 hash.
+        latency_ms: {type: integer, minimum: 0, maximum: 86400000}
+        prompt_tokens: {type: [integer, 'null'], minimum: 0, maximum: 1000000000}
+        completion_tokens: {type: [integer, 'null'], minimum: 0, maximum: 1000000000}
+        total_tokens: {type: [integer, 'null'], minimum: 0, maximum: 1000000000}
+        error_code: {type: [string, 'null'], minLength: 1, maxLength: 128}
+    OutcomeReceipt:
+      type: object
+      additionalProperties: false
+      required: [outcome_receipt_id, context_pack_id, task_id, attempt_id, purpose, outcome, model_id, model_request_id_hash, latency_ms, prompt_tokens, completion_tokens, total_tokens, error_code, recorded_at]
+      properties:
+        outcome_receipt_id: {$ref: '#/components/schemas/Uuid'}
+        context_pack_id: {$ref: '#/components/schemas/Uuid'}
+        task_id: {$ref: '#/components/schemas/Uuid'}
+        attempt_id: {$ref: '#/components/schemas/Uuid'}
+        purpose: {type: string}
+        outcome: {type: string, enum: [succeeded, failed, cancelled]}
+        model_id: {type: string}
+        model_request_id_hash: {type: [string, 'null'], minLength: 71, maxLength: 71}
+        latency_ms: {type: integer, minimum: 0}
+        prompt_tokens: {type: [integer, 'null'], minimum: 0}
+        completion_tokens: {type: [integer, 'null'], minimum: 0}
+        total_tokens: {type: [integer, 'null'], minimum: 0}
+        error_code: {type: [string, 'null']}
+        recorded_at: {type: string, format: date-time}
+    CorrectionRequest:
+      type: object
+      additionalProperties: false
+      required: [expected_revision, new_content, reason, source_ref]
+      properties:
+        expected_revision: {type: integer, minimum: 0}
+        new_content: {type: string, minLength: 1, maxLength: 32768}
+        reason: {type: string, minLength: 1, maxLength: 1024}
+        source_ref: {type: string, minLength: 1, maxLength: 512}
+        effective_from: {type: [string, 'null'], format: date-time}
+    ForgetRequest:
+      type: object
+      additionalProperties: false
+      required: [expected_revision, reason]
+      properties:
+        expected_revision: {type: integer, minimum: 0}
+        reason: {type: string, minLength: 1, maxLength: 1024}
+        request_erasure: {type: boolean, default: false}
+    CandidateDecisionRequest:
+      type: object
+      additionalProperties: false
+      required: [expected_candidate_revision, outcome, reason]
+      properties:
+        expected_candidate_revision: {type: integer, minimum: 0}
+        outcome: {type: string, enum: [accept, reject]}
+        reason: {type: string, minLength: 1, maxLength: 1024}
+    ErasureRequest:
+      type: object
+      additionalProperties: false
+      required: [target_kind, target_id, reason]
+      properties:
+        target_kind: {type: string, enum: [memory_record, user, project]}
+        target_id: {type: string, minLength: 1, maxLength: 256}
+        reason: {type: string, minLength: 1, maxLength: 1024}
+    ErasureRequestView:
+      type: object
+      additionalProperties: false
+      required: [erasure_request_id, target_kind, target_ref, status, record_count, handler_status, created_at, completed_at, records]
+      properties:
+        erasure_request_id: {$ref: '#/components/schemas/Uuid'}
+        target_kind: {type: string, enum: [memory_record, user, project]}
+        target_ref:
+          type: string
+          description: Opaque or pseudonymized target reference; raw user identifiers are not retained.
+        status: {type: string, enum: [pending, processing, complete, failed]}
+        record_count: {type: integer, minimum: 0}
+        handler_status: {type: object, additionalProperties: true}
+        created_at: {type: string, format: date-time}
+        completed_at: {type: [string, 'null'], format: date-time}
+        records:
+          type: array
+          items: {$ref: '#/components/schemas/ErasureRecordView'}
+    ErasureRecordView:
+      type: object
+      additionalProperties: false
+      required: [memory_record_id, status, projection_operation_id, last_error_code, completed_at]
+      properties:
+        memory_record_id: {$ref: '#/components/schemas/Uuid'}
+        status: {type: string, enum: [pending, complete, failed]}
+        projection_operation_id: {type: [string, 'null'], format: uuid}
+        last_error_code: {type: [string, 'null']}
+        completed_at: {type: [string, 'null'], format: date-time}
+    ProjectionRebuildRequest:
+      type: object
+      additionalProperties: false
+      required: [generation]
+      properties:
+        generation:
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: '^[A-Za-z0-9._-]+$'
+    ProjectionActivateRequest:
+      type: object
+      additionalProperties: false
+      required: [expected_active_generation]
+      properties:
+        expected_active_generation:
+          type: string
+          minLength: 1
+          maxLength: 128
+          pattern: '^[A-Za-z0-9._-]+$'
+    ProjectionGeneration:
+      type: object
+      additionalProperties: false
+      required: [generation, status, source_generation, model_manifest, expected_records, ready_records, failed_records, created_at, completed_at, activated_at, retired_at, last_error_code]
+      properties:
+        generation: {type: string}
+        status:
+          type: string
+          enum: [active, building, ready, canary, standby, retired, failed]
+        source_generation: {type: [string, 'null']}
+        model_manifest: {$ref: '#/components/schemas/ProjectionModelManifest'}
+        expected_records: {type: integer, minimum: 0}
+        ready_records: {type: integer, minimum: 0}
+        failed_records: {type: integer, minimum: 0}
+        created_at: {type: string, format: date-time}
+        completed_at: {type: [string, 'null'], format: date-time}
+        activated_at: {type: [string, 'null'], format: date-time}
+        retired_at: {type: [string, 'null'], format: date-time}
+        last_error_code: {type: [string, 'null']}
+    ProjectionModelManifest:
+      type: object
+      additionalProperties: false
+      required: [index_provider, embedding_provider, embedding_model, embedding_revision, embedding_dimensions, embedding_normalization, embedding_instruction_version, semantic_embedding, manifest_hash]
+      properties:
+        index_provider: {type: string, minLength: 1, maxLength: 128}
+        embedding_provider: {type: string, minLength: 1, maxLength: 128}
+        embedding_model: {type: string, minLength: 1, maxLength: 256}
+        embedding_revision: {type: string, minLength: 1, maxLength: 256}
+        embedding_dimensions: {type: integer, minimum: 1, maximum: 4096}
+        embedding_normalization: {type: string, enum: [l2, none, provider_default]}
+        embedding_instruction_version: {type: string, minLength: 1, maxLength: 256}
+        semantic_embedding: {type: boolean}
+        manifest_hash: {type: string, pattern: '^[a-f0-9]{64}$'}
+    MemoryRecordView:
+      type: object
+      additionalProperties: false
+      required: [memory_record_id, scope, memory_type, semantic_key, head_state, revision, current_version_id, identity_retired_at, versions, events]
+      properties:
+        memory_record_id: {$ref: '#/components/schemas/Uuid'}
+        scope: {$ref: '#/components/schemas/ScopeSelector'}
+        memory_type: {type: string}
+        semantic_key: {type: string}
+        head_state: {type: string, enum: [active, contested, expired, forgotten, erased]}
+        revision: {type: integer, minimum: 0}
+        current_version_id: {type: [string, 'null'], format: uuid}
+        identity_retired_at: {type: [string, 'null'], format: date-time}
+        versions: {type: array, items: {$ref: '#/components/schemas/MemoryVersionView'}}
+        events: {type: array, items: {$ref: '#/components/schemas/MemoryEventView'}}
+    MemoryExportView:
+      type: object
+      additionalProperties: false
+      required: [format_version, generated_at, record_count, records]
+      properties:
+        format_version: {type: string, const: lazytt-memory-export-v1}
+        generated_at: {type: string, format: date-time}
+        record_count: {type: integer, minimum: 0}
+        records:
+          type: array
+          items: {$ref: '#/components/schemas/MemoryRecordView'}
+    MemoryVersionView:
+      type: object
+      additionalProperties: false
+      required: [memory_version_id, version_no, content, content_hash, normalized_key, confidence, importance, inference_kind, source_refs, classification, allowed_purposes, consent_ref, retention_policy_id, retain_until, created_at, content_erased_at]
+      properties:
+        memory_version_id: {$ref: '#/components/schemas/Uuid'}
+        version_no: {type: integer, minimum: 1}
+        content: {type: [string, 'null']}
+        content_hash: {type: string}
+        normalized_key: {type: [string, 'null']}
+        confidence: {type: number, minimum: 0, maximum: 1}
+        importance: {type: number, minimum: 0, maximum: 1}
+        inference_kind: {type: string, enum: [explicit, derived]}
+        source_refs: {type: array, minItems: 1, items: {type: string}}
+        effective_from: {type: [string, 'null'], format: date-time}
+        effective_to: {type: [string, 'null'], format: date-time}
+        classification: {type: string, enum: [public, internal, personal, sensitive]}
+        allowed_purposes: {type: array, items: {type: string}}
+        consent_ref: {type: [string, 'null']}
+        retention_policy_id: {type: string}
+        retain_until: {type: [string, 'null'], format: date-time}
+        created_at: {type: string, format: date-time}
+        content_erased_at: {type: [string, 'null'], format: date-time}
+    MemoryEventView:
+      type: object
+      additionalProperties: false
+      required: [sequence_no, event_type, memory_version_id, actor_type, actor_id, reason_code, payload, occurred_at]
+      properties:
+        sequence_no: {type: integer, minimum: 1}
+        event_type: {type: string}
+        memory_version_id: {type: [string, 'null'], format: uuid}
+        actor_type: {type: string}
+        actor_id: {type: string}
+        reason_code: {type: string}
+        payload: {type: object, additionalProperties: true}
+        occurred_at: {type: string, format: date-time}
+    Problem:
+      type: object
+      additionalProperties: false
+      required: [type, title, status, code, request_id]
+      properties:
+        type: {type: string, format: uri-reference}
+        title: {type: string}
+        status: {type: integer, minimum: 400, maximum: 599}
+        code: {type: string}
+        detail: {type: string}
+        request_id: {type: string}
+        retryable: {type: boolean}
+        expected_revision: {type: integer, minimum: 0}

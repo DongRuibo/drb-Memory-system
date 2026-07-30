@@ -1,0 +1,17 @@
+.DS_Store
+/target/
+.env
+.env.*
+!.env.example
+!.env.*.example
+/secrets/
+/.run/
+*.pid
+deploy/local/.env
+*.log
+__pycache__/
+.venv-retrieval-models/
+/apps/demo-web/node_modules/
+/apps/demo-web/dist/
+/apps/demo-web/.next/
+/apps/demo-web/.wrangler/

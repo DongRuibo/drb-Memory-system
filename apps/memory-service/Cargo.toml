@@ -1,0 +1,28 @@
+[package]
+name = "memory-service"
+version = "0.1.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+
+[dependencies]
+axum.workspace = true
+base64.workspace = true
+chrono.workspace = true
+hmac.workspace = true
+hex.workspace = true
+http-reranker = { path = "../../crates/rerankers/http-reranker" }
+kimi-extractor = { path = "../../crates/extractors/kimi-extractor" }
+kimi-reranker = { path = "../../crates/rerankers/kimi-reranker" }
+mem0-adapter = { path = "../../crates/provider-adapters/mem0-adapter" }
+memory-application = { path = "../../crates/memory-application" }
+memory-postgres = { path = "../../crates/memory-postgres" }
+reqwest.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+uuid.workspace = true

@@ -1,0 +1,168 @@
+asyncapi: 2.6.0
+info:
+  title: LazyTT Memory Domain Events
+  version: 0.1.0
+  description: >-
+    Internal outbox event contract. These events describe committed canonical
+    facts or requested projection work; consumers cannot use them to bypass the
+    Memory API authority checks.
+defaultContentType: application/json
+channels:
+  memory.domain-events:
+    publish:
+      operationId: publishMemoryDomainEvent
+      message:
+        oneOf:
+          - $ref: '#/components/messages/MemoryVersionAccepted'
+          - $ref: '#/components/messages/MemoryHeadChanged'
+          - $ref: '#/components/messages/MemoryForgotten'
+          - $ref: '#/components/messages/MemoryErasureCompleted'
+  memory.projection-commands:
+    publish:
+      operationId: publishProjectionCommand
+      message:
+        oneOf:
+          - $ref: '#/components/messages/ProjectionUpsertRequested'
+          - $ref: '#/components/messages/ProjectionDeleteRequested'
+  memory.projection-events:
+    publish:
+      operationId: publishProjectionResult
+      message:
+        oneOf:
+          - $ref: '#/components/messages/ProjectionReady'
+          - $ref: '#/components/messages/ProjectionFailed'
+components:
+  messages:
+    MemoryVersionAccepted:
+      name: MemoryVersionAccepted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              event_type: {const: memory.version.accepted}
+              data: {$ref: '#/components/schemas/VersionData'}
+    MemoryHeadChanged:
+      name: MemoryHeadChanged
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              event_type: {const: memory.head.changed}
+              data: {$ref: '#/components/schemas/HeadData'}
+    MemoryForgotten:
+      name: MemoryForgotten
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              event_type: {const: memory.forgotten}
+              data: {$ref: '#/components/schemas/HeadData'}
+    MemoryErasureCompleted:
+      name: MemoryErasureCompleted
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              event_type: {const: memory.erasure.completed}
+              data:
+                type: object
+                required: [erasure_request_id, target_kind, target_id]
+                properties:
+                  erasure_request_id: {type: string, format: uuid}
+                  target_kind: {type: string}
+                  target_id: {type: string}
+    ProjectionUpsertRequested:
+      name: ProjectionUpsertRequested
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              event_type: {const: memory.projection.upsert.requested}
+              data: {$ref: '#/components/schemas/ProjectionCommand'}
+    ProjectionDeleteRequested:
+      name: ProjectionDeleteRequested
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              event_type: {const: memory.projection.delete.requested}
+              data: {$ref: '#/components/schemas/ProjectionCommand'}
+    ProjectionReady:
+      name: ProjectionReady
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              event_type: {const: memory.projection.ready}
+              data: {$ref: '#/components/schemas/ProjectionResult'}
+    ProjectionFailed:
+      name: ProjectionFailed
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              event_type: {const: memory.projection.failed}
+              data: {$ref: '#/components/schemas/ProjectionResult'}
+  schemas:
+    EventEnvelope:
+      type: object
+      required: [event_id, event_type, event_version, tenant_id, aggregate_id, aggregate_revision, occurred_at, data]
+      properties:
+        event_id: {type: string, format: uuid}
+        event_type: {type: string}
+        event_version: {type: integer, minimum: 1}
+        tenant_id: {type: string}
+        aggregate_id: {type: string, format: uuid}
+        aggregate_revision: {type: integer, minimum: 0}
+        operation_id: {type: string, format: uuid}
+        trace_id: {type: string}
+        occurred_at: {type: string, format: date-time}
+        data: {type: object}
+    VersionData:
+      type: object
+      required: [memory_record_id, memory_version_id, scope_kind, memory_type, content_hash]
+      properties:
+        memory_record_id: {type: string, format: uuid}
+        memory_version_id: {type: string, format: uuid}
+        scope_kind: {type: string, enum: [tenant, user, project, agent]}
+        scope_id: {type: [string, 'null']}
+        memory_type: {type: string}
+        content_hash: {type: string}
+    HeadData:
+      type: object
+      required: [memory_record_id, head_state, revision]
+      properties:
+        memory_record_id: {type: string, format: uuid}
+        memory_version_id: {type: [string, 'null'], format: uuid}
+        head_state: {type: string, enum: [active, contested, expired, forgotten, erased]}
+        revision: {type: integer, minimum: 0}
+    ProjectionCommand:
+      type: object
+      required: [operation_id, provider, generation, memory_record_id, head_revision, operation_type]
+      properties:
+        operation_id: {type: string, format: uuid}
+        provider: {type: string}
+        generation: {type: string}
+        memory_record_id: {type: string, format: uuid}
+        memory_version_id: {type: [string, 'null'], format: uuid}
+        head_revision: {type: integer, minimum: 0}
+        operation_type: {type: string, enum: [upsert, delete]}
+        content_hash: {type: [string, 'null']}
+    ProjectionResult:
+      type: object
+      required: [operation_id, provider, generation, status]
+      properties:
+        operation_id: {type: string, format: uuid}
+        provider: {type: string}
+        generation: {type: string}
+        status: {type: string, enum: [ready, failed, stale, deleted]}
+        provider_object_id: {type: [string, 'null']}
+        error_code: {type: [string, 'null']}
