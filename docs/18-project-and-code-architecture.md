@@ -65,8 +65,9 @@ flowchart LR
 | 外部适配层 | Mem0/Qwen/Kimi adapters | 可替换检索目录、Embedding、Rerank、候选提取和回答生成 |
 
 仓库拆分方向已经固定：记忆控制面及其下层属于正式 `lazytt-memory-system` 后端；交互层
-和对话编排层属于可选 `lazytt-memory-demo`。当前仍在同一源码树中完成兼容迁移和测试，
-具体状态见 [后端与 Demo 拆仓及本地联调边界](./21-repository-split-and-local-integration.md)。
+和对话编排层属于可选 Memory Demo。独立副本已发布到 `lazytt-frontend-console` 的
+`feature/ruibo-dong_lazyx/memory-agent-demo` 分支；当前源码树仍保留兼容副本，具体状态见
+[后端与 Demo 拆仓及本地联调边界](./21-repository-split-and-local-integration.md)。
 
 ## 3. 数据与模型职责
 

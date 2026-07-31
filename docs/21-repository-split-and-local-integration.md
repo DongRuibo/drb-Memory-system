@@ -1,7 +1,8 @@
 # 后端与 Demo 拆仓及本地联调边界
 
-状态：**Phase 1 implementing**。当前仍是单一 Git 仓库，但运行时和数据库边界已经开始
-按两个未来仓库收敛；在独立构建和契约测试通过前不删除历史目录。
+状态：**Phase 2 compatibility window**。后端拆分分支与独立 Demo 分支均已发布，独立
+构建、独立 Demo 数据库、Docker 启动和跨仓库本地联调已经验证。本仓库暂时保留 Demo
+兼容副本；固定后端 release/image 并完成一轮外部下载验证后再删除历史目录。
 
 ## 目标仓库
 
@@ -18,7 +19,11 @@
 它不依赖 Node、Web 页面、Demo 身份或 Demo 会话表。正式 Agent 只通过 `/v1` HTTP
 契约或同版本 `memory-client` 使用它。
 
-### `lazytt-memory-demo`
+### `lazytt-frontend-console` / Memory Demo 分支
+
+仓库：`lazyaix-dev/lazytt-frontend-console`
+
+分支：`feature/ruibo-dong_lazyx/memory-agent-demo`
 
 可选下载的参考 Agent 和测试客户端。它拥有：
 
@@ -61,26 +66,31 @@ Formal Agent ------------------------> Memory Service /v1
 `prompt_context_snapshot`。证据面板读取该快照，不再通过跨 Schema SQL 函数读取
 `memory_core`，因此 Demo 数据库可以独立部署。
 
-## 本地联调目标
+## 当前本地联调方式
 
-后端仓库未来提供：
+后端仍沿用现有本地服务启动方式：先启动 PostgreSQL、Mem0 和 Qwen 模型网关，再运行
+Memory Service。精确依赖准备步骤见根 README 的“在新机器上启动 Web 演示”。服务就绪后
+应确认：
 
 ```bash
-docker compose up -d
 curl http://127.0.0.1:8080/health/ready
 ```
 
-Demo 仓库未来提供：
+独立 Demo 仓库提供 Web、Demo Web API 和自己的 PostgreSQL Compose：
 
 ```bash
+cp .env.example .env
+# 填写 KIMI_API_KEY，并让 JWT 配置与后端一致
 docker compose up -d
 open http://localhost:3000
 ```
 
-两个 Compose 使用同名本地网络 `lazytt-local`。Demo 通过
-`MEMORY_BASE_URL=http://memory-service:8080` 连接后端，不依赖两个仓库的相对目录。
-也可以让 Demo 的 `bundled` profile 拉取固定版本的后端镜像，用于只下载 Demo 仓库的
-普通测试人员。
+Demo 通过 `MEMORY_BASE_URL=http://host.docker.internal:8080` 连接宿主机后端，不依赖两个
+仓库的相对目录。SDK 只在显式开启本地开发开关且目标为 Docker 的固定宿主机网关名时
+允许该 HTTP 链路；任意远程 HTTP 仍被拒绝，生产环境必须使用 HTTPS。
+
+后端全容器 Compose、固定后端镜像和 Demo 的 `bundled` profile 属于下一阶段；完成后，
+普通测试人员可以只下载 Demo 仓库并由 Compose 拉起固定版本后端。
 
 ## 版本契约
 
@@ -92,10 +102,10 @@ open http://localhost:3000
 
 ## 拆分顺序
 
-1. Demo 自有 Prompt Context 快照和自有 Migration；
-2. Demo 仅依赖公开 `memory-client`/OpenAPI，不依赖内部 Domain crate；
-3. 后端和 Demo 各自建立 Dockerfile、Compose、健康检查和 `.env.example`；
-4. 在当前仓库验证后端独立测试、Demo 独立数据库测试和组合 E2E；
-5. 保留当前仓库为 `lazytt-memory-system`，将 Demo 目录迁入新仓库；
-6. 发布固定后端 Tag/image，Demo 固定该版本；
-7. 一个兼容窗口后，从后端当前源码树移除 Demo 应用，历史 Migration 不重写。
+1. [x] Demo 自有 Prompt Context 快照和自有 Migration；
+2. [x] Demo 只通过版本化 SDK/API 使用后端，不读取后端 Schema 或内部实现；
+3. [x] 独立 Demo 建立 Web/API Dockerfile、Compose、健康检查和 `.env.example`；
+4. [x] 验证后端测试、Demo 独立数据库测试、容器启动和跨仓库本地联调；
+5. [x] 保留本仓库为 `lazytt-memory-system`，将 Demo 发布到独立前端仓库分支；
+6. [ ] 为正式后端建立全容器 Compose，发布固定 Tag/image，Demo 固定该版本；
+7. [ ] 完成兼容窗口后，从本仓库移除 Demo 应用，历史 Migration 不重写。
