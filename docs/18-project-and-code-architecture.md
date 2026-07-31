@@ -1,6 +1,6 @@
 # LazyTT Memory System 项目与代码架构
 
-状态：基于 2026-07-29 当前源码整理。本文描述已经实现的代码和本机演示部署，不把目标
+状态：基于 2026-07-31 当前源码整理。本文描述已经实现的代码和本机演示部署，不把目标
 设计或 Production Gate 待办描述成已完成能力。
 
 ## 1. 一句话理解系统
@@ -73,7 +73,8 @@ flowchart LR
 
 ### 3.1 PostgreSQL
 
-同一个 PostgreSQL 实例中存在职责不同的 Schema：
+系统在数据所有权上区分以下 Schema；独立 Demo 部署时 `demo_chat` 位于 Demo 自有数据库，
+不要求与后端共用 PostgreSQL 实例：
 
 | Schema | 是否权威 | 保存内容 |
 |---|---:|---|
@@ -425,12 +426,17 @@ migrations/                  # 0001...0029 按序演进的 PostgreSQL Schema
 ├── 0018...0026              # 来源安全、BM25、时间、Explain、Taxonomy、Structured Content、废弃暂存表清理、提取诊断
 └── 0027...0029              # Context Pack 时间快照、Prompt v2 历史门禁与降级运行时证据
 
+compose.yaml                 # 后端 cloud/cpu/cuda/host-mps 四种本地 profile
+
 deploy/
 ├── local/postgres.compose.yaml # 本机 PostgreSQL 17
-├── mem0/README.md               # 自托管 Mem0 固定版本与端口约定
-└── models/                      # Qwen3 Embedding/Rerank 网关部署与 lock
+├── mem0/                        # 自托管 Mem0 约定、初始化与自动配置
+└── models/                      # Qwen3 网关、CPU/CUDA Dockerfile 与 lock
 
 scripts/
+├── backend-stack.sh              # 后端四种 profile 的统一 up/down/logs/ps
+├── bootstrap-backend-env.sh      # 不显示 Secret 的本地凭据生成
+├── smoke-siliconflow-models.py   # 硅基流动 Embedding/Reranker 最小探测
 ├── run-memory-service-semantic.sh # 真实语义 Memory Service profile
 ├── demo-web-stack.sh              # 推荐：共享临时 JWT 启动 Memory Service + Demo
 ├── demo-web.sh                    # 已有 JWT Memory Service 下启动 Web + Demo API
@@ -533,13 +539,16 @@ docs/adr/                      # 架构决策记录
 | Demo Web | `http://localhost:3000` | 用户界面 |
 | Demo Web API | `http://localhost:8090` | 身份编排、对话与 SSE |
 | Memory Service | `http://127.0.0.1:8080` | 记忆控制面 |
-| Qwen3 Model Gateway | `http://127.0.0.1:18082` | Embedding + Rerank |
+| Qwen3 Model Gateway | `http://127.0.0.1:18082` | `cpu/cuda` 容器或 `host-mps` 宿主 Embedding + Rerank |
 | Mem0 | `http://127.0.0.1:18888` | 向量检索投影，避开代理常用 8888 |
-| PostgreSQL | `127.0.0.1:55432` | `memory_core`、`memory_search`、`demo_chat` |
+| PostgreSQL | `127.0.0.1:55432` | 后端只拥有 `memory_core`、`memory_search`；Demo 数据库独立 |
+| SiliconFlow | `https://api.siliconflow.cn` | `cloud` profile 的 Embedding + Rerank |
 | Kimi Code | `https://api.kimi.com/coding/v1` | `k3` 对话与提取 |
 
-本机 Demo profile 只允许 loopback 绑定。正式部署需要替换 Demo Auth、数据库凭据、网络
-边界和外部 membership authority。
+后端 `compose.yaml` 支持 `cloud`、`cpu`、`cuda`、`host-mps`，所有宿主机端口只绑定
+loopback。完整命令见 [后端 Docker 本地部署](./22-backend-docker-deployment.md)。正式部署
+仍需要 Secret Manager、TLS 入口、备份恢复、监控告警、容量验证和外部 membership
+authority。
 
 ## 13. 一致性与安全边界
 

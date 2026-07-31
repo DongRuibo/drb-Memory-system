@@ -23,6 +23,8 @@ pub struct HttpRerankerConfig {
     pub instruction: String,
     pub minimum_score: f64,
     pub timeout: Duration,
+    pub allow_insecure_http_for_local_development: bool,
+    pub response_model_required: bool,
 }
 
 impl HttpRerankerConfig {
@@ -57,6 +59,10 @@ impl HttpRerankerConfig {
                 .unwrap_or_else(|_| DEFAULT_INSTRUCTION.into()),
             minimum_score,
             timeout: Duration::from_secs(timeout_seconds),
+            allow_insecure_http_for_local_development: env::var("MEMORY_ALLOW_INSECURE_MODEL_HTTP")
+                .is_ok_and(|value| value.eq_ignore_ascii_case("true")),
+            response_model_required: env::var("MEMORY_DEDICATED_RERANK_RESPONSE_MODEL_REQUIRED")
+                .map_or(true, |value| !value.eq_ignore_ascii_case("false")),
         })
     }
 }
@@ -66,6 +72,7 @@ pub struct HttpReranker {
     model: String,
     instruction: String,
     minimum_score: f64,
+    response_model_required: bool,
     version: String,
     client: reqwest::Client,
 }
@@ -73,7 +80,10 @@ pub struct HttpReranker {
 impl HttpReranker {
     pub fn new(config: HttpRerankerConfig) -> Result<Self, RerankerError> {
         validate_config(&config)?;
-        let base_url = normalize_base_url(&config.base_url)?;
+        let base_url = normalize_base_url(
+            &config.base_url,
+            config.allow_insecure_http_for_local_development,
+        )?;
         let mut headers = HeaderMap::new();
         if let Some(api_key) = config.api_key {
             let mut authorization = HeaderValue::from_str(&format!("Bearer {}", api_key.trim()))
@@ -96,6 +106,7 @@ impl HttpReranker {
             model: config.model,
             instruction: config.instruction,
             minimum_score: config.minimum_score,
+            response_model_required: config.response_model_required,
             version,
             client,
         })
@@ -116,14 +127,13 @@ struct HttpRerankRequest<'a> {
 }
 
 #[derive(Deserialize)]
-#[serde(deny_unknown_fields)]
 struct HttpRerankResponse {
-    model: String,
+    #[serde(default)]
+    model: Option<String>,
     results: Vec<HttpRerankResult>,
 }
 
 #[derive(Deserialize)]
-#[serde(deny_unknown_fields)]
 struct HttpRerankResult {
     index: usize,
     relevance_score: f64,
@@ -180,7 +190,13 @@ impl MemoryReranker for HttpReranker {
                 "response exceeded 256 KiB".into(),
             ));
         }
-        parse_response(&request, &self.model, self.minimum_score, &bytes)
+        parse_response(
+            &request,
+            &self.model,
+            self.minimum_score,
+            self.response_model_required,
+            &bytes,
+        )
     }
 }
 
@@ -188,11 +204,17 @@ fn parse_response(
     request: &RerankRequest,
     expected_model: &str,
     minimum_score: f64,
+    response_model_required: bool,
     bytes: &[u8],
 ) -> Result<Vec<RerankedCandidate>, RerankerError> {
     let response: HttpRerankResponse = serde_json::from_slice(bytes)
         .map_err(|error| RerankerError::InvalidResponse(error.to_string()))?;
-    if response.model != expected_model {
+    if response
+        .model
+        .as_deref()
+        .is_some_and(|model| model != expected_model)
+        || (response_model_required && response.model.is_none())
+    {
         return Err(RerankerError::InvalidResponse(
             "response model did not match the configured model".into(),
         ));
@@ -294,7 +316,10 @@ fn validate_request(request: &RerankRequest) -> Result<(), RerankerError> {
     Ok(())
 }
 
-fn normalize_base_url(raw: &str) -> Result<String, RerankerError> {
+fn normalize_base_url(
+    raw: &str,
+    allow_local_container_http: bool,
+) -> Result<String, RerankerError> {
     let url = reqwest::Url::parse(raw.trim_end_matches('/'))
         .map_err(|error| RerankerError::Config(format!("invalid base URL: {error}")))?;
     let loopback = url.host_str().is_some_and(|host| {
@@ -303,9 +328,12 @@ fn normalize_base_url(raw: &str) -> Result<String, RerankerError> {
                 .parse::<std::net::IpAddr>()
                 .is_ok_and(|ip| ip.is_loopback())
     });
-    if url.scheme() != "https" && !(url.scheme() == "http" && loopback) {
+    let local_container_http =
+        allow_local_container_http && url.scheme() == "http" && is_local_container_model_host(&url);
+    if url.scheme() != "https" && !(url.scheme() == "http" && loopback) && !local_container_http {
         return Err(RerankerError::Config(
-            "base URL must use HTTPS or loopback HTTP".into(),
+            "base URL must use HTTPS, loopback HTTP, or an explicitly allowed local model container"
+                .into(),
         ));
     }
     if url.query().is_some() || url.fragment().is_some() || !url.username().is_empty() {
@@ -314,6 +342,18 @@ fn normalize_base_url(raw: &str) -> Result<String, RerankerError> {
         ));
     }
     Ok(url.as_str().trim_end_matches('/').to_owned())
+}
+
+fn is_local_container_model_host(url: &reqwest::Url) -> bool {
+    matches!(
+        url.host_str(),
+        Some(
+            "retrieval-models-cpu"
+                | "retrieval-models-cuda"
+                | "host.docker.internal"
+                | "gateway.docker.internal"
+        )
+    )
 }
 
 #[cfg(test)]
@@ -350,6 +390,7 @@ mod tests {
             &request(),
             "Qwen/Qwen3-Reranker-0.6B",
             0.35,
+            true,
             br#"{"model":"Qwen/Qwen3-Reranker-0.6B","results":[{"index":1,"relevance_score":0.1},{"index":0,"relevance_score":0.95}]}"#,
         )
         .unwrap();
@@ -364,6 +405,7 @@ mod tests {
             &request(),
             "Qwen/Qwen3-Reranker-0.6B",
             0.0,
+            true,
             br#"{"model":"Qwen/Qwen3-Reranker-0.6B","results":[{"index":0,"relevance_score":0.9},{"index":0,"relevance_score":0.8}]}"#,
         )
         .unwrap_err();
@@ -379,6 +421,7 @@ mod tests {
             &request,
             "Qwen/Qwen3-Reranker-0.6B",
             0.35,
+            true,
             br#"{"model":"Qwen/Qwen3-Reranker-0.6B","results":[{"index":0,"relevance_score":0.01},{"index":1,"relevance_score":0.02}]}"#,
         )
         .unwrap();
@@ -393,10 +436,29 @@ mod tests {
 
     #[test]
     fn external_plain_http_is_rejected() {
-        assert!(normalize_base_url("http://example.com:8080").is_err());
+        assert!(normalize_base_url("http://example.com:8080", true).is_err());
         assert_eq!(
-            normalize_base_url("http://127.0.0.1:18082/").unwrap(),
+            normalize_base_url("http://127.0.0.1:18082/", false).unwrap(),
             "http://127.0.0.1:18082"
         );
+        assert_eq!(
+            normalize_base_url("http://retrieval-models-cuda:18082", true).unwrap(),
+            "http://retrieval-models-cuda:18082"
+        );
+        assert!(normalize_base_url("http://retrieval-models-cuda:18082", false).is_err());
+    }
+
+    #[test]
+    fn accepts_siliconflow_response_without_model_when_explicitly_configured() {
+        let result = parse_response(
+            &request(),
+            "Qwen/Qwen3-Reranker-0.6B",
+            0.0,
+            false,
+            br#"{"id":"rerank-test","results":[{"index":0,"relevance_score":0.9},{"index":1,"relevance_score":0.1}],"meta":{"tokens":{"input_tokens":12}}}"#,
+        )
+        .unwrap();
+        assert_eq!(result.len(), 1);
+        assert_eq!(result[0].memory_version_id, Uuid::from_u128(1));
     }
 }

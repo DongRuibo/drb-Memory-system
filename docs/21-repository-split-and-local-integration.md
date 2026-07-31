@@ -68,9 +68,17 @@ Formal Agent ------------------------> Memory Service /v1
 
 ## 当前本地联调方式
 
-后端仍沿用现有本地服务启动方式：先启动 PostgreSQL、Mem0 和 Qwen 模型网关，再运行
-Memory Service。精确依赖准备步骤见根 README 的“在新机器上启动 Web 演示”。服务就绪后
-应确认：
+后端已经提供根目录全容器 Compose，并按模型运行位置拆为 `cloud`、`cpu`、`cuda`、
+`host-mps` 四个 profile。以硅基流动云模型为例：
+
+```bash
+cp .env.example .env
+# 填写 Kimi 与 SiliconFlow Key
+./scripts/backend-stack.sh cloud up
+```
+
+完整安装、模型选择、缓存、端口和清理说明见
+[后端 Docker 本地部署](./22-backend-docker-deployment.md)。服务就绪后应确认：
 
 ```bash
 curl http://127.0.0.1:8080/health/ready
@@ -89,8 +97,9 @@ Demo 通过 `MEMORY_BASE_URL=http://host.docker.internal:8080` 连接宿主机�
 仓库的相对目录。SDK 只在显式开启本地开发开关且目标为 Docker 的固定宿主机网关名时
 允许该 HTTP 链路；任意远程 HTTP 仍被拒绝，生产环境必须使用 HTTPS。
 
-后端全容器 Compose、固定后端镜像和 Demo 的 `bundled` profile 属于下一阶段；完成后，
-普通测试人员可以只下载 Demo 仓库并由 Compose 拉起固定版本后端。
+全容器 Compose 已完成，但它当前从源码构建后端和固定 commit 的 Mem0，尚未发布固定
+版本的后端镜像。Demo 的 `bundled` profile 仍属于下一阶段；现阶段测试人员分别下载
+后端与 Demo 仓库，先启动后端，再让 Demo 通过宿主机端口连接。
 
 ## 版本契约
 
@@ -107,5 +116,5 @@ Demo 通过 `MEMORY_BASE_URL=http://host.docker.internal:8080` 连接宿主机�
 3. [x] 独立 Demo 建立 Web/API Dockerfile、Compose、健康检查和 `.env.example`；
 4. [x] 验证后端测试、Demo 独立数据库测试、容器启动和跨仓库本地联调；
 5. [x] 保留本仓库为 `lazytt-memory-system`，将 Demo 发布到独立前端仓库分支；
-6. [ ] 为正式后端建立全容器 Compose，发布固定 Tag/image，Demo 固定该版本；
+6. [~] 正式后端全容器 Compose 已建立；固定 Tag/image 与 Demo 版本锁定待完成；
 7. [ ] 完成兼容窗口后，从本仓库移除 Demo 应用，历史 Migration 不重写。

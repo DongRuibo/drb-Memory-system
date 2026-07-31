@@ -38,6 +38,7 @@
 20. [记忆分类与跨项目数据合并方案](./19-memory-taxonomy-and-data-merge-plan.md)
 21. [Recall Explain 合并结果与实体图决策](./20-recall-explain-and-entity-graph-decision.md)
 22. [后端与 Demo 拆仓及本地联调边界](./21-repository-split-and-local-integration.md)
+23. [后端 Docker 本地部署](./22-backend-docker-deployment.md)
 
 演示应用自身的 HTTP 契约见 [Demo Web OpenAPI](./api/demo-web-openapi.yaml)。
 

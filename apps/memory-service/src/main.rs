@@ -13,7 +13,9 @@ use kimi_extractor::{KimiExtractor, KimiExtractorConfig};
 use kimi_reranker::{KimiReranker, KimiRerankerConfig};
 use mem0_adapter::{Mem0Adapter, Mem0Config};
 use memory_application::{MemoryExtractor, MemoryReranker, RetrievalIndex, TransparentReranker};
-use memory_postgres::{DemoAuthority, MemoryRepository, ProjectionModelManifest};
+use memory_postgres::{
+    DemoAuthority, MemoryRepository, ProjectionModelManifest, ProjectionRebuildCommand,
+};
 use tokio::net::TcpListener;
 use tracing::info;
 use tracing_subscriber::EnvFilter;
@@ -91,6 +93,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .into_iter()
         .map(DemoAuthority::worker)
         .collect::<Vec<_>>();
+    if env::var("MEMORY_BOOTSTRAP_EMPTY_PROJECTION")
+        .is_ok_and(|value| value.eq_ignore_ascii_case("true"))
+    {
+        for worker_authority in &worker_authorities {
+            bootstrap_empty_projection_generation(
+                &repository,
+                worker_authority,
+                &projection_model_manifest,
+            )
+            .await?;
+        }
+    }
     let state = Arc::new(AppState {
         repository: repository.clone(),
         index: Arc::clone(&index),
@@ -133,6 +147,74 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     for worker_handle in worker_handles {
         worker_handle.abort();
     }
+    Ok(())
+}
+
+async fn bootstrap_empty_projection_generation(
+    repository: &MemoryRepository,
+    authority: &DemoAuthority,
+    manifest: &ProjectionModelManifest,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let current = repository
+        .current_projection_generation_view(authority)
+        .await?;
+    if current.model_manifest.manifest_hash == manifest.manifest_hash {
+        return Ok(());
+    }
+    if current.expected_records != 0 || current.ready_records != 0 || current.failed_records != 0 {
+        return Err(format!(
+            "MEMORY_BOOTSTRAP_EMPTY_PROJECTION cannot replace non-empty generation {}; run the controlled projection rebuild instead",
+            current.generation
+        )
+        .into());
+    }
+
+    let hash_prefix = manifest
+        .manifest_hash
+        .get(..16)
+        .ok_or("projection model manifest hash is unexpectedly short")?;
+    let generation = format!("bootstrap-{hash_prefix}");
+    let rebuild_key = format!("bootstrap-rebuild-{hash_prefix}");
+    let activate_key = format!("bootstrap-activate-{hash_prefix}");
+    let finalize_key = format!("bootstrap-finalize-{hash_prefix}");
+    let mut target = repository
+        .start_projection_rebuild(
+            authority,
+            ProjectionRebuildCommand {
+                generation: generation.clone(),
+                idempotency_key: rebuild_key,
+                model_manifest: manifest.clone(),
+            },
+        )
+        .await?;
+    if target.status == "ready" {
+        target = repository
+            .activate_projection_generation(
+                authority,
+                &generation,
+                &current.generation,
+                &activate_key,
+            )
+            .await?;
+    }
+    if target.status == "canary" {
+        target = repository
+            .finalize_projection_generation(authority, &generation, &finalize_key)
+            .await?;
+    }
+    if target.status != "active" || target.model_manifest.manifest_hash != manifest.manifest_hash {
+        return Err(format!(
+            "empty projection bootstrap did not converge: generation={} status={}",
+            target.generation, target.status
+        )
+        .into());
+    }
+    info!(
+        tenant_id = authority.tenant_id,
+        generation = target.generation,
+        manifest_hash = manifest.manifest_hash,
+        "bootstrapped empty projection generation"
+    );
     Ok(())
 }
 

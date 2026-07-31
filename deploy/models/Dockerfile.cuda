@@ -1,0 +1,23 @@
+FROM pytorch/pytorch:2.7.1-cuda12.8-cudnn9-runtime
+
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    HF_HOME=/models/huggingface \
+    HF_HUB_DISABLE_XET=1
+
+WORKDIR /app
+COPY deploy/models/requirements.txt /app/requirements.txt
+RUN sed '/^torch/d' /app/requirements.txt > /app/requirements-without-torch.txt \
+    && python -m pip install --no-cache-dir -r /app/requirements-without-torch.txt \
+    && python -c "import torch; assert torch.__version__.startswith('2.7.1'); assert torch.version.cuda == '12.8'"
+
+COPY tools/retrieval_models_server.py /app/retrieval_models_server.py
+COPY deploy/models/entrypoint.sh /usr/local/bin/retrieval-models-entrypoint
+RUN chmod 0555 /usr/local/bin/retrieval-models-entrypoint \
+    && mkdir -p /models/huggingface \
+    && chown -R 65532:65532 /models
+
+EXPOSE 18082
+USER 65532:65532
+ENTRYPOINT ["/usr/local/bin/retrieval-models-entrypoint"]

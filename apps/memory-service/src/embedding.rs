@@ -22,6 +22,7 @@ pub enum EmbeddingProbeError {
 pub struct EmbeddingProbe {
     base_url: String,
     manifest: ProjectionModelManifest,
+    include_input_type: bool,
     client: reqwest::Client,
 }
 
@@ -35,9 +36,24 @@ impl EmbeddingProbe {
         } else {
             "http://127.0.0.1:18080"
         };
+        let allow_local_container_http = env::var("MEMORY_ALLOW_INSECURE_MODEL_HTTP")
+            .is_ok_and(|value| value.eq_ignore_ascii_case("true"));
         let base_url = normalize_base_url(
             &env::var("MEMORY_EMBEDDING_BASE_URL").unwrap_or_else(|_| default_base_url.into()),
+            allow_local_container_http,
         )?;
+        let include_input_type = match env::var("MEMORY_EMBEDDING_REQUEST_DIALECT")
+            .unwrap_or_else(|_| "lazytt".into())
+            .as_str()
+        {
+            "lazytt" => true,
+            "openai" => false,
+            _ => {
+                return Err(EmbeddingProbeError::Config(
+                    "MEMORY_EMBEDDING_REQUEST_DIALECT must be lazytt or openai".into(),
+                ));
+            }
+        };
         let mut headers = HeaderMap::new();
         if let Ok(api_key) = env::var("MEMORY_EMBEDDING_API_KEY")
             && !api_key.trim().is_empty()
@@ -77,6 +93,7 @@ impl EmbeddingProbe {
         Ok(Self {
             base_url,
             manifest,
+            include_input_type,
             client,
         })
     }
@@ -89,7 +106,7 @@ impl EmbeddingProbe {
                 model: &self.manifest.embedding_model,
                 input: "LazyTT semantic embedding readiness probe",
                 dimensions: self.manifest.embedding_dimensions,
-                input_type: "query",
+                input_type: self.include_input_type.then_some("query"),
             })
             .send()
             .await
@@ -118,7 +135,8 @@ struct EmbeddingRequest<'a> {
     model: &'a str,
     input: &'static str,
     dimensions: i32,
-    input_type: &'static str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    input_type: Option<&'static str>,
 }
 
 #[derive(Deserialize)]
@@ -170,7 +188,10 @@ fn validate_response(
     Ok(())
 }
 
-fn normalize_base_url(raw: &str) -> Result<String, EmbeddingProbeError> {
+fn normalize_base_url(
+    raw: &str,
+    allow_local_container_http: bool,
+) -> Result<String, EmbeddingProbeError> {
     let mut normalized = raw.trim_end_matches('/').to_owned();
     if let Some(without_v1) = normalized.strip_suffix("/v1") {
         normalized = without_v1.to_owned();
@@ -183,9 +204,12 @@ fn normalize_base_url(raw: &str) -> Result<String, EmbeddingProbeError> {
                 .parse::<std::net::IpAddr>()
                 .is_ok_and(|ip| ip.is_loopback())
     });
-    if url.scheme() != "https" && !(url.scheme() == "http" && loopback) {
+    let local_container_http =
+        allow_local_container_http && url.scheme() == "http" && is_local_container_model_host(&url);
+    if url.scheme() != "https" && !(url.scheme() == "http" && loopback) && !local_container_http {
         return Err(EmbeddingProbeError::Config(
-            "base URL must use HTTPS or loopback HTTP".into(),
+            "base URL must use HTTPS, loopback HTTP, or an explicitly allowed local model container"
+                .into(),
         ));
     }
     if url.query().is_some() || url.fragment().is_some() || !url.username().is_empty() {
@@ -194,6 +218,18 @@ fn normalize_base_url(raw: &str) -> Result<String, EmbeddingProbeError> {
         ));
     }
     Ok(normalized)
+}
+
+fn is_local_container_model_host(url: &reqwest::Url) -> bool {
+    matches!(
+        url.host_str(),
+        Some(
+            "retrieval-models-cpu"
+                | "retrieval-models-cuda"
+                | "host.docker.internal"
+                | "gateway.docker.internal"
+        )
+    )
 }
 
 #[cfg(test)]
@@ -232,10 +268,15 @@ mod tests {
 
     #[test]
     fn external_plain_http_is_rejected() {
-        assert!(normalize_base_url("http://example.com/v1").is_err());
+        assert!(normalize_base_url("http://example.com/v1", true).is_err());
         assert_eq!(
-            normalize_base_url("http://127.0.0.1:18082/v1").unwrap(),
+            normalize_base_url("http://127.0.0.1:18082/v1", false).unwrap(),
             "http://127.0.0.1:18082"
         );
+        assert_eq!(
+            normalize_base_url("http://retrieval-models-cpu:18082", true).unwrap(),
+            "http://retrieval-models-cpu:18082"
+        );
+        assert!(normalize_base_url("http://retrieval-models-cpu:18082", false).is_err());
     }
 }

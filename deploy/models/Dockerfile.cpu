@@ -1,0 +1,25 @@
+FROM python:3.12-slim
+
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    HF_HOME=/models/huggingface \
+    HF_HUB_DISABLE_XET=1
+
+WORKDIR /app
+COPY deploy/models/requirements.lock.txt /app/requirements.lock.txt
+RUN python -m pip install --no-cache-dir \
+        --index-url https://download.pytorch.org/whl/cpu \
+        torch==2.13.0 \
+    && sed '/^torch==/d' /app/requirements.lock.txt > /app/requirements-without-torch.lock.txt \
+    && python -m pip install --no-cache-dir -r /app/requirements-without-torch.lock.txt
+
+COPY tools/retrieval_models_server.py /app/retrieval_models_server.py
+COPY deploy/models/entrypoint.sh /usr/local/bin/retrieval-models-entrypoint
+RUN chmod 0555 /usr/local/bin/retrieval-models-entrypoint \
+    && mkdir -p /models/huggingface \
+    && chown -R 65532:65532 /models
+
+EXPOSE 18082
+USER 65532:65532
+ENTRYPOINT ["/usr/local/bin/retrieval-models-entrypoint"]

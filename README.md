@@ -55,6 +55,7 @@ tokenizer、生产规模检索评测、Agent Runtime 本体集成、MVP 和 Prod
 - [Agent Runtime 集成契约](./docs/15-agent-runtime-integration.md)
 - [真实语义模型、独立 Reranker 与自动记忆](./docs/16-semantic-models-and-automatic-memory.md)
 - [本地语义模型部署](./deploy/models/README.md)
+- [后端 Docker 本地部署](./docs/22-backend-docker-deployment.md)
 - [Demo Agent v1 本地编排证据](./poc/evidence/demo-agent-v1-validation.md)
 - [Demo Agent v1 真实 Kimi 验收证据](./poc/evidence/demo-agent-v1-kimi-validation.md)
 - [Demo Context Pack 本地端到端证据](./poc/evidence/demo-context-pack-validation.md)
@@ -107,39 +108,34 @@ Structured Content、跨对话回忆、事实版本更新和精确 Forget。Alic
 演示身份用于验证个人隔离、同项目共享与项目外不可见；浏览器不持有 Memory Service
 JWT。对话、流式事件、Memory Version 和 Outcome Receipt 均可检查。
 
-## 在新机器上启动 Web 演示
+## 在新机器上启动后端与 Web 演示
 
-运行环境需要 Docker、Rust/Cargo、Node.js/npm 和 Python 3。项目不会提交真实密钥、
-编译产物、Node/Python 依赖、模型权重或 PostgreSQL 数据卷；它们需要在新机器上重新配置。
+只运行 Memory 后端时，新机器只需要 Git 与 Docker，不需要预装 Rust、Node 或 Python。
+项目不会提交真实密钥、编译产物、依赖、模型权重或 PostgreSQL 数据卷。
 
 ```bash
 cp .env.example .env
 chmod 600 .env
-# 编辑 .env，填入自己的 KIMI_API_KEY
+# 编辑 .env：填写 Kimi Key，或把 MEMORY_EXTRACT_MODE 改为 disabled
+# cloud profile 还要填写 SiliconFlow Key
+./scripts/backend-stack.sh cloud up
+curl http://127.0.0.1:8080/health/ready
+```
 
-docker compose -f deploy/local/postgres.compose.yaml up -d
+不使用云模型时，可把 `cloud` 换成 `cpu`。Linux NVIDIA 使用 `cuda`；Apple Silicon
+需要 MPS 加速时，先在宿主机启动模型网关，再用 `host-mps`：
 
+```bash
 python3 -m venv .venv-retrieval-models
 source .venv-retrieval-models/bin/activate
 python -m pip install -r deploy/models/requirements.lock.txt
-
-(cd apps/demo-web && npm ci)
-```
-
-先在一个终端启动本地 Qwen3 模型网关：
-
-```bash
-source .venv-retrieval-models/bin/activate
 ./scripts/retrieval-models.sh
+./scripts/backend-stack.sh host-mps up
 ```
 
-模型网关就绪后，在另一个终端启动 Memory Service、Demo Web API 和 Web：
-
-```bash
-./scripts/demo-web-stack.sh
-```
-
-首次启动会下载固定版本的 Qwen3 Embedding 与 Reranker 模型。页面地址为
-`http://localhost:3000`。
+四种模式、端口、缓存与数据清理见
+[后端 Docker 本地部署](./docs/22-backend-docker-deployment.md)。需要页面时，再单独下载
+`lazyaix-dev/lazytt-frontend-console` 的 Memory Demo 分支并启动其 Compose；它通过
+`http://host.docker.internal:8080` 调用本后端，页面地址为 `http://localhost:3000`。
 
 `doc/` 保存早期调研和设计输入；`docs/` 是当前规范性文档。两者冲突时，以 `docs/`、OpenAPI/事件契约和已接受 ADR 为准。

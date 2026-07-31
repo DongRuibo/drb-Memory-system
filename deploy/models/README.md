@@ -14,6 +14,25 @@ pooling、MRL 维度裁剪和 L2 归一化；Reranker 使用 yes/no logits 得�
 
 ## 1. 安装与启动
 
+### Docker profile（推荐给下载测试者）
+
+根目录 Compose 已把本地模型接入完整后端：
+
+```bash
+# 任意 Docker 主机，模型在 CPU 容器中
+./scripts/backend-stack.sh cpu up
+
+# Linux x86_64 + NVIDIA Container Toolkit，模型在 CUDA 容器中
+./scripts/backend-stack.sh cuda up
+```
+
+两个模型共享持久化的 Hugging Face 缓存卷，首次运行下载权重，后续重建容器不会重复
+下载。Apple Silicon 的 MPS 不能直接透传给 Docker Linux 容器；Mac 上需要 GPU 加速时，
+先按下一节在宿主机启动模型，再执行 `./scripts/backend-stack.sh host-mps up`。完整说明见
+[后端 Docker 本地部署](../../docs/22-backend-docker-deployment.md)。
+
+### 宿主机 Python / Apple MPS
+
 建议使用独立虚拟环境；不要把模型缓存或凭据提交到仓库。
 
 ```bash
