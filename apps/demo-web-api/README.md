@@ -31,3 +31,8 @@ tenant must match the Memory Service configuration. The browser never receives t
 The default listener remains loopback-only. A container may set
 `DEMO_WEB_API_CONTAINER_MODE=true` and bind `0.0.0.0:8090`; its Compose file must still publish the
 port only on `127.0.0.1` for local testing.
+
+When that container reaches a host-running Memory Service through
+`http://host.docker.internal:8080`, also set `MEMORY_ALLOW_DOCKER_HOST_HTTP=true`. This exception is
+restricted to Docker's well-known host gateway names; arbitrary non-loopback HTTP endpoints remain
+rejected and production deployments must use HTTPS.

@@ -19,6 +19,7 @@ type HmacSha256 = Hmac<Sha256>;
 pub struct DemoMemoryClientFactory {
     memory_base_url: String,
     memory_timeout: Duration,
+    allow_docker_host_http: bool,
     token_issuer: DemoTokenIssuer,
 }
 
@@ -31,6 +32,8 @@ impl DemoMemoryClientFactory {
         Ok(Self {
             memory_base_url,
             memory_timeout,
+            allow_docker_host_http: env::var("MEMORY_ALLOW_DOCKER_HOST_HTTP")
+                .is_ok_and(|value| value.eq_ignore_ascii_case("true")),
             token_issuer: DemoTokenIssuer::from_env(tenant_id)?,
         })
     }
@@ -40,12 +43,13 @@ impl DemoMemoryClientFactory {
         profile: &DemoUserProfile,
     ) -> Result<MemoryHttpClient, DemoTokenError> {
         let token = self.token_issuer.issue(profile)?;
-        MemoryHttpClient::new(MemoryClientConfig::authenticated(
-            &self.memory_base_url,
-            self.memory_timeout,
-            &token,
-        ))
-        .map_err(|error| DemoTokenError::MemoryClient(error.to_string()))
+        let mut config =
+            MemoryClientConfig::authenticated(&self.memory_base_url, self.memory_timeout, &token);
+        if self.allow_docker_host_http {
+            config = config.allow_docker_host_http_for_local_development();
+        }
+        MemoryHttpClient::new(config)
+            .map_err(|error| DemoTokenError::MemoryClient(error.to_string()))
     }
 }
 

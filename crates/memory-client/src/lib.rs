@@ -46,6 +46,7 @@ pub struct MemoryClientConfig {
     pub timeout: Duration,
     pub bearer_token: Option<String>,
     pub transport_retries: u8,
+    pub allow_insecure_http_for_local_development: bool,
 }
 
 impl MemoryClientConfig {
@@ -55,6 +56,7 @@ impl MemoryClientConfig {
             timeout,
             bearer_token: None,
             transport_retries: 1,
+            allow_insecure_http_for_local_development: false,
         }
     }
 
@@ -68,7 +70,16 @@ impl MemoryClientConfig {
             timeout,
             bearer_token: Some(bearer_token.into()),
             transport_retries: 1,
+            allow_insecure_http_for_local_development: false,
         }
+    }
+
+    /// Permit authenticated plain HTTP only through Docker Desktop's host
+    /// gateway during local development. Production and arbitrary remote HTTP
+    /// endpoints remain rejected.
+    pub fn allow_docker_host_http_for_local_development(mut self) -> Self {
+        self.allow_insecure_http_for_local_development = true;
+        self
     }
 }
 
@@ -561,7 +572,10 @@ impl MemoryHttpClient {
 
         let url = parse_base_url(&config.base_url)?;
         let loopback = is_loopback(&url);
-        if !loopback && url.scheme() != "https" {
+        let local_docker_http = config.allow_insecure_http_for_local_development
+            && url.scheme() == "http"
+            && is_docker_host_gateway(&url);
+        if !loopback && url.scheme() != "https" && !local_docker_http {
             return Err(MemoryClientError::Config(
                 "a non-loopback Memory Service must use HTTPS".into(),
             ));
@@ -1019,6 +1033,13 @@ fn is_loopback(url: &Url) -> bool {
             .is_ok_and(|address| address.is_loopback())
 }
 
+fn is_docker_host_gateway(url: &Url) -> bool {
+    matches!(
+        url.host_str(),
+        Some("host.docker.internal" | "gateway.docker.internal")
+    )
+}
+
 fn validate_idempotency_key(key: &str) -> Result<(), MemoryClientError> {
     if !(16..=128).contains(&key.len())
         || key.trim() != key
@@ -1401,6 +1422,28 @@ mod tests {
                 "test-token"
             ))
             .is_ok()
+        );
+        assert!(
+            MemoryHttpClient::new(
+                MemoryClientConfig::authenticated(
+                    "http://host.docker.internal:8080",
+                    Duration::from_secs(5),
+                    "test-token"
+                )
+                .allow_docker_host_http_for_local_development()
+            )
+            .is_ok()
+        );
+        assert!(
+            MemoryHttpClient::new(
+                MemoryClientConfig::authenticated(
+                    "http://memory.example.test",
+                    Duration::from_secs(5),
+                    "test-token"
+                )
+                .allow_docker_host_http_for_local_development()
+            )
+            .is_err()
         );
     }
 
