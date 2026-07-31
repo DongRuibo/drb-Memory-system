@@ -56,7 +56,7 @@ pub fn query_has_temporal_intent(query: &str) -> bool {
     ];
     MARKERS.iter().any(|marker| query.contains(marker))
         || Regex::new(
-            r"(?:\d{4}-\d{1,2}-\d{1,2}|\d{4}年|\d{1,2}月\s*\d{1,2}(?:日|号)?|\d{1,4}\s*(?:小时前|天前|小时|天))",
+            r"(?:\d{4}-\d{1,2}-\d{1,2}|\d{4}年|\d{1,2}\s*月份?|\d{1,4}\s*(?:小时前|天前|小时|天))",
         )
         .expect("built-in temporal intent regex must compile")
         .is_match(query)
@@ -141,6 +141,8 @@ pub fn parse_temporal_query(
             .expect("built-in temporal regex must compile");
     let explicit_month = Regex::new(r"(?P<year>\d{4})年\s*(?P<month>\d{1,2})月")
         .expect("built-in temporal regex must compile");
+    let current_year_month =
+        Regex::new(r"(?P<month>\d{1,2})\s*月份?").expect("built-in temporal regex must compile");
     let explicit_year =
         Regex::new(r"(?P<year>\d{4})年").expect("built-in temporal regex must compile");
     let explicit = explicit_iso
@@ -194,6 +196,32 @@ pub fn parse_temporal_query(
                 tz,
             )
             .map(Some);
+        }
+        if let Some(captures) = current_year_month.captures(query) {
+            let expression = captures[0].to_owned();
+            let following = captures.get(0).and_then(|matched| {
+                query[matched.end()..]
+                    .chars()
+                    .find(|value| !value.is_whitespace())
+            });
+            let is_longer_expression = following
+                .is_some_and(|value| value.is_ascii_digit() || matches!(value, '日' | '号' | '个'));
+            if !is_longer_expression {
+                let month = captures["month"]
+                    .parse::<u32>()
+                    .map_err(|_| TemporalError::InvalidDate(expression.clone()))?;
+                let start = NaiveDate::from_ymd_opt(today.year(), month, 1)
+                    .ok_or_else(|| TemporalError::InvalidDate(expression.clone()))?;
+                return build_window(
+                    start,
+                    first_day_next_month(start),
+                    "month",
+                    timezone,
+                    &expression,
+                    tz,
+                )
+                .map(Some);
+            }
         }
         if let Some(captures) = explicit_year.captures(query) {
             let expression = captures[0].to_owned();
@@ -468,6 +496,39 @@ mod tests {
             assert_eq!(parsed.end, end, "{query}");
             assert_eq!(parsed.precision, precision, "{query}");
         }
+    }
+
+    #[test]
+    fn parses_current_year_numeric_month_without_shadowing_specific_dates() {
+        let month = parse_temporal_query("我7月份干过什么", reference_time(), "Asia/Shanghai")
+            .unwrap()
+            .unwrap();
+        assert_eq!(
+            month.start,
+            Utc.with_ymd_and_hms(2026, 6, 30, 16, 0, 0).unwrap()
+        );
+        assert_eq!(
+            month.end,
+            Utc.with_ymd_and_hms(2026, 7, 31, 16, 0, 0).unwrap()
+        );
+        assert_eq!(month.precision, "month");
+        assert_eq!(month.source_expression, "7月份");
+        assert!(query_has_temporal_intent("我7月干过什么"));
+
+        let day = parse_temporal_query("我7月29日干了什么", reference_time(), "Asia/Shanghai")
+            .unwrap()
+            .unwrap();
+        assert_eq!(day.precision, "day");
+        assert_eq!(
+            day.start,
+            Utc.with_ymd_and_hms(2026, 7, 28, 16, 0, 0).unwrap()
+        );
+
+        assert!(
+            parse_temporal_query("过去7个月", reference_time(), "Asia/Shanghai")
+                .unwrap()
+                .is_none()
+        );
     }
 
     #[test]

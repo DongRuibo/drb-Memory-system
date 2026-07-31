@@ -1160,9 +1160,9 @@ fn validate_manifest(
         || manifest.projection_generation.trim().is_empty()
         || manifest.timezone != requested_timezone
         || manifest.timezone.parse::<chrono_tz::Tz>().is_err()
-        || command
-            .reference_time
-            .is_some_and(|reference_time| manifest.reference_time != reference_time)
+        || command.reference_time.is_some_and(|reference_time| {
+            manifest.reference_time.timestamp_micros() != reference_time.timestamp_micros()
+        })
         || manifest.created_at >= manifest.expires_at
         || manifest.expires_at <= Utc::now()
         || manifest.estimated_tokens < 0
@@ -1470,6 +1470,26 @@ mod tests {
         let mut unsafe_item = pack;
         unsafe_item.sections[0].items[0].trust = "system_instruction".into();
         assert!(validate_consumed_pack(&manifest, &unsafe_item, true).is_err());
+    }
+
+    #[test]
+    fn context_pack_manifest_accepts_postgres_microsecond_time_precision() {
+        let mut command = context_command();
+        command.reference_time = Some(
+            "2026-07-31T06:27:13.503717802Z"
+                .parse()
+                .expect("nanosecond reference time must parse"),
+        );
+        let mut manifest = manifest(&command);
+        manifest.reference_time = "2026-07-31T06:27:13.503717Z"
+            .parse()
+            .expect("PostgreSQL microsecond time must parse");
+
+        validate_manifest(&manifest, &command)
+            .expect("sub-microsecond storage truncation must preserve the same instant contract");
+
+        manifest.reference_time += chrono::Duration::microseconds(1);
+        assert!(validate_manifest(&manifest, &command).is_err());
     }
 
     #[test]
