@@ -64,6 +64,10 @@ flowchart LR
 | 权威数据层 | `crates/memory-postgres`、`migrations` | 事务、幂等、Ledger、版本、Head、Context Pack、Outbox、Erasure |
 | 外部适配层 | Mem0/Qwen/Kimi adapters | 可替换检索目录、Embedding、Rerank、候选提取和回答生成 |
 
+仓库拆分方向已经固定：记忆控制面及其下层属于正式 `lazytt-memory-system` 后端；交互层
+和对话编排层属于可选 `lazytt-memory-demo`。当前仍在同一源码树中完成兼容迁移和测试，
+具体状态见 [后端与 Demo 拆仓及本地联调边界](./21-repository-split-and-local-integration.md)。
+
 ## 3. 数据与模型职责
 
 ### 3.1 PostgreSQL
@@ -74,7 +78,10 @@ flowchart LR
 |---|---:|---|
 | `memory_core` | 是 | Source、Candidate、Decision、Record、Version、Head、Ledger Event、Outbox、Context Pack、Usage/Outcome/Retrieval Receipt、Erasure |
 | `memory_search` | 否 | 可重建的 PostgreSQL 本地检索文档、Jieba 词项与 BM25 投影 |
-| `demo_chat` | 仅对话运行时权威 | Session、Message、Turn、SSE Event、每轮使用的精确 Memory Version ID |
+| `demo_chat` | 仅 Demo 对话运行时权威 | Session、Message、Turn、SSE Event、每轮模型实际使用的不可变 Prompt Context 快照 |
+
+`demo_chat` 现在由 `demo-web-api` 的自有 Migration 管理，可以使用独立数据库；
+`DATABASE_URL` 回退只服务于拆仓兼容窗口，不是最终数据所有权设计。
 
 `demo_chat` 不是第二套长期记忆库。历史聊天被保存，不代表会自动成为正式记忆，也不代表
 每轮都会把全部历史消息发送给模型。

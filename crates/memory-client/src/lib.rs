@@ -4,7 +4,8 @@ use std::time::Duration;
 
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
-use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, EventTime, MemoryType, StructuredContent};
+use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, MemoryType, StructuredContent};
+pub use memory_domain::{EventTime, EventTimePrecision};
 use reqwest::header::{AUTHORIZATION, HeaderMap, HeaderValue};
 use reqwest::redirect::Policy;
 use reqwest::{Response, StatusCode, Url};

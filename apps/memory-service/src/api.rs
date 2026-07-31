@@ -167,7 +167,23 @@ pub fn router(state: Arc<AppState>) -> Router {
 
 async fn root(State(state): State<Arc<AppState>>) -> Json<serde_json::Value> {
     Json(json!({
-        "service": "lazytt-memory-demo-v0",
+        "service": "lazytt-memory-service",
+        "service_version": env!("CARGO_PKG_VERSION"),
+        "api_version": "v1",
+        "capabilities": [
+            "memory.write",
+            "memory.extract",
+            "memory.search",
+            "memory.retrieval_explain",
+            "memory.context_pack",
+            "memory.context_pack_consume",
+            "memory.outcome",
+            "memory.correct",
+            "memory.forget",
+            "memory.erase",
+            "memory.export",
+            "memory.projection_rebuild"
+        ],
         "flow": [
             "remember",
             "extract",

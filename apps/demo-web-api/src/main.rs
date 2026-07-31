@@ -82,13 +82,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let bind: SocketAddr = env::var("DEMO_WEB_API_BIND")
         .unwrap_or_else(|_| "127.0.0.1:8090".into())
         .parse()?;
-    if !bind.ip().is_loopback() {
-        return Err("Demo Web API must bind to a loopback address".into());
+    let container_mode = env::var("DEMO_WEB_API_CONTAINER_MODE")
+        .is_ok_and(|value| value.eq_ignore_ascii_case("true"));
+    if !bind.ip().is_loopback() && !container_mode {
+        return Err(
+            "Demo Web API may bind outside loopback only in explicit container mode".into(),
+        );
     }
     let config = DemoConfig::from_env()?;
     let model = Arc::new(KimiClient::new(config.kimi.clone())?);
     let tenant_id = env::var("DEMO_TENANT_ID").unwrap_or_else(|_| "demo-tenant".into());
-    let database_url = env::var("DATABASE_URL")
+    let database_url = env::var("DEMO_DATABASE_URL")
+        .or_else(|_| env::var("DATABASE_URL"))
         .unwrap_or_else(|_| "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into());
     let users = DemoUserRegistry::standard();
     let default_user = users.default_user();

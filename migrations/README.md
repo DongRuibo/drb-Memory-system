@@ -77,3 +77,8 @@ Context Pack，并把每条记忆的 Event Time 一起快照，保证时间检�
 
 `0029_demo_turn_fallback_runtime_context.sql` 仅为 Context Pack 不可用的降级轮次保存非敏感
 运行时上下文和空记忆数组，使证据面板仍能精确展示模型输入而不复制记忆正文。
+
+`0030_demo_chat_standalone_snapshot.sql` 是拆仓兼容 Migration：它把模型实际使用的完整
+Prompt Context 保存到 `demo_chat.turns.prompt_context_snapshot`，并可在没有
+`memory_core` 的干净 Demo 数据库中建立最终 Demo Schema。相同文件同时嵌入
+`apps/demo-web-api/migrations/`；两份文件必须保持相同 checksum。

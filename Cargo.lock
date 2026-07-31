@@ -327,7 +327,6 @@ dependencies = [
  "chrono",
  "chrono-tz",
  "memory-client",
- "memory-domain",
  "reqwest",
  "serde",
  "serde_json",

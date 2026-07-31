@@ -36,6 +36,10 @@ Pack。最终提示词会收到 `runtime_context + memory_context`；证据抽�
 浏览器只持有不透明 HttpOnly Viewer Session。`demo-web-api` 根据当前固定身份签发短期
 HS256 JWT 调用 Memory Service；JWT 不进入浏览器。该选择器不是生产登录系统。
 
+Web 和 `demo-web-api` 属于可选 Demo/测试客户端，不属于正式 Memory Service。拆仓
+边界与本地联调约定见
+[`docs/21-repository-split-and-local-integration.md`](../../docs/21-repository-split-and-local-integration.md)。
+
 ## 推荐启动
 
 先启动 PostgreSQL、Mem0 和 Qwen3 Embedding/Rerank 网关，并在当前 shell 中提供
@@ -53,6 +57,9 @@ HS256 JWT 调用 Memory Service；JWT 不进入浏览器。该选择器不是生
 ```bash
 MEMORY_JWT_HS256_SECRET='至少 32 字节的本地临时值' ./scripts/demo-web.sh
 ```
+
+Demo 对话可通过 `DEMO_DATABASE_URL` 使用独立 PostgreSQL 数据库；为兼容当前单仓启动，
+未设置时暂时回退到 `DATABASE_URL`。
 
 默认端口：
 
@@ -79,5 +86,6 @@ npm test
 HTTP 契约见
 [`docs/api/demo-web-openapi.yaml`](../../docs/api/demo-web-openapi.yaml)，讲解路线见
 [`docs/demo-web-presentation-plan.md`](../../docs/demo-web-presentation-plan.md)。
-当前应用只允许 loopback，是本地真实业务演示和集成参考；没有正式认证、TLS、OIDC/JWKS、
-撤权和公网网关时不得作为多用户产品发布。
+当前应用默认只允许 loopback；显式容器模式也必须由 Compose 仅发布到宿主机 loopback。
+它是本地真实业务演示和集成参考；没有正式认证、TLS、OIDC/JWKS、撤权和公网网关时
+不得作为多用户产品发布。

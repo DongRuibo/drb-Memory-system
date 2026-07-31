@@ -1,10 +1,9 @@
 use chrono::{DateTime, Utc};
-use memory_domain::EventTime;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 use crate::error::DemoError;
-use memory_client::ContextPackResponse;
+use memory_client::{ContextPackResponse, EventTime};
 
 const MAX_USER_PAYLOAD_BYTES: usize = 256 * 1024;
 const EXPECTED_CONTEXT_COMPILER_VERSION: &str = "demo-context-compiler-v2";
@@ -231,8 +230,8 @@ mod tests {
     use chrono::{DateTime, Utc};
 
     use super::*;
+    use memory_client::EventTimePrecision;
     use memory_client::{ContextPackItem, ContextSection};
-    use memory_domain::EventTimePrecision;
 
     fn context_pack(content: Option<&str>) -> ContextPackResponse {
         let now: DateTime<Utc> = "2026-07-29T16:30:00Z".parse().unwrap();

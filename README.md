@@ -1,5 +1,10 @@
 # LazyTT Memory System
 
+> Repository split in progress: this repository is converging on the independently deployable
+> Memory backend. `demo-web`、`demo-web-api` 和 `demo-agent` 是可选测试客户端，正在解除
+> 数据库和源码路径耦合，验证完成后迁入独立 Demo 仓库。当前边界与进度见
+> [后端与 Demo 拆仓及本地联调边界](./docs/21-repository-split-and-local-integration.md)。
+
 LazyTT Agent Runtime 的长期记忆子系统。当前仓库已经完成
 **Architecture Baseline + Mem0 POC + Memory Service Demo v0**：
 PostgreSQL canonical Ledger、Repository、Transactional Outbox、Mem0 Retrieval

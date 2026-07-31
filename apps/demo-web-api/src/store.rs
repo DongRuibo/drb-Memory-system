@@ -127,7 +127,10 @@ impl ChatStore {
             .max_connections(10)
             .connect(database_url)
             .await?;
-        sqlx::migrate!("../../migrations").run(&pool).await?;
+        let mut migrator = sqlx::migrate!("./migrations");
+        // The Demo migrator owns only Demo schema versions. During the transition from the
+        // monorepo, the same database can also contain already-applied Memory Service versions.
+        migrator.set_ignore_missing(true).run(&pool).await?;
         Ok(Self {
             pool,
             tenant_id,
@@ -218,15 +221,7 @@ impl ChatStore {
             "SELECT t.id,t.session_id,t.user_message_id,t.assistant_message_id,t.task_id,\
                     t.attempt_id,t.status,t.context_pack_id,t.outcome_receipt_id,\
                     t.used_memory_ids,t.used_memory_version_ids,t.memory_effects,\
-                    COALESCE(\
-                        demo_chat.prompt_context_for_turn(t.tenant_id,t.context_pack_id),\
-                        CASE WHEN t.context_pack_id IS NULL \
-                                  AND t.fallback_runtime_context IS NOT NULL \
-                             THEN jsonb_build_object(\
-                                 'runtime_context',t.fallback_runtime_context,\
-                                 'memory_context','[]'::jsonb\
-                             ) END\
-                    ) AS prompt_context,t.model_id,\
+                    t.prompt_context_snapshot AS prompt_context,t.model_id,\
                     model_request_id_hash,prompt_tokens,completion_tokens,total_tokens,error_code,\
                     error_detail,cancel_requested_at,created_at,updated_at \
              FROM demo_chat.turns t WHERE t.tenant_id=$1 AND t.session_id=$2 \
@@ -436,40 +431,17 @@ impl ChatStore {
                 "turn memory evidence diverged from the actual Prompt context".into(),
             ));
         }
-        let mut tx = self.begin().await?;
-        match context_pack_id {
-            Some(context_pack_id) => {
-                let persisted = sqlx::query_scalar::<_, Option<Value>>(
-                    "SELECT demo_chat.prompt_context_for_turn($1,$2)",
-                )
-                .bind(&self.tenant_id)
-                .bind(context_pack_id)
-                .fetch_one(&mut *tx)
-                .await?
-                .ok_or_else(|| {
-                    StoreError::Conflict(
-                        "Context Pack cannot prove the exact v2 model-input contract".into(),
-                    )
-                })?;
-                let persisted = serde_json::from_value::<PromptContextSnapshot>(persisted)
-                    .map_err(|error| {
-                        StoreError::Conflict(format!(
-                            "Context Pack prompt evidence violated its schema: {error}"
-                        ))
-                    })?;
-                if &persisted != prompt_context {
-                    return Err(StoreError::Conflict(
-                        "Prompt Compiler output diverged from Context Pack evidence".into(),
-                    ));
-                }
-            }
-            None if !prompt_context.memory_context.is_empty() => {
-                return Err(StoreError::Conflict(
-                    "memory context cannot be used without an auditable Context Pack".into(),
-                ));
-            }
-            None => {}
+        if context_pack_id.is_none() && !prompt_context.memory_context.is_empty() {
+            return Err(StoreError::Conflict(
+                "memory context cannot be used without an auditable Context Pack".into(),
+            ));
         }
+        let prompt_context_snapshot = serde_json::to_value(prompt_context).map_err(|error| {
+            StoreError::Conflict(format!(
+                "Prompt context snapshot could not be persisted: {error}"
+            ))
+        })?;
+        let mut tx = self.begin().await?;
         let fallback_runtime_context = context_pack_id
             .is_none()
             .then(|| {
@@ -486,7 +458,7 @@ impl ChatStore {
         let result = sqlx::query(
             "UPDATE demo_chat.turns SET status='streaming',context_pack_id=$3,\
                  used_memory_ids=$4,used_memory_version_ids=$5,memory_effects=$6,\
-                 fallback_runtime_context=$7,updated_at=now() \
+                 fallback_runtime_context=$7,prompt_context_snapshot=$8,updated_at=now() \
              WHERE tenant_id=$1 AND id=$2 AND status='processing' \
                AND cancel_requested_at IS NULL",
         )
@@ -497,6 +469,7 @@ impl ChatStore {
         .bind(&used_versions)
         .bind(memory_effects)
         .bind(&fallback_runtime_context)
+        .bind(&prompt_context_snapshot)
         .execute(&mut *tx)
         .await?;
         if result.rows_affected() != 1 {
@@ -839,15 +812,7 @@ async fn load_turn_tx(
         "SELECT t.id,t.session_id,t.user_message_id,t.assistant_message_id,t.task_id,\
                 t.attempt_id,t.status,t.context_pack_id,t.outcome_receipt_id,\
                 t.used_memory_ids,t.used_memory_version_ids,t.memory_effects,\
-                COALESCE(\
-                    demo_chat.prompt_context_for_turn(t.tenant_id,t.context_pack_id),\
-                    CASE WHEN t.context_pack_id IS NULL \
-                              AND t.fallback_runtime_context IS NOT NULL \
-                         THEN jsonb_build_object(\
-                             'runtime_context',t.fallback_runtime_context,\
-                             'memory_context','[]'::jsonb\
-                         ) END\
-                ) AS prompt_context,t.model_id,\
+                t.prompt_context_snapshot AS prompt_context,t.model_id,\
                 model_request_id_hash,prompt_tokens,completion_tokens,total_tokens,error_code,\
                 error_detail,cancel_requested_at,created_at,updated_at \
          FROM demo_chat.turns t WHERE t.tenant_id=$1 AND t.id=$2",
@@ -916,7 +881,7 @@ async fn insert_event_tx(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use demo_agent::RuntimeContext;
+    use demo_agent::{PromptMemory, RuntimeContext};
 
     #[tokio::test]
     #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
@@ -1021,6 +986,76 @@ mod tests {
         assert_eq!(
             detail.turns[0].prompt_context.as_ref().unwrap()["runtime_context"]["local_date"],
             json!("2026-07-30")
+        );
+
+        let packed_turn = store
+            .create_turn(CreateTurnCommand {
+                session_id: session.id,
+                content: "我之前使用什么数据库？".into(),
+                client_message_id: format!("client-pack-{test_id}"),
+                idempotency_key: format!("turn-pack-idempotency-{test_id}"),
+                request_hash: format!("sha256:pack-{test_id}"),
+            })
+            .await
+            .unwrap();
+        store.start_turn(packed_turn.turn.id).await.unwrap();
+        let memory_record_id = Uuid::new_v4();
+        let memory_version_id = Uuid::new_v4();
+        let context_pack_id = Uuid::new_v4();
+        let packed_prompt_context = PromptContextSnapshot {
+            runtime_context: prompt_context.runtime_context.clone(),
+            memory_context: vec![PromptMemory {
+                memory_record_id,
+                memory_version_id,
+                section_kind: "current_fact".into(),
+                memory_data: "当前项目使用 PostgreSQL。".into(),
+                source_refs: vec!["demo:test".into()],
+                event_time: None,
+                inclusion_reason: "supports_answer".into(),
+                trust: "untrusted_memory_data".into(),
+                allowed_effect: "factual_personalization_only".into(),
+            }],
+        };
+        store
+            .begin_streaming(
+                packed_turn.turn.id,
+                Some(context_pack_id),
+                &packed_prompt_context,
+                &[memory_record_id],
+                &[memory_version_id],
+                &json!([]),
+            )
+            .await
+            .unwrap();
+        store
+            .append_answer_delta(packed_turn.turn.id, "你使用 PostgreSQL。")
+            .await
+            .unwrap();
+        store
+            .complete_turn(
+                packed_turn.turn.id,
+                CompletedTurn {
+                    context_pack_id: Some(context_pack_id),
+                    outcome_receipt_id: None,
+                    used_memory_ids: &[memory_record_id],
+                    used_memory_version_ids: &[memory_version_id],
+                    memory_effects: &json!([]),
+                    model_id: "k3",
+                    model_request_id_hash: None,
+                    prompt_tokens: None,
+                    completion_tokens: None,
+                    total_tokens: None,
+                },
+            )
+            .await
+            .unwrap();
+        let detail = store.session(session.id).await.unwrap();
+        assert_eq!(detail.messages.len(), 4);
+        assert_eq!(detail.turns.len(), 2);
+        assert_eq!(detail.turns[1].context_pack_id, Some(context_pack_id));
+        assert_eq!(
+            detail.turns[1].prompt_context.as_ref().unwrap(),
+            &serde_json::to_value(&packed_prompt_context).unwrap()
         );
         let (events, status) = store.events_after(created.turn.id, 0).await.unwrap();
         assert_eq!(status, "completed");
