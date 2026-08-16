@@ -56,6 +56,8 @@ tokenizer、生产规模检索评测、Agent Runtime 本体集成、MVP 和 Prod
 - [真实语义模型、独立 Reranker 与自动记忆](./docs/16-semantic-models-and-automatic-memory.md)
 - [本地语义模型部署](./deploy/models/README.md)
 - [后端 Docker 本地部署](./docs/22-backend-docker-deployment.md)
+- [记忆系统会议介绍](./docs/23-memory-system-meeting-overview.md)
+- [如何理解当前系统架构](./docs/24-how-to-understand-current-architecture.md)
 - [Demo Agent v1 本地编排证据](./poc/evidence/demo-agent-v1-validation.md)
 - [Demo Agent v1 真实 Kimi 验收证据](./poc/evidence/demo-agent-v1-kimi-validation.md)
 - [Demo Context Pack 本地端到端证据](./poc/evidence/demo-context-pack-validation.md)
