@@ -73,6 +73,82 @@ paths:
         '409': {$ref: '#/components/responses/Conflict'}
         '502': {$ref: '#/components/responses/BadGateway'}
         '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/memory/episodes/{episode_id}/turns:
+    post:
+      tags: [Ingestion]
+      operationId: appendCompletedTurn
+      x-demo-v1-implemented: true
+      x-required-permission: memory:extract
+      summary: Append one completed visible Agent turn to an Episode
+      description: >-
+        Stores only the user message, visible final answer, bounded verified tool results and
+        Outcome, then immediately extracts governed candidates from that complete turn. Hidden
+        reasoning and unverified tool logs are outside this contract. Every ten previously
+        unscheduled turns also atomically enqueue one non-overlapping consolidation range.
+      parameters:
+        - $ref: '#/components/parameters/EpisodeId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/CompletedTurnRequest'}
+      responses:
+        '202':
+          description: Completed Turn persisted; consolidation may or may not have reached its threshold
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/CompletedTurnReceipt'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '409': {$ref: '#/components/responses/Conflict'}
+        '502': {$ref: '#/components/responses/BadGateway'}
+        '503': {$ref: '#/components/responses/Unavailable'}
+  /v1/memory/episodes/{episode_id}/consolidations:
+    post:
+      tags: [Ingestion, Operations]
+      operationId: requestEpisodeConsolidation
+      x-demo-v1-implemented: true
+      x-required-permission: memory:extract
+      summary: Manually enqueue all unscheduled Completed Turns in an Episode
+      parameters:
+        - $ref: '#/components/parameters/EpisodeId'
+        - $ref: '#/components/parameters/IdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/EpisodeConsolidationRequest'}
+      responses:
+        '202':
+          description: Consolidation range is queued or replayed idempotently
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Consolidation'}
+        '400': {$ref: '#/components/responses/BadRequest'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
+        '409': {$ref: '#/components/responses/Conflict'}
+  /v1/memory/episodes/{episode_id}/status:
+    get:
+      tags: [Operations]
+      operationId: getEpisodeStatus
+      x-demo-v1-implemented: true
+      x-required-permission: memory:read
+      summary: Inspect Episode coverage and recent Consolidation jobs
+      parameters:
+        - $ref: '#/components/parameters/EpisodeId'
+      responses:
+        '200':
+          description: Tenant- and user-authorized Episode status
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/EpisodeStatus'}
+        '401': {$ref: '#/components/responses/Unauthorized'}
+        '403': {$ref: '#/components/responses/Forbidden'}
+        '404': {$ref: '#/components/responses/NotFound'}
   /v1/memory/operations/{operation_id}:
     get:
       tags: [Operations]
@@ -535,6 +611,11 @@ components:
       in: path
       required: true
       schema: {$ref: '#/components/schemas/Uuid'}
+    EpisodeId:
+      name: episode_id
+      in: path
+      required: true
+      schema: {$ref: '#/components/schemas/Uuid'}
     MemoryRecordId:
       name: memory_record_id
       in: path
@@ -716,6 +797,105 @@ components:
           type: array
           maxItems: 8
           items: {$ref: '#/components/schemas/ExtractedMemoryResult'}
+    VerifiedToolResult:
+      type: object
+      additionalProperties: false
+      required: [tool_call_id, tool_name, content]
+      properties:
+        tool_call_id: {type: string, minLength: 1, maxLength: 256}
+        tool_name: {type: string, minLength: 1, maxLength: 256}
+        content:
+          type: string
+          minLength: 1
+          maxLength: 8000
+          description: Bounded serialized result from a tool invocation that completed successfully.
+    CompletedTurnRequest:
+      type: object
+      additionalProperties: false
+      required: [turn_id, task_id, attempt_id, user_content, assistant_content, outcome, completed_at]
+      properties:
+        turn_id: {$ref: '#/components/schemas/Uuid'}
+        task_id: {$ref: '#/components/schemas/Uuid'}
+        attempt_id: {$ref: '#/components/schemas/Uuid'}
+        user_content: {type: string, minLength: 1, maxLength: 20000}
+        assistant_content: {type: string, minLength: 1, maxLength: 40000}
+        verified_tool_results:
+          type: array
+          maxItems: 16
+          default: []
+          items: {$ref: '#/components/schemas/VerifiedToolResult'}
+        outcome: {type: string, enum: [succeeded, failed, cancelled]}
+        completed_at: {type: string, format: date-time}
+        timezone: {type: string, maxLength: 64, default: Asia/Shanghai}
+        project_scope_selector:
+          allOf:
+            - $ref: '#/components/schemas/ScopeSelector'
+          description: Optional authenticated project scope for governed semantic_fact candidates.
+    CompletedTurnReceipt:
+      type: object
+      additionalProperties: false
+      required: [episode_id, turn_id, sequence_no, consolidation_id, consolidation_status, per_turn_extraction]
+      properties:
+        episode_id: {$ref: '#/components/schemas/Uuid'}
+        turn_id: {$ref: '#/components/schemas/Uuid'}
+        sequence_no: {type: integer, minimum: 1}
+        consolidation_id: {type: [string, 'null'], format: uuid}
+        consolidation_status:
+          type: [string, 'null']
+          enum: [pending, leased, completed, dead_letter, null]
+        per_turn_extraction:
+          allOf:
+            - $ref: '#/components/schemas/MemoryExtractionResponse'
+          description: Governed candidates extracted immediately from this complete visible turn.
+    EpisodeConsolidationRequest:
+      type: object
+      additionalProperties: false
+      required: [trigger]
+      properties:
+        trigger: {type: string, enum: [manual, session_end]}
+    Consolidation:
+      type: object
+      additionalProperties: false
+      required: [consolidation_id, episode_id, from_turn_sequence, through_turn_sequence, trigger, status, attempts, proposal_count, operation_ids, last_error_code, created_at, completed_at]
+      properties:
+        consolidation_id: {$ref: '#/components/schemas/Uuid'}
+        episode_id: {$ref: '#/components/schemas/Uuid'}
+        from_turn_sequence: {type: integer, minimum: 1}
+        through_turn_sequence: {type: integer, minimum: 1}
+        trigger: {type: string, enum: [threshold, manual, session_end]}
+        status: {type: string, enum: [pending, leased, completed, dead_letter]}
+        attempts: {type: integer, minimum: 0, maximum: 8}
+        proposal_count: {type: [integer, 'null'], minimum: 0, maximum: 4}
+        operation_ids:
+          type: array
+          maxItems: 4
+          items: {$ref: '#/components/schemas/Uuid'}
+        last_error_code: {type: [string, 'null']}
+        created_at: {type: string, format: date-time}
+        completed_at: {type: [string, 'null'], format: date-time}
+    Episode:
+      type: object
+      additionalProperties: false
+      required: [id, state, last_turn_sequence, scheduled_through_sequence, last_consolidated_turn_sequence]
+      properties:
+        id: {$ref: '#/components/schemas/Uuid'}
+        state: {type: string, enum: [active, closed]}
+        last_turn_sequence: {type: integer, minimum: 0}
+        scheduled_through_sequence: {type: integer, minimum: 0}
+        last_consolidated_turn_sequence: {type: integer, minimum: 0}
+    EpisodeStatus:
+      type: object
+      additionalProperties: false
+      required: [episode, user_id, project_id, unconsolidated_turn_count, consolidations]
+      properties:
+        episode: {$ref: '#/components/schemas/Episode'}
+        user_id: {type: string, minLength: 1, maxLength: 256}
+        project_id: {type: [string, 'null'], maxLength: 256}
+        unconsolidated_turn_count: {type: integer, minimum: 0}
+        consolidations:
+          type: array
+          maxItems: 20
+          items: {$ref: '#/components/schemas/Consolidation'}
     OperationResponse:
       type: object
       additionalProperties: false

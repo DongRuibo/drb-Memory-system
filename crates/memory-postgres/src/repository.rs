@@ -10,7 +10,9 @@ use memory_application::{
     lexical_relevance_score,
 };
 use memory_domain::{
-    CANONICAL_MEMORY_TYPE_NAMES, EventTime, EventTimePrecision, MemoryType, StructuredContent,
+    CANONICAL_MEMORY_TYPE_NAMES, CompletedTurn, ConsolidationStatus, ConsolidationTrigger,
+    EPISODE_CONSOLIDATION_TURN_THRESHOLD, Episode, EpisodeState, EventTime, EventTimePrecision,
+    MemoryType, StructuredContent, TurnOutcome, VerifiedToolResult,
 };
 use serde_json::json;
 use sha2::{Digest, Sha256};
@@ -20,15 +22,17 @@ use thiserror::Error;
 use uuid::Uuid;
 
 use crate::model::{
-    AuthorizedMemory, CanonicalStatus, ConsumeContextPackCommand, ContextPackCommand,
+    AppendCompletedTurnCommand, AuthorizedMemory, CanonicalStatus, CompletedTurnReceiptView,
+    ConsolidationView, ConsolidationWork, ConsumeContextPackCommand, ContextPackCommand,
     ContextPackItem, ContextPackManifestView, ContextPackView, ContextSection, CorrectionCommand,
-    DemoAuthority, ErasureCommand, ErasureRecordView, ErasureRequestView, ErasureTargetKind,
-    ExtractionSnapshotCommand, ExtractionSnapshotView, ForgetCommand, IngestCandidateCommand,
-    IngestCommand, MemoryEventView, MemoryExportView, MemoryRecordView, MemoryScopeView,
-    MemoryVersionView, OperationView, OutcomeReceiptCommand, OutcomeReceiptView,
+    DemoAuthority, EpisodeStatusView, ErasureCommand, ErasureRecordView, ErasureRequestView,
+    ErasureTargetKind, ExtractionSnapshotCommand, ExtractionSnapshotView, ForgetCommand,
+    IngestCandidateCommand, IngestCommand, MemoryEventView, MemoryExportView, MemoryRecordView,
+    MemoryScopeView, MemoryVersionView, OperationView, OutcomeReceiptCommand, OutcomeReceiptView,
     ProjectionGenerationView, ProjectionModelManifest, ProjectionOperationStatus,
-    ProjectionOperationType, ProjectionRebuildCommand, ProjectionWork, RetrievalCandidateTraceView,
-    RetrievalRunCommand, RetrievalRunView, ReviewDecisionCommand, ReviewOutcome,
+    ProjectionOperationType, ProjectionRebuildCommand, ProjectionWork, RequestConsolidationCommand,
+    RetrievalCandidateTraceView, RetrievalRunCommand, RetrievalRunView, ReviewDecisionCommand,
+    ReviewOutcome,
 };
 
 pub const DEMO_GENERATION: &str = "demo-v0-generation-1";
@@ -37,6 +41,7 @@ pub const DEMO_CONTEXT_POLICY_VERSION: &str = "demo-policy-v1";
 pub const DEMO_CONTEXT_COMPILER_VERSION: &str = "demo-context-compiler-v2";
 const DEMO_ID_NAMESPACE: Uuid = Uuid::from_u128(0x7bc8_5039_50f0_4ff1_8200_7e73_a455_f372);
 const DEMO_CONTEXT_ITEM_OVERHEAD: i32 = 32;
+const CONSOLIDATION_MAX_ATTEMPTS: u32 = 8;
 static SECURITY_PIPELINE: LazyLock<SecurityPipeline> = LazyLock::new(SecurityPipeline::default);
 static CHINESE_TOKENIZER: LazyLock<ChineseTokenizer> = LazyLock::new(ChineseTokenizer::default);
 const SUPPORTED_CONTEXT_MEMORY_TYPES: [&str; 4] = CANONICAL_MEMORY_TYPE_NAMES;
@@ -84,6 +89,560 @@ impl MemoryRepository {
 
     pub async fn ready(&self) -> Result<(), RepositoryError> {
         sqlx::query("SELECT 1").execute(&self.pool).await?;
+        Ok(())
+    }
+
+    pub async fn append_completed_turn(
+        &self,
+        authority: &DemoAuthority,
+        command: AppendCompletedTurnCommand,
+    ) -> Result<CompletedTurnReceiptView, RepositoryError> {
+        validate_append_completed_turn(authority, &command)?;
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))")
+            .bind(format!(
+                "episode:{}:{}",
+                authority.tenant_id, command.episode_id
+            ))
+            .execute(&mut *tx)
+            .await?;
+
+        sqlx::query(
+            "INSERT INTO memory_core.episodes(tenant_id,id,user_id,project_id) \
+             VALUES ($1,$2,$3,$4) ON CONFLICT (tenant_id,id) DO NOTHING",
+        )
+        .bind(&authority.tenant_id)
+        .bind(command.episode_id)
+        .bind(&authority.user_id)
+        .bind(command.project_id.as_deref())
+        .execute(&mut *tx)
+        .await?;
+
+        let episode = sqlx::query(
+            "SELECT user_id,project_id,status,last_turn_sequence,\
+                    scheduled_through_sequence,last_consolidated_turn_sequence \
+             FROM memory_core.episodes WHERE tenant_id=$1 AND id=$2 FOR UPDATE",
+        )
+        .bind(&authority.tenant_id)
+        .bind(command.episode_id)
+        .fetch_one(&mut *tx)
+        .await?;
+        let episode_user_id: String = episode.try_get("user_id")?;
+        let episode_project_id: Option<String> = episode.try_get("project_id")?;
+        if episode_user_id != authority.user_id || episode_project_id != command.project_id {
+            return Err(RepositoryError::Unauthorized);
+        }
+        if let Some(existing) = sqlx::query(
+            "SELECT episode_id,id,sequence_no,request_hash \
+             FROM memory_core.completed_turns \
+             WHERE tenant_id=$1 AND idempotency_key=$2",
+        )
+        .bind(&authority.tenant_id)
+        .bind(&command.idempotency_key)
+        .fetch_optional(&mut *tx)
+        .await?
+        {
+            let existing_episode_id: Uuid = existing.try_get("episode_id")?;
+            authorize_episode_id_tx(&mut tx, authority, existing_episode_id).await?;
+            if existing.try_get::<String, _>("request_hash")? != command.request_hash
+                || existing_episode_id != command.episode_id
+                || existing.try_get::<Uuid, _>("id")? != command.turn_id
+            {
+                return Err(RepositoryError::Conflict(
+                    "idempotency key was reused for a different completed turn".into(),
+                ));
+            }
+            let sequence_no = existing.try_get::<i64, _>("sequence_no")? as u64;
+            let receipt = load_completed_turn_receipt_tx(
+                &mut tx,
+                &authority.tenant_id,
+                command.episode_id,
+                command.turn_id,
+                sequence_no,
+            )
+            .await?;
+            tx.commit().await?;
+            return Ok(receipt);
+        }
+
+        if episode.try_get::<String, _>("status")? != EpisodeState::Active.as_str() {
+            return Err(RepositoryError::Conflict("episode is closed".into()));
+        }
+
+        let last_turn_sequence: i64 = episode.try_get("last_turn_sequence")?;
+        let scheduled_through_sequence: i64 = episode.try_get("scheduled_through_sequence")?;
+        let sequence_no = last_turn_sequence + 1;
+        let completed_turn = CompletedTurn {
+            episode_id: command.episode_id,
+            turn_id: command.turn_id,
+            task_id: command.task_id,
+            attempt_id: command.attempt_id,
+            sequence_no: sequence_no as u64,
+            user_content: command.user_content.clone(),
+            assistant_content: command.assistant_content.clone(),
+            verified_tool_results: command.verified_tool_results.clone(),
+            outcome: command.outcome,
+            completed_at: command.completed_at,
+            timezone: command.timezone.clone(),
+        };
+        completed_turn
+            .validate()
+            .map_err(|error| RepositoryError::Validation(error.to_string()))?;
+        let tool_results =
+            serde_json::to_value(&command.verified_tool_results).map_err(|error| {
+                RepositoryError::Validation(format!(
+                    "verified tool results could not be serialized: {error}"
+                ))
+            })?;
+        sqlx::query(
+            "INSERT INTO memory_core.completed_turns(\
+                 tenant_id,id,episode_id,sequence_no,task_id,attempt_id,user_content,\
+                 assistant_content,verified_tool_results,outcome,completed_at,timezone,\
+                 idempotency_key,request_hash\
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14)",
+        )
+        .bind(&authority.tenant_id)
+        .bind(command.turn_id)
+        .bind(command.episode_id)
+        .bind(sequence_no)
+        .bind(command.task_id)
+        .bind(command.attempt_id)
+        .bind(&command.user_content)
+        .bind(&command.assistant_content)
+        .bind(tool_results)
+        .bind(command.outcome.as_str())
+        .bind(command.completed_at)
+        .bind(&command.timezone)
+        .bind(&command.idempotency_key)
+        .bind(&command.request_hash)
+        .execute(&mut *tx)
+        .await?;
+        sqlx::query(
+            "UPDATE memory_core.episodes SET last_turn_sequence=$3,updated_at=now() \
+             WHERE tenant_id=$1 AND id=$2",
+        )
+        .bind(&authority.tenant_id)
+        .bind(command.episode_id)
+        .bind(sequence_no)
+        .execute(&mut *tx)
+        .await?;
+
+        let mut consolidation_id = None;
+        let mut consolidation_status = None;
+        if sequence_no - scheduled_through_sequence >= EPISODE_CONSOLIDATION_TURN_THRESHOLD as i64 {
+            let from_turn_sequence = scheduled_through_sequence + 1;
+            let through_turn_sequence =
+                scheduled_through_sequence + EPISODE_CONSOLIDATION_TURN_THRESHOLD as i64;
+            let idempotency_key = format!(
+                "episode-threshold-{}-{from_turn_sequence}-{through_turn_sequence}",
+                command.episode_id
+            );
+            let view = schedule_consolidation_tx(
+                &mut tx,
+                &authority.tenant_id,
+                command.episode_id,
+                from_turn_sequence,
+                through_turn_sequence,
+                ConsolidationTrigger::Threshold,
+                &idempotency_key,
+            )
+            .await?;
+            consolidation_id = Some(view.consolidation_id);
+            consolidation_status = Some(view.status);
+        }
+
+        let receipt = CompletedTurnReceiptView {
+            episode_id: command.episode_id,
+            turn_id: command.turn_id,
+            sequence_no: sequence_no as u64,
+            consolidation_id,
+            consolidation_status,
+        };
+        tx.commit().await?;
+        Ok(receipt)
+    }
+
+    pub async fn request_episode_consolidation(
+        &self,
+        authority: &DemoAuthority,
+        command: RequestConsolidationCommand,
+    ) -> Result<ConsolidationView, RepositoryError> {
+        validate_idempotency_key(&command.idempotency_key)?;
+        if command.trigger == ConsolidationTrigger::Threshold {
+            return Err(RepositoryError::Validation(
+                "threshold consolidation is scheduled internally".into(),
+            ));
+        }
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))")
+            .bind(format!(
+                "episode:{}:{}",
+                authority.tenant_id, command.episode_id
+            ))
+            .execute(&mut *tx)
+            .await?;
+        if let Some(existing) =
+            load_consolidation_by_key_tx(&mut tx, &authority.tenant_id, &command.idempotency_key)
+                .await?
+        {
+            authorize_episode_id_tx(&mut tx, authority, existing.episode_id).await?;
+            if existing.episode_id != command.episode_id || existing.trigger != command.trigger {
+                return Err(RepositoryError::Conflict(
+                    "idempotency key was reused for a different consolidation".into(),
+                ));
+            }
+            tx.commit().await?;
+            return Ok(existing);
+        }
+
+        let episode = sqlx::query(
+            "SELECT user_id,project_id,status,last_turn_sequence,scheduled_through_sequence \
+             FROM memory_core.episodes WHERE tenant_id=$1 AND id=$2 FOR UPDATE",
+        )
+        .bind(&authority.tenant_id)
+        .bind(command.episode_id)
+        .fetch_optional(&mut *tx)
+        .await?
+        .ok_or(RepositoryError::NotFound)?;
+        authorize_episode_row(authority, &episode)?;
+        let status: String = episode.try_get("status")?;
+        if status != EpisodeState::Active.as_str()
+            && command.trigger != ConsolidationTrigger::SessionEnd
+        {
+            return Err(RepositoryError::Conflict("episode is closed".into()));
+        }
+        let last_turn_sequence: i64 = episode.try_get("last_turn_sequence")?;
+        let scheduled_through_sequence: i64 = episode.try_get("scheduled_through_sequence")?;
+        if last_turn_sequence <= scheduled_through_sequence {
+            return Err(RepositoryError::Conflict(
+                "episode has no unscheduled completed turns".into(),
+            ));
+        }
+        let view = schedule_consolidation_tx(
+            &mut tx,
+            &authority.tenant_id,
+            command.episode_id,
+            scheduled_through_sequence + 1,
+            last_turn_sequence,
+            command.trigger,
+            &command.idempotency_key,
+        )
+        .await?;
+        tx.commit().await?;
+        Ok(view)
+    }
+
+    pub async fn episode_status(
+        &self,
+        authority: &DemoAuthority,
+        episode_id: Uuid,
+    ) -> Result<EpisodeStatusView, RepositoryError> {
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        let row = sqlx::query(
+            "SELECT user_id,project_id,status,last_turn_sequence,scheduled_through_sequence,\
+                    last_consolidated_turn_sequence \
+             FROM memory_core.episodes WHERE tenant_id=$1 AND id=$2",
+        )
+        .bind(&authority.tenant_id)
+        .bind(episode_id)
+        .fetch_optional(&mut *tx)
+        .await?
+        .ok_or(RepositoryError::NotFound)?;
+        authorize_episode_row(authority, &row)?;
+        let last_turn_sequence = row.try_get::<i64, _>("last_turn_sequence")? as u64;
+        let scheduled_through_sequence =
+            row.try_get::<i64, _>("scheduled_through_sequence")? as u64;
+        let last_consolidated_turn_sequence =
+            row.try_get::<i64, _>("last_consolidated_turn_sequence")? as u64;
+        let episode = Episode {
+            id: episode_id,
+            state: parse_episode_state(&row.try_get::<String, _>("status")?)?,
+            last_turn_sequence,
+            scheduled_through_sequence,
+            last_consolidated_turn_sequence,
+        };
+        episode
+            .validate()
+            .map_err(|error| RepositoryError::Invariant(error.to_string()))?;
+        let rows = sqlx::query(
+            "SELECT id,episode_id,from_turn_sequence,through_turn_sequence,trigger_kind,status,\
+                    attempts,proposals,operation_ids,last_error_code,created_at,completed_at \
+             FROM memory_core.episode_consolidations \
+             WHERE tenant_id=$1 AND episode_id=$2 ORDER BY created_at DESC LIMIT 20",
+        )
+        .bind(&authority.tenant_id)
+        .bind(episode_id)
+        .fetch_all(&mut *tx)
+        .await?;
+        let consolidations = rows
+            .iter()
+            .map(consolidation_view_from_row)
+            .collect::<Result<Vec<_>, _>>()?;
+        let view = EpisodeStatusView {
+            episode,
+            user_id: row.try_get("user_id")?,
+            project_id: row.try_get("project_id")?,
+            unconsolidated_turn_count: last_turn_sequence
+                .saturating_sub(last_consolidated_turn_sequence),
+            consolidations,
+        };
+        tx.commit().await?;
+        Ok(view)
+    }
+
+    pub async fn claim_consolidation(
+        &self,
+        authority: &DemoAuthority,
+        worker_id: &str,
+    ) -> Result<Option<ConsolidationWork>, RepositoryError> {
+        if !authority.tenant_scope {
+            return Err(RepositoryError::Unauthorized);
+        }
+        validate_worker_id(worker_id)?;
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        sqlx::query(
+            "UPDATE memory_core.episode_consolidations \
+             SET status='dead_letter',lease_owner=NULL,lease_until=NULL,\
+                 last_error_code=COALESCE(last_error_code,'CONSOLIDATION_LEASE_EXHAUSTED') \
+             WHERE tenant_id=$1 AND status='leased' AND lease_until < now() AND attempts >= 8",
+        )
+        .bind(&authority.tenant_id)
+        .execute(&mut *tx)
+        .await?;
+        let Some(row) = sqlx::query(
+            "SELECT c.id,c.episode_id,c.from_turn_sequence,c.through_turn_sequence,\
+                    c.trigger_kind,c.attempts,c.extractor_version,c.proposals,c.diagnostics,\
+                    e.user_id,e.project_id \
+             FROM memory_core.episode_consolidations c \
+             JOIN memory_core.episodes e \
+               ON e.tenant_id=c.tenant_id AND e.id=c.episode_id \
+             WHERE c.tenant_id=$1 AND c.attempts < 8 \
+               AND (c.status='pending' OR (c.status='leased' AND c.lease_until < now())) \
+               AND c.available_at <= now() \
+               AND c.from_turn_sequence=e.last_consolidated_turn_sequence+1 \
+             ORDER BY c.created_at,c.id LIMIT 1 FOR UPDATE OF c SKIP LOCKED",
+        )
+        .bind(&authority.tenant_id)
+        .fetch_optional(&mut *tx)
+        .await?
+        else {
+            tx.commit().await?;
+            return Ok(None);
+        };
+        let consolidation_id: Uuid = row.try_get("id")?;
+        let attempts = row.try_get::<i32, _>("attempts")? + 1;
+        let updated = sqlx::query(
+            "UPDATE memory_core.episode_consolidations \
+             SET status='leased',attempts=$3,lease_owner=$4,lease_until=now()+interval '10 minutes' \
+             WHERE tenant_id=$1 AND id=$2",
+        )
+        .bind(&authority.tenant_id)
+        .bind(consolidation_id)
+        .bind(attempts)
+        .bind(worker_id)
+        .execute(&mut *tx)
+        .await?;
+        if updated.rows_affected() != 1 {
+            return Err(RepositoryError::LeaseLost);
+        }
+        let episode_id: Uuid = row.try_get("episode_id")?;
+        let from_turn_sequence = row.try_get::<i64, _>("from_turn_sequence")?;
+        let through_turn_sequence = row.try_get::<i64, _>("through_turn_sequence")?;
+        let turn_rows = sqlx::query(
+            "SELECT id,task_id,attempt_id,sequence_no,user_content,assistant_content,\
+                    verified_tool_results,outcome,completed_at,timezone \
+             FROM memory_core.completed_turns \
+             WHERE tenant_id=$1 AND episode_id=$2 AND sequence_no BETWEEN $3 AND $4 \
+             ORDER BY sequence_no",
+        )
+        .bind(&authority.tenant_id)
+        .bind(episode_id)
+        .bind(from_turn_sequence)
+        .bind(through_turn_sequence)
+        .fetch_all(&mut *tx)
+        .await?;
+        if turn_rows.len() != (through_turn_sequence - from_turn_sequence + 1) as usize {
+            return Err(RepositoryError::Invariant(
+                "consolidation coverage does not contain every completed turn".into(),
+            ));
+        }
+        let turns = turn_rows
+            .iter()
+            .map(|turn| completed_turn_from_row(episode_id, turn))
+            .collect::<Result<Vec<_>, _>>()?;
+        let proposals = row
+            .try_get::<Option<serde_json::Value>, _>("proposals")?
+            .map(serde_json::from_value)
+            .transpose()
+            .map_err(|error| {
+                RepositoryError::Invariant(format!(
+                    "stored consolidation proposals are invalid: {error}"
+                ))
+            })?;
+        let diagnostics = row
+            .try_get::<Option<serde_json::Value>, _>("diagnostics")?
+            .map(serde_json::from_value)
+            .transpose()
+            .map_err(|error| {
+                RepositoryError::Invariant(format!(
+                    "stored consolidation diagnostics are invalid: {error}"
+                ))
+            })?;
+        let work = ConsolidationWork {
+            consolidation_id,
+            episode_id,
+            user_id: row.try_get("user_id")?,
+            project_id: row.try_get("project_id")?,
+            from_turn_sequence: from_turn_sequence as u64,
+            through_turn_sequence: through_turn_sequence as u64,
+            trigger: parse_consolidation_trigger(&row.try_get::<String, _>("trigger_kind")?)?,
+            attempts: attempts as u32,
+            worker_id: worker_id.to_owned(),
+            turns,
+            extractor_version: row.try_get("extractor_version")?,
+            proposals,
+            diagnostics,
+        };
+        tx.commit().await?;
+        Ok(Some(work))
+    }
+
+    pub async fn store_consolidation_snapshot(
+        &self,
+        authority: &DemoAuthority,
+        work: &ConsolidationWork,
+        extractor_version: &str,
+        proposals: &[ExtractCandidateProposal],
+        diagnostics: &ExtractionDiagnostics,
+    ) -> Result<(), RepositoryError> {
+        if !authority.tenant_scope {
+            return Err(RepositoryError::Unauthorized);
+        }
+        if proposals.len() > 4 {
+            return Err(RepositoryError::Validation(
+                "consolidation may emit at most four candidates".into(),
+            ));
+        }
+        validate_extraction_proposals(proposals)?;
+        validate_extraction_diagnostics(diagnostics)?;
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        let updated = sqlx::query(
+            "UPDATE memory_core.episode_consolidations \
+             SET extractor_version=$5,proposals=$6,diagnostics=$7 \
+             WHERE tenant_id=$1 AND id=$2 AND status='leased' \
+               AND lease_owner=$3 AND attempts=$4 AND proposals IS NULL",
+        )
+        .bind(&authority.tenant_id)
+        .bind(work.consolidation_id)
+        .bind(&work.worker_id)
+        .bind(work.attempts as i32)
+        .bind(extractor_version)
+        .bind(serde_json::to_value(proposals).map_err(|error| {
+            RepositoryError::Invariant(format!("failed to encode consolidation proposals: {error}"))
+        })?)
+        .bind(serde_json::to_value(diagnostics).map_err(|error| {
+            RepositoryError::Invariant(format!(
+                "failed to encode consolidation diagnostics: {error}"
+            ))
+        })?)
+        .execute(&mut *tx)
+        .await?;
+        if updated.rows_affected() != 1 {
+            return Err(RepositoryError::LeaseLost);
+        }
+        tx.commit().await?;
+        Ok(())
+    }
+
+    pub async fn complete_consolidation(
+        &self,
+        authority: &DemoAuthority,
+        work: &ConsolidationWork,
+        operation_ids: &[Uuid],
+    ) -> Result<(), RepositoryError> {
+        if !authority.tenant_scope {
+            return Err(RepositoryError::Unauthorized);
+        }
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        let updated = sqlx::query(
+            "UPDATE memory_core.episode_consolidations \
+             SET status='completed',operation_ids=$5,lease_owner=NULL,lease_until=NULL,\
+                 completed_at=now(),last_error_code=NULL \
+             WHERE tenant_id=$1 AND id=$2 AND status='leased' \
+               AND lease_owner=$3 AND attempts=$4 AND proposals IS NOT NULL",
+        )
+        .bind(&authority.tenant_id)
+        .bind(work.consolidation_id)
+        .bind(&work.worker_id)
+        .bind(work.attempts as i32)
+        .bind(serde_json::to_value(operation_ids).map_err(|error| {
+            RepositoryError::Invariant(format!(
+                "failed to encode consolidation operation IDs: {error}"
+            ))
+        })?)
+        .execute(&mut *tx)
+        .await?;
+        if updated.rows_affected() != 1 {
+            return Err(RepositoryError::LeaseLost);
+        }
+        let episode_updated = sqlx::query(
+            "UPDATE memory_core.episodes \
+             SET last_consolidated_turn_sequence=$3,updated_at=now() \
+             WHERE tenant_id=$1 AND id=$2 AND last_consolidated_turn_sequence=$4",
+        )
+        .bind(&authority.tenant_id)
+        .bind(work.episode_id)
+        .bind(work.through_turn_sequence as i64)
+        .bind(work.from_turn_sequence as i64 - 1)
+        .execute(&mut *tx)
+        .await?;
+        if episode_updated.rows_affected() != 1 {
+            return Err(RepositoryError::LeaseLost);
+        }
+        tx.commit().await?;
+        Ok(())
+    }
+
+    pub async fn reschedule_consolidation(
+        &self,
+        authority: &DemoAuthority,
+        work: &ConsolidationWork,
+        error_code: &str,
+    ) -> Result<(), RepositoryError> {
+        if !authority.tenant_scope {
+            return Err(RepositoryError::Unauthorized);
+        }
+        validate_error_code(error_code)?;
+        let dead_letter = work.attempts >= CONSOLIDATION_MAX_ATTEMPTS;
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        let updated = sqlx::query(
+            "UPDATE memory_core.episode_consolidations \
+             SET status=CASE WHEN $5 THEN 'dead_letter' ELSE 'pending' END,\
+                 lease_owner=NULL,lease_until=NULL,last_error_code=$6,\
+                 available_at=CASE WHEN $5 THEN available_at \
+                     ELSE now() + interval '1 second' * LEAST(attempts,30) END \
+             WHERE tenant_id=$1 AND id=$2 AND status='leased' \
+               AND lease_owner=$3 AND attempts=$4",
+        )
+        .bind(&authority.tenant_id)
+        .bind(work.consolidation_id)
+        .bind(&work.worker_id)
+        .bind(work.attempts as i32)
+        .bind(dead_letter)
+        .bind(error_code)
+        .execute(&mut *tx)
+        .await?;
+        if updated.rows_affected() != 1 {
+            return Err(RepositoryError::LeaseLost);
+        }
+        tx.commit().await?;
         Ok(())
     }
 
@@ -5652,8 +6211,10 @@ fn validate_ingest_candidate(command: &IngestCandidateCommand) -> Result<(), Rep
             "candidate Idempotency-Key must contain 16 to 128 characters".into(),
         ));
     }
-    if command.source_type != "conversation_message"
-        || !SUPPORTED_EXTRACTED_MEMORY_TYPES.contains(&command.memory_type.as_str())
+    if !matches!(
+        command.source_type.as_str(),
+        "conversation_message" | "reflection"
+    ) || !SUPPORTED_EXTRACTED_MEMORY_TYPES.contains(&command.memory_type.as_str())
         || !matches!(command.scope_kind.as_str(), "user" | "project")
         || command
             .scope_id
@@ -5868,6 +6429,343 @@ async fn insert_ingest_result_tx(
     .execute(&mut **tx)
     .await?;
     Ok(())
+}
+
+fn validate_append_completed_turn(
+    authority: &DemoAuthority,
+    command: &AppendCompletedTurnCommand,
+) -> Result<(), RepositoryError> {
+    validate_idempotency_key(&command.idempotency_key)?;
+    validate_request_hash(&command.request_hash)?;
+    if let Some(project_id) = command.project_id.as_deref()
+        && !authority.authorizes_scope("project", Some(project_id))
+    {
+        return Err(RepositoryError::Unauthorized);
+    }
+    CompletedTurn {
+        episode_id: command.episode_id,
+        turn_id: command.turn_id,
+        task_id: command.task_id,
+        attempt_id: command.attempt_id,
+        sequence_no: 1,
+        user_content: command.user_content.clone(),
+        assistant_content: command.assistant_content.clone(),
+        verified_tool_results: command.verified_tool_results.clone(),
+        outcome: command.outcome,
+        completed_at: command.completed_at,
+        timezone: command.timezone.clone(),
+    }
+    .validate()
+    .map_err(|error| RepositoryError::Validation(error.to_string()))
+}
+
+fn validate_idempotency_key(value: &str) -> Result<(), RepositoryError> {
+    if !(16..=128).contains(&value.len())
+        || value.trim() != value
+        || value.chars().any(char::is_control)
+    {
+        return Err(RepositoryError::Validation(
+            "idempotency key must contain 16 to 128 visible characters".into(),
+        ));
+    }
+    Ok(())
+}
+
+fn validate_request_hash(value: &str) -> Result<(), RepositoryError> {
+    if value.len() != 71
+        || !value.starts_with("sha256:")
+        || !value[7..]
+            .bytes()
+            .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
+    {
+        return Err(RepositoryError::Validation(
+            "request hash must use sha256:<64 lowercase hex>".into(),
+        ));
+    }
+    Ok(())
+}
+
+fn validate_worker_id(value: &str) -> Result<(), RepositoryError> {
+    if value.trim().is_empty()
+        || value.len() > 256
+        || value.trim() != value
+        || value.chars().any(char::is_control)
+    {
+        return Err(RepositoryError::Validation(
+            "worker ID must contain 1 to 256 visible characters".into(),
+        ));
+    }
+    Ok(())
+}
+
+fn validate_error_code(value: &str) -> Result<(), RepositoryError> {
+    if value.trim().is_empty()
+        || value.len() > 128
+        || !value
+            .bytes()
+            .all(|byte| byte.is_ascii_uppercase() || byte.is_ascii_digit() || byte == b'_')
+    {
+        return Err(RepositoryError::Validation(
+            "error code must be bounded uppercase ASCII".into(),
+        ));
+    }
+    Ok(())
+}
+
+async fn schedule_consolidation_tx(
+    tx: &mut Transaction<'_, Postgres>,
+    tenant_id: &str,
+    episode_id: Uuid,
+    from_turn_sequence: i64,
+    through_turn_sequence: i64,
+    trigger: ConsolidationTrigger,
+    idempotency_key: &str,
+) -> Result<ConsolidationView, RepositoryError> {
+    validate_idempotency_key(idempotency_key)?;
+    if from_turn_sequence <= 0 || through_turn_sequence < from_turn_sequence {
+        return Err(RepositoryError::Validation(
+            "consolidation turn coverage is invalid".into(),
+        ));
+    }
+    let consolidation_id = stable_id(&format!(
+        "episode-consolidation:{tenant_id}:{idempotency_key}"
+    ));
+    sqlx::query(
+        "INSERT INTO memory_core.episode_consolidations(\
+             tenant_id,id,episode_id,from_turn_sequence,through_turn_sequence,\
+             trigger_kind,idempotency_key\
+         ) VALUES ($1,$2,$3,$4,$5,$6,$7)",
+    )
+    .bind(tenant_id)
+    .bind(consolidation_id)
+    .bind(episode_id)
+    .bind(from_turn_sequence)
+    .bind(through_turn_sequence)
+    .bind(trigger.as_str())
+    .bind(idempotency_key)
+    .execute(&mut **tx)
+    .await?;
+    let updated = sqlx::query(
+        "UPDATE memory_core.episodes SET scheduled_through_sequence=$3,updated_at=now() \
+         WHERE tenant_id=$1 AND id=$2 AND scheduled_through_sequence=$4 \
+           AND last_turn_sequence >= $3",
+    )
+    .bind(tenant_id)
+    .bind(episode_id)
+    .bind(through_turn_sequence)
+    .bind(from_turn_sequence - 1)
+    .execute(&mut **tx)
+    .await?;
+    if updated.rows_affected() != 1 {
+        return Err(RepositoryError::Conflict(
+            "episode consolidation coverage changed concurrently".into(),
+        ));
+    }
+    load_consolidation_view_tx(tx, tenant_id, consolidation_id).await
+}
+
+async fn load_completed_turn_receipt_tx(
+    tx: &mut Transaction<'_, Postgres>,
+    tenant_id: &str,
+    episode_id: Uuid,
+    turn_id: Uuid,
+    sequence_no: u64,
+) -> Result<CompletedTurnReceiptView, RepositoryError> {
+    let consolidation = sqlx::query(
+        "SELECT id,status FROM memory_core.episode_consolidations \
+         WHERE tenant_id=$1 AND episode_id=$2 \
+           AND $3 BETWEEN from_turn_sequence AND through_turn_sequence \
+         ORDER BY created_at DESC LIMIT 1",
+    )
+    .bind(tenant_id)
+    .bind(episode_id)
+    .bind(sequence_no as i64)
+    .fetch_optional(&mut **tx)
+    .await?;
+    let (consolidation_id, consolidation_status) = if let Some(row) = consolidation {
+        (
+            Some(row.try_get("id")?),
+            Some(parse_consolidation_status(
+                &row.try_get::<String, _>("status")?,
+            )?),
+        )
+    } else {
+        (None, None)
+    };
+    Ok(CompletedTurnReceiptView {
+        episode_id,
+        turn_id,
+        sequence_no,
+        consolidation_id,
+        consolidation_status,
+    })
+}
+
+async fn load_consolidation_by_key_tx(
+    tx: &mut Transaction<'_, Postgres>,
+    tenant_id: &str,
+    idempotency_key: &str,
+) -> Result<Option<ConsolidationView>, RepositoryError> {
+    let row = sqlx::query(
+        "SELECT id,episode_id,from_turn_sequence,through_turn_sequence,trigger_kind,status,\
+                attempts,proposals,operation_ids,last_error_code,created_at,completed_at \
+         FROM memory_core.episode_consolidations \
+         WHERE tenant_id=$1 AND idempotency_key=$2",
+    )
+    .bind(tenant_id)
+    .bind(idempotency_key)
+    .fetch_optional(&mut **tx)
+    .await?;
+    row.as_ref().map(consolidation_view_from_row).transpose()
+}
+
+async fn authorize_episode_id_tx(
+    tx: &mut Transaction<'_, Postgres>,
+    authority: &DemoAuthority,
+    episode_id: Uuid,
+) -> Result<(), RepositoryError> {
+    let row = sqlx::query(
+        "SELECT user_id,project_id FROM memory_core.episodes \
+         WHERE tenant_id=$1 AND id=$2",
+    )
+    .bind(&authority.tenant_id)
+    .bind(episode_id)
+    .fetch_optional(&mut **tx)
+    .await?
+    .ok_or(RepositoryError::NotFound)?;
+    authorize_episode_row(authority, &row)
+}
+
+async fn load_consolidation_view_tx(
+    tx: &mut Transaction<'_, Postgres>,
+    tenant_id: &str,
+    consolidation_id: Uuid,
+) -> Result<ConsolidationView, RepositoryError> {
+    let row = sqlx::query(
+        "SELECT id,episode_id,from_turn_sequence,through_turn_sequence,trigger_kind,status,\
+                attempts,proposals,operation_ids,last_error_code,created_at,completed_at \
+         FROM memory_core.episode_consolidations WHERE tenant_id=$1 AND id=$2",
+    )
+    .bind(tenant_id)
+    .bind(consolidation_id)
+    .fetch_optional(&mut **tx)
+    .await?
+    .ok_or(RepositoryError::NotFound)?;
+    consolidation_view_from_row(&row)
+}
+
+fn consolidation_view_from_row(row: &PgRow) -> Result<ConsolidationView, RepositoryError> {
+    let proposals: Option<serde_json::Value> = row.try_get("proposals")?;
+    let operation_ids = row
+        .try_get::<Option<serde_json::Value>, _>("operation_ids")?
+        .map(serde_json::from_value)
+        .transpose()
+        .map_err(|error| {
+            RepositoryError::Invariant(format!(
+                "stored consolidation operation IDs are invalid: {error}"
+            ))
+        })?
+        .unwrap_or_default();
+    Ok(ConsolidationView {
+        consolidation_id: row.try_get("id")?,
+        episode_id: row.try_get("episode_id")?,
+        from_turn_sequence: row.try_get::<i64, _>("from_turn_sequence")? as u64,
+        through_turn_sequence: row.try_get::<i64, _>("through_turn_sequence")? as u64,
+        trigger: parse_consolidation_trigger(&row.try_get::<String, _>("trigger_kind")?)?,
+        status: parse_consolidation_status(&row.try_get::<String, _>("status")?)?,
+        attempts: row.try_get::<i32, _>("attempts")? as u32,
+        proposal_count: proposals
+            .as_ref()
+            .and_then(serde_json::Value::as_array)
+            .map(Vec::len),
+        operation_ids,
+        last_error_code: row.try_get("last_error_code")?,
+        created_at: row.try_get("created_at")?,
+        completed_at: row.try_get("completed_at")?,
+    })
+}
+
+fn completed_turn_from_row(
+    episode_id: Uuid,
+    row: &PgRow,
+) -> Result<CompletedTurn, RepositoryError> {
+    let verified_tool_results: Vec<VerifiedToolResult> =
+        serde_json::from_value(row.try_get("verified_tool_results")?).map_err(|error| {
+            RepositoryError::Invariant(format!("stored verified tool results are invalid: {error}"))
+        })?;
+    let turn = CompletedTurn {
+        episode_id,
+        turn_id: row.try_get("id")?,
+        task_id: row.try_get("task_id")?,
+        attempt_id: row.try_get("attempt_id")?,
+        sequence_no: row.try_get::<i64, _>("sequence_no")? as u64,
+        user_content: row.try_get("user_content")?,
+        assistant_content: row.try_get("assistant_content")?,
+        verified_tool_results,
+        outcome: parse_turn_outcome(&row.try_get::<String, _>("outcome")?)?,
+        completed_at: row.try_get("completed_at")?,
+        timezone: row.try_get("timezone")?,
+    };
+    turn.validate()
+        .map_err(|error| RepositoryError::Invariant(error.to_string()))?;
+    Ok(turn)
+}
+
+fn authorize_episode_row(authority: &DemoAuthority, row: &PgRow) -> Result<(), RepositoryError> {
+    let user_id: String = row.try_get("user_id")?;
+    let project_id: Option<String> = row.try_get("project_id")?;
+    if user_id != authority.user_id
+        || project_id
+            .as_deref()
+            .is_some_and(|id| !authority.authorizes_scope("project", Some(id)))
+    {
+        return Err(RepositoryError::Unauthorized);
+    }
+    Ok(())
+}
+
+fn parse_episode_state(value: &str) -> Result<EpisodeState, RepositoryError> {
+    match value {
+        "active" => Ok(EpisodeState::Active),
+        "closed" => Ok(EpisodeState::Closed),
+        _ => Err(RepositoryError::Invariant(format!(
+            "unknown episode state {value:?}"
+        ))),
+    }
+}
+
+fn parse_turn_outcome(value: &str) -> Result<TurnOutcome, RepositoryError> {
+    match value {
+        "succeeded" => Ok(TurnOutcome::Succeeded),
+        "failed" => Ok(TurnOutcome::Failed),
+        "cancelled" => Ok(TurnOutcome::Cancelled),
+        _ => Err(RepositoryError::Invariant(format!(
+            "unknown turn outcome {value:?}"
+        ))),
+    }
+}
+
+fn parse_consolidation_trigger(value: &str) -> Result<ConsolidationTrigger, RepositoryError> {
+    match value {
+        "threshold" => Ok(ConsolidationTrigger::Threshold),
+        "manual" => Ok(ConsolidationTrigger::Manual),
+        "session_end" => Ok(ConsolidationTrigger::SessionEnd),
+        _ => Err(RepositoryError::Invariant(format!(
+            "unknown consolidation trigger {value:?}"
+        ))),
+    }
+}
+
+fn parse_consolidation_status(value: &str) -> Result<ConsolidationStatus, RepositoryError> {
+    match value {
+        "pending" => Ok(ConsolidationStatus::Pending),
+        "leased" => Ok(ConsolidationStatus::Leased),
+        "completed" => Ok(ConsolidationStatus::Completed),
+        "dead_letter" => Ok(ConsolidationStatus::DeadLetter),
+        _ => Err(RepositoryError::Invariant(format!(
+            "unknown consolidation status {value:?}"
+        ))),
+    }
 }
 
 async fn set_tenant(

@@ -2,7 +2,10 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use chrono::{DateTime, Utc};
 use memory_application::{ExtractCandidateProposal, ExtractionDiagnostics, TemporalWindow};
-use memory_domain::{EventTime, StructuredContent};
+use memory_domain::{
+    CompletedTurn, ConsolidationStatus, ConsolidationTrigger, Episode, EventTime,
+    StructuredContent, TurnOutcome, VerifiedToolResult,
+};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use uuid::Uuid;
@@ -91,6 +94,81 @@ pub struct ExtractionSnapshotCommand {
 #[derive(Debug, Clone, PartialEq)]
 pub struct ExtractionSnapshotView {
     pub extractor_version: String,
+    pub proposals: Option<Vec<ExtractCandidateProposal>>,
+    pub diagnostics: Option<ExtractionDiagnostics>,
+}
+
+#[derive(Debug, Clone)]
+pub struct AppendCompletedTurnCommand {
+    pub idempotency_key: String,
+    pub request_hash: String,
+    pub episode_id: Uuid,
+    pub turn_id: Uuid,
+    pub task_id: Uuid,
+    pub attempt_id: Uuid,
+    pub user_content: String,
+    pub assistant_content: String,
+    pub verified_tool_results: Vec<VerifiedToolResult>,
+    pub outcome: TurnOutcome,
+    pub completed_at: DateTime<Utc>,
+    pub timezone: String,
+    pub project_id: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct CompletedTurnReceiptView {
+    pub episode_id: Uuid,
+    pub turn_id: Uuid,
+    pub sequence_no: u64,
+    pub consolidation_id: Option<Uuid>,
+    pub consolidation_status: Option<ConsolidationStatus>,
+}
+
+#[derive(Debug, Clone)]
+pub struct RequestConsolidationCommand {
+    pub idempotency_key: String,
+    pub episode_id: Uuid,
+    pub trigger: ConsolidationTrigger,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct ConsolidationView {
+    pub consolidation_id: Uuid,
+    pub episode_id: Uuid,
+    pub from_turn_sequence: u64,
+    pub through_turn_sequence: u64,
+    pub trigger: ConsolidationTrigger,
+    pub status: ConsolidationStatus,
+    pub attempts: u32,
+    pub proposal_count: Option<usize>,
+    pub operation_ids: Vec<Uuid>,
+    pub last_error_code: Option<String>,
+    pub created_at: DateTime<Utc>,
+    pub completed_at: Option<DateTime<Utc>>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct EpisodeStatusView {
+    pub episode: Episode,
+    pub user_id: String,
+    pub project_id: Option<String>,
+    pub unconsolidated_turn_count: u64,
+    pub consolidations: Vec<ConsolidationView>,
+}
+
+#[derive(Debug, Clone)]
+pub struct ConsolidationWork {
+    pub consolidation_id: Uuid,
+    pub episode_id: Uuid,
+    pub user_id: String,
+    pub project_id: Option<String>,
+    pub from_turn_sequence: u64,
+    pub through_turn_sequence: u64,
+    pub trigger: ConsolidationTrigger,
+    pub attempts: u32,
+    pub worker_id: String,
+    pub turns: Vec<CompletedTurn>,
+    pub extractor_version: Option<String>,
     pub proposals: Option<Vec<ExtractCandidateProposal>>,
     pub diagnostics: Option<ExtractionDiagnostics>,
 }

@@ -21,8 +21,9 @@ Agent Runtime 本体。
 
 `MemoryHttpClient` 提供：
 
-- `submit_event`、`operation`、`compile_context_pack`、`consume_context_pack` 和
-  `forget` 的类型化 API；
+- `submit_event`、`append_completed_turn`、`request_episode_consolidation`、
+  `episode_status`、`operation`、`compile_context_pack`、`consume_context_pack` 和 `forget`
+  的类型化 API；
 - `acquire_context_pack` 组合操作，校验 Task/Attempt/Purpose、Authority snapshot、
   Policy/Compiler/Ranking version、projection generation、预算、有效期和 item 数量；
 - Consume 后再次核对 Manifest，并拒绝没有 provenance 或未标记为
@@ -66,6 +67,29 @@ let client = MemoryHttpClient::new(MemoryClientConfig::authenticated(
 6. Attempt 重试、身份或权限变化时重新获取 Pack；
 7. Forget、Correction 或撤权冲突时 fail closed，不回退到客户端缓存。
 
+## Completed Turn 与 Episode Consolidation V1
+
+Runtime 在可见最终回答产生后，可把本轮受控结果追加到稳定的 `episode_id`：
+
+```text
+用户消息 + 可见最终回答 + 已验证成功的工具结果 + Outcome
+→ POST /v1/memory/episodes/{episode_id}/turns
+→ 立即从该完整轮次提取 Candidate，供后续轮次及时召回
+→ 每 10 个尚未排队的 Completed Turn 自动建立一个不重叠巩固区间
+→ 后台 Consolidation Worker 固化 0～4 个 Proposal 快照
+→ 复用 Candidate → Policy/Scope → Version/Head/Ledger → Outbox
+```
+
+隐藏推理、失败工具日志和未经验证的 Observation 不属于 Completed Turn。Worker 失败不会
+阻塞回答；租约超时可重领，最多尝试 8 次。相同巩固区间首次产生的 Proposal 会持久化，
+重试不会接受第二组模型结果。Runtime 也可用 `manual` 或 `session_end` 触发未排队轮次，
+并通过 `/status` 查看覆盖位置和最近 Job。
+
+即时提取与十轮巩固是两条独立链路：前者替代旧的单条用户消息提取，保证新偏好和事实能
+尽快进入长期记忆；后者总结跨轮经历和重复模式。两者都复用相同的 Candidate 治理链。
+
+V1 只巩固一个 Episode 内的轮次，继续复用现有四类记忆；跨 Episode 经验学习不在本阶段。
+
 ## 最小正式验收
 
 在宣告 Agent Runtime 集成完成前，至少需要独立于 Demo Agent 的契约测试：
@@ -79,6 +103,8 @@ let client = MemoryHttpClient::new(MemoryClientConfig::authenticated(
 - 模型 Prompt 中记忆只能进入未信任数据区；
 - Memory Service 超时后的重试不产生第二个 canonical 操作；
 - Outcome/Usage 关联可从一次 Agent Attempt 追溯到具体 Pack 和 Memory Version。
+- Completed Turn 幂等重放、10 轮阈值、手动触发、Worker 崩溃重领、零 Candidate 和
+  Candidate 治理链均有离线 Fake 覆盖。
 
 ## 尚未完成
 

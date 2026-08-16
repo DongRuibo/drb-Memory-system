@@ -3,12 +3,19 @@
 //! This crate intentionally has no HTTP, database, model, or Mem0 dependency.
 
 mod candidate;
+mod episode;
 mod event_time;
 mod memory;
 mod scope;
 mod structured_content;
 
 pub use candidate::{CandidateDecision, CandidateState, DecisionActor, DecisionOutcome};
+pub use episode::{
+    CompletedTurn, ConsolidationStatus, ConsolidationTrigger, EPISODE_CONSOLIDATION_TURN_THRESHOLD,
+    Episode, EpisodeError, EpisodeState, MAX_COMPLETED_TURN_ASSISTANT_BYTES,
+    MAX_COMPLETED_TURN_USER_BYTES, MAX_VERIFIED_TOOL_RESULT_BYTES, MAX_VERIFIED_TOOL_RESULTS,
+    TurnOutcome, VerifiedToolResult,
+};
 pub use event_time::{EventTime, EventTimeError, EventTimePrecision};
 pub use memory::{
     CANONICAL_MEMORY_TYPE_NAMES, HeadState, MEMORY_TAXONOMY_VERSION, MemoryFamily, MemoryHead,

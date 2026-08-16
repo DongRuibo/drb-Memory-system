@@ -68,6 +68,8 @@ docker compose -f deploy/local/postgres.compose.yaml exec -T postgres \
 
 `0026_extraction_diagnostics.sql` 将不含正文的候选数量、过滤原因和受限覆盖统计与提取快照一起固化，使幂等重放和 Demo Web 都能解释同一轮提取结果。
 
+`0031_episode_consolidation.sql` 增加 Tenant 隔离的 Episode、Completed Turn 与异步 Consolidation Job；稳定轮次序号、覆盖区间、幂等键和 Worker 租约保证每段已完成对话最多排队一次，并保存可重放的 0～4 个 Candidate Proposal 快照。
+
 `0027_context_pack_runtime_and_event_snapshot.sql` 将服务器生成的参考时间与时区固化到
 Context Pack，并把每条记忆的 Event Time 一起快照，保证时间检索、最终提示词和证据
 面板使用同一份不可变时间证据。

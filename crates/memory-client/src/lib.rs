@@ -5,7 +5,10 @@ use std::time::Duration;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, MemoryType, StructuredContent};
-pub use memory_domain::{EventTime, EventTimePrecision};
+pub use memory_domain::{
+    ConsolidationStatus, ConsolidationTrigger, Episode, EventTime, EventTimePrecision, TurnOutcome,
+    VerifiedToolResult,
+};
 use reqwest::header::{AUTHORIZATION, HeaderMap, HeaderValue};
 use reqwest::redirect::Policy;
 use reqwest::{Response, StatusCode, Url};
@@ -155,6 +158,29 @@ pub struct MemoryExtractionCommand {
 }
 
 #[derive(Debug, Clone)]
+pub struct CompletedTurnCommand {
+    pub idempotency_key: String,
+    pub episode_id: Uuid,
+    pub turn_id: Uuid,
+    pub task_id: Uuid,
+    pub attempt_id: Uuid,
+    pub user_content: String,
+    pub assistant_content: String,
+    pub verified_tool_results: Vec<VerifiedToolResult>,
+    pub outcome: TurnOutcome,
+    pub completed_at: DateTime<Utc>,
+    pub timezone: String,
+    pub project_scope_selector: Option<ScopeSelector>,
+}
+
+#[derive(Debug, Clone)]
+pub struct EpisodeConsolidationCommand {
+    pub idempotency_key: String,
+    pub episode_id: Uuid,
+    pub trigger: ConsolidationTrigger,
+}
+
+#[derive(Debug, Clone)]
 pub struct ContextPackCommand {
     pub task_context: TaskContext,
     pub query: String,
@@ -278,6 +304,41 @@ pub struct MemoryExtractionResponse {
     pub candidate_count: usize,
     pub diagnostics: ExtractionDiagnostics,
     pub candidates: Vec<ExtractedMemoryResult>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct CompletedTurnReceiptResponse {
+    pub episode_id: Uuid,
+    pub turn_id: Uuid,
+    pub sequence_no: u64,
+    pub consolidation_id: Option<Uuid>,
+    pub consolidation_status: Option<ConsolidationStatus>,
+    pub per_turn_extraction: MemoryExtractionResponse,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct ConsolidationResponse {
+    pub consolidation_id: Uuid,
+    pub episode_id: Uuid,
+    pub from_turn_sequence: u64,
+    pub through_turn_sequence: u64,
+    pub trigger: ConsolidationTrigger,
+    pub status: ConsolidationStatus,
+    pub attempts: u32,
+    pub proposal_count: Option<usize>,
+    pub operation_ids: Vec<Uuid>,
+    pub last_error_code: Option<String>,
+    pub created_at: DateTime<Utc>,
+    pub completed_at: Option<DateTime<Utc>>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct EpisodeStatusResponse {
+    pub episode: Episode,
+    pub user_id: String,
+    pub project_id: Option<String>,
+    pub unconsolidated_turn_count: u64,
+    pub consolidations: Vec<ConsolidationResponse>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -463,6 +524,33 @@ pub trait MemoryPort: Send + Sync {
         let _ = command;
         Err(MemoryClientError::Contract(
             "this MemoryPort does not implement automatic extraction".into(),
+        ))
+    }
+    async fn append_completed_turn(
+        &self,
+        command: &CompletedTurnCommand,
+    ) -> Result<CompletedTurnReceiptResponse, MemoryClientError> {
+        let _ = command;
+        Err(MemoryClientError::Contract(
+            "this MemoryPort does not implement completed turns".into(),
+        ))
+    }
+    async fn request_episode_consolidation(
+        &self,
+        command: &EpisodeConsolidationCommand,
+    ) -> Result<ConsolidationResponse, MemoryClientError> {
+        let _ = command;
+        Err(MemoryClientError::Contract(
+            "this MemoryPort does not implement episode consolidation".into(),
+        ))
+    }
+    async fn episode_status(
+        &self,
+        episode_id: Uuid,
+    ) -> Result<EpisodeStatusResponse, MemoryClientError> {
+        let _ = episode_id;
+        Err(MemoryClientError::Contract(
+            "this MemoryPort does not implement episode status".into(),
         ))
     }
     async fn operation(&self, operation_id: Uuid) -> Result<OperationResponse, MemoryClientError>;
@@ -697,6 +785,25 @@ struct MemoryExtractionRequest<'a> {
 }
 
 #[derive(Serialize)]
+struct CompletedTurnRequest<'a> {
+    turn_id: Uuid,
+    task_id: Uuid,
+    attempt_id: Uuid,
+    user_content: &'a str,
+    assistant_content: &'a str,
+    verified_tool_results: &'a [VerifiedToolResult],
+    outcome: TurnOutcome,
+    completed_at: DateTime<Utc>,
+    timezone: &'a str,
+    project_scope_selector: &'a Option<ScopeSelector>,
+}
+
+#[derive(Serialize)]
+struct EpisodeConsolidationRequest {
+    trigger: ConsolidationTrigger,
+}
+
+#[derive(Serialize)]
 struct ContextPackRequest<'a> {
     task_context: &'a TaskContext,
     query: &'a str,
@@ -834,6 +941,70 @@ impl MemoryPort for MemoryHttpClient {
             .await?;
         validate_extraction_response(&response, command.max_candidates, &command.timezone)?;
         Ok(response)
+    }
+
+    async fn append_completed_turn(
+        &self,
+        command: &CompletedTurnCommand,
+    ) -> Result<CompletedTurnReceiptResponse, MemoryClientError> {
+        if command.user_content.trim().is_empty()
+            || command.assistant_content.trim().is_empty()
+            || command.timezone.is_empty()
+            || command.timezone.len() > 64
+            || command.timezone.trim() != command.timezone
+            || command.timezone.parse::<chrono_tz::Tz>().is_err()
+        {
+            return Err(MemoryClientError::Contract(
+                "completed turn requires visible user and assistant text and a valid IANA timezone"
+                    .into(),
+            ));
+        }
+        self.post_json(
+            &format!("/v1/memory/episodes/{}/turns", command.episode_id),
+            Some(&command.idempotency_key),
+            &CompletedTurnRequest {
+                turn_id: command.turn_id,
+                task_id: command.task_id,
+                attempt_id: command.attempt_id,
+                user_content: &command.user_content,
+                assistant_content: &command.assistant_content,
+                verified_tool_results: &command.verified_tool_results,
+                outcome: command.outcome,
+                completed_at: command.completed_at,
+                timezone: &command.timezone,
+                project_scope_selector: &command.project_scope_selector,
+            },
+            true,
+        )
+        .await
+    }
+
+    async fn request_episode_consolidation(
+        &self,
+        command: &EpisodeConsolidationCommand,
+    ) -> Result<ConsolidationResponse, MemoryClientError> {
+        if command.trigger == ConsolidationTrigger::Threshold {
+            return Err(MemoryClientError::Contract(
+                "threshold consolidation is scheduled by Memory Service".into(),
+            ));
+        }
+        self.post_json(
+            &format!("/v1/memory/episodes/{}/consolidations", command.episode_id),
+            Some(&command.idempotency_key),
+            &EpisodeConsolidationRequest {
+                trigger: command.trigger,
+            },
+            true,
+        )
+        .await
+    }
+
+    async fn episode_status(
+        &self,
+        episode_id: Uuid,
+    ) -> Result<EpisodeStatusResponse, MemoryClientError> {
+        self.get_json(&format!("/v1/memory/episodes/{episode_id}/status"))
+            .await
     }
 
     async fn operation(&self, operation_id: Uuid) -> Result<OperationResponse, MemoryClientError> {

@@ -23,7 +23,7 @@ use tracing_subscriber::EnvFilter;
 use crate::api::{AppState, router};
 use crate::auth::Authenticator;
 use crate::embedding::EmbeddingProbe;
-use crate::worker::ProjectionWorker;
+use crate::worker::{ConsolidationWorker, ProjectionWorker};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -116,18 +116,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         authenticator: authenticator.clone(),
     });
 
-    let worker_handles = worker_authorities
-        .into_iter()
-        .map(|worker_authority| {
-            let worker = ProjectionWorker::new(
+    let mut worker_handles = Vec::new();
+    for worker_authority in worker_authorities {
+        let projection_worker = ProjectionWorker::new(
+            repository.clone(),
+            Arc::clone(&index),
+            worker_authority.clone(),
+            projection_model_manifest.manifest_hash.clone(),
+        );
+        worker_handles.push(tokio::spawn(projection_worker.run()));
+        if let Some(extractor) = extractor.as_ref() {
+            let consolidation_worker = ConsolidationWorker::new(
                 repository.clone(),
-                Arc::clone(&index),
+                Arc::clone(extractor),
                 worker_authority,
-                projection_model_manifest.manifest_hash.clone(),
             );
-            tokio::spawn(worker.run())
-        })
-        .collect::<Vec<_>>();
+            worker_handles.push(tokio::spawn(consolidation_worker.run()));
+        }
+    }
     let listener = TcpListener::bind(bind).await?;
     info!(
         %bind,
