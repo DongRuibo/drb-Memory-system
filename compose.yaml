@@ -39,15 +39,19 @@ x-memory-service-environment: &memory-service-environment
   DATABASE_URL: postgres://memory:${MEMORY_POSTGRES_PASSWORD:?run ./scripts/bootstrap-backend-env.sh}@postgres:5432/memory
   MEM0_BASE_URL: http://mem0:8000
   MEM0_API_KEY: ${MEM0_API_KEY:?run ./scripts/bootstrap-backend-env.sh}
-  MEMORY_AUTH_MODE: jwt_hs256
-  MEMORY_JWT_HS256_SECRET: ${MEMORY_JWT_HS256_SECRET:?run ./scripts/bootstrap-backend-env.sh}
+  MEMORY_AUTH_MODE: ${MEMORY_AUTH_MODE:-jwt_hs256}
+  MEMORY_DEFAULT_TENANT_ID: ${MEMORY_DEFAULT_TENANT_ID:-lazytt-default}
+  MEMORY_JWT_HS256_SECRET: ${MEMORY_JWT_HS256_SECRET:-}
   MEMORY_JWT_ISSUER: ${MEMORY_JWT_ISSUER:-lazytt-demo-web-api}
   MEMORY_JWT_AUDIENCE: ${MEMORY_JWT_AUDIENCE:-lazytt-memory-service}
   MEMORY_TENANT_IDS: ${MEMORY_TENANT_IDS:-demo-tenant}
   DEMO_TENANT_ID: ${DEMO_TENANT_ID:-demo-tenant}
   DEMO_USER_ID: ${DEMO_USER_ID:-semantic-demo}
   DEMO_PROJECT_ID: ${DEMO_PROJECT_ID:-lazytt-memory-system-demo}
-  MEMORY_EXTRACT_MODE: ${MEMORY_EXTRACT_MODE:-kimi}
+  MEMORY_EXTRACT_MODE: ${MEMORY_EXTRACT_MODE:-openai_compatible}
+  MEMORY_EXTRACT_API_KEY: ${MEMORY_EXTRACT_API_KEY:-${OPENAI_API_KEY:-}}
+  MEMORY_EXTRACT_BASE_URL: ${MEMORY_EXTRACT_BASE_URL:-${OPENAI_BASE_URL:-${base_url:-}}}
+  MEMORY_EXTRACT_MODEL: ${MEMORY_EXTRACT_MODEL:-${OPENAI_MODEL:-${model_name:-}}}
   KIMI_EXTRACT_API_KEY: ${KIMI_EXTRACT_API_KEY:-${KIMI_API_KEY:-${apikey:-}}}
   KIMI_EXTRACT_BASE_URL: ${KIMI_EXTRACT_BASE_URL:-${KIMI_BASE_URL:-${base_url:-https://api.kimi.com/coding/v1}}}
   KIMI_EXTRACT_MODEL: ${KIMI_EXTRACT_MODEL:-${KIMI_MODEL:-${model_name:-k3}}}

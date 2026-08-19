@@ -43,9 +43,11 @@ chmod 600 .env
 
 编辑 `.env`：
 
-- 使用 `MEMORY_EXTRACT_MODE=kimi` 时填写 `KIMI_API_KEY`；
+- 默认使用 `MEMORY_EXTRACT_MODE=openai_compatible`：填写 `OPENAI_API_KEY`、
+  `OPENAI_BASE_URL` 和 `OPENAI_MODEL`；也可使用同义的 `MEMORY_EXTRACT_*` 变量；
+- 兼容旧 Kimi 配置时使用 `MEMORY_EXTRACT_MODE=kimi` 并填写 `KIMI_API_KEY`；
 - 如果正式 Agent 自己提交显式 Memory Event、暂时不需要自动候选提取，可设置
-  `MEMORY_EXTRACT_MODE=disabled`，此时不需要 Kimi Key；
+  `MEMORY_EXTRACT_MODE=disabled`，此时不需要提取模型 Key；
 - 使用 `cloud` 时填写 `MEMORY_EMBEDDING_API_KEY` 和
   `MEMORY_DEDICATED_RERANK_API_KEY`；两者可以使用同一个硅基流动 Key；
 - 不要把 `.env` 提交或发给别人；每台机器都应使用自己的 Key 和本地生成的 Secret。

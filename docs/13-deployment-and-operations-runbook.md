@@ -17,9 +17,12 @@ secret/key service     Provider credentials and encryption keys
 
 ## 配置基线
 
-- 非本地演示必须设置 `MEMORY_AUTH_MODE=jwt_hs256`、至少 32-byte 的
+- 公网、跨信任域和生产环境必须设置 `MEMORY_AUTH_MODE=jwt_hs256`、至少 32-byte 的
   `MEMORY_JWT_HS256_SECRET`、`MEMORY_JWT_ISSUER`、`MEMORY_JWT_AUDIENCE` 和逗号
   分隔的 `MEMORY_TENANT_IDS`；Secret 必须来自 Secret Manager；
+- 第一阶段的受信任内网联调可以设置 `MEMORY_AUTH_MODE=trusted_user_id` 和固定的
+  `MEMORY_DEFAULT_TENANT_ID`，由上游 Identity/OS Kernel 在 `X-User-Id` 中传入已
+  验证的用户 ID；该模式不验 Token，只允许读取、提取和结果回执，禁止暴露到公网；
 - JWT `tenant_id` 必须位于 allowlist；服务为每个 allowlisted Tenant 启动独立
   Projection/Expiry Worker；
 - JWT 可选 `tenant_scope=true`、`project_ids` 和 `agent_ids` 提供已签名的读取
@@ -70,8 +73,10 @@ profile 使用 `dedicated`；兼容的 Kimi 排序路径仍可显式选择：
 | `MEMORY_EMBEDDING_NORMALIZATION` | `l2` | Readiness 验证 norm |
 | `MEMORY_EMBEDDING_INSTRUCTION_VERSION` | `mem0-symmetric-document-v1` | 描述实际编码协议 |
 | `MEMORY_EMBEDDING_SEMANTIC` | `true` | POC 固定向量不得声明为 true |
-| `MEMORY_EXTRACT_MODE` | `disabled` | `disabled` 或 `kimi` |
-| `KIMI_EXTRACT_API_KEY` | 无 | 优先专用 Key；本地可回退读取安全 `.env` |
+| `MEMORY_EXTRACT_MODE` | `disabled` | `disabled`、`openai_compatible` 或兼容模式 `kimi` |
+| `MEMORY_EXTRACT_API_KEY` | 无 | 通用模式凭据；可回退 `OPENAI_API_KEY` |
+| `MEMORY_EXTRACT_BASE_URL` | 无 | OpenAI-compatible API 根地址；可回退 `OPENAI_BASE_URL`，外部地址必须 HTTPS |
+| `MEMORY_EXTRACT_MODEL` | 无 | Provider 实际模型名；可回退 `OPENAI_MODEL` |
 | `DEMO_PROJECT_ID` | `lazytt-memory-system-demo` | 本地 Web 演示的已授权 Project Scope；Memory Service 与 Web API 必须一致 |
 
 完整参考值见 `deploy/models/semantic.env.example`。Extractor 调用发生在 Secret

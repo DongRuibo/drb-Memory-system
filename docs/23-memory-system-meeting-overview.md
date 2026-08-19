@@ -267,7 +267,8 @@ LazyTT 解决的是以下问题：
 
 | 第三方服务 | 当前用途 | 是否可替换 |
 | --- | --- | ---: |
-| Kimi Code `k3` | 自动提取候选、Demo Agent 回答 | 可以替换，但需重新验收协议和质量 |
+| OpenAI-compatible 提取模型 | 自动提取候选 | 可通过 Key、Base URL 和 Model 切换，但需重新验收质量 |
+| Kimi Code `k3` | Demo Agent 回答；也保留兼容提取模式 | 可以替换，但需重新验收协议和质量 |
 | 硅基流动 | Cloud Profile 的 Embedding/Reranker API | 可以切换到本地 CPU/CUDA/MPS |
 
 第三方模型不能直接修改正式记忆。它们只能提出候选或计算检索分数，最终是否接受、谁能

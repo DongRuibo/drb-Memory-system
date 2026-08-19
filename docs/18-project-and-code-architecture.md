@@ -35,7 +35,8 @@ flowchart LR
     WORKER["Projection Worker"]
     MEM0["Mem0<br/>可重建向量检索投影"]
     QWEN["Qwen3 模型网关<br/>Embedding + Rerank"]
-    KIMI["Kimi Code k3<br/>候选提取 + 对话生成"]
+    EXTRACTOR["OpenAI-compatible 模型<br/>候选提取"]
+    KIMI["Kimi Code k3<br/>Demo 对话生成"]
 
     U --> WEB
     WEB -->|"HTTP + SSE"| API
@@ -43,7 +44,7 @@ flowchart LR
     API --> AGENT
     API -->|"memory-client"| MEMORY
     AGENT --> KIMI
-    MEMORY -->|"Kimi Extractor"| KIMI
+    MEMORY -->|"Extractor"| EXTRACTOR
     MEMORY --> COREDB
     MEMORY -->|"候选检索"| MEM0
     MEMORY -->|"独立 Rerank / 探针"| QWEN
@@ -104,7 +105,8 @@ Mem0 是 `RetrievalIndex` 的一个实现，只保存已接受当前版本的可
 
 | 模型 | 当前用途 | 是否能直接修改正式记忆 |
 |---|---|---:|
-| Kimi Code `k3` | 对话回答、自然消息中的 Memory Candidate 提取 | 否 |
+| OpenAI-compatible Chat Completions 模型 | 自然消息中的 Memory Candidate 提取 | 否 |
+| Kimi Code `k3` | Demo Agent 对话回答；也可作为兼容提取模式 | 否 |
 | `Qwen/Qwen3-Embedding-0.6B` | 1024 维、L2 归一化的语义向量 | 否 |
 | `Qwen/Qwen3-Reranker-0.6B` | 独立相关性重排 | 否 |
 | Transparent Reranker | 模型不可用时的确定性词法/意图降级 | 否 |
@@ -408,7 +410,7 @@ crates/
 ├── provider-adapters/mem0-adapter/src/lib.rs
 │                              # RetrievalIndex -> Mem0 REST，infer=false 与 bounded response
 ├── extractors/kimi-extractor/src/lib.rs
-│                              # Kimi k3 候选提取、类型约束、规范化和过滤
+│                              # OpenAI-compatible/Kimi 传输、类型约束、规范化和过滤
 └── rerankers/
     ├── http-reranker/src/lib.rs # Qwen 独立 Rerank HTTP Adapter
     └── kimi-reranker/src/lib.rs # Kimi 可选 Rerank Adapter
@@ -543,7 +545,8 @@ docs/adr/                      # 架构决策记录
 | Mem0 | `http://127.0.0.1:18888` | 向量检索投影，避开代理常用 8888 |
 | PostgreSQL | `127.0.0.1:55432` | 后端只拥有 `memory_core`、`memory_search`；Demo 数据库独立 |
 | SiliconFlow | `https://api.siliconflow.cn` | `cloud` profile 的 Embedding + Rerank |
-| Kimi Code | `https://api.kimi.com/coding/v1` | `k3` 对话与提取 |
+| OpenAI-compatible Provider | 由 `MEMORY_EXTRACT_BASE_URL` 配置 | 自动候选提取，外部地址必须 HTTPS |
+| Kimi Code | `https://api.kimi.com/coding/v1` | Demo 对话，以及可选兼容提取模式 |
 
 后端 `compose.yaml` 支持 `cloud`、`cpu`、`cuda`、`host-mps`，所有宿主机端口只绑定
 loopback。完整命令见 [后端 Docker 本地部署](./22-backend-docker-deployment.md)。正式部署

@@ -12,7 +12,7 @@ fi
 
 service_info="$(curl --fail --silent --show-error "${memory_base_url}/")"
 if [ "$(jq -r '.extractor // "disabled"' <<<"$service_info")" = "disabled" ]; then
-  printf 'Memory Service automatic extraction is disabled; start it with MEMORY_EXTRACT_MODE=kimi.\n' >&2
+  printf 'Memory Service automatic extraction is disabled; start it with MEMORY_EXTRACT_MODE=openai_compatible or kimi.\n' >&2
   exit 1
 fi
 if [ "$(jq -r '.projection_model_manifest.semantic_embedding' <<<"$service_info")" != "true" ]; then

@@ -9,7 +9,9 @@ use std::sync::Arc;
 use std::time::Duration;
 
 use http_reranker::{HttpReranker, HttpRerankerConfig};
-use kimi_extractor::{KimiExtractor, KimiExtractorConfig};
+use kimi_extractor::{
+    KimiExtractor, KimiExtractorConfig, OpenAiCompatibleExtractor, OpenAiCompatibleExtractorConfig,
+};
 use kimi_reranker::{KimiReranker, KimiRerankerConfig};
 use mem0_adapter::{Mem0Adapter, Mem0Config};
 use memory_application::{MemoryExtractor, MemoryReranker, RetrievalIndex, TransparentReranker};
@@ -86,7 +88,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         "kimi" => Some(Arc::new(KimiExtractor::new(
             KimiExtractorConfig::from_env_or_dotenv()?,
         )?)),
-        _ => return Err("MEMORY_EXTRACT_MODE must be disabled or kimi".into()),
+        "openai_compatible" => Some(Arc::new(OpenAiCompatibleExtractor::new_openai_compatible(
+            OpenAiCompatibleExtractorConfig::from_env_or_dotenv()?,
+        )?)),
+        _ => {
+            return Err("MEMORY_EXTRACT_MODE must be disabled, kimi, or openai_compatible".into());
+        }
     };
     let worker_authorities = authenticator
         .tenant_ids()

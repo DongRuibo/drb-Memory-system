@@ -104,7 +104,7 @@ Tombstone。正式部署前还必须完成供应商数据保留/训练/地域条
 
 ## 自动 Extractor
 
-`MEMORY_EXTRACT_MODE=kimi` 是另一项显式外发开关，只接受具有 `memory:extract`
+`MEMORY_EXTRACT_MODE=openai_compatible`（或兼容模式 `kimi`）是另一项显式外发开关，只接受具有 `memory:extract`
 permission 的 `conversation_message`。服务在模型调用前拒绝 Secret，调用后再次检查
 每个 Proposal；只允许有限类型、规范化 semantic key、至少 0.80 的 derived
 confidence 和最多 8 个候选。
@@ -112,7 +112,7 @@ confidence 和最多 8 个候选。
 模型输出不会直接进入索引。首个完整候选集合先以 request hash 和
 Idempotency-Key 固化到 Tenant 隔离的 `extraction_operations`，然后逐个进入正式
 Policy/Review/Ledger 链。同一 Key 不能在重试时接受另一组模型输出。自动提取外发
-真实用户对话前仍须完成 Kimi 的数据保留、训练、地域和删除条款评审。
+真实用户对话前仍须完成所选 Provider 的数据保留、训练、地域和删除条款评审。
 
 ## Forget、Erasure 与导出
 

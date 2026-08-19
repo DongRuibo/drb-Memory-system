@@ -41,6 +41,8 @@
 23. [后端 Docker 本地部署](./22-backend-docker-deployment.md)
 24. [记忆系统会议介绍](./23-memory-system-meeting-overview.md)
 25. [如何理解当前系统架构](./24-how-to-understand-current-architecture.md)
+26. [Identity 与 Agent Runtime 接入说明（P0）](./26-identity-runtime-integration.md)
+27. [外部 Agent 接入指南](./27-external-agent-integration-guide.md)
 
 演示应用自身的 HTTP 契约见 [Demo Web OpenAPI](./api/demo-web-openapi.yaml)。
 

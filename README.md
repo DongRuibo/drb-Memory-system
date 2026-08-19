@@ -20,7 +20,7 @@ NeedsReview/Contested/Review 链也已完成。Inspect/History、快照一致的
 Tenant/User/Project/Agent typed-scope 读取权限交集。Project Erasure 和权限移除
 拒绝已通过 PostgreSQL 集成测试。检索已升级为 Mem0 + PostgreSQL 本地候选的
 RRF 融合。最新源码已经加入固定 manifest 的真实 Qwen3 Embedding、独立 Qwen3
-Reranker，以及 Kimi `k3` 自动候选提取；抽取结果先固化为 Tenant 隔离的幂等快照，
+Reranker，以及可配置的 OpenAI-compatible 自动候选提取（保留 Kimi `k3` 兼容模式）；抽取结果先固化为 Tenant 隔离的幂等快照，
 再进入现有 Policy、去重、冲突/Review、Ledger 和 Outbox 链。固定合成评测集和
 Forget 零注入断言已经落地。真实模型权重、最新 Migration、新 collection 重建和
 自动记忆完整 HTTP 演练已经在本机通过。外部 membership authority 与撤权事件、正式
@@ -118,7 +118,7 @@ JWT。对话、流式事件、Memory Version 和 Outcome Receipt 均可检查。
 ```bash
 cp .env.example .env
 chmod 600 .env
-# 编辑 .env：填写 Kimi Key，或把 MEMORY_EXTRACT_MODE 改为 disabled
+# 编辑 .env：填写提取 Provider 的 Key、URL、模型名，或把 MEMORY_EXTRACT_MODE 改为 disabled
 # cloud profile 还要填写 SiliconFlow Key
 ./scripts/backend-stack.sh cloud up
 curl http://127.0.0.1:8080/health/ready

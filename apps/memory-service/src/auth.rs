@@ -25,6 +25,7 @@ pub const MEMORY_EXTRACT: &str = "memory:extract";
 const MAX_TOKEN_BYTES: usize = 8 * 1024;
 const MAX_TOKEN_LIFETIME_SECONDS: i64 = 60 * 60;
 const CLOCK_SKEW_SECONDS: i64 = 30;
+pub const TRUSTED_USER_ID_HEADER: &str = "x-user-id";
 
 type HmacSha256 = Hmac<Sha256>;
 
@@ -37,6 +38,9 @@ pub struct Authenticator {
 enum AuthenticationMode {
     Demo {
         authority: DemoAuthority,
+    },
+    TrustedUserId {
+        tenant_id: String,
     },
     JwtHs256 {
         secret: Vec<u8>,
@@ -66,6 +70,8 @@ pub enum AuthenticationError {
     Missing,
     #[error("authentication token is invalid")]
     Invalid,
+    #[error("X-User-Id must contain 1 to 256 visible characters")]
+    InvalidUserId,
 }
 
 #[derive(Debug, Deserialize)]
@@ -116,6 +122,10 @@ impl Authenticator {
         let mode = env::var("MEMORY_AUTH_MODE").unwrap_or_else(|_| "demo".into());
         match mode.as_str() {
             "demo" => Ok(Self::demo(demo_authority)),
+            "trusted_user_id" => {
+                let tenant_id = required_env("MEMORY_DEFAULT_TENANT_ID")?;
+                Self::trusted_user_id(tenant_id)
+            }
             "jwt_hs256" => {
                 let secret = required_env("MEMORY_JWT_HS256_SECRET")?;
                 let issuer = required_env("MEMORY_JWT_ISSUER")?;
@@ -124,7 +134,7 @@ impl Authenticator {
                 Self::jwt_hs256(secret.into_bytes(), issuer, audience, tenant_ids)
             }
             _ => Err(AuthenticationError::Configuration(
-                "MEMORY_AUTH_MODE must be demo or jwt_hs256".into(),
+                "MEMORY_AUTH_MODE must be demo, trusted_user_id, or jwt_hs256".into(),
             )),
         }
     }
@@ -166,6 +176,21 @@ impl Authenticator {
         })
     }
 
+    pub fn trusted_user_id(tenant_id: String) -> Result<Self, AuthenticationError> {
+        validate_identifier("MEMORY_DEFAULT_TENANT_ID", &tenant_id)?;
+        if tenant_id.trim() != tenant_id
+            || tenant_id.len() > 256
+            || tenant_id.chars().any(char::is_control)
+        {
+            return Err(AuthenticationError::Configuration(
+                "MEMORY_DEFAULT_TENANT_ID must contain 1 to 256 visible characters".into(),
+            ));
+        }
+        Ok(Self {
+            mode: AuthenticationMode::TrustedUserId { tenant_id },
+        })
+    }
+
     pub fn is_demo(&self) -> bool {
         matches!(self.mode, AuthenticationMode::Demo { .. })
     }
@@ -173,6 +198,7 @@ impl Authenticator {
     pub fn mode_name(&self) -> &'static str {
         match self.mode {
             AuthenticationMode::Demo { .. } => "demo",
+            AuthenticationMode::TrustedUserId { .. } => "trusted_user_id",
             AuthenticationMode::JwtHs256 { .. } => "jwt_hs256",
         }
     }
@@ -180,6 +206,7 @@ impl Authenticator {
     pub fn tenant_ids(&self) -> Vec<String> {
         match &self.mode {
             AuthenticationMode::Demo { authority } => vec![authority.tenant_id.clone()],
+            AuthenticationMode::TrustedUserId { tenant_id } => vec![tenant_id.clone()],
             AuthenticationMode::JwtHs256 { tenant_ids, .. } => tenant_ids.iter().cloned().collect(),
         }
     }
@@ -193,6 +220,9 @@ impl Authenticator {
                 authority: authority.clone(),
                 permissions: BTreeSet::from(["memory:*".into()]),
             }),
+            AuthenticationMode::TrustedUserId { tenant_id } => {
+                authenticate_trusted_user_id(headers, tenant_id)
+            }
             AuthenticationMode::JwtHs256 {
                 secret,
                 issuer,
@@ -208,6 +238,32 @@ impl Authenticator {
             ),
         }
     }
+}
+
+fn authenticate_trusted_user_id(
+    headers: &HeaderMap,
+    tenant_id: &str,
+) -> Result<AuthenticatedPrincipal, AuthenticationError> {
+    let mut values = headers.get_all(TRUSTED_USER_ID_HEADER).iter();
+    let user_id = values
+        .next()
+        .ok_or(AuthenticationError::InvalidUserId)?
+        .to_str()
+        .map_err(|_| AuthenticationError::InvalidUserId)?;
+    if values.next().is_some()
+        || user_id.trim() != user_id
+        || validate_claim_identifier(user_id).is_err()
+    {
+        return Err(AuthenticationError::InvalidUserId);
+    }
+    Ok(AuthenticatedPrincipal {
+        authority: DemoAuthority::user(tenant_id, user_id),
+        permissions: BTreeSet::from([
+            MEMORY_READ.into(),
+            MEMORY_EXTRACT.into(),
+            MEMORY_OUTCOME.into(),
+        ]),
+    })
 }
 
 fn authenticate_hs256(
@@ -431,6 +487,58 @@ mod tests {
         assert!(principal.authority.agent_ids.contains("agent-3"));
         assert!(principal.has_permission(MEMORY_READ));
         assert!(!principal.has_permission(MEMORY_ERASE));
+    }
+
+    #[test]
+    fn trusted_user_id_derives_user_scoped_least_privilege_principal() {
+        let authenticator = Authenticator::trusted_user_id("lazytt-default".into()).unwrap();
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            TRUSTED_USER_ID_HEADER,
+            HeaderValue::from_static("identity-user-42"),
+        );
+
+        let principal = authenticator.authenticate(&headers).unwrap();
+
+        assert_eq!(principal.authority.tenant_id, "lazytt-default");
+        assert_eq!(principal.authority.user_id, "identity-user-42");
+        assert!(!principal.authority.tenant_scope);
+        assert!(principal.has_permission(MEMORY_READ));
+        assert!(principal.has_permission(MEMORY_EXTRACT));
+        assert!(principal.has_permission(MEMORY_OUTCOME));
+        assert!(!principal.has_permission(MEMORY_WRITE));
+        assert!(!principal.has_permission(MEMORY_ADMIN));
+        assert!(!principal.has_permission(MEMORY_ERASE));
+    }
+
+    #[test]
+    fn trusted_user_id_rejects_missing_duplicate_or_noncanonical_header() {
+        let authenticator = Authenticator::trusted_user_id("lazytt-default".into()).unwrap();
+        assert!(matches!(
+            authenticator.authenticate(&HeaderMap::new()),
+            Err(AuthenticationError::InvalidUserId)
+        ));
+
+        let mut duplicate = HeaderMap::new();
+        duplicate.append(TRUSTED_USER_ID_HEADER, HeaderValue::from_static("alice"));
+        duplicate.append(TRUSTED_USER_ID_HEADER, HeaderValue::from_static("bob"));
+        assert!(matches!(
+            authenticator.authenticate(&duplicate),
+            Err(AuthenticationError::InvalidUserId)
+        ));
+
+        let mut whitespace = HeaderMap::new();
+        whitespace.insert(TRUSTED_USER_ID_HEADER, HeaderValue::from_static(" alice "));
+        assert!(matches!(
+            authenticator.authenticate(&whitespace),
+            Err(AuthenticationError::InvalidUserId)
+        ));
+    }
+
+    #[test]
+    fn trusted_user_id_requires_canonical_default_tenant() {
+        assert!(Authenticator::trusted_user_id(" lazytt-default".into()).is_err());
+        assert!(Authenticator::trusted_user_id("".into()).is_err());
     }
 
     #[test]

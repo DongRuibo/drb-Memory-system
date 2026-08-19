@@ -39,14 +39,42 @@ case "$action" in
   up)
     ./scripts/bootstrap-backend-env.sh
     extract_mode="$(awk -F= '$1 == "MEMORY_EXTRACT_MODE" { print substr($0, index($0, "=") + 1); exit }' .env)"
-    if [ "${extract_mode:-kimi}" = "kimi" ]; then
-      if ! has_usable_secret KIMI_EXTRACT_API_KEY \
-        && ! has_usable_secret KIMI_API_KEY \
-        && ! has_usable_secret apikey; then
-        printf 'A non-placeholder Kimi API key is required when MEMORY_EXTRACT_MODE=kimi.\n' >&2
+    extract_mode="${extract_mode:-openai_compatible}"
+    case "$extract_mode" in
+      openai_compatible)
+        if ! has_usable_secret MEMORY_EXTRACT_API_KEY \
+          && ! has_usable_secret OPENAI_API_KEY \
+          && ! has_usable_secret apikey; then
+          printf 'A non-placeholder API key is required when MEMORY_EXTRACT_MODE=openai_compatible.\n' >&2
+          exit 1
+        fi
+        if ! has_nonempty_value MEMORY_EXTRACT_BASE_URL \
+          && ! has_nonempty_value OPENAI_BASE_URL \
+          && ! has_nonempty_value base_url; then
+          printf 'A provider base URL is required when MEMORY_EXTRACT_MODE=openai_compatible.\n' >&2
+          exit 1
+        fi
+        if ! has_nonempty_value MEMORY_EXTRACT_MODEL \
+          && ! has_nonempty_value OPENAI_MODEL \
+          && ! has_nonempty_value model_name; then
+          printf 'A provider model is required when MEMORY_EXTRACT_MODE=openai_compatible.\n' >&2
+          exit 1
+        fi
+        ;;
+      kimi)
+        if ! has_usable_secret KIMI_EXTRACT_API_KEY \
+          && ! has_usable_secret KIMI_API_KEY \
+          && ! has_usable_secret apikey; then
+          printf 'A non-placeholder Kimi API key is required when MEMORY_EXTRACT_MODE=kimi.\n' >&2
+          exit 1
+        fi
+        ;;
+      disabled) ;;
+      *)
+        printf 'MEMORY_EXTRACT_MODE must be disabled, kimi, or openai_compatible.\n' >&2
         exit 1
-      fi
-    fi
+        ;;
+    esac
     if [ "$profile" = "host-mps" ]; then
       curl --fail --silent --show-error http://127.0.0.1:18082/health >/dev/null || {
         printf 'host-mps requires ./scripts/retrieval-models.sh to be running on port 18082.\n' >&2

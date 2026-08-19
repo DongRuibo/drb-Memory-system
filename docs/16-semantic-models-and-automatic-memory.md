@@ -79,7 +79,7 @@ Search、透明降级和 Context Compiler 使用同一规则，避免前一层�
 1. 校验 `memory:extract` permission、Tenant/User scope、大小和 Secret；
 2. 用请求正文、来源、时间、作用域和 Principal 生成 request hash；
 3. 在 `memory_core.extraction_operations` 建立 Tenant 隔离的幂等操作；
-4. 服务端按当前已授权 Scope 决定允许提取的类型，Kimi 只返回最多 8 个严格 JSON
+4. 服务端按当前已授权 Scope 决定允许提取的类型，配置的 OpenAI-compatible 模型只返回最多 8 个严格 JSON
    Candidate Proposal；个人类型固定写入 User Scope，只有携带已认证 Project Scope 时才
    允许提出 Project Scope 的 `semantic_fact`；
 5. 对类型、规范化 semantic key、正文、置信度、重要性、重复 identity 和 Secret

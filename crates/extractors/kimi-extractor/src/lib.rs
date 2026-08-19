@@ -21,7 +21,8 @@ use uuid::Uuid;
 
 const OFFICIAL_BASE_URL: &str = "https://api.kimi.com/coding/v1";
 const MAX_RESPONSE_BYTES: usize = 256 * 1024;
-const EXTRACTOR_VERSION: &str = "kimi-k3-memory-extractor-v7";
+const KIMI_EXTRACTOR_VERSION: &str = "kimi-k3-memory-extractor-v7";
+const OPENAI_COMPATIBLE_EXTRACTOR_VERSION: &str = "openai-compatible-memory-extractor-v1";
 const SUPPORTED_MEMORY_TYPES: [&str; 4] = CANONICAL_MEMORY_TYPE_NAMES;
 const USER_COMPLETED_EVENT_POLICY: &str = concat!(
     "episodic_summary is a concise source-supported record of an experience or action the user explicitly says already happened. ",
@@ -87,12 +88,107 @@ impl KimiExtractorConfig {
     }
 }
 
+pub struct OpenAiCompatibleExtractorConfig {
+    pub base_url: String,
+    pub api_key: String,
+    pub model: String,
+    pub timeout: Duration,
+}
+
+impl OpenAiCompatibleExtractorConfig {
+    pub fn from_env_or_dotenv() -> Result<Self, ExtractorError> {
+        let local = LocalConfig::load()?;
+        let api_key = env::var("MEMORY_EXTRACT_API_KEY")
+            .ok()
+            .filter(|value| !value.trim().is_empty())
+            .or_else(|| {
+                env::var("OPENAI_API_KEY")
+                    .ok()
+                    .filter(|value| !value.trim().is_empty())
+            })
+            .or_else(|| {
+                local.value("MEMORY_EXTRACT_API_KEY", &["OPENAI_API_KEY", "apikey"])
+            })
+            .filter(|value| !value.trim().is_empty())
+            .ok_or_else(|| {
+                ExtractorError::Config(
+                    "MEMORY_EXTRACT_API_KEY or OPENAI_API_KEY is required for openai_compatible extraction"
+                        .into(),
+                )
+            })?;
+        let base_url = env::var("MEMORY_EXTRACT_BASE_URL")
+            .ok()
+            .filter(|value| !value.trim().is_empty())
+            .or_else(|| {
+                env::var("OPENAI_BASE_URL")
+                    .ok()
+                    .filter(|value| !value.trim().is_empty())
+            })
+            .or_else(|| {
+                local.value("MEMORY_EXTRACT_BASE_URL", &["OPENAI_BASE_URL", "base_url"])
+            })
+            .filter(|value| !value.trim().is_empty())
+            .ok_or_else(|| {
+                ExtractorError::Config(
+                    "MEMORY_EXTRACT_BASE_URL or OPENAI_BASE_URL is required for openai_compatible extraction"
+                        .into(),
+                )
+            })?;
+        let model = env::var("MEMORY_EXTRACT_MODEL")
+            .ok()
+            .filter(|value| !value.trim().is_empty())
+            .or_else(|| {
+                env::var("OPENAI_MODEL")
+                    .ok()
+                    .filter(|value| !value.trim().is_empty())
+            })
+            .or_else(|| {
+                local.value("MEMORY_EXTRACT_MODEL", &["OPENAI_MODEL", "model_name"])
+            })
+            .filter(|value| !value.trim().is_empty())
+            .ok_or_else(|| {
+                ExtractorError::Config(
+                    "MEMORY_EXTRACT_MODEL or OPENAI_MODEL is required for openai_compatible extraction"
+                        .into(),
+                )
+            })?;
+        let timeout_seconds = env::var("MEMORY_EXTRACT_TIMEOUT_SECONDS")
+            .ok()
+            .or_else(|| local.value("MEMORY_EXTRACT_TIMEOUT_SECONDS", &[]))
+            .unwrap_or_else(|| "90".into())
+            .parse::<u64>()
+            .map_err(|_| {
+                ExtractorError::Config("MEMORY_EXTRACT_TIMEOUT_SECONDS must be an integer".into())
+            })?;
+        if !(5..=300).contains(&timeout_seconds) {
+            return Err(ExtractorError::Config(
+                "MEMORY_EXTRACT_TIMEOUT_SECONDS must be between 5 and 300".into(),
+            ));
+        }
+        Ok(Self {
+            base_url,
+            api_key,
+            model,
+            timeout: Duration::from_secs(timeout_seconds),
+        })
+    }
+}
+
+enum RequestDialect {
+    Kimi { reasoning_effort: String },
+    OpenAiCompatible,
+}
+
 pub struct KimiExtractor {
     base_url: String,
     model: String,
-    reasoning_effort: String,
+    dialect: RequestDialect,
+    version: String,
+    provider_label: &'static str,
     client: reqwest::Client,
 }
+
+pub type OpenAiCompatibleExtractor = KimiExtractor;
 
 impl KimiExtractor {
     pub fn new(config: KimiExtractorConfig) -> Result<Self, ExtractorError> {
@@ -104,23 +200,46 @@ impl KimiExtractor {
                 "Kimi extractor requires model k3 and reasoning effort low, high, or max".into(),
             ));
         }
-        let mut authorization = HeaderValue::from_str(&format!("Bearer {}", config.api_key.trim()))
-            .map_err(|_| ExtractorError::Config("API key is not a valid header value".into()))?;
-        authorization.set_sensitive(true);
-        let mut headers = HeaderMap::new();
-        headers.insert(AUTHORIZATION, authorization);
-        let client = reqwest::Client::builder()
-            .default_headers(headers)
-            .redirect(Policy::none())
-            .timeout(config.timeout)
-            .user_agent(concat!("lazytt-kimi-extractor/", env!("CARGO_PKG_VERSION")))
-            .build()
-            .map_err(|error| ExtractorError::Config(error.to_string()))?;
         Ok(Self {
             base_url,
             model: config.model,
-            reasoning_effort: config.reasoning_effort,
-            client,
+            dialect: RequestDialect::Kimi {
+                reasoning_effort: config.reasoning_effort,
+            },
+            version: KIMI_EXTRACTOR_VERSION.into(),
+            provider_label: "Kimi",
+            client: build_client(
+                &config.api_key,
+                config.timeout,
+                concat!("lazytt-kimi-extractor/", env!("CARGO_PKG_VERSION")),
+            )?,
+        })
+    }
+
+    pub fn new_openai_compatible(
+        config: OpenAiCompatibleExtractorConfig,
+    ) -> Result<Self, ExtractorError> {
+        let base_url = normalize_openai_compatible_base_url(&config.base_url)?;
+        let model = config.model.trim();
+        if model.is_empty() || model.len() > 128 || model.chars().any(char::is_control) {
+            return Err(ExtractorError::Config(
+                "OpenAI-compatible model must contain 1 to 128 visible characters".into(),
+            ));
+        }
+        Ok(Self {
+            base_url,
+            model: model.into(),
+            dialect: RequestDialect::OpenAiCompatible,
+            version: format!("{OPENAI_COMPATIBLE_EXTRACTOR_VERSION}:{model}"),
+            provider_label: "OpenAI-compatible extractor",
+            client: build_client(
+                &config.api_key,
+                config.timeout,
+                concat!(
+                    "lazytt-openai-compatible-extractor/",
+                    env!("CARGO_PKG_VERSION")
+                ),
+            )?,
         })
     }
 
@@ -130,13 +249,28 @@ impl KimiExtractor {
 }
 
 #[derive(Serialize)]
-struct CompletionRequest<'a> {
+struct KimiCompletionRequest<'a> {
     model: &'a str,
     messages: [ChatMessage<'a>; 2],
     reasoning_effort: &'a str,
     max_completion_tokens: u32,
     prompt_cache_key: String,
     stream: bool,
+}
+
+#[derive(Serialize)]
+struct OpenAiCompatibleCompletionRequest<'a> {
+    model: &'a str,
+    messages: [ChatMessage<'a>; 2],
+    response_format: ResponseFormat,
+    max_tokens: u32,
+    stream: bool,
+}
+
+#[derive(Serialize)]
+struct ResponseFormat {
+    #[serde(rename = "type")]
+    kind: &'static str,
 }
 
 #[derive(Serialize)]
@@ -195,7 +329,7 @@ struct ModelCandidate {
 #[async_trait]
 impl MemoryExtractor for KimiExtractor {
     fn version(&self) -> &str {
-        EXTRACTOR_VERSION
+        &self.version
     }
 
     async fn extract(
@@ -238,32 +372,24 @@ impl MemoryExtractor for KimiExtractor {
             allowed = allowed,
             completed_event_policy = USER_COMPLETED_EVENT_POLICY,
         );
+        let request_body = completion_request_body(
+            &self.dialect,
+            &self.model,
+            &system_prompt,
+            &payload,
+            &Uuid::new_v4().to_string(),
+        )?;
         let response = self
             .client
             .post(self.endpoint())
-            .json(&CompletionRequest {
-                model: &self.model,
-                messages: [
-                    ChatMessage {
-                        role: "system",
-                        content: &system_prompt,
-                    },
-                    ChatMessage {
-                        role: "user",
-                        content: &payload,
-                    },
-                ],
-                reasoning_effort: &self.reasoning_effort,
-                max_completion_tokens: 2_048,
-                prompt_cache_key: Uuid::new_v4().to_string(),
-                stream: false,
-            })
+            .json(&request_body)
             .send()
             .await
             .map_err(|error| ExtractorError::Transport(error.to_string()))?;
         if !response.status().is_success() {
             return Err(ExtractorError::Transport(format!(
-                "Kimi returned HTTP {}",
+                "{} returned HTTP {}",
+                self.provider_label,
                 response.status().as_u16()
             )));
         }
@@ -304,6 +430,47 @@ impl MemoryExtractor for KimiExtractor {
         apply_controlled_coverage(&request, &mut output);
         Ok(output)
     }
+}
+
+fn completion_request_body(
+    dialect: &RequestDialect,
+    model: &str,
+    system_prompt: &str,
+    payload: &str,
+    prompt_cache_key: &str,
+) -> Result<Value, ExtractorError> {
+    let messages = [
+        ChatMessage {
+            role: "system",
+            content: system_prompt,
+        },
+        ChatMessage {
+            role: "user",
+            content: payload,
+        },
+    ];
+    match dialect {
+        RequestDialect::Kimi { reasoning_effort } => serde_json::to_value(KimiCompletionRequest {
+            model,
+            messages,
+            reasoning_effort,
+            max_completion_tokens: 2_048,
+            prompt_cache_key: prompt_cache_key.into(),
+            stream: false,
+        }),
+        RequestDialect::OpenAiCompatible => {
+            serde_json::to_value(OpenAiCompatibleCompletionRequest {
+                model,
+                messages,
+                response_format: ResponseFormat {
+                    kind: "json_object",
+                },
+                max_tokens: 2_048,
+                stream: false,
+            })
+        }
+    }
+    .map_err(|error| ExtractorError::Config(error.to_string()))
 }
 
 #[cfg(test)]
@@ -766,13 +933,55 @@ fn normalize_base_url(raw: &str) -> Result<String, ExtractorError> {
     Ok(raw.trim_end_matches('/').to_owned())
 }
 
+fn normalize_openai_compatible_base_url(raw: &str) -> Result<String, ExtractorError> {
+    let parsed = reqwest::Url::parse(raw)
+        .map_err(|error| ExtractorError::Config(format!("invalid base URL: {error}")))?;
+    let loopback = parsed
+        .host_str()
+        .is_some_and(|host| matches!(host, "127.0.0.1" | "localhost" | "::1"));
+    let secure = parsed.scheme() == "https";
+    let local_http = parsed.scheme() == "http" && loopback;
+    if (!secure && !local_http)
+        || !parsed.username().is_empty()
+        || parsed.password().is_some()
+        || parsed.query().is_some()
+        || parsed.fragment().is_some()
+    {
+        return Err(ExtractorError::Config(
+            "OpenAI-compatible base URL must use external HTTPS or loopback HTTP and must not contain credentials, query, or fragment"
+                .into(),
+        ));
+    }
+    Ok(raw.trim_end_matches('/').to_owned())
+}
+
+fn build_client(
+    api_key: &str,
+    timeout: Duration,
+    user_agent: &'static str,
+) -> Result<reqwest::Client, ExtractorError> {
+    let mut authorization = HeaderValue::from_str(&format!("Bearer {}", api_key.trim()))
+        .map_err(|_| ExtractorError::Config("API key is not a valid header value".into()))?;
+    authorization.set_sensitive(true);
+    let mut headers = HeaderMap::new();
+    headers.insert(AUTHORIZATION, authorization);
+    reqwest::Client::builder()
+        .default_headers(headers)
+        .redirect(Policy::none())
+        .timeout(timeout)
+        .user_agent(user_agent)
+        .build()
+        .map_err(|error| ExtractorError::Config(error.to_string()))
+}
+
 struct LocalConfig {
     values: HashMap<String, String>,
 }
 
 impl LocalConfig {
     fn load() -> Result<Self, ExtractorError> {
-        let path = env::var_os("KIMI_EXTRACT_ENV_FILE")
+        let path = env::var_os("MEMORY_EXTRACT_ENV_FILE")
+            .or_else(|| env::var_os("KIMI_EXTRACT_ENV_FILE"))
             .map(PathBuf::from)
             .unwrap_or_else(|| PathBuf::from(".env"));
         if !path.exists() {
@@ -874,6 +1083,64 @@ fn unquote(value: &str) -> Option<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn openai_compatible_urls_require_https_except_for_loopback() {
+        assert_eq!(
+            normalize_openai_compatible_base_url("https://api.deepseek.com/").unwrap(),
+            "https://api.deepseek.com"
+        );
+        assert_eq!(
+            normalize_openai_compatible_base_url("https://example.com/v1").unwrap(),
+            "https://example.com/v1"
+        );
+        assert!(normalize_openai_compatible_base_url("http://127.0.0.1:8000/v1").is_ok());
+        assert!(normalize_openai_compatible_base_url("http://example.com/v1").is_err());
+        assert!(normalize_openai_compatible_base_url("https://user@example.com/v1").is_err());
+        assert!(normalize_openai_compatible_base_url("https://example.com/v1?q=1").is_err());
+        assert!(normalize_openai_compatible_base_url("https://example.com/v1#fragment").is_err());
+    }
+
+    #[test]
+    fn openai_compatible_request_uses_portable_json_mode_fields() {
+        let body = completion_request_body(
+            &RequestDialect::OpenAiCompatible,
+            "deepseek-v4-flash",
+            "Return JSON.",
+            "{}",
+            "unused-cache-key",
+        )
+        .unwrap();
+
+        assert_eq!(body["model"], "deepseek-v4-flash");
+        assert_eq!(body["max_tokens"], 2_048);
+        assert_eq!(body["response_format"]["type"], "json_object");
+        assert_eq!(body["stream"], false);
+        assert!(body.get("reasoning_effort").is_none());
+        assert!(body.get("max_completion_tokens").is_none());
+        assert!(body.get("prompt_cache_key").is_none());
+    }
+
+    #[test]
+    fn kimi_request_keeps_kimi_specific_fields() {
+        let body = completion_request_body(
+            &RequestDialect::Kimi {
+                reasoning_effort: "low".into(),
+            },
+            "k3",
+            "Return JSON.",
+            "{}",
+            "cache-key",
+        )
+        .unwrap();
+
+        assert_eq!(body["model"], "k3");
+        assert_eq!(body["reasoning_effort"], "low");
+        assert_eq!(body["max_completion_tokens"], 2_048);
+        assert_eq!(body["prompt_cache_key"], "cache-key");
+        assert!(body.get("max_tokens").is_none());
+        assert!(body.get("response_format").is_none());
+    }
 
     #[test]
     fn prompt_policy_requires_all_user_completed_actions_without_an_importance_gate() {

@@ -85,7 +85,8 @@ flowchart LR
     COREDB[("Backend PostgreSQL<br/>权威记忆")]
     MEM0["Mem0<br/>向量搜索目录"]
     MODELS["Embedding / Reranker"]
-    KIMI["Kimi k3<br/>候选提取和回答"]
+    EXTRACTOR["OpenAI-compatible 模型<br/>候选提取"]
+    KIMI["Kimi k3<br/>Demo 回答"]
 
     U --> WEB
     WEB --> API
@@ -93,7 +94,7 @@ flowchart LR
     API --> CLIENT
     CLIENT --> MEMORY
     API --> KIMI
-    MEMORY --> KIMI
+    MEMORY --> EXTRACTOR
     MEMORY --> COREDB
     MEMORY --> MEM0
     MEM0 --> MODELS

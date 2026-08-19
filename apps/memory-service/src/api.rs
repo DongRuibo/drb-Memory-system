@@ -17,8 +17,8 @@ use memory_application::{
     reciprocal_rank_contribution, weighted_reciprocal_rank_fusion,
 };
 use memory_domain::{
-    ConsolidationTrigger, MEMORY_TAXONOMY_VERSION, MemoryType, MemoryTypeMapping,
-    StructuredContent, TurnOutcome, VerifiedToolResult,
+    CANONICAL_MEMORY_TYPE_NAMES, ConsolidationTrigger, MEMORY_TAXONOMY_VERSION, MemoryType,
+    MemoryTypeMapping, StructuredContent, TurnOutcome, VerifiedToolResult,
 };
 use memory_postgres::{
     AppendCompletedTurnCommand, AuthorizedMemory, CanonicalStatus, CompletedTurnReceiptView,
@@ -42,9 +42,9 @@ use uuid::Uuid;
 use memory_application::reciprocal_rank_fusion;
 
 use crate::auth::{
-    AuthenticatedPrincipal, Authenticator, MEMORY_ADMIN, MEMORY_CORRECT, MEMORY_ERASE,
-    MEMORY_EXPORT, MEMORY_EXTRACT, MEMORY_FORGET, MEMORY_OUTCOME, MEMORY_READ, MEMORY_REVIEW,
-    MEMORY_WRITE,
+    AuthenticatedPrincipal, AuthenticationError, Authenticator, MEMORY_ADMIN, MEMORY_CORRECT,
+    MEMORY_ERASE, MEMORY_EXPORT, MEMORY_EXTRACT, MEMORY_FORGET, MEMORY_OUTCOME, MEMORY_READ,
+    MEMORY_REVIEW, MEMORY_WRITE,
 };
 use crate::embedding::EmbeddingProbe;
 
@@ -74,11 +74,15 @@ impl FromRequestParts<Arc<AppState>> for RequestPrincipal {
             .authenticator
             .authenticate(&parts.headers)
             .map(Self)
-            .map_err(|_| {
-                ApiError::unauthorized(
+            .map_err(|error| match error {
+                AuthenticationError::InvalidUserId => ApiError::bad_request(
+                    "INVALID_USER_ID",
+                    "X-User-Id must contain 1 to 256 visible characters",
+                ),
+                _ => ApiError::unauthorized(
                     "AUTHENTICATION_REQUIRED",
-                    "a valid short-lived Memory API bearer token is required",
-                )
+                    "a valid Memory API identity is required",
+                ),
             })
     }
 }
@@ -100,6 +104,8 @@ pub fn router(state: Arc<AppState>) -> Router {
         .route("/", get(root))
         .route("/health/live", get(liveness))
         .route("/health/ready", get(readiness))
+        .route("/v1/runtime/memory/retrieve", post(runtime_retrieve_memory))
+        .route("/v1/runtime/memory/extract", post(runtime_extract_memory))
         .route("/v1/memory/events", post(submit_memory_event))
         .route("/v1/memory/extractions", post(extract_memory_candidates))
         .route(
@@ -189,6 +195,8 @@ async fn root(State(state): State<Arc<AppState>>) -> Json<serde_json::Value> {
         "service_version": env!("CARGO_PKG_VERSION"),
         "api_version": "v1",
         "capabilities": [
+            "memory.runtime_retrieve",
+            "memory.runtime_extract",
             "memory.write",
             "memory.extract",
             "memory.episode_consolidation",
@@ -624,21 +632,105 @@ struct CompletedTurnResponse {
     per_turn_extraction: MemoryExtractionResponse,
 }
 
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct RuntimeExtractRequest {
+    session_id: Uuid,
+    turn_id: Uuid,
+    user_content: String,
+    assistant_content: String,
+    #[serde(default)]
+    verified_tool_results: Vec<VerifiedToolResult>,
+    #[serde(default = "default_turn_outcome")]
+    outcome: TurnOutcome,
+    #[serde(default)]
+    completed_at: Option<DateTime<Utc>>,
+    #[serde(default = "default_timezone")]
+    timezone: String,
+}
+
+fn default_turn_outcome() -> TurnOutcome {
+    TurnOutcome::Succeeded
+}
+
+fn runtime_completed_turn_request(request: RuntimeExtractRequest) -> CompletedTurnRequest {
+    CompletedTurnRequest {
+        turn_id: request.turn_id,
+        task_id: request.turn_id,
+        attempt_id: request.turn_id,
+        user_content: request.user_content,
+        assistant_content: request.assistant_content,
+        verified_tool_results: request.verified_tool_results,
+        outcome: request.outcome,
+        completed_at: request.completed_at.unwrap_or_else(Utc::now),
+        timezone: request.timezone,
+        project_scope_selector: None,
+    }
+}
+
+#[derive(Debug, Serialize)]
+struct RuntimeExtractResponse {
+    user_id: String,
+    completed_turn: CompletedTurnResponse,
+}
+
+async fn runtime_extract_memory(
+    State(state): State<Arc<AppState>>,
+    principal: RequestPrincipal,
+    headers: HeaderMap,
+    Json(request): Json<RuntimeExtractRequest>,
+) -> Result<(StatusCode, Json<RuntimeExtractResponse>), ApiError> {
+    let authority = principal.require(MEMORY_EXTRACT)?;
+    let user_id = authority.user_id.clone();
+    let completed_turn = append_completed_turn_inner(
+        &state,
+        authority,
+        request.session_id,
+        idempotency_key(&headers)?,
+        runtime_completed_turn_request(request),
+    )
+    .await?;
+    Ok((
+        StatusCode::ACCEPTED,
+        Json(RuntimeExtractResponse {
+            user_id,
+            completed_turn,
+        }),
+    ))
+}
+
 async fn append_completed_turn(
     State(state): State<Arc<AppState>>,
     principal: RequestPrincipal,
     Path(episode_id): Path<Uuid>,
     headers: HeaderMap,
-    Json(mut request): Json<CompletedTurnRequest>,
+    Json(request): Json<CompletedTurnRequest>,
 ) -> Result<(StatusCode, Json<CompletedTurnResponse>), ApiError> {
     let authority = principal.require(MEMORY_EXTRACT)?;
-    let idempotency_key = idempotency_key(&headers)?;
-    let extraction_idempotency_key = format!("completed-turn-extract-{}", request.attempt_id);
-    let request_hash = completed_turn_request_hash(authority, episode_id, &request);
     if request.project_scope_selector.is_some() {
         principal.require(MEMORY_WRITE)?;
-        validate_project_write_scope(request.project_scope_selector.as_ref(), authority)?;
     }
+    let response = append_completed_turn_inner(
+        &state,
+        authority,
+        episode_id,
+        idempotency_key(&headers)?,
+        request,
+    )
+    .await?;
+    Ok((StatusCode::ACCEPTED, Json(response)))
+}
+
+async fn append_completed_turn_inner(
+    state: &AppState,
+    authority: &DemoAuthority,
+    episode_id: Uuid,
+    idempotency_key: String,
+    mut request: CompletedTurnRequest,
+) -> Result<CompletedTurnResponse, ApiError> {
+    let extraction_idempotency_key = format!("completed-turn-extract-{}", request.attempt_id);
+    let request_hash = completed_turn_request_hash(authority, episode_id, &request);
+    validate_project_write_scope(request.project_scope_selector.as_ref(), authority)?;
     request.user_content = sanitize_boundary_text(&request.user_content)?.redacted_text;
     request.assistant_content = sanitize_boundary_text(&request.assistant_content)?.redacted_text;
     for result in &mut request.verified_tool_results {
@@ -690,7 +782,7 @@ async fn append_completed_turn(
             },
         )
         .await?;
-    require_runtime_projection_model(&state, authority).await?;
+    require_runtime_projection_model(state, authority).await?;
     let per_turn_extraction = extract_memory_candidates_inner(
         &state.repository,
         state.extractor.as_deref(),
@@ -699,13 +791,10 @@ async fn append_completed_turn(
         extraction_request,
     )
     .await?;
-    Ok((
-        StatusCode::ACCEPTED,
-        Json(CompletedTurnResponse {
-            receipt,
-            per_turn_extraction,
-        }),
-    ))
+    Ok(CompletedTurnResponse {
+        receipt,
+        per_turn_extraction,
+    })
 }
 
 fn render_completed_turn_extraction_source(
@@ -1127,12 +1216,108 @@ struct ContextPackRequest {
     timezone: String,
 }
 
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+struct RuntimeRetrieveRequest {
+    query: String,
+    #[serde(default = "default_runtime_memory_types")]
+    memory_types: Vec<String>,
+    #[serde(default = "default_limit")]
+    limit: usize,
+    #[serde(default = "default_runtime_token_budget")]
+    token_budget: i32,
+    #[serde(default)]
+    memory_required: bool,
+    #[serde(default)]
+    reference_time: Option<DateTime<Utc>>,
+    #[serde(default = "default_timezone")]
+    timezone: String,
+}
+
+fn default_runtime_memory_types() -> Vec<String> {
+    CANONICAL_MEMORY_TYPE_NAMES
+        .iter()
+        .map(|memory_type| (*memory_type).into())
+        .collect()
+}
+
+fn default_runtime_token_budget() -> i32 {
+    2_048
+}
+
+#[derive(Debug, Serialize)]
+struct RuntimeRetrieveResponse {
+    user_id: String,
+    context_pack: ContextPackView,
+}
+
+async fn runtime_retrieve_memory(
+    State(state): State<Arc<AppState>>,
+    principal: RequestPrincipal,
+    Json(request): Json<RuntimeRetrieveRequest>,
+) -> Result<Json<RuntimeRetrieveResponse>, ApiError> {
+    let authority = principal.require(MEMORY_READ)?;
+    let user_id = authority.user_id.clone();
+    let task_id = Uuid::new_v4();
+    let attempt_id = Uuid::new_v4();
+    let purpose = "answer_user".to_owned();
+    let manifest = compile_context_pack_inner(
+        &state,
+        authority,
+        ContextPackRequest {
+            task_context: TaskContext {
+                task_id,
+                attempt_id,
+                purpose: purpose.clone(),
+            },
+            query: request.query,
+            limit: request.limit,
+            scope_selectors: Vec::new(),
+            memory_types: request.memory_types,
+            token_budget: request.token_budget,
+            tokenizer_id: DEMO_CONTEXT_TOKENIZER_ID.into(),
+            memory_required: request.memory_required,
+            pinned_memory_version_ids: Vec::new(),
+            reference_time: request.reference_time,
+            timezone: request.timezone,
+        },
+    )
+    .await?;
+    let context_pack = consume_context_pack_inner(
+        &state,
+        authority,
+        manifest.context_pack_id,
+        format!("runtime-context-pack-consume-{attempt_id}"),
+        ConsumeContextPackRequest {
+            task_context: TaskContext {
+                task_id,
+                attempt_id,
+                purpose,
+            },
+        },
+    )
+    .await?;
+    Ok(Json(RuntimeRetrieveResponse {
+        user_id,
+        context_pack,
+    }))
+}
+
 async fn compile_context_pack(
     State(state): State<Arc<AppState>>,
     principal: RequestPrincipal,
     Json(request): Json<ContextPackRequest>,
 ) -> Result<(StatusCode, Json<ContextPackManifestView>), ApiError> {
     let authority = principal.require(MEMORY_READ)?;
+    let pack = compile_context_pack_inner(&state, authority, request).await?;
+    Ok((StatusCode::CREATED, Json(pack)))
+}
+
+async fn compile_context_pack_inner(
+    state: &AppState,
+    authority: &DemoAuthority,
+    request: ContextPackRequest,
+) -> Result<ContextPackManifestView, ApiError> {
     if request.query.trim().is_empty()
         || request.query.len() > 4_096
         || !(1..=50).contains(&request.limit)
@@ -1174,7 +1359,7 @@ async fn compile_context_pack(
 
     let candidate_limit = request.limit.saturating_mul(4).clamp(request.limit, 50);
     let candidates = search_authorized_scopes(
-        &state,
+        state,
         authority,
         &query,
         candidate_limit,
@@ -1187,7 +1372,7 @@ async fn compile_context_pack(
         .authorized_hits(authority, &candidates.hits)
         .await?;
     authorized.retain(|hit| memory_types.values.binary_search(&hit.memory_type).is_ok());
-    let ranked = rerank_authorized(&state, &query, request.limit, authorized).await?;
+    let ranked = rerank_authorized(state, &query, request.limit, authorized).await?;
     let ranked_hits = align_ranked_projection_hits(&candidates.hits, &ranked.memories);
     let degradation_reason =
         merge_degradation_reasons(candidates.degradation_reason, ranked.degradation_reason);
@@ -1222,7 +1407,7 @@ async fn compile_context_pack(
             &ranked_hits,
         )
         .await?;
-    Ok((StatusCode::CREATED, Json(pack)))
+    Ok(pack)
 }
 
 #[derive(Debug, Deserialize)]
@@ -1239,6 +1424,24 @@ async fn consume_context_pack(
     Json(request): Json<ConsumeContextPackRequest>,
 ) -> Result<Json<ContextPackView>, ApiError> {
     let authority = principal.require(MEMORY_READ)?;
+    let pack = consume_context_pack_inner(
+        &state,
+        authority,
+        context_pack_id,
+        idempotency_key(&headers)?,
+        request,
+    )
+    .await?;
+    Ok(Json(pack))
+}
+
+async fn consume_context_pack_inner(
+    state: &AppState,
+    authority: &DemoAuthority,
+    context_pack_id: Uuid,
+    idempotency_key: String,
+    request: ConsumeContextPackRequest,
+) -> Result<ContextPackView, ApiError> {
     if request.task_context.purpose != "answer_user" {
         return Err(ApiError::forbidden(
             "PURPOSE_DENIED",
@@ -1251,14 +1454,14 @@ async fn consume_context_pack(
             authority,
             context_pack_id,
             &ConsumeContextPackCommand {
-                idempotency_key: idempotency_key(&headers)?,
+                idempotency_key,
                 task_id: request.task_context.task_id,
                 attempt_id: request.task_context.attempt_id,
                 purpose: request.task_context.purpose,
             },
         )
         .await?;
-    Ok(Json(pack))
+    Ok(pack)
 }
 
 #[derive(Debug, Deserialize)]
@@ -2587,6 +2790,33 @@ mod tests {
     fn secret_like_content_is_rejected() {
         let error = sanitize_boundary_text("我的 API key 是 sk-example-value-123").unwrap_err();
         assert_eq!(error.code, "SECRET_REJECTED");
+    }
+
+    #[test]
+    fn runtime_facade_defaults_are_user_scoped_and_agent_friendly() {
+        let retrieve: RuntimeRetrieveRequest =
+            serde_json::from_value(json!({"query": "我以前喜欢什么回答方式？"})).unwrap();
+        assert_eq!(retrieve.limit, 10);
+        assert_eq!(retrieve.token_budget, 2_048);
+        assert_eq!(retrieve.memory_types, default_runtime_memory_types());
+        assert!(!retrieve.memory_required);
+
+        let session_id = Uuid::new_v4();
+        let turn_id = Uuid::new_v4();
+        let completed = runtime_completed_turn_request(
+            serde_json::from_value(json!({
+                "session_id": session_id,
+                "turn_id": turn_id,
+                "user_content": "我昨天完成了数学作业。",
+                "assistant_content": "知道了。"
+            }))
+            .unwrap(),
+        );
+        assert_eq!(completed.turn_id, turn_id);
+        assert_eq!(completed.task_id, turn_id);
+        assert_eq!(completed.attempt_id, turn_id);
+        assert_eq!(completed.outcome, TurnOutcome::Succeeded);
+        assert!(completed.project_scope_selector.is_none());
     }
 
     #[test]
