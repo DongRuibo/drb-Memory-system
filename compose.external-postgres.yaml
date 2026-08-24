@@ -1,0 +1,24 @@
+services:
+  memory-service-cpu:
+    depends_on: !override
+      mem0-config-cpu:
+        condition: service_completed_successfully
+      retrieval-models-cpu:
+        condition: service_healthy
+
+  memory-service-cuda:
+    depends_on: !override
+      mem0-config-cuda:
+        condition: service_completed_successfully
+      retrieval-models-cuda:
+        condition: service_healthy
+
+  memory-service-host-mps:
+    depends_on: !override
+      mem0-config-host-mps:
+        condition: service_completed_successfully
+
+  memory-service-cloud:
+    depends_on: !override
+      mem0-config-cloud:
+        condition: service_completed_successfully

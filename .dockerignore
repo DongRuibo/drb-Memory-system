@@ -1,0 +1,17 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+target
+secrets
+.run
+*.pid
+*.log
+.venv-retrieval-models
+__pycache__
+apps/demo-web/node_modules
+apps/demo-web/.next
+apps/demo-web/.vinext
+apps/demo-web/.wrangler
+apps/demo-web/dist
