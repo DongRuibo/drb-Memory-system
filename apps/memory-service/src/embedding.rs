@@ -55,9 +55,7 @@ impl EmbeddingProbe {
             }
         };
         let mut headers = HeaderMap::new();
-        if let Ok(api_key) = env::var("MEMORY_EMBEDDING_API_KEY")
-            && !api_key.trim().is_empty()
-        {
+        if let Some(api_key) = embedding_api_key_from_env(&manifest.embedding_provider) {
             let mut authorization = HeaderValue::from_str(&format!("Bearer {}", api_key.trim()))
                 .map_err(|_| {
                     EmbeddingProbeError::Config(
@@ -127,6 +125,23 @@ impl EmbeddingProbe {
             ));
         }
         validate_response(&self.manifest, &bytes)
+    }
+}
+
+pub fn embedding_api_key_from_env(provider: &str) -> Option<String> {
+    if provider == "aliyun-bailian" {
+        env::var("OPENAI_API_KEY")
+            .ok()
+            .filter(|value| !value.trim().is_empty())
+            .or_else(|| {
+                env::var("MEMORY_EMBEDDING_API_KEY")
+                    .ok()
+                    .filter(|value| !value.trim().is_empty())
+            })
+    } else {
+        env::var("MEMORY_EMBEDDING_API_KEY")
+            .ok()
+            .filter(|value| !value.trim().is_empty())
     }
 }
 
