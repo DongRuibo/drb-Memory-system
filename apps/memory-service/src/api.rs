@@ -47,6 +47,7 @@ use crate::auth::{
     MEMORY_REVIEW, MEMORY_WRITE,
 };
 use crate::embedding::EmbeddingProbe;
+use crate::worker::DynamicTenantWorkers;
 
 const COMPLETED_TURN_EXTRACTION_SOURCE_MAX_BYTES: usize = 32_000;
 
@@ -58,6 +59,7 @@ pub struct AppState {
     pub embedding_probe: Arc<EmbeddingProbe>,
     pub projection_model_manifest: ProjectionModelManifest,
     pub readiness_authorities: Vec<DemoAuthority>,
+    pub dynamic_tenant_workers: Option<DynamicTenantWorkers>,
     pub authenticator: Authenticator,
 }
 
@@ -70,14 +72,17 @@ impl FromRequestParts<Arc<AppState>> for RequestPrincipal {
         parts: &mut Parts,
         state: &Arc<AppState>,
     ) -> Result<Self, Self::Rejection> {
-        state
+        let principal = state
             .authenticator
             .authenticate(&parts.headers)
-            .map(Self)
             .map_err(|error| match error {
                 AuthenticationError::InvalidTenantId => ApiError::bad_request(
                     "INVALID_TENANT_ID",
-                    "X-Tenant-Id must identify one configured MEMORY_TENANT_IDS entry",
+                    if state.authenticator.allows_dynamic_tenants() {
+                        "X-Tenant-Id must contain 1 to 256 visible characters"
+                    } else {
+                        "X-Tenant-Id must identify one configured MEMORY_TENANT_IDS entry"
+                    },
                 ),
                 AuthenticationError::InvalidUserId => ApiError::bad_request(
                     "INVALID_USER_ID",
@@ -87,7 +92,13 @@ impl FromRequestParts<Arc<AppState>> for RequestPrincipal {
                     "AUTHENTICATION_REQUIRED",
                     "a valid Memory API identity is required",
                 ),
-            })
+            })?;
+        if let Some(dynamic_tenant_workers) = &state.dynamic_tenant_workers {
+            dynamic_tenant_workers
+                .ensure_started(&principal.authority.tenant_id)
+                .await?;
+        }
+        Ok(Self(principal))
     }
 }
 

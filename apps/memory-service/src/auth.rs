@@ -41,7 +41,7 @@ enum AuthenticationMode {
         authority: DemoAuthority,
     },
     TrustedUserId {
-        tenant_ids: BTreeSet<String>,
+        tenant_ids: Option<BTreeSet<String>>,
     },
     JwtHs256 {
         secret: Vec<u8>,
@@ -123,11 +123,27 @@ impl Audience {
 impl Authenticator {
     pub fn from_env(demo_authority: DemoAuthority) -> Result<Self, AuthenticationError> {
         let mode = env::var("MEMORY_AUTH_MODE").unwrap_or_else(|_| "demo".into());
+        let dynamic_tenant_value = env::var("MEMORY_ALLOW_DYNAMIC_TENANT").ok();
+        let allow_dynamic_tenant = parse_boolean_env(
+            "MEMORY_ALLOW_DYNAMIC_TENANT",
+            dynamic_tenant_value.as_deref(),
+            false,
+        )?;
+        if allow_dynamic_tenant && mode != "trusted_user_id" {
+            return Err(AuthenticationError::Configuration(
+                "MEMORY_ALLOW_DYNAMIC_TENANT may only be enabled with MEMORY_AUTH_MODE=trusted_user_id"
+                    .into(),
+            ));
+        }
         match mode.as_str() {
             "demo" => Ok(Self::demo(demo_authority)),
             "trusted_user_id" => {
-                let tenant_ids = parse_tenant_ids(&required_env("MEMORY_TENANT_IDS")?)?;
-                Self::trusted_user_id(tenant_ids)
+                if allow_dynamic_tenant {
+                    Ok(Self::trusted_dynamic_tenant())
+                } else {
+                    let tenant_ids = parse_tenant_ids(&required_env("MEMORY_TENANT_IDS")?)?;
+                    Self::trusted_user_id(tenant_ids)
+                }
             }
             "jwt_hs256" => {
                 let secret = required_env("MEMORY_JWT_HS256_SECRET")?;
@@ -175,8 +191,16 @@ impl Authenticator {
     pub fn trusted_user_id(tenant_ids: BTreeSet<String>) -> Result<Self, AuthenticationError> {
         validate_tenant_ids(&tenant_ids)?;
         Ok(Self {
-            mode: AuthenticationMode::TrustedUserId { tenant_ids },
+            mode: AuthenticationMode::TrustedUserId {
+                tenant_ids: Some(tenant_ids),
+            },
         })
+    }
+
+    pub fn trusted_dynamic_tenant() -> Self {
+        Self {
+            mode: AuthenticationMode::TrustedUserId { tenant_ids: None },
+        }
     }
 
     pub fn is_demo(&self) -> bool {
@@ -184,19 +208,32 @@ impl Authenticator {
     }
 
     pub fn mode_name(&self) -> &'static str {
-        match self.mode {
+        match &self.mode {
             AuthenticationMode::Demo { .. } => "demo",
-            AuthenticationMode::TrustedUserId { .. } => "trusted_user_id",
+            AuthenticationMode::TrustedUserId { tenant_ids: None } => {
+                "trusted_user_id_dynamic_tenant"
+            }
+            AuthenticationMode::TrustedUserId {
+                tenant_ids: Some(_),
+            } => "trusted_user_id",
             AuthenticationMode::JwtHs256 { .. } => "jwt_hs256",
         }
+    }
+
+    pub fn allows_dynamic_tenants(&self) -> bool {
+        matches!(
+            self.mode,
+            AuthenticationMode::TrustedUserId { tenant_ids: None }
+        )
     }
 
     pub fn tenant_ids(&self) -> Vec<String> {
         match &self.mode {
             AuthenticationMode::Demo { authority } => vec![authority.tenant_id.clone()],
-            AuthenticationMode::TrustedUserId { tenant_ids } => {
-                tenant_ids.iter().cloned().collect()
-            }
+            AuthenticationMode::TrustedUserId {
+                tenant_ids: Some(tenant_ids),
+            } => tenant_ids.iter().cloned().collect(),
+            AuthenticationMode::TrustedUserId { tenant_ids: None } => Vec::new(),
             AuthenticationMode::JwtHs256 { tenant_ids, .. } => tenant_ids.iter().cloned().collect(),
         }
     }
@@ -232,11 +269,14 @@ impl Authenticator {
 
 fn authenticate_trusted_user_id(
     headers: &HeaderMap,
-    tenant_ids: &BTreeSet<String>,
+    tenant_ids: &Option<BTreeSet<String>>,
 ) -> Result<AuthenticatedPrincipal, AuthenticationError> {
     let tenant_id = canonical_header_identifier(headers, TRUSTED_TENANT_ID_HEADER)
         .ok_or(AuthenticationError::InvalidTenantId)?;
-    if !tenant_ids.contains(tenant_id) {
+    if tenant_ids
+        .as_ref()
+        .is_some_and(|allowed| !allowed.contains(tenant_id))
+    {
         return Err(AuthenticationError::InvalidTenantId);
     }
     let user_id = canonical_header_identifier(headers, TRUSTED_USER_ID_HEADER)
@@ -371,6 +411,21 @@ fn required_env(name: &str) -> Result<String, AuthenticationError> {
         .ok()
         .filter(|value| !value.trim().is_empty())
         .ok_or_else(|| AuthenticationError::Configuration(format!("{name} is required")))
+}
+
+fn parse_boolean_env(
+    name: &str,
+    value: Option<&str>,
+    default: bool,
+) -> Result<bool, AuthenticationError> {
+    match value {
+        None => Ok(default),
+        Some("true") => Ok(true),
+        Some("false") => Ok(false),
+        Some(_) => Err(AuthenticationError::Configuration(format!(
+            "{name} must be true or false"
+        ))),
+    }
 }
 
 fn parse_tenant_ids(value: &str) -> Result<BTreeSet<String>, AuthenticationError> {
@@ -533,6 +588,43 @@ mod tests {
     }
 
     #[test]
+    fn trusted_dynamic_tenant_accepts_any_canonical_tenant_id() {
+        let authenticator = Authenticator::trusted_dynamic_tenant();
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            TRUSTED_TENANT_ID_HEADER,
+            HeaderValue::from_static("wifi-test-company-c"),
+        );
+        headers.insert(
+            TRUSTED_USER_ID_HEADER,
+            HeaderValue::from_static("identity-user-42"),
+        );
+
+        let principal = authenticator.authenticate(&headers).unwrap();
+
+        assert!(authenticator.allows_dynamic_tenants());
+        assert!(authenticator.tenant_ids().is_empty());
+        assert_eq!(principal.authority.tenant_id, "wifi-test-company-c");
+        assert_eq!(principal.authority.user_id, "identity-user-42");
+    }
+
+    #[test]
+    fn trusted_dynamic_tenant_still_rejects_noncanonical_tenant_id() {
+        let authenticator = Authenticator::trusted_dynamic_tenant();
+        let mut headers = HeaderMap::new();
+        headers.insert(
+            TRUSTED_TENANT_ID_HEADER,
+            HeaderValue::from_static(" company-c "),
+        );
+        headers.insert(TRUSTED_USER_ID_HEADER, HeaderValue::from_static("alice"));
+
+        assert!(matches!(
+            authenticator.authenticate(&headers),
+            Err(AuthenticationError::InvalidTenantId)
+        ));
+    }
+
+    #[test]
     fn trusted_user_id_rejects_missing_duplicate_or_noncanonical_header() {
         let authenticator =
             Authenticator::trusted_user_id(BTreeSet::from(["tenant-a".into()])).unwrap();
@@ -681,5 +773,13 @@ mod tests {
             parse_tenant_ids("tenant-b, tenant-a").unwrap(),
             BTreeSet::from(["tenant-a".into(), "tenant-b".into()])
         );
+    }
+
+    #[test]
+    fn dynamic_tenant_flag_requires_an_explicit_boolean() {
+        assert!(parse_boolean_env("FLAG", None, false).is_ok_and(|value| !value));
+        assert!(parse_boolean_env("FLAG", Some("true"), false).is_ok_and(|value| value));
+        assert!(parse_boolean_env("FLAG", Some("false"), true).is_ok_and(|value| !value));
+        assert!(parse_boolean_env("FLAG", Some("1"), false).is_err());
     }
 }

@@ -59,6 +59,7 @@ services:
       MEMORY_BIND: 0.0.0.0:8080
       DATABASE_URL: postgresql://${POSTGRES_USER:-lazytt_memory_app}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@postgres:5432/${POSTGRES_DB:-lazytt_memory}
       MEMORY_AUTH_MODE: ${MEMORY_AUTH_MODE:-trusted_user_id}
+      MEMORY_ALLOW_DYNAMIC_TENANT: ${MEMORY_ALLOW_DYNAMIC_TENANT:-false}
       MEMORY_JWT_HS256_SECRET: ${MEMORY_JWT_HS256_SECRET:-}
       MEMORY_JWT_ISSUER: ${MEMORY_JWT_ISSUER:-lazytt-demo-web-api}
       MEMORY_JWT_AUDIENCE: ${MEMORY_JWT_AUDIENCE:-lazytt-memory-service}

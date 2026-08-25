@@ -19,6 +19,7 @@ services:
       MEMORY_BIND: 0.0.0.0:8080
       DATABASE_URL: postgres://memory:${MEMORY_POSTGRES_PASSWORD:?run ./scripts/bootstrap-backend-env.sh}@postgres:5432/memory
       MEMORY_AUTH_MODE: trusted_user_id
+      MEMORY_ALLOW_DYNAMIC_TENANT: ${MEMORY_ALLOW_DYNAMIC_TENANT:-false}
       MEMORY_TENANT_IDS: ${ELASTICSEARCH_POC_TENANT_ID:-elasticsearch-poc-tenant}
       DEMO_TENANT_ID: ${ELASTICSEARCH_POC_TENANT_ID:-elasticsearch-poc-tenant}
       DEMO_USER_ID: ${ELASTICSEARCH_POC_USER_ID:-elasticsearch-poc-user}
