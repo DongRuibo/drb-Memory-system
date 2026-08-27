@@ -8,7 +8,7 @@ use async_trait::async_trait;
 use chrono::{Datelike, NaiveDate, TimeZone, Utc};
 use memory_application::{
     ExtractCandidateProposal, ExtractMemoryOutput, ExtractMemoryRequest, ExtractionDiagnostics,
-    ExtractorError, MemoryExtractor,
+    ExtractorError, MemoryExtractor, TemporalWindow, parse_temporal_query,
 };
 use memory_domain::{
     CANONICAL_MEMORY_TYPE_NAMES, EventTime, EventTimePrecision, MemoryType, StructuredContent,
@@ -21,6 +21,7 @@ use uuid::Uuid;
 
 const OFFICIAL_BASE_URL: &str = "https://api.kimi.com/coding/v1";
 const MAX_RESPONSE_BYTES: usize = 256 * 1024;
+const MAX_COMPLETION_TOKENS: u32 = 4_096;
 const KIMI_EXTRACTOR_VERSION: &str = "kimi-k3-memory-extractor-v7";
 const OPENAI_COMPATIBLE_EXTRACTOR_VERSION: &str = "openai-compatible-memory-extractor-v1";
 const SUPPORTED_MEMORY_TYPES: [&str; 4] = CANONICAL_MEMORY_TYPE_NAMES;
@@ -428,6 +429,7 @@ impl MemoryExtractor for KimiExtractor {
             &request.timezone,
         )?;
         apply_controlled_coverage(&request, &mut output);
+        normalize_source_supported_event_times(&request, &mut output);
         Ok(output)
     }
 }
@@ -454,7 +456,7 @@ fn completion_request_body(
             model,
             messages,
             reasoning_effort,
-            max_completion_tokens: 2_048,
+            max_completion_tokens: MAX_COMPLETION_TOKENS,
             prompt_cache_key: prompt_cache_key.into(),
             stream: false,
         }),
@@ -465,7 +467,7 @@ fn completion_request_body(
                 response_format: ResponseFormat {
                     kind: "json_object",
                 },
-                max_tokens: 2_048,
+                max_tokens: MAX_COMPLETION_TOKENS,
                 stream: false,
             })
         }
@@ -693,6 +695,73 @@ fn apply_controlled_coverage(request: &ExtractMemoryRequest, output: &mut Extrac
             .then_with(|| left.semantic_key.cmp(&right.semantic_key))
     });
     output.diagnostics.coverage_added_count += 1;
+}
+
+fn normalize_source_supported_event_times(
+    request: &ExtractMemoryRequest,
+    output: &mut ExtractMemoryOutput,
+) {
+    let user_content = serde_json::from_str::<Value>(&request.content)
+        .ok()
+        .and_then(|source| {
+            source
+                .get("user_content")
+                .and_then(Value::as_str)
+                .map(str::to_owned)
+        })
+        .unwrap_or_else(|| request.content.clone());
+    let source_window = parse_temporal_query(
+        &user_content,
+        request.source_event_time,
+        &request.timezone,
+    )
+    .ok()
+    .flatten();
+    let episodic_count = output
+        .proposals
+        .iter()
+        .filter(|proposal| proposal.memory_type == MemoryType::EpisodicSummary.as_str())
+        .count();
+
+    for proposal in output
+        .proposals
+        .iter_mut()
+        .filter(|proposal| proposal.memory_type == MemoryType::EpisodicSummary.as_str())
+    {
+        let candidate_window = parse_temporal_query(
+            &proposal.content,
+            request.source_event_time,
+            &request.timezone,
+        )
+        .ok()
+        .flatten();
+        let window = candidate_window
+            .filter(|window| user_content.contains(&window.source_expression))
+            .or_else(|| (episodic_count == 1).then(|| source_window.clone()).flatten());
+        let Some(normalized) = window.and_then(event_time_from_window) else {
+            continue;
+        };
+        if proposal.event_time.as_ref() != Some(&normalized) {
+            proposal.event_time = Some(normalized);
+            output.diagnostics.coverage_enriched_count += 1;
+        }
+    }
+}
+
+fn event_time_from_window(window: TemporalWindow) -> Option<EventTime> {
+    let precision = match window.precision.as_str() {
+        "instant" => EventTimePrecision::Instant,
+        "minute" => EventTimePrecision::Minute,
+        "hour" => EventTimePrecision::Hour,
+        "part_of_day" => EventTimePrecision::PartOfDay,
+        "day" => EventTimePrecision::Day,
+        "week" => EventTimePrecision::Week,
+        "month" => EventTimePrecision::Month,
+        "quarter" => EventTimePrecision::Quarter,
+        "year" => EventTimePrecision::Year,
+        _ => return None,
+    };
+    EventTime::new(window.start, window.end, window.timezone, precision).ok()
 }
 
 fn is_explicit_outbox_resolution(content: &str) -> bool {
@@ -1113,7 +1182,7 @@ mod tests {
         .unwrap();
 
         assert_eq!(body["model"], "deepseek-v4-flash");
-        assert_eq!(body["max_tokens"], 2_048);
+        assert_eq!(body["max_tokens"], MAX_COMPLETION_TOKENS);
         assert_eq!(body["response_format"]["type"], "json_object");
         assert_eq!(body["stream"], false);
         assert!(body.get("reasoning_effort").is_none());
@@ -1136,7 +1205,7 @@ mod tests {
 
         assert_eq!(body["model"], "k3");
         assert_eq!(body["reasoning_effort"], "low");
-        assert_eq!(body["max_completion_tokens"], 2_048);
+        assert_eq!(body["max_completion_tokens"], MAX_COMPLETION_TOKENS);
         assert_eq!(body["prompt_cache_key"], "cache-key");
         assert!(body.get("max_tokens").is_none());
         assert!(body.get("response_format").is_none());
@@ -1400,6 +1469,40 @@ mod tests {
 
         assert!(output.proposals.is_empty());
         assert_eq!(output.diagnostics.coverage_added_count, 0);
+    }
+
+    #[test]
+    fn server_normalizes_relative_event_time_from_completed_turn_user_content() {
+        let allowed = personal_types();
+        let request = ExtractMemoryRequest {
+            source_ref: "conversation:test".into(),
+            content: serde_json::json!({
+                "user_content": "昨天我做了红烧牛腩。",
+                "assistant_content": "了解。",
+                "completed_at": "2026-08-27T04:00:00Z"
+            })
+            .to_string(),
+            source_event_time: "2026-08-27T04:00:00Z".parse().unwrap(),
+            timezone: "Asia/Shanghai".into(),
+            max_candidates: 8,
+            allowed_memory_types: allowed.clone(),
+        };
+        let mut output = parse_extraction_output(
+            r#"{"candidates":[{"memory_type":"episodic_summary","semantic_key":"user.activity.cooking","content":"用户在昨天完成了红烧牛腩的制作。","confidence":0.95,"importance":0.8,"event_time":{"start":"2026-08-26T00:00:00Z","end":"2026-08-27T00:00:00Z","timezone":"Asia/Shanghai","precision":"day"}}]}"#,
+            8,
+            &allowed,
+            "Asia/Shanghai",
+        )
+        .unwrap();
+
+        normalize_source_supported_event_times(&request, &mut output);
+
+        let event_time = output.proposals[0].event_time.as_ref().unwrap();
+        assert_eq!(event_time.start.to_rfc3339(), "2026-08-25T16:00:00+00:00");
+        assert_eq!(event_time.end.to_rfc3339(), "2026-08-26T16:00:00+00:00");
+        assert_eq!(event_time.timezone, "Asia/Shanghai");
+        assert_eq!(event_time.precision, EventTimePrecision::Day);
+        assert_eq!(output.diagnostics.coverage_enriched_count, 1);
     }
 
     #[test]

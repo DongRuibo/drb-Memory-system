@@ -20,9 +20,10 @@ secret/key service     Provider credentials and encryption keys
 - 公网、跨信任域和生产环境必须设置 `MEMORY_AUTH_MODE=jwt_hs256`、至少 32-byte 的
   `MEMORY_JWT_HS256_SECRET`、`MEMORY_JWT_ISSUER`、`MEMORY_JWT_AUDIENCE` 和逗号
   分隔的 `MEMORY_TENANT_IDS`；Secret 必须来自 Secret Manager；
-- 第一阶段的受信任内网联调可以设置 `MEMORY_AUTH_MODE=trusted_user_id` 和固定的
-  `MEMORY_DEFAULT_TENANT_ID`，由上游 Identity/OS Kernel 在 `X-User-Id` 中传入已
-  验证的用户 ID；该模式不验 Token，只允许读取、提取和结果回执，禁止暴露到公网；
+- 第一阶段的受信任内网联调可以设置 `MEMORY_AUTH_MODE=trusted_user_id` 和
+  `MEMORY_TENANT_IDS` 租户白名单，由上游 Identity/OS Kernel 在 `X-Tenant-Id` 与
+  `X-User-Id` 中传入已验证身份；该模式不验 Token，只允许读取、提取和结果回执，
+  禁止暴露到公网；
 - JWT `tenant_id` 必须位于 allowlist；服务为每个 allowlisted Tenant 启动独立
   Projection/Expiry Worker；
 - JWT 可选 `tenant_scope=true`、`project_ids` 和 `agent_ids` 提供已签名的读取

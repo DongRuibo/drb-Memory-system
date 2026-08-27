@@ -32,6 +32,7 @@ pub fn query_has_temporal_intent(query: &str) -> bool {
         "近期",
         "最近",
         "过去",
+        "大前天",
         "前天",
         "昨天",
         "昨日",
@@ -279,6 +280,8 @@ pub fn parse_temporal_query(
             return Err(TemporalError::InvalidDate(captures[0].into()));
         }
         (today - Duration::days(days), "day", captures[0].to_owned())
+    } else if query.contains("大前天") {
+        (today - Duration::days(3), "day", "大前天".into())
     } else if query.contains("前天") {
         (today - Duration::days(2), "day", "前天".into())
     } else if query.contains("昨天") || query.contains("昨日") {
@@ -445,6 +448,20 @@ mod tests {
 
     #[test]
     fn parses_relative_chinese_windows_in_asia_shanghai() {
+        let three_days_ago =
+            parse_temporal_query("大前天完成了什么", reference_time(), "Asia/Shanghai")
+                .unwrap()
+                .unwrap();
+        assert_eq!(
+            three_days_ago.start,
+            Utc.with_ymd_and_hms(2026, 7, 26, 16, 0, 0).unwrap()
+        );
+        assert_eq!(
+            three_days_ago.end,
+            Utc.with_ymd_and_hms(2026, 7, 27, 16, 0, 0).unwrap()
+        );
+        assert_eq!(three_days_ago.source_expression, "大前天");
+
         let yesterday =
             parse_temporal_query("昨天处理了什么故障", reference_time(), "Asia/Shanghai")
                 .unwrap()

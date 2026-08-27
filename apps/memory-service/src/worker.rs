@@ -10,9 +10,11 @@ use memory_application::{
 use memory_domain::{MemoryType, MemoryTypeMapping};
 use memory_postgres::{
     ConsolidationWork, DemoAuthority, IngestCandidateCommand, MemoryRepository,
-    ProjectionOperationStatus, ProjectionOperationType, ProjectionWork, RepositoryError,
+    ProjectionModelManifest, ProjectionOperationStatus, ProjectionOperationType,
+    ProjectionRebuildCommand, ProjectionWork, RepositoryError,
 };
 use serde_json::json;
+use tokio::sync::Mutex;
 use tokio::time::sleep;
 use tracing::{error, info, warn};
 use uuid::Uuid;
@@ -20,12 +22,145 @@ use uuid::Uuid;
 const EXPIRY_SWEEP_INTERVAL: Duration = Duration::from_secs(5);
 const EXPIRY_SWEEP_BATCH_SIZE: usize = 100;
 const CONSOLIDATION_SOURCE_MAX_BYTES: usize = 32_000;
+const MAX_DYNAMIC_TENANT_WORKERS: usize = 100;
+
+#[derive(Clone)]
+pub struct DynamicTenantWorkers {
+    repository: MemoryRepository,
+    index: Arc<dyn RetrievalIndex>,
+    extractor: Option<Arc<dyn MemoryExtractor>>,
+    model_manifest: ProjectionModelManifest,
+    started_tenants: Arc<Mutex<BTreeSet<String>>>,
+}
+
+impl DynamicTenantWorkers {
+    pub fn new(
+        repository: MemoryRepository,
+        index: Arc<dyn RetrievalIndex>,
+        extractor: Option<Arc<dyn MemoryExtractor>>,
+        model_manifest: ProjectionModelManifest,
+    ) -> Self {
+        Self {
+            repository,
+            index,
+            extractor,
+            model_manifest,
+            started_tenants: Arc::new(Mutex::new(BTreeSet::new())),
+        }
+    }
+
+    pub async fn ensure_started(&self, tenant_id: &str) -> Result<(), RepositoryError> {
+        let mut started_tenants = self.started_tenants.lock().await;
+        if started_tenants.contains(tenant_id) {
+            return Ok(());
+        }
+        if started_tenants.len() >= MAX_DYNAMIC_TENANT_WORKERS {
+            return Err(RepositoryError::Conflict(format!(
+                "dynamic tenant worker limit of {MAX_DYNAMIC_TENANT_WORKERS} has been reached"
+            )));
+        }
+
+        let authority = DemoAuthority::worker(tenant_id.to_owned());
+        bootstrap_empty_projection_generation(
+            &self.repository,
+            &authority,
+            &self.model_manifest,
+        )
+        .await?;
+
+        let projection_worker = ProjectionWorker::new(
+            self.repository.clone(),
+            Arc::clone(&self.index),
+            authority.clone(),
+            self.model_manifest.index_provider.clone(),
+            self.model_manifest.manifest_hash.clone(),
+        );
+        tokio::spawn(projection_worker.run());
+        if let Some(extractor) = self.extractor.as_ref() {
+            let consolidation_worker = ConsolidationWorker::new(
+                self.repository.clone(),
+                Arc::clone(extractor),
+                authority,
+            );
+            tokio::spawn(consolidation_worker.run());
+        }
+        started_tenants.insert(tenant_id.to_owned());
+        info!(tenant_id = tenant_id, "started dynamic tenant workers");
+        Ok(())
+    }
+}
+
+pub async fn bootstrap_empty_projection_generation(
+    repository: &MemoryRepository,
+    authority: &DemoAuthority,
+    manifest: &ProjectionModelManifest,
+) -> Result<(), RepositoryError> {
+    let current = repository
+        .current_projection_generation_view(authority)
+        .await?;
+    if current.model_manifest.manifest_hash == manifest.manifest_hash {
+        return Ok(());
+    }
+    if current.expected_records != 0 || current.ready_records != 0 || current.failed_records != 0 {
+        return Err(RepositoryError::Conflict(format!(
+            "MEMORY_BOOTSTRAP_EMPTY_PROJECTION cannot replace non-empty generation {}; run the controlled projection rebuild instead",
+            current.generation
+        )));
+    }
+
+    let hash_prefix = manifest.manifest_hash.get(..16).ok_or_else(|| {
+        RepositoryError::Invariant("projection model manifest hash is unexpectedly short".into())
+    })?;
+    let generation = format!("bootstrap-{hash_prefix}");
+    let rebuild_key = format!("bootstrap-rebuild-{hash_prefix}");
+    let activate_key = format!("bootstrap-activate-{hash_prefix}");
+    let finalize_key = format!("bootstrap-finalize-{hash_prefix}");
+    let mut target = repository
+        .start_projection_rebuild(
+            authority,
+            ProjectionRebuildCommand {
+                generation: generation.clone(),
+                idempotency_key: rebuild_key,
+                model_manifest: manifest.clone(),
+            },
+        )
+        .await?;
+    if target.status == "ready" {
+        target = repository
+            .activate_projection_generation(
+                authority,
+                &generation,
+                &current.generation,
+                &activate_key,
+            )
+            .await?;
+    }
+    if target.status == "canary" {
+        target = repository
+            .finalize_projection_generation(authority, &generation, &finalize_key)
+            .await?;
+    }
+    if target.status != "active" || target.model_manifest.manifest_hash != manifest.manifest_hash {
+        return Err(RepositoryError::Invariant(format!(
+            "empty projection bootstrap did not converge: generation={} status={}",
+            target.generation, target.status
+        )));
+    }
+    info!(
+        tenant_id = authority.tenant_id,
+        generation = target.generation,
+        manifest_hash = manifest.manifest_hash,
+        "bootstrapped empty projection generation"
+    );
+    Ok(())
+}
 
 pub struct ProjectionWorker {
     repository: MemoryRepository,
     index: Arc<dyn RetrievalIndex>,
     authority: DemoAuthority,
     worker_id: String,
+    index_provider: String,
     model_manifest_hash: String,
 }
 
@@ -34,6 +169,7 @@ impl ProjectionWorker {
         repository: MemoryRepository,
         index: Arc<dyn RetrievalIndex>,
         authority: DemoAuthority,
+        index_provider: String,
         model_manifest_hash: String,
     ) -> Self {
         Self {
@@ -41,6 +177,7 @@ impl ProjectionWorker {
             index,
             authority,
             worker_id: format!("demo-worker-{}", Uuid::new_v4()),
+            index_provider,
             model_manifest_hash,
         }
     }
@@ -73,7 +210,11 @@ impl ProjectionWorker {
             }
             match self
                 .repository
-                .claim_projection(&self.authority, &self.worker_id)
+                .claim_projection_for_provider(
+                    &self.authority,
+                    &self.worker_id,
+                    &self.index_provider,
+                )
                 .await
             {
                 Ok(Some(work)) => {
@@ -739,6 +880,43 @@ mod tests {
         assert!(source.len() <= CONSOLIDATION_SOURCE_MAX_BYTES);
         assert!(source.contains("untrusted_conversation_data"));
         assert!(!source.contains("hidden_reasoning"));
+    }
+
+    #[tokio::test]
+    #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
+    async fn dynamic_tenant_projection_bootstrap_is_idempotent() {
+        let database_url = std::env::var("TEST_DATABASE_URL").expect("TEST_DATABASE_URL");
+        let repository = MemoryRepository::connect(&database_url).await.unwrap();
+        repository.migrate().await.unwrap();
+        let authority = DemoAuthority::worker(format!("dynamic-tenant-{}", Uuid::new_v4()));
+        let manifest = ProjectionModelManifest::new(
+            "mem0".into(),
+            "dynamic-test".into(),
+            "dynamic-test-embedding".into(),
+            "test-v1".into(),
+            128,
+            "l2".into(),
+            "dynamic-test-v1".into(),
+            true,
+        )
+        .unwrap();
+
+        bootstrap_empty_projection_generation(&repository, &authority, &manifest)
+            .await
+            .unwrap();
+        bootstrap_empty_projection_generation(&repository, &authority, &manifest)
+            .await
+            .unwrap();
+
+        let current = repository
+            .current_projection_generation_view(&authority)
+            .await
+            .unwrap();
+        assert_eq!(current.status, "active");
+        assert_eq!(
+            current.model_manifest.manifest_hash,
+            manifest.manifest_hash
+        );
     }
 
     #[tokio::test]

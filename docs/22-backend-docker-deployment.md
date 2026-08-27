@@ -55,6 +55,27 @@ chmod 600 .env
 启动脚本会调用 `scripts/bootstrap-backend-env.sh`，只为尚未设置的本地数据库、Mem0、
 JWT 字段生成随机值，且不会打印这些值。
 
+### 权威 PostgreSQL 的两种模式
+
+默认模式仍使用本仓库 Compose 提供的 PostgreSQL：
+
+```dotenv
+MEMORY_POSTGRES_MODE=local
+MEMORY_DATABASE_URL=
+```
+
+需要让 Memory Service 连接独立服务器上的 PostgreSQL 时，改为：
+
+```dotenv
+MEMORY_POSTGRES_MODE=external
+MEMORY_DATABASE_URL=postgresql://<APP_USER>:<URL_ENCODED_PASSWORD>@<POSTGRES_HOST>:5432/<DATABASE_NAME>
+```
+
+`external` 模式会加载 `compose.external-postgres.yaml`，Memory Service 不再依赖或启动
+本地权威 PostgreSQL；本地 Mem0/pgvector 仍作为检索投影运行。启动脚本只显示当前模式，
+不会输出数据库 URL。完整准备、迁移、验证和回滚步骤见
+[外部 PostgreSQL 18.4 迁移手册](./28-external-postgresql-18-migration.md)。
+
 ## 3. 最简单：硅基流动 cloud profile
 
 `.env` 中的非 Secret 示例：

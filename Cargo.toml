@@ -5,6 +5,7 @@ members = [
     "crates/memory-application",
     "crates/memory-client",
     "crates/memory-postgres",
+    "crates/provider-adapters/elasticsearch-adapter",
     "crates/provider-adapters/mem0-adapter",
     "crates/extractors/kimi-extractor",
     "crates/rerankers/kimi-reranker",

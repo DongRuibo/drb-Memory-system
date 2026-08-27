@@ -20,6 +20,7 @@ pub struct HttpRerankerConfig {
     pub api_key: Option<String>,
     pub model: String,
     pub revision: String,
+    pub dialect: String,
     pub instruction: String,
     pub minimum_score: f64,
     pub timeout: Duration,
@@ -29,6 +30,8 @@ pub struct HttpRerankerConfig {
 
 impl HttpRerankerConfig {
     pub fn from_env() -> Result<Self, RerankerError> {
+        let dialect =
+            env::var("MEMORY_DEDICATED_RERANK_DIALECT").unwrap_or_else(|_| "default".into());
         let minimum_score = env::var("MEMORY_DEDICATED_RERANK_MINIMUM_SCORE")
             .unwrap_or_else(|_| "0.10".into())
             .parse::<f64>()
@@ -48,13 +51,25 @@ impl HttpRerankerConfig {
         Ok(Self {
             base_url: env::var("MEMORY_DEDICATED_RERANK_BASE_URL")
                 .unwrap_or_else(|_| "http://127.0.0.1:18082".into()),
-            api_key: env::var("MEMORY_DEDICATED_RERANK_API_KEY")
-                .ok()
-                .filter(|value| !value.trim().is_empty()),
+            api_key: if dialect == "bailian_qwen3" {
+                env::var("OPENAI_API_KEY")
+                    .ok()
+                    .filter(|value| !value.trim().is_empty())
+                    .or_else(|| {
+                        env::var("MEMORY_DEDICATED_RERANK_API_KEY")
+                            .ok()
+                            .filter(|value| !value.trim().is_empty())
+                    })
+            } else {
+                env::var("MEMORY_DEDICATED_RERANK_API_KEY")
+                    .ok()
+                    .filter(|value| !value.trim().is_empty())
+            },
             model: env::var("MEMORY_DEDICATED_RERANK_MODEL")
                 .unwrap_or_else(|_| "Qwen/Qwen3-Reranker-0.6B".into()),
             revision: env::var("MEMORY_DEDICATED_RERANK_REVISION")
                 .unwrap_or_else(|_| "e61197e".into()),
+            dialect,
             instruction: env::var("MEMORY_DEDICATED_RERANK_INSTRUCTION")
                 .unwrap_or_else(|_| DEFAULT_INSTRUCTION.into()),
             minimum_score,
@@ -70,6 +85,7 @@ impl HttpRerankerConfig {
 pub struct HttpReranker {
     base_url: String,
     model: String,
+    dialect: HttpRerankerDialect,
     instruction: String,
     minimum_score: f64,
     response_model_required: bool,
@@ -80,6 +96,7 @@ pub struct HttpReranker {
 impl HttpReranker {
     pub fn new(config: HttpRerankerConfig) -> Result<Self, RerankerError> {
         validate_config(&config)?;
+        let dialect = HttpRerankerDialect::parse(&config.dialect)?;
         let base_url = normalize_base_url(
             &config.base_url,
             config.allow_insecure_http_for_local_development,
@@ -100,10 +117,19 @@ impl HttpReranker {
             .user_agent(concat!("lazytt-http-reranker/", env!("CARGO_PKG_VERSION")))
             .build()
             .map_err(|error| RerankerError::Config(error.to_string()))?;
-        let version = format!("dedicated-http:{}@{}-v1", config.model, config.revision);
+        let version = match dialect {
+            HttpRerankerDialect::Default => {
+                format!("dedicated-http:{}@{}-v1", config.model, config.revision)
+            }
+            HttpRerankerDialect::BailianQwen3 => format!(
+                "dedicated-http:{}@{}-bailian-qwen3-v1",
+                config.model, config.revision
+            ),
+        };
         Ok(Self {
             base_url,
             model: config.model,
+            dialect,
             instruction: config.instruction,
             minimum_score: config.minimum_score,
             response_model_required: config.response_model_required,
@@ -113,7 +139,30 @@ impl HttpReranker {
     }
 
     fn endpoint(&self) -> String {
-        format!("{}/v1/rerank", self.base_url)
+        match self.dialect {
+            HttpRerankerDialect::Default => format!("{}/v1/rerank", self.base_url),
+            HttpRerankerDialect::BailianQwen3 => {
+                format!("{}/compatible-api/v1/reranks", self.base_url)
+            }
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum HttpRerankerDialect {
+    Default,
+    BailianQwen3,
+}
+
+impl HttpRerankerDialect {
+    fn parse(value: &str) -> Result<Self, RerankerError> {
+        match value {
+            "default" => Ok(Self::Default),
+            "bailian_qwen3" => Ok(Self::BailianQwen3),
+            _ => Err(RerankerError::Config(
+                "MEMORY_DEDICATED_RERANK_DIALECT must be default or bailian_qwen3".into(),
+            )),
+        }
     }
 }
 
@@ -123,7 +172,10 @@ struct HttpRerankRequest<'a> {
     query: &'a str,
     documents: Vec<String>,
     top_n: usize,
-    instruction: &'a str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    instruction: Option<&'a str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    instruct: Option<&'a str>,
 }
 
 #[derive(Deserialize)]
@@ -170,7 +222,10 @@ impl MemoryReranker for HttpReranker {
                     })
                     .collect(),
                 top_n: request.candidates.len(),
-                instruction: &self.instruction,
+                instruction: (self.dialect == HttpRerankerDialect::Default)
+                    .then_some(self.instruction.as_str()),
+                instruct: (self.dialect == HttpRerankerDialect::BailianQwen3)
+                    .then_some(self.instruction.as_str()),
             })
             .send()
             .await
@@ -264,6 +319,7 @@ fn parse_response(
 }
 
 fn validate_config(config: &HttpRerankerConfig) -> Result<(), RerankerError> {
+    HttpRerankerDialect::parse(&config.dialect)?;
     for (name, value, max_len) in [
         ("model", config.model.as_str(), 256usize),
         ("revision", config.revision.as_str(), 256usize),
@@ -460,5 +516,43 @@ mod tests {
         .unwrap();
         assert_eq!(result.len(), 1);
         assert_eq!(result[0].memory_version_id, Uuid::from_u128(1));
+    }
+
+    #[test]
+    fn bailian_qwen3_uses_plural_endpoint_and_instruct_field() {
+        let reranker = HttpReranker::new(HttpRerankerConfig {
+            base_url: "https://dashscope.aliyuncs.com".into(),
+            api_key: Some("test-key".into()),
+            model: "qwen3-rerank".into(),
+            revision: "bailian-qwen3-rerank-2026-08".into(),
+            dialect: "bailian_qwen3".into(),
+            instruction: DEFAULT_INSTRUCTION.into(),
+            minimum_score: 0.1,
+            timeout: Duration::from_secs(10),
+            allow_insecure_http_for_local_development: false,
+            response_model_required: true,
+        })
+        .unwrap();
+        assert_eq!(
+            reranker.endpoint(),
+            "https://dashscope.aliyuncs.com/compatible-api/v1/reranks"
+        );
+
+        let body = serde_json::to_value(HttpRerankRequest {
+            model: "qwen3-rerank",
+            query: "query",
+            documents: vec!["document".into()],
+            top_n: 1,
+            instruction: None,
+            instruct: Some(DEFAULT_INSTRUCTION),
+        })
+        .unwrap();
+        assert_eq!(body["instruct"], DEFAULT_INSTRUCTION);
+        assert!(body.get("instruction").is_none());
+    }
+
+    #[test]
+    fn rejects_unknown_reranker_dialect() {
+        assert!(HttpRerankerDialect::parse("unknown").is_err());
     }
 }

@@ -915,8 +915,10 @@ impl MemoryRepository {
         }
 
         let generation = projection_write_generation_tx(&mut tx, &authority.tenant_id).await?;
+        let projection_provider =
+            projection_index_provider_tx(&mut tx, &authority.tenant_id, &generation).await?;
         let projection_idempotency_key =
-            format!("mem0:{generation}:upsert:{record_id}:{version_id}:0");
+            format!("{projection_provider}:{generation}:upsert:{record_id}:{version_id}:0");
         sqlx::query("SELECT pg_advisory_xact_lock(hashtextextended($1,0))")
             .bind(format!(
                 "memory-semantic-key:{}:{}:{}:{}:{}",
@@ -1153,7 +1155,7 @@ impl MemoryRepository {
                 .await?;
 
                 let projection_idempotency_key = format!(
-                    "mem0:{generation}:contest-delete:{existing_record_id}:\
+                    "{projection_provider}:{generation}:contest-delete:{existing_record_id}:\
                      {existing_version_id}:{contested_revision}"
                 );
                 sqlx::query(
@@ -1161,13 +1163,14 @@ impl MemoryRepository {
                          tenant_id,id,memory_record_id,memory_version_id,head_revision,provider,\
                          generation,operation_type,idempotency_key,status,provider_object_id,\
                          content_hash\
-                     ) VALUES ($1,$2,$3,$4,$5,'mem0',$6,'delete',$7,'pending',$8,$9)",
+                     ) VALUES ($1,$2,$3,$4,$5,$6,$7,'delete',$8,'pending',$9,$10)",
                 )
                 .bind(&authority.tenant_id)
                 .bind(operation_id)
                 .bind(existing_record_id)
                 .bind(existing_version_id)
                 .bind(contested_revision)
+                .bind(&projection_provider)
                 .bind(&generation)
                 .bind(&projection_idempotency_key)
                 .bind(provider_object_id)
@@ -1363,12 +1366,13 @@ impl MemoryRepository {
             "INSERT INTO memory_core.projection_operations (\
                  tenant_id,id,memory_record_id,memory_version_id,head_revision,provider,\
                  generation,operation_type,idempotency_key,status,content_hash\
-             ) VALUES ($1,$2,$3,$4,0,'mem0',$5,'upsert',$6,'pending',$7)",
+             ) VALUES ($1,$2,$3,$4,0,$5,$6,'upsert',$7,'pending',$8)",
         )
         .bind(&authority.tenant_id)
         .bind(operation_id)
         .bind(record_id)
         .bind(version_id)
+        .bind(&projection_provider)
         .bind(&generation)
         .bind(&projection_idempotency_key)
         .bind(&version_hash)
@@ -1480,6 +1484,8 @@ impl MemoryRepository {
         }
 
         let generation = projection_write_generation_tx(&mut tx, &authority.tenant_id).await?;
+        let projection_provider =
+            projection_index_provider_tx(&mut tx, &authority.tenant_id, &generation).await?;
         let record = sqlx::query(
             "SELECT scope_kind,scope_id,semantic_key,memory_type \
              FROM memory_core.memory_records \
@@ -1708,20 +1714,21 @@ impl MemoryRepository {
         .await?;
 
         let projection_idempotency_key = format!(
-            "mem0:{generation}:upsert:{}:{version_id}:{new_revision}",
+            "{projection_provider}:{generation}:upsert:{}:{version_id}:{new_revision}",
             command.memory_record_id
         );
         sqlx::query(
             "INSERT INTO memory_core.projection_operations (\
                  tenant_id,id,memory_record_id,memory_version_id,head_revision,provider,\
                  generation,operation_type,idempotency_key,status,content_hash\
-             ) VALUES ($1,$2,$3,$4,$5,'mem0',$6,'upsert',$7,'pending',$8)",
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,'upsert',$8,'pending',$9)",
         )
         .bind(&authority.tenant_id)
         .bind(operation_id)
         .bind(command.memory_record_id)
         .bind(version_id)
         .bind(new_revision)
+        .bind(&projection_provider)
         .bind(&generation)
         .bind(&projection_idempotency_key)
         .bind(&version_hash)
@@ -1796,6 +1803,8 @@ impl MemoryRepository {
         }
 
         let generation = projection_write_generation_tx(&mut tx, &authority.tenant_id).await?;
+        let projection_provider =
+            projection_index_provider_tx(&mut tx, &authority.tenant_id, &generation).await?;
         let candidate_identity = sqlx::query(
             "SELECT c.target_memory_record_id,r.scope_kind,r.scope_id \
              FROM memory_core.memory_candidates c \
@@ -2030,20 +2039,21 @@ impl MemoryRepository {
         .await?;
 
         let projection_idempotency_key = format!(
-            "mem0:{generation}:review-upsert:{record_id}:\
+            "{projection_provider}:{generation}:review-upsert:{record_id}:\
              {resolved_version_id}:{resolved_revision}"
         );
         sqlx::query(
             "INSERT INTO memory_core.projection_operations (\
                  tenant_id,id,memory_record_id,memory_version_id,head_revision,provider,\
                  generation,operation_type,idempotency_key,status,content_hash\
-             ) VALUES ($1,$2,$3,$4,$5,'mem0',$6,'upsert',$7,'pending',$8)",
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,'upsert',$8,'pending',$9)",
         )
         .bind(&authority.tenant_id)
         .bind(operation_id)
         .bind(record_id)
         .bind(resolved_version_id)
         .bind(resolved_revision)
+        .bind(&projection_provider)
         .bind(&generation)
         .bind(&projection_idempotency_key)
         .bind(&resolved_hash)
@@ -2124,6 +2134,8 @@ impl MemoryRepository {
             "GOVERNANCE_MUTATION_DURING_REBUILD",
         )
         .await?;
+        let projection_provider =
+            projection_index_provider_tx(&mut tx, &authority.tenant_id, &generation).await?;
         let row = sqlx::query(
             "SELECT h.revision,h.state,h.current_version_id,r.scope_kind,r.scope_id,\
                     v.content_hash \
@@ -2243,20 +2255,21 @@ impl MemoryRepository {
         .await?;
 
         let projection_idempotency_key = format!(
-            "mem0:{generation}:delete:{}:{version_id}:{new_revision}",
+            "{projection_provider}:{generation}:delete:{}:{version_id}:{new_revision}",
             command.memory_record_id
         );
         sqlx::query(
             "INSERT INTO memory_core.projection_operations (\
                  tenant_id,id,memory_record_id,memory_version_id,head_revision,provider,\
                  generation,operation_type,idempotency_key,status,provider_object_id,content_hash\
-             ) VALUES ($1,$2,$3,$4,$5,'mem0',$6,'delete',$7,'pending',$8,$9)",
+             ) VALUES ($1,$2,$3,$4,$5,$6,$7,'delete',$8,'pending',$9,$10)",
         )
         .bind(&authority.tenant_id)
         .bind(operation_id)
         .bind(command.memory_record_id)
         .bind(version_id)
         .bind(new_revision)
+        .bind(&projection_provider)
         .bind(&generation)
         .bind(projection_idempotency_key)
         .bind(provider_object_id)
@@ -2415,6 +2428,8 @@ impl MemoryRepository {
             return Ok(Vec::new());
         }
         let generation = active_projection_generation_tx(&mut tx, &authority.tenant_id).await?;
+        let projection_provider =
+            projection_index_provider_tx(&mut tx, &authority.tenant_id, &generation).await?;
         let due = sqlx::query(
             "SELECT h.memory_record_id,h.revision,h.current_version_id,v.content_hash,\
                     CASE \
@@ -2542,7 +2557,7 @@ impl MemoryRepository {
             .execute(&mut *tx)
             .await?;
             let projection_idempotency_key = format!(
-                "mem0:{generation}:expire:{memory_record_id}:\
+                "{projection_provider}:{generation}:expire:{memory_record_id}:\
                  {memory_version_id}:{expired_revision}"
             );
             sqlx::query(
@@ -2550,13 +2565,14 @@ impl MemoryRepository {
                      tenant_id,id,memory_record_id,memory_version_id,head_revision,provider,\
                      generation,operation_type,idempotency_key,status,provider_object_id,\
                      content_hash\
-                 ) VALUES ($1,$2,$3,$4,$5,'mem0',$6,'delete',$7,'pending',$8,$9)",
+                 ) VALUES ($1,$2,$3,$4,$5,$6,$7,'delete',$8,'pending',$9,$10)",
             )
             .bind(&authority.tenant_id)
             .bind(operation_id)
             .bind(memory_record_id)
             .bind(memory_version_id)
             .bind(expired_revision)
+            .bind(&projection_provider)
             .bind(&generation)
             .bind(projection_idempotency_key)
             .bind(provider_object_id)
@@ -2654,6 +2670,8 @@ impl MemoryRepository {
             "ERASURE_DURING_REBUILD",
         )
         .await?;
+        let projection_provider =
+            projection_index_provider_tx(&mut tx, &authority.tenant_id, &generation).await?;
         let mut record_ids = match command.target_kind {
             ErasureTargetKind::MemoryRecord => {
                 let record_id = Uuid::parse_str(&target_ref).map_err(|_| {
@@ -3002,19 +3020,20 @@ impl MemoryRepository {
             let operation_id = stable_id(&format!("erasure-projection:{request_id}:{record_id}"));
             let outbox_id = stable_id(&format!("erasure-outbox:{request_id}:{record_id}"));
             let projection_idempotency_key =
-                format!("mem0:{generation}:erase:{record_id}:{erased_revision}");
+                format!("{projection_provider}:{generation}:erase:{record_id}:{erased_revision}");
             sqlx::query(
                 "INSERT INTO memory_core.projection_operations (\
                      tenant_id,id,memory_record_id,memory_version_id,head_revision,provider,\
                      generation,operation_type,idempotency_key,status,provider_object_id,\
                      content_hash\
-                 ) VALUES ($1,$2,$3,$4,$5,'mem0',$6,'delete',$7,'pending',$8,$9)",
+                 ) VALUES ($1,$2,$3,$4,$5,$6,$7,'delete',$8,'pending',$9,$10)",
             )
             .bind(&authority.tenant_id)
             .bind(operation_id)
             .bind(record_id)
             .bind(current_version_id)
             .bind(erased_revision)
+            .bind(&projection_provider)
             .bind(&generation)
             .bind(&projection_idempotency_key)
             .bind(provider_object_id)
@@ -3244,20 +3263,21 @@ impl MemoryRepository {
             ));
             let outbox_id = stable_id(&format!("rebuild-outbox:{operation_id}"));
             let idempotency_key = format!(
-                "mem0:{}:rebuild-upsert:{memory_record_id}:{memory_version_id}:{head_revision}",
-                command.generation
+                "{}:{}:rebuild-upsert:{memory_record_id}:{memory_version_id}:{head_revision}",
+                command.model_manifest.index_provider, command.generation
             );
             sqlx::query(
                 "INSERT INTO memory_core.projection_operations (\
                      tenant_id,id,memory_record_id,memory_version_id,head_revision,provider,\
                      generation,operation_type,idempotency_key,status,content_hash\
-                 ) VALUES ($1,$2,$3,$4,$5,'mem0',$6,'upsert',$7,'pending',$8)",
+                 ) VALUES ($1,$2,$3,$4,$5,$6,$7,'upsert',$8,'pending',$9)",
             )
             .bind(&authority.tenant_id)
             .bind(operation_id)
             .bind(memory_record_id)
             .bind(memory_version_id)
             .bind(head_revision)
+            .bind(&command.model_manifest.index_provider)
             .bind(&command.generation)
             .bind(idempotency_key)
             .bind(content_hash)
@@ -3629,11 +3649,29 @@ impl MemoryRepository {
         authority: &DemoAuthority,
         worker_id: &str,
     ) -> Result<Option<ProjectionWork>, RepositoryError> {
+        self.claim_projection_for_provider(authority, worker_id, "mem0")
+            .await
+    }
+
+    pub async fn claim_projection_for_provider(
+        &self,
+        authority: &DemoAuthority,
+        worker_id: &str,
+        index_provider: &str,
+    ) -> Result<Option<ProjectionWork>, RepositoryError> {
+        if index_provider.trim().is_empty() || index_provider.len() > 128 {
+            return Err(RepositoryError::Validation(
+                "index provider must contain 1 to 128 characters".into(),
+            ));
+        }
         let mut tx = self.pool.begin().await?;
         set_tenant(&mut tx, &authority.tenant_id).await?;
         let outbox = sqlx::query(
             "SELECT o.id,o.payload FROM memory_core.outbox_events o \
-             WHERE o.tenant_id=$1 AND o.available_at <= now() \
+             JOIN memory_core.projection_operations po \
+               ON po.tenant_id=o.tenant_id \
+              AND po.id::text=o.payload->>'projection_operation_id' \
+             WHERE o.tenant_id=$1 AND po.provider=$2 AND o.available_at <= now() \
                AND (o.status='pending' OR (o.status='leased' AND o.lease_until < now())) \
                AND NOT EXISTS (\
                    SELECT 1 FROM memory_core.outbox_events earlier \
@@ -3645,6 +3683,7 @@ impl MemoryRepository {
              ORDER BY o.created_at,o.id FOR UPDATE OF o SKIP LOCKED LIMIT 1",
         )
         .bind(&authority.tenant_id)
+        .bind(index_provider)
         .fetch_optional(&mut *tx)
         .await?;
         let Some(outbox) = outbox else {
@@ -6874,6 +6913,22 @@ async fn current_projection_generation_tx(
     .ok_or_else(|| {
         RepositoryError::Invariant("tenant has no readable projection generation".into())
     })
+}
+
+async fn projection_index_provider_tx(
+    tx: &mut Transaction<'_, Postgres>,
+    tenant_id: &str,
+    generation: &str,
+) -> Result<String, RepositoryError> {
+    sqlx::query_scalar::<_, String>(
+        "SELECT index_provider FROM memory_core.projection_generations \
+         WHERE tenant_id=$1 AND generation=$2",
+    )
+    .bind(tenant_id)
+    .bind(generation)
+    .fetch_optional(&mut **tx)
+    .await?
+    .ok_or_else(|| RepositoryError::Invariant("projection generation is missing".into()))
 }
 
 async fn projection_maintenance_in_progress_tx(

@@ -24,6 +24,20 @@ has_usable_secret() {
   ' .env
 }
 
+config_value() {
+  local key="$1"
+  local environment_value="${!key-}"
+  if [ -n "$environment_value" ]; then
+    printf '%s' "$environment_value"
+    return
+  fi
+  if [ -f .env ]; then
+    awk -F= -v expected="$key" '
+      $1 == expected { print substr($0, index($0, "=") + 1); exit }
+    ' .env
+  fi
+}
+
 profile="${1:-}"
 action="${2:-up}"
 
@@ -36,8 +50,51 @@ case "$profile" in
 esac
 
 case "$action" in
+  up|down|logs|ps) ;;
+  *)
+    printf 'Action must be up, down, logs, or ps.\n' >&2
+    exit 2
+    ;;
+esac
+
+if [ "$action" = "up" ]; then
+  ./scripts/bootstrap-backend-env.sh
+fi
+
+postgres_mode="$(config_value MEMORY_POSTGRES_MODE)"
+postgres_mode="${postgres_mode:-local}"
+compose_command=(docker compose -f compose.yaml)
+case "$postgres_mode" in
+  local) ;;
+  external)
+    compose_command+=(-f compose.external-postgres.yaml)
+    if [ "$action" = "up" ]; then
+      external_database_url="$(config_value MEMORY_DATABASE_URL)"
+      if [ -z "$external_database_url" ]; then
+        printf 'MEMORY_DATABASE_URL is required when MEMORY_POSTGRES_MODE=external.\n' >&2
+        exit 1
+      fi
+      case "$external_database_url" in
+        postgres://*|postgresql://*) ;;
+        *)
+          printf 'MEMORY_DATABASE_URL must use the postgres:// or postgresql:// scheme.\n' >&2
+          exit 1
+          ;;
+      esac
+      if [[ "$external_database_url" =~ [[:space:][:cntrl:]] ]]; then
+        printf 'MEMORY_DATABASE_URL must not contain whitespace or control characters.\n' >&2
+        exit 1
+      fi
+    fi
+    ;;
+  *)
+    printf 'MEMORY_POSTGRES_MODE must be local or external.\n' >&2
+    exit 1
+    ;;
+esac
+
+case "$action" in
   up)
-    ./scripts/bootstrap-backend-env.sh
     extract_mode="$(awk -F= '$1 == "MEMORY_EXTRACT_MODE" { print substr($0, index($0, "=") + 1); exit }' .env)"
     extract_mode="${extract_mode:-openai_compatible}"
     case "$extract_mode" in
@@ -101,7 +158,7 @@ case "$action" in
         }
       done
     fi
-    running_services="$(docker compose \
+    running_services="$("${compose_command[@]}" \
       --profile cpu \
       --profile cuda \
       --profile host-mps \
@@ -119,10 +176,11 @@ case "$action" in
           ;;
       esac
     done
-    docker compose --profile "$profile" up --build -d "memory-service-${profile}"
+    printf 'Authoritative PostgreSQL mode: %s.\n' "$postgres_mode"
+    "${compose_command[@]}" --profile "$profile" up --build -d "memory-service-${profile}"
     ;;
   down)
-    docker compose \
+    "${compose_command[@]}" \
       --profile cpu \
       --profile cuda \
       --profile host-mps \
@@ -130,13 +188,9 @@ case "$action" in
       down
     ;;
   logs)
-    docker compose --profile "$profile" logs --follow "memory-service-${profile}"
+    "${compose_command[@]}" --profile "$profile" logs --follow "memory-service-${profile}"
     ;;
   ps)
-    docker compose --profile "$profile" ps
-    ;;
-  *)
-    printf 'Action must be up, down, logs, or ps.\n' >&2
-    exit 2
+    "${compose_command[@]}" --profile "$profile" ps
     ;;
 esac

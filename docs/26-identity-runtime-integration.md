@@ -2,11 +2,12 @@
 
 ## 1. 一句话理解
 
-Identity 系统负责确认“这个人是谁”，Agent Runtime 负责组织一次 Agent Loop，Memory
-System 只接收已经验证过的 `X-User-Id`，按用户隔离地读取和形成长期记忆。
+Identity 系统负责确认“属于哪个租户、这个人是谁”，Agent Runtime 负责组织一次 Agent
+Loop，Memory System 只接收已经验证过的 `X-Tenant-Id` 和 `X-User-Id`，按租户与用户
+共同隔离地读取和形成长期记忆。
 
-P0 的默认边界是：固定租户 `lazytt-default`、受信任内网、无登录页面、无 Token、只开放
-用户级读取与提取。公网和跨信任域仍必须使用 JWT。
+P0 的默认边界是：租户必须属于服务端 `MEMORY_TENANT_IDS` 白名单、受信任内网、无登录
+页面、无 Token、只开放用户级读取与提取。公网和跨信任域仍必须使用 JWT。
 
 ## 2. 功能模块与交互链路
 
@@ -22,13 +23,13 @@ sequenceDiagram
 
     U->>I: 登录
     I-->>A: 已验证 user_id
-    A->>M: POST /v1/runtime/memory/retrieve + X-User-Id
+    A->>M: POST /v1/runtime/memory/retrieve + X-Tenant-Id + X-User-Id
     M->>V: 召回候选
     M->>P: 授权、版本校验、生成并消费 Context Pack
     M-->>A: 不可变 Context Pack
     A->>L: 用户问题 + Context Pack
     L-->>A: 最终回答
-    A->>M: POST /v1/runtime/memory/extract + X-User-Id
+    A->>M: POST /v1/runtime/memory/extract + X-Tenant-Id + X-User-Id
     M->>P: 保存 Completed Turn 与候选快照
     M-->>A: 提取结果与 operation_id
     M-->>V: Outbox/Worker 异步更新检索投影
@@ -36,8 +37,8 @@ sequenceDiagram
 
 | 模块 | 当前职责 | 不负责什么 |
 |---|---|---|
-| Identity 适配 | 从请求读取一个 `X-User-Id`，建立用户级 authority | 不提供登录、密码或会话管理 |
-| Runtime Facade | 用简单接口完成“召回快照”和“每轮提取” | 不允许调用方指定 tenant/project/agent scope |
+| Identity 适配 | 从请求读取 `X-Tenant-Id` 与 `X-User-Id`，建立租户内用户 authority | 不提供登录、密码或会话管理 |
+| Runtime Facade | 用简单接口完成“召回快照”和“每轮提取” | 不允许请求 Body 扩大 tenant/project/agent scope |
 | Context Pack | 授权、排序、预算裁剪、形成不可变快照 | 不把记忆当作可执行指令 |
 | Completed Turn | 保存可见用户输入、最终回答、已验证工具结果和 Outcome | 不保存隐藏推理 |
 | Policy / Ledger | 分类、去重、版本、审计、遗忘与擦除状态 | 不把向量库当权威数据源 |
@@ -48,33 +49,44 @@ sequenceDiagram
 
 ### 已实现
 
-- `MEMORY_AUTH_MODE=trusted_user_id`：Memory Service 不登录、不验 Token，只接收一个
-  `X-User-Id`；
-- `MEMORY_DEFAULT_TENANT_ID=lazytt-default`：P0 固定租户，不允许请求传入 tenant；
+- `MEMORY_AUTH_MODE=trusted_user_id`：Memory Service 不登录、不验 Token，只接收一组
+  `X-Tenant-Id` 与 `X-User-Id`；
+- `MEMORY_TENANT_IDS=tenant-a,tenant-b`：请求可以选择白名单内的租户，不能访问未配置
+  租户；后台投影与汇总 Worker 也只为这些租户启动；
+- 受控内网测试可以同时设置 `MEMORY_ALLOW_DYNAMIC_TENANT=true`：此时不读取租户白名单，
+  第一次收到格式合法的租户 ID 时自动初始化空投影代际，并为该租户启动投影与汇总
+  Worker；该模式单进程最多启动 100 个动态租户；
 - 每个请求在服务端生成 `DemoAuthority::user(tenant_id, user_id)`，数据库查询和写入都以
   这个 authority 作为隔离条件；
 - 该身份只拥有 `memory:read`、`memory:extract`、`memory:outcome`；没有写项目记忆、
   导出、纠正、遗忘、擦除或管理权限；
-- 缺失、重复、前后带空格、含控制字符或超过 256 字符的 `X-User-Id` 都会拒绝。
+- 缺失、重复、前后带空格、含控制字符或超过 256 字符的身份 Header 都会拒绝；白名单
+  模式还会拒绝未配置的 `X-Tenant-Id`。
 
 ### 边界
 
 `trusted_user_id` 是“信任上游已认证结果”，不是 Memory Service 自己完成认证。因此它
-只能部署在隔离的受信任网络，由 OS Kernel/API Gateway 清除外部同名 Header 后重新写入。
+只能部署在隔离的受信任网络，由 OS Kernel/API Gateway 清除外部两个同名 Header 后重新写入。
 公网、跨团队或零信任网络继续使用 `MEMORY_AUTH_MODE=jwt_hs256`，后续再升级到
 OIDC/JWKS。
+
+动态租户开关不会验证调用者是否真的属于所填租户。同一 Wi-Fi 上任何能够访问服务的
+调用者都可能冒充其他租户或用户，因此只能使用测试数据，并应通过防火墙限制来源；
+`demo` 和 `jwt_hs256` 模式拒绝启用这个开关。
 
 ## 4. 是否可以接收 Identity 的用户 ID
 
 可以。Identity/OS Kernel 调用时增加：
 
 ```http
+X-Tenant-Id: tenant-a
 X-User-Id: identity-user-42
 ```
 
-Memory System 不要求这个 ID 是 UUID，但要求它是稳定、不复用、1～256 个可见字符的
-Identity 主键。显示名、手机号和邮箱不应作为 ID。用户 A 与用户 B 使用不同 Header，
-默认查询范围就是各自的 user scope，不能通过请求 Body 改成另一个用户。
+Memory System 不要求这些 ID 是 UUID，但要求它们是稳定、不复用、1～256 个可见字符的
+Identity 主键。显示名、手机号和邮箱不应作为用户 ID。权威身份由
+`(tenant_id, user_id)` 共同组成，租户 A 的同名用户不能看到租户 B 的记忆，也不能通过
+请求 Body 改成另一个租户或用户。
 
 ## 5. 数据库拆分、切换与迁移
 
@@ -121,7 +133,7 @@ P0 没有自动“动态迁库”接口，也没有执行旧数据清空。数�
 
 ```dotenv
 MEMORY_AUTH_MODE=trusted_user_id
-MEMORY_DEFAULT_TENANT_ID=lazytt-default
+MEMORY_ALLOW_DYNAMIC_TENANT=true
 MEMORY_HOST_BIND=0.0.0.0
 MEMORY_EXTRACT_MODE=openai_compatible
 OPENAI_API_KEY=<REDACTED>
@@ -141,7 +153,7 @@ curl http://127.0.0.1:8080/health/ready
 ```
 
 现有 Demo Web API 仍按 JWT 调用 Memory Service。切换成 `trusted_user_id` 后，它必须改为
-转发 `X-User-Id` 才能继续使用；如果会议期间需要同时保留旧 Demo Web，应该为新系统启动
+转发 `X-Tenant-Id` 与 `X-User-Id` 才能继续使用；如果会议期间需要同时保留旧 Demo Web，应该为新系统启动
 一个不同端口的 Memory Service 实例，不要直接切换当前 8080 实例。
 
 不要把真实 API Key、密码或 Token 写入文档或提交到 Git。
@@ -157,13 +169,14 @@ curl http://127.0.0.1:8080/health/ready
 GET /health/ready
 ```
 
-无需 `X-User-Id`。成功返回 `200`；依赖未就绪返回 `503`。
+无需身份 Header。成功返回 `200`；依赖未就绪返回 `503`。
 
 ### 7.2 回答前召回
 
 ```http
 POST /v1/runtime/memory/retrieve
 Content-Type: application/json
+X-Tenant-Id: tenant-a
 X-User-Id: identity-user-42
 ```
 
@@ -190,6 +203,7 @@ X-User-Id: identity-user-42
 
 ```json
 {
+  "tenant_id": "tenant-a",
   "user_id": "identity-user-42",
   "context_pack": {
     "context_pack_id": "11111111-1111-4111-8111-111111111111",
@@ -223,6 +237,7 @@ System 指令。
 ```http
 POST /v1/runtime/memory/extract
 Content-Type: application/json
+X-Tenant-Id: tenant-a
 X-User-Id: identity-user-42
 Idempotency-Key: turn-550e8400-e29b-41d4-a716-446655440000
 ```
@@ -246,6 +261,7 @@ Idempotency-Key: turn-550e8400-e29b-41d4-a716-446655440000
 
 ```json
 {
+  "tenant_id": "tenant-a",
   "user_id": "identity-user-42",
   "completed_turn": {
     "episode_id": "550e8400-e29b-41d4-a716-446655440000",
@@ -273,6 +289,7 @@ Idempotency-Key: turn-550e8400-e29b-41d4-a716-446655440000
 
 ```http
 GET /v1/memory/operations/{operation_id}
+X-Tenant-Id: tenant-a
 X-User-Id: identity-user-42
 ```
 
@@ -296,6 +313,7 @@ X-User-Id: identity-user-42
 
 | HTTP | 常见 code | 含义与处理 |
 |---:|---|---|
+| 400 | `INVALID_TENANT_ID` | Header 缺失、重复、格式非法，或白名单模式下租户未配置 |
 | 400 | `INVALID_USER_ID` | Header 缺失、重复或格式非法；修正请求，不重试原请求 |
 | 400 | `INVALID_IDEMPOTENCY_KEY` | Key 不在 16～128 可见字符范围 |
 | 400 | `INVALID_CONTEXT_PACK` / `INVALID_TEMPORAL_QUERY` | 检索参数或时间表达式非法 |
@@ -312,16 +330,19 @@ X-User-Id: identity-user-42
 
 ## 9. 当前验收标准
 
-1. 不带 `X-User-Id` 调用 Runtime 接口返回 `400 INVALID_USER_ID`；
+1. 不带或传入格式非法的 `X-Tenant-Id` 返回 `400 INVALID_TENANT_ID`；白名单模式还应拒绝
+   未配置租户；不带 `X-User-Id` 返回 `400 INVALID_USER_ID`；
 2. 用户 A 提取一条记忆，轮询 operation 到 `ready`；
 3. 用户 A 能召回该记忆；
 4. 用户 B 用同样 query 不能召回用户 A 的记忆；
-5. `memory:write`、导出、遗忘、擦除和管理接口在 trusted 模式下返回 `403`；
-6. 模型实际收到的记忆内容只来自本次响应中的 `context_pack.sections`。
+5. 同名用户在租户 A 与租户 B 中互相不可见；
+6. `memory:write`、导出、遗忘、擦除和管理接口在 trusted 模式下返回 `403`；
+7. 模型实际收到的记忆内容只来自本次响应中的 `context_pack.sections`。
 
 ## 10. 未完成项
 
 - 未接入正式 Identity 的网关签名或 OIDC/JWKS；
+- 动态租户仅是内网测试模式，尚未实现正式租户注册表、停用、配额和生命周期管理；
 - 未支持按请求动态切换数据库；
 - 未执行旧数据清空或跨 Identity 用户映射；
 - 未把 P0 的受信任 Header 模式当作公网生产方案。

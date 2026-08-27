@@ -1,0 +1,59 @@
+services:
+  memory-service-elasticsearch:
+    image: lazytt-memory-service:elasticsearch-local
+    build:
+      context: .
+      dockerfile: apps/memory-service/Dockerfile
+    init: true
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${ELASTICSEARCH_MEMORY_HOST_PORT:-18081}:8080"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      MEMORY_BIND: 0.0.0.0:8080
+      DATABASE_URL: postgres://memory:${MEMORY_POSTGRES_PASSWORD:?run ./scripts/bootstrap-backend-env.sh}@postgres:5432/memory
+      MEMORY_AUTH_MODE: trusted_user_id
+      MEMORY_ALLOW_DYNAMIC_TENANT: ${MEMORY_ALLOW_DYNAMIC_TENANT:-false}
+      MEMORY_TENANT_IDS: ${ELASTICSEARCH_POC_TENANT_ID:-elasticsearch-poc-tenant}
+      DEMO_TENANT_ID: ${ELASTICSEARCH_POC_TENANT_ID:-elasticsearch-poc-tenant}
+      DEMO_USER_ID: ${ELASTICSEARCH_POC_USER_ID:-elasticsearch-poc-user}
+      DEMO_PROJECT_ID: elasticsearch-poc-project
+      MEMORY_INDEX_PROVIDER: elasticsearch
+      ELASTICSEARCH_BASE_URL: http://elasticsearch:9200
+      ELASTICSEARCH_INDEX_PREFIX: ${ELASTICSEARCH_INDEX_PREFIX:-lazytt-memory}
+      ELASTICSEARCH_REQUIRED_VERSION: 8.11.3
+      ELASTICSEARCH_API_KEY: ${ELASTICSEARCH_API_KEY:-}
+      MEMORY_ALLOW_INSECURE_INDEX_HTTP: "true"
+      MEMORY_INDEX_TIMEOUT_SECONDS: ${MEMORY_INDEX_TIMEOUT_SECONDS:-10}
+      MEMORY_EMBEDDING_PROVIDER: ${MEMORY_EMBEDDING_PROVIDER:-}
+      MEMORY_EMBEDDING_BASE_URL: ${MEMORY_EMBEDDING_BASE_URL:-}
+      MEMORY_EMBEDDING_API_KEY: ${MEMORY_EMBEDDING_API_KEY:-}
+      MEMORY_EMBEDDING_MODEL: ${MEMORY_EMBEDDING_MODEL:-}
+      MEMORY_EMBEDDING_REVISION: ${MEMORY_EMBEDDING_REVISION:-}
+      MEMORY_EMBEDDING_DIMENSIONS: ${MEMORY_EMBEDDING_DIMENSIONS:-}
+      MEMORY_EMBEDDING_NORMALIZATION: ${MEMORY_EMBEDDING_NORMALIZATION:-l2}
+      MEMORY_EMBEDDING_INSTRUCTION_VERSION: ${MEMORY_EMBEDDING_INSTRUCTION_VERSION:-mem0-symmetric-document-v1}
+      MEMORY_EMBEDDING_SEMANTIC: "true"
+      MEMORY_EMBEDDING_REQUEST_DIALECT: ${MEMORY_EMBEDDING_REQUEST_DIALECT:-openai}
+      MEMORY_EMBEDDING_TIMEOUT_SECONDS: ${MEMORY_EMBEDDING_TIMEOUT_SECONDS:-30}
+      MEMORY_ALLOW_INSECURE_MODEL_HTTP: "false"
+      MEMORY_RERANK_MODE: transparent
+      MEMORY_EXTRACT_MODE: ${MEMORY_EXTRACT_MODE:-openai_compatible}
+      MEMORY_EXTRACT_API_KEY: ${MEMORY_EXTRACT_API_KEY:-${OPENAI_API_KEY:-}}
+      MEMORY_EXTRACT_BASE_URL: ${MEMORY_EXTRACT_BASE_URL:-${OPENAI_BASE_URL:-${base_url:-}}}
+      MEMORY_EXTRACT_MODEL: ${MEMORY_EXTRACT_MODEL:-${OPENAI_MODEL:-${model_name:-}}}
+      MEMORY_BOOTSTRAP_EMPTY_PROJECTION: "true"
+      AUTO_MIGRATE: "true"
+      RUST_LOG: ${RUST_LOG:-info}
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8080/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 2m

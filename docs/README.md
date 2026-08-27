@@ -43,6 +43,9 @@
 25. [如何理解当前系统架构](./24-how-to-understand-current-architecture.md)
 26. [Identity 与 Agent Runtime 接入说明（P0）](./26-identity-runtime-integration.md)
 27. [外部 Agent 接入指南](./27-external-agent-integration-guide.md)
+28. [外部 PostgreSQL 18.4 迁移手册](./28-external-postgresql-18-migration.md)
+29. [Elasticsearch 8.11.3 本地投影验证](./29-elasticsearch-8-local-poc.md)
+30. [Elasticsearch Memory Runtime 接入与本地验收](./30-elasticsearch-runtime-integration.md)
 
 演示应用自身的 HTTP 契约见 [Demo Web OpenAPI](./api/demo-web-openapi.yaml)。
 

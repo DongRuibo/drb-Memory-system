@@ -409,6 +409,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "elasticsearch-adapter"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "base64",
+ "hex",
+ "memory-application",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tokio",
+ "uuid",
+]
+
+[[package]]
 name = "equivalent"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1260,6 +1276,7 @@ dependencies = [
  "axum",
  "base64",
  "chrono",
+ "elasticsearch-adapter",
  "hex",
  "hmac",
  "http-reranker",

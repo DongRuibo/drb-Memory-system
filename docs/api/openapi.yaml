@@ -10,6 +10,8 @@ servers:
   - url: https://memory.internal
 security:
   - bearerAuth: []
+  - trustedTenantId: []
+    trustedUserId: []
 tags:
   - name: Runtime
   - name: Ingestion
@@ -29,10 +31,12 @@ paths:
         The server derives the user from the verified identity, searches only that user's
         authorized namespace, compiles an immutable Context Pack and consumes the same snapshot
         before returning it. In trusted_user_id mode the upstream Identity/OS Kernel must supply
-        exactly one canonical X-User-Id header.
+        exactly one canonical X-Tenant-Id header and one canonical X-User-Id header. The tenant
+        must be present in the service MEMORY_TENANT_IDS allowlist.
       security:
         - bearerAuth: []
-        - trustedUserId: []
+        - trustedTenantId: []
+          trustedUserId: []
       requestBody:
         required: true
         content:
@@ -62,7 +66,8 @@ paths:
         memory. The same Idempotency-Key must be reused when retrying the same completed turn.
       security:
         - bearerAuth: []
-        - trustedUserId: []
+        - trustedTenantId: []
+          trustedUserId: []
       parameters:
         - $ref: '#/components/parameters/IdempotencyKey'
       requestBody:
@@ -673,6 +678,14 @@ components:
         Identity-system user ID accepted only when the service is explicitly configured with
         MEMORY_AUTH_MODE=trusted_user_id on an isolated trusted network. This is identity
         forwarding, not authentication performed by the Memory Service.
+    trustedTenantId:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+      description: >-
+        Identity-system tenant ID accepted with X-User-Id only in trusted_user_id mode. The value
+        must be a configured MEMORY_TENANT_IDS entry. Both headers must be replaced by the trusted
+        gateway rather than accepted directly from an end user.
   parameters:
     IdempotencyKey:
       name: Idempotency-Key
@@ -788,8 +801,9 @@ components:
     RuntimeRetrieveResponse:
       type: object
       additionalProperties: false
-      required: [user_id, context_pack]
+      required: [tenant_id, user_id, context_pack]
       properties:
+        tenant_id: {type: string, minLength: 1, maxLength: 256}
         user_id: {type: string, minLength: 1, maxLength: 256}
         context_pack: {$ref: '#/components/schemas/ContextPack'}
     RuntimeExtractRequest:
@@ -815,8 +829,9 @@ components:
     RuntimeExtractResponse:
       type: object
       additionalProperties: false
-      required: [user_id, completed_turn]
+      required: [tenant_id, user_id, completed_turn]
       properties:
+        tenant_id: {type: string, minLength: 1, maxLength: 256}
         user_id: {type: string, minLength: 1, maxLength: 256}
         completed_turn: {$ref: '#/components/schemas/CompletedTurnReceipt'}
     SourceEventRequest:

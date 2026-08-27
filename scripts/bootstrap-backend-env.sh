@@ -40,6 +40,7 @@ random_hex() {
 }
 
 append_generated MEMORY_POSTGRES_PASSWORD "$(random_hex 24)"
+append_generated POSTGRES_PASSWORD "$(random_hex 24)"
 append_generated MEM0_POSTGRES_PASSWORD "$(random_hex 24)"
 append_generated MEM0_API_KEY "m0-local-$(random_hex 24)"
 append_generated MEM0_JWT_SECRET "$(random_hex 48)"
