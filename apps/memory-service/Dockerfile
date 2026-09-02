@@ -1,11 +1,12 @@
 FROM rust:1.97-bookworm AS build
 
 WORKDIR /workspace
+ENV CARGO_BUILD_JOBS=1
 COPY Cargo.toml Cargo.lock ./
 COPY crates ./crates
 COPY apps ./apps
 COPY migrations ./migrations
-RUN cargo build --locked --release -p memory-service
+RUN cargo build --locked --release -p memory-service -j 1
 
 FROM debian:bookworm-slim
 
