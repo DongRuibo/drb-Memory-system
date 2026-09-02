@@ -1057,6 +1057,61 @@ impl MemoryRepository {
                     .try_get::<Option<String>, _>("event_time_precision")?
                     .as_deref()
                     == event_time_precision;
+            if existing_state == "contested" {
+                sqlx::query(
+                    "UPDATE memory_core.memory_candidates \
+                     SET state='needs_review',target_memory_record_id=$3 \
+                     WHERE tenant_id=$1 AND id=$2",
+                )
+                .bind(&authority.tenant_id)
+                .bind(candidate_id)
+                .bind(existing_record_id)
+                .execute(&mut *tx)
+                .await?;
+                sqlx::query(
+                    "UPDATE memory_core.memory_decisions \
+                     SET outcome='needs_review',reason_code='SEMANTIC_CONFLICT_REQUIRES_REVIEW' \
+                     WHERE tenant_id=$1 AND id=$2",
+                )
+                .bind(&authority.tenant_id)
+                .bind(decision_id)
+                .execute(&mut *tx)
+                .await?;
+                let existing_revision: i64 = existing.try_get("revision")?;
+                let contest_operation_id = sqlx::query_scalar::<_, Uuid>(
+                    "SELECT id FROM memory_core.projection_operations \
+                     WHERE tenant_id=$1 AND memory_record_id=$2 AND memory_version_id=$3 \
+                       AND head_revision=$4 AND operation_type='delete' \
+                     ORDER BY created_at DESC,id DESC LIMIT 1",
+                )
+                .bind(&authority.tenant_id)
+                .bind(existing_record_id)
+                .bind(existing_version_id)
+                .bind(existing_revision)
+                .fetch_optional(&mut *tx)
+                .await?
+                .ok_or_else(|| {
+                    RepositoryError::Invariant(
+                        "contested semantic memory has no current projection delete operation"
+                            .into(),
+                    )
+                })?;
+                insert_ingest_result_tx(
+                    &mut tx,
+                    &authority.tenant_id,
+                    source_id,
+                    candidate_id,
+                    existing_record_id,
+                    existing_version_id,
+                    contest_operation_id,
+                    "needs_review",
+                )
+                .await?;
+                let view =
+                    load_operation_tx(&mut tx, &authority.tenant_id, contest_operation_id).await?;
+                tx.commit().await?;
+                return Ok(view);
+            }
             if existing_state != "active" {
                 return Err(RepositoryError::Conflict(format!(
                     "semantic memory is in state {existing_state:?}; review or correct it first"
@@ -8849,7 +8904,7 @@ mod tests {
             Err(RepositoryError::Unauthorized)
         ));
 
-        let mut conflicting = base;
+        let mut conflicting = base.clone();
         conflicting.idempotency_key = format!("project-extraction-conflict-{test_id}");
         conflicting.event_id = format!("project-extraction-event-conflict-{test_id}");
         conflicting.source_ref = format!("conversation:project-extraction:{test_id}:conflict");
@@ -8869,6 +8924,49 @@ mod tests {
                 .head_state,
             "contested"
         );
+
+        let mut additional_conflict = base;
+        additional_conflict.idempotency_key =
+            format!("project-extraction-additional-conflict-{test_id}");
+        additional_conflict.event_id =
+            format!("project-extraction-event-additional-conflict-{test_id}");
+        additional_conflict.source_ref =
+            format!("conversation:project-extraction:{test_id}:additional-conflict");
+        additional_conflict.source_content = "当前项目又提出使用另一套数据库作为权威数据库".into();
+        additional_conflict.memory_content = "当前项目计划再次变更权威数据库。".into();
+        let accepted_for_review = repository
+            .ingest_extracted(&authority, additional_conflict)
+            .await
+            .unwrap();
+        assert_eq!(
+            accepted_for_review.canonical_status,
+            CanonicalStatus::NeedsReview
+        );
+        assert_eq!(
+            accepted_for_review.memory_record_id,
+            accepted.memory_record_id
+        );
+
+        let review_candidates = sqlx::query_scalar::<_, i64>(
+            "SELECT count(*) FROM memory_core.memory_candidates \
+             WHERE tenant_id=$1 AND target_memory_record_id=$2 AND state='needs_review'",
+        )
+        .bind(&authority.tenant_id)
+        .bind(accepted.memory_record_id)
+        .fetch_one(&repository.pool)
+        .await
+        .unwrap();
+        assert_eq!(review_candidates, 2);
+        let contest_deletes = sqlx::query_scalar::<_, i64>(
+            "SELECT count(*) FROM memory_core.projection_operations \
+             WHERE tenant_id=$1 AND memory_record_id=$2 AND operation_type='delete'",
+        )
+        .bind(&authority.tenant_id)
+        .bind(accepted.memory_record_id)
+        .fetch_one(&repository.pool)
+        .await
+        .unwrap();
+        assert_eq!(contest_deletes, 1);
     }
 
     #[tokio::test]
