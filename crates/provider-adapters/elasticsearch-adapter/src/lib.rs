@@ -337,7 +337,7 @@ impl RetrievalIndex for ElasticsearchAdapter {
             return Ok(Vec::new());
         }
         let vector = self.embed(&request.query, "query").await?;
-        let candidates = request.limit.saturating_mul(10).max(100).min(10_000);
+        let candidates = request.limit.saturating_mul(10).clamp(100, 10_000);
         self.search_index(
             &request.generation,
             json!({
