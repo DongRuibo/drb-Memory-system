@@ -91,9 +91,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                     "http://127.0.0.1:18080".into()
                 }
             }),
-            embedding_api_key: embedding_api_key_from_env(
-                &projection_model_manifest.embedding_provider,
-            ),
+            embedding_api_key: embedding_api_key_from_env(),
             embedding_model: projection_model_manifest.embedding_model.clone(),
             embedding_dimensions: projection_model_manifest.embedding_dimensions,
             embedding_request_dialect: env::var("MEMORY_EMBEDDING_REQUEST_DIALECT")

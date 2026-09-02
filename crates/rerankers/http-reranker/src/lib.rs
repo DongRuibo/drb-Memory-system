@@ -51,20 +51,7 @@ impl HttpRerankerConfig {
         Ok(Self {
             base_url: env::var("MEMORY_DEDICATED_RERANK_BASE_URL")
                 .unwrap_or_else(|_| "http://127.0.0.1:18082".into()),
-            api_key: if dialect == "bailian_qwen3" {
-                env::var("OPENAI_API_KEY")
-                    .ok()
-                    .filter(|value| !value.trim().is_empty())
-                    .or_else(|| {
-                        env::var("MEMORY_DEDICATED_RERANK_API_KEY")
-                            .ok()
-                            .filter(|value| !value.trim().is_empty())
-                    })
-            } else {
-                env::var("MEMORY_DEDICATED_RERANK_API_KEY")
-                    .ok()
-                    .filter(|value| !value.trim().is_empty())
-            },
+            api_key: dedicated_rerank_api_key(|name| env::var(name).ok()),
             model: env::var("MEMORY_DEDICATED_RERANK_MODEL")
                 .unwrap_or_else(|_| "Qwen/Qwen3-Reranker-0.6B".into()),
             revision: env::var("MEMORY_DEDICATED_RERANK_REVISION")
@@ -80,6 +67,10 @@ impl HttpRerankerConfig {
                 .map_or(true, |value| !value.eq_ignore_ascii_case("false")),
         })
     }
+}
+
+fn dedicated_rerank_api_key(read: impl FnOnce(&str) -> Option<String>) -> Option<String> {
+    read("MEMORY_DEDICATED_RERANK_API_KEY").filter(|value| !value.trim().is_empty())
 }
 
 pub struct HttpReranker {
@@ -554,5 +545,21 @@ mod tests {
     #[test]
     fn rejects_unknown_reranker_dialect() {
         assert!(HttpRerankerDialect::parse("unknown").is_err());
+    }
+
+    #[test]
+    fn reranker_credentials_are_read_only_from_the_dedicated_authority() {
+        let requested = std::cell::RefCell::new(Vec::new());
+        let key = dedicated_rerank_api_key(|name| {
+            requested.borrow_mut().push(name.to_owned());
+            Some("dedicated-reranker-key".to_owned())
+        });
+
+        assert_eq!(key.as_deref(), Some("dedicated-reranker-key"));
+        assert_eq!(
+            requested.into_inner(),
+            vec!["MEMORY_DEDICATED_RERANK_API_KEY"]
+        );
+        assert!(dedicated_rerank_api_key(|_| Some("  ".to_owned())).is_none());
     }
 }
