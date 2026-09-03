@@ -1,6 +1,29 @@
-# Mem0 POC Runtime
+# Mem0 Runtime
 
-本仓库不复制或修改 Mem0 官方 Compose。先按官方 self-hosted server 文档启动固定 commit/tag 的 `server/` stack，再让 Rust POC 通过 REST 连接。当前可复现证据使用 commit `b357a5a1b03c299ec8229c268e63cfac0f7c6566`。
+正式 B 模式使用固定 commit `b357a5a1b03c299ec8229c268e63cfac0f7c6566` 的
+Mem0 Server：Mem0 负责提取、更新、删除和语义检索，Elasticsearch 保存向量。
+Memory Service 只保留身份边界和精简的运行时 API。
+
+先构建带 Elasticsearch client 和兼容补丁的固定镜像：
+
+```bash
+./scripts/build-mem0-elasticsearch.sh
+```
+
+本地 Elasticsearch overlay 启动命令：
+
+```bash
+./scripts/bootstrap-backend-env.sh
+docker compose \
+  -f compose.yaml \
+  -f compose.elasticsearch.yaml \
+  -f compose.elasticsearch-runtime.yaml \
+  up --build -d mem0-config-elasticsearch memory-service-elasticsearch
+```
+
+该模式设置 `MEMORY_BACKEND_MODE=mem0_primary`。正式 API 只有健康检查及
+`/v1/runtime/memory/extract`、`/v1/runtime/memory/retrieve`、
+`/v1/runtime/memory/{memory_id}`；旧的 governed 账本 API 不会伪装成 Mem0 语义。
 
 要求：
 
@@ -41,7 +64,9 @@ MEM0_API_KEY=replace-with-local-poc-key \
 cargo run -p poc-cli -- cycle
 ```
 
-`cycle` 的 upsert 固定发送 `infer=false`，只验证“已接受 Version → 可重建检索投影”。Mem0 的 `infer=true` 自动提取会同时落库，只能在隔离 namespace 中做实验，不得接入正式写入链路。
+`cycle` 属于旧 governed 兼容路径：upsert 固定发送 `infer=false`，只验证
+“已接受 Version → 可重建检索投影”。B 模式的正式提取接口发送 `infer=true`，
+由 Mem0 直接提取并写入 Elasticsearch。
 
 ## 无外部凭据的契约 POC
 

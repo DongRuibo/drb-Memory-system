@@ -41,25 +41,110 @@ services:
     volumes:
       - elasticsearch-data:/usr/share/elasticsearch/data
 
+  mem0-postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mem0
+      POSTGRES_PASSWORD: ${MEM0_POSTGRES_PASSWORD:?set MEM0_POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mem0 -d postgres"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+    volumes:
+      - mem0-postgres-data:/var/lib/postgresql/data
+      - ./deploy/mem0/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
+
+  mem0:
+    image: lazytt-mem0-api-elasticsearch:b357a5a1
+    build:
+      context: .
+      dockerfile: deploy/mem0/Dockerfile.elasticsearch
+    init: true
+    restart: unless-stopped
+    depends_on:
+      mem0-postgres:
+        condition: service_healthy
+    command:
+      - sh
+      - -c
+      - "alembic upgrade head && exec uvicorn main:app --host 0.0.0.0 --port 8000"
+    environment:
+      POSTGRES_HOST: mem0-postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: postgres
+      POSTGRES_USER: mem0
+      POSTGRES_PASSWORD: ${MEM0_POSTGRES_PASSWORD:?set MEM0_POSTGRES_PASSWORD in .env}
+      APP_DB_NAME: mem0_app
+      HISTORY_DB_PATH: /app/history/history.db
+      OPENAI_API_KEY: local-bootstrap-not-secret
+      OPENAI_BASE_URL: http://127.0.0.1:9/v1
+      ADMIN_API_KEY: ${MEM0_API_KEY:?set MEM0_API_KEY in .env}
+      JWT_SECRET: ${MEM0_JWT_SECRET:?set MEM0_JWT_SECRET in .env}
+      AUTH_DISABLED: "false"
+      MEM0_TELEMETRY: "false"
+      PYTHONUNBUFFERED: "1"
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/auth/setup-status', timeout=5).read()"
+      interval: 10s
+      timeout: 8s
+      retries: 30
+      start_period: 1m
+    volumes:
+      - mem0-history:/app/history
+
+  mem0-config-elasticsearch:
+    image: python:3.12-slim
+    restart: "no"
+    depends_on:
+      mem0:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ./deploy/mem0/configure.py:/configure.py:ro
+    command: ["python", "/configure.py"]
+    environment:
+      MEM0_BASE_URL: http://mem0:8000
+      MEM0_API_KEY: ${MEM0_API_KEY:?set MEM0_API_KEY in .env}
+      MEM0_VECTOR_STORE_PROVIDER: elasticsearch
+      MEM0_ELASTICSEARCH_HOST: http://elasticsearch
+      MEM0_ELASTICSEARCH_PORT: 9200
+      MEM0_ELASTICSEARCH_USER: local-elasticsearch-no-auth
+      MEM0_ELASTICSEARCH_PASSWORD: local-elasticsearch-no-auth
+      MEM0_ELASTICSEARCH_VERIFY_CERTS: "false"
+      MEM0_COLLECTION_NAME: ${LOCAL_ELASTICSEARCH_INDEX_PREFIX:-lazytt-memory-mem0}
+      EMBEDDING_BASE_URL: ${MEMORY_EMBEDDING_BASE_URL:?set MEMORY_EMBEDDING_BASE_URL}
+      EMBEDDING_API_KEY: ${MEMORY_EMBEDDING_API_KEY:?set MEMORY_EMBEDDING_API_KEY}
+      EMBEDDING_MODEL: ${MEMORY_EMBEDDING_MODEL:?set MEMORY_EMBEDDING_MODEL}
+      EMBEDDING_DIMENSIONS: ${MEMORY_EMBEDDING_DIMENSIONS:?set MEMORY_EMBEDDING_DIMENSIONS}
+      LLM_API_KEY: ${MEMORY_EXTRACT_API_KEY:?set MEMORY_EXTRACT_API_KEY}
+      LLM_BASE_URL: ${MEMORY_EXTRACT_BASE_URL:?set MEMORY_EXTRACT_BASE_URL}
+      LLM_MODEL: ${MEMORY_EXTRACT_MODEL:?set MEMORY_EXTRACT_MODEL}
+
   memory-service:
-    image: lazytt-memory-service:elasticsearch-local
+    image: lazytt-memory-service:mem0-elasticsearch-local
     build:
       context: .
       dockerfile: apps/memory-service/Dockerfile
     init: true
     restart: unless-stopped
     depends_on:
-      postgres:
-        condition: service_healthy
-      elasticsearch:
-        condition: service_healthy
+      mem0-config-elasticsearch:
+        condition: service_completed_successfully
     ports:
       - "127.0.0.1:${MEMORY_HOST_PORT:-8080}:8080"
     environment:
       MEMORY_BIND: 0.0.0.0:8080
-      DATABASE_URL: postgresql://${POSTGRES_USER:-lazytt_memory_app}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}@postgres:5432/${POSTGRES_DB:-lazytt_memory}
+      MEMORY_BACKEND_MODE: mem0_primary
       MEMORY_AUTH_MODE: ${MEMORY_AUTH_MODE:-trusted_user_id}
-      MEMORY_ALLOW_DYNAMIC_TENANT: ${MEMORY_ALLOW_DYNAMIC_TENANT:-false}
+      MEMORY_ALLOW_DYNAMIC_TENANT: "false"
       MEMORY_JWT_HS256_SECRET: ${MEMORY_JWT_HS256_SECRET:-}
       MEMORY_JWT_ISSUER: ${MEMORY_JWT_ISSUER:-lazytt-demo-web-api}
       MEMORY_JWT_AUDIENCE: ${MEMORY_JWT_AUDIENCE:-lazytt-memory-service}
@@ -67,42 +152,9 @@ services:
       DEMO_TENANT_ID: ${DEMO_TENANT_ID:-demo-tenant}
       DEMO_USER_ID: ${DEMO_USER_ID:-semantic-demo}
       DEMO_PROJECT_ID: ${DEMO_PROJECT_ID:-lazytt-memory-system-demo}
-      MEMORY_INDEX_PROVIDER: elasticsearch
-      ELASTICSEARCH_BASE_URL: http://elasticsearch:9200
-      ELASTICSEARCH_INDEX_PREFIX: ${LOCAL_ELASTICSEARCH_INDEX_PREFIX:-lazytt-memory-migration}
-      ELASTICSEARCH_REQUIRED_VERSION: 8.11.3
-      MEMORY_ALLOW_INSECURE_INDEX_HTTP: "true"
-      MEMORY_INDEX_TIMEOUT_SECONDS: ${MEMORY_INDEX_TIMEOUT_SECONDS:-20}
-      MEMORY_EMBEDDING_PROVIDER: ${MEMORY_EMBEDDING_PROVIDER:-}
-      MEMORY_EMBEDDING_BASE_URL: ${MEMORY_EMBEDDING_BASE_URL:-}
-      MEMORY_EMBEDDING_API_KEY: ${MEMORY_EMBEDDING_API_KEY:-}
-      MEMORY_EMBEDDING_MODEL: ${MEMORY_EMBEDDING_MODEL:-}
-      MEMORY_EMBEDDING_REVISION: ${MEMORY_EMBEDDING_REVISION:-}
-      MEMORY_EMBEDDING_DIMENSIONS: ${MEMORY_EMBEDDING_DIMENSIONS:-}
-      MEMORY_EMBEDDING_NORMALIZATION: ${MEMORY_EMBEDDING_NORMALIZATION:-l2}
-      MEMORY_EMBEDDING_INSTRUCTION_VERSION: ${MEMORY_EMBEDDING_INSTRUCTION_VERSION:-mem0-symmetric-document-v1}
-      MEMORY_EMBEDDING_SEMANTIC: "true"
-      MEMORY_EMBEDDING_REQUEST_DIALECT: ${MEMORY_EMBEDDING_REQUEST_DIALECT:-openai}
-      MEMORY_EMBEDDING_TIMEOUT_SECONDS: ${MEMORY_EMBEDDING_TIMEOUT_SECONDS:-30}
-      MEMORY_ALLOW_INSECURE_MODEL_HTTP: "false"
-      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
-      MEMORY_RERANK_MODE: ${MEMORY_RERANK_MODE:-transparent}
-      MEMORY_DEDICATED_RERANK_BASE_URL: ${MEMORY_DEDICATED_RERANK_BASE_URL:-}
-      MEMORY_DEDICATED_RERANK_API_KEY: ${MEMORY_DEDICATED_RERANK_API_KEY:-}
-      MEMORY_DEDICATED_RERANK_MODEL: ${MEMORY_DEDICATED_RERANK_MODEL:-}
-      MEMORY_DEDICATED_RERANK_REVISION: ${MEMORY_DEDICATED_RERANK_REVISION:-}
-      MEMORY_DEDICATED_RERANK_DIALECT: ${MEMORY_DEDICATED_RERANK_DIALECT:-default}
-      MEMORY_DEDICATED_RERANK_MINIMUM_SCORE: ${MEMORY_DEDICATED_RERANK_MINIMUM_SCORE:-0.10}
-      MEMORY_DEDICATED_RERANK_TIMEOUT_SECONDS: ${MEMORY_DEDICATED_RERANK_TIMEOUT_SECONDS:-30}
-      MEMORY_EXTRACT_MODE: ${MEMORY_EXTRACT_MODE:-openai_compatible}
-      MEMORY_EXTRACT_API_KEY: ${MEMORY_EXTRACT_API_KEY:-${OPENAI_API_KEY:-}}
-      MEMORY_EXTRACT_BASE_URL: ${MEMORY_EXTRACT_BASE_URL:-${OPENAI_BASE_URL:-}}
-      MEMORY_EXTRACT_MODEL: ${MEMORY_EXTRACT_MODEL:-${OPENAI_MODEL:-}}
-      KIMI_EXTRACT_API_KEY: ${KIMI_EXTRACT_API_KEY:-${KIMI_API_KEY:-}}
-      KIMI_EXTRACT_BASE_URL: ${KIMI_EXTRACT_BASE_URL:-${KIMI_BASE_URL:-https://api.kimi.com/coding/v1}}
-      KIMI_EXTRACT_MODEL: ${KIMI_EXTRACT_MODEL:-${KIMI_MODEL:-k3}}
-      MEMORY_BOOTSTRAP_EMPTY_PROJECTION: "true"
-      AUTO_MIGRATE: "true"
+      MEM0_BASE_URL: http://mem0:8000
+      MEM0_API_KEY: ${MEM0_API_KEY:?set MEM0_API_KEY in .env}
+      MEMORY_INDEX_TIMEOUT_SECONDS: ${MEMORY_INDEX_TIMEOUT_SECONDS:-120}
       RUST_LOG: ${RUST_LOG:-info}
     healthcheck:
       test: ["CMD", "curl", "--fail", "--silent", "http://127.0.0.1:8080/health/ready"]
@@ -118,3 +170,5 @@ volumes:
   elasticsearch-data:
     name: lazytt-memory-es-migration-data
     external: true
+  mem0-postgres-data:
+  mem0-history:

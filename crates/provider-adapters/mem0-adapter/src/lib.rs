@@ -31,6 +31,35 @@ pub struct Mem0Adapter {
     client: reqwest::Client,
 }
 
+#[derive(Debug, Clone, Serialize)]
+pub struct Mem0ConversationMessage {
+    pub role: String,
+    pub content: String,
+}
+
+#[derive(Debug, Clone)]
+pub struct Mem0InferenceRequest {
+    pub user_id: String,
+    pub messages: Vec<Mem0ConversationMessage>,
+    pub metadata: Map<String, Value>,
+}
+
+#[derive(Debug, Clone, Deserialize, Serialize)]
+pub struct Mem0Memory {
+    #[serde(default)]
+    pub id: String,
+    #[serde(default)]
+    pub memory: Option<String>,
+    #[serde(default)]
+    pub event: Option<String>,
+    #[serde(default)]
+    pub score: Option<f64>,
+    #[serde(default)]
+    pub metadata: Map<String, Value>,
+    #[serde(default, skip_serializing)]
+    pub user_id: Option<String>,
+}
+
 impl Mem0Adapter {
     pub fn new(config: Mem0Config) -> Result<Self, IndexError> {
         let base_url = config.base_url.trim_end_matches('/').to_owned();
@@ -56,6 +85,86 @@ impl Mem0Adapter {
     fn endpoint(&self, path: &str) -> String {
         format!("{}{path}", self.base_url)
     }
+
+    pub async fn infer_memories(
+        &self,
+        request: Mem0InferenceRequest,
+    ) -> Result<Vec<Mem0Memory>, IndexError> {
+        let response = self
+            .client
+            .post(self.endpoint("/memories"))
+            .json(&serde_json::json!({
+                "messages": request.messages,
+                "user_id": request.user_id,
+                "metadata": request.metadata,
+                "infer": true,
+            }))
+            .send()
+            .await
+            .map_err(map_reqwest_error)?;
+        let response = require_success(response).await?;
+        response
+            .json::<Mem0AddResponse>()
+            .await
+            .map(|body| body.results)
+            .map_err(|error| IndexError::InvalidResponse(error.to_string()))
+    }
+
+    pub async fn search_memories(
+        &self,
+        user_id: &str,
+        query: &str,
+        limit: usize,
+    ) -> Result<Vec<Mem0Memory>, IndexError> {
+        let response = self
+            .client
+            .post(self.endpoint("/search"))
+            .json(&serde_json::json!({
+                "query": query,
+                "filters": {"user_id": user_id},
+                "top_k": limit,
+            }))
+            .send()
+            .await
+            .map_err(map_reqwest_error)?;
+        let response = require_success(response).await?;
+        response
+            .json::<Mem0PrimarySearchResponse>()
+            .await
+            .map(|body| body.results)
+            .map_err(|error| IndexError::InvalidResponse(error.to_string()))
+    }
+
+    pub async fn get_memory(&self, memory_id: &str) -> Result<Option<Mem0Memory>, IndexError> {
+        let response = self
+            .client
+            .get(self.endpoint(&format!("/memories/{memory_id}")))
+            .send()
+            .await
+            .map_err(map_reqwest_error)?;
+        if response.status() == reqwest::StatusCode::NOT_FOUND {
+            return Ok(None);
+        }
+        let response = require_success(response).await?;
+        response
+            .json::<Mem0Memory>()
+            .await
+            .map(Some)
+            .map_err(|error| IndexError::InvalidResponse(error.to_string()))
+    }
+
+    pub async fn delete_memory(&self, memory_id: &str) -> Result<(), IndexError> {
+        let response = self
+            .client
+            .delete(self.endpoint(&format!("/memories/{memory_id}")))
+            .send()
+            .await
+            .map_err(map_reqwest_error)?;
+        if response.status() != reqwest::StatusCode::NOT_FOUND {
+            require_success(response).await?;
+        }
+        Ok(())
+    }
 }
 
 #[derive(Debug, Serialize)]
@@ -75,12 +184,13 @@ struct Mem0AddRequest<'a> {
 #[derive(Debug, Deserialize)]
 struct Mem0AddResponse {
     #[serde(default)]
-    results: Vec<Mem0AddResult>,
+    results: Vec<Mem0Memory>,
 }
 
 #[derive(Debug, Deserialize)]
-struct Mem0AddResult {
-    id: String,
+struct Mem0PrimarySearchResponse {
+    #[serde(default)]
+    results: Vec<Mem0Memory>,
 }
 
 #[derive(Debug, Serialize)]
@@ -153,6 +263,7 @@ impl RetrievalIndex for Mem0Adapter {
             .into_iter()
             .next()
             .map(|result| result.id)
+            .filter(|id| !id.is_empty())
             .ok_or_else(|| IndexError::InvalidResponse("missing results[0].id".into()))?;
 
         Ok(ProjectionReceipt {
@@ -469,6 +580,84 @@ mod tests {
             version_id.to_string()
         );
         assert_eq!(json["metadata"]["operation_id"], operation_id.to_string());
+    }
+
+    #[tokio::test]
+    async fn primary_inference_uses_infer_true_and_returns_memories() {
+        let (base_url, captured) = mock_server(
+            "200 OK",
+            r#"{"results":[{"id":"c1d52391-2fa5-4ec8-8ddf-7c8125f48770","memory":"User prefers concise answers.","event":"ADD"}]}"#,
+        );
+        let adapter = adapter(base_url);
+        let memories = adapter
+            .infer_memories(Mem0InferenceRequest {
+                user_id: "opaque-user-id".into(),
+                messages: vec![Mem0ConversationMessage {
+                    role: "user".into(),
+                    content: "Please remember that I prefer concise answers.".into(),
+                }],
+                metadata: Map::from_iter([("turn_id".into(), Value::String("turn-1".into()))]),
+            })
+            .await
+            .expect("primary inference succeeds");
+
+        assert_eq!(memories.len(), 1);
+        assert_eq!(
+            memories[0].memory.as_deref(),
+            Some("User prefers concise answers.")
+        );
+        let raw_request = captured.recv().expect("captured request");
+        let body = raw_request.split("\r\n\r\n").nth(1).expect("request body");
+        let json: Value = serde_json::from_str(body).expect("JSON body");
+        assert_eq!(json["infer"], true);
+        assert_eq!(json["user_id"], "opaque-user-id");
+        assert_eq!(json["messages"][0]["role"], "user");
+        assert_eq!(json["metadata"]["turn_id"], "turn-1");
+    }
+
+    #[tokio::test]
+    async fn primary_search_is_isolated_by_user_id() {
+        let (base_url, captured) = mock_server(
+            "200 OK",
+            r#"{"results":[{"id":"c1d52391-2fa5-4ec8-8ddf-7c8125f48770","memory":"User prefers concise answers.","score":0.93}]}"#,
+        );
+        let adapter = adapter(base_url);
+        let memories = adapter
+            .search_memories("opaque-user-id", "answer style", 7)
+            .await
+            .expect("primary search succeeds");
+
+        assert_eq!(memories.len(), 1);
+        assert_eq!(memories[0].score, Some(0.93));
+        let raw_request = captured.recv().expect("captured request");
+        let body = raw_request.split("\r\n\r\n").nth(1).expect("request body");
+        let json: Value = serde_json::from_str(body).expect("JSON body");
+        assert_eq!(json["filters"]["user_id"], "opaque-user-id");
+        assert_eq!(json["top_k"], 7);
+    }
+
+    #[tokio::test]
+    async fn primary_get_returns_owner_without_serializing_it() {
+        let (base_url, captured) = mock_server(
+            "200 OK",
+            r#"{"id":"c1d52391-2fa5-4ec8-8ddf-7c8125f48770","memory":"User prefers concise answers.","user_id":"opaque-user-id"}"#,
+        );
+        let adapter = adapter(base_url);
+        let memory = adapter
+            .get_memory("c1d52391-2fa5-4ec8-8ddf-7c8125f48770")
+            .await
+            .expect("primary get succeeds")
+            .expect("memory exists");
+
+        assert_eq!(memory.user_id.as_deref(), Some("opaque-user-id"));
+        assert!(serde_json::to_value(memory)
+            .unwrap()
+            .get("user_id")
+            .is_none());
+        let raw_request = captured.recv().expect("captured request");
+        assert!(
+            raw_request.starts_with("GET /memories/c1d52391-2fa5-4ec8-8ddf-7c8125f48770 HTTP/1.1")
+        );
     }
 
     #[tokio::test]

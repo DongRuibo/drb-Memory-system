@@ -5,9 +5,10 @@ use axum::extract::{DefaultBodyLimit, FromRequestParts, Path, State};
 use axum::http::request::Parts;
 use axum::http::{HeaderMap, StatusCode};
 use axum::response::{IntoResponse, Response};
-use axum::routing::{get, post};
+use axum::routing::{delete, get, post};
 use axum::{Json, Router};
 use chrono::{DateTime, Utc};
+use mem0_adapter::{Mem0Adapter, Mem0ConversationMessage, Mem0InferenceRequest, Mem0Memory};
 use memory_application::{
     ExtractCandidateProposal, ExtractMemoryRequest, ExtractionDiagnostics, ExtractorError,
     IndexError, MIN_TRANSPARENT_RELEVANCE_SCORE, MemoryExtractor, MemoryReranker, ProjectionHit,
@@ -63,7 +64,14 @@ pub struct AppState {
     pub authenticator: Authenticator,
 }
 
+pub struct PrimaryAppState {
+    pub mem0: Arc<Mem0Adapter>,
+    pub authenticator: Authenticator,
+}
+
 struct RequestPrincipal(AuthenticatedPrincipal);
+
+struct PrimaryRequestPrincipal(AuthenticatedPrincipal);
 
 impl FromRequestParts<Arc<AppState>> for RequestPrincipal {
     type Rejection = ApiError;
@@ -112,6 +120,67 @@ impl RequestPrincipal {
         }
         Ok(&self.0.authority)
     }
+}
+
+impl FromRequestParts<Arc<PrimaryAppState>> for PrimaryRequestPrincipal {
+    type Rejection = ApiError;
+
+    async fn from_request_parts(
+        parts: &mut Parts,
+        state: &Arc<PrimaryAppState>,
+    ) -> Result<Self, Self::Rejection> {
+        let principal = state
+            .authenticator
+            .authenticate(&parts.headers)
+            .map_err(|error| match error {
+                AuthenticationError::InvalidTenantId => ApiError::bad_request(
+                    "INVALID_TENANT_ID",
+                    "X-Tenant-Id must identify one configured MEMORY_TENANT_IDS entry",
+                ),
+                AuthenticationError::InvalidUserId => ApiError::bad_request(
+                    "INVALID_USER_ID",
+                    "X-User-Id must contain 1 to 256 visible characters",
+                ),
+                _ => ApiError::unauthorized(
+                    "AUTHENTICATION_REQUIRED",
+                    "a valid Memory API identity is required",
+                ),
+            })?;
+        Ok(Self(principal))
+    }
+}
+
+impl PrimaryRequestPrincipal {
+    fn require(&self, permission: &'static str) -> Result<&DemoAuthority, ApiError> {
+        if !self.0.has_permission(permission) {
+            return Err(ApiError::forbidden(
+                "PERMISSION_DENIED",
+                format!("principal lacks required permission {permission}"),
+            ));
+        }
+        Ok(&self.0.authority)
+    }
+}
+
+pub fn primary_router(state: Arc<PrimaryAppState>) -> Router {
+    Router::new()
+        .route("/", get(primary_root))
+        .route("/health/live", get(liveness))
+        .route("/health/ready", get(primary_readiness))
+        .route(
+            "/v1/runtime/memory/retrieve",
+            post(primary_runtime_retrieve_memory),
+        )
+        .route(
+            "/v1/runtime/memory/extract",
+            post(primary_runtime_extract_memory),
+        )
+        .route(
+            "/v1/runtime/memory/{memory_id}",
+            delete(primary_delete_memory),
+        )
+        .layer(DefaultBodyLimit::max(256 * 1024))
+        .with_state(state)
 }
 
 pub fn router(state: Arc<AppState>) -> Router {
@@ -204,6 +273,33 @@ pub fn router(state: Arc<AppState>) -> Router {
         .with_state(state)
 }
 
+async fn primary_root(State(state): State<Arc<PrimaryAppState>>) -> Json<serde_json::Value> {
+    Json(json!({
+        "service": "lazytt-memory-service",
+        "service_version": env!("CARGO_PKG_VERSION"),
+        "api_version": "v1",
+        "backend_mode": "mem0_primary",
+        "authority": "mem0",
+        "vector_store": "elasticsearch",
+        "authentication": state.authenticator.mode_name(),
+        "capabilities": [
+            "memory.runtime_extract",
+            "memory.runtime_retrieve"
+        ],
+        "permission_gated_capabilities": {
+            "memory.runtime_delete": "memory:forget"
+        },
+        "disabled_governed_capabilities": [
+            "memory.context_pack",
+            "memory.correct",
+            "memory.forget_workflow",
+            "memory.erase_workflow",
+            "memory.export",
+            "memory.projection_rebuild"
+        ]
+    }))
+}
+
 async fn root(State(state): State<Arc<AppState>>) -> Json<serde_json::Value> {
     Json(json!({
         "service": "lazytt-memory-service",
@@ -256,6 +352,17 @@ async fn liveness() -> StatusCode {
     StatusCode::OK
 }
 
+async fn primary_readiness(
+    State(state): State<Arc<PrimaryAppState>>,
+) -> Result<StatusCode, ApiError> {
+    state
+        .mem0
+        .health_check()
+        .await
+        .map_err(ApiError::provider)?;
+    Ok(StatusCode::OK)
+}
+
 async fn readiness(State(state): State<Arc<AppState>>) -> Result<StatusCode, ApiError> {
     state.repository.ready().await?;
     state
@@ -276,6 +383,46 @@ async fn readiness(State(state): State<Arc<AppState>>) -> Result<StatusCode, Api
         require_runtime_projection_model(&state, authority).await?;
     }
     Ok(StatusCode::OK)
+}
+
+#[derive(Debug, Serialize)]
+struct PrimaryDeleteResponse {
+    backend: &'static str,
+    memory_id: Uuid,
+    deleted: bool,
+}
+
+async fn primary_delete_memory(
+    State(state): State<Arc<PrimaryAppState>>,
+    principal: PrimaryRequestPrincipal,
+    Path(memory_id): Path<Uuid>,
+) -> Result<Json<PrimaryDeleteResponse>, ApiError> {
+    let authority = principal.require(MEMORY_FORGET)?;
+    let memory_id_text = memory_id.to_string();
+    let memory = state
+        .mem0
+        .get_memory(&memory_id_text)
+        .await
+        .map_err(ApiError::provider)?;
+    if memory
+        .as_ref()
+        .is_some_and(|memory| !primary_memory_belongs_to(authority, memory))
+    {
+        return Err(ApiError::not_found(
+            "MEMORY_NOT_FOUND",
+            "memory does not exist in the current user scope",
+        ));
+    }
+    state
+        .mem0
+        .delete_memory(&memory_id_text)
+        .await
+        .map_err(ApiError::provider)?;
+    Ok(Json(PrimaryDeleteResponse {
+        backend: "mem0",
+        memory_id,
+        deleted: true,
+    }))
 }
 
 #[derive(Debug, Deserialize)]
@@ -688,6 +835,84 @@ struct RuntimeExtractResponse {
     tenant_id: String,
     user_id: String,
     completed_turn: CompletedTurnResponse,
+}
+
+#[derive(Debug, Serialize)]
+struct PrimaryRuntimeExtractResponse {
+    tenant_id: String,
+    user_id: String,
+    backend: &'static str,
+    memories: Vec<Mem0Memory>,
+}
+
+fn primary_mem0_user_id(authority: &DemoAuthority) -> String {
+    let digest = hex::encode(Sha256::digest(
+        format!("lazytt\0{}\0{}", authority.tenant_id, authority.user_id).as_bytes(),
+    ));
+    format!("lazytt-{}", &digest[..32])
+}
+
+fn primary_memory_belongs_to(authority: &DemoAuthority, memory: &Mem0Memory) -> bool {
+    let expected_user_id = primary_mem0_user_id(authority);
+    memory.user_id.as_deref() == Some(expected_user_id.as_str())
+}
+
+async fn primary_runtime_extract_memory(
+    State(state): State<Arc<PrimaryAppState>>,
+    principal: PrimaryRequestPrincipal,
+    headers: HeaderMap,
+    Json(request): Json<RuntimeExtractRequest>,
+) -> Result<(StatusCode, Json<PrimaryRuntimeExtractResponse>), ApiError> {
+    let authority = principal.require(MEMORY_EXTRACT)?;
+    let idempotency_key = idempotency_key(&headers)?;
+    let idempotency_hash = format!(
+        "sha256:{}",
+        hex::encode(Sha256::digest(idempotency_key.as_bytes()))
+    );
+    let user_content = sanitize_boundary_text(&request.user_content)?.redacted_text;
+    let assistant_content = sanitize_boundary_text(&request.assistant_content)?.redacted_text;
+    let mut messages = vec![Mem0ConversationMessage {
+        role: "user".into(),
+        content: user_content,
+    }];
+    if !assistant_content.is_empty() {
+        messages.push(Mem0ConversationMessage {
+            role: "assistant".into(),
+            content: assistant_content,
+        });
+    }
+    let completed_at = request.completed_at.unwrap_or_else(Utc::now);
+    let metadata = json!({
+        "backend": "mem0_primary",
+        "session_id": request.session_id,
+        "turn_id": request.turn_id,
+        "idempotency_key_hash": idempotency_hash,
+        "completed_at": completed_at,
+        "timezone": request.timezone,
+        "outcome": request.outcome,
+        "verified_tool_result_count": request.verified_tool_results.len(),
+    })
+    .as_object()
+    .cloned()
+    .expect("primary Mem0 metadata is an object");
+    let memories = state
+        .mem0
+        .infer_memories(Mem0InferenceRequest {
+            user_id: primary_mem0_user_id(authority),
+            messages,
+            metadata,
+        })
+        .await
+        .map_err(ApiError::provider)?;
+    Ok((
+        StatusCode::ACCEPTED,
+        Json(PrimaryRuntimeExtractResponse {
+            tenant_id: authority.tenant_id.clone(),
+            user_id: authority.user_id.clone(),
+            backend: "mem0",
+            memories,
+        }),
+    ))
 }
 
 async fn runtime_extract_memory(
@@ -1236,6 +1461,16 @@ struct ContextPackRequest {
 
 #[derive(Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
+struct PrimaryRuntimeRetrieveRequest {
+    query: String,
+    #[serde(default = "default_limit")]
+    limit: usize,
+    #[serde(default)]
+    memory_required: bool,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
 struct RuntimeRetrieveRequest {
     query: String,
     #[serde(default = "default_runtime_memory_types")]
@@ -1268,6 +1503,50 @@ struct RuntimeRetrieveResponse {
     tenant_id: String,
     user_id: String,
     context_pack: ContextPackView,
+}
+
+#[derive(Debug, Serialize)]
+struct PrimaryRuntimeRetrieveResponse {
+    tenant_id: String,
+    user_id: String,
+    backend: &'static str,
+    memories: Vec<Mem0Memory>,
+    filters_applied: [&'static str; 1],
+}
+
+async fn primary_runtime_retrieve_memory(
+    State(state): State<Arc<PrimaryAppState>>,
+    principal: PrimaryRequestPrincipal,
+    Json(request): Json<PrimaryRuntimeRetrieveRequest>,
+) -> Result<Json<PrimaryRuntimeRetrieveResponse>, ApiError> {
+    let authority = principal.require(MEMORY_READ)?;
+    if !(1..=50).contains(&request.limit) {
+        return Err(ApiError::bad_request(
+            "INVALID_SEARCH",
+            "limit must be between 1 and 50",
+        ));
+    }
+    let query = sanitize_boundary_text(&request.query)?.redacted_text;
+    let memories = state
+        .mem0
+        .search_memories(&primary_mem0_user_id(authority), &query, request.limit)
+        .await
+        .map_err(ApiError::provider)?;
+    if request.memory_required && memories.is_empty() {
+        return Err(ApiError {
+            status: StatusCode::NOT_FOUND,
+            code: "MEMORY_REQUIRED_NOT_FOUND",
+            detail: "Mem0 returned no memory for a memory-required request".into(),
+            retryable: false,
+        });
+    }
+    Ok(Json(PrimaryRuntimeRetrieveResponse {
+        tenant_id: authority.tenant_id.clone(),
+        user_id: authority.user_id.clone(),
+        backend: "mem0",
+        memories,
+        filters_applied: ["user_id"],
+    }))
 }
 
 async fn runtime_retrieve_memory(
@@ -2663,6 +2942,15 @@ impl ApiError {
         }
     }
 
+    fn not_found(code: &'static str, detail: impl Into<String>) -> Self {
+        Self {
+            status: StatusCode::NOT_FOUND,
+            code,
+            detail: detail.into(),
+            retryable: false,
+        }
+    }
+
     fn provider(error: memory_application::IndexError) -> Self {
         Self {
             status: StatusCode::SERVICE_UNAVAILABLE,
@@ -2815,6 +3103,18 @@ mod tests {
 
     #[test]
     fn runtime_facade_defaults_are_user_scoped_and_agent_friendly() {
+        let primary_retrieve: PrimaryRuntimeRetrieveRequest =
+            serde_json::from_value(json!({"query": "我以前喜欢什么回答方式？"})).unwrap();
+        assert_eq!(primary_retrieve.limit, 10);
+        assert!(!primary_retrieve.memory_required);
+        assert!(
+            serde_json::from_value::<PrimaryRuntimeRetrieveRequest>(json!({
+                "query": "我以前喜欢什么回答方式？",
+                "memory_types": []
+            }))
+            .is_err()
+        );
+
         let retrieve: RuntimeRetrieveRequest =
             serde_json::from_value(json!({"query": "我以前喜欢什么回答方式？"})).unwrap();
         assert_eq!(retrieve.limit, 10);
@@ -2838,6 +3138,25 @@ mod tests {
         assert_eq!(completed.attempt_id, turn_id);
         assert_eq!(completed.outcome, TurnOutcome::Succeeded);
         assert!(completed.project_scope_selector.is_none());
+    }
+
+    #[test]
+    fn primary_memory_ownership_is_user_scoped() {
+        let authority = DemoAuthority::user("tenant-a", "user-a");
+        let mut memory = Mem0Memory {
+            id: Uuid::new_v4().to_string(),
+            memory: Some("User prefers concise answers.".into()),
+            event: None,
+            score: None,
+            metadata: Default::default(),
+            user_id: Some(primary_mem0_user_id(&authority)),
+        };
+        assert!(primary_memory_belongs_to(&authority, &memory));
+
+        memory.user_id = Some(primary_mem0_user_id(&DemoAuthority::user(
+            "tenant-a", "user-b",
+        )));
+        assert!(!primary_memory_belongs_to(&authority, &memory));
     }
 
     #[test]

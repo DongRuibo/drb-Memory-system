@@ -8,7 +8,6 @@ use std::net::SocketAddr;
 use std::sync::Arc;
 use std::time::Duration;
 
-use elasticsearch_adapter::{ElasticsearchAdapter, ElasticsearchConfig};
 use http_reranker::{HttpReranker, HttpRerankerConfig};
 use kimi_extractor::{
     KimiExtractor, KimiExtractorConfig, OpenAiCompatibleExtractor, OpenAiCompatibleExtractorConfig,
@@ -21,9 +20,9 @@ use tokio::net::TcpListener;
 use tracing::info;
 use tracing_subscriber::EnvFilter;
 
-use crate::api::{AppState, router};
+use crate::api::{AppState, PrimaryAppState, primary_router, router};
 use crate::auth::Authenticator;
-use crate::embedding::{EmbeddingProbe, embedding_api_key_from_env};
+use crate::embedding::EmbeddingProbe;
 use crate::worker::{
     ConsolidationWorker, DynamicTenantWorkers, ProjectionWorker,
     bootstrap_empty_projection_generation,
@@ -56,6 +55,36 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     }
     authority.project_ids.insert(demo_project_id);
     let authenticator = Authenticator::from_env(authority.clone())?;
+    let backend_mode = env::var("MEMORY_BACKEND_MODE").unwrap_or_else(|_| "governed".into());
+    if backend_mode == "mem0_primary" {
+        if authenticator.allows_dynamic_tenants() {
+            return Err("MEMORY_BACKEND_MODE=mem0_primary requires configured tenant IDs".into());
+        }
+        let mem0 = Arc::new(Mem0Adapter::new(Mem0Config {
+            base_url: env::var("MEM0_BASE_URL").unwrap_or_else(|_| "http://127.0.0.1:18888".into()),
+            api_key: env::var("MEM0_API_KEY").ok(),
+            timeout: duration_from_env("MEMORY_INDEX_TIMEOUT_SECONDS", 120)?,
+        })?);
+        let state = Arc::new(PrimaryAppState {
+            mem0,
+            authenticator: authenticator.clone(),
+        });
+        let listener = TcpListener::bind(bind).await?;
+        info!(
+            %bind,
+            authentication = authenticator.mode_name(),
+            backend_mode = "mem0_primary",
+            vector_store = "elasticsearch",
+            "Mem0-primary Memory Service listening"
+        );
+        axum::serve(listener, primary_router(state))
+            .with_graceful_shutdown(shutdown_signal())
+            .await?;
+        return Ok(());
+    }
+    if backend_mode != "governed" {
+        return Err("MEMORY_BACKEND_MODE must be governed or mem0_primary".into());
+    }
     let projection_model_manifest = projection_model_manifest_from_env()?;
     let embedding_probe = Arc::new(EmbeddingProbe::from_env(projection_model_manifest.clone())?);
     if authenticator.is_demo() && !bind.ip().is_loopback() {
@@ -72,37 +101,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             api_key: env::var("MEM0_API_KEY").ok(),
             timeout: duration_from_env("MEMORY_INDEX_TIMEOUT_SECONDS", 5)?,
         })?),
-        "elasticsearch" => Arc::new(ElasticsearchAdapter::new(ElasticsearchConfig {
-            base_url: env::var("ELASTICSEARCH_BASE_URL")
-                .unwrap_or_else(|_| "http://127.0.0.1:19200".into()),
-            api_key: env::var("ELASTICSEARCH_API_KEY").ok(),
-            username: env::var("ELASTICSEARCH_USERNAME").ok(),
-            password: env::var("ELASTICSEARCH_PASSWORD").ok(),
-            index_prefix: env::var("ELASTICSEARCH_INDEX_PREFIX")
-                .unwrap_or_else(|_| "lazytt-memory".into()),
-            required_version: env::var("ELASTICSEARCH_REQUIRED_VERSION")
-                .unwrap_or_else(|_| "8.11.3".into()),
-            allow_insecure_index_http: bool_from_env("MEMORY_ALLOW_INSECURE_INDEX_HTTP", false)?,
-            timeout: duration_from_env("MEMORY_INDEX_TIMEOUT_SECONDS", 10)?,
-            embedding_base_url: env::var("MEMORY_EMBEDDING_BASE_URL").unwrap_or_else(|_| {
-                if projection_model_manifest.semantic_embedding {
-                    "http://127.0.0.1:18082".into()
-                } else {
-                    "http://127.0.0.1:18080".into()
-                }
-            }),
-            embedding_api_key: embedding_api_key_from_env(),
-            embedding_model: projection_model_manifest.embedding_model.clone(),
-            embedding_dimensions: projection_model_manifest.embedding_dimensions,
-            embedding_request_dialect: env::var("MEMORY_EMBEDDING_REQUEST_DIALECT")
-                .unwrap_or_else(|_| "lazytt".into()),
-            allow_insecure_embedding_http: bool_from_env(
-                "MEMORY_ALLOW_INSECURE_MODEL_HTTP",
-                false,
-            )?,
-            embedding_timeout: duration_from_env("MEMORY_EMBEDDING_TIMEOUT_SECONDS", 10)?,
-        })?),
-        _ => return Err("MEMORY_INDEX_PROVIDER must be mem0 or elasticsearch".into()),
+        _ => {
+            return Err(
+                "MEMORY_INDEX_PROVIDER must be mem0; direct ElasticsearchAdapter wiring is disabled"
+                    .into(),
+            );
+        }
     };
     let reranker: Arc<dyn MemoryReranker> = match env::var("MEMORY_RERANK_MODE")
         .unwrap_or_else(|_| "transparent".into())
@@ -237,15 +241,6 @@ fn projection_model_manifest_from_env()
         return Err("POC deterministic embeddings cannot be declared semantic".into());
     }
     Ok(manifest)
-}
-
-fn bool_from_env(name: &str, default: bool) -> Result<bool, Box<dyn std::error::Error>> {
-    match env::var(name).ok().as_deref() {
-        None => Ok(default),
-        Some("true") => Ok(true),
-        Some("false") => Ok(false),
-        Some(_) => Err(format!("{name} must be true or false").into()),
-    }
 }
 
 fn duration_from_env(

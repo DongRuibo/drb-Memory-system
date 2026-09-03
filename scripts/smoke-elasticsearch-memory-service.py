@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exercise natural-turn extraction and recall through Elasticsearch."""
+"""Exercise Mem0-primary extraction and recall through Elasticsearch."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ SESSION_ID = "39b8f9cb-bd1c-4d9f-b62d-cfaf30a26ee1"
 TURN_ID = "62f606b8-139e-4b79-b52c-5a97c8c805f3"
 IDEMPOTENCY_KEY = "elasticsearch-runtime-poc-turn-0002"
 COMPLETED_AT = "2026-08-21T08:00:00Z"
-MEMORY_SENTENCE = "回答技术问题时先给一句结论，再列出要点"
+MEMORY_TERM_GROUPS = (("结论", "conclusion"), ("要点", "key points", "bullet points"))
 
 
 def base_url() -> str:
@@ -90,12 +90,11 @@ def main() -> None:
     url = base_url()
     request_json("GET", f"{url}/health/ready")
     root = request_json("GET", url)
-    manifest = root.get("projection_model_manifest", {})
-    if root.get("projection") != "elasticsearch" or manifest.get("index_provider") != "elasticsearch":
-        raise RuntimeError("Memory Service is not running with the Elasticsearch projection")
+    if root.get("backend_mode") != "mem0_primary" or root.get("vector_store") != "elasticsearch":
+        raise RuntimeError("Memory Service is not running in Mem0-primary Elasticsearch mode")
 
     headers = identity_headers()
-    per_turn: dict[str, Any] = {}
+    extracted_memories: list[dict[str, Any]] = []
     if not verify_only:
         extract_headers = dict(headers)
         extract_headers["Idempotency-Key"] = IDEMPOTENCY_KEY
@@ -113,12 +112,9 @@ def main() -> None:
             headers=extract_headers,
             expected=(202,),
         )
-        per_turn = extraction.get("completed_turn", {}).get("per_turn_extraction", {})
-        if per_turn.get("candidate_count", 0) < 1:
-            raise RuntimeError(
-                "extractor did not produce a memory candidate: "
-                + json.dumps(per_turn.get("diagnostics", {}), ensure_ascii=False)
-            )
+        extracted_memories = extraction.get("memories", [])
+        if not isinstance(extracted_memories, list):
+            raise RuntimeError("Mem0 extraction returned an invalid memories field")
 
     retrieved: dict[str, Any] | None = None
     for _ in range(60):
@@ -135,38 +131,30 @@ def main() -> None:
             },
             headers=headers,
         )
-        rendered_sections = json.dumps(
-            candidate.get("context_pack", {}).get("sections", []),
-            ensure_ascii=False,
-        )
-        if MEMORY_SENTENCE in rendered_sections:
+        rendered_memories = json.dumps(candidate.get("memories", []), ensure_ascii=False).lower()
+        if all(any(term in rendered_memories for term in group) for group in MEMORY_TERM_GROUPS):
             retrieved = candidate
             break
         time.sleep(1)
     if retrieved is None:
         raise RuntimeError("new memory was not recalled through Elasticsearch within 60 seconds")
 
-    context_pack = retrieved["context_pack"]
-    if context_pack.get("consumed_at") is None:
-        raise RuntimeError("runtime retrieve did not consume the immutable Context Pack")
     print(
         json.dumps(
             {
                 "status": "ok",
                 "mode": "verify-recall" if verify_only else "extract-and-recall",
-                "projection": "elasticsearch",
-                "candidate_count": per_turn.get("candidate_count"),
-                "projection_generation": context_pack.get("projection_generation"),
-                "context_pack_id": context_pack.get("context_pack_id"),
+                "backend": "mem0",
+                "vector_store": "elasticsearch",
+                "extracted_memory_count": len(extracted_memories),
+                "recalled_memory_count": len(retrieved.get("memories", [])),
                 "checks": (
-                    ["restart_persistence", "runtime_retrieve", "context_pack_consumed"]
+                    ["restart_persistence", "mem0_search", "elasticsearch_vector_store"]
                     if verify_only
                     else [
-                        "runtime_extract",
-                        "postgres_authority_write",
-                        "elasticsearch_projection",
-                        "runtime_retrieve",
-                        "context_pack_consumed",
+                        "mem0_infer",
+                        "elasticsearch_vector_store",
+                        "mem0_search",
                     ]
                 ),
             },
