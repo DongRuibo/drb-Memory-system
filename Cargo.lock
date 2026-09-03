@@ -1276,7 +1276,6 @@ dependencies = [
  "axum",
  "base64",
  "chrono",
- "elasticsearch-adapter",
  "hex",
  "hmac",
  "http-reranker",

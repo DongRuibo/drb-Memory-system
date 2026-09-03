@@ -123,11 +123,8 @@ def main() -> None:
             f"{url}/v1/runtime/memory/retrieve",
             {
                 "query": "我偏好怎样回答技术问题？",
-                "memory_types": ["preference"],
                 "limit": 10,
-                "token_budget": 2048,
                 "memory_required": False,
-                "timezone": "Asia/Shanghai",
             },
             headers=headers,
         )
