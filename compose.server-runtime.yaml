@@ -9,15 +9,18 @@ services:
     init: true
     restart: unless-stopped
     command:
-      - sh
-      - -c
-      - "alembic upgrade head && exec uvicorn main:app --host 0.0.0.0 --port 8000"
+      - uvicorn
+      - main:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
     environment:
       POSTGRES_HOST: ${MEM0_POSTGRES_HOST:?set MEM0_POSTGRES_HOST}
       POSTGRES_PORT: ${MEM0_POSTGRES_PORT:-5432}
       POSTGRES_DB: ${MEM0_POSTGRES_DB:-postgres}
-      POSTGRES_USER: ${MEM0_POSTGRES_USER:?set MEM0_POSTGRES_USER}
-      POSTGRES_PASSWORD: ${MEM0_POSTGRES_PASSWORD:?set MEM0_POSTGRES_PASSWORD}
+      POSTGRES_USER: ${MEM0_POSTGRES_RUNTIME_USER:?set MEM0_POSTGRES_RUNTIME_USER}
+      POSTGRES_PASSWORD: ${MEM0_POSTGRES_RUNTIME_PASSWORD:?set MEM0_POSTGRES_RUNTIME_PASSWORD}
       APP_DB_NAME: ${MEM0_APP_DB_NAME:-mem0_app}
       HISTORY_DB_PATH: /app/history/history.db
       OPENAI_API_KEY: local-bootstrap-not-secret

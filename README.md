@@ -59,14 +59,48 @@ docker compose \
 
 ## 服务器复用已有 PostgreSQL 和 Elasticsearch
 
-`compose.server-runtime.yaml` 不部署 PostgreSQL 或 Elasticsearch。服务器管理员应在
-已有 PostgreSQL 中为 Mem0 创建独立数据库和非超级用户；Mem0 不需要 pgvector
-扩展。下面的名称可以调整，密码必须在服务器本地设置，不能提交到 Git：
+`compose.server-runtime.yaml` 不部署 PostgreSQL 或 Elasticsearch，也不执行 Alembic。
+Mem0 不需要 pgvector 扩展。服务器管理员应创建独立数据库和低权限运行账号，
+审核并手动执行仓库提供的固定 SQL；运行账号不能建表或修改表结构。
+
+先以 PostgreSQL 管理员身份连接入口数据库。数据库必须由管理员（或专用 schema
+owner）持有，不能把所有者设成 `mem0_runtime`。密码使用 `psql` 的 `\password`
+交互设置，不能写进命令历史或提交到 Git：
 
 ```sql
-CREATE USER mem0_app WITH PASSWORD '<REDACTED>';
-CREATE DATABASE mem0_app OWNER mem0_app;
+CREATE ROLE mem0_runtime LOGIN NOSUPERUSER NOCREATEDB NOCREATEROLE NOREPLICATION;
+\password mem0_runtime
+CREATE DATABASE mem0_app;
 ```
+
+在仓库根目录由管理员把锁定版本的 schema 应用到空数据库：
+
+```bash
+docker exec -i <POSTGRES_CONTAINER> \
+  psql -U <POSTGRES_ADMIN_USER> -d mem0_app -v ON_ERROR_STOP=1 \
+  < deploy/mem0/sql/mem0-schema-v006.sql
+```
+
+随后仍由管理员授予运行账号最小权限。这里会同时撤销 `public` 的建表和临时表
+权限，因此 `mem0_app` 应当是 Mem0 专用数据库：
+
+```sql
+REVOKE CONNECT, TEMPORARY ON DATABASE mem0_app FROM PUBLIC;
+GRANT CONNECT ON DATABASE mem0_app TO mem0_runtime;
+\connect mem0_app
+REVOKE CREATE ON SCHEMA public FROM PUBLIC;
+GRANT USAGE ON SCHEMA public TO mem0_runtime;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO mem0_runtime;
+```
+
+检查固定 schema 版本，结果必须是 `006`：
+
+```sql
+SELECT version_num FROM public.alembic_version;
+```
+
+`mem0-schema-v006.sql` 只适用于新的空数据库，已有数据库不能重复执行。未来升级
+Mem0 时，必须先由项目提供并审核新的管理员迁移 SQL，再升级服务镜像。
 
 把已有 PostgreSQL、Elasticsearch 容器与 Memory System 接入同一个 Docker 网络。
 已连接的容器不需要重复执行 `docker network connect`：
@@ -83,10 +117,10 @@ docker network connect lazytt-memory-data <ELASTICSEARCH_CONTAINER>
 ```dotenv
 MEM0_POSTGRES_HOST=<POSTGRES_CONTAINER_OR_ALIAS>
 MEM0_POSTGRES_PORT=5432
-MEM0_POSTGRES_DB=postgres
-MEM0_POSTGRES_USER=mem0_app
-MEM0_POSTGRES_PASSWORD=<REDACTED>
+MEM0_POSTGRES_DB=mem0_app
 MEM0_APP_DB_NAME=mem0_app
+MEM0_POSTGRES_RUNTIME_USER=mem0_runtime
+MEM0_POSTGRES_RUNTIME_PASSWORD=<REDACTED>
 
 LAZYTT_MEMORY_DATA_NETWORK=lazytt-memory-data
 LAZYTT_MEMORY_ELASTICSEARCH_ENDPOINT=http://<ELASTICSEARCH_CONTAINER_OR_ALIAS>
@@ -104,9 +138,10 @@ docker compose --env-file .env -f compose.server-runtime.yaml config --quiet
 docker compose --env-file .env -f compose.server-runtime.yaml up --build -d
 ```
 
-Mem0 启动时执行数据库迁移。现有 PostgreSQL 必须允许 `mem0_app` 用户从该
-Docker 网络连接，且该用户应拥有 `mem0_app` 数据库。服务器部署前应先备份
-PostgreSQL 和 Elasticsearch，并验证迁移、健康检查和一条合成记忆 E2E。
+现有 PostgreSQL 必须允许 `mem0_runtime` 从该 Docker 网络连接。服务器部署前
+应先备份 PostgreSQL 和 Elasticsearch，并验证管理员 SQL、最小权限、健康检查
+和一条合成记忆 E2E。Mem0 运行期间若 schema 不匹配会启动或请求失败，但不会
+自行创建、修改或删除 PostgreSQL 表。
 
 ## 检查服务
 
