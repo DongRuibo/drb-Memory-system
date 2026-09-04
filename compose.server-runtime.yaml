@@ -1,22 +1,6 @@
 name: lazytt-memory-server-runtime
 
 services:
-  mem0-postgres:
-    image: postgres:17-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: mem0
-      POSTGRES_PASSWORD: ${MEM0_POSTGRES_PASSWORD:?set MEM0_POSTGRES_PASSWORD}
-      POSTGRES_DB: postgres
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U mem0 -d postgres"]
-      interval: 3s
-      timeout: 5s
-      retries: 30
-    volumes:
-      - mem0-postgres-data:/var/lib/postgresql/data
-      - ./deploy/mem0/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
-
   mem0:
     image: lazytt-mem0-api-elasticsearch:b357a5a1
     build:
@@ -24,20 +8,17 @@ services:
       dockerfile: deploy/mem0/Dockerfile.elasticsearch
     init: true
     restart: unless-stopped
-    depends_on:
-      mem0-postgres:
-        condition: service_healthy
     command:
       - sh
       - -c
       - "alembic upgrade head && exec uvicorn main:app --host 0.0.0.0 --port 8000"
     environment:
-      POSTGRES_HOST: mem0-postgres
-      POSTGRES_PORT: 5432
-      POSTGRES_DB: postgres
-      POSTGRES_USER: mem0
+      POSTGRES_HOST: ${MEM0_POSTGRES_HOST:?set MEM0_POSTGRES_HOST}
+      POSTGRES_PORT: ${MEM0_POSTGRES_PORT:-5432}
+      POSTGRES_DB: ${MEM0_POSTGRES_DB:-postgres}
+      POSTGRES_USER: ${MEM0_POSTGRES_USER:?set MEM0_POSTGRES_USER}
       POSTGRES_PASSWORD: ${MEM0_POSTGRES_PASSWORD:?set MEM0_POSTGRES_PASSWORD}
-      APP_DB_NAME: mem0_app
+      APP_DB_NAME: ${MEM0_APP_DB_NAME:-mem0_app}
       HISTORY_DB_PATH: /app/history/history.db
       OPENAI_API_KEY: local-bootstrap-not-secret
       OPENAI_BASE_URL: http://127.0.0.1:9/v1
@@ -127,5 +108,4 @@ networks:
     external: true
 
 volumes:
-  mem0-postgres-data:
   mem0-history:

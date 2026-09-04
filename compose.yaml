@@ -107,7 +107,7 @@ services:
       - memory-postgres-data:/var/lib/postgresql/data
 
   mem0-postgres:
-    image: pgvector/pgvector:pg17
+    image: postgres:17-bookworm
     restart: unless-stopped
     shm_size: 128mb
     environment:

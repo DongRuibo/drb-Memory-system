@@ -57,6 +57,57 @@ docker compose \
 
 首次构建需要下载 Mem0、Rust、Python 与容器依赖，耗时取决于网络环境。
 
+## 服务器复用已有 PostgreSQL 和 Elasticsearch
+
+`compose.server-runtime.yaml` 不部署 PostgreSQL 或 Elasticsearch。服务器管理员应在
+已有 PostgreSQL 中为 Mem0 创建独立数据库和非超级用户；Mem0 不需要 pgvector
+扩展。下面的名称可以调整，密码必须在服务器本地设置，不能提交到 Git：
+
+```sql
+CREATE USER mem0_app WITH PASSWORD '<REDACTED>';
+CREATE DATABASE mem0_app OWNER mem0_app;
+```
+
+把已有 PostgreSQL、Elasticsearch 容器与 Memory System 接入同一个 Docker 网络。
+已连接的容器不需要重复执行 `docker network connect`：
+
+```bash
+docker network create lazytt-memory-data
+docker network connect lazytt-memory-data <POSTGRES_CONTAINER>
+docker network connect lazytt-memory-data <ELASTICSEARCH_CONTAINER>
+```
+
+服务器 `.env` 至少需要配置以下连接信息。容器之间使用容器名或网络别名和容器
+端口，不能使用 `127.0.0.1` 或宿主机映射端口：
+
+```dotenv
+MEM0_POSTGRES_HOST=<POSTGRES_CONTAINER_OR_ALIAS>
+MEM0_POSTGRES_PORT=5432
+MEM0_POSTGRES_DB=postgres
+MEM0_POSTGRES_USER=mem0_app
+MEM0_POSTGRES_PASSWORD=<REDACTED>
+MEM0_APP_DB_NAME=mem0_app
+
+LAZYTT_MEMORY_DATA_NETWORK=lazytt-memory-data
+LAZYTT_MEMORY_ELASTICSEARCH_ENDPOINT=http://<ELASTICSEARCH_CONTAINER_OR_ALIAS>
+ELASTICSEARCH_PORT=9200
+ELASTICSEARCH_USERNAME=<ELASTICSEARCH_USER>
+STORE_ELASTICSEARCH_PASSWORD=<REDACTED>
+```
+
+先构建镜像、检查 Compose，再启动服务：
+
+```bash
+./scripts/build-mem0-elasticsearch.sh
+
+docker compose --env-file .env -f compose.server-runtime.yaml config --quiet
+docker compose --env-file .env -f compose.server-runtime.yaml up --build -d
+```
+
+Mem0 启动时执行数据库迁移。现有 PostgreSQL 必须允许 `mem0_app` 用户从该
+Docker 网络连接，且该用户应拥有 `mem0_app` 数据库。服务器部署前应先备份
+PostgreSQL 和 Elasticsearch，并验证迁移、健康检查和一条合成记忆 E2E。
+
 ## 检查服务
 
 ```bash
