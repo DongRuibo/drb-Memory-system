@@ -1,6 +1,6 @@
 services:
   mem0:
-    image: lazytt-mem0-api-elasticsearch:b357a5a1-es-only-v1
+    image: lazytt-mem0-api-elasticsearch:b357a5a1-es-client-v1
     ports: !reset []
 
   elasticsearch:

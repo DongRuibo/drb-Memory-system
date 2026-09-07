@@ -6,6 +6,9 @@
 通过 PR、GitHub 镜像交付和显式管理员迁移执行；不部署 Agent。
 下文本地及通用服务器示例不代替该 ECS 流程。
 
+当前 Mem0 上游源码保持原样，项目仅配置 Elasticsearch。固定版本 REST 入口的免补丁启动
+兼容性尚未解决，部署暂为阻塞；详见 [兼容性断点](deploy/mem0/README.md#当前兼容性断点)。
+
 当前推荐运行模式是 `mem0_primary`：Agent 只调用 Memory Service，Mem0 负责
 长期记忆的提取、更新和语义检索，Elasticsearch 保存向量，Mem0 PostgreSQL
 保存 Mem0 的认证与配置状态。

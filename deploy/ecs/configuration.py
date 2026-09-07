@@ -40,7 +40,7 @@ def main(action):
     current = configure.request_json(url, "GET", key)
     if action == "configure":
         # Existing Elasticsearch data needs a separate index/model migration plan.
-        if current.get("vector_store", {}).get("config"):
+        if current.get("vector_store", {}).get("provider") == "elasticsearch":
             for section, fields in {
                 "vector_store": ("collection_name", "embedding_model_dims", "host", "port"),
                 "embedder": ("model", "embedding_dims", "openai_base_url"),

@@ -26,30 +26,26 @@ Elasticsearch 不暴露宿主机端口，不能作为 Agent 的直接调用接�
 ./scripts/build-mem0-elasticsearch.sh
 ```
 
-本地脚本与 ECS CI 共用 `deploy/mem0/Dockerfile`，安装 Elasticsearch 客户端，
-并应用配置合并、数据库连接和配置持久化补丁。
-构建阶段先通过 `prepare_vector_store.py` 清理不再支持的上游向量后端实现、注册和专用连接池依赖，
-最终阶段只复制清理后的运行源码，不继承旧 Mem0 基础镜像。
-PostgreSQL 驱动保留给认证与配置数据库；首次启动只提供认证配置入口，
-收到完整 Elasticsearch 配置后才初始化 Memory。已保存的其他向量后端配置会拒绝启动，不能静默迁移数据。
+本地脚本与 ECS CI 共用 `deploy/mem0/Dockerfile`，原样打包固定的 Mem0 源码，
+仅安装 Elasticsearch 客户端并附带本项目的配置/管理工具。不改写 Mem0 源文件，
+不删除第三方包中的未使用插件，不采用启动猴子补丁。
+本项目配置器默认且只接受 Elasticsearch，不再生成其他向量后端配置。
 
-本地镜像标签为 `lazytt-mem0-api-elasticsearch:b357a5a1-es-only-v1`，避免继续复用旧缓存。
-ECS 仍以 GHCR digest 固定运行制品。代码变更不会自动更新现有容器或清理共享数据库。
+本地候选标签为 `lazytt-mem0-api-elasticsearch:b357a5a1-es-client-v1`。
+`tests/ecs/check_mem0_source.py <镜像> <上游源码目录>` 逐文件核对上游 Python 源码摘要，
+确保打包没有修改实现。构建成功仅证明制品生成，不代表当前服务器可以启动 ES。
 
-当前固定上游版本仍需要定制构建：仅更换运行环境变量无法移除镜像内的后端源码与注册，
-本项目还需要数据库连接及配置保存方面的兼容补丁。这里只构建一个最终 Mem0 镜像，
-ECS 拉取并运行它。以后升级上游时重新核对补丁；源码不匹配会中止构建。
+## 当前兼容性断点
 
-构建后的离线检查验证后端实现、注册及专用连接池均不存在，默认配置仅为 Elasticsearch，
-空配置不初始化 Memory，旧后端配置不能启动或写入。禁用后端名称仅留在构建清理脚本和防回归测试中。
+**当前固定版本的免补丁 REST 启动仍为 BLOCKED，不能发布到 ECS。**
+上游 `server/main.py` 的默认向量后端固定为 pgvector，导入时立即初始化；
+`server_state.py` 递归合并默认配置与已保存配置，会把旧数据库字段带进 Elasticsearch 配置。
+库支持 Elasticsearch，不等于该 REST 启动入口支持通过环境变量选择它。
+不要为绕过此限制启用旧后端、写入假配置或恢复源码补丁。
 
-```bash
-docker run --rm --network none -e MEM0_TELEMETRY=false --entrypoint python -i \
-  lazytt-mem0-api-elasticsearch:b357a5a1-es-only-v1 < tests/ecs/check_mem0_image.py
-```
-
-`tests/ecs/database_docker.py <镜像>` 使用可自动清理的隔离测试数据库验证原生迁移、权限、
-首次配置、API 脱敏、ES 向量写入/检索及重启回读，不调用模型 Provider，也不连接现有 Store。
+后续需选择并验证支持官方 ES 启动配置的 Mem0 版本/入口，再完成原生迁移、
+权限、配置回读和 ES 业务测试。此前经过补丁的镜像测试结果不适用于这个原样源码候选。
+已保留的 `tests/ecs/database_docker.py` 是部署前的验收门槛，不能删除失败检查来允许发布。
 
 ## 一次性配置器
 

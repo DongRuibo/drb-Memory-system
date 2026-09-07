@@ -13,12 +13,13 @@ curl --fail --silent --show-error --location \
   --output "$source_dir/source.tar.gz"
 mkdir -p "$source_dir/_upstream/mem0" "$source_dir/deploy/mem0" "$source_dir/deploy/ecs/database"
 tar -xzf "$source_dir/source.tar.gz" --strip-components=1 -C "$source_dir/_upstream/mem0"
-cp deploy/mem0/Dockerfile deploy/mem0/configure.py deploy/mem0/prepare_vector_store.py \
-  deploy/mem0/patch_server_state.py "$source_dir/deploy/mem0/"
-cp deploy/ecs/image_patch.py deploy/ecs/database.py deploy/ecs/configuration.py "$source_dir/deploy/ecs/"
+cp deploy/mem0/Dockerfile deploy/mem0/configure.py "$source_dir/deploy/mem0/"
+cp deploy/ecs/database.py deploy/ecs/configuration.py "$source_dir/deploy/ecs/"
 cp deploy/ecs/database/comments.json "$source_dir/deploy/ecs/database/"
 
 docker build \
   --file "$source_dir/deploy/mem0/Dockerfile" \
-  --tag lazytt-mem0-api-elasticsearch:b357a5a1-es-only-v1 \
+  --tag lazytt-mem0-api-elasticsearch:b357a5a1-es-client-v1 \
   "$source_dir"
+python3 tests/ecs/check_mem0_source.py lazytt-mem0-api-elasticsearch:b357a5a1-es-client-v1 \
+  "$source_dir/_upstream/mem0"

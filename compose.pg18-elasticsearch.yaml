@@ -58,7 +58,7 @@ services:
       - ./deploy/mem0/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
 
   mem0:
-    image: lazytt-mem0-api-elasticsearch:b357a5a1-es-only-v1
+    image: lazytt-mem0-api-elasticsearch:b357a5a1-es-client-v1
     init: true
     restart: unless-stopped
     depends_on:
