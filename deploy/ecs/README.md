@@ -7,6 +7,25 @@ GitHub 构建并推送固定摘要镜像 → 向 ECS 交付唯一 Compose 和管
 源码在 GitHub Runner 构建，ECS 不检出 Git 或编译。变更经 PR 进入 dev，不合并 main。
 本地与 dev 各一份完整 Compose，无 override/include/extends。当前尚无目标 ECS 发布成功回执。
 
+## 0. ECS 参数尚未确定时
+
+可以先完成代码审阅、PR 检查、部署配置审计和隔离测试，不需要填写假的 ECS 地址或秘密。
+
+| 阶段 | 工作 | 继续条件 |
+|---|---|---|
+| PR | Python 部署检查、Compose 解析、Rust 测试；不连接 ECS | 审阅通过并单独获准合并 dev |
+| 镜像交付 | dev push 测试、构建两个 amd64 镜像、推送 GHCR、镜像内隔离验收和上传 artifact | 合并前确认有效的 `ECS_DEPLOY_ENABLED` 为 false 或未设置；包括组织继承值 |
+| ECS prepare | 交付 Compose、固定摘要镜像和管理员工具包，不启动应用 | 已核验的 SSH 连接材料、专用目录和主机条件 |
+| 迁移和发布 | 管理员数据库变更后由流水线发布同一候选 | PG/ES、运行配置、身份/模型材料及数据库验收 |
+
+PR 的绿色结果只覆盖 test job；build/deploy 显示 skipped 是当前触发规则的预期结果。
+关闭自动部署不等于停止已有服务；它也不限制显式的 workflow_dispatch prepare/release。
+尚未获得发布授权时保留 PR，不为触发构建自行合并 dev 或 main。
+
+以后先按[材料来源和交接方式](环境变量.md#材料来源和交接方式)补齐真实信息，再继续第 2～3 节。
+已构建候选若因 SSH 或迁移等待失败，按原运行重跑失败 job；如果当时只执行 build 或 prepare，
+仅补配置不会自动继续已完成的运行，需经获准的后续触发进入发布，重新核对该次 SHA/digest。
+
 ## 1. 先准备配置和目标登记
 
 配置消费者、填写位置见[环境变量清单](环境变量.md)。
@@ -137,6 +156,12 @@ dev HEAD 已前进：流水线拒绝旧候选发布，重新审阅新候选，�
 隔离测试的确定性模型替身只证明接口链路，不证明真实 Provider 的提取质量或可用性。
 旧 smoke 脚本使用可信用户头，不适用于当前 JWT 部署。B 模式尚不宣称具备持久幂等去重。
 实际业务测试会产生 API 用量并写入测试记忆，需在目标授权窗口执行。
+
+2026-09-07 准备阶段核对：代码候选 `c705f8c86e22dda6e37a511ad78a280e3827339c` 的
+[PR 检查](https://github.com/lazyaix/lazytt-memory-system/actions/runs/34096439699)通过，
+Deployment checks 和 Rust tests 成功，build/deploy 未执行。
+本机 Docker Linux 的 MemAvailable 当次约 1.31 GiB，未达到标准的 4 GiB 门槛，因此本轮未追加大型构建。
+这些是当次记录；后续以最新候选的 Actions、镜像和目标 ECS 回执为准，不能把本地测试写成 ECS 部署成功。
 
 ```text
 时间/时区：
