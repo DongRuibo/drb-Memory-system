@@ -32,7 +32,7 @@ ECS 唯一生效文件为 `<部署目录>/compose.yml`；没有源码 checkout�
 
 | 项目 | 本包确定值／目标机器待补内容 |
 |---|---|
-| 仓库／分支／候选 | `lazyaix-dev/lazytt-memory-system`；dev；实际 SHA 和两个 digest 从 Actions candidate.txt 取得 |
+| 仓库／分支／候选 | `lazyaix/lazytt-memory-system`；dev；实际 SHA 和两个 digest 从 Actions candidate.txt 取得 |
 | ECS／工作目录 | 目标 ECS 尚待确认；独立绝对目录由 ECS_REPO_DIR 指定 |
 | 硬依赖 | Mem0 PostgreSQL、Elasticsearch；真实提取与检索还依赖模型 API；不依赖 Agent、Identity 或 Trust 启动 |
 | Store | 实际 PostgreSQL/Elasticsearch 版本、架构、私网地址、端口、容量、可达路径均待目标核验；Mem0 无需 pgvector |
