@@ -1,5 +1,11 @@
 # LazyTT Memory System
 
+## ECS dev 发布
+
+面向 `dev` 分支的 ECS 标准部署使用 [deploy/ecs/README.md](deploy/ecs/README.md)，
+通过 PR、GitHub 镜像交付和显式管理员迁移执行；不部署 Agent。
+下文本地及通用服务器示例不代替该 ECS 流程。
+
 当前推荐运行模式是 `mem0_primary`：Agent 只调用 Memory Service，Mem0 负责
 长期记忆的提取、更新和语义检索，Elasticsearch 保存向量，Mem0 PostgreSQL
 保存 Mem0 的认证与配置状态。

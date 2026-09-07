@@ -1,0 +1,156 @@
+name: Memory ECS dev
+
+on:
+  pull_request:
+    branches: [dev]
+  push:
+    branches: [dev]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Build only, prepare artifacts, or release after administrator preparation
+        type: choice
+        options: [build, prepare, release]
+        default: build
+
+permissions:
+  contents: read
+
+concurrency:
+  group: memory-ecs-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'dev' }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deployment checks
+        run: |
+          python3 -m unittest discover -s tests/ecs -v
+          python3 -m unittest discover -s deploy/mem0 -p 'test_*.py' -v
+          bash -n deploy/ecs/upload.sh deploy/ecs/remote.sh
+          git diff --check
+      - name: Rust tests (serial build)
+        env:
+          CARGO_BUILD_JOBS: '1'
+        run: |
+          rustup toolchain install 1.97.0 --profile minimal
+          cargo +1.97.0 test --locked --workspace -j 1
+
+  build:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/dev'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      memory_image: ${{ steps.publish.outputs.memory_image }}
+      mem0_image: ${{ steps.publish.outputs.mem0_image }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: mem0ai/mem0
+          ref: b357a5a1b03c299ec8229c268e63cfac0f7c6566
+          path: _upstream/mem0
+          persist-credentials: false
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Package names
+        id: names
+        env:
+          REPOSITORY: ${{ github.repository }}
+        run: echo "prefix=ghcr.io/${REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+      - name: Build Memory Service
+        id: memory
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: apps/memory-service/Dockerfile
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.names.outputs.prefix }}-service:${{ github.sha }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          cache-from: type=gha,scope=memory-service-dev
+          cache-to: type=gha,mode=max,scope=memory-service-dev
+      - name: Build pinned Mem0 with administrator tasks
+        id: mem0
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: deploy/ecs/Dockerfile.mem0
+          platforms: linux/amd64
+          push: true
+          tags: ${{ steps.names.outputs.prefix }}-mem0:${{ github.sha }}
+          labels: |
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+          cache-from: type=gha,scope=memory-mem0-dev
+          cache-to: type=gha,mode=max,scope=memory-mem0-dev
+      - name: Record immutable candidate
+        id: publish
+        env:
+          PREFIX: ${{ steps.names.outputs.prefix }}
+          MEMORY_DIGEST: ${{ steps.memory.outputs.digest }}
+          MEM0_DIGEST: ${{ steps.mem0.outputs.digest }}
+        run: |
+          echo "memory_image=$PREFIX-service@$MEMORY_DIGEST" >> "$GITHUB_OUTPUT"
+          echo "mem0_image=$PREFIX-mem0@$MEM0_DIGEST" >> "$GITHUB_OUTPUT"
+          printf 'Git SHA: %s\nMemory: %s-service@%s\nMem0: %s-mem0@%s\n' "$GITHUB_SHA" "$PREFIX" "$MEMORY_DIGEST" "$PREFIX" "$MEM0_DIGEST" > candidate.txt
+      - name: Native migration and isolation acceptance
+        env:
+          MEM0_IMAGE: ${{ steps.publish.outputs.mem0_image }}
+        run: |
+          docker pull "$MEM0_IMAGE"
+          python3 tests/ecs/database_docker.py "$MEM0_IMAGE"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: memory-ecs-${{ github.sha }}
+          path: |
+            candidate.txt
+            compose.dev.yml
+            deploy/ecs/
+            !deploy/ecs/__pycache__/
+          retention-days: 30
+          include-hidden-files: true
+
+  deploy:
+    needs: build
+    if: >-
+      github.ref == 'refs/heads/dev' &&
+      ((github.event_name == 'push' && vars.ECS_DEPLOY_ENABLED == 'true') ||
+       (github.event_name == 'workflow_dispatch' && inputs.action != 'build'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject stale branch candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/dev" --jq .object.sha)
+          test "$current" = "$GITHUB_SHA"
+      - name: Prepare or release
+        env:
+          ACTION: ${{ github.event_name == 'workflow_dispatch' && inputs.action || vars.ECS_DEPLOY_ACTION || 'prepare' }}
+          ECS_HOST: ${{ vars.ECS_HOST }}
+          ECS_USER: ${{ vars.ECS_USER }}
+          ECS_PORT: ${{ vars.ECS_PORT }}
+          ECS_REPO_DIR: ${{ vars.ECS_REPO_DIR }}
+          ECS_SSH_PRIVATE_KEY: ${{ secrets.ECS_SSH_PRIVATE_KEY }}
+          ECS_KNOWN_HOSTS: ${{ secrets.ECS_KNOWN_HOSTS }}
+          GHCR_TOKEN: ${{ github.token }}
+          GHCR_USER: ${{ github.actor }}
+          MEMORY_IMAGE: ${{ needs.build.outputs.memory_image }}
+          MEM0_IMAGE: ${{ needs.build.outputs.mem0_image }}
+        run: bash deploy/ecs/upload.sh "$ACTION" "$GITHUB_SHA" "$MEMORY_IMAGE" "$MEM0_IMAGE"

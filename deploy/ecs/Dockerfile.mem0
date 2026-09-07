@@ -1,0 +1,19 @@
+FROM python:3.12 AS runtime
+WORKDIR /app
+# CI checks out this exact upstream commit into _upstream/mem0 before building.
+COPY _upstream/mem0/server/requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+WORKDIR /app/packages
+COPY _upstream/mem0/pyproject.toml _upstream/mem0/poetry.lock _upstream/mem0/README.md ./
+COPY _upstream/mem0/mem0 ./mem0
+RUN pip install --no-cache-dir -e '.[graph]' && pip install --no-cache-dir elasticsearch==8.19.3
+WORKDIR /app
+COPY _upstream/mem0/server ./
+COPY deploy/mem0/patch_server_state.py /opt/lazytt/patch_server_state.py
+COPY deploy/mem0/configure.py /opt/lazytt/configure.py
+COPY deploy/ecs/image_patch.py deploy/ecs/database.py deploy/ecs/configuration.py /opt/lazytt/
+COPY deploy/ecs/database/comments.json /opt/lazytt/comments.json
+RUN python /opt/lazytt/patch_server_state.py && python /opt/lazytt/image_patch.py
+ENV PYTHONUNBUFFERED=1 PYTHONPATH=/app
+LABEL io.lazytt.mem0.revision="b357a5a1b03c299ec8229c268e63cfac0f7c6566"
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
