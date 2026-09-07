@@ -45,6 +45,8 @@ jobs:
     permissions:
       contents: read
       packages: write
+    env:
+      BUILDER_NAME: memory-ecs-${{ github.run_id }}-${{ github.run_attempt }}
     outputs:
       memory_image: ${{ steps.publish.outputs.memory_image }}
       mem0_image: ${{ steps.publish.outputs.mem0_image }}
@@ -56,55 +58,43 @@ jobs:
           ref: b357a5a1b03c299ec8229c268e63cfac0f7c6566
           path: _upstream/mem0
           persist-credentials: false
-      - uses: docker/setup-buildx-action@v3
-      - uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Package names
-        id: names
+      - name: Prepare Docker builder and registry login
         env:
-          REPOSITORY: ${{ github.repository }}
-        run: echo "prefix=ghcr.io/${REPOSITORY,,}" >> "$GITHUB_OUTPUT"
-      - name: Build Memory Service
-        id: memory
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: apps/memory-service/Dockerfile
-          platforms: linux/amd64
-          push: true
-          tags: ${{ steps.names.outputs.prefix }}-service:${{ github.sha }}
-          labels: |
-            org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.source=https://github.com/${{ github.repository }}
-          cache-from: type=gha,scope=memory-service-dev
-          cache-to: type=gha,mode=max,scope=memory-service-dev
-      - name: Build pinned Mem0 with administrator tasks
-        id: mem0
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: deploy/ecs/Dockerfile.mem0
-          platforms: linux/amd64
-          push: true
-          tags: ${{ steps.names.outputs.prefix }}-mem0:${{ github.sha }}
-          labels: |
-            org.opencontainers.image.revision=${{ github.sha }}
-            org.opencontainers.image.source=https://github.com/${{ github.repository }}
-          cache-from: type=gha,scope=memory-mem0-dev
-          cache-to: type=gha,mode=max,scope=memory-mem0-dev
-      - name: Record immutable candidate
-        id: publish
-        env:
-          PREFIX: ${{ steps.names.outputs.prefix }}
-          MEMORY_DIGEST: ${{ steps.memory.outputs.digest }}
-          MEM0_DIGEST: ${{ steps.mem0.outputs.digest }}
+          GHCR_TOKEN: ${{ github.token }}
         run: |
-          echo "memory_image=$PREFIX-service@$MEMORY_DIGEST" >> "$GITHUB_OUTPUT"
-          echo "mem0_image=$PREFIX-mem0@$MEM0_DIGEST" >> "$GITHUB_OUTPUT"
-          printf 'Git SHA: %s\nMemory: %s-service@%s\nMem0: %s-mem0@%s\n' "$GITHUB_SHA" "$PREFIX" "$MEMORY_DIGEST" "$PREFIX" "$MEM0_DIGEST" > candidate.txt
+          set +x
+          export DOCKER_CONFIG
+          DOCKER_CONFIG=$(mktemp -d "$RUNNER_TEMP/memory-docker.XXXXXX")
+          echo "DOCKER_CONFIG=$DOCKER_CONFIG" >> "$GITHUB_ENV"
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker buildx create --name "$BUILDER_NAME" --driver docker-container --use
+          docker buildx inspect --bootstrap
+      - name: Build and publish immutable candidate (serial)
+        id: publish
+        run: |
+          prefix="ghcr.io/${GITHUB_REPOSITORY,,}"
+          printf 'Git SHA: %s\n' "$GITHUB_SHA" > candidate.txt
+          for component in service mem0; do
+            if [[ "$component" == service ]]; then
+              dockerfile=apps/memory-service/Dockerfile
+              output=memory_image
+            else
+              dockerfile=deploy/ecs/Dockerfile.mem0
+              output=mem0_image
+            fi
+            image="$prefix-$component"
+            metadata="$RUNNER_TEMP/memory-$component.json"
+            docker buildx build --builder "$BUILDER_NAME" --platform linux/amd64 --push \
+              --file "$dockerfile" --tag "$image:$GITHUB_SHA" \
+              --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+              --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" \
+              --cache-from "type=registry,ref=$image:buildcache-dev" \
+              --cache-to "type=registry,ref=$image:buildcache-dev,mode=max" \
+              --metadata-file "$metadata" .
+            digest=$(jq -er '."containerimage.digest" | select(test("^sha256:[0-9a-f]{64}$"))' "$metadata")
+            echo "$output=$image@$digest" >> "$GITHUB_OUTPUT"
+            printf '%s: %s@%s\n' "$component" "$image" "$digest" >> candidate.txt
+          done
       - name: Native migration and isolation acceptance
         env:
           MEM0_IMAGE: ${{ steps.publish.outputs.mem0_image }}
@@ -121,6 +111,13 @@ jobs:
             !deploy/ecs/__pycache__/
           retention-days: 30
           include-hidden-files: true
+      - name: Clean up builder and registry credentials
+        if: always()
+        run: |
+          docker buildx rm "$BUILDER_NAME" >/dev/null 2>&1 || true
+          if [[ "${DOCKER_CONFIG:-}" == "$RUNNER_TEMP"/memory-docker.* ]]; then
+            rm -rf -- "$DOCKER_CONFIG"
+          fi
 
   deploy:
     needs: build

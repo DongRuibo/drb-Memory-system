@@ -28,6 +28,10 @@ ECS 镜像对固定上游做断言式小补丁：正确编码数据库 URL、将
 ECS 唯一生效文件为 `<部署目录>/compose.yml`；没有源码 checkout、服务器构建或第二份运行 Compose。
 `admin` profile 复用同一 Mem0 镜像运行一次性任务，不新增第三种应用镜像。
 
+workflow 仅引用 GitHub 官方 `actions/*`；镜像构建、登录与推送使用 Runner 的 Docker CLI，
+适配仓库的 Action 使用限制。两种镜像分别使用 GHCR `buildcache-dev` 缓存标签，
+运行制品仍固定 digest；缓存是否命中以构建日志为准。临时 builder 与登录配置在退出时清理。
+
 ## 2. 先填目标登记表
 
 | 项目 | 本包确定值／目标机器待补内容 |
