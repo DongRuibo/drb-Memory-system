@@ -29,7 +29,8 @@ jobs:
         run: |
           python3 -m unittest discover -s tests/ecs -v
           python3 -m unittest discover -s deploy/mem0 -p 'test_*.py' -v
-          bash -n deploy/ecs/upload.sh deploy/ecs/remote.sh
+          bash -n deploy/ecs/upload.sh deploy/ecs/remote.sh scripts/backend-stack.sh scripts/build-mem0-elasticsearch.sh
+          python3 deploy/local/deploy.py validate
           git diff --check
       - name: Rust tests (serial build)
         env:

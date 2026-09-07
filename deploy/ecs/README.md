@@ -20,8 +20,8 @@ Agent（外部调用方，本包不部署）→ Memory Service → Mem0 → Elas
 `MEMORY_BACKEND_MODE=mem0_primary`；不运行根目录 31 个 governed SQLx Migration。
 Mem0 固定 `b357a5a1b03c299ec8229c268e63cfac0f7c6566`，使用其原生 Alembic 001～006。
 数据库运行账号无 DDL 权限；迁移使用本库 owner，不把管理员密码注入常驻应用。
-不使用 `deploy/mem0/sql/mem0-schema-v006.sql` 手工建表/写账本。
-若既有环境已使用该历史 SQL，先另行审计现有结构、历史和归属；本包不接管未知数据库/项目。
+已撤下旧的手工建表/写账本 SQL，正式入口只使用原生 Alembic。
+若既有环境已使用历史手工 SQL，先另行审计现有结构、历史和归属；本包不接管未知数据库/项目。
 
 ECS 镜像保持固定上游源码原样，仅安装 Elasticsearch 客户端和本项目的管理工具。
 配置回读同时检查脱敏 API 和数据库中的实际持久值，均不打印秘密。

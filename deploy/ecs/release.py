@@ -38,11 +38,11 @@ def run(command, env=None, input=None):
     return result.stdout
 
 
-def read_config(path, migration=False, database_only=False):
+def read_config(path, migration=False, database_only=False, owner=(0, 0)):
     file = Path(path)
     mode = file.lstat()
-    require(stat.S_ISREG(mode.st_mode) and mode.st_uid == 0 and mode.st_gid == 0
-            and stat.S_IMODE(mode.st_mode) == 0o600, "Config must be a regular root:root 0600 file")
+    require(stat.S_ISREG(mode.st_mode) and (mode.st_uid, mode.st_gid) == owner
+            and stat.S_IMODE(mode.st_mode) == 0o600, "Config must be a regular 0600 file owned by uid:gid " + ":".join(map(str, owner)))
     # Config is trusted administrator-owned Bash, explicitly sourced in a fresh shell.
     output = run(["/bin/bash", "-c", 'set -eu; set +x; source "$1"; env -0', "memory-config", str(file)],
                  env={"PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"})

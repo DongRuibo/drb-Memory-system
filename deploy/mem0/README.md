@@ -16,7 +16,7 @@ Agent 只调用 Memory Service：
 - `DELETE /v1/runtime/memory/{memory_id}`，需要 `memory:forget` 权限
 
 本地 B 模式只把 Memory Service 映射到宿主机 `127.0.0.1:18081`。Mem0 与
-Elasticsearch 不暴露宿主机端口，不能作为 Agent 的直接调用接口。
+已有 Elasticsearch 的网络入口由 Store 管理员维护；二者不能作为 Agent 的直接调用接口。
 
 ## 固定镜像
 
