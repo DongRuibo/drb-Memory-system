@@ -19,7 +19,7 @@
       },
       "command": [
         "uvicorn",
-        "main:app",
+        "gateway:app",
         "--host",
         "0.0.0.0",
         "--port",
@@ -34,11 +34,7 @@
         "POSTGRES_PASSWORD": "${MEM0_POSTGRES_RUNTIME_PASSWORD:-}",
         "HISTORY_DB_PATH": "/app/history/history.db",
         "ADMIN_API_KEY": "${MEM0_API_KEY:-}",
-        "JWT_SECRET": "${MEM0_JWT_SECRET:-}",
-        "AUTH_DISABLED": "false",
-        "MEM0_TELEMETRY": "false",
-        "OPENAI_API_KEY": "unused-until-configured",
-        "OPENAI_BASE_URL": "http://127.0.0.1:9/v1"
+        "MEM0_TELEMETRY": "false"
       },
       "volumes": [
         "mem0-history:/app/history"

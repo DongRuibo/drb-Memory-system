@@ -131,6 +131,20 @@ jobs:
     permissions:
       contents: read
       packages: read
+    timeout-minutes: 90
+    env:
+      ACTION: ${{ github.event_name == 'workflow_dispatch' && inputs.action || vars.ECS_DEPLOY_ACTION || 'prepare' }}
+      ECS_HOST: ${{ vars.ECS_HOST }}
+      ECS_USER: ${{ vars.ECS_USER }}
+      ECS_PORT: ${{ vars.ECS_PORT }}
+      ECS_REPO_DIR: ${{ vars.ECS_REPO_DIR }}
+      ECS_SSH_PRIVATE_KEY: ${{ secrets.ECS_SSH_PRIVATE_KEY }}
+      ECS_KNOWN_HOSTS: ${{ secrets.ECS_KNOWN_HOSTS }}
+      GHCR_TOKEN: ${{ github.token }}
+      GHCR_USER: ${{ github.actor }}
+      MEMORY_IMAGE: ${{ needs.build.outputs.memory_image }}
+      MEM0_IMAGE: ${{ needs.build.outputs.mem0_image }}
+      ECS_MIGRATION_WAIT_SECONDS: ${{ vars.ECS_MIGRATION_WAIT_SECONDS || '1800' }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Reject stale branch candidate
@@ -139,17 +153,19 @@ jobs:
         run: |
           current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/dev" --jq .object.sha)
           test "$current" = "$GITHUB_SHA"
-      - name: Prepare or release
+      - name: Deliver Compose and administrator bundle
+        run: |
+          case "$ACTION" in prepare|release) ;; *) exit 2 ;; esac
+          phase=prepare
+          if [[ "$ACTION" == release ]]; then phase=prepare-wait; fi
+          bash deploy/ecs/upload.sh "$phase" "$GITHUB_SHA" "$MEMORY_IMAGE" "$MEM0_IMAGE"
+      - name: Recheck branch after administrator migration
+        if: env.ACTION == 'release'
         env:
-          ACTION: ${{ github.event_name == 'workflow_dispatch' && inputs.action || vars.ECS_DEPLOY_ACTION || 'prepare' }}
-          ECS_HOST: ${{ vars.ECS_HOST }}
-          ECS_USER: ${{ vars.ECS_USER }}
-          ECS_PORT: ${{ vars.ECS_PORT }}
-          ECS_REPO_DIR: ${{ vars.ECS_REPO_DIR }}
-          ECS_SSH_PRIVATE_KEY: ${{ secrets.ECS_SSH_PRIVATE_KEY }}
-          ECS_KNOWN_HOSTS: ${{ secrets.ECS_KNOWN_HOSTS }}
-          GHCR_TOKEN: ${{ github.token }}
-          GHCR_USER: ${{ github.actor }}
-          MEMORY_IMAGE: ${{ needs.build.outputs.memory_image }}
-          MEM0_IMAGE: ${{ needs.build.outputs.mem0_image }}
-        run: bash deploy/ecs/upload.sh "$ACTION" "$GITHUB_SHA" "$MEMORY_IMAGE" "$MEM0_IMAGE"
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/dev" --jq .object.sha)
+          test "$current" = "$GITHUB_SHA"
+      - name: Publish the same migrated candidate
+        if: env.ACTION == 'release'
+        run: bash deploy/ecs/upload.sh release "$GITHUB_SHA" "$MEMORY_IMAGE" "$MEM0_IMAGE"

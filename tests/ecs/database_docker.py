@@ -28,6 +28,13 @@ def main(image):
     admin = name + "-admin"
     mem0 = name + "-mem0"
     elasticsearch = name + "-es"
+    model = name + "-model"
+    # Unit-level failures are exercised in the same packaged Python environment.
+    run(["docker", "run", "--rm", "--network", "none", "--entrypoint", "python", "-i",
+         "-e", "POSTGRES_HOST=unused", "-e", "POSTGRES_PORT=5432", "-e", "POSTGRES_USER=fixture",
+         "-e", "POSTGRES_PASSWORD=fixture", "-e", "APP_DB_NAME=lazytt_memory_mem0",
+         "-e", "ADMIN_API_KEY=" + "f" * 40, image, "-"], data=(ROOT / "tests/ecs/gateway_unit.py").read_text())
+    print("GATEWAY_FAILURE_TESTS_OK")
     owner_password = secrets.token_hex(24) + "@:%/"
     runtime_password = secrets.token_hex(24) + "@:%/"
     pg_env = {**os.environ, "POSTGRES_PASSWORD": secrets.token_hex(32)}
@@ -96,12 +103,12 @@ def main(image):
         values = {"POSTGRES_HOST": pg, "POSTGRES_PORT": "5432", "POSTGRES_DB": "lazytt_memory_mem0",
                   "APP_DB_NAME": "lazytt_memory_mem0", "POSTGRES_USER": "lazytt_memory_mem0_runtime",
                   "POSTGRES_PASSWORD": runtime_password, "MEM0_TELEMETRY": "false",
-                  "ADMIN_API_KEY": secrets.token_hex(32), "JWT_SECRET": secrets.token_hex(32),
+                  "ADMIN_API_KEY": secrets.token_hex(32),
                   "OPENAI_API_KEY": "fixture-not-a-real-key", "HISTORY_DB_PATH": "/tmp/history.db"}
         args = ["docker", "run", "-d", "--name", mem0, "--label", "io.lazytt.test=" + name, "--network", name]
         for key in values:
             args.extend(["-e", key])
-        run(args + [image, "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"], env={**os.environ, **values})
+        run(args + [image, "uvicorn", "gateway:app", "--host", "0.0.0.0", "--port", "8000"], env={**os.environ, **values})
         def ready():
             for _ in range(60):
                 probe = subprocess.run(["docker", "exec", mem0, "python", "-c",
@@ -111,41 +118,57 @@ def main(image):
                 time.sleep(1)
             raise RuntimeError("Temporary Mem0 did not become ready")
         ready()
+        run(["docker", "exec", "-i", mem0, "python", "-"], data='''
+import urllib.request, urllib.error, json
+assert json.load(urllib.request.urlopen('http://127.0.0.1:8000/auth/setup-status'))['configured'] is False
+try:
+    urllib.request.urlopen('http://127.0.0.1:8000/health/ready')
+except urllib.error.HTTPError as error:
+    assert error.code == 503
+else:
+    raise AssertionError('Empty settings must not report business readiness')
+''')
+        run(["docker", "run", "-d", "--name", model, "--label", "io.lazytt.test=" + name,
+             "--network", name, "--network-alias", "retrieval-models-cpu", "--entrypoint", "python", image,
+             "-c", (ROOT / "tests/ecs/model_fixture.py").read_text()])
         config = {**values, "MEM0_BASE_URL": "http://" + mem0 + ":8000", "MEM0_API_KEY": values["ADMIN_API_KEY"],
                   "MEM0_VECTOR_STORE_PROVIDER": "elasticsearch", "MEM0_ELASTICSEARCH_HOST": "http://" + elasticsearch,
                   "MEM0_ELASTICSEARCH_PORT": "9200", "MEM0_ELASTICSEARCH_USER": "fixture",
                   "MEM0_ELASTICSEARCH_PASSWORD": "fixture", "MEM0_COLLECTION_NAME": "test-memories",
-                  "EMBEDDING_DIMENSIONS": "16", "EMBEDDING_BASE_URL": "https://example.invalid/v1",
+                  "EMBEDDING_DIMENSIONS": "16", "EMBEDDING_BASE_URL": "http://retrieval-models-cpu:8000/v1",
                   "EMBEDDING_API_KEY": "fixture", "EMBEDDING_MODEL": "fixture-embedding",
-                  "LLM_BASE_URL": "https://example.invalid/v1", "LLM_API_KEY": "fixture", "LLM_MODEL": "fixture-chat"}
+                  "LLM_BASE_URL": "http://retrieval-models-cpu:8000/v1", "LLM_API_KEY": "fixture", "LLM_MODEL": "fixture-chat"}
         args = ["docker", "run", "--rm", "--name", admin, "--label", "io.lazytt.test=" + name,
                 "--network", name, "--entrypoint", "python"]
         for key in config:
             args.extend(["-e", key])
-        for action in ("configure", "check"):
+        for action in ("ensure", "check", "ensure"):
             run(args + [image, "/opt/lazytt/configuration.py", action], env={**os.environ, **config})
         # Exercise the actual Mem0 vector adapter without calling a model Provider.
         run(["docker", "exec", "-i", mem0, "python", "-"], data='''
-from main import get_memory_instance
-store = get_memory_instance().vector_store
+import os, storage
+from mem0 import Memory
+store = Memory.from_config({**storage.load_config(storage.engine()), "history_db_path": "/tmp/adapter-test.db"}).vector_store
 vector = [1.0] + [0.0] * 15
 store.insert(vectors=[vector], ids=["isolated-vector-test"], payloads=[{"data": "test memory"}])
 store.client.indices.refresh(index=store.collection_name)
 assert store.get("isolated-vector-test").payload["data"] == "test memory"
 assert store.search(query="", vectors=vector, top_k=1)[0].id == "isolated-vector-test"
 ''')
+        print(run(["docker", "exec", "-i", mem0, "python", "-"], data=(ROOT / "tests/ecs/http_acceptance.py").read_text()), end="")
         run(["docker", "restart", mem0])
         ready()
         run(args + [image, "/opt/lazytt/configuration.py", "check"], env={**os.environ, **config})
         run(["docker", "exec", "-i", mem0, "python", "-"], data='''
-from main import get_memory_instance
-store = get_memory_instance().vector_store
+import os, storage
+from mem0 import Memory
+store = Memory.from_config({**storage.load_config(storage.engine()), "history_db_path": "/tmp/adapter-test.db"}).vector_store
 assert store.get("isolated-vector-test").payload["data"] == "test memory"
 store.delete("isolated-vector-test")
 ''')
         print("MEM0_CONFIGURATION_INTEGRATION_OK: first start, authenticated configure, redacted GET, ES insert/search and persisted reload; no Provider calls")
     finally:
-        subprocess.run(["docker", "rm", "-f", "-v", admin, mem0, elasticsearch, pg], capture_output=True)
+        subprocess.run(["docker", "rm", "-f", "-v", admin, mem0, model, elasticsearch, pg], capture_output=True)
         subprocess.run(["docker", "network", "rm", name], capture_output=True)
         remaining = run(["docker", "ps", "-aq", "--filter", "label=io.lazytt.test=" + name])
         if remaining.strip():

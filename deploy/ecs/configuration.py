@@ -38,6 +38,15 @@ def main(action):
     url = configure.required("MEM0_BASE_URL").rstrip("/") + "/configure"
     key = configure.required("MEM0_API_KEY")
     current = configure.request_json(url, "GET", key)
+    import storage
+    db = storage.engine()
+    if action == "ensure":
+        try:
+            compare(expected, current)
+            compare(expected, storage.load_config(db), secrets=True)
+            configure.request_json(configure.required("MEM0_BASE_URL").rstrip("/") + "/health/ready", "GET", key)
+        except (RuntimeError, OSError):
+            action = "configure"
     if action == "configure":
         # Existing Elasticsearch data needs a separate index/model migration plan.
         if current.get("vector_store", {}).get("provider") == "elasticsearch":
@@ -52,20 +61,15 @@ def main(action):
         current = configure.request_json(url, "GET", key)
     compare(expected, current)
     # Read through the runtime identity; never print the stored settings payload.
-    from db import SessionLocal
-    from models import Settings
-    with SessionLocal() as session:
-        row = session.get(Settings, "config_overrides")
-        if row is None:
-            raise RuntimeError("Configuration was not persisted")
-        compare(expected, json.loads(row.value), secrets=True)
+    compare(expected, storage.load_config(db), secrets=True)
+    configure.request_json(configure.required("MEM0_BASE_URL").rstrip("/") + "/health/ready", "GET", key)
     print("MEM0_CONFIGURATION_OK")
 
 
 if __name__ == "__main__":
     try:
-        if len(sys.argv) != 2 or sys.argv[1] not in {"configure", "check"}:
-            raise RuntimeError("Expected configure or check")
+        if len(sys.argv) != 2 or sys.argv[1] not in {"configure", "check", "ensure"}:
+            raise RuntimeError("Expected configure, check or ensure")
         main(sys.argv[1])
     except Exception:
         # Do not echo upstream response bodies, URLs or credentials.

@@ -81,12 +81,12 @@ class ReleaseTests(unittest.TestCase):
             self.dep.prepare(source, SHA, NEW, NEW)
         self.assertEqual(self.dep.path.read_bytes(), before)
 
-    def test_release_does_not_migrate_or_configure(self):
+    def test_release_never_migrates_and_reconciles_configuration(self):
         self.dep.prepare(self.template, SHA, NEW, NEW)
         self.dep.release()
         self.assertEqual(self.dep.read()["services"]["memory-service"]["image"], NEW)
         self.assertNotIn(("database", "migrate", "admin"), self.dep.events)
-        self.assertNotIn(("configuration", "configure", "admin"), self.dep.events)
+        self.assertIn(("configuration", "ensure", "admin"), self.dep.events)
 
     def test_candidate_schema_failure_leaves_existing_services_untouched(self):
         self.dep.prepare(self.template, SHA, NEW, NEW)
@@ -157,6 +157,24 @@ class ReleaseTests(unittest.TestCase):
         with patch.object(Path, "lstat", return_value=mode), patch.object(release, "run", return_value=db):
             with self.assertRaisesRegex(RuntimeError, "Administrator/publishing"):
                 release.read_config("/fixture", database_only=True)
+
+    def test_stale_migration_revision_is_rejected(self):
+        with self.assertRaisesRegex(RuntimeError, "candidate changed"):
+            self.dep.assert_candidate("b" * 40)
+        self.dep.assert_candidate(SHA)
+
+    def test_admin_bundle_survives_transport_cleanup_and_uses_one_compose(self):
+        self.dep.install_admin_bundle(SHA)
+        root = Path(self.temp.name)
+        self.assertTrue((root / "admin" / SHA / "database/03_verify.sql").is_file())
+        wrapper = (root / "database.sh").read_text()
+        self.assertIn("--revision " + SHA, wrapper)
+        self.assertNotIn("POSTGRES_PASSWORD", wrapper)
+        self.assertEqual(list(root.rglob("*.yml")), [self.dep.path])
+        self.dep.install_admin_bundle(SHA)
+        (root / "admin" / SHA / "release.py").write_text("changed")
+        with self.assertRaisesRegex(RuntimeError, "bundle changed"):
+            self.dep.install_admin_bundle(SHA)
 
     def test_world_readable_config_is_rejected_before_loading(self):
         mode = SimpleNamespace(st_mode=0o100644, st_uid=0, st_gid=0)

@@ -5,7 +5,8 @@ from pathlib import Path
 import subprocess
 import sys
 
-from sqlalchemy import create_engine, inspect, text, URL
+from sqlalchemy import inspect, text
+import storage
 
 DATABASE = "lazytt_memory_mem0"
 OWNER = "lazytt_memory_mem0_owner"
@@ -44,23 +45,18 @@ def verify(conn):
     inspector = inspect(conn)
     require(set(inspector.get_table_names(schema="public")) == set(COMMENTS), "Unexpected table set")
     # Native model columns, nullability and PK/FK definitions are checked separately from comments.
-    import models
-    for table in models.Base.metadata.sorted_tables:
-        actual = {c["name"]: c for c in inspector.get_columns(table.name, schema="public")}
-        require(set(actual) == set(table.columns.keys()), "Column set mismatch")
-        for column in table.columns:
-            found = actual[column.name]
-            require(found["nullable"] == column.nullable, "Column nullability mismatch")
-            expected = str(column.type.compile(dialect=conn.dialect))
-            if expected == "FLOAT":
-                expected = "DOUBLE PRECISION"
-            require(str(found["type"].compile(dialect=conn.dialect)) == expected,
-                    "Column type mismatch: " + table.name + "." + column.name)
-        require(set(inspector.get_pk_constraint(table.name)["constrained_columns"]) == {c.name for c in table.primary_key}, "Primary key mismatch")
-        wanted = {(fk.parent.name, fk.column.table.name, fk.column.name) for fk in table.foreign_keys}
-        found = {(fk["constrained_columns"][0], fk["referred_table"], fk["referred_columns"][0]) for fk in inspector.get_foreign_keys(table.name)}
-        require(wanted == found, "Foreign key mismatch")
-        require(all(fk.get("options", {}).get("ondelete") == "CASCADE" for fk in inspector.get_foreign_keys(table.name)),
+    expected_schema = json.loads(Path(__file__).with_name("schema.json").read_text())
+    for table, expected in expected_schema.items():
+        actual = {c["name"]: c for c in inspector.get_columns(table, schema="public")}
+        require(set(actual) == set(expected["columns"]), "Column set mismatch")
+        for name, column in expected["columns"].items():
+            require(actual[name]["nullable"] == column["nullable"], "Column nullability mismatch")
+            require(str(actual[name]["type"].compile(dialect=conn.dialect)) == column["type"],
+                    "Column type mismatch: " + table + "." + name)
+        require(set(inspector.get_pk_constraint(table)["constrained_columns"]) == set(expected["pk"]), "Primary key mismatch")
+        found = {(fk["constrained_columns"][0], fk["referred_table"], fk["referred_columns"][0]) for fk in inspector.get_foreign_keys(table)}
+        require({tuple(fk) for fk in expected["fk"]} == found, "Foreign key mismatch")
+        require(all(fk.get("options", {}).get("ondelete") == "CASCADE" for fk in inspector.get_foreign_keys(table)),
                 "Foreign key delete rule mismatch")
     require(any(item["column_names"] == ["email"] for item in inspector.get_unique_constraints("users")),
             "Missing email uniqueness constraint")
@@ -101,20 +97,20 @@ def annotate(conn):
 
 
 def main(action):
-    url = URL.create("postgresql+psycopg", os.environ["POSTGRES_USER"], os.environ["POSTGRES_PASSWORD"],
-                     os.environ["POSTGRES_HOST"], int(os.environ["POSTGRES_PORT"]), os.environ["APP_DB_NAME"])
-    engine = create_engine(url, pool_pre_ping=True)
+    engine = storage.engine()
     with engine.connect() as conn:
         identity(conn, migration=action == "migrate")
         if action != "migrate":
             verify(conn)
     if action == "migrate":
         # Runs upstream revisions, never stamps a hand-built schema or runs DOWN.
-        result = subprocess.run(["alembic", "upgrade", HEAD], cwd="/app", capture_output=True)
+        result = subprocess.run(["alembic", "-c", "/opt/lazytt/alembic.ini", "upgrade", HEAD], cwd="/app", capture_output=True)
         require(result.returncode == 0, "Native Alembic failed; preserve database and inspect history privately")
         with engine.begin() as conn:
             annotate(conn)
             verify(conn)
+    with engine.connect() as conn:
+        conn.exec_driver_sql(Path(__file__).with_name("03_verify.sql").read_text())
     print("MEMORY_DATABASE_OK head=" + HEAD)
 
 

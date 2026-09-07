@@ -1,7 +1,7 @@
 # LazyTT Memory System
 
 当前部署固定为 `mem0_primary`：Agent 只调用 Memory Service，Mem0 负责提取、更新和
-检索记忆，Elasticsearch 保存向量，PostgreSQL 保存 Mem0 认证与配置。
+检索记忆，Elasticsearch 保存向量，PostgreSQL 保存项目配置并保留原版认证表结构。
 
 ```text
 Agent（外部调用方）→ Memory Service :18081 → Mem0 → 已有 Elasticsearch
@@ -9,9 +9,9 @@ Agent（外部调用方）→ Memory Service :18081 → Mem0 → 已有 Elastics
                                                → history 持久卷
 ```
 
-**当前运行状态：阻塞。** Mem0 上游源码保持原样，项目只配置 Elasticsearch，但固定版本的
-REST 默认后端初始化和配置合并问题尚未解决。配置解析、构建或单元测试通过都不代表 ES
-启动成功，详见 [Mem0 兼容性断点](deploy/mem0/README.md#当前兼容性断点)。
+Mem0 使用本项目 HTTP 入口调用原版 SDK，启动时直接加载 ES 配置；上游源码保持原样。
+原版 REST 默认后端问题由该独立入口解决，接口范围见 [Mem0 说明](deploy/mem0/README.md)。
+本地隔离验证与目标 ECS/真实 Provider 业务验收分开记录，不能把镜像构建视为上线完成。
 
 ## 唯一部署入口
 
@@ -24,6 +24,8 @@ REST 默认后端初始化和配置合并问题尚未解决。配置解析、构
 本地与 dev 共用 Memory、Mem0 Dockerfile；本地构建，ECS 只拉取 GitHub 交付的固定摘要镜像。
 只部署 Memory Service、Mem0 和显式执行的 admin 任务，不部署 Agent、数据库或模型服务。
 两个环境使用独立配置、项目网络、history 卷和数据库实例/索引，不能共用 dev 凭据与数据。
+
+ECS 发布流程：交付 Compose、镜像与管理员包 → 管理员手动迁移 → 流水线只读检查通过 → 自动发布同一候选。
 
 本轮变更经 PR 进入 `dev`，不发布到 `main`。staging/production 尚未准备，不创建占位 Compose。
 旧多文件 Compose、自动创建数据库/迁移、手工建表并写迁移账本的入口已撤下。
@@ -42,8 +44,8 @@ chmod 600 .env.local
 ```
 
 `validate` 不加载秘密、不连接数据库；`build` 仅生成本地镜像。
-原生迁移、首次配置、启动、检查分别执行，完整顺序及当前阻塞见[本地流程](deploy/local/README.md)。
-普通启动不迁移、不写 Provider 配置。现有 `cpu/cuda/host-mps/cloud` 参数不再支持。
+原生迁移、首次配置、启动、检查分别执行，完整顺序见[本地流程](deploy/local/README.md)。
+本地普通启动不迁移、不写 Provider 配置；ECS 流水线在数据库校验后自动执行首次/变更配置。现有 `cpu/cuda/host-mps/cloud` 参数不再支持。
 
 ## 调用与验收边界
 

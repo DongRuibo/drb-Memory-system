@@ -10,7 +10,9 @@ umask 077
 [[ "$ECS_PORT" =~ ^[0-9]{1,5}$ ]] && (( 10#$ECS_PORT >= 1 && 10#$ECS_PORT <= 65535 ))
 [[ "$ECS_REPO_DIR" =~ ^/[a-zA-Z0-9_/-]+$ ]] && [[ "$ECS_REPO_DIR" != / ]]
 [[ "$GHCR_USER" =~ ^[a-zA-Z0-9_-]+$ ]]
-[[ "$1" == prepare || "$1" == release ]]
+[[ "$1" == prepare || "$1" == prepare-wait || "$1" == release ]]
+wait_seconds="${ECS_MIGRATION_WAIT_SECONDS:-1800}"
+[[ "$wait_seconds" =~ ^[0-9]{1,4}$ ]] && (( 10#$wait_seconds >= 30 && 10#$wait_seconds <= 3600 ))
 [[ "$2" =~ ^[0-9a-f]{40}$ ]]
 for image in "$3" "$4"; do [[ "$image" =~ ^ghcr.io/[a-z0-9_./-]+@sha256:[0-9a-f]{64}$ ]]; done
 connection_dir="$(mktemp -d)"
@@ -30,6 +32,7 @@ cleanup() {
 trap cleanup EXIT
 ssh "${ssh_options[@]}" -p "$ECS_PORT" "$target" "umask 077; mkdir $stage" </dev/null
 uploaded=true
-scp "${ssh_options[@]}" -P "$ECS_PORT" compose.dev.yml deploy/ecs/release.py deploy/ecs/remote.sh "$target:$stage/" >/dev/null
+scp "${ssh_options[@]}" -P "$ECS_PORT" compose.dev.yml deploy/ecs/release.py deploy/ecs/remote.sh deploy/ecs/README.md deploy/ecs/环境变量.md deploy/ecs/.env.dev.example "$target:$stage/" >/dev/null
+scp -r "${ssh_options[@]}" -P "$ECS_PORT" deploy/ecs/database "$target:$stage/database" >/dev/null
 printf '%s' "$GHCR_TOKEN" | ssh "${ssh_options[@]}" -p "$ECS_PORT" "$target" \
-  "bash $stage/remote.sh $1 $ECS_REPO_DIR $2 $3 $4 $GHCR_USER"
+  "bash $stage/remote.sh $1 $ECS_REPO_DIR $2 $3 $4 $GHCR_USER $wait_seconds"

@@ -8,6 +8,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import stat
 import subprocess
 import sys
@@ -17,7 +18,7 @@ PROJECT = "lazytt-memory-ecs-dev"
 IMAGE = re.compile(r"ghcr\.io/[a-z0-9_.\-/]+@sha256:[0-9a-f]{64}\Z")
 SHA = re.compile(r"[0-9a-f]{40}\Z")
 REQUIRED = (
-    "MEM0_POSTGRES_HOST MEM0_POSTGRES_PORT MEM0_POSTGRES_RUNTIME_PASSWORD MEM0_API_KEY MEM0_JWT_SECRET "
+    "MEM0_POSTGRES_HOST MEM0_POSTGRES_PORT MEM0_POSTGRES_RUNTIME_PASSWORD MEM0_API_KEY "
     "LAZYTT_MEMORY_ELASTICSEARCH_ENDPOINT ELASTICSEARCH_PORT ELASTICSEARCH_USERNAME STORE_ELASTICSEARCH_PASSWORD "
     "ELASTICSEARCH_INDEX_PREFIX MEMORY_EMBEDDING_BASE_URL MEMORY_EMBEDDING_API_KEY MEMORY_EMBEDDING_MODEL "
     "MEMORY_EMBEDDING_DIMENSIONS MEMORY_EXTRACT_BASE_URL MEMORY_EXTRACT_API_KEY MEMORY_EXTRACT_MODEL "
@@ -61,9 +62,9 @@ def read_config(path, migration=False, database_only=False, owner=(0, 0)):
             require(values[key].isdigit() and 1 <= int(values[key]) <= 65535, "Invalid port: " + key)
         require(values["MEMORY_EMBEDDING_DIMENSIONS"].isdigit() and 1 <= int(values["MEMORY_EMBEDDING_DIMENSIONS"]) <= 4096,
                 "Invalid embedding dimensions")
-        for key in ("MEM0_API_KEY", "MEM0_JWT_SECRET", "MEMORY_JWT_HS256_SECRET"):
+        for key in ("MEM0_API_KEY", "MEMORY_JWT_HS256_SECRET"):
             require(len(values[key].encode()) >= 32, "Secret must be at least 32 bytes: " + key)
-        require(len({values[key] for key in ("MEM0_API_KEY", "MEM0_JWT_SECRET", "MEMORY_JWT_HS256_SECRET")}) == 3,
+        require(len({values[key] for key in ("MEM0_API_KEY", "MEMORY_JWT_HS256_SECRET")}) == 2,
                 "Independent auth secrets must not be reused")
     return {key: values[key] for key in names}
 
@@ -160,6 +161,38 @@ class Deployment:
         self.write(incoming)
         print("PREPARED " + revision + ": images only; no migration/start/configuration")
 
+    def assert_candidate(self, revision):
+        require(SHA.fullmatch(revision or ""), "Explicit full candidate revision required")
+        document = self.read()
+        candidate = document["x-lazytt"]["candidate"]
+        require(candidate["revision"] == revision, "Prepared candidate changed; do not migrate or release stale images")
+        require(document["services"]["admin"]["image"] == candidate["mem0_image"], "Candidate administration image mismatch")
+
+    def install_admin_bundle(self, revision):
+        self.assert_candidate(revision)
+        source = Path(__file__).parent
+        files = [Path("release.py"), Path("README.md"), Path("环境变量.md"), Path(".env.dev.example")]
+        files += [p.relative_to(source) for p in sorted((source / "database").iterdir()) if p.suffix in {".sql", ".json"}]
+        destination = self.directory / "admin" / revision
+        destination.mkdir(parents=True, exist_ok=True)
+        for relative in files:
+            target = destination / relative
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if target.exists():
+                require(not target.is_symlink() and target.read_bytes() == (source / relative).read_bytes(),
+                        "Administration bundle changed for the same revision")
+            else:
+                shutil.copyfile(source / relative, target)
+        wrapper = self.directory / "database.sh"
+        wrapper.write_text('#!/usr/bin/env bash\nset -euo pipefail\n'
+            'directory="$(cd -- "$(dirname -- "$0")" && pwd)"\n'
+            'action="${1:-migrate}"; if (( $# )); then shift; fi\n'
+            'case "$action" in migrate|database-check) ;; *) exit 2 ;; esac\n'
+            'exec python3 "$directory/admin/' + revision + '/release.py" "$action" '
+            '--directory "$directory" --revision ' + revision + ' "$@"\n')
+        wrapper.chmod(0o700)
+        print("ADMIN_BUNDLE_READY: " + str(wrapper) + " migrate --migration-config /etc/lazytt/memory-migrate.env")
+
     def capacity(self):
         # Applications budget 2.5 GiB; an administrator task needs another 0.5 GiB.
         available = re.search(r"^MemAvailable:\s+(\d+) kB", Path("/proc/meminfo").read_text(), re.M)
@@ -209,7 +242,7 @@ class Deployment:
         self.write(updated)
         try:
             self.compose("up", "-d", "--no-build", "--no-deps", "--wait", "--wait-timeout", "180", "mem0")
-            self.task("configuration", "check")  # Read-only; never rewrites settings on release.
+            self.task("configuration", "ensure")  # Configure only when explicitly changed or not yet stored.
             self.compose("up", "-d", "--no-build", "--no-deps", "--wait", "--wait-timeout", "180", "memory-service")
             self.verify_running(updated)
         except RuntimeError:
@@ -237,7 +270,7 @@ class Deployment:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("prepare", "check", "migrate", "configure", "release"))
+    parser.add_argument("action", choices=("prepare", "database-check", "check", "migrate", "configure", "release"))
     parser.add_argument("--directory", required=True)
     parser.add_argument("--config", default="/etc/lazytt/memory.env")
     parser.add_argument("--migration-config")
@@ -253,10 +286,13 @@ def main():
         fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
         if args.action == "prepare":
             require(all((args.source, args.revision, args.memory_image, args.mem0_image)), "Prepare requires source and exact image/revision arguments")
-            Deployment(directory).prepare(args.source, args.revision, args.memory_image, args.mem0_image)
+            deployment = Deployment(directory)
+            deployment.prepare(args.source, args.revision, args.memory_image, args.mem0_image)
+            deployment.install_admin_bundle(args.revision)
             return
-        values = read_config(args.config, database_only=args.action == "migrate")
+        values = read_config(args.config, database_only=args.action in {"migrate", "database-check"})
         deployment = Deployment(directory, values)
+        deployment.assert_candidate(args.revision)
         if args.action == "migrate":
             require(args.migration_config, "Explicit migration credential file required")
             secret = read_config(args.migration_config, migration=True)["MEM0_MIGRATION_PASSWORD"]
@@ -264,6 +300,9 @@ def main():
             deployment.task("database", "migrate", extra={"POSTGRES_USER": "lazytt_memory_mem0_owner", "POSTGRES_PASSWORD": secret})
             deployment.task("database", "check")
             print("MIGRATED prepared candidate; runtime permissions and structure verified")
+        elif args.action == "database-check":
+            deployment.task("database", "check")
+            print("CANDIDATE_DATABASE_READY " + args.revision)
         elif args.action == "configure":
             deployment.configure()
         elif args.action == "release":

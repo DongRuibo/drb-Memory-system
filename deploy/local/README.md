@@ -4,9 +4,9 @@
 本地与 ECS 共用业务 Dockerfile、数据库管理和配置回读代码；本地不执行 ECS 的
 GHCR/SSH 发布，也不要求 root。实际配置为当前用户拥有的普通文件、权限 `0600`。
 
-**当前仅可完成配置/构建准备。** 固定 Mem0 REST 的纯 ES 启动仍受上游限制，
-[兼容性断点](../mem0/README.md#当前兼容性断点) 未解决前，不把后面的操作卡视为运行成功，
-不通过启用其他向量后端或修改上游源码绕过。
+Mem0 使用项目侧 HTTP 入口直接加载 ES 配置，保持上游源码不变；
+接口与认证范围见 [Mem0 说明](../mem0/README.md)。本地顺序和目标 ECS 验收分开，
+不把隔离测试结果视为现有数据库或真实 Provider 已经验证。
 
 ## 1. 外部依赖与配置
 
@@ -28,7 +28,7 @@ chmod 600 .env.local
 数据库固定 `lazytt_memory_mem0`，owner/runtime 分别为 `lazytt_memory_mem0_owner`、
 `lazytt_memory_mem0_runtime`。本地应使用独立 PG 实例，不能连接 dev 的同名库；
 如共享实例无法满足这个隔离要求，先规划库命名与管理代码的变更，不复用 dev 数据。
-ES 使用本地专用索引，三个认证密钥独立且至少 32 字节。填写已有合法凭据，脚本不生成数据库密码。
+ES 使用本地专用索引，两个认证密钥独立且至少 32 字节。填写已有合法凭据，脚本不生成数据库密码。
 
 ## 2. 验证与构建
 
@@ -43,7 +43,7 @@ validate 使用空环境解析本地 Compose，不读取 `.env` 或 `.env.local`
 build 串行构建 Mem0、Memory，均不启动。Mem0 构建会核对上游 Python 源码摘要。
 Memory 使用 `apps/memory-service/Dockerfile`，Mem0 使用 `deploy/mem0/Dockerfile`；
 不会创建另一份 Compose。构建标签为 `lazytt-memory-service:local` 和
-`lazytt-mem0-api-elasticsearch:b357a5a1-es-client-v1`，本地按主机架构构建。
+`lazytt-mem0-api-elasticsearch:b357a5a1-es-gateway-v1`，本地按主机架构构建。
 
 ## 3. 管理员显式迁移
 
@@ -71,7 +71,7 @@ export MEM0_MIGRATION_PASSWORD='<REDACTED>'
 
 ## 4. 首次配置、日常启动与检查
 
-以下步骤须先解决 Mem0 兼容性断点，且填写完整 `.env.local`：
+填写完整 `.env.local` 并完成数据库阶段后执行：
 
 ```bash
 ./scripts/backend-stack.sh configure
