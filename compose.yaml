@@ -27,11 +27,12 @@ x-model-healthcheck: &model-healthcheck
 x-mem0-config-environment: &mem0-config-environment
   MEM0_BASE_URL: http://mem0:8000
   MEM0_API_KEY: ${MEM0_API_KEY:?run ./scripts/bootstrap-backend-env.sh}
-  MEM0_POSTGRES_HOST: mem0-postgres
-  MEM0_POSTGRES_PORT: 5432
-  MEM0_POSTGRES_DB: postgres
-  MEM0_POSTGRES_USER: mem0
-  MEM0_POSTGRES_PASSWORD: ${MEM0_POSTGRES_PASSWORD:?run ./scripts/bootstrap-backend-env.sh}
+  MEM0_VECTOR_STORE_PROVIDER: elasticsearch
+  MEM0_ELASTICSEARCH_HOST: ${ELASTICSEARCH_HOST:?set ELASTICSEARCH_HOST}
+  MEM0_ELASTICSEARCH_PORT: ${ELASTICSEARCH_PORT:?set ELASTICSEARCH_PORT}
+  MEM0_ELASTICSEARCH_USER: ${ELASTICSEARCH_USERNAME:?set ELASTICSEARCH_USERNAME}
+  MEM0_ELASTICSEARCH_PASSWORD: ${ELASTICSEARCH_PASSWORD:?set ELASTICSEARCH_PASSWORD}
+  MEM0_ELASTICSEARCH_VERIFY_CERTS: "true"
   MEM0_COLLECTION_NAME: ${MEM0_COLLECTION_NAME:-memories_qwen3_1024}
 
 x-memory-service-environment: &memory-service-environment
@@ -124,10 +125,7 @@ services:
       - ./deploy/mem0/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro
 
   mem0:
-    image: lazytt-mem0-api:b357a5a1
-    build:
-      context: https://github.com/mem0ai/mem0.git#b357a5a1b03c299ec8229c268e63cfac0f7c6566
-      dockerfile: server/dev.Dockerfile
+    image: lazytt-mem0-api-elasticsearch:b357a5a1-es-only-v1
     init: true
     restart: unless-stopped
     depends_on:

@@ -8,6 +8,27 @@ import configure
 
 
 class VectorStoreConfigTests(unittest.TestCase):
+    def test_defaults_to_elasticsearch_without_postgres_vector_settings(self) -> None:
+        environment = {
+            "MEM0_ELASTICSEARCH_HOST": "https://elasticsearch.example.com",
+            "MEM0_ELASTICSEARCH_PORT": "9200",
+            "MEM0_ELASTICSEARCH_USER": "memory-user",
+            "MEM0_ELASTICSEARCH_PASSWORD": "test-password-not-secret",
+            "MEM0_COLLECTION_NAME": "mem0-test",
+        }
+        with patch.dict(os.environ, environment, clear=True):
+            result = configure.vector_store_config(1024)
+        self.assertEqual(result["provider"], "elasticsearch")
+        self.assertNotIn("dbname", result["config"])
+
+    def test_rejects_removed_or_unexpected_backend_without_echoing_input(self) -> None:
+        for provider in ("pgvector", "qdrant", "", "credential-like-input"):
+            with self.subTest(provider=provider), patch.dict(
+                os.environ, {"MEM0_VECTOR_STORE_PROVIDER": provider}, clear=True
+            ):
+                with self.assertRaisesRegex(RuntimeError, "^MEM0_VECTOR_STORE_PROVIDER must be elasticsearch$"):
+                    configure.vector_store_config(1024)
+
     def test_elasticsearch_uses_basic_auth_and_requested_dimensions(self) -> None:
         environment = {
             "MEM0_VECTOR_STORE_PROVIDER": "elasticsearch",

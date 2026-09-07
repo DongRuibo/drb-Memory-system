@@ -2,10 +2,7 @@ name: lazytt-memory-server-runtime
 
 services:
   mem0:
-    image: lazytt-mem0-api-elasticsearch:b357a5a1
-    build:
-      context: .
-      dockerfile: deploy/mem0/Dockerfile.elasticsearch
+    image: lazytt-mem0-api-elasticsearch:b357a5a1-es-only-v1
     init: true
     restart: unless-stopped
     command:

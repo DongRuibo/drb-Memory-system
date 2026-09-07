@@ -81,7 +81,7 @@ def main(image):
             data="SET ROLE lazytt_memory_mem0_runtime; CREATE TABLE forbidden(id int);", success=False)
         print("DATABASE_INTEGRATION_OK: native migrations, repeat, comments, low privilege and cross-db rejection")
         # This network has no external route. Client constructors/configuration must not
-        # require a paid Provider call, and empty settings must not initialize pgvector.
+        # require a paid Provider call; empty settings expose configuration only.
         run(["docker", "run", "-d", "--name", elasticsearch, "--label", "io.lazytt.test=" + name,
              "--network", name, "--memory", "1g", "-e", "discovery.type=single-node",
              "-e", "xpack.security.enabled=false", "-e", "ES_JAVA_OPTS=-Xms512m -Xmx512m",
@@ -124,10 +124,26 @@ def main(image):
             args.extend(["-e", key])
         for action in ("configure", "check"):
             run(args + [image, "/opt/lazytt/configuration.py", action], env={**os.environ, **config})
+        # Exercise the actual Mem0 vector adapter without calling a model Provider.
+        run(["docker", "exec", "-i", mem0, "python", "-"], data='''
+from main import get_memory_instance
+store = get_memory_instance().vector_store
+vector = [1.0] + [0.0] * 15
+store.insert(vectors=[vector], ids=["isolated-vector-test"], payloads=[{"data": "test memory"}])
+store.client.indices.refresh(index=store.collection_name)
+assert store.get("isolated-vector-test").payload["data"] == "test memory"
+assert store.search(query="", vectors=vector, top_k=1)[0].id == "isolated-vector-test"
+''')
         run(["docker", "restart", mem0])
         ready()
         run(args + [image, "/opt/lazytt/configuration.py", "check"], env={**os.environ, **config})
-        print("MEM0_CONFIGURATION_INTEGRATION_OK: first start, authenticated configure, redacted GET, persisted reload; no Provider calls")
+        run(["docker", "exec", "-i", mem0, "python", "-"], data='''
+from main import get_memory_instance
+store = get_memory_instance().vector_store
+assert store.get("isolated-vector-test").payload["data"] == "test memory"
+store.delete("isolated-vector-test")
+''')
+        print("MEM0_CONFIGURATION_INTEGRATION_OK: first start, authenticated configure, redacted GET, ES insert/search and persisted reload; no Provider calls")
     finally:
         subprocess.run(["docker", "rm", "-f", "-v", admin, mem0, elasticsearch, pg], capture_output=True)
         subprocess.run(["docker", "network", "rm", name], capture_output=True)

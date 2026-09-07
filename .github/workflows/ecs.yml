@@ -79,7 +79,7 @@ jobs:
               dockerfile=apps/memory-service/Dockerfile
               output=memory_image
             else
-              dockerfile=deploy/ecs/Dockerfile.mem0
+              dockerfile=deploy/mem0/Dockerfile
               output=mem0_image
             fi
             image="$prefix-$component"
@@ -100,6 +100,7 @@ jobs:
           MEM0_IMAGE: ${{ steps.publish.outputs.mem0_image }}
         run: |
           docker pull "$MEM0_IMAGE"
+          docker run --rm --network none -e MEM0_TELEMETRY=false --entrypoint python -i "$MEM0_IMAGE" < tests/ecs/check_mem0_image.py
           python3 tests/ecs/database_docker.py "$MEM0_IMAGE"
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:

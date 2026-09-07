@@ -71,7 +71,7 @@ Qwen 推荐的非对称 query-instruction 最优检索配置。
 
 从 1536 维 POC Embedder 切换到 1024 维 Qwen 前，必须使用新的 Mem0 collection/
 数据库或清空仅含合成 POC 数据的 collection，然后从 PostgreSQL 权威记录重建。
-不同维度不能写入同一个 pgvector collection。当前单 Mem0 实例的切换需要维护窗口；
+不同维度不能写入同一个 Elasticsearch 索引。当前单 Mem0 实例的切换需要维护窗口；
 无停机双读需要为旧、新 manifest 各部署一个 Retrieval Index profile，尚未实现。
 
 ## 3. 启动 Memory Service

@@ -20,7 +20,7 @@ Mem0 固定 `b357a5a1b03c299ec8229c268e63cfac0f7c6566`，使用其原生 Alembic
 若既有环境已使用该历史 SQL，先另行审计现有结构、历史和归属；本包不接管未知数据库/项目。
 
 ECS 镜像对固定上游做断言式小补丁：正确编码数据库 URL、将连接池限制为 5、
-未配置时先提供认证配置接口而不初始化 pgvector、配置持久化失败明确报错。
+未配置时先提供认证配置接口、仅接受 Elasticsearch、配置持久化失败明确报错。
 首次通过 API 配置后才初始化向量存储；配置回读同时检查脱敏 API 和数据库中的实际持久值，均不打印秘密。
 
 仓库维护一个独立 [compose.dev.yml](../../compose.dev.yml)，使用 JSON 形式的合法 YAML，
@@ -39,7 +39,7 @@ workflow 仅引用 GitHub 官方 `actions/*`，并固定到完整 commit SHA；�
 | 仓库／分支／候选 | `lazyaix/lazytt-memory-system`；dev；实际 SHA 和两个 digest 从 Actions candidate.txt 取得 |
 | ECS／工作目录 | 目标 ECS 尚待确认；独立绝对目录由 ECS_REPO_DIR 指定 |
 | 硬依赖 | Mem0 PostgreSQL、Elasticsearch；真实提取与检索还依赖模型 API；不依赖 Agent、Identity 或 Trust 启动 |
-| Store | 实际 PostgreSQL/Elasticsearch 版本、架构、私网地址、端口、容量、可达路径均待目标核验；Mem0 无需 pgvector |
+| Store | 实际 PostgreSQL/Elasticsearch 版本、架构、私网地址、端口、容量、可达路径均待目标核验；PostgreSQL 仅用于认证与配置 |
 | 数据库 | `lazytt_memory_mem0`；owner `lazytt_memory_mem0_owner`；runtime `lazytt_memory_mem0_runtime`；跨库 CONNECT 拒绝 |
 | 结构 | Alembic head 006，5 张应用表 + alembic_version；[字段说明](database/comments.json)作为数据库注释和验收字典 |
 | 业务配置 | Mem0 configure API 设置真实 Provider/索引；不预置用户、记忆或假业务记录 |

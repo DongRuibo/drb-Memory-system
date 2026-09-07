@@ -1,9 +1,0 @@
-FROM lazytt-mem0-api:b357a5a1
-
-# Match the client version pinned by Mem0's poetry.lock for its Elasticsearch extra.
-RUN pip install --no-cache-dir elasticsearch==8.19.3
-
-# The pinned REST server deep-merges pgvector fields into a new provider config.
-# Replace provider blocks atomically when the provider changes.
-COPY deploy/mem0/patch_server_state.py /tmp/patch_server_state.py
-RUN python /tmp/patch_server_state.py && rm /tmp/patch_server_state.py

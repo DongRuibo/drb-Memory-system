@@ -49,22 +49,9 @@ def boolean(name: str, default: bool) -> bool:
 
 
 def vector_store_config(dimensions: int) -> dict:
-    provider = os.environ.get("MEM0_VECTOR_STORE_PROVIDER", "pgvector").strip()
-    if provider == "pgvector":
-        return {
-            "provider": "pgvector",
-            "config": {
-                "host": required("MEM0_POSTGRES_HOST", 255),
-                "port": int(os.environ.get("MEM0_POSTGRES_PORT", "5432")),
-                "dbname": required("MEM0_POSTGRES_DB", 255),
-                "user": required("MEM0_POSTGRES_USER", 255),
-                "password": required("MEM0_POSTGRES_PASSWORD"),
-                "collection_name": required("MEM0_COLLECTION_NAME", 255),
-                "embedding_model_dims": dimensions,
-            },
-        }
+    provider = os.environ.get("MEM0_VECTOR_STORE_PROVIDER", "elasticsearch").strip()
     if provider != "elasticsearch":
-        raise RuntimeError("MEM0_VECTOR_STORE_PROVIDER must be pgvector or elasticsearch")
+        raise RuntimeError("MEM0_VECTOR_STORE_PROVIDER must be elasticsearch")
 
     host = required("MEM0_ELASTICSEARCH_HOST", 2048).rstrip("/")
     parsed = urllib.parse.urlparse(host)

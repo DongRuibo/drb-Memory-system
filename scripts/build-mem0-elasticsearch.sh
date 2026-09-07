@@ -5,15 +5,20 @@ script_dir="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repository_root="$(CDPATH= cd -- "${script_dir}/.." && pwd)"
 cd "$repository_root"
 
-base_image="lazytt-mem0-api:b357a5a1"
-elasticsearch_image="lazytt-mem0-api-elasticsearch:b357a5a1"
-mem0_source="https://github.com/mem0ai/mem0.git#b357a5a1b03c299ec8229c268e63cfac0f7c6566"
-
-if ! docker image inspect "$base_image" >/dev/null 2>&1; then
-  docker build --file server/dev.Dockerfile --tag "$base_image" "$mem0_source"
-fi
+mem0_revision="b357a5a1b03c299ec8229c268e63cfac0f7c6566"
+source_dir="$(mktemp -d)"
+trap 'rm -rf -- "$source_dir"' EXIT
+curl --fail --silent --show-error --location \
+  "https://codeload.github.com/mem0ai/mem0/tar.gz/$mem0_revision" \
+  --output "$source_dir/source.tar.gz"
+mkdir -p "$source_dir/_upstream/mem0" "$source_dir/deploy/mem0" "$source_dir/deploy/ecs/database"
+tar -xzf "$source_dir/source.tar.gz" --strip-components=1 -C "$source_dir/_upstream/mem0"
+cp deploy/mem0/Dockerfile deploy/mem0/configure.py deploy/mem0/prepare_vector_store.py \
+  deploy/mem0/patch_server_state.py "$source_dir/deploy/mem0/"
+cp deploy/ecs/image_patch.py deploy/ecs/database.py deploy/ecs/configuration.py "$source_dir/deploy/ecs/"
+cp deploy/ecs/database/comments.json "$source_dir/deploy/ecs/database/"
 
 docker build \
-  --file deploy/mem0/Dockerfile.elasticsearch \
-  --tag "$elasticsearch_image" \
-  .
+  --file "$source_dir/deploy/mem0/Dockerfile" \
+  --tag lazytt-mem0-api-elasticsearch:b357a5a1-es-only-v1 \
+  "$source_dir"

@@ -66,7 +66,7 @@ docker compose \
 ## 服务器复用已有 PostgreSQL 和 Elasticsearch
 
 `compose.server-runtime.yaml` 不部署 PostgreSQL 或 Elasticsearch，也不执行 Alembic。
-Mem0 不需要 pgvector 扩展。服务器管理员应创建独立数据库和低权限运行账号，
+Mem0 使用 Elasticsearch 保存向量。服务器管理员应创建独立认证配置数据库和低权限运行账号，
 审核并手动执行仓库提供的固定 SQL；运行账号不能建表或修改表结构。
 
 先以 PostgreSQL 管理员身份连接入口数据库。数据库必须由管理员（或专用 schema
