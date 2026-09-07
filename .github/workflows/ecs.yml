@@ -24,7 +24,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Deployment checks
         run: |
           python3 -m unittest discover -s tests/ecs -v
@@ -51,8 +51,8 @@ jobs:
       memory_image: ${{ steps.publish.outputs.memory_image }}
       mem0_image: ${{ steps.publish.outputs.mem0_image }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           repository: mem0ai/mem0
           ref: b357a5a1b03c299ec8229c268e63cfac0f7c6566
@@ -72,7 +72,7 @@ jobs:
       - name: Build and publish immutable candidate (serial)
         id: publish
         run: |
-          prefix="ghcr.io/${GITHUB_REPOSITORY,,}"
+          prefix="ghcr.io/$(printf '%s' "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')"
           printf 'Git SHA: %s\n' "$GITHUB_SHA" > candidate.txt
           for component in service mem0; do
             if [[ "$component" == service ]]; then
@@ -101,7 +101,7 @@ jobs:
         run: |
           docker pull "$MEM0_IMAGE"
           python3 tests/ecs/database_docker.py "$MEM0_IMAGE"
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: memory-ecs-${{ github.sha }}
           path: |
@@ -130,7 +130,7 @@ jobs:
       contents: read
       packages: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
       - name: Reject stale branch candidate
         env:
           GH_TOKEN: ${{ github.token }}
