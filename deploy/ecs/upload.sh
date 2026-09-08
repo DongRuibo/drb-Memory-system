@@ -3,12 +3,13 @@
 set -euo pipefail
 set +x
 umask 077
-: "${ECS_HOST:?}" "${ECS_USER:?}" "${ECS_PORT:?}" "${ECS_REPO_DIR:?}"
+: "${ECS_HOST:?}" "${ECS_USER:?}" "${ECS_PORT:?}" "${ECS_REPO_DIR:?}" "${ECS_ENV_FILE:?}"
 : "${ECS_SSH_PRIVATE_KEY:?}" "${ECS_KNOWN_HOSTS:?}" "${GHCR_TOKEN:?}" "${GHCR_USER:?}"
 [[ "$ECS_HOST" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]*$ ]]
 [[ "$ECS_USER" =~ ^[a-z_][a-z0-9_-]*$ ]]
 [[ "$ECS_PORT" =~ ^[0-9]{1,5}$ ]] && (( 10#$ECS_PORT >= 1 && 10#$ECS_PORT <= 65535 ))
 [[ "$ECS_REPO_DIR" =~ ^/[a-zA-Z0-9_/-]+$ ]] && [[ "$ECS_REPO_DIR" != / ]]
+if [[ ! "$ECS_ENV_FILE" =~ ^/[a-zA-Z0-9_./-]+$ || "$ECS_ENV_FILE" == / ]]; then exit 2; fi
 [[ "$GHCR_USER" =~ ^[a-zA-Z0-9_-]+$ ]]
 [[ "$1" == prepare || "$1" == prepare-wait || "$1" == release ]]
 wait_seconds="${ECS_MIGRATION_WAIT_SECONDS:-1800}"
@@ -35,4 +36,4 @@ uploaded=true
 scp "${ssh_options[@]}" -P "$ECS_PORT" compose.dev.yml deploy/ecs/release.py deploy/ecs/remote.sh deploy/ecs/README.md deploy/ecs/环境变量.md deploy/ecs/.env.dev.example "$target:$stage/" >/dev/null
 scp -r "${ssh_options[@]}" -P "$ECS_PORT" deploy/ecs/database "$target:$stage/database" >/dev/null
 printf '%s' "$GHCR_TOKEN" | ssh "${ssh_options[@]}" -p "$ECS_PORT" "$target" \
-  "bash $stage/remote.sh $1 $ECS_REPO_DIR $2 $3 $4 $GHCR_USER $wait_seconds"
+  "bash $stage/remote.sh $1 $ECS_REPO_DIR $2 $3 $4 $GHCR_USER $wait_seconds $ECS_ENV_FILE"

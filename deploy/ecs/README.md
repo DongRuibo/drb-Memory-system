@@ -30,10 +30,26 @@ PR 的绿色结果只覆盖 test job；build/deploy 显示 skipped 是当前触�
 ## 1. 先准备配置和目标登记
 
 配置消费者、填写位置见[环境变量清单](环境变量.md)。
-GitHub 只保存 SSH/发布连接材料；模型、ES、数据库运行密码与应用认证 Key 留在 ECS `/etc/lazytt/memory.env`。
+GitHub 只保存 SSH/发布连接材料及路径 `ECS_ENV_FILE`；模型、ES、数据库运行密码与应用认证 Key 留在该变量指定的 ECS 文件中，例如 `/etc/lazytt/memory.env`。
 管理员 owner 密码单独保存在 `/etc/lazytt/memory-migrate.env`，不进入常驻应用或 GitHub。
 两个文件都要求普通文件、root:root、0600，采用 Bash `export NAME='value'` 格式。
 模板为 [.env.dev.example](.env.dev.example)；实际秘密不得提交或粘贴到日志。
+在 GitHub Settings → Secrets and variables → Actions → Variables 设置必填的 `ECS_ENV_FILE`，值为该应用文件的绝对路径。
+prepare、等待检查、release 和交付的 `database.sh` 都显式使用该路径；直接运行 `release.py` 必须传 `--config`。
+更换路径前核对新文件的内容、root:root 0600 权限和可加载性，再重新交付管理员入口；旧入口不会自动读取新变量。
+
+首次配置时，在 ECS 终端先创建应用配置文件并设置权限；已有文件的内容会保留。当前用户若为 root，可省略 `sudo`。
+
+```bash
+sudo mkdir -p /etc/lazytt &&
+sudo touch /etc/lazytt/memory.env &&
+sudo chown root:root /etc/lazytt/memory.env &&
+sudo chmod 600 /etc/lazytt/memory.env &&
+sudo stat -c '%U:%G %a %n' /etc/lazytt/memory.env
+```
+
+预期输出为 `root:root 600 /etc/lazytt/memory.env`，表示只有 root 可以读写。
+确认权限后再按模板填写配置；此时空文件尚不能用于部署。核验时只提供权限输出，不展示文件内容。
 
 | 项目 | 固定值与待核验项 |
 |---|---|

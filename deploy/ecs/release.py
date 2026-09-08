@@ -178,7 +178,8 @@ class Deployment:
         require(candidate == expected, "Prepared candidate changed; do not migrate or release stale images")
         require(document["services"]["admin"]["image"] == candidate["mem0_image"], "Candidate administration image mismatch")
 
-    def install_admin_bundle(self, revision, memory_image, mem0_image):
+    def install_admin_bundle(self, revision, memory_image, mem0_image, config_file):
+        require(re.fullmatch(r"/[A-Za-z0-9_./-]+", config_file or "") and config_file != "/", "Explicit absolute ECS config path required")
         self.assert_candidate(revision, memory_image, mem0_image)
         source = Path(__file__).parent
         files = [Path("release.py"), Path("README.md"), Path("环境变量.md"), Path(".env.dev.example")]
@@ -206,7 +207,7 @@ class Deployment:
             'action="${1:-migrate}"; if (( $# )); then shift; fi\n'
             'case "$action" in migrate|database-check) ;; *) exit 2 ;; esac\n'
             'exec python3 "$directory/admin/' + revision + '/release.py" "$action" '
-            '--directory "$directory" "$@" --revision ' + revision +
+            '--directory "$directory" "$@" --config ' + config_file + ' --revision ' + revision +
             ' --memory-image ' + memory_image + ' --mem0-image ' + mem0_image + '\n')
         wrapper.chmod(0o700)
         print("ADMIN_BUNDLE_READY: " + str(wrapper) + " migrate --migration-config /etc/lazytt/memory-migrate.env")
@@ -292,7 +293,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=("prepare", "database-check", "check", "migrate", "configure", "release"))
     parser.add_argument("--directory", required=True)
-    parser.add_argument("--config", default="/etc/lazytt/memory.env")
+    parser.add_argument("--config", required=True, help="ECS_ENV_FILE: absolute path to the administrator-owned application config")
     parser.add_argument("--migration-config")
     parser.add_argument("--source")
     parser.add_argument("--revision")
@@ -308,7 +309,7 @@ def main():
             require(all((args.source, args.revision, args.memory_image, args.mem0_image)), "Prepare requires source and exact image/revision arguments")
             deployment = Deployment(directory)
             deployment.prepare(args.source, args.revision, args.memory_image, args.mem0_image)
-            deployment.install_admin_bundle(args.revision, args.memory_image, args.mem0_image)
+            deployment.install_admin_bundle(args.revision, args.memory_image, args.mem0_image, args.config)
             return
         values = read_config(args.config, database_only=args.action in {"migrate", "database-check"})
         deployment = Deployment(directory, values)
