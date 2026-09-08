@@ -226,3 +226,7 @@ Memory digest / Mem0 digest / Store 版本：
 验收节点：运行镜像与候选一致；业务和健康均可在规定入口访问；公网业务无 JWT 返回 401；
 业务端口 `/health/*` 返回 404；健康端口不能处理业务；宿主健康映射为回环且外部不可访问。
 公网真实模型写入/检索和身份授权验收单独记录，不用健康或无凭证拒绝替代。
+
+首次 Mem0 配置会初始化后端并可能等待 ES 索引分片启动；管理端 POST 配置请求使用 60 秒超时，
+普通读取仍为 10 秒。依据：[ES 创建索引的等待与默认超时](https://www.elastic.co/docs/api/doc/elasticsearch/operation/operation-indices-create)。
+配置超时代表结果未知，直接保留失败退出，不自动重发写请求；修复后通过正常 ensure 的持久配置回读继续。
