@@ -47,7 +47,8 @@ jobs:
 
   build:
     if: >-
-      github.event_name != 'pull_request' && github.ref == 'refs/heads/dev' &&
+      github.event_name != 'pull_request' &&
+      (github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && inputs.action == 'build')) &&
       !(github.event_name == 'workflow_dispatch' && inputs.action == 'release-prepared') &&
       !(github.event_name == 'push' && vars.ECS_DEPLOY_ENABLED == 'true' && vars.ECS_DEPLOY_ACTION == 'release-prepared')
     needs: test
