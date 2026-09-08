@@ -5,7 +5,7 @@ GitHub 构建并推送固定摘要镜像 → 向 ECS 交付唯一 Compose 和管
 
 本包部署 Memory Service、项目侧 Mem0 HTTP 入口，连接已有 PostgreSQL、Elasticsearch；不部署数据库、Agent 或模型服务。
 源码在 GitHub Runner 构建，ECS 不检出 Git 或编译。变更经 PR 进入 dev，不合并 main。
-本地与 dev 各一份完整 Compose，无 override/include/extends。当前尚无目标 ECS 发布成功回执。
+本地与 dev 各一份完整 Compose，无 override/include/extends。回环部署已通过运行验收，参见 [发布运行](https://github.com/lazyaix/lazytt-memory-system/actions/runs/34228173339)；真实身份及模型业务验收另行记录。
 
 ## 0. ECS 参数尚未确定时
 
@@ -62,7 +62,7 @@ sudo stat -c '%U:%G %a %n' /etc/lazytt/memory.env
 | 迁移 | 原版 Alembic 001～006；5 张应用表 + alembic_version；[结构注释字典](database/comments.json) |
 | Store | 既有 PG/ES 的实际版本、私网地址/端口、证书、路由、索引归属、备份待核验 |
 | 镜像 | Memory、Mem0 两个最终 linux/amd64 镜像，固定 digest 与同一完整 Git SHA；admin 复用 Mem0 镜像 |
-| 入口 | Memory 仅 127.0.0.1:18081，Mem0 不映射宿主端口；本轮公网/Nginx 不适用 |
+| 入口 | Memory 业务由 LAZYTT_MEMORY_HOST_BIND/HOST_PORT 指定；健康端口固定宿主回环；Mem0 不映射宿主端口 |
 | 身份 | Memory 强制 jwt_hs256；内部 Mem0 使用独立服务 Key；实际签发方/租户由负责人登记 |
 | 预算 | Mem0 2 CPU/2 GiB，Memory 1 CPU/512 MiB，admin 1 CPU/512 MiB；运行进程连接池 3+2，角色上限 8 |
 | 持久位置 | 外部 PG、专用 ES 索引、lazytt-memory-ecs-dev_mem0-history 卷，备份分别覆盖 |
@@ -209,3 +209,20 @@ Memory digest / Mem0 digest / Store 版本：
 运行 / 业务 / 拒绝 / 重启 / 发布失败恢复：通过、失败、阻塞、未执行；证据：
 备份 / 恢复位置 / Store 前后状态 / 临时资源清理：
 ```
+
+## 公网 IP 与端口
+
+业务与健康使用两个独立监听：容器 8080 只承载业务，8081 只承载 `/health/live`、`/health/ready`。
+管理员在 ECS 应用配置中设置 `LAZYTT_MEMORY_HOST_BIND=0.0.0.0`，登记业务端口和独立的
+`LAZYTT_MEMORY_HEALTH_PORT`。健康映射固定为 `127.0.0.1`；Mem0 保持内部访问。
+公网 IP 入口使用 HTTP，业务鉴权仍要求有效 JWT。安全组只开放获准的业务 TCP 端口。
+
+从旧的单监听候选升级时，这是一次已审阅的 Compose 拓扑变更。先交付含监听拆分的新镜像候选；
+将同一提交的 Compose 模板写入现有唯一 compose.yml 时，保留当前镜像及 x-lazytt 候选/发布状态，
+只应用本次已审阅的监听和健康检查变更，再运行正常 prepare/release。
+发布器仍拒绝未审阅的拓扑变化，不使用 Compose override 或临时 docker port/network 命令。
+不重跑已完成的数据库迁移。纯端口配置调整使用正常 release 重建容器，不能仅 restart。
+
+验收节点：运行镜像与候选一致；业务和健康均可在规定入口访问；公网业务无 JWT 返回 401；
+业务端口 `/health/*` 返回 404；健康端口不能处理业务；宿主健康映射为回环且外部不可访问。
+公网真实模型写入/检索和身份授权验收单独记录，不用健康或无凭证拒绝替代。

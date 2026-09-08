@@ -49,7 +49,7 @@ chmod 600 .env.local
 
 ## 调用与验收边界
 
-唯一调用入口是宿主回环 `http://127.0.0.1:18081`，Mem0 不映射宿主端口。
+Memory 业务入口由 `LAZYTT_MEMORY_HOST_BIND` 与 `LAZYTT_MEMORY_HOST_PORT` 指定。健康使用独立的回环端口；Mem0 不映射宿主端口。公网入口操作见 deploy/ecs/README.md。
 本地与 dev 都使用 `jwt_hs256`；不能继续使用旧示例的可信用户头代替 JWT。
 JWT 的 issuer、audience、tenant 和权限须符合 `apps/memory-service/src/auth.rs`。
 

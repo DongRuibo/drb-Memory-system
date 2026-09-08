@@ -5,6 +5,7 @@ import copy
 import fcntl
 import hashlib
 import json
+import ipaddress
 import os
 from pathlib import Path
 import re
@@ -22,7 +23,7 @@ REQUIRED = (
     "LAZYTT_MEMORY_ELASTICSEARCH_ENDPOINT ELASTICSEARCH_PORT ELASTICSEARCH_USERNAME STORE_ELASTICSEARCH_PASSWORD "
     "ELASTICSEARCH_INDEX_PREFIX MEMORY_EMBEDDING_BASE_URL MEMORY_EMBEDDING_API_KEY MEMORY_EMBEDDING_MODEL "
     "MEMORY_EMBEDDING_DIMENSIONS MEMORY_EXTRACT_BASE_URL MEMORY_EXTRACT_API_KEY MEMORY_EXTRACT_MODEL "
-    "LAZYTT_MEMORY_HOST_PORT MEMORY_JWT_HS256_SECRET MEMORY_JWT_ISSUER MEMORY_JWT_AUDIENCE MEMORY_TENANT_IDS"
+    "LAZYTT_MEMORY_HOST_BIND LAZYTT_MEMORY_HOST_PORT LAZYTT_MEMORY_HEALTH_PORT MEMORY_JWT_HS256_SECRET MEMORY_JWT_ISSUER MEMORY_JWT_AUDIENCE MEMORY_TENANT_IDS"
 ).split()
 
 
@@ -58,8 +59,10 @@ def read_config(path, migration=False, database_only=False, owner=(0, 0)):
     forbidden = {"MEM0_MIGRATION_PASSWORD", "ECS_SSH_PRIVATE_KEY", "GITHUB_TOKEN", "DATABASE_URL", "LAZYTT_DATABASE_ADMIN_PASSWORD"}
     require(migration or not forbidden.intersection(values), "Administrator/publishing credentials in application config")
     if not migration and not database_only:
-        for key in ("MEM0_POSTGRES_PORT", "ELASTICSEARCH_PORT", "LAZYTT_MEMORY_HOST_PORT"):
+        for key in ("MEM0_POSTGRES_PORT", "ELASTICSEARCH_PORT", "LAZYTT_MEMORY_HOST_PORT", "LAZYTT_MEMORY_HEALTH_PORT"):
             require(values[key].isdigit() and 1 <= int(values[key]) <= 65535, "Invalid port: " + key)
+        require(ipaddress.ip_address(values["LAZYTT_MEMORY_HOST_BIND"]).version == 4, "Expected IPv4 business bind")
+        require(values["LAZYTT_MEMORY_HOST_PORT"] != values["LAZYTT_MEMORY_HEALTH_PORT"], "Business and health ports must differ")
         require(values["MEMORY_EMBEDDING_DIMENSIONS"].isdigit() and 1 <= int(values["MEMORY_EMBEDDING_DIMENSIONS"]) <= 4096,
                 "Invalid embedding dimensions")
         for key in ("MEM0_API_KEY", "MEMORY_JWT_HS256_SECRET"):
