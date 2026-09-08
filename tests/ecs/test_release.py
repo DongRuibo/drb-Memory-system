@@ -13,6 +13,7 @@ spec = importlib.util.spec_from_file_location("release", ROOT / "deploy/ecs/rele
 release = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(release)
 SHA = "a" * 40
+OLD_SHA = "b" * 40
 OLD = "ghcr.io/example/memory@sha256:" + "1" * 64
 NEW = "ghcr.io/example/memory@sha256:" + "2" * 64
 
@@ -57,7 +58,7 @@ class ReleaseTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.dep = FakeDeployment(self.temp.name)
         self.template = ROOT / "compose.dev.yml"
-        self.dep.prepare(self.template, SHA, OLD, OLD)
+        self.dep.prepare(self.template, OLD_SHA, OLD, OLD)
         prior = self.dep.read()
         prior["x-lazytt"].update(released=True, config_hash=release.fingerprint(self.dep.values))
         self.dep.write(prior)
@@ -96,6 +97,34 @@ class ReleaseTests(unittest.TestCase):
             self.dep.release()
         self.assertEqual(self.dep.path.read_bytes(), before)
         self.assertFalse(any(e[0] in {"up", "stop"} for e in self.dep.events if isinstance(e, tuple)))
+
+    def test_configuration_rejection_leaves_running_services_and_compose_untouched(self):
+        self.dep.prepare(self.template, SHA, NEW, NEW)
+        before = self.dep.path.read_bytes()
+        self.dep.values["test"] = "changed"
+        self.dep.failure = ("configuration", "preflight", "admin")
+        with self.assertRaises(RuntimeError):
+            self.dep.release()
+        self.assertEqual(self.dep.path.read_bytes(), before)
+        self.assertFalse(any(e[0] in {"up", "stop"} for e in self.dep.events if isinstance(e, tuple)))
+
+    def test_same_revision_cannot_replace_prepared_images(self):
+        before = self.dep.path.read_bytes()
+        with self.assertRaisesRegex(RuntimeError, "same revision"):
+            self.dep.prepare(self.template, OLD_SHA, NEW, NEW)
+        self.assertEqual(self.dep.path.read_bytes(), before)
+
+    def test_historical_candidate_cannot_be_rebound(self):
+        self.dep.install_admin_bundle(OLD_SHA, OLD, OLD)
+        self.dep.prepare(self.template, SHA, NEW, NEW)
+        with self.assertRaisesRegex(RuntimeError, "same revision"):
+            self.dep.prepare(self.template, OLD_SHA, NEW, NEW)
+
+    def test_expected_digests_must_match_prepared_candidate(self):
+        with self.assertRaisesRegex(RuntimeError, "candidate changed"):
+            self.dep.assert_candidate(OLD_SHA, NEW, OLD)
+        with self.assertRaisesRegex(RuntimeError, "candidate changed"):
+            self.dep.assert_candidate(OLD_SHA, OLD, NEW)
 
     def test_failed_start_restores_compatible_prior_images(self):
         self.dep.prepare(self.template, SHA, NEW, NEW)
@@ -160,21 +189,25 @@ class ReleaseTests(unittest.TestCase):
 
     def test_stale_migration_revision_is_rejected(self):
         with self.assertRaisesRegex(RuntimeError, "candidate changed"):
-            self.dep.assert_candidate("b" * 40)
-        self.dep.assert_candidate(SHA)
+            self.dep.assert_candidate(SHA, OLD, OLD)
+        self.dep.assert_candidate(OLD_SHA, OLD, OLD)
 
     def test_admin_bundle_survives_transport_cleanup_and_uses_one_compose(self):
-        self.dep.install_admin_bundle(SHA)
+        self.dep.prepare(self.template, SHA, NEW, NEW)
+        self.dep.install_admin_bundle(SHA, NEW, NEW)
         root = Path(self.temp.name)
         self.assertTrue((root / "admin" / SHA / "database/03_verify.sql").is_file())
         wrapper = (root / "database.sh").read_text()
         self.assertIn("--revision " + SHA, wrapper)
+        self.assertIn("--memory-image " + NEW, wrapper)
+        self.assertIn("--mem0-image " + NEW, wrapper)
+        self.assertEqual(json.loads((root / "admin" / SHA / "candidate.json").read_text()), self.dep.read()["x-lazytt"]["candidate"])
         self.assertNotIn("POSTGRES_PASSWORD", wrapper)
         self.assertEqual(list(root.rglob("*.yml")), [self.dep.path])
-        self.dep.install_admin_bundle(SHA)
+        self.dep.install_admin_bundle(SHA, NEW, NEW)
         (root / "admin" / SHA / "release.py").write_text("changed")
         with self.assertRaisesRegex(RuntimeError, "bundle changed"):
-            self.dep.install_admin_bundle(SHA)
+            self.dep.install_admin_bundle(SHA, NEW, NEW)
 
     def test_world_readable_config_is_rejected_before_loading(self):
         mode = SimpleNamespace(st_mode=0o100644, st_uid=0, st_gid=0)

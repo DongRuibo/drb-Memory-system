@@ -46,6 +46,11 @@ if name == 'python3' and sys.argv[2] == 'database-check':
                 input='fixture-registry-token', text=True, capture_output=True, env=env)
             self.assertFalse(stage.exists())
             calls = [json.loads(line) for line in log.read_text().splitlines()]
+            for call in calls:
+                if call[0] == 'python3':
+                    self.assertEqual(call[call.index('--revision') + 1], 'a' * 40)
+                    self.assertEqual(call[call.index('--memory-image') + 1], 'memory-digest')
+                    self.assertEqual(call[call.index('--mem0-image') + 1], 'mem0-digest')
             self.assertNotIn('fixture-registry-token', result.stdout + result.stderr + log.read_text())
             return result, [call[2] for call in calls if call[0] == 'python3']
 

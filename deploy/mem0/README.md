@@ -30,7 +30,8 @@ PostgreSQL 只保存配置。为保留原生迁移历史和既有 schema，原�
 本入口不创建假用户、不使用这些旧认证接口。SQLite history 使用项目持久卷，ES 保存向量。
 `storage.py` 使用 SQLAlchemy URL 对象和 3+2 连接池；密码不拼到 URI，不修改上游 db.py。
 `migration/env.py` 使用同一连接实现，Alembic `version_locations` 直接引用原版 `/app/alembic/versions`；
-原版 001～006 的内容和迁移账本不变。镜像构建从原版 models 生成结构清单，不在运行时导入其 REST 数据库连接。
+原版 001～006 的内容和迁移账本不变。结构验收使用原生迁移实际结果生成并审阅的 `03_verify.sql`，
+覆盖字段/默认值、完整索引和约束；不再仅从 ORM models 推断数据库结构，也不导入原版 REST 数据库连接。
 
 ## 构建与验证
 

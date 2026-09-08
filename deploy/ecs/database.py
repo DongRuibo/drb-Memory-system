@@ -29,6 +29,10 @@ def identity(conn, migration=False):
     for name in (OWNER, RUNTIME):
         flags = conn.execute(text("SELECT rolsuper, rolcreatedb, rolcreaterole, rolreplication, rolbypassrls FROM pg_roles WHERE rolname=:role"), {"role": name}).one()
         require(not any(flags), "Elevated role flags")
+        require(conn.execute(text("SELECT rolcanlogin, rolconnlimit FROM pg_roles WHERE rolname=:role"), {"role": name}).one() == (True, 8),
+                "Role login/connection limit mismatch")
+        require(not conn.scalar(text("SELECT count(*) FROM pg_database WHERE NOT datistemplate AND datname != current_database() AND has_database_privilege(:role, oid, 'CONNECT')"), {"role": name}),
+                "Cross-database CONNECT remains; coordinate shared ACL with Store administrator")
         require(not conn.scalar(text("SELECT count(*) FROM pg_auth_members m JOIN pg_roles r ON r.oid=m.member WHERE r.rolname=:role"), {"role": name}),
                 "Unexpected role membership")
     require(not conn.scalar(text("SELECT has_schema_privilege(:role, 'public', 'CREATE')"), {"role": RUNTIME}),
@@ -44,25 +48,7 @@ def verify(conn):
             "Unexpected Alembic head")
     inspector = inspect(conn)
     require(set(inspector.get_table_names(schema="public")) == set(COMMENTS), "Unexpected table set")
-    # Native model columns, nullability and PK/FK definitions are checked separately from comments.
-    expected_schema = json.loads(Path(__file__).with_name("schema.json").read_text())
-    for table, expected in expected_schema.items():
-        actual = {c["name"]: c for c in inspector.get_columns(table, schema="public")}
-        require(set(actual) == set(expected["columns"]), "Column set mismatch")
-        for name, column in expected["columns"].items():
-            require(actual[name]["nullable"] == column["nullable"], "Column nullability mismatch")
-            require(str(actual[name]["type"].compile(dialect=conn.dialect)) == column["type"],
-                    "Column type mismatch: " + table + "." + name)
-        require(set(inspector.get_pk_constraint(table)["constrained_columns"]) == set(expected["pk"]), "Primary key mismatch")
-        found = {(fk["constrained_columns"][0], fk["referred_table"], fk["referred_columns"][0]) for fk in inspector.get_foreign_keys(table)}
-        require({tuple(fk) for fk in expected["fk"]} == found, "Foreign key mismatch")
-        require(all(fk.get("options", {}).get("ondelete") == "CASCADE" for fk in inspector.get_foreign_keys(table)),
-                "Foreign key delete rule mismatch")
-    require(any(item["column_names"] == ["email"] for item in inspector.get_unique_constraints("users")),
-            "Missing email uniqueness constraint")
-    indexes = {row[0]: row[1] for row in conn.execute(text("SELECT indexname, indexdef FROM pg_indexes WHERE schemaname='public'"))}
-    require("USING brin (created_at)" in indexes.get("ix_request_logs_created_at", ""), "Missing BRIN index")
-    require("UNIQUE INDEX" in indexes.get("ix_users_only_one_admin", "") and "WHERE" in indexes["ix_users_only_one_admin"], "Missing admin uniqueness constraint")
+    conn.exec_driver_sql(Path(__file__).with_name("03_verify.sql").read_text())
     require(not conn.scalar(text("SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public' AND c.relkind='i' AND obj_description(c.oid, 'pg_class') IS NULL")),
             "Missing index comments")
     require(not conn.scalar(text("SELECT count(*) FROM pg_constraint c JOIN pg_namespace n ON n.oid=c.connamespace WHERE n.nspname='public' AND obj_description(c.oid, 'pg_constraint') IS NULL")),
@@ -109,8 +95,6 @@ def main(action):
         with engine.begin() as conn:
             annotate(conn)
             verify(conn)
-    with engine.connect() as conn:
-        conn.exec_driver_sql(Path(__file__).with_name("03_verify.sql").read_text())
     print("MEMORY_DATABASE_OK head=" + HEAD)
 
 

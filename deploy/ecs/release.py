@@ -73,6 +73,12 @@ def fingerprint(values):
     return hashlib.sha256(json.dumps(values, sort_keys=True).encode()).hexdigest()
 
 
+def candidate_identity(revision, memory_image, mem0_image):
+    require(SHA.fullmatch(revision or "") and all(IMAGE.fullmatch(image or "") for image in (memory_image, mem0_image)),
+            "Explicit full candidate revision and both immutable GHCR digests required")
+    return {"revision": revision, "memory_image": memory_image, "mem0_image": mem0_image}
+
+
 def structure(document):
     result = copy.deepcopy(document)
     result.pop("x-lazytt", None)
@@ -139,7 +145,12 @@ class Deployment:
                 "Image OCI revision differs from candidate")
 
     def prepare(self, source, revision, memory_image, mem0_image):
-        require(SHA.fullmatch(revision), "Expected full candidate Git SHA")
+        candidate = candidate_identity(revision, memory_image, mem0_image)
+        old = self.read() if self.path.exists() else None
+        recorded = self.directory / "admin" / revision / "candidate.json"
+        for prior in ([old["x-lazytt"]["candidate"]] if old else []) + ([json.loads(recorded.read_text())] if recorded.exists() else []):
+            require(prior["revision"] != revision or prior == candidate,
+                    "Cannot replace image digests for the same revision; reuse the prepared candidate")
         for image in (memory_image, mem0_image):
             self.check_image(image, revision)
         incoming = json.loads(Path(source).read_text())
@@ -148,7 +159,6 @@ class Deployment:
         for service in incoming["services"].values():
             require("build" not in service, "ECS must never build images")
         self.ownership()
-        old = self.read() if self.path.exists() else None
         if old:
             require(structure(old) == structure(incoming), "Live Compose topology changed; requires a reviewed resource upgrade")
             incoming = old
@@ -157,24 +167,31 @@ class Deployment:
             incoming["services"]["mem0"]["image"] = mem0_image
         incoming["services"]["admin"]["image"] = mem0_image
         state = incoming.setdefault("x-lazytt", {})
-        state["candidate"] = {"revision": revision, "memory_image": memory_image, "mem0_image": mem0_image}
+        state["candidate"] = candidate
         self.write(incoming)
         print("PREPARED " + revision + ": images only; no migration/start/configuration")
 
-    def assert_candidate(self, revision):
-        require(SHA.fullmatch(revision or ""), "Explicit full candidate revision required")
+    def assert_candidate(self, revision, memory_image, mem0_image):
+        expected = candidate_identity(revision, memory_image, mem0_image)
         document = self.read()
         candidate = document["x-lazytt"]["candidate"]
-        require(candidate["revision"] == revision, "Prepared candidate changed; do not migrate or release stale images")
+        require(candidate == expected, "Prepared candidate changed; do not migrate or release stale images")
         require(document["services"]["admin"]["image"] == candidate["mem0_image"], "Candidate administration image mismatch")
 
-    def install_admin_bundle(self, revision):
-        self.assert_candidate(revision)
+    def install_admin_bundle(self, revision, memory_image, mem0_image):
+        self.assert_candidate(revision, memory_image, mem0_image)
         source = Path(__file__).parent
         files = [Path("release.py"), Path("README.md"), Path("环境变量.md"), Path(".env.dev.example")]
         files += [p.relative_to(source) for p in sorted((source / "database").iterdir()) if p.suffix in {".sql", ".json"}]
         destination = self.directory / "admin" / revision
         destination.mkdir(parents=True, exist_ok=True)
+        candidate_file = destination / "candidate.json"
+        candidate = candidate_identity(revision, memory_image, mem0_image)
+        if candidate_file.exists():
+            require(not candidate_file.is_symlink() and json.loads(candidate_file.read_text()) == candidate,
+                    "Administration candidate changed for the same revision")
+        else:
+            candidate_file.write_text(json.dumps(candidate, indent=2) + "\n")
         for relative in files:
             target = destination / relative
             target.parent.mkdir(parents=True, exist_ok=True)
@@ -189,7 +206,8 @@ class Deployment:
             'action="${1:-migrate}"; if (( $# )); then shift; fi\n'
             'case "$action" in migrate|database-check) ;; *) exit 2 ;; esac\n'
             'exec python3 "$directory/admin/' + revision + '/release.py" "$action" '
-            '--directory "$directory" --revision ' + revision + ' "$@"\n')
+            '--directory "$directory" "$@" --revision ' + revision +
+            ' --memory-image ' + memory_image + ' --mem0-image ' + mem0_image + '\n')
         wrapper.chmod(0o700)
         print("ADMIN_BUNDLE_READY: " + str(wrapper) + " migrate --migration-config /etc/lazytt/memory-migrate.env")
 
@@ -206,6 +224,7 @@ class Deployment:
     def configure(self):
         self.preflight()
         self.task("database", "check")
+        self.task("configuration", "preflight")
         document = self.read()
         require(document["services"]["mem0"]["image"] == document["x-lazytt"]["candidate"]["mem0_image"],
                 "Configure requires Mem0 running the prepared candidate; upgrade/release first")
@@ -227,6 +246,7 @@ class Deployment:
         previous = self.read()
         candidate = previous["x-lazytt"]["candidate"]
         self.task("database", "check")  # Candidate image against the existing schema.
+        self.task("configuration", "preflight")  # Read-only; reject incompatible settings before touching services.
         compatible = False
         if previous["x-lazytt"].get("released") and previous["x-lazytt"].get("config_hash") == fingerprint(self.values):
             try:
@@ -288,11 +308,11 @@ def main():
             require(all((args.source, args.revision, args.memory_image, args.mem0_image)), "Prepare requires source and exact image/revision arguments")
             deployment = Deployment(directory)
             deployment.prepare(args.source, args.revision, args.memory_image, args.mem0_image)
-            deployment.install_admin_bundle(args.revision)
+            deployment.install_admin_bundle(args.revision, args.memory_image, args.mem0_image)
             return
         values = read_config(args.config, database_only=args.action in {"migrate", "database-check"})
         deployment = Deployment(directory, values)
-        deployment.assert_candidate(args.revision)
+        deployment.assert_candidate(args.revision, args.memory_image, args.mem0_image)
         if args.action == "migrate":
             require(args.migration_config, "Explicit migration credential file required")
             secret = read_config(args.migration_config, migration=True)["MEM0_MIGRATION_PASSWORD"]

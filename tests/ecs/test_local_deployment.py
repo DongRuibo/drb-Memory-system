@@ -24,7 +24,7 @@ class LocalTests(unittest.TestCase):
     def test_up_checks_but_never_migrates_or_configures(self):
         self.dep.execute("up")
         self.assertEqual([e[:2] for e in self.events if e[0] in {"database", "configuration"}],
-                         [("database", "check"), ("configuration", "check")])
+                         [("database", "check"), ("configuration", "preflight"), ("configuration", "check")])
         self.assertEqual([e[-1] for e in self.events if e[0] == "up"], ["mem0", "memory-service"])
         self.assertTrue(all("--no-build" in e and "never" in e for e in self.events if e[0] == "up"))
 
@@ -41,7 +41,7 @@ class LocalTests(unittest.TestCase):
         self.dep.task = task
         with self.assertRaises(RuntimeError):
             self.dep.execute("up")
-        self.assertEqual([e[-1] for e in self.events], ["mem0"])
+        self.assertEqual(self.events, [])
 
     def test_configure_is_explicit_and_does_not_start_memory(self):
         self.dep.execute("configure")

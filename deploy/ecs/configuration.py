@@ -33,13 +33,33 @@ def compare(expected, current, secrets=False):
                 raise RuntimeError("Configuration readback mismatch")
 
 
+def compatible(expected, current):
+    if not current:
+        return  # First configuration; no stored index/model to migrate.
+    for section in expected:
+        if current.get(section, {}).get("provider") != expected[section]["provider"]:
+            raise RuntimeError("Existing provider change requires a reviewed data migration")
+    for section, fields in {
+        "vector_store": ("collection_name", "embedding_model_dims", "host", "port"),
+        "embedder": ("model", "embedding_dims", "openai_base_url"),
+    }.items():
+        for field in fields:
+            if current.get(section, {}).get("config", {}).get(field) != expected[section]["config"][field]:
+                raise RuntimeError("Existing index/model change requires a reviewed data migration")
+
+
 def main(action):
     expected = desired()
+    import storage
+    db = storage.engine()
+    if action in {"preflight", "ensure", "configure"}:
+        compatible(expected, storage.load_config(db))
+    if action == "preflight":
+        print("MEM0_CONFIGURATION_PREFLIGHT_OK")
+        return  # No HTTP/SDK initialization, settings write or ES index creation.
     url = configure.required("MEM0_BASE_URL").rstrip("/") + "/configure"
     key = configure.required("MEM0_API_KEY")
     current = configure.request_json(url, "GET", key)
-    import storage
-    db = storage.engine()
     if action == "ensure":
         try:
             compare(expected, current)
@@ -48,15 +68,7 @@ def main(action):
         except (RuntimeError, OSError):
             action = "configure"
     if action == "configure":
-        # Existing Elasticsearch data needs a separate index/model migration plan.
-        if current.get("vector_store", {}).get("provider") == "elasticsearch":
-            for section, fields in {
-                "vector_store": ("collection_name", "embedding_model_dims", "host", "port"),
-                "embedder": ("model", "embedding_dims", "openai_base_url"),
-            }.items():
-                for field in fields:
-                    if current.get(section, {}).get("config", {}).get(field) != expected[section]["config"][field]:
-                        raise RuntimeError("Existing index/model change requires a reviewed data migration")
+        compatible(expected, current)
         configure.request_json(url, "POST", key, expected)
         current = configure.request_json(url, "GET", key)
     compare(expected, current)
@@ -68,8 +80,8 @@ def main(action):
 
 if __name__ == "__main__":
     try:
-        if len(sys.argv) != 2 or sys.argv[1] not in {"configure", "check", "ensure"}:
-            raise RuntimeError("Expected configure, check or ensure")
+        if len(sys.argv) != 2 or sys.argv[1] not in {"configure", "check", "ensure", "preflight"}:
+            raise RuntimeError("Expected configure, check, ensure or preflight")
         main(sys.argv[1])
     except Exception:
         # Do not echo upstream response bodies, URLs or credentials.

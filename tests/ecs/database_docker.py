@@ -22,7 +22,7 @@ def run(command, env=None, data=None, success=True):
     return result.stdout
 
 
-def main(image):
+def main(image, database_only=False):
     name = "memory-ecs-test-" + uuid.uuid4().hex[:12]
     pg = name + "-pg"
     admin = name + "-admin"
@@ -75,6 +75,30 @@ def main(image):
         task("check", success=False)
         task("migrate", owner=True)
         task("check")
+        # Each drift is committed only inside this disposable database and then repaired.
+        # Re-annotate restored objects; migrations remain the unchanged native upgrade path.
+        for label, broken, repaired in (
+            ("email index", "DROP INDEX ix_users_email", "CREATE INDEX ix_users_email ON users(email)"),
+            ("expiry index", "DROP INDEX ix_refresh_token_jtis_expires_at", "CREATE INDEX ix_refresh_token_jtis_expires_at ON refresh_token_jtis(expires_at)"),
+            ("server default", "ALTER TABLE users ALTER COLUMN role SET DEFAULT 'member'", "ALTER TABLE users ALTER COLUMN role SET DEFAULT 'admin'"),
+            ("missing default", "ALTER TABLE settings ALTER COLUMN updated_at DROP DEFAULT", "ALTER TABLE settings ALTER COLUMN updated_at SET DEFAULT now()"),
+            ("partial predicate", "DROP INDEX ix_users_only_one_admin; CREATE UNIQUE INDEX ix_users_only_one_admin ON users(role) WHERE role='member'",
+             "DROP INDEX ix_users_only_one_admin; CREATE UNIQUE INDEX ix_users_only_one_admin ON users(role) WHERE role='admin'"),
+            ("foreign key", "ALTER TABLE api_keys DROP CONSTRAINT api_keys_created_by_fkey; ALTER TABLE api_keys ADD CONSTRAINT api_keys_created_by_fkey FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE RESTRICT",
+             "ALTER TABLE api_keys DROP CONSTRAINT api_keys_created_by_fkey; ALTER TABLE api_keys ADD CONSTRAINT api_keys_created_by_fkey FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE"),
+            ("unvalidated foreign key", "ALTER TABLE refresh_token_jtis DROP CONSTRAINT refresh_token_jtis_user_id_fkey; ALTER TABLE refresh_token_jtis ADD CONSTRAINT refresh_token_jtis_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE NOT VALID",
+             "ALTER TABLE refresh_token_jtis VALIDATE CONSTRAINT refresh_token_jtis_user_id_fkey"),
+            ("extra index", "CREATE INDEX unexpected_index ON settings(value); COMMENT ON INDEX unexpected_index IS 'fixture'", "DROP INDEX unexpected_index"),
+            ("ledger type", "ALTER TABLE alembic_version ALTER COLUMN version_num TYPE varchar(64)", "ALTER TABLE alembic_version ALTER COLUMN version_num TYPE varchar(32)"),
+            ("role limit", "ALTER ROLE lazytt_memory_mem0_runtime CONNECTION LIMIT -1", "ALTER ROLE lazytt_memory_mem0_runtime CONNECTION LIMIT 8"),
+            ("owner cross-db", "GRANT CONNECT ON DATABASE postgres TO lazytt_memory_mem0_owner", "REVOKE CONNECT ON DATABASE postgres FROM lazytt_memory_mem0_owner"),
+        ):
+            sql("\\connect lazytt_memory_mem0\n" + broken + ";\n")
+            task("check", success=False)
+            sql("\\connect lazytt_memory_mem0\n" + repaired + ";\n")
+            task("migrate", owner=True)
+            task("check")
+            print("SCHEMA_DRIFT_REJECTED: " + label)
         task("migrate", owner=True)  # Native Alembic no-op; no duplicate seeds.
         task("migrate", success=False)  # Runtime role cannot act as migration owner.
         sql("GRANT CONNECT ON DATABASE postgres TO lazytt_memory_mem0_runtime;\n")
@@ -87,6 +111,8 @@ def main(image):
         run(["docker", "exec", "-i", pg, "psql", "-U", "postgres", "-d", "lazytt_memory_mem0", "-v", "ON_ERROR_STOP=1"],
             data="SET ROLE lazytt_memory_mem0_runtime; CREATE TABLE forbidden(id int);", success=False)
         print("DATABASE_INTEGRATION_OK: native migrations, repeat, comments, low privilege and cross-db rejection")
+        if database_only:
+            return
         # This network has no external route. Client constructors/configuration must not
         # require a paid Provider call; empty settings expose configuration only.
         run(["docker", "run", "-d", "--name", elasticsearch, "--label", "io.lazytt.test=" + name,
@@ -178,4 +204,9 @@ store.delete("isolated-vector-test")
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    import argparse
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("image")
+    parser.add_argument("--database-only", action="store_true")
+    args = parser.parse_args()
+    main(args.image, args.database_only)

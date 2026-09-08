@@ -8,10 +8,16 @@ on:
   workflow_dispatch:
     inputs:
       action:
-        description: Build only, prepare artifacts, or release after administrator preparation
+        description: Build, prepare, build-and-release, or release exact prepared digests
         type: choice
-        options: [build, prepare, release]
+        options: [build, prepare, release, release-prepared]
         default: build
+      memory_image:
+        description: Required for release-prepared; exact Memory GHCR image@sha256 digest
+        type: string
+      mem0_image:
+        description: Required for release-prepared; exact Mem0 GHCR image@sha256 digest
+        type: string
 
 permissions:
   contents: read
@@ -40,7 +46,10 @@ jobs:
           cargo +1.97.0 test --locked --workspace -j 1
 
   build:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/dev'
+    if: >-
+      github.event_name != 'pull_request' && github.ref == 'refs/heads/dev' &&
+      !(github.event_name == 'workflow_dispatch' && inputs.action == 'release-prepared') &&
+      !(github.event_name == 'push' && vars.ECS_DEPLOY_ENABLED == 'true' && vars.ECS_DEPLOY_ACTION == 'release-prepared')
     needs: test
     runs-on: ubuntu-latest
     permissions:
@@ -122,8 +131,12 @@ jobs:
           fi
 
   deploy:
-    needs: build
+    needs: [test, build]
     if: >-
+      !cancelled() && needs.test.result == 'success' &&
+      (needs.build.result == 'success' || (needs.build.result == 'skipped' &&
+        ((github.event_name == 'workflow_dispatch' && inputs.action == 'release-prepared') ||
+         (github.event_name == 'push' && vars.ECS_DEPLOY_ACTION == 'release-prepared')))) &&
       github.ref == 'refs/heads/dev' &&
       ((github.event_name == 'push' && vars.ECS_DEPLOY_ENABLED == 'true') ||
        (github.event_name == 'workflow_dispatch' && inputs.action != 'build'))
@@ -142,8 +155,8 @@ jobs:
       ECS_KNOWN_HOSTS: ${{ secrets.ECS_KNOWN_HOSTS }}
       GHCR_TOKEN: ${{ github.token }}
       GHCR_USER: ${{ github.actor }}
-      MEMORY_IMAGE: ${{ needs.build.outputs.memory_image }}
-      MEM0_IMAGE: ${{ needs.build.outputs.mem0_image }}
+      MEMORY_IMAGE: ${{ needs.build.outputs.memory_image || (github.event_name == 'workflow_dispatch' && inputs.memory_image || vars.ECS_CANDIDATE_MEMORY_IMAGE) }}
+      MEM0_IMAGE: ${{ needs.build.outputs.mem0_image || (github.event_name == 'workflow_dispatch' && inputs.mem0_image || vars.ECS_CANDIDATE_MEM0_IMAGE) }}
       ECS_MIGRATION_WAIT_SECONDS: ${{ vars.ECS_MIGRATION_WAIT_SECONDS || '1800' }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -154,18 +167,19 @@ jobs:
           current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/dev" --jq .object.sha)
           test "$current" = "$GITHUB_SHA"
       - name: Deliver Compose and administrator bundle
+        if: env.ACTION != 'release-prepared'
         run: |
           case "$ACTION" in prepare|release) ;; *) exit 2 ;; esac
           phase=prepare
           if [[ "$ACTION" == release ]]; then phase=prepare-wait; fi
           bash deploy/ecs/upload.sh "$phase" "$GITHUB_SHA" "$MEMORY_IMAGE" "$MEM0_IMAGE"
       - name: Recheck branch after administrator migration
-        if: env.ACTION == 'release'
+        if: env.ACTION == 'release' || env.ACTION == 'release-prepared'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/dev" --jq .object.sha)
           test "$current" = "$GITHUB_SHA"
       - name: Publish the same migrated candidate
-        if: env.ACTION == 'release'
+        if: env.ACTION == 'release' || env.ACTION == 'release-prepared'
         run: bash deploy/ecs/upload.sh release "$GITHUB_SHA" "$MEMORY_IMAGE" "$MEM0_IMAGE"

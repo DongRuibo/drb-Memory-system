@@ -24,7 +24,8 @@ PR 的绿色结果只覆盖 test job；build/deploy 显示 skipped 是当前触�
 
 以后先按[材料来源和交接方式](环境变量.md#材料来源和交接方式)补齐真实信息，再继续第 2～3 节。
 已构建候选若因 SSH 或迁移等待失败，按原运行重跑失败 job；如果当时只执行 build 或 prepare，
-仅补配置不会自动继续已完成的运行，需经获准的后续触发进入发布，重新核对该次 SHA/digest。
+仅补配置不会自动继续已完成的运行，需用下面的 `release-prepared` 入口复用已准备的同一 SHA/digest。
+只有 build、尚未 prepare 时，仍需先交付候选。
 
 ## 1. 先准备配置和目标登记
 
@@ -62,20 +63,30 @@ PR 合入 dev 后运行：
 3. SSH 严格校验主机密钥；拉取并检查 linux/amd64、OCI Git revision，交付 Compose 和管理员工具包。
 4. 只读检查候选数据库；未通过时等待管理员，默认 1800 秒，每 15 秒检查一次。
 5. 检查通过后，Runner 再核对 dev HEAD；未变化才发布同一 SHA/digest，不重新构建。
-6. 更新 Mem0 → 首次/变更配置通过认证 API 写入并回读（相同配置不写）→ 更新 Memory → 镜像及健康验收。
+6. 只读检查配置格式及 PG 已存索引/模型兼容性 → 更新 Mem0 → 首次/变更配置通过认证 API 写入并回读（相同配置不写）→ 更新 Memory → 镜像及健康验收。
 
 设置 `ECS_DEPLOY_ACTION=prepare` 可只交付，不等待/启动；`ECS_DEPLOY_ENABLED=false` 只测试/构建。
-手工 dispatch 提供 build/prepare/release，但按钮通常要求 workflow 在默认分支；本轮不为按钮合并 main。
+手工 dispatch 提供 build/prepare/release/release-prepared，但按钮通常要求 workflow 在默认分支；本轮不为按钮合并 main。
 正常流程使用 dev push；迁移等待超时或 SSH 失败可在**原运行**选择 Re-run failed jobs，只重跑部署 job，
-复用该运行已成功 build 的镜像输出。完整重跑可能重新构建，不视为同一迁移候选。
+复用该运行已成功 build 的镜像输出。普通 prepare/release 完整重跑会重新构建；同一 SHA 若产生不同 digest，prepare 会拒绝覆盖。
+
+如果 prepare 已经成功，管理员完成迁移后使用 `release-prepared`：
+
+- 有 dispatch 入口时，选择 dev 和 `release-prepared`，把原 artifact `candidate.txt` 中两个完整镜像摘要填入 `memory_image`、`mem0_image`。
+- 只有 dev push 入口时，设置 `ECS_DEPLOY_ENABLED=true`、`ECS_DEPLOY_ACTION=release-prepared`，
+  将同一 artifact 的两个摘要填入 `ECS_CANDIDATE_MEMORY_IMAGE`、`ECS_CANDIDATE_MEM0_IMAGE`，重跑该 SHA 的原 push 运行。
+- 此入口执行测试、跳过构建和 prepare；发布器先核对 SHA、两个 digest 与 ECS 候选完全一致，再只读验收数据库和配置。
+  数据库未迁移或 dev HEAD 已变化都会拒绝启动。不要为了触发旧候选发布而创建新提交。
+- 下一次发布新代码前，将 `ECS_DEPLOY_ACTION` 恢复为 prepare/release，并清空两个候选 Variables。
 
 ECS 最终目录：
 
 ```text
 <ECS_REPO_DIR>/
   compose.yml                 # 唯一运行 Compose，固化镜像摘要和候选信息
-  database.sh                 # 当前候选的正式数据库入口，绑定完整 Git SHA
+  database.sh                 # 当前候选的正式数据库入口，绑定完整 Git SHA 和两个镜像摘要
   admin/<GIT_SHA>/
+    candidate.json            # 同一 SHA 的固定镜像组合，拒绝重新绑定
     release.py                # 仅发布/管理员工具，不是应用源码 checkout
     README.md
     .env.dev.example          # 只有占位模板
@@ -118,7 +129,9 @@ cd <ECS_REPO_DIR>
 成功输出 `MIGRATED`；流水线下一次只读检查通过后自动继续，不需要管理员手工启动应用或执行 configure。
 迁移窗口仅要求 PG 连接配置，但自动发布前必须填完整应用文件。
 若需要在 pgAdmin 独立复核，连接 lazytt_memory_mem0 执行 `admin/<SHA>/database/03_verify.sql`，应返回 `MEMORY_SCHEMA_SQL_OK`。
-管理员工具绑定 prepare 的候选；期间候选被替换时拒绝操作，不能拿旧镜像迁移新结构。
+管理员工具和 release 都核对 prepare 的完整 SHA + 两个镜像摘要；期间候选改变时拒绝操作。
+验收 SQL 比较全部 6 张表的字段、类型、非空和数据库默认值，以及完整索引/主外键/唯一约束定义、有效性及角色连接上限。
+验收基线来自固定原版 001～006 在临时 PostgreSQL 18.4 中执行的结果；不是建表或手写迁移账本的替代入口。
 
 迁移失败保留数据库和 Alembic 账本，停在该阶段调查；不 stamp、不手工拼表、不 DOWN/删库。
 owner 凭据只进入一次性迁移任务，管理窗口结束后按秘密管理规则清理或保管。
@@ -133,7 +146,8 @@ prepare 只更新候选 admin 镜像，保留现有两个应用镜像；管理�
 等待超时：ECS 候选/工具包保留，旧应用保持原状；完成迁移后重跑原部署 job。
 dev HEAD 已前进：流水线拒绝旧候选发布，重新审阅新候选，不能跳过提交检查。
 普通发布不会迁移、建库、重建 Store 或删除卷；首次/显式变更配置由流水线经正式 API 写入。
-模型/维度/索引变化会拒绝自动修改，须另行制定数据迁移。
+模型/维度/索引变化会在改写运行 Compose、启动或停止任何应用之前拒绝，须另行制定数据迁移。
+配置预检只读 PG，不调用 Mem0 API、模型或 ES，也不创建索引；服务连通性和真实模型能力仍在后续验收。
 
 发布与管理员命令用宿主文件锁互斥；等待期间不持锁，管理员可执行迁移。
 自动恢复仅适用于旧应用原本健康、旧镜像兼容当前 schema 且应用配置未变化的情况。
@@ -162,6 +176,11 @@ dev HEAD 已前进：流水线拒绝旧候选发布，重新审阅新候选，�
 Deployment checks 和 Rust tests 成功，build/deploy 未执行。
 本机 Docker Linux 的 MemAvailable 当次约 1.31 GiB，未达到标准的 4 GiB 门槛，因此本轮未追加大型构建。
 这些是当次记录；后续以最新候选的 Actions、镜像和目标 ECS 回执为准，不能把本地测试写成 ECS 部署成功。
+
+2026-09-08 修复验收：42 项宿主 Python 测试、6 项镜像内失败路径测试通过。
+临时 PostgreSQL 18.4 原生迁移/重复执行通过，11 类结构及权限漂移均被拒绝，修复测试对象后恢复通过；临时资源已清理。
+本次将项目管理工具只读挂载到已有 arm64 镜像测试，未重新构建最终镜像；本机当次 MemAvailable 约 1.24 GiB。
+新 amd64 镜像及完整 PG/ES 链路仍由 dev build job 验证，目标 ECS 和真实 Provider 验收仍未执行。
 
 ```text
 时间/时区：

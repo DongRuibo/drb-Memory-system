@@ -35,6 +35,7 @@ class LocalDeployment(Deployment):
             self.task("database", "check")
         elif action in {"configure", "up"}:
             self.task("database", "check")
+            self.task("configuration", "preflight")
             self.compose("up", "-d", "--no-build", "--pull", "never", "--no-deps", "--wait",
                          "--wait-timeout", "180", "mem0")
             self.task("configuration", "configure" if action == "configure" else "check")
