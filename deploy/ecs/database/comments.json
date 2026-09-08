@@ -1,0 +1,63 @@
+{
+  "alembic_version": {
+    "description": "Mem0 原生迁移当前版本，由 Alembic 升级时维护；不是业务记录。",
+    "columns": {
+      "version_num": "当前迁移 revision，版本字符串；非空；本候选要求 006。"
+    }
+  },
+  "users": {
+    "description": "Mem0 管理用户；由正式认证管理入口创建，不预置业务账号。",
+    "columns": {
+      "id": "管理用户 UUID 主键；由应用生成；非空。",
+      "name": "管理员显示名称，最多 255 字符；非空。",
+      "email": "管理员邮箱，最多 255 字符且唯一；非空。",
+      "password_hash": "密码哈希，非明文密码；非空，不得输出。",
+      "role": "管理角色，最多 20 字符；默认 admin；只允许一个 admin。",
+      "created_at": "创建时间，带时区；默认数据库当前时间。",
+      "last_login_at": "最近登录时间，带时区；空表示尚未记录登录。"
+    }
+  },
+  "api_keys": {
+    "description": "Mem0 API 密钥元数据；通过管理接口创建和撤销，不保存明文密钥。",
+    "columns": {
+      "id": "API 密钥 UUID 主键；由应用生成。",
+      "key_prefix": "密钥识别前缀，最多 12 字符；非空。",
+      "key_hash": "密钥校验哈希；非明文；非空。",
+      "label": "密钥用途标签，最多 255 字符；非空。",
+      "created_by": "创建者 users.id；非空；删除用户时级联删除。",
+      "last_used_at": "最近使用时间，带时区；空表示未记录使用。",
+      "revoked_at": "撤销时间，带时区；空表示未撤销。",
+      "created_at": "创建时间，带时区；默认数据库当前时间。"
+    }
+  },
+  "request_logs": {
+    "description": "Mem0 HTTP 请求运行日志；记录路径、状态与耗时，不保存请求正文。",
+    "columns": {
+      "id": "请求日志 UUID 主键；由应用生成。",
+      "method": "HTTP 方法，最多 16 字符；非空。",
+      "path": "请求路径，最多 512 字符；非空。",
+      "status_code": "HTTP 状态码，整数；非空。",
+      "latency_ms": "请求耗时，浮点数，单位毫秒；非空。",
+      "auth_type": "认证方式，最多 32 字符；默认 none。",
+      "created_at": "请求记录时间，带时区；默认数据库当前时间；用于 BRIN 查询。"
+    }
+  },
+  "settings": {
+    "description": "Mem0 持久配置；通过认证 configure 接口写入，可能含 Provider 密钥。",
+    "columns": {
+      "key": "配置项键，最多 255 字符，主键；非空。",
+      "value": "配置值文本；可含敏感信息，不得直接输出。",
+      "updated_at": "最近更新时间，带时区；默认数据库当前时间。"
+    }
+  },
+  "refresh_token_jtis": {
+    "description": "Mem0 单次刷新令牌标识；用于限制刷新重放。",
+    "columns": {
+      "jti": "刷新令牌 UUID 标识，主键；非空。",
+      "user_id": "所属 users.id；非空；删除用户时级联删除。",
+      "expires_at": "令牌过期时间，带时区；非空。",
+      "used_at": "令牌使用时间，带时区；空表示尚未消费。",
+      "created_at": "创建时间，带时区；默认数据库当前时间。"
+    }
+  }
+}

@@ -1,0 +1,186 @@
+name: Memory ECS dev
+
+on:
+  pull_request:
+    branches: [dev]
+  push:
+    branches: [dev]
+  workflow_dispatch:
+    inputs:
+      action:
+        description: Build, prepare, build-and-release, or release exact prepared digests
+        type: choice
+        options: [build, prepare, release, release-prepared]
+        default: build
+      memory_image:
+        description: Required for release-prepared; exact Memory GHCR image@sha256 digest
+        type: string
+      mem0_image:
+        description: Required for release-prepared; exact Mem0 GHCR image@sha256 digest
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: memory-ecs-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'dev' }}
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Deployment checks
+        run: |
+          python3 -m unittest discover -s tests/ecs -v
+          python3 -m unittest discover -s deploy/mem0 -p 'test_*.py' -v
+          bash -n deploy/ecs/upload.sh deploy/ecs/remote.sh scripts/backend-stack.sh scripts/build-mem0-elasticsearch.sh
+          python3 deploy/local/deploy.py validate
+          git diff --check
+      - name: Rust tests (serial build)
+        env:
+          CARGO_BUILD_JOBS: '1'
+        run: |
+          rustup toolchain install 1.97.0 --profile minimal
+          cargo +1.97.0 test --locked --workspace -j 1
+
+  build:
+    if: >-
+      github.event_name != 'pull_request' && github.ref == 'refs/heads/dev' &&
+      !(github.event_name == 'workflow_dispatch' && inputs.action == 'release-prepared') &&
+      !(github.event_name == 'push' && vars.ECS_DEPLOY_ENABLED == 'true' && vars.ECS_DEPLOY_ACTION == 'release-prepared')
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    env:
+      BUILDER_NAME: memory-ecs-${{ github.run_id }}-${{ github.run_attempt }}
+    outputs:
+      memory_image: ${{ steps.publish.outputs.memory_image }}
+      mem0_image: ${{ steps.publish.outputs.mem0_image }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: mem0ai/mem0
+          ref: b357a5a1b03c299ec8229c268e63cfac0f7c6566
+          path: _upstream/mem0
+          persist-credentials: false
+      - name: Prepare Docker builder and registry login
+        env:
+          GHCR_TOKEN: ${{ github.token }}
+        run: |
+          set +x
+          export DOCKER_CONFIG
+          DOCKER_CONFIG=$(mktemp -d "$RUNNER_TEMP/memory-docker.XXXXXX")
+          echo "DOCKER_CONFIG=$DOCKER_CONFIG" >> "$GITHUB_ENV"
+          printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker buildx create --name "$BUILDER_NAME" --driver docker-container --use
+          docker buildx inspect --bootstrap
+      - name: Build and publish immutable candidate (serial)
+        id: publish
+        run: |
+          prefix="ghcr.io/$(printf '%s' "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')"
+          printf 'Git SHA: %s\n' "$GITHUB_SHA" > candidate.txt
+          for component in service mem0; do
+            if [[ "$component" == service ]]; then
+              dockerfile=apps/memory-service/Dockerfile
+              output=memory_image
+            else
+              dockerfile=deploy/mem0/Dockerfile
+              output=mem0_image
+            fi
+            image="$prefix-$component"
+            metadata="$RUNNER_TEMP/memory-$component.json"
+            docker buildx build --builder "$BUILDER_NAME" --platform linux/amd64 --push \
+              --file "$dockerfile" --tag "$image:$GITHUB_SHA" \
+              --label "org.opencontainers.image.revision=$GITHUB_SHA" \
+              --label "org.opencontainers.image.source=https://github.com/$GITHUB_REPOSITORY" \
+              --cache-from "type=registry,ref=$image:buildcache-dev" \
+              --cache-to "type=registry,ref=$image:buildcache-dev,mode=max" \
+              --metadata-file "$metadata" .
+            digest=$(jq -er '."containerimage.digest" | select(test("^sha256:[0-9a-f]{64}$"))' "$metadata")
+            echo "$output=$image@$digest" >> "$GITHUB_OUTPUT"
+            printf '%s: %s@%s\n' "$component" "$image" "$digest" >> candidate.txt
+          done
+      - name: Native migration and isolation acceptance
+        env:
+          MEM0_IMAGE: ${{ steps.publish.outputs.mem0_image }}
+        run: |
+          docker pull "$MEM0_IMAGE"
+          python3 tests/ecs/check_mem0_source.py "$MEM0_IMAGE" _upstream/mem0
+          python3 tests/ecs/database_docker.py "$MEM0_IMAGE"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: memory-ecs-${{ github.sha }}
+          path: |
+            candidate.txt
+            compose.dev.yml
+            deploy/ecs/
+            !deploy/ecs/__pycache__/
+          retention-days: 30
+          include-hidden-files: true
+      - name: Clean up builder and registry credentials
+        if: always()
+        run: |
+          docker buildx rm "$BUILDER_NAME" >/dev/null 2>&1 || true
+          if [[ "${DOCKER_CONFIG:-}" == "$RUNNER_TEMP"/memory-docker.* ]]; then
+            rm -rf -- "$DOCKER_CONFIG"
+          fi
+
+  deploy:
+    needs: [test, build]
+    if: >-
+      !cancelled() && needs.test.result == 'success' &&
+      (needs.build.result == 'success' || (needs.build.result == 'skipped' &&
+        ((github.event_name == 'workflow_dispatch' && inputs.action == 'release-prepared') ||
+         (github.event_name == 'push' && vars.ECS_DEPLOY_ACTION == 'release-prepared')))) &&
+      github.ref == 'refs/heads/dev' &&
+      ((github.event_name == 'push' && vars.ECS_DEPLOY_ENABLED == 'true') ||
+       (github.event_name == 'workflow_dispatch' && inputs.action != 'build'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    timeout-minutes: 90
+    env:
+      ACTION: ${{ github.event_name == 'workflow_dispatch' && inputs.action || vars.ECS_DEPLOY_ACTION || 'prepare' }}
+      ECS_HOST: ${{ vars.ECS_HOST }}
+      ECS_USER: ${{ vars.ECS_USER }}
+      ECS_PORT: ${{ vars.ECS_PORT }}
+      ECS_REPO_DIR: ${{ vars.ECS_REPO_DIR }}
+      ECS_ENV_FILE: ${{ vars.ECS_ENV_FILE }}
+      ECS_SSH_PRIVATE_KEY: ${{ secrets.ECS_SSH_PRIVATE_KEY }}
+      ECS_KNOWN_HOSTS: ${{ secrets.ECS_KNOWN_HOSTS }}
+      GHCR_TOKEN: ${{ github.token }}
+      GHCR_USER: ${{ github.actor }}
+      MEMORY_IMAGE: ${{ needs.build.outputs.memory_image || (github.event_name == 'workflow_dispatch' && inputs.memory_image || vars.ECS_CANDIDATE_MEMORY_IMAGE) }}
+      MEM0_IMAGE: ${{ needs.build.outputs.mem0_image || (github.event_name == 'workflow_dispatch' && inputs.mem0_image || vars.ECS_CANDIDATE_MEM0_IMAGE) }}
+      ECS_MIGRATION_WAIT_SECONDS: ${{ vars.ECS_MIGRATION_WAIT_SECONDS || '1800' }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Reject stale branch candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/dev" --jq .object.sha)
+          test "$current" = "$GITHUB_SHA"
+      - name: Deliver Compose and administrator bundle
+        if: env.ACTION != 'release-prepared'
+        run: |
+          case "$ACTION" in prepare|release) ;; *) exit 2 ;; esac
+          phase=prepare
+          if [[ "$ACTION" == release ]]; then phase=prepare-wait; fi
+          bash deploy/ecs/upload.sh "$phase" "$GITHUB_SHA" "$MEMORY_IMAGE" "$MEM0_IMAGE"
+      - name: Recheck branch after administrator migration
+        if: env.ACTION == 'release' || env.ACTION == 'release-prepared'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          current=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/heads/dev" --jq .object.sha)
+          test "$current" = "$GITHUB_SHA"
+      - name: Publish the same migrated candidate
+        if: env.ACTION == 'release' || env.ACTION == 'release-prepared'
+        run: bash deploy/ecs/upload.sh release "$GITHUB_SHA" "$MEMORY_IMAGE" "$MEM0_IMAGE"
