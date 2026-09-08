@@ -49,16 +49,19 @@ def compatible(expected, current):
 
 
 def main(action):
+    print("MEM0_CONFIGURATION_STAGE: validate", flush=True)
     expected = desired()
     import storage
     db = storage.engine()
     if action in {"preflight", "ensure", "configure"}:
+        print("MEM0_CONFIGURATION_STAGE: database_preflight", flush=True)
         compatible(expected, storage.load_config(db))
     if action == "preflight":
         print("MEM0_CONFIGURATION_PREFLIGHT_OK")
         return  # No HTTP/SDK initialization, settings write or ES index creation.
     url = configure.required("MEM0_BASE_URL").rstrip("/") + "/configure"
     key = configure.required("MEM0_API_KEY")
+    print("MEM0_CONFIGURATION_STAGE: http_readback", flush=True)
     current = configure.request_json(url, "GET", key)
     if action == "ensure":
         try:
@@ -69,11 +72,14 @@ def main(action):
             action = "configure"
     if action == "configure":
         compatible(expected, current)
+        print("MEM0_CONFIGURATION_STAGE: http_configure", flush=True)
         configure.request_json(url, "POST", key, expected)
         current = configure.request_json(url, "GET", key)
     compare(expected, current)
     # Read through the runtime identity; never print the stored settings payload.
+    print("MEM0_CONFIGURATION_STAGE: database_readback", flush=True)
     compare(expected, storage.load_config(db), secrets=True)
+    print("MEM0_CONFIGURATION_STAGE: readiness", flush=True)
     configure.request_json(configure.required("MEM0_BASE_URL").rstrip("/") + "/health/ready", "GET", key)
     print("MEM0_CONFIGURATION_OK")
 
@@ -83,7 +89,8 @@ if __name__ == "__main__":
         if len(sys.argv) != 2 or sys.argv[1] not in {"configure", "check", "ensure", "preflight"}:
             raise RuntimeError("Expected configure, check, ensure or preflight")
         main(sys.argv[1])
-    except Exception:
+    except Exception as error:
         # Do not echo upstream response bodies, URLs or credentials.
-        print("MEM0_CONFIGURATION_FAILED: inspect configuration privately", file=sys.stderr)
+        status = error.code if isinstance(error, configure.urllib.error.HTTPError) else 0
+        print(f"MEM0_CONFIGURATION_FAILED: {type(error).__name__} http_status={status}", file=sys.stderr)
         sys.exit(1)

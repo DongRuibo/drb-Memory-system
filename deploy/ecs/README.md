@@ -29,6 +29,9 @@ PR 的绿色结果只覆盖 test job；build/deploy 显示 skipped 是当前触�
 
 ## 1. 先准备配置和目标登记
 
+构建问题可在修复分支手动运行 `Memory ECS dev`，选择 `action=build`。
+该路径执行测试、镜像构建和镜像内验收，不执行 ECS 部署；合并前可据此验证修复。
+
 配置消费者、填写位置见[环境变量清单](环境变量.md)。
 GitHub 只保存 SSH/发布连接材料及路径 `ECS_ENV_FILE`；模型、ES、数据库运行密码与应用认证 Key 留在该变量指定的 ECS 文件中，例如 `/etc/lazytt/memory.env`。
 管理员 owner 密码单独保存在 `/etc/lazytt/memory-migrate.env`，不进入常驻应用或 GitHub。
