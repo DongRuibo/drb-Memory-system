@@ -162,11 +162,23 @@ impl PrimaryRequestPrincipal {
     }
 }
 
+pub fn primary_health_router(state: Arc<PrimaryAppState>) -> Router {
+    Router::new()
+        .route("/health/live", get(liveness))
+        .route("/health/ready", get(primary_readiness))
+        .with_state(state)
+}
+
+pub fn health_router(state: Arc<AppState>) -> Router {
+    Router::new()
+        .route("/health/live", get(liveness))
+        .route("/health/ready", get(readiness))
+        .with_state(state)
+}
+
 pub fn primary_router(state: Arc<PrimaryAppState>) -> Router {
     Router::new()
         .route("/", get(primary_root))
-        .route("/health/live", get(liveness))
-        .route("/health/ready", get(primary_readiness))
         .route(
             "/v1/runtime/memory/retrieve",
             post(primary_runtime_retrieve_memory),
@@ -186,8 +198,6 @@ pub fn primary_router(state: Arc<PrimaryAppState>) -> Router {
 pub fn router(state: Arc<AppState>) -> Router {
     Router::new()
         .route("/", get(root))
-        .route("/health/live", get(liveness))
-        .route("/health/ready", get(readiness))
         .route("/v1/runtime/memory/retrieve", post(runtime_retrieve_memory))
         .route("/v1/runtime/memory/extract", post(runtime_extract_memory))
         .route("/v1/memory/events", post(submit_memory_event))
