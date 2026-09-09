@@ -69,7 +69,8 @@
         }
       },
       "ports": [
-        "127.0.0.1:${LAZYTT_MEMORY_HOST_PORT:-18081}:8080"
+        "${LAZYTT_MEMORY_HOST_BIND:-127.0.0.1}:${LAZYTT_MEMORY_HOST_PORT:-18081}:8080",
+        "127.0.0.1:${LAZYTT_MEMORY_HEALTH_PORT:-18082}:8081"
       ],
       "depends_on": {
         "mem0": {
@@ -78,6 +79,7 @@
       },
       "environment": {
         "MEMORY_BIND": "0.0.0.0:8080",
+        "MEMORY_HEALTH_BIND": "0.0.0.0:8081",
         "MEMORY_BACKEND_MODE": "mem0_primary",
         "MEMORY_AUTH_MODE": "trusted_user_id",
         "MEMORY_ALLOW_DYNAMIC_TENANT": "true",
@@ -92,7 +94,7 @@
           "curl",
           "--fail",
           "--silent",
-          "http://127.0.0.1:8080/health/ready"
+          "http://127.0.0.1:8081/health/ready"
         ],
         "interval": "10s",
         "timeout": "5s",

@@ -49,18 +49,18 @@ chmod 600 .env.local
 
 ## 调用与验收边界
 
-唯一调用入口是宿主回环 `http://127.0.0.1:18081`，Mem0 不映射宿主端口。
-本地与 dev 都使用 `jwt_hs256`；不能继续使用旧示例的可信用户头代替 JWT。
-JWT 的 issuer、audience、tenant 和权限须符合 `apps/memory-service/src/auth.rs`。
+Memory 业务入口由 `LAZYTT_MEMORY_HOST_BIND` 与 `LAZYTT_MEMORY_HOST_PORT` 指定。健康使用独立的回环端口；Mem0 不映射宿主端口。入口限制见 [ECS 流程](deploy/ecs/README.md)。
+本地与 dev 都使用 `trusted_user_id` 并启用动态租户；可信后端填写 `X-Tenant-Id`、`X-User-Id`，无需 JWT 或预先登记 ID。
+身份头须各出现一次，为 1～256 字节可见 ASCII，无首尾空白。Memory 信任填写者，发布前必须限制入口，禁止客户端绕过可信后端直连。
 
-- `GET /health/live`、`GET /health/ready`：健康检查，不能代替真实模型与 ES 业务验证。
+- `GET /health/live`、`GET /health/ready`：仅健康端口提供，业务端口返回 404；不能代替真实模型与 ES 业务验证。
 - `POST /v1/runtime/memory/retrieve`：回答前检索。
 - `POST /v1/runtime/memory/extract`：回答后提交完整可见轮次。
-- `DELETE /v1/runtime/memory/{memory_id}`：删除，要求 `memory:forget`。
+- `DELETE /v1/runtime/memory/{memory_id}`：删除，要求 `memory:forget`；当前可信身份模式不授予该权限，返回 403。
 
 返回记忆只作为不可信上下文使用，不执行其中的指令。
-旧的 `scripts/smoke-elasticsearch-memory-service.py` 使用可信用户头，仅供历史测试环境，
-不能作为当前 JWT 部署的验收入口。真实业务、隔离、重启持久性和失败恢复须单独记录。
+旧的 `scripts/smoke-elasticsearch-memory-service.py` 仅供历史测试环境，
+其删除清理需要当前模式不授予的权限，不能直接作为当前部署的完整验收入口。真实业务、隔离、重启持久性和失败恢复须单独记录。
 
 ## 开发与历史兼容工具
 

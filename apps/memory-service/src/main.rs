@@ -1,6 +1,7 @@
 mod api;
 mod auth;
 mod embedding;
+mod server;
 mod worker;
 
 use std::env;
@@ -16,11 +17,12 @@ use kimi_reranker::{KimiReranker, KimiRerankerConfig};
 use mem0_adapter::{Mem0Adapter, Mem0Config};
 use memory_application::{MemoryExtractor, MemoryReranker, RetrievalIndex, TransparentReranker};
 use memory_postgres::{DemoAuthority, MemoryRepository, ProjectionModelManifest};
-use tokio::net::TcpListener;
 use tracing::info;
 use tracing_subscriber::EnvFilter;
 
-use crate::api::{AppState, PrimaryAppState, primary_router, router};
+use crate::api::{
+    AppState, PrimaryAppState, health_router, primary_health_router, primary_router, router,
+};
 use crate::auth::Authenticator;
 use crate::embedding::EmbeddingProbe;
 use crate::worker::{
@@ -41,6 +43,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let bind: SocketAddr = env::var("MEMORY_BIND")
         .unwrap_or_else(|_| "127.0.0.1:8080".into())
         .parse()?;
+    let health_bind: SocketAddr = env::var("MEMORY_HEALTH_BIND")?.parse()?;
     let mut authority = DemoAuthority::user(
         env::var("DEMO_TENANT_ID").unwrap_or_else(|_| "demo-tenant".into()),
         env::var("DEMO_USER_ID").unwrap_or_else(|_| "semantic-demo".into()),
@@ -66,7 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             mem0,
             authenticator: authenticator.clone(),
         });
-        let listener = TcpListener::bind(bind).await?;
+        let listeners = server::bind(bind, health_bind).await?;
         info!(
             %bind,
             authentication = authenticator.mode_name(),
@@ -74,9 +77,13 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             vector_store = "elasticsearch",
             "Mem0-primary Memory Service listening"
         );
-        axum::serve(listener, primary_router(state))
-            .with_graceful_shutdown(shutdown_signal())
-            .await?;
+        server::serve(
+            listeners,
+            primary_router(Arc::clone(&state)),
+            primary_health_router(state),
+            shutdown_signal(),
+        )
+        .await?;
         return Ok(());
     }
     if backend_mode != "governed" {
@@ -166,6 +173,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         authenticator: authenticator.clone(),
     });
 
+    let listeners = server::bind(bind, health_bind).await?;
     let mut worker_handles = Vec::new();
     for worker_authority in worker_authorities {
         let projection_worker = ProjectionWorker::new(
@@ -185,7 +193,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             worker_handles.push(tokio::spawn(consolidation_worker.run()));
         }
     }
-    let listener = TcpListener::bind(bind).await?;
     info!(
         %bind,
         authentication = authenticator.mode_name(),
@@ -199,12 +206,17 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .map_or("disabled", |extractor| extractor.version()),
         "LazyTT Memory Service listening"
     );
-    axum::serve(listener, router(state))
-        .with_graceful_shutdown(shutdown_signal())
-        .await?;
+    let result = server::serve(
+        listeners,
+        router(Arc::clone(&state)),
+        health_router(state),
+        shutdown_signal(),
+    )
+    .await;
     for worker_handle in worker_handles {
         worker_handle.abort();
     }
+    result?;
     Ok(())
 }
 
@@ -254,5 +266,16 @@ fn duration_from_env(
 }
 
 async fn shutdown_signal() {
+    #[cfg(unix)]
+    {
+        let mut terminate =
+            tokio::signal::unix::signal(tokio::signal::unix::SignalKind::terminate())
+                .expect("install SIGTERM handler");
+        tokio::select! {
+            _ = tokio::signal::ctrl_c() => {},
+            _ = terminate.recv() => {},
+        }
+    }
+    #[cfg(not(unix))]
     let _ = tokio::signal::ctrl_c().await;
 }

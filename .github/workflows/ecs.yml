@@ -47,7 +47,8 @@ jobs:
 
   build:
     if: >-
-      github.event_name != 'pull_request' && github.ref == 'refs/heads/dev' &&
+      github.event_name != 'pull_request' &&
+      (github.ref == 'refs/heads/dev' || (github.event_name == 'workflow_dispatch' && inputs.action == 'build')) &&
       !(github.event_name == 'workflow_dispatch' && inputs.action == 'release-prepared') &&
       !(github.event_name == 'push' && vars.ECS_DEPLOY_ENABLED == 'true' && vars.ECS_DEPLOY_ACTION == 'release-prepared')
     needs: test
@@ -151,6 +152,7 @@ jobs:
       ECS_USER: ${{ vars.ECS_USER }}
       ECS_PORT: ${{ vars.ECS_PORT }}
       ECS_REPO_DIR: ${{ vars.ECS_REPO_DIR }}
+      ECS_ENV_FILE: ${{ vars.ECS_ENV_FILE }}
       ECS_SSH_PRIVATE_KEY: ${{ secrets.ECS_SSH_PRIVATE_KEY }}
       ECS_KNOWN_HOSTS: ${{ secrets.ECS_KNOWN_HOSTS }}
       GHCR_TOKEN: ${{ github.token }}

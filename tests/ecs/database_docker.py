@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Real, isolated PostgreSQL test. No host ports, models, production data or credentials."""
 import os
+import re
 from pathlib import Path
 import secrets
 import subprocess
@@ -14,11 +15,15 @@ ROOT = Path(__file__).resolve().parents[2]
 def run(command, env=None, data=None, success=True):
     result = subprocess.run(command, env=env, input=data, text=True, capture_output=True)
     if (result.returncode == 0) != success:
+        if "/opt/lazytt/configuration.py" in command:
+            for line in (result.stdout + result.stderr).splitlines():
+                if re.fullmatch(r"MEM0_CONFIGURATION_STAGE: [a-z_]+|MEM0_CONFIGURATION_FAILED: [A-Za-z]+ http_status=[0-9]+", line):
+                    print(line)
         # These tasks may contain disposable passwords in diagnostics; don't print raw output.
         print(result.stdout if command[-1] in {"check", "migrate"} else "", end="")
         if command[-1] in {"check", "migrate"}:
             print(result.stderr, end="")
-        raise RuntimeError("Unexpected container test result: " + command[0])
+        raise RuntimeError("Unexpected container test result: " + command[0] + f" (exit {result.returncode})")
     return result.stdout
 
 
@@ -169,7 +174,15 @@ else:
         for key in config:
             args.extend(["-e", key])
         for action in ("ensure", "check", "ensure"):
-            run(args + [image, "/opt/lazytt/configuration.py", action], env={**os.environ, **config})
+            try:
+                run(args + [image, "/opt/lazytt/configuration.py", action], env={**os.environ, **config})
+            except RuntimeError:
+                logs = subprocess.run(["docker", "logs", mem0], capture_output=True, text=True)
+                for line in (logs.stdout + logs.stderr).splitlines():
+                    failure = re.search(r"Mem0 request failed: ([A-Za-z]+)$", line)
+                    if failure:
+                        print("MEM0_GATEWAY_FAILED: " + failure.group(1))
+                raise
         # Exercise the actual Mem0 vector adapter without calling a model Provider.
         run(["docker", "exec", "-i", mem0, "python", "-"], data='''
 import os, storage

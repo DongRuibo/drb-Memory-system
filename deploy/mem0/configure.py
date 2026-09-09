@@ -97,7 +97,9 @@ def request_json(url: str, method: str, api_key: str, payload: dict | None = Non
             "X-API-Key": api_key,
         },
     )
-    with urllib.request.urlopen(request, timeout=10) as response:
+    # Configuration initializes the backend and may wait for ES index allocation.
+    # Keep reads short; a timed-out write is propagated, never blindly replayed.
+    with urllib.request.urlopen(request, timeout=60 if method == "POST" else 10) as response:
         data = response.read(1024 * 1024)
     decoded = json.loads(data)
     if not isinstance(decoded, dict):

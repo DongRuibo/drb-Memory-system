@@ -3,6 +3,7 @@ import importlib.util
 import json
 from pathlib import Path
 import subprocess
+import shlex
 import tempfile
 from types import SimpleNamespace
 import unittest
@@ -197,7 +198,7 @@ class ReleaseTests(unittest.TestCase):
         self.assertEqual(self.dep.path.read_bytes(), before)
 
     def test_historical_candidate_cannot_be_rebound(self):
-        self.dep.install_admin_bundle(OLD_SHA, OLD, OLD)
+        self.dep.install_admin_bundle(OLD_SHA, OLD, OLD, "/fixture/memory-custom.env")
         self.dep.prepare(self.template, SHA, NEW, NEW)
         with self.assertRaisesRegex(RuntimeError, "same revision"):
             self.dep.prepare(self.template, OLD_SHA, NEW, NEW)
@@ -265,6 +266,7 @@ class ReleaseTests(unittest.TestCase):
     def test_runtime_config_needs_no_jwt_or_tenant_and_keeps_internal_key_required(self):
         values = {key: "fixture" for key in release.REQUIRED}
         values.update(MEM0_POSTGRES_PORT="5432", ELASTICSEARCH_PORT="9200", LAZYTT_MEMORY_HOST_PORT="18081",
+                      LAZYTT_MEMORY_HOST_BIND="127.0.0.1", LAZYTT_MEMORY_HEALTH_PORT="18082",
                       MEMORY_EMBEDDING_DIMENSIONS="8", MEM0_API_KEY="fixture-key-" + "x" * 32)
         mode = SimpleNamespace(st_mode=0o100600, st_uid=0, st_gid=0)
         for legacy_keys in ({}, {"MEMORY_JWT_ISSUER": "<OLD_PLACEHOLDER>", "MEMORY_JWT_HS256_SECRET": "unused", "MEMORY_TENANT_IDS": "<OLD_PLACEHOLDER>"}):
@@ -292,7 +294,7 @@ class ReleaseTests(unittest.TestCase):
 
     def test_admin_bundle_survives_transport_cleanup_and_uses_one_compose(self):
         self.dep.prepare(self.template, SHA, NEW, NEW)
-        self.dep.install_admin_bundle(SHA, NEW, NEW)
+        self.dep.install_admin_bundle(SHA, NEW, NEW, "/fixture/memory-custom.env")
         root = Path(self.temp.name)
         self.assertTrue((root / "admin" / SHA / "database/03_verify.sql").is_file())
         wrapper = (root / "database.sh").read_text()
@@ -300,12 +302,35 @@ class ReleaseTests(unittest.TestCase):
         self.assertIn("--memory-image " + NEW, wrapper)
         self.assertIn("--mem0-image " + NEW, wrapper)
         self.assertEqual(json.loads((root / "admin" / SHA / "candidate.json").read_text()), self.dep.read()["x-lazytt"]["candidate"])
+        self.assertIn('--config /fixture/memory-custom.env', wrapper)
+        self.assertNotIn('/etc/lazytt/memory.env', wrapper)
         self.assertNotIn("POSTGRES_PASSWORD", wrapper)
         self.assertEqual(list(root.rglob("*.yml")), [self.dep.path])
-        self.dep.install_admin_bundle(SHA, NEW, NEW)
+        self.dep.install_admin_bundle(SHA, NEW, NEW, "/fixture/memory-custom.env")
         (root / "admin" / SHA / "release.py").write_text("changed")
         with self.assertRaisesRegex(RuntimeError, "bundle changed"):
-            self.dep.install_admin_bundle(SHA, NEW, NEW)
+            self.dep.install_admin_bundle(SHA, NEW, NEW, "/fixture/memory-custom.env")
+
+    def test_admin_entrypoint_passes_prepared_config_after_user_options(self):
+        self.dep.install_admin_bundle(OLD_SHA, OLD, OLD, '/fixture/memory-custom.env')
+        wrapper = (Path(self.temp.name) / 'database.sh').read_text()
+        words = shlex.split(wrapper.split('exec python3 ', 1)[1])
+        self.assertGreater(words.index('--config'), words.index('$@'))
+        self.assertEqual(words[words.index('--config') + 1], '/fixture/memory-custom.env')
+
+    def test_admin_entrypoint_rejects_unsafe_config_paths(self):
+        for path in ('', '/', 'relative.env', '/tmp/a;touch marker', '/tmp/a\n.env'):
+            with self.subTest(path=path), self.assertRaisesRegex(RuntimeError, 'absolute ECS config'):
+                self.dep.install_admin_bundle(OLD_SHA, OLD, OLD, path)
+        self.assertFalse((Path(self.temp.name) / 'database.sh').exists())
+
+    def test_cli_missing_config_fails_before_creating_deployment_state(self):
+        import sys
+        result = subprocess.run([sys.executable, str(ROOT / 'deploy/ecs/release.py'),
+                                 'database-check', '--directory', self.temp.name], capture_output=True, text=True)
+        self.assertEqual(result.returncode, 2)
+        self.assertIn('--config', result.stderr)
+        self.assertFalse((Path(self.temp.name) / '.deploy.lock').exists())
 
     def test_world_readable_config_is_rejected_before_loading(self):
         mode = SimpleNamespace(st_mode=0o100644, st_uid=0, st_gid=0)

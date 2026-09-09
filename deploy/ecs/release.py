@@ -5,6 +5,7 @@ import copy
 import fcntl
 import hashlib
 import json
+import ipaddress
 import os
 from pathlib import Path
 import re
@@ -22,7 +23,7 @@ REQUIRED = (
     "LAZYTT_MEMORY_ELASTICSEARCH_ENDPOINT ELASTICSEARCH_PORT ELASTICSEARCH_USERNAME STORE_ELASTICSEARCH_PASSWORD "
     "ELASTICSEARCH_INDEX_PREFIX MEMORY_EMBEDDING_BASE_URL MEMORY_EMBEDDING_API_KEY MEMORY_EMBEDDING_MODEL "
     "MEMORY_EMBEDDING_DIMENSIONS MEMORY_EXTRACT_BASE_URL MEMORY_EXTRACT_API_KEY MEMORY_EXTRACT_MODEL "
-    "LAZYTT_MEMORY_HOST_PORT"
+    "LAZYTT_MEMORY_HOST_BIND LAZYTT_MEMORY_HOST_PORT LAZYTT_MEMORY_HEALTH_PORT"
 ).split()
 
 
@@ -58,8 +59,10 @@ def read_config(path, migration=False, database_only=False, owner=(0, 0)):
     forbidden = {"MEM0_MIGRATION_PASSWORD", "ECS_SSH_PRIVATE_KEY", "GITHUB_TOKEN", "DATABASE_URL", "LAZYTT_DATABASE_ADMIN_PASSWORD"}
     require(migration or not forbidden.intersection(values), "Administrator/publishing credentials in application config")
     if not migration and not database_only:
-        for key in ("MEM0_POSTGRES_PORT", "ELASTICSEARCH_PORT", "LAZYTT_MEMORY_HOST_PORT"):
+        for key in ("MEM0_POSTGRES_PORT", "ELASTICSEARCH_PORT", "LAZYTT_MEMORY_HOST_PORT", "LAZYTT_MEMORY_HEALTH_PORT"):
             require(values[key].isdigit() and 1 <= int(values[key]) <= 65535, "Invalid port: " + key)
+        require(ipaddress.ip_address(values["LAZYTT_MEMORY_HOST_BIND"]).version == 4, "Expected IPv4 business bind")
+        require(values["LAZYTT_MEMORY_HOST_PORT"] != values["LAZYTT_MEMORY_HEALTH_PORT"], "Business and health ports must differ")
         require(values["MEMORY_EMBEDDING_DIMENSIONS"].isdigit() and 1 <= int(values["MEMORY_EMBEDDING_DIMENSIONS"]) <= 4096,
                 "Invalid embedding dimensions")
         require(len(values["MEM0_API_KEY"].encode()) >= 32, "Secret must be at least 32 bytes: MEM0_API_KEY")
@@ -191,7 +194,8 @@ class Deployment:
         require(candidate == expected, "Prepared candidate changed; do not migrate or release stale images")
         require(document["services"]["admin"]["image"] == candidate["mem0_image"], "Candidate administration image mismatch")
 
-    def install_admin_bundle(self, revision, memory_image, mem0_image):
+    def install_admin_bundle(self, revision, memory_image, mem0_image, config_file):
+        require(re.fullmatch(r"/[A-Za-z0-9_./-]+", config_file or "") and config_file != "/", "Explicit absolute ECS config path required")
         self.assert_candidate(revision, memory_image, mem0_image)
         source = Path(__file__).parent
         files = [Path("release.py"), Path("README.md"), Path("环境变量.md"), Path(".env.dev.example")]
@@ -219,7 +223,7 @@ class Deployment:
             'action="${1:-migrate}"; if (( $# )); then shift; fi\n'
             'case "$action" in migrate|database-check) ;; *) exit 2 ;; esac\n'
             'exec python3 "$directory/admin/' + revision + '/release.py" "$action" '
-            '--directory "$directory" "$@" --revision ' + revision +
+            '--directory "$directory" "$@" --config ' + config_file + ' --revision ' + revision +
             ' --memory-image ' + memory_image + ' --mem0-image ' + mem0_image + '\n')
         wrapper.chmod(0o700)
         print("ADMIN_BUNDLE_READY: " + str(wrapper) + " migrate --migration-config /etc/lazytt/memory-migrate.env")
@@ -309,7 +313,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=("prepare", "database-check", "check", "migrate", "configure", "release"))
     parser.add_argument("--directory", required=True)
-    parser.add_argument("--config", default="/etc/lazytt/memory.env")
+    parser.add_argument("--config", required=True, help="ECS_ENV_FILE: absolute path to the administrator-owned application config")
     parser.add_argument("--migration-config")
     parser.add_argument("--source")
     parser.add_argument("--revision")
@@ -325,7 +329,7 @@ def main():
             require(all((args.source, args.revision, args.memory_image, args.mem0_image)), "Prepare requires source and exact image/revision arguments")
             deployment = Deployment(directory)
             deployment.prepare(args.source, args.revision, args.memory_image, args.mem0_image)
-            deployment.install_admin_bundle(args.revision, args.memory_image, args.mem0_image)
+            deployment.install_admin_bundle(args.revision, args.memory_image, args.mem0_image, args.config)
             return
         values = read_config(args.config, database_only=args.action in {"migrate", "database-check"})
         deployment = Deployment(directory, values)

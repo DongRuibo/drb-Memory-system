@@ -92,8 +92,8 @@ async def invalid_request(request, error):
 async def bounded_failure(request, call_next):
     try:
         return await call_next(request)
-    except Exception:
-        logging.getLogger("lazytt.mem0").error("Mem0 request failed; inspect dependency state privately")
+    except Exception as error:
+        logging.getLogger("lazytt.mem0").error("Mem0 request failed: %s", type(error).__name__)
         return JSONResponse(status_code=503, content={"code": "MEM0_UNAVAILABLE"})
 
 

@@ -91,7 +91,9 @@ class LocalTests(unittest.TestCase):
             self.assertEqual(memory["environment"]["MEMORY_ALLOW_DYNAMIC_TENANT"], "true")
             self.assertNotIn("MEMORY_TENANT_IDS", memory["environment"])
             self.assertFalse(any(k.startswith("MEMORY_JWT_") for k in memory["environment"]))
-            self.assertTrue(all(p.startswith("127.0.0.1:") for p in memory["ports"]))
+            self.assertEqual(memory["ports"], [
+                "${LAZYTT_MEMORY_HOST_BIND:-127.0.0.1}:${LAZYTT_MEMORY_HOST_PORT:-18081}:8080",
+                "127.0.0.1:${LAZYTT_MEMORY_HEALTH_PORT:-18082}:8081"])
         self.assertNotEqual(documents[0]["name"], documents[1]["name"])
 
     def test_local_config_loads_owned_file_without_ambient_credentials(self):

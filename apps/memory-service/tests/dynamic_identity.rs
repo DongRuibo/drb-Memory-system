@@ -59,13 +59,18 @@ async fn primary_dynamic_identities_start_without_registration_and_remain_isolat
     let provider_task = tokio::spawn(async move { axum::serve(listener, provider).await.unwrap() });
 
     let reserved = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+    let health_reserved = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
     let address = reserved.local_addr().unwrap();
+    let health_address = health_reserved.local_addr().unwrap();
     drop(reserved);
+    drop(health_reserved);
     let base = format!("http://{address}");
+    let health_base = format!("http://{health_address}");
     let mut service = Service(
         Command::new(env!("CARGO_BIN_EXE_memory-service"))
             .env_clear()
             .env("MEMORY_BIND", address.to_string())
+            .env("MEMORY_HEALTH_BIND", health_address.to_string())
             .env("MEMORY_BACKEND_MODE", "mem0_primary")
             .env("MEMORY_AUTH_MODE", "trusted_user_id")
             .env("MEMORY_ALLOW_DYNAMIC_TENANT", "true")
@@ -99,12 +104,21 @@ async fn primary_dynamic_identities_start_without_registration_and_remain_isolat
     for path in ["/health/live", "/health/ready"] {
         assert_eq!(
             client
-                .get(format!("{base}{path}"))
+                .get(format!("{health_base}{path}"))
                 .send()
                 .await
                 .unwrap()
                 .status(),
             200
+        );
+        assert_eq!(
+            client
+                .get(format!("{base}{path}"))
+                .send()
+                .await
+                .unwrap()
+                .status(),
+            404
         );
     }
 

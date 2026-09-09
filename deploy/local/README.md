@@ -105,7 +105,7 @@ down 只操作 `lazytt-memory-local` 项目，保留 history 卷；不加 `-v`�
 
 - Memory：1 CPU/512 MiB；Mem0：2 CPU/2 GiB；admin：1 CPU/512 MiB。
 - 常驻服务 `restart: always`，PID 上限 256，停止等待 45 秒；日志每文件 10 MiB、最多 3 份。
-- 仅 Memory 暴露 `127.0.0.1:18081`（可配置端口）；Mem0 不映射端口；Agent 不部署。
+- Memory 业务绑定由 `LAZYTT_MEMORY_HOST_BIND` 与 `LAZYTT_MEMORY_HOST_PORT` 指定；本地使用回环。健康端口由 `LAZYTT_MEMORY_HEALTH_PORT` 指定且固定映射回环；Mem0 不映射端口；Agent 不部署。
 - 网络为 Docker 自动 IPAM；持久卷为 `lazytt-memory-local_mem0-history`。
 
 执行前人工核对 Docker 可用容量、网络/端口占用和数据库/ES/history 备份；本地不使用

@@ -1,5 +1,7 @@
 """Read-only release preflight must work before any Mem0 HTTP server starts."""
 import copy
+import contextlib
+import io
 import importlib.util
 from pathlib import Path
 import sys
@@ -15,6 +17,21 @@ spec.loader.exec_module(configuration)
 
 
 class ConfigurationTests(unittest.TestCase):
+    def test_container_failure_reports_only_safe_configuration_diagnostics(self):
+        spec = importlib.util.spec_from_file_location("database_docker", ROOT / "tests/ecs/database_docker.py")
+        harness = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(harness)
+        result = SimpleNamespace(returncode=1,
+            stdout="MEM0_CONFIGURATION_STAGE: http_configure\nsecret-marker\n",
+            stderr="MEM0_CONFIGURATION_FAILED: HTTPError http_status=503\nsecret-marker\n")
+        output = io.StringIO()
+        with patch.object(harness.subprocess, "run", return_value=result), contextlib.redirect_stdout(output):
+            with self.assertRaisesRegex(RuntimeError, "exit 1"):
+                harness.run(["docker", "run", "/opt/lazytt/configuration.py", "ensure"])
+        self.assertIn("http_configure", output.getvalue())
+        self.assertIn("HTTPError http_status=503", output.getvalue())
+        self.assertNotIn("secret-marker", output.getvalue())
+
     def setUp(self):
         self.expected = {
             "vector_store": {"provider": "elasticsearch", "config": {
