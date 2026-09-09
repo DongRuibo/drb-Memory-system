@@ -83,6 +83,88 @@ class ReleaseTests(unittest.TestCase):
             self.dep.prepare(source, SHA, NEW, NEW)
         self.assertEqual(self.dep.path.read_bytes(), before)
 
+    def use_legacy_jwt(self):
+        doc = self.dep.read()
+        environment = doc["services"]["memory-service"]["environment"]
+        environment["MEMORY_AUTH_MODE"] = "jwt_hs256"
+        environment["MEMORY_ALLOW_DYNAMIC_TENANT"] = "false"
+        environment["MEMORY_TENANT_IDS"] = "${MEMORY_TENANT_IDS:-}"
+        for key in ("MEMORY_JWT_HS256_SECRET", "MEMORY_JWT_ISSUER", "MEMORY_JWT_AUDIENCE"):
+            environment[key] = "${" + key + ":-}"
+        self.dep.write(doc)
+        return copy.deepcopy(environment)
+
+    def test_auth_transition_is_staged_without_changing_live_environment(self):
+        old_environment = self.use_legacy_jwt()
+        self.dep.prepare(self.template, SHA, NEW, NEW)
+        doc = self.dep.read()
+        self.assertEqual(doc["services"]["memory-service"]["environment"], old_environment)
+        self.assertEqual(doc["services"]["memory-service"]["image"], OLD)
+        self.assertEqual(doc["x-lazytt"]["candidate_memory_environment"]["MEMORY_AUTH_MODE"], "trusted_user_id")
+        self.assertFalse(any(e[0] in {"up", "stop", "database", "configuration"} for e in self.dep.events if isinstance(e, tuple)))
+        self.dep.prepare(self.template, SHA, NEW, NEW)
+        self.assertEqual(self.dep.read(), doc)
+        self.dep.release()
+        doc = self.dep.read()
+        self.assertEqual(doc["services"]["memory-service"]["environment"]["MEMORY_AUTH_MODE"], "trusted_user_id")
+        self.assertEqual(doc["services"]["memory-service"]["environment"]["MEMORY_ALLOW_DYNAMIC_TENANT"], "true")
+        self.assertNotIn("MEMORY_TENANT_IDS", doc["services"]["memory-service"]["environment"])
+        self.assertFalse(any(k.startswith("MEMORY_JWT_") for k in doc["services"]["memory-service"]["environment"]))
+        self.assertNotIn("candidate_memory_environment", doc["x-lazytt"])
+        self.assertTrue(doc["x-lazytt"]["released"])
+
+    def test_whitelisted_trusted_headers_transition_only_at_release(self):
+        old = self.dep.read()
+        environment = old["services"]["memory-service"]["environment"]
+        environment["MEMORY_ALLOW_DYNAMIC_TENANT"] = "false"
+        environment["MEMORY_TENANT_IDS"] = "${MEMORY_TENANT_IDS:-}"
+        self.dep.write(old)
+        self.dep.prepare(self.template, SHA, NEW, NEW)
+        self.assertEqual(self.dep.read()["services"]["memory-service"]["environment"], environment)
+        self.dep.release()
+        updated = self.dep.read()["services"]["memory-service"]["environment"]
+        self.assertEqual(updated["MEMORY_ALLOW_DYNAMIC_TENANT"], "true")
+        self.assertNotIn("MEMORY_TENANT_IDS", updated)
+
+    def test_auth_transition_does_not_allow_other_topology_changes(self):
+        self.use_legacy_jwt()
+        before = self.dep.path.read_bytes()
+        for field, value in (("ports", ["0.0.0.0:18081:8080"]), ("mem_limit", "1g")):
+            with self.subTest(field=field):
+                template = json.loads(self.template.read_text())
+                template["services"]["memory-service"][field] = value
+                source = Path(self.temp.name) / "new.json"
+                source.write_text(json.dumps(template))
+                with self.assertRaisesRegex(RuntimeError, "topology changed"):
+                    self.dep.prepare(source, SHA, NEW, NEW)
+                self.assertEqual(self.dep.path.read_bytes(), before)
+
+    def test_auth_transition_preflight_failure_preserves_live_jwt(self):
+        self.use_legacy_jwt()
+        self.dep.prepare(self.template, SHA, NEW, NEW)
+        before = self.dep.path.read_bytes()
+        self.dep.failure = ("configuration", "preflight", "admin")
+        with self.assertRaises(RuntimeError):
+            self.dep.release()
+        self.assertEqual(self.dep.path.read_bytes(), before)
+        self.assertFalse(any(e[0] in {"up", "stop"} for e in self.dep.events if isinstance(e, tuple)))
+
+    def test_auth_transition_start_failure_stops_without_restoring_jwt(self):
+        self.use_legacy_jwt()
+        self.dep.prepare(self.template, SHA, NEW, NEW)
+        self.dep.failure = "start"
+        with self.assertRaises(RuntimeError):
+            self.dep.release()
+        doc = self.dep.read()
+        self.assertEqual(doc["services"]["memory-service"]["environment"]["MEMORY_AUTH_MODE"], "trusted_user_id")
+        self.assertEqual(doc["services"]["memory-service"]["image"], NEW)
+        self.assertFalse(doc["x-lazytt"]["released"])
+        self.assertIn(("stop", "memory-service", "mem0"), self.dep.events)
+        self.assertFalse(any("down" in e for e in self.dep.events))
+        # Retrying the same prepared candidate can recover without JWT credentials.
+        self.dep.release()
+        self.assertTrue(self.dep.read()["x-lazytt"]["released"])
+
     def test_release_never_migrates_and_reconciles_configuration(self):
         self.dep.prepare(self.template, SHA, NEW, NEW)
         self.dep.release()
@@ -180,6 +262,23 @@ class ReleaseTests(unittest.TestCase):
         mode = SimpleNamespace(st_mode=0o100600, st_uid=0, st_gid=0)
         with patch.object(Path, "lstat", return_value=mode), patch.object(release, "run", return_value="\0".join(k + "=" + v for k, v in db.items())):
             self.assertEqual(release.read_config("/fixture", database_only=True), db)
+
+    def test_runtime_config_needs_no_jwt_or_tenant_and_keeps_internal_key_required(self):
+        values = {key: "fixture" for key in release.REQUIRED}
+        values.update(MEM0_POSTGRES_PORT="5432", ELASTICSEARCH_PORT="9200", LAZYTT_MEMORY_HOST_PORT="18081",
+                      LAZYTT_MEMORY_HOST_BIND="127.0.0.1", LAZYTT_MEMORY_HEALTH_PORT="18082",
+                      MEMORY_EMBEDDING_DIMENSIONS="8", MEM0_API_KEY="fixture-key-" + "x" * 32)
+        mode = SimpleNamespace(st_mode=0o100600, st_uid=0, st_gid=0)
+        for legacy_keys in ({}, {"MEMORY_JWT_ISSUER": "<OLD_PLACEHOLDER>", "MEMORY_JWT_HS256_SECRET": "unused", "MEMORY_TENANT_IDS": "<OLD_PLACEHOLDER>"}):
+            environment = {**values, **legacy_keys}
+            with patch.object(Path, "lstat", return_value=mode), patch.object(release, "run", return_value="\0".join(k + "=" + v for k, v in environment.items())):
+                self.assertEqual(release.read_config("/fixture"), values)
+        for key, value in (("MEM0_API_KEY", "short"), ("MEM0_API_KEY", "")):
+            with self.subTest(key=key):
+                environment = {**values, key: value}
+                with patch.object(Path, "lstat", return_value=mode), patch.object(release, "run", return_value="\0".join(k + "=" + v for k, v in environment.items())):
+                    with self.assertRaisesRegex(RuntimeError, key):
+                        release.read_config("/fixture")
 
     def test_application_file_rejects_migration_password(self):
         db = "MEM0_POSTGRES_HOST=pg\0MEM0_POSTGRES_PORT=5432\0MEM0_POSTGRES_RUNTIME_PASSWORD=fixture\0MEM0_MIGRATION_PASSWORD=fixture"

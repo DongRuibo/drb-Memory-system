@@ -60,9 +60,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let authenticator = Authenticator::from_env(authority.clone())?;
     let backend_mode = env::var("MEMORY_BACKEND_MODE").unwrap_or_else(|_| "governed".into());
     if backend_mode == "mem0_primary" {
-        if authenticator.allows_dynamic_tenants() {
-            return Err("MEMORY_BACKEND_MODE=mem0_primary requires configured tenant IDs".into());
-        }
         let mem0 = Arc::new(Mem0Adapter::new(Mem0Config {
             base_url: env::var("MEM0_BASE_URL").unwrap_or_else(|_| "http://127.0.0.1:18888".into()),
             api_key: env::var("MEM0_API_KEY").ok(),

@@ -135,7 +135,11 @@ impl FromRequestParts<Arc<PrimaryAppState>> for PrimaryRequestPrincipal {
             .map_err(|error| match error {
                 AuthenticationError::InvalidTenantId => ApiError::bad_request(
                     "INVALID_TENANT_ID",
-                    "X-Tenant-Id must identify one configured MEMORY_TENANT_IDS entry",
+                    if state.authenticator.allows_dynamic_tenants() {
+                        "X-Tenant-Id must contain 1 to 256 visible characters"
+                    } else {
+                        "X-Tenant-Id must identify one configured MEMORY_TENANT_IDS entry"
+                    },
                 ),
                 AuthenticationError::InvalidUserId => ApiError::bad_request(
                     "INVALID_USER_ID",
