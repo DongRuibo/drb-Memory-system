@@ -28,7 +28,12 @@ chmod 600 .env.local
 数据库固定 `lazytt_memory_mem0`，owner/runtime 分别为 `lazytt_memory_mem0_owner`、
 `lazytt_memory_mem0_runtime`。本地应使用独立 PG 实例，不能连接 dev 的同名库；
 如共享实例无法满足这个隔离要求，先规划库命名与管理代码的变更，不复用 dev 数据。
-ES 使用本地专用索引，两个认证密钥独立且至少 32 字节。填写已有合法凭据，脚本不生成数据库密码。
+ES 使用本地专用索引，内部 `MEM0_API_KEY` 至少 32 字节。填写已有合法凭据，脚本不生成数据库密码。
+
+Memory 固定使用 `trusted_user_id` 并启用动态租户，不需要 JWT 密钥、issuer、audience 或租户白名单。
+请求必须带 `X-Tenant-Id`、`X-User-Id`，两者可使用任意格式有效的 ID，无需登记；仅可信后端或本机隔离测试可填写。
+正式后端须验证登录身份并覆盖客户端同名头；不得通过无鉴权代理将回环端口暴露到公网。
+保留原有租户/用户 ID 以继续访问同一用户的记忆。检索示例及删除限制见 [ECS 身份说明](../ecs/README.md#可信后端身份与从-jwt-切换)。
 
 ## 2. 验证与构建
 
@@ -64,7 +69,7 @@ export MEM0_MIGRATION_PASSWORD='<REDACTED>'
 ./scripts/backend-stack.sh migrate --migration-config secrets/local-migrate.env
 ```
 
-迁移只要求 PG 主机、端口和运行密码，不要求先填模型或 JWT。
+迁移只要求 PG 主机、端口和运行密码，不要求先填模型配置。
 原生 Alembic 升级 → 注释/权限 → 运行身份结构检查；成功为 `LOCAL_MIGRATE_OK`。
 失败停在原库调查，不删库、不 stamp、不手工补迁移账本。
 管理窗口结束后将 owner 文件移至获准秘密保管位置或按其管理规则清除。
@@ -105,5 +110,5 @@ down 只操作 `lazytt-memory-local` 项目，保留 history 卷；不加 `-v`�
 
 执行前人工核对 Docker 可用容量、网络/端口占用和数据库/ES/history 备份；本地不使用
 ECS 的 `/proc/meminfo` 容量门禁。不要因 Compose 资源上限存在就认定宿主容量足够。
-真实 JWT 的提取/检索、未授权请求、用户隔离、重建持久性需分别验收；付费模型与真实数据
+可信身份头的提取/检索、缺失/非法身份头拒绝、用户隔离、删除返回 403、重建持久性需分别验收；付费模型与真实数据
 测试在获准窗口执行。本次部署文件整理没有连接现有数据库，也没有该层成功回执。

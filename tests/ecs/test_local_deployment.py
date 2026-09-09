@@ -86,6 +86,12 @@ class LocalTests(unittest.TestCase):
                 if name != "admin":
                     self.assertEqual(service["restart"], "always")
             self.assertEqual(doc["services"]["admin"]["profiles"], ["admin"])
+            memory = doc["services"]["memory-service"]
+            self.assertEqual(memory["environment"]["MEMORY_AUTH_MODE"], "trusted_user_id")
+            self.assertEqual(memory["environment"]["MEMORY_ALLOW_DYNAMIC_TENANT"], "true")
+            self.assertNotIn("MEMORY_TENANT_IDS", memory["environment"])
+            self.assertFalse(any(k.startswith("MEMORY_JWT_") for k in memory["environment"]))
+            self.assertTrue(all(p.startswith("127.0.0.1:") for p in memory["ports"]))
         self.assertNotEqual(documents[0]["name"], documents[1]["name"])
 
     def test_local_config_loads_owned_file_without_ambient_credentials(self):

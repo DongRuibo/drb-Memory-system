@@ -22,7 +22,7 @@ REQUIRED = (
     "LAZYTT_MEMORY_ELASTICSEARCH_ENDPOINT ELASTICSEARCH_PORT ELASTICSEARCH_USERNAME STORE_ELASTICSEARCH_PASSWORD "
     "ELASTICSEARCH_INDEX_PREFIX MEMORY_EMBEDDING_BASE_URL MEMORY_EMBEDDING_API_KEY MEMORY_EMBEDDING_MODEL "
     "MEMORY_EMBEDDING_DIMENSIONS MEMORY_EXTRACT_BASE_URL MEMORY_EXTRACT_API_KEY MEMORY_EXTRACT_MODEL "
-    "LAZYTT_MEMORY_HOST_PORT MEMORY_JWT_HS256_SECRET MEMORY_JWT_ISSUER MEMORY_JWT_AUDIENCE MEMORY_TENANT_IDS"
+    "LAZYTT_MEMORY_HOST_PORT"
 ).split()
 
 
@@ -62,10 +62,7 @@ def read_config(path, migration=False, database_only=False, owner=(0, 0)):
             require(values[key].isdigit() and 1 <= int(values[key]) <= 65535, "Invalid port: " + key)
         require(values["MEMORY_EMBEDDING_DIMENSIONS"].isdigit() and 1 <= int(values["MEMORY_EMBEDDING_DIMENSIONS"]) <= 4096,
                 "Invalid embedding dimensions")
-        for key in ("MEM0_API_KEY", "MEMORY_JWT_HS256_SECRET"):
-            require(len(values[key].encode()) >= 32, "Secret must be at least 32 bytes: " + key)
-        require(len({values[key] for key in ("MEM0_API_KEY", "MEMORY_JWT_HS256_SECRET")}) == 2,
-                "Independent auth secrets must not be reused")
+        require(len(values["MEM0_API_KEY"].encode()) >= 32, "Secret must be at least 32 bytes: MEM0_API_KEY")
     return {key: values[key] for key in names}
 
 
@@ -159,8 +156,21 @@ class Deployment:
         for service in incoming["services"].values():
             require("build" not in service, "ECS must never build images")
         self.ownership()
+        candidate_environment = None
         if old:
-            require(structure(old) == structure(incoming), "Live Compose topology changed; requires a reviewed resource upgrade")
+            previous_structure = structure(old)
+            if previous_structure != structure(incoming):
+                # Only this reviewed authentication transition is allowed; retain live settings until release.
+                environment = previous_structure["services"]["memory-service"]["environment"]
+                require(environment.get("MEMORY_AUTH_MODE") in {"jwt_hs256", "trusted_user_id"},
+                        "Live Compose topology changed; requires a reviewed resource upgrade")
+                environment["MEMORY_AUTH_MODE"] = "trusted_user_id"
+                environment["MEMORY_ALLOW_DYNAMIC_TENANT"] = "true"
+                for key in ("MEMORY_JWT_HS256_SECRET", "MEMORY_JWT_ISSUER", "MEMORY_JWT_AUDIENCE", "MEMORY_TENANT_IDS"):
+                    environment.pop(key, None)
+                require(previous_structure == structure(incoming),
+                        "Live Compose topology changed; requires a reviewed resource upgrade")
+                candidate_environment = incoming["services"]["memory-service"]["environment"]
             incoming = old
         else:
             incoming["services"]["memory-service"]["image"] = memory_image
@@ -168,6 +178,9 @@ class Deployment:
         incoming["services"]["admin"]["image"] = mem0_image
         state = incoming.setdefault("x-lazytt", {})
         state["candidate"] = candidate
+        state.pop("candidate_memory_environment", None)
+        if candidate_environment is not None:
+            state["candidate_memory_environment"] = candidate_environment
         self.write(incoming)
         print("PREPARED " + revision + ": images only; no migration/start/configuration")
 
@@ -248,7 +261,8 @@ class Deployment:
         self.task("database", "check")  # Candidate image against the existing schema.
         self.task("configuration", "preflight")  # Read-only; reject incompatible settings before touching services.
         compatible = False
-        if previous["x-lazytt"].get("released") and previous["x-lazytt"].get("config_hash") == fingerprint(self.values):
+        if (previous["x-lazytt"].get("released") and "candidate_memory_environment" not in previous["x-lazytt"]
+                and previous["x-lazytt"].get("config_hash") == fingerprint(self.values)):
             try:
                 self.task("database", "check", service="mem0")
                 self.verify_running(previous)
@@ -258,6 +272,9 @@ class Deployment:
         updated = copy.deepcopy(previous)
         updated["services"]["mem0"]["image"] = candidate["mem0_image"]
         updated["services"]["memory-service"]["image"] = candidate["memory_image"]
+        candidate_environment = updated["x-lazytt"].pop("candidate_memory_environment", None)
+        if candidate_environment is not None:
+            updated["services"]["memory-service"]["environment"] = candidate_environment
         # Preflight failures above do not touch existing services.
         self.write(updated)
         try:

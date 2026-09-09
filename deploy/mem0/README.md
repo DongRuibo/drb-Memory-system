@@ -9,7 +9,7 @@ SDK 固定 `b357a5a1b03c299ec8229c268e63cfac0f7c6566`，未修改、删除或猴
 提供当前 Memory adapter 使用的接口：`POST /memories`、`POST /search`、
 `GET/DELETE /memories/{id}`、`GET/POST /configure`、`GET /auth/setup-status`，另有 `/health/ready`。
 内部业务/配置接口只接受独立 `MEM0_API_KEY`（映射为 `ADMIN_API_KEY`），不对 Agent 发放。
-Memory 对 Agent 的 JWT、租户、用户和删除权限仍由原有 Rust 服务负责；Agent 不能直接访问 Mem0。
+Memory 使用 Rust 服务的 trusted_user_id 动态租户模式，接受可信后端提供的任意格式有效的租户/用户头，无需白名单；当前不授予删除权限，Agent 不能直接访问 Mem0。
 不提供原版 dashboard、Mem0 用户登录、JWT 刷新或每用户 API Key 管理；`MEM0_JWT_SECRET` 已撤下。
 共享内部 Key 是可信 Memory 服务的凭据，不是各最终用户的身份；用户隔离由 Memory 生成的 user_id 和 ES filters 保证。
 
