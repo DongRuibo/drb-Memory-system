@@ -7,9 +7,7 @@ rust-version.workspace = true
 
 [dependencies]
 axum.workspace = true
-base64.workspace = true
 chrono.workspace = true
-hmac.workspace = true
 hex.workspace = true
 http-reranker = { path = "../../crates/rerankers/http-reranker" }
 kimi-extractor = { path = "../../crates/extractors/kimi-extractor" }

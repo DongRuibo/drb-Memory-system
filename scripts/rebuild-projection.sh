@@ -10,7 +10,6 @@ source_generation="${SOURCE_GENERATION:-demo-v0-generation-1}"
 target_generation="${1:-rebuild-$(date -u +%Y%m%dT%H%M%SZ)}"
 switch_action="${REBUILD_SWITCH_ACTION:-finalize}"
 poll_limit="${REBUILD_POLL_LIMIT:-300}"
-bearer_token="${MEMORY_BEARER_TOKEN:-}"
 
 if ! command -v jq >/dev/null 2>&1; then
   printf 'jq is required for projection rebuild validation.\n' >&2
@@ -29,13 +28,9 @@ if ! [[ "$poll_limit" =~ ^[1-9][0-9]*$ ]]; then
   exit 1
 fi
 
+# Local governed/demo tool; trusted_user_id does not grant rebuild administration.
 request() {
-  if [ -n "$bearer_token" ]; then
-    curl --fail --silent --show-error \
-      -H "Authorization: Bearer ${bearer_token}" "$@"
-  else
-    curl --fail --silent --show-error "$@"
-  fi
+  curl --fail --silent --show-error "$@"
 }
 
 printf '[1/5] Start isolated generation %s from %s\n' "$target_generation" "$source_generation"

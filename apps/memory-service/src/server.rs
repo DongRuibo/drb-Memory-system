@@ -25,7 +25,7 @@ mod tests {
         auth::Authenticator,
     };
     use mem0_adapter::{Mem0Adapter, Mem0Config};
-    use std::{collections::BTreeSet, sync::Arc, time::Duration};
+    use std::{sync::Arc, time::Duration};
 
     #[tokio::test]
     async fn occupied_health_port_releases_business_port() {
@@ -61,13 +61,7 @@ mod tests {
                 })
                 .unwrap(),
             ),
-            authenticator: Authenticator::jwt_hs256(
-                fixture.as_bytes().to_vec(),
-                fixture.clone(),
-                fixture.clone(),
-                BTreeSet::from([fixture]),
-            )
-            .unwrap(),
+            authenticator: Authenticator::trusted_dynamic_tenant(),
         });
         let (stop, shutdown) = tokio::sync::oneshot::channel();
         let task = tokio::spawn(serve(
@@ -118,7 +112,7 @@ mod tests {
                 .await
                 .unwrap()
                 .status(),
-            401
+            400
         );
         drop(client);
         stop.send(()).unwrap();

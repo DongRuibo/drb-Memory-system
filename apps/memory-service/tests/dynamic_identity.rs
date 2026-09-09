@@ -42,6 +42,21 @@ impl Drop for Service {
     }
 }
 
+#[test]
+fn removed_authentication_mode_fails_before_starting() {
+    let output = Command::new(env!("CARGO_BIN_EXE_memory-service"))
+        .env_clear()
+        .env("MEMORY_BACKEND_MODE", "mem0_primary")
+        .env("MEMORY_HEALTH_BIND", "127.0.0.1:0")
+        .env("MEMORY_AUTH_MODE", "jwt_hs256")
+        .current_dir(std::env::temp_dir())
+        .output()
+        .unwrap();
+    assert!(!output.status.success());
+    assert!(String::from_utf8_lossy(&output.stderr)
+        .contains("MEMORY_AUTH_MODE must be demo or trusted_user_id"));
+}
+
 #[tokio::test]
 async fn primary_dynamic_identities_start_without_registration_and_remain_isolated() {
     // Only the HTTP provider contract is simulated: no database, ES, or model calls.
@@ -129,6 +144,14 @@ async fn primary_dynamic_identities_start_without_registration_and_remain_isolat
     };
     let retrieve = format!("{base}/v1/runtime/memory/retrieve");
     let query = json!({"query": "What is my preference?", "limit": 5});
+    let bearer_only = client
+        .post(&retrieve)
+        .bearer_auth("removed-authentication-fixture")
+        .json(&query)
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(bearer_only.status(), 400);
     let missing = client.post(&retrieve).json(&query).send().await.unwrap();
     assert_eq!(missing.status(), 400);
     let error = missing.json::<Value>().await.unwrap();
