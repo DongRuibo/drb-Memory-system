@@ -1,5 +1,14 @@
 # Database Migrations
 
+`0033_global_preference_retrieval.sql` 扩展 Recall Explain 候选回执的 channel 约束，
+加入 `global_preference`。通用偏好从 canonical 当前版本读取并重新授权；没有批量重分类
+旧记忆或修改既有 migration checksum。
+
+`0032_multiple_conflict_candidates.sql` 用普通部分索引替换“一个 Record 只能有一个待审
+Candidate”的旧唯一索引，允许完整保留连续冲突来源。审核仍按 Record 结束本次冲突：
+accept 选择指定候选，reject 保留原值；其余待审候选标记为 rejected，并追加
+`REVIEW_ALTERNATIVE_SUPERSEDED` 决策。已有 Migration 的 checksum 不变。
+
 `0015_demo_chat_runtime.sql` 增加交互式演示的持久化运行时。`demo_chat` 与权威记忆账本
 `memory_core` 明确分离。
 

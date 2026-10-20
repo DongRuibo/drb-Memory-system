@@ -1,5 +1,5 @@
 use async_trait::async_trait;
-use memory_domain::MemoryType;
+use memory_domain::{MemoryType, PreferenceApplicability};
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
 use uuid::Uuid;
@@ -13,6 +13,8 @@ pub struct RerankCandidate {
     pub memory_version_id: Uuid,
     pub content: String,
     pub memory_type: String,
+    #[serde(default)]
+    pub preference_applicability: PreferenceApplicability,
     pub retrieval_score: f64,
 }
 
@@ -48,13 +50,17 @@ pub trait MemoryReranker: Send + Sync {
     -> Result<Vec<RerankedCandidate>, RerankerError>;
 }
 
-/// Some applicability signals are categorical rather than topical. Preferences
-/// govern answer behavior in every turn, while an explicit request for the
+/// Only explicitly global preferences govern answer behavior in every turn.
+/// Unmarked and contextual preferences require topical relevance. An explicit request for the
 /// user's profile, current project, or past experience must not be vetoed only
 /// because a small reranker scores an indirect Chinese reference too low.
-pub fn is_memory_applicable_without_semantic_threshold(query: &str, memory_type: &str) -> bool {
+pub fn is_memory_applicable_without_semantic_threshold(
+    query: &str,
+    memory_type: &str,
+    applicability: PreferenceApplicability,
+) -> bool {
     if memory_type == MemoryType::Preference.as_str() {
-        return true;
+        return applicability == PreferenceApplicability::Global;
     }
     let normalized = query.to_lowercase();
     match memory_type {
@@ -100,7 +106,7 @@ pub struct TransparentReranker;
 #[async_trait]
 impl MemoryReranker for TransparentReranker {
     fn version(&self) -> &str {
-        "transparent-lexical-v1"
+        "transparent-lexical-v2-preference-applicability"
     }
 
     async fn rerank(
@@ -124,6 +130,7 @@ impl MemoryReranker for TransparentReranker {
                 let intent_applicable = is_memory_applicable_without_semantic_threshold(
                     &request.query,
                     &candidate.memory_type,
+                    candidate.preference_applicability,
                 );
                 (relevance_score >= MIN_TRANSPARENT_RELEVANCE_SCORE || intent_applicable).then(
                     || RerankedCandidate {
@@ -165,12 +172,14 @@ mod tests {
                         memory_version_id: Uuid::new_v4(),
                         content: "无关的数据库迁移说明".into(),
                         memory_type: "semantic_fact".into(),
+                        preference_applicability: Default::default(),
                         retrieval_score: 1.0,
                     },
                     RerankCandidate {
                         memory_version_id: relevant_id,
                         content: "回答缓存问题先查权威账本".into(),
                         memory_type: "preference".into(),
+                        preference_applicability: Default::default(),
                         retrieval_score: 0.4,
                     },
                 ],
@@ -183,15 +192,16 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn transparent_reranker_retains_a_requested_preference_with_low_topical_score() {
+    async fn transparent_reranker_retains_an_explicit_global_preference_with_low_topical_score() {
         let preference_id = Uuid::new_v4();
         let result = TransparentReranker
             .rerank(RerankRequest {
                 query: "解释 PostgreSQL Outbox".into(),
                 candidates: vec![RerankCandidate {
                     memory_version_id: preference_id,
-                    content: "回答技术问题时先用生活类比".into(),
+                    content: "回答时先给结论".into(),
                     memory_type: "preference".into(),
+                    preference_applicability: PreferenceApplicability::Global,
                     retrieval_score: 0.0,
                 }],
                 limit: 5,
@@ -204,6 +214,25 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn contextual_preferences_do_not_bypass_relevance() {
+        let result = TransparentReranker
+            .rerank(RerankRequest {
+                query: "解释 PostgreSQL Outbox".into(),
+                candidates: vec![RerankCandidate {
+                    memory_version_id: Uuid::new_v4(),
+                    content: "食物里不要香菜".into(),
+                    memory_type: "preference".into(),
+                    preference_applicability: PreferenceApplicability::Contextual,
+                    retrieval_score: 0.0,
+                }],
+                limit: 5,
+            })
+            .await
+            .unwrap();
+        assert!(result.is_empty());
+    }
+
+    #[tokio::test]
     async fn transparent_reranker_retains_explicitly_requested_memory_categories() {
         let result = TransparentReranker
             .rerank(RerankRequest {
@@ -213,18 +242,21 @@ mod tests {
                         memory_version_id: Uuid::new_v4(),
                         content: "用户是Agent研发工程师。".into(),
                         memory_type: "profile_fact".into(),
+                        preference_applicability: Default::default(),
                         retrieval_score: 0.0,
                     },
                     RerankCandidate {
                         memory_version_id: Uuid::new_v4(),
                         content: "当前项目使用PostgreSQL作为权威数据库。".into(),
                         memory_type: "semantic_fact".into(),
+                        preference_applicability: Default::default(),
                         retrieval_score: 0.0,
                     },
                     RerankCandidate {
                         memory_version_id: Uuid::new_v4(),
                         content: "用户曾通过event_id去重解决Outbox重复消费。".into(),
                         memory_type: "episodic_summary".into(),
+                        preference_applicability: Default::default(),
                         retrieval_score: 0.0,
                     },
                 ],
@@ -251,6 +283,7 @@ mod tests {
                     memory_version_id: episode_id,
                     content: "修复了队列重复消费".into(),
                     memory_type: "episodic_summary".into(),
+                    preference_applicability: Default::default(),
                     retrieval_score: 1.0,
                 }],
                 limit: 5,

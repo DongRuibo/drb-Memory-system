@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-20",
+  "baseline": "2b48ba9",
+  "branch": "codex/resume-pgvector",
+  "tenant": "resume-deepseek-v3-20261020",
+  "synthetic_data_only": true,
+  "model_downloads": false,
+  "cloud_provider": "DeepSeek",
+  "cloud_model": "deepseek-flash",
+  "embedding_and_primary_reranker": "existing local Qwen3 0.6B CPU models",
+  "tests": [
+    {
+      "source_log": "live-final-tests.log",
+      "passed": 150,
+      "failed": 0,
+      "ignored": 21
+    },
+    {
+      "source_log": "live-memory-db-tests.log",
+      "passed": 20,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "source_log": "live-demo-db-tests.log",
+      "passed": 1,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "source_log": "support-final-tests.log",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    }
+  ],
+  "clippy": "pass with existing Elasticsearch manual_clamp exemption",
+  "web_visual_verification": "blocked by browser origin authorization; not performed",
+  "performance_host": {
+    "cpu": "Apple M5 Pro",
+    "memory_bytes": 25769803776,
+    "macos": "27.0.1"
+  },
+  "quality_caveat": "fixed gate passed; positive-query irrelevant injection rate is 0.20833333333333334; applicability regressions are diagnostic rather than independent holdout",
+  "python_startup_and_redaction_tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "cleanup": {
+    "forgotten_heads_by_tenant": {
+      "resume-deepseek-20261020": 19,
+      "resume-deepseek-v2-20261020": 19,
+      "resume-deepseek-v3-20261020": 50
+    },
+    "pending_outbox": 0
+  },
+  "browser_authorization": "Origin access rejected; explicit follow-up question pending; no UI workaround attempted"
+}

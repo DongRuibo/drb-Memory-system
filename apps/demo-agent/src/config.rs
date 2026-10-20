@@ -29,14 +29,16 @@ pub struct DemoConfig {
 impl DemoConfig {
     pub fn from_env() -> Result<Self, DemoError> {
         let local = LocalConfig::load()?;
-        let api_key = local.value("KIMI_API_KEY", &["apikey"]).ok_or_else(|| {
-            DemoError::Config(
-                "KIMI_API_KEY is not set and no apikey was found in the local .env".into(),
-            )
-        })?;
+        let api_key = local
+            .value("DEMO_CHAT_API_KEY", &["KIMI_API_KEY", "apikey"])
+            .ok_or_else(|| {
+                DemoError::Config(
+                    "DEMO_CHAT_API_KEY is not set and no compatible legacy key was found".into(),
+                )
+            })?;
         if api_key.trim().is_empty() {
             return Err(DemoError::Config(
-                "the configured Kimi API key is empty".into(),
+                "the configured chat API key is empty".into(),
             ));
         }
 
@@ -112,11 +114,11 @@ impl DemoConfig {
             automatic_memory,
             kimi: KimiConfig {
                 base_url: local
-                    .value("KIMI_BASE_URL", &["base_url"])
+                    .value("DEMO_CHAT_BASE_URL", &["KIMI_BASE_URL", "base_url"])
                     .unwrap_or_else(|| DEFAULT_KIMI_BASE_URL.into()),
                 api_key,
                 model: local
-                    .value("KIMI_MODEL", &["model_name"])
+                    .value("DEMO_CHAT_MODEL", &["KIMI_MODEL", "model_name"])
                     .unwrap_or_else(|| DEFAULT_KIMI_MODEL.into()),
                 reasoning_effort,
                 max_completion_tokens,
@@ -161,6 +163,7 @@ impl LocalConfig {
     fn value(&self, primary: &str, aliases: &[&str]) -> Option<String> {
         env::var(primary)
             .ok()
+            .or_else(|| aliases.iter().find_map(|alias| env::var(alias).ok()))
             .or_else(|| self.values.get(primary).cloned())
             .or_else(|| {
                 aliases

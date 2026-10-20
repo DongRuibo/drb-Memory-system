@@ -1,0 +1,14 @@
+{
+  "evaluation_id": "3395dc42-beb4-4aba-b0b3-f7c88828a8b8",
+  "dataset_version": "retrieval-v2.1.1",
+  "started_at": "2026-10-20T00:46:50.580157Z",
+  "completed_at": "2026-10-20T00:48:02.219719Z",
+  "memory_service": "http://127.0.0.1:19080",
+  "provider": "http://127.0.0.1:19889",
+  "provider_profile": "qwen3-cpu-offline-readonly-cache",
+  "generation": "bootstrap-926ecc0230c4736f",
+  "ranking_version": "hybrid-rrf60-dedicated-http:Qwen/Qwen3-Reranker-0.6B@e61197ed45024b0ed8a2d74b80b4d909f1255473-v1",
+  "query_concurrency": 1,
+  "tenant_id": "retrieval-eval-v211-20261020",
+  "synthetic_data_only": true
+}

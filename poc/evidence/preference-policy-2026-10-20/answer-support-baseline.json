@@ -1,0 +1,105 @@
+{
+  "version": "answer-support-regressions-v1",
+  "minimum_score": 0.1,
+  "instruction": "Given an agent memory query, judge whether each memory is relevant to completing the current task",
+  "passed": 11,
+  "total": 16,
+  "results": [
+    {
+      "id": "route-positive",
+      "score": 0.9996351003646851,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "route-other-tenant-regression",
+      "score": 0.5472925901412964,
+      "expected_relevant": false,
+      "passed": false
+    },
+    {
+      "id": "route-other-user",
+      "score": 0.0017700007883831859,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "route-current-contents",
+      "score": 0.037976618856191635,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "database-positive",
+      "score": 0.9995878338813782,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "database-password",
+      "score": 0.007704982068389654,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "role-positive",
+      "score": 0.6403508186340332,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "role-company",
+      "score": 0.31162014603614807,
+      "expected_relevant": false,
+      "passed": false
+    },
+    {
+      "id": "code-context-positive",
+      "score": 0.015852127224206924,
+      "expected_relevant": true,
+      "passed": false
+    },
+    {
+      "id": "code-context-unrelated",
+      "score": 0.00014757717144675553,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "food-context-positive",
+      "score": 0.0050565022975206375,
+      "expected_relevant": true,
+      "passed": false
+    },
+    {
+      "id": "food-context-unrelated",
+      "score": 0.00034631043672561646,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "episode-positive",
+      "score": 0.9988248944282532,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "episode-unspecified-time",
+      "score": 0.9904235005378723,
+      "expected_relevant": false,
+      "passed": false
+    },
+    {
+      "id": "name-positive",
+      "score": 0.9619845151901245,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "name-football",
+      "score": 0.0047811586409807205,
+      "expected_relevant": false,
+      "passed": true
+    }
+  ]
+}

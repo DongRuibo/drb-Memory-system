@@ -1,0 +1,59 @@
+{
+  "dataset_version": "retrieval-v2.2.0",
+  "generated_at": "2026-10-20T02:26:41.545289Z",
+  "methods": {
+    "current_provider": {
+      "sample_count": 19,
+      "recall_at_1": 0.9473684210526315,
+      "recall_at_3": 1.0,
+      "mean_reciprocal_rank": 0.9736842105263158,
+      "mean_ndcg_at_k": 0.9805752501879714,
+      "irrelevant_injection_rate": 0.6666666666666666
+    },
+    "hybrid_service": {
+      "sample_count": 19,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "mean_reciprocal_rank": 1.0,
+      "mean_ndcg_at_k": 1.0,
+      "irrelevant_injection_rate": 0.20833333333333334
+    },
+    "local_chinese_bm25": {
+      "sample_count": 19,
+      "recall_at_1": 0.9473684210526315,
+      "recall_at_3": 1.0,
+      "mean_reciprocal_rank": 0.9736842105263158,
+      "mean_ndcg_at_k": 0.9805752501879714,
+      "irrelevant_injection_rate": 0.3870967741935484
+    },
+    "local_lexical": {
+      "sample_count": 19,
+      "recall_at_1": 0.9473684210526315,
+      "recall_at_3": 1.0,
+      "mean_reciprocal_rank": 0.9736842105263158,
+      "mean_ndcg_at_k": 0.9805752501879714,
+      "irrelevant_injection_rate": 0.6346153846153846
+    },
+    "no_memory": {
+      "sample_count": 19,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "mean_reciprocal_rank": 0.0,
+      "mean_ndcg_at_k": 0.0,
+      "irrelevant_injection_rate": 0.0
+    },
+    "oracle": {
+      "sample_count": 19,
+      "recall_at_1": 1.0,
+      "recall_at_3": 1.0,
+      "mean_reciprocal_rank": 1.0,
+      "mean_ndcg_at_k": 1.0,
+      "irrelevant_injection_rate": 0.0
+    }
+  },
+  "negative_query_hit_rate": 0.0,
+  "forgotten_injection_count": 0,
+  "quality_gate_passed": true,
+  "safety_gate_passed": true,
+  "release_gate_passed": true
+}

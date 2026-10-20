@@ -36,3 +36,12 @@ When that container reaches a host-running Memory Service through
 `http://host.docker.internal:8080`, also set `MEMORY_ALLOW_DOCKER_HOST_HTTP=true`. This exception is
 restricted to Docker's well-known host gateway names; arbitrary non-loopback HTTP endpoints remain
 rejected and production deployments must use HTTPS.
+
+
+## Recovery demo with DeepSeek
+
+The existing client now also accepts the official DeepSeek HTTPS endpoint through
+`DEMO_CHAT_API_KEY`, `DEMO_CHAT_BASE_URL`, and `DEMO_CHAT_MODEL`. Legacy Kimi configuration
+remains supported. DeepSeek requests use `max_tokens`, disabled thinking, and streaming usage;
+Kimi requests retain their existing dialect. Arbitrary remote HTTP and redirects stay rejected.
+See [the isolated recovery demo](../../docs/resume-demo.md) for startup and evidence boundaries.

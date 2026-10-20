@@ -1,0 +1,761 @@
+{
+  "synthetic_data_only": true,
+  "checks": {
+    "initial_user_empty": true,
+    "global_scope_not_rewritten": true,
+    "cross_session_name_and_preference": true,
+    "correction_appends_version": true,
+    "recall_uses_corrected_version": true,
+    "conflict_is_contested": true,
+    "contested_record_excluded": true,
+    "reviewed_value_is_recalled": true,
+    "bob_cannot_read_alice_memories": true,
+    "forget_removes_actual_prompt_memory": true
+  },
+  "turns": [
+    {
+      "input": "我叫林舟。以后所有回答都请先给结论再讲细节。请简短确认。",
+      "turn": {
+        "assistant_message_id": "b0ee9020-25fc-426d-b209-ea3a6fc9b1f2",
+        "attempt_id": "cfa0d0f7-47df-469d-a359-d448fc28e917",
+        "cancel_requested_at": null,
+        "completion_tokens": 29,
+        "context_pack_id": "68381dec-dbfe-5930-9ec1-dd71ed38352d",
+        "created_at": "2026-10-20T02:24:33.123940Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "6c5e90a7-0ce4-4895-9ee9-7d4bfca20bb4",
+        "memory_effects": [
+          {
+            "content": "用户偏好所有回答先给结论再讲细节。",
+            "kind": "remembered",
+            "memory_record_id": "b530985f-dd72-5a73-ac56-3349d37958e7",
+            "memory_type": "preference",
+            "memory_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+            "operation_id": "bf3cd333-dd33-5868-aad9-8118ad059000",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "content": "用户叫林舟。",
+            "kind": "remembered",
+            "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+            "memory_type": "profile_fact",
+            "memory_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca",
+            "operation_id": "c547d046-99d2-5fc9-a4ca-f02cc5fd2a92",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "candidate_count": 2,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 2,
+            "remembered_count": 2,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 2
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:f71e1cd3503f91e802075dc81ca2894f2804bbb7523bde0173d80c4be808f9f8",
+        "outcome_receipt_id": "6787104b-95b1-53de-bf9b-00fe2485b0e9",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好所有回答先给结论再讲细节。",
+              "memory_record_id": "b530985f-dd72-5a73-ac56-3349d37958e7",
+              "memory_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-335076b9eaaf7f0a"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户叫林舟。",
+              "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+              "memory_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-1ca5565cf7bbbe76"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:24:36.049358Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 783,
+        "session_id": "a82c82a7-4b99-4e5b-a3ea-cb925514d607",
+        "status": "completed",
+        "task_id": "325f40b2-648c-429c-8a34-961e8dd1aed5",
+        "total_tokens": 812,
+        "updated_at": "2026-10-20T02:24:39.523902Z",
+        "used_memory_ids": [
+          "b530985f-dd72-5a73-ac56-3349d37958e7",
+          "4734af82-c3cb-5838-91be-e08439a2f30a"
+        ],
+        "used_memory_version_ids": [
+          "5cb0db57-151c-5b9b-9492-5be8205ce024",
+          "c1b53947-f36c-5e36-9041-11989619a4ca"
+        ],
+        "user_message_id": "a236c55d-9b6e-4b2e-8aab-af381956b9d9"
+      },
+      "answer": "结论：好的，林舟，以后所有回答都先给结论、再讲细节。\n\n细节：本轮起生效，无需其他设置。",
+      "latency_ms": 6615
+    },
+    {
+      "input": "我叫什么？回答时我偏好的结构是什么？请简短回答。",
+      "turn": {
+        "assistant_message_id": "69196793-6825-47b9-ba05-be17157e4fb4",
+        "attempt_id": "05921208-2da1-4bcb-b87b-7cc3dc36a030",
+        "cancel_requested_at": null,
+        "completion_tokens": 16,
+        "context_pack_id": "6a1c61b1-b92f-528c-a650-11487f421d1f",
+        "created_at": "2026-10-20T02:24:39.765208Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "87adff2d-e667-48cf-9067-3a1e97e6c888",
+        "memory_effects": [
+          {
+            "candidate_count": 0,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 0,
+            "remembered_count": 0,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 0
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:9573eb4eee8576fdaf96d83655fc242c449d5295c556b529bb5460ca0a7db0d1",
+        "outcome_receipt_id": "f50b6738-5d58-5cf1-9d4e-bea9f871021c",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好所有回答先给结论再讲细节。",
+              "memory_record_id": "b530985f-dd72-5a73-ac56-3349d37958e7",
+              "memory_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-335076b9eaaf7f0a"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户叫林舟。",
+              "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+              "memory_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-1ca5565cf7bbbe76"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:24:41.138191Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 778,
+        "session_id": "b47afe4a-2e6e-4598-bdc8-d132156842c0",
+        "status": "completed",
+        "task_id": "27254f63-d63a-45ae-843f-8434272bf152",
+        "total_tokens": 794,
+        "updated_at": "2026-10-20T02:24:44.154228Z",
+        "used_memory_ids": [
+          "b530985f-dd72-5a73-ac56-3349d37958e7",
+          "4734af82-c3cb-5838-91be-e08439a2f30a"
+        ],
+        "used_memory_version_ids": [
+          "5cb0db57-151c-5b9b-9492-5be8205ce024",
+          "c1b53947-f36c-5e36-9041-11989619a4ca"
+        ],
+        "user_message_id": "4308c55c-89c3-480f-bb3a-abaea894b971"
+      },
+      "answer": "你叫林舟。你偏好回答先给结论，再讲细节。",
+      "latency_ms": 4569
+    },
+    {
+      "input": "把我的姓名更正为陈星，请简短确认。",
+      "turn": {
+        "assistant_message_id": "6562abda-7943-4a70-9c82-9c9b82acdf1b",
+        "attempt_id": "48847a87-6220-496d-a25b-932edd0c3285",
+        "cancel_requested_at": null,
+        "completion_tokens": 11,
+        "context_pack_id": "3ef98aac-14c3-5d72-9b31-7dea3847ec6b",
+        "created_at": "2026-10-20T02:24:44.348195Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "9b866092-4064-4c7b-ac7f-078ea501eeb4",
+        "memory_effects": [
+          {
+            "kind": "corrected",
+            "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+            "memory_version_id": "2d2cc918-523e-578c-8784-87302141307a",
+            "operation_id": "ee42e2b1-7aeb-527b-9863-285985662275",
+            "projection_status": "pending",
+            "revision": 1
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:87b918dd17bf10624fe040a0a1dff98f37d75010d6d5ef977bd3c097008eaa83",
+        "outcome_receipt_id": "bc79b7f1-dace-54d9-90e7-b8f33103ae1c",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户叫陈星。",
+              "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+              "memory_version_id": "2d2cc918-523e-578c-8784-87302141307a",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:39e5a765-94b1-4311-b6b7-543b9f8c3a7c:c49426bd-f60c-4992-b13b-14781eb458ec"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好所有回答先给结论再讲细节。",
+              "memory_record_id": "b530985f-dd72-5a73-ac56-3349d37958e7",
+              "memory_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-335076b9eaaf7f0a"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:24:44.397176Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 756,
+        "session_id": "39e5a765-94b1-4311-b6b7-543b9f8c3a7c",
+        "status": "completed",
+        "task_id": "116fc088-eca6-4aa8-ab1e-4832af9c1acf",
+        "total_tokens": 767,
+        "updated_at": "2026-10-20T02:24:46.680568Z",
+        "used_memory_ids": [
+          "4734af82-c3cb-5838-91be-e08439a2f30a",
+          "b530985f-dd72-5a73-ac56-3349d37958e7"
+        ],
+        "used_memory_version_ids": [
+          "2d2cc918-523e-578c-8784-87302141307a",
+          "5cb0db57-151c-5b9b-9492-5be8205ce024"
+        ],
+        "user_message_id": "c49426bd-f60c-4992-b13b-14781eb458ec"
+      },
+      "answer": "已确认，你的姓名已更正为陈星。",
+      "latency_ms": 2550
+    },
+    {
+      "input": "我叫什么？请简短回答。",
+      "turn": {
+        "assistant_message_id": "00a3b6ce-732a-429d-a539-b5fc01c82f0d",
+        "attempt_id": "b2695ffa-e0aa-45e8-a694-6758a03c39af",
+        "cancel_requested_at": null,
+        "completion_tokens": 5,
+        "context_pack_id": "22f54513-2276-587b-a7a7-59939ae9ba51",
+        "created_at": "2026-10-20T02:24:46.918471Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "b87f1f95-cc6a-4cf7-a4b5-dc39b3ec3078",
+        "memory_effects": [
+          {
+            "candidate_count": 0,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 0,
+            "remembered_count": 0,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 0
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:376c21c3090526642c4fc1686190b56bd918f1c86205ab1c15f817fc9f0addbc",
+        "outcome_receipt_id": "44f2a784-154a-55e1-8850-66e58c39e923",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好所有回答先给结论再讲细节。",
+              "memory_record_id": "b530985f-dd72-5a73-ac56-3349d37958e7",
+              "memory_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-335076b9eaaf7f0a"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户叫陈星。",
+              "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+              "memory_version_id": "2d2cc918-523e-578c-8784-87302141307a",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:39e5a765-94b1-4311-b6b7-543b9f8c3a7c:c49426bd-f60c-4992-b13b-14781eb458ec"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:24:47.870064Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 752,
+        "session_id": "d380ffdf-1789-49a2-b201-46acfad63851",
+        "status": "completed",
+        "task_id": "1b451e0c-e0e1-4ac2-a042-8f5e844b0110",
+        "total_tokens": 757,
+        "updated_at": "2026-10-20T02:24:49.944063Z",
+        "used_memory_ids": [
+          "b530985f-dd72-5a73-ac56-3349d37958e7",
+          "4734af82-c3cb-5838-91be-e08439a2f30a"
+        ],
+        "used_memory_version_ids": [
+          "5cb0db57-151c-5b9b-9492-5be8205ce024",
+          "2d2cc918-523e-578c-8784-87302141307a"
+        ],
+        "user_message_id": "5f4a16f7-81af-4dd8-a8c4-45953ce8af93"
+      },
+      "answer": "你叫陈星。",
+      "latency_ms": 3045
+    },
+    {
+      "input": "我叫什么？请简短回答。",
+      "turn": {
+        "assistant_message_id": "fa3f004e-3c60-4f3f-be71-74b84bc95480",
+        "attempt_id": "21f79238-4505-4c64-ba88-7f206216d385",
+        "cancel_requested_at": null,
+        "completion_tokens": 5,
+        "context_pack_id": "a945296a-178d-59ba-a48a-45c84d45a439",
+        "created_at": "2026-10-20T02:24:50.169656Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "5ed35fdf-ad6b-4aae-afe4-fadb868fa6ac",
+        "memory_effects": [
+          {
+            "candidate_count": 0,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 0,
+            "remembered_count": 0,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 0
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:40beb48701656fb8540c7cfba2eab7f69cfb266520c00c3fff8fc6676d59e0b2",
+        "outcome_receipt_id": "3ba19c28-4985-505f-8c84-2311fc6e3ccd",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好所有回答先给结论再讲细节。",
+              "memory_record_id": "b530985f-dd72-5a73-ac56-3349d37958e7",
+              "memory_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-335076b9eaaf7f0a"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户叫周越。",
+              "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+              "memory_version_id": "7ed7a38b-cc25-5424-aa4e-7bc5bb1f65fd",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "synthetic-conflict:f95a4147-5a99-4b9e-bfb2-35da836882f3"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:24:51.274704Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 735,
+        "session_id": "a75ccf8a-8275-4d39-a1e0-e137195531e0",
+        "status": "completed",
+        "task_id": "eb31b7d8-c2ab-4425-9f9f-5b9bf371a85c",
+        "total_tokens": 740,
+        "updated_at": "2026-10-20T02:24:53.689111Z",
+        "used_memory_ids": [
+          "b530985f-dd72-5a73-ac56-3349d37958e7",
+          "4734af82-c3cb-5838-91be-e08439a2f30a"
+        ],
+        "used_memory_version_ids": [
+          "5cb0db57-151c-5b9b-9492-5be8205ce024",
+          "7ed7a38b-cc25-5424-aa4e-7bc5bb1f65fd"
+        ],
+        "user_message_id": "824dd77f-a2b0-4787-ae55-15abb700e05e"
+      },
+      "answer": "你叫周越。",
+      "latency_ms": 3567
+    },
+    {
+      "input": "我叫什么？请简短回答。",
+      "turn": {
+        "assistant_message_id": "9f716d25-d0d4-48ed-98f6-7235d99272cc",
+        "attempt_id": "e8033dc8-5498-4da2-8ea9-6a33dc4d8f2d",
+        "cancel_requested_at": null,
+        "completion_tokens": 20,
+        "context_pack_id": "b6f13e46-424d-56ee-8fd5-8f801b07ac89",
+        "created_at": "2026-10-20T02:24:54.256077Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "4d89cb57-2cdf-4310-b2bc-42fe11bd3f32",
+        "memory_effects": [
+          {
+            "candidate_count": 0,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 0,
+            "remembered_count": 0,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 0
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:8e4dfa7d7a3d3c703fd23c0989daaf9daeafbccbcf08fd054e5c0c7751af7c42",
+        "outcome_receipt_id": "5d28cdc6-caca-566c-ac35-c7dd601a9df5",
+        "prompt_context": {
+          "memory_context": [],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:24:55.273173Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 337,
+        "session_id": "e0e2178e-2822-404d-85bc-50f2c6771976",
+        "status": "completed",
+        "task_id": "3ae9d855-b525-4736-8bb0-7e873f6ec4bf",
+        "total_tokens": 357,
+        "updated_at": "2026-10-20T02:24:58.495125Z",
+        "used_memory_ids": [],
+        "used_memory_version_ids": [],
+        "user_message_id": "0863dc70-bc6f-4e8d-ae6a-80bbcb3c521c"
+      },
+      "answer": "我不知道你的名字——本轮没有可用的记忆信息。如果你告诉我，我可以在这个会话里记住。",
+      "latency_ms": 4604
+    }
+  ],
+  "initial_export": {
+    "format_version": "lazytt-memory-export-v1",
+    "generated_at": "2026-10-20T02:24:39.750540Z",
+    "record_count": 2,
+    "records": [
+      {
+        "memory_record_id": "b530985f-dd72-5a73-ac56-3349d37958e7",
+        "scope": {
+          "kind": "user",
+          "id": "demo-alice"
+        },
+        "memory_type": "preference",
+        "semantic_key": "user.response_style.structure.conclusion_first",
+        "head_state": "active",
+        "revision": 0,
+        "current_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+        "identity_retired_at": null,
+        "versions": [
+          {
+            "memory_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+            "version_no": 1,
+            "content": "用户偏好所有回答先给结论再讲细节。",
+            "content_hash": "sha256:a581ef9052e9ba16fd5cd1e3af9a6a059234622f25c98be0304ddb7cc04e9dee",
+            "normalized_key": "user.response_style.structure.conclusion_first",
+            "confidence": 0.99,
+            "importance": 0.9,
+            "inference_kind": "derived",
+            "source_refs": [
+              "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-335076b9eaaf7f0a"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": null,
+            "structured_content": {
+              "schema_name": "lazytt.preference",
+              "schema_version": 1,
+              "payload": {
+                "applicability": "global",
+                "subject": "user",
+                "value": "先给结论再讲细节"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-preference-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:24:36.018849Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "5cb0db57-151c-5b9b-9492-5be8205ce024",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:24:36.018849Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+        "scope": {
+          "kind": "user",
+          "id": "demo-alice"
+        },
+        "memory_type": "profile_fact",
+        "semantic_key": "user.profile.name",
+        "head_state": "active",
+        "revision": 0,
+        "current_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca",
+        "identity_retired_at": null,
+        "versions": [
+          {
+            "memory_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca",
+            "version_no": 1,
+            "content": "用户叫林舟。",
+            "content_hash": "sha256:893916ab31dae53b46126536de830d2a7c8b73eaf305536cb087cc85285458e1",
+            "normalized_key": "user.profile.name",
+            "confidence": 0.99,
+            "importance": 0.8,
+            "inference_kind": "derived",
+            "source_refs": [
+              "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-1ca5565cf7bbbe76"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": null,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "name",
+                "subject": "user",
+                "value": "林舟"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-profile_fact-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:24:36.033690Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:24:36.033690Z"
+          }
+        ]
+      }
+    ]
+  },
+  "corrected_record": {
+    "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+    "scope": {
+      "kind": "user",
+      "id": "demo-alice"
+    },
+    "memory_type": "profile_fact",
+    "semantic_key": "user.profile.name",
+    "head_state": "active",
+    "revision": 1,
+    "current_version_id": "2d2cc918-523e-578c-8784-87302141307a",
+    "identity_retired_at": null,
+    "versions": [
+      {
+        "memory_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca",
+        "version_no": 1,
+        "content": "用户叫林舟。",
+        "content_hash": "sha256:893916ab31dae53b46126536de830d2a7c8b73eaf305536cb087cc85285458e1",
+        "normalized_key": "user.profile.name",
+        "confidence": 0.99,
+        "importance": 0.8,
+        "inference_kind": "derived",
+        "source_refs": [
+          "conversation:a82c82a7-4b99-4e5b-a3ea-cb925514d607:a236c55d-9b6e-4b2e-8aab-af381956b9d9#memory-1ca5565cf7bbbe76"
+        ],
+        "effective_from": null,
+        "effective_to": null,
+        "event_time": null,
+        "structured_content": {
+          "schema_name": "lazytt.profile_fact",
+          "schema_version": 1,
+          "payload": {
+            "attribute": "name",
+            "subject": "user",
+            "value": "林舟"
+          }
+        },
+        "classification": "personal",
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "consent_ref": null,
+        "retention_policy_id": "demo-user-profile_fact-v1",
+        "retain_until": null,
+        "created_at": "2026-10-20T02:24:36.033690Z",
+        "content_erased_at": null
+      },
+      {
+        "memory_version_id": "2d2cc918-523e-578c-8784-87302141307a",
+        "version_no": 2,
+        "content": "用户叫陈星。",
+        "content_hash": "sha256:80aa5fa66cac0f4abb877820eed36470b88e017849eeea29a92d6897074d96bb",
+        "normalized_key": "user.profile.name",
+        "confidence": 0.99,
+        "importance": 0.8,
+        "inference_kind": "explicit",
+        "source_refs": [
+          "conversation:39e5a765-94b1-4311-b6b7-543b9f8c3a7c:c49426bd-f60c-4992-b13b-14781eb458ec"
+        ],
+        "effective_from": "2026-10-20T02:24:44.372132Z",
+        "effective_to": null,
+        "event_time": null,
+        "structured_content": null,
+        "classification": "personal",
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "consent_ref": null,
+        "retention_policy_id": "demo-user-profile_fact-v1",
+        "retain_until": null,
+        "created_at": "2026-10-20T02:24:44.376100Z",
+        "content_erased_at": null
+      }
+    ],
+    "events": [
+      {
+        "sequence_no": 1,
+        "event_type": "memory_accepted",
+        "memory_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca",
+        "actor_type": "policy",
+        "actor_id": "demo-policy",
+        "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+        "payload": {},
+        "occurred_at": "2026-10-20T02:24:36.033690Z"
+      },
+      {
+        "sequence_no": 2,
+        "event_type": "memory_corrected",
+        "memory_version_id": "2d2cc918-523e-578c-8784-87302141307a",
+        "actor_type": "user",
+        "actor_id": "demo-alice",
+        "reason_code": "USER_EXPLICIT_CORRECTION",
+        "payload": {
+          "reason_hash": "sha256:a7c8e7c7133e7a8e58b729a47667b5f4bd6bbe0f89699fb47792c6c18779fd2a",
+          "supersedes_version_id": "c1b53947-f36c-5e36-9041-11989619a4ca"
+        },
+        "occurred_at": "2026-10-20T02:24:44.376100Z"
+      }
+    ]
+  },
+  "conflict": {
+    "operation_id": "ddeee4a7-57ad-5ab2-8c08-0a8e5955e5b1",
+    "candidate_ids": [
+      "d4e4ac29-79d0-5fc2-945b-533cbfb1a16c"
+    ],
+    "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+    "memory_version_id": "2d2cc918-523e-578c-8784-87302141307a",
+    "head_revision": 2,
+    "canonical_status": "needs_review",
+    "projection_status": "pending",
+    "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+    "provider_object_id": "9dea31ee-2391-4b04-b69d-943d8ff13de6",
+    "attempts": 0
+  },
+  "review": {
+    "operation_id": "d49dee27-5a93-53d9-9140-d53a4123cd33",
+    "candidate_ids": [
+      "d4e4ac29-79d0-5fc2-945b-533cbfb1a16c"
+    ],
+    "memory_record_id": "4734af82-c3cb-5838-91be-e08439a2f30a",
+    "memory_version_id": "7ed7a38b-cc25-5424-aa4e-7bc5bb1f65fd",
+    "head_revision": 3,
+    "canonical_status": "memory_accepted",
+    "projection_status": "pending",
+    "reason_code": "REVIEW_ACCEPTED_CONFLICTING_VALUE",
+    "provider_object_id": null,
+    "attempts": 0
+  },
+  "all_passed": true
+}

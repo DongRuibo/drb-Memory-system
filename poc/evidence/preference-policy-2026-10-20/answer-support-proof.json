@@ -1,0 +1,105 @@
+{
+  "version": "answer-support-regressions-v1",
+  "minimum_score": 0.1,
+  "instruction": "Judge whether this memory directly supports answering the Query, not merely whether it shares a topic. A fact must supply the information requested; do not infer missing personal details, credentials, or another user or tenant's actual memory contents from generic API or architecture documentation. A contextual preference is relevant only when its stated scenario applies to the Query.",
+  "passed": 11,
+  "total": 16,
+  "results": [
+    {
+      "id": "route-positive",
+      "score": 0.9998329877853394,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "route-other-tenant-regression",
+      "score": 0.413331001996994,
+      "expected_relevant": false,
+      "passed": false
+    },
+    {
+      "id": "route-other-user",
+      "score": 0.00319215701892972,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "route-current-contents",
+      "score": 0.02318090945482254,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "database-positive",
+      "score": 0.9998445510864258,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "database-password",
+      "score": 0.06708087027072906,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "role-positive",
+      "score": 0.685690701007843,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "role-company",
+      "score": 0.4319068193435669,
+      "expected_relevant": false,
+      "passed": false
+    },
+    {
+      "id": "code-context-positive",
+      "score": 0.01703512668609619,
+      "expected_relevant": true,
+      "passed": false
+    },
+    {
+      "id": "code-context-unrelated",
+      "score": 5.164818139746785e-05,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "food-context-positive",
+      "score": 0.014263832941651344,
+      "expected_relevant": true,
+      "passed": false
+    },
+    {
+      "id": "food-context-unrelated",
+      "score": 0.0006593516445718706,
+      "expected_relevant": false,
+      "passed": true
+    },
+    {
+      "id": "episode-positive",
+      "score": 0.9992940425872803,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "episode-unspecified-time",
+      "score": 0.9914047718048096,
+      "expected_relevant": false,
+      "passed": false
+    },
+    {
+      "id": "name-positive",
+      "score": 0.9913819432258606,
+      "expected_relevant": true,
+      "passed": true
+    },
+    {
+      "id": "name-football",
+      "score": 0.008305630646646023,
+      "expected_relevant": false,
+      "passed": true
+    }
+  ]
+}

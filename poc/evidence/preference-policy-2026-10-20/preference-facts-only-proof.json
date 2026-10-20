@@ -1,0 +1,6 @@
+{
+  "facts_only_returns_fact_despite_four_global_preferences": true,
+  "facts_only_excludes_global_channel": true,
+  "ranking_version": "dedicated-http:Qwen/Qwen3-Reranker-0.6B@e61197ed45024b0ed8a2d74b80b4d909f1255473-v2-preference-applicability",
+  "synthetic_data_only": true
+}

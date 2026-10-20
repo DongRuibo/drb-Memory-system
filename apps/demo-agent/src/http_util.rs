@@ -7,15 +7,18 @@ use crate::error::DemoError;
 
 const MAX_REMOTE_ERROR_BYTES: usize = 4_096;
 
-pub fn normalize_kimi_base_url(raw: &str) -> Result<String, DemoError> {
+pub fn normalize_chat_base_url(raw: &str) -> Result<String, DemoError> {
     let url = parse_clean_url(raw, "Kimi")?;
     let is_official = url.scheme() == "https"
         && url.host_str() == Some("api.kimi.com")
         && url.path().trim_end_matches('/') == "/coding/v1";
+    let is_deepseek = url.scheme() == "https"
+        && url.host_str() == Some("api.deepseek.com")
+        && matches!(url.path().trim_end_matches('/'), "" | "/v1");
     let is_local_test = is_loopback(&url) && matches!(url.scheme(), "http" | "https");
-    if !is_official && !is_local_test {
+    if !is_official && !is_deepseek && !is_local_test {
         return Err(DemoError::Config(
-            "KIMI_BASE_URL must be https://api.kimi.com/coding/v1; only loopback overrides are allowed for tests"
+            "chat base URL must be the official Kimi or DeepSeek endpoint; only loopback overrides are allowed for tests"
                 .into(),
         ));
     }
@@ -114,11 +117,15 @@ mod tests {
     #[test]
     fn kimi_url_is_pinned_to_the_official_endpoint() {
         assert!(
-            normalize_kimi_base_url("https://api.kimi.com/coding/v1").is_ok(),
+            normalize_chat_base_url("https://api.kimi.com/coding/v1").is_ok(),
             "official URL must be accepted"
         );
-        assert!(normalize_kimi_base_url("https://api.kimi.com/coding/v1?redirect=evil").is_err());
-        assert!(normalize_kimi_base_url("https://example.com/v1").is_err());
-        assert!(normalize_kimi_base_url("http://127.0.0.1:9999/coding/v1").is_ok());
+        assert!(normalize_chat_base_url("https://api.kimi.com/coding/v1?redirect=evil").is_err());
+        assert!(normalize_chat_base_url("https://example.com/v1").is_err());
+        assert!(normalize_chat_base_url("https://api.deepseek.com").is_ok());
+        assert!(normalize_chat_base_url("https://api.deepseek.com/v1/").is_ok());
+        assert!(normalize_chat_base_url("http://api.deepseek.com").is_err());
+        assert!(normalize_chat_base_url("https://api.deepseek.com/other").is_err());
+        assert!(normalize_chat_base_url("http://127.0.0.1:9999/coding/v1").is_ok());
     }
 }

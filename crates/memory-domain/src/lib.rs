@@ -23,6 +23,6 @@ pub use memory::{
 };
 pub use scope::{MemoryScope, ScopeKind};
 pub use structured_content::{
-    MAX_STRUCTURED_CONTENT_BYTES, STRUCTURED_CONTENT_VERSION, StructuredContent,
-    StructuredContentError, schema_name_for,
+    MAX_STRUCTURED_CONTENT_BYTES, PreferenceApplicability, STRUCTURED_CONTENT_VERSION,
+    StructuredContent, StructuredContentError, schema_name_for,
 };

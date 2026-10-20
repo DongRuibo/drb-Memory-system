@@ -61,12 +61,8 @@ impl DynamicTenantWorkers {
         }
 
         let authority = DemoAuthority::worker(tenant_id.to_owned());
-        bootstrap_empty_projection_generation(
-            &self.repository,
-            &authority,
-            &self.model_manifest,
-        )
-        .await?;
+        bootstrap_empty_projection_generation(&self.repository, &authority, &self.model_manifest)
+            .await?;
 
         let projection_worker = ProjectionWorker::new(
             self.repository.clone(),
@@ -77,11 +73,8 @@ impl DynamicTenantWorkers {
         );
         tokio::spawn(projection_worker.run());
         if let Some(extractor) = self.extractor.as_ref() {
-            let consolidation_worker = ConsolidationWorker::new(
-                self.repository.clone(),
-                Arc::clone(extractor),
-                authority,
-            );
+            let consolidation_worker =
+                ConsolidationWorker::new(self.repository.clone(), Arc::clone(extractor), authority);
             tokio::spawn(consolidation_worker.run());
         }
         started_tenants.insert(tenant_id.to_owned());
@@ -116,7 +109,7 @@ pub async fn bootstrap_empty_projection_generation(
     let activate_key = format!("bootstrap-activate-{hash_prefix}");
     let finalize_key = format!("bootstrap-finalize-{hash_prefix}");
     let mut target = repository
-        .start_projection_rebuild(
+        .start_empty_projection_rebuild(
             authority,
             ProjectionRebuildCommand {
                 generation: generation.clone(),
@@ -839,7 +832,7 @@ mod tests {
         ExtractCandidateProposal, ExtractMemoryOutput, ExtractMemoryRequest, ExtractionDiagnostics,
     };
     use memory_domain::{ConsolidationStatus, TurnOutcome};
-    use memory_postgres::{AppendCompletedTurnCommand, DemoAuthority};
+    use memory_postgres::{AppendCompletedTurnCommand, DemoAuthority, IngestCommand};
 
     use super::*;
 
@@ -884,7 +877,7 @@ mod tests {
 
     #[tokio::test]
     #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
-    async fn dynamic_tenant_projection_bootstrap_is_idempotent() {
+    async fn empty_projection_bootstrap_is_idempotent_and_rejects_nonempty_tenants() {
         let database_url = std::env::var("TEST_DATABASE_URL").expect("TEST_DATABASE_URL");
         let repository = MemoryRepository::connect(&database_url).await.unwrap();
         repository.migrate().await.unwrap();
@@ -913,10 +906,45 @@ mod tests {
             .await
             .unwrap();
         assert_eq!(current.status, "active");
-        assert_eq!(
-            current.model_manifest.manifest_hash,
-            manifest.manifest_hash
-        );
+        assert_eq!(current.model_manifest.manifest_hash, manifest.manifest_hash);
+
+        let user = DemoAuthority::user(&authority.tenant_id, "bootstrap-user");
+        repository
+            .ingest_explicit(
+                &user,
+                IngestCommand {
+                    idempotency_key: "bootstrap-nonempty-regression".into(),
+                    event_id: "bootstrap-nonempty-event".into(),
+                    source_type: "conversation_message".into(),
+                    source_ref: "conversation:bootstrap-nonempty".into(),
+                    source_content: "请记住：先给结论。".into(),
+                    memory_content: "先给结论".into(),
+                    occurred_at: Utc::now(),
+                },
+            )
+            .await
+            .unwrap();
+        let changed = ProjectionModelManifest::new(
+            "mem0".into(),
+            "dynamic-test".into(),
+            "dynamic-test-embedding".into(),
+            "test-v2".into(),
+            64,
+            "l2".into(),
+            "dynamic-test-v1".into(),
+            true,
+        )
+        .unwrap();
+        assert!(matches!(
+            bootstrap_empty_projection_generation(&repository, &authority, &changed).await,
+            Err(RepositoryError::Conflict(message)) if message.contains("non-empty tenant")
+        ));
+        let after = repository
+            .current_projection_generation_view(&authority)
+            .await
+            .unwrap();
+        assert_eq!(after.generation, current.generation);
+        assert_eq!(after.model_manifest.manifest_hash, manifest.manifest_hash);
     }
 
     #[tokio::test]

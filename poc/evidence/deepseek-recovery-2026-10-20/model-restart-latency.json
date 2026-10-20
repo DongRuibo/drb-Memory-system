@@ -1,0 +1,18 @@
+{
+  "restart_to_model_health_ms": 17035.27,
+  "device": "cpu",
+  "embedding": {
+    "model": "Qwen/Qwen3-Embedding-0.6B",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "dimensions": 1024,
+    "normalization": "l2",
+    "aliases": [
+      "text-embedding-3-small"
+    ]
+  },
+  "reranker": {
+    "model": "Qwen/Qwen3-Reranker-0.6B",
+    "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473"
+  },
+  "boundary": "model container restart and weights reload from existing cache; not first installation or OS disk-cache cold start"
+}

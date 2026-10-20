@@ -4,10 +4,10 @@ use std::time::Duration;
 
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
-use memory_domain::{CANONICAL_MEMORY_TYPE_NAMES, MemoryType, StructuredContent};
+use memory_domain::CANONICAL_MEMORY_TYPE_NAMES;
 pub use memory_domain::{
-    ConsolidationStatus, ConsolidationTrigger, Episode, EventTime, EventTimePrecision, TurnOutcome,
-    VerifiedToolResult,
+    ConsolidationStatus, ConsolidationTrigger, Episode, EventTime, EventTimePrecision, MemoryType,
+    StructuredContent, TurnOutcome, VerifiedToolResult,
 };
 use reqwest::header::{AUTHORIZATION, HeaderMap, HeaderValue};
 use reqwest::redirect::Policy;
@@ -131,6 +131,10 @@ pub struct TaskContext {
 
 #[derive(Debug, Clone)]
 pub struct SourceEventCommand {
+    pub memory_type: MemoryType,
+    pub semantic_key: Option<String>,
+    pub structured_content: Option<StructuredContent>,
+    pub event_time: Option<EventTime>,
     pub idempotency_key: String,
     pub event_id: String,
     pub source_type: String,
@@ -762,6 +766,10 @@ impl MemoryHttpClient {
 
 #[derive(Serialize)]
 struct SourceEventRequest<'a> {
+    memory_type: MemoryType,
+    semantic_key: &'a Option<String>,
+    structured_content: &'a Option<StructuredContent>,
+    event_time: &'a Option<EventTime>,
     event_id: &'a str,
     source_type: &'a str,
     source_ref: &'a str,
@@ -893,6 +901,10 @@ impl MemoryPort for MemoryHttpClient {
             "/v1/memory/events",
             Some(&command.idempotency_key),
             &SourceEventRequest {
+                memory_type: command.memory_type,
+                semantic_key: &command.semantic_key,
+                structured_content: &command.structured_content,
+                event_time: &command.event_time,
                 event_id: &command.event_id,
                 source_type: &command.source_type,
                 source_ref: &command.source_ref,

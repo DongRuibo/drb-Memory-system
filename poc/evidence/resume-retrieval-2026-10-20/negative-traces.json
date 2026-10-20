@@ -1,0 +1,87 @@
+{
+  "dataset_version": "retrieval-v2.1.1",
+  "traces": [
+    {
+      "query_id": "n01",
+      "query": "用户最喜欢哪支足球队？",
+      "hits": [
+        {
+          "document_id": "contact_name",
+          "score": 0.009897672571241856
+        },
+        {
+          "document_id": "release_old",
+          "score": 0.007191527634859085
+        },
+        {
+          "document_id": "meeting_time",
+          "score": 0.005562227219343185
+        }
+      ],
+      "degraded": false
+    },
+    {
+      "query_id": "n02",
+      "query": "明天北京天气如何？",
+      "hits": [],
+      "degraded": false
+    },
+    {
+      "query_id": "n03",
+      "query": "周末去哪里看电影？",
+      "hits": [
+        {
+          "document_id": "absolute_deadline",
+          "score": 0.015337894670665264
+        },
+        {
+          "document_id": "projection_table",
+          "score": 0.0059905145317316055
+        },
+        {
+          "document_id": "contact_name",
+          "score": 0.004321761429309845
+        }
+      ],
+      "degraded": false
+    },
+    {
+      "query_id": "n04",
+      "query": "生产数据库的管理员密码是什么？",
+      "hits": [
+        {
+          "document_id": "release_codename",
+          "score": 0.011326627805829048
+        },
+        {
+          "document_id": "absolute_deadline",
+          "score": 0.005794840399175882
+        },
+        {
+          "document_id": "database_choice",
+          "score": 0.002692126901820302
+        }
+      ],
+      "degraded": false
+    },
+    {
+      "query_id": "n05",
+      "query": "其他租户的 Context Pack 里有什么？",
+      "hits": [
+        {
+          "document_id": "consume_route",
+          "score": 0.751708984375
+        },
+        {
+          "document_id": "datacenter",
+          "score": 0.003976575564593077
+        },
+        {
+          "document_id": "contact_name",
+          "score": 0.003822115249931812
+        }
+      ],
+      "degraded": false
+    }
+  ]
+}

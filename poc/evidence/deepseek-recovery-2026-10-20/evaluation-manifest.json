@@ -1,0 +1,14 @@
+{
+  "evaluation_id": "b4e0a5fc-29b1-46f2-93fe-2a4fddcee530",
+  "dataset_version": "retrieval-v2.2.0",
+  "started_at": "2026-10-20T02:24:34.508139Z",
+  "completed_at": "2026-10-20T02:26:41.545346Z",
+  "memory_service": "http://127.0.0.1:19080",
+  "provider": "http://127.0.0.1:19889",
+  "provider_profile": "qwen3-cpu-plus-deepseek-support-v1",
+  "generation": "bootstrap-926ecc0230c4736f",
+  "ranking_version": "hybrid-rrf60-answer-support-v1:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+  "query_concurrency": 1,
+  "tenant_id": "resume-deepseek-v3-20261020",
+  "synthetic_data_only": true
+}

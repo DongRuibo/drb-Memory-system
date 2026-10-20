@@ -1,0 +1,48 @@
+# Overlay on compose.yaml for local contract validation only. No model weights.
+services:
+  mem0-postgres:
+    networks: [contracts]
+  mem0:
+    networks: [contracts]
+  contract-embedder:
+    image: python:3.12-slim
+    restart: "no"
+    command: [python, /embedder.py, --host, 0.0.0.0, --port, "18080", --dimensions, "1536"]
+    volumes:
+      - ./tools/poc_embedding_server.py:/embedder.py:ro
+    networks:
+      contracts:
+        aliases: [retrieval-models-cpu]
+  contract-gateway:
+    image: python:3.12-slim
+    restart: "no"
+    command: [python, /gateway.py]
+    volumes:
+      - ./deploy/local/contract_gateway.py:/gateway.py:ro
+    ports:
+      - "127.0.0.1:${CONTRACT_MEM0_HOST_PORT:-19889}:8000"
+      - "127.0.0.1:${CONTRACT_EMBEDDING_HOST_PORT:-19081}:8001"
+    networks: [default, contracts]
+  contract-configurator:
+    image: python:3.12-slim
+    restart: "no"
+    command: [python, /configure.py]
+    volumes:
+      - ./deploy/mem0/configure.py:/configure.py:ro
+    environment:
+      MEM0_BASE_URL: http://mem0:8000
+      MEM0_API_KEY: ${MEM0_API_KEY:?run ./scripts/bootstrap-backend-env.sh}
+      MEM0_POSTGRES_HOST: mem0-postgres
+      MEM0_POSTGRES_PORT: "5432"
+      MEM0_POSTGRES_DB: postgres
+      MEM0_POSTGRES_USER: mem0
+      MEM0_POSTGRES_PASSWORD: ${MEM0_POSTGRES_PASSWORD:?run ./scripts/bootstrap-backend-env.sh}
+      MEM0_COLLECTION_NAME: resume_contract_1536
+      EMBEDDING_BASE_URL: http://retrieval-models-cpu:18080
+      EMBEDDING_API_KEY: contract-no-secret
+      EMBEDDING_DIMENSIONS: "1536"
+      EMBEDDING_MODEL: poc-deterministic-embedding
+    networks: [contracts]
+networks:
+  contracts:
+    internal: true

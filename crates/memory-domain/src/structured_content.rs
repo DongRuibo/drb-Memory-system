@@ -9,6 +9,14 @@ use crate::MemoryType;
 pub const STRUCTURED_CONTENT_VERSION: u16 = 1;
 pub const MAX_STRUCTURED_CONTENT_BYTES: usize = 4_096;
 
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum PreferenceApplicability {
+    Global,
+    #[default]
+    Contextual,
+}
+
 /// A strictly validated auxiliary representation of one canonical Memory Version.
 ///
 /// The readable `content` remains canonical. This envelope is versioned so projections and
@@ -22,6 +30,16 @@ pub struct StructuredContent {
 }
 
 impl StructuredContent {
+    pub fn preference_applicability(&self) -> PreferenceApplicability {
+        if self.schema_name != "lazytt.preference" {
+            return PreferenceApplicability::Contextual;
+        }
+        self.payload
+            .get("applicability")
+            .and_then(|value| serde_json::from_value(value.clone()).ok())
+            .unwrap_or_default()
+    }
+
     pub fn new(
         schema_name: impl Into<String>,
         schema_version: u16,
@@ -61,7 +79,30 @@ impl StructuredContent {
             .ok_or(StructuredContentError::PayloadMustBeObject)?;
         match memory_type {
             MemoryType::Preference => {
-                validate_object(payload, &["subject", "value"], &["qualifier"], &[])
+                validate_object(
+                    payload,
+                    &["subject", "value"],
+                    &["qualifier", "applicability"],
+                    &[],
+                )?;
+                if let Some(value) = payload.get("applicability") {
+                    let applicability: PreferenceApplicability =
+                        serde_json::from_value(value.clone()).map_err(|_| {
+                            StructuredContentError::InvalidField(
+                                "applicability".into(),
+                                "must be global or contextual".into(),
+                            )
+                        })?;
+                    if applicability == PreferenceApplicability::Global
+                        && payload.contains_key("qualifier")
+                    {
+                        return Err(StructuredContentError::InvalidField(
+                            "qualifier".into(),
+                            "global preferences cannot have a context qualifier".into(),
+                        ));
+                    }
+                }
+                Ok(())
             }
             MemoryType::ProfileFact => {
                 validate_object(payload, &["subject", "attribute", "value"], &[], &[])
@@ -236,5 +277,31 @@ mod tests {
             ),
             Err(StructuredContentError::InvalidField(_, _))
         ));
+    }
+    #[test]
+    fn preference_applicability_is_explicit_and_legacy_is_contextual() {
+        let mut preference = StructuredContent::new(
+            "lazytt.preference",
+            1,
+            json!({"subject":"user","value":"先给结论"}),
+            MemoryType::Preference,
+        )
+        .unwrap();
+        assert_eq!(
+            preference.preference_applicability(),
+            PreferenceApplicability::Contextual
+        );
+        preference.payload["applicability"] = json!("global");
+        preference.validate_for(MemoryType::Preference).unwrap();
+        assert_eq!(
+            preference.preference_applicability(),
+            PreferenceApplicability::Global
+        );
+        preference.payload["qualifier"] = json!("技术问题");
+        assert!(preference.validate_for(MemoryType::Preference).is_err());
+        preference.payload["applicability"] = json!("contextual");
+        preference.validate_for(MemoryType::Preference).unwrap();
+        preference.payload["applicability"] = json!("all_tenants");
+        assert!(preference.validate_for(MemoryType::Preference).is_err());
     }
 }

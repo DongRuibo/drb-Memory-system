@@ -1,0 +1,38 @@
+# Add after resume-contract.compose.yaml. Uses existing read-only host cache.
+services:
+  contract-embedder:
+    image: lazytt-retrieval-models:cpu
+    entrypoint: [python, /app/retrieval_models_server.py]
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - "18080"
+      - --device
+      - cpu
+      - --embedding-dimensions
+      - "1024"
+      - --embedding-revision
+      - 97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3
+      - --reranker-revision
+      - e61197ed45024b0ed8a2d74b80b4d909f1255473
+    environment:
+      HF_HUB_OFFLINE: "1"
+      TRANSFORMERS_OFFLINE: "1"
+      HF_HUB_DISABLE_TELEMETRY: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+      TOKENIZERS_PARALLELISM: "false"
+    volumes:
+      - ${RESUME_HF_HUB_CACHE:?set existing Hugging Face hub cache}:/models/huggingface/hub:ro
+      - ./tools/retrieval_models_server.py:/app/retrieval_models_server.py:ro
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://127.0.0.1:18080/health', timeout=3).read()"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 2m
+  contract-configurator:
+    environment:
+      MEM0_COLLECTION_NAME: resume_qwen3_1024
+      EMBEDDING_DIMENSIONS: "1024"
+      EMBEDDING_MODEL: Qwen/Qwen3-Embedding-0.6B

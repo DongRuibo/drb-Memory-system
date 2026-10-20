@@ -128,7 +128,7 @@ if __name__ == "__main__":
     except Exception as error:
         print(
             json.dumps(
-                {"status": "failed", "error_type": type(error).__name__, "detail": str(error)},
+                {"status": "failed", "error_type": type(error).__name__},
                 separators=(",", ":"),
             ),
             file=sys.stderr,

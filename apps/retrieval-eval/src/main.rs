@@ -11,6 +11,7 @@ use mem0_adapter::{Mem0Adapter, Mem0Config};
 use memory_application::{
     ChineseTokenizer, ProjectionSearch, RetrievalIndex, lexical_relevance_score,
 };
+use memory_domain::{EventTime, MemoryType, StructuredContent};
 use memory_postgres::{DEMO_GENERATION, DemoAuthority, authorized_namespace_key};
 use reqwest::header::{AUTHORIZATION, HeaderMap, HeaderValue};
 use serde::{Deserialize, Serialize};
@@ -40,6 +41,11 @@ struct Dataset {
 struct EvalDocument {
     id: String,
     content: String,
+    memory_type: MemoryType,
+    #[serde(default)]
+    structured_content: Option<StructuredContent>,
+    #[serde(default)]
+    event_time: Option<EventTime>,
     #[serde(default)]
     occurred_at: Option<DateTime<Utc>>,
 }
@@ -177,6 +183,7 @@ struct MemoryClient {
     base_url: String,
     client: reqwest::Client,
     user_id: String,
+    project_id: String,
 }
 
 impl MemoryClient {
@@ -204,6 +211,8 @@ impl MemoryClient {
                 .timeout(Duration::from_secs(120))
                 .build()?,
             user_id: user_id.to_owned(),
+            project_id: env::var("EVAL_PROJECT_ID")
+                .unwrap_or_else(|_| "lazytt-memory-system-demo".into()),
         })
     }
 
@@ -234,12 +243,18 @@ impl MemoryClient {
             .post(format!("{}/v1/memory/events", self.base_url))
             .header("Idempotency-Key", &idempotency_key)
             .json(&json!({
+                "memory_type": document.memory_type,
+                "semantic_key": format!("eval.{}", document.id),
+                "structured_content": document.structured_content,
+                "event_time": document.event_time,
                 "event_id": idempotency_key,
                 "source_type": "conversation_message",
                 "source_ref": format!("evaluation:{}:{}", run_id, document.id),
                 "content": format!("请记住：{}", document.content),
                 "occurred_at": document.occurred_at.unwrap_or_else(Utc::now),
-                "scope_selector": {"kind": "user", "id": &self.user_id}
+                "scope_selector": if document.memory_type == MemoryType::SemanticFact {
+                    json!({"kind": "project", "id": &self.project_id})
+                } else {json!({"kind": "user", "id": &self.user_id})}
             }))
             .send()
             .await?
@@ -295,8 +310,8 @@ impl MemoryClient {
                 "query": &case.query,
                 "reference_time": case.reference_time,
                 "timezone": case.timezone.as_deref().unwrap_or("Asia/Shanghai"),
-                "scope_selectors": [{"kind": "user", "id": &self.user_id}],
-                "memory_types": ["preference"],
+                "scope_selectors": [{"kind": "user", "id": &self.user_id}, {"kind": "project", "id": &self.project_id}],
+                "memory_types": ["preference", "profile_fact", "semantic_fact", "episodic_summary"],
                 "limit": case.top_k
             }))
             .send()
@@ -352,9 +367,15 @@ async fn main() -> EvalResult<()> {
         api_key: env::var("MEM0_API_KEY").ok(),
         timeout: Duration::from_secs(10),
     })?;
-    let authority = DemoAuthority::user(&config.tenant_id, &config.user_id);
-    let namespace = authorized_namespace_key(&authority, "user", Some(&config.user_id))
-        .ok_or("failed to derive evaluation namespace")?;
+    let mut authority = DemoAuthority::user(&config.tenant_id, &config.user_id);
+    authority.project_ids.insert(client.project_id.clone());
+    let namespaces = [
+        authorized_namespace_key(&authority, "user", Some(&config.user_id)),
+        authorized_namespace_key(&authority, "project", Some(&client.project_id)),
+    ]
+    .into_iter()
+    .collect::<Option<Vec<_>>>()
+    .ok_or("failed to derive evaluation namespaces")?;
 
     let mut record_to_document = HashMap::new();
     let mut ingested = Vec::new();
@@ -401,7 +422,7 @@ async fn main() -> EvalResult<()> {
     let local_bm25_results = evaluate_local_bm25(&dataset);
     let provider_results = evaluate_provider(
         &provider,
-        &namespace,
+        &namespaces,
         &config.provider_generation,
         &dataset,
         &record_to_document,
@@ -427,7 +448,7 @@ async fn main() -> EvalResult<()> {
             degradation_reason: None,
         })
         .collect::<Vec<_>>();
-    let negative_query_hit_rate = evaluate_negative_queries(
+    let (negative_query_hit_rate, negative_results) = evaluate_negative_queries(
         &client,
         &dataset,
         &record_to_document,
@@ -490,7 +511,7 @@ async fn main() -> EvalResult<()> {
         safety_gate_passed,
         release_gate_passed: quality_gate_passed && safety_gate_passed,
     };
-    let failures = collect_failures(
+    let mut failures = collect_failures(
         &dataset,
         &[
             ("local_lexical", &local_results),
@@ -499,6 +520,22 @@ async fn main() -> EvalResult<()> {
             ("hybrid_service", &hybrid_results),
         ],
     );
+    for result in &negative_results {
+        if result.degraded || !result.returned_document_ids.is_empty() {
+            failures.push(FailureCase {
+                method: "hybrid_negative".into(),
+                query_id: result.query_id.clone(),
+                expected_document_ids: Vec::new(),
+                returned_document_ids: result.returned_document_ids.clone(),
+                reason: if result.degraded {
+                    "negative query failed or degraded"
+                } else {
+                    "unexpected memory returned for negative query"
+                }
+                .into(),
+            });
+        }
+    }
     let observed_generations = hybrid_results
         .iter()
         .filter_map(|result| result.projection_generation.as_deref())
@@ -538,6 +575,7 @@ async fn main() -> EvalResult<()> {
             ("local_chinese_bm25", local_bm25_results),
             ("current_provider", provider_results),
             ("hybrid_service", hybrid_results),
+            ("negative_queries", negative_results),
         ]),
     )?;
     println!(
@@ -749,21 +787,34 @@ fn evaluate_local_bm25(dataset: &Dataset) -> Vec<QueryResult> {
 
 async fn evaluate_provider(
     provider: &Mem0Adapter,
-    namespace: &str,
+    namespaces: &[String],
     generation: &str,
     dataset: &Dataset,
     record_to_document: &HashMap<Uuid, String>,
 ) -> EvalResult<Vec<QueryResult>> {
     let mut results = Vec::new();
     for query in &dataset.positive_queries {
-        let hits = match provider
-            .search(ProjectionSearch {
-                namespace_key: namespace.into(),
-                query: query.query.clone(),
-                generation: generation.into(),
-                limit: query.top_k,
-            })
-            .await
+        let hits = match async {
+            let mut hits = Vec::new();
+            for namespace in namespaces {
+                hits.extend(
+                    provider
+                        .search(ProjectionSearch {
+                            namespace_key: namespace.clone(),
+                            query: query.query.clone(),
+                            generation: generation.into(),
+                            limit: query.top_k,
+                        })
+                        .await?,
+                );
+            }
+            hits.sort_by(|left, right| right.provider_score.total_cmp(&left.provider_score));
+            let mut seen = HashSet::new();
+            hits.retain(|hit| seen.insert(hit.memory_record_id));
+            hits.truncate(query.top_k);
+            Ok::<_, memory_application::IndexError>(hits)
+        }
+        .await
         {
             Ok(hits) => hits,
             Err(error) => {
@@ -869,8 +920,9 @@ async fn evaluate_negative_queries(
     dataset: &Dataset,
     record_to_document: &HashMap<Uuid, String>,
     concurrency: usize,
-) -> EvalResult<f64> {
+) -> EvalResult<(f64, Vec<QueryResult>)> {
     let mut queries_with_hits = 0_usize;
+    let mut results = Vec::new();
     let searches = run_searches(
         client,
         dataset
@@ -892,18 +944,45 @@ async fn evaluate_negative_queries(
             Ok(response) => response,
             Err(_) => {
                 queries_with_hits += 1;
+                results.push(QueryResult {
+                    query_id: search.id,
+                    returned_document_ids: Vec::new(),
+                    scores: Vec::new(),
+                    ranking_version: None,
+                    projection_generation: None,
+                    degraded: true,
+                    degradation_reason: Some("NEGATIVE_QUERY_REQUEST_FAILED".into()),
+                });
                 continue;
             }
         };
-        if response
+        let mapped = response
             .hits
             .iter()
-            .any(|hit| record_to_document.contains_key(&hit.memory_record_id))
-        {
+            .filter_map(|hit| {
+                record_to_document
+                    .get(&hit.memory_record_id)
+                    .cloned()
+                    .map(|id| (id, hit.score))
+            })
+            .collect::<Vec<_>>();
+        if !mapped.is_empty() || response.degraded {
             queries_with_hits += 1;
         }
+        results.push(QueryResult {
+            query_id: search.id,
+            returned_document_ids: mapped.iter().map(|(id, _)| id.clone()).collect(),
+            scores: mapped.iter().map(|(_, score)| *score).collect(),
+            ranking_version: Some(response.ranking_version),
+            projection_generation: Some(response.projection_generation),
+            degraded: response.degraded,
+            degradation_reason: response.degradation_reason,
+        });
     }
-    Ok(queries_with_hits as f64 / dataset.negative_queries.len() as f64)
+    Ok((
+        queries_with_hits as f64 / dataset.negative_queries.len() as f64,
+        results,
+    ))
 }
 
 async fn count_forgotten_injections(

@@ -1,0 +1,12 @@
+{
+  "untyped_write_rejected": true,
+  "typed_replay_idempotent": true,
+  "changed_applicability_replay_rejected": true,
+  "ordinary_fact_keeps_fact_type": true,
+  "global_survives_unrelated_temporal_query": true,
+  "global_has_policy_channel_receipt": true,
+  "contextual_food_absent_for_weather": true,
+  "contextual_food_present_for_food_query": true,
+  "metadata_only_correction_changes_applicability": true,
+  "global_absent_immediately_after_forget": true
+}

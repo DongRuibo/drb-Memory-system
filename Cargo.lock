@@ -1802,6 +1802,7 @@ dependencies = [
  "chrono",
  "mem0-adapter",
  "memory-application",
+ "memory-domain",
  "memory-postgres",
  "reqwest",
  "serde",

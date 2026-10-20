@@ -243,7 +243,7 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       <<: *mem0-config-environment
-      EMBEDDING_BASE_URL: http://host.docker.internal:18082
+      EMBEDDING_BASE_URL: http://host.docker.internal:${LOCAL_RETRIEVAL_MODELS_PORT:-18082}
       EMBEDDING_API_KEY: local-model-no-secret
       EMBEDDING_MODEL: ${LOCAL_EMBEDDING_MODEL:-Qwen/Qwen3-Embedding-0.6B}
       EMBEDDING_DIMENSIONS: ${LOCAL_EMBEDDING_DIMENSIONS:-1024}

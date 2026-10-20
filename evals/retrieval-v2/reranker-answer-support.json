@@ -1,0 +1,22 @@
+{
+  "version": "answer-support-regressions-v1",
+  "minimum_score": 0.1,
+  "cases": [
+    {"id":"route-positive","memory_type":"semantic_fact","content":"POST /v1/context-packs/{id}/consume 用于原子消费 Context Pack。","query":"哪个接口用于原子消费 Context Pack？","relevant":true},
+    {"id":"route-other-tenant-regression","memory_type":"semantic_fact","content":"POST /v1/context-packs/{id}/consume 用于原子消费 Context Pack。","query":"其他租户的 Context Pack 里有什么？","relevant":false},
+    {"id":"route-other-user","memory_type":"semantic_fact","content":"POST /v1/context-packs/{id}/consume 用于原子消费 Context Pack。","query":"其他用户上次对话的具体内容是什么？","relevant":false},
+    {"id":"route-current-contents","memory_type":"semantic_fact","content":"POST /v1/context-packs/{id}/consume 用于原子消费 Context Pack。","query":"我的 Context Pack 当前装了哪三条记忆？","relevant":false},
+    {"id":"database-positive","memory_type":"semantic_fact","content":"当前项目使用 PostgreSQL 作为权威数据存储。","query":"当前项目用什么作为权威数据存储？","relevant":true},
+    {"id":"database-password","memory_type":"semantic_fact","content":"当前项目使用 PostgreSQL 作为权威数据存储。","query":"数据库管理员密码是什么？","relevant":false},
+    {"id":"role-positive","memory_type":"profile_fact","content":"用户是 Agent 研发工程师。","query":"我的职业是什么？","relevant":true},
+    {"id":"role-company","memory_type":"profile_fact","content":"用户是 Agent 研发工程师。","query":"我在哪家公司上班？","relevant":false},
+    {"id":"code-context-positive","memory_type":"preference","content":"代码示例优先使用 Rust。","query":"给我一段排序算法代码示例。","relevant":true},
+    {"id":"code-context-unrelated","memory_type":"preference","content":"代码示例优先使用 Rust。","query":"晚饭吃什么？","relevant":false},
+    {"id":"food-context-positive","memory_type":"preference","content":"用户不吃香菜。","query":"帮我推荐适合我的菜。","relevant":true},
+    {"id":"food-context-unrelated","memory_type":"preference","content":"用户不吃香菜。","query":"解释 Outbox 消息重试。","relevant":false},
+    {"id":"episode-positive","memory_type":"episodic_summary","content":"用户曾通过 event_id 去重解决 Outbox 重复消费。","query":"以前怎么解决 Outbox 重复消息？","relevant":true},
+    {"id":"episode-unspecified-time","memory_type":"episodic_summary","content":"用户曾通过 event_id 去重解决 Outbox 重复消费。","query":"用户昨天几点解决了 Outbox 重复消息？","relevant":false},
+    {"id":"name-positive","memory_type":"profile_fact","content":"用户的称呼是 DRB。","query":"应该如何称呼用户？","relevant":true},
+    {"id":"name-football","memory_type":"profile_fact","content":"用户的称呼是 DRB。","query":"用户最喜欢的球队是哪支？","relevant":false}
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "baseline": "2b48ba9",
+  "branch": "codex/resume-pgvector",
+  "uncommitted": true,
+  "model_downloads": false,
+  "cloud_api_calls": false,
+  "cargo_locked_offline": true,
+  "clippy_baseline_exception": "clippy::manual-clamp",
+  "tests": [
+    {
+      "log": "preference-final-tests.log",
+      "passed": 147,
+      "failed": 0,
+      "ignored": 21
+    },
+    {
+      "log": "preference-db-tests.log",
+      "passed": 20,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "log": "preference-metadata-correction-tests.log",
+      "passed": 2,
+      "failed": 0,
+      "ignored": 0
+    }
+  ],
+  "git_diff_check_passed": true,
+  "tenant_cleanup": {
+    "tenant_id": "retrieval-eval-v220-20261020",
+    "forgotten_heads": 28,
+    "processed_outbox": 58,
+    "pending_outbox": 0
+  },
+  "release_gate_passed": false
+}

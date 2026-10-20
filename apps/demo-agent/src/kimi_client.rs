@@ -8,10 +8,8 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 use crate::error::DemoError;
-use crate::http_util::{normalize_kimi_base_url, require_success};
+use crate::http_util::{normalize_chat_base_url, require_success};
 use crate::model::ModelUsage;
-
-const KIMI_SERVICE: &str = "Kimi";
 
 #[derive(Clone)]
 pub struct KimiConfig {
@@ -45,6 +43,8 @@ pub trait ChatModel: Send + Sync {
 
 #[derive(Clone)]
 pub struct KimiClient {
+    deepseek: bool,
+    service: &'static str,
     base_url: String,
     model: String,
     reasoning_effort: String,
@@ -54,8 +54,21 @@ pub struct KimiClient {
 
 impl KimiClient {
     pub fn new(config: KimiConfig) -> Result<Self, DemoError> {
-        let base_url = normalize_kimi_base_url(&config.base_url)?;
-        if config.model != "k3" {
+        let base_url = normalize_chat_base_url(&config.base_url)?;
+        let url = reqwest::Url::parse(&base_url)
+            .map_err(|_| DemoError::Config("invalid chat base URL".into()))?;
+        let deepseek = url.host_str() == Some("api.deepseek.com")
+            || (url
+                .host_str()
+                .is_some_and(|host| matches!(host, "127.0.0.1" | "localhost" | "::1"))
+                && config.model.starts_with("deepseek-"));
+        let service = if deepseek { "DeepSeek" } else { "Kimi" };
+        if config.model.trim().is_empty() || config.model.len() > 128 {
+            return Err(DemoError::Config(
+                "chat model must contain 1 to 128 characters".into(),
+            ));
+        }
+        if !deepseek && config.model != "k3" {
             return Err(DemoError::Config(
                 "KIMI_MODEL must be k3 for this verified Kimi Code demo".into(),
             ));
@@ -78,12 +91,11 @@ impl KimiClient {
                 env!("CARGO_PKG_VERSION")
             ))
             .build()
-            .map_err(|source| DemoError::Client {
-                service: KIMI_SERVICE,
-                source,
-            })?;
+            .map_err(|source| DemoError::Client { service, source })?;
 
         Ok(Self {
+            deepseek,
+            service,
             base_url,
             model: config.model,
             reasoning_effort: config.reasoning_effort,
@@ -96,16 +108,12 @@ impl KimiClient {
         format!("{}/chat/completions", self.base_url)
     }
 
-    pub async fn stream_to<F, Fut>(
-        &self,
-        command: &CompletionCommand,
-        mut on_delta: F,
-    ) -> Result<ModelAnswer, DemoError>
-    where
-        F: FnMut(String) -> Fut,
-        Fut: Future<Output = Result<(), DemoError>>,
-    {
-        let payload = ChatCompletionRequest {
+    fn request<'a>(
+        &'a self,
+        command: &'a CompletionCommand,
+        stream: bool,
+    ) -> ChatCompletionRequest<'a> {
+        ChatCompletionRequest {
             model: &self.model,
             messages: [
                 ChatMessage {
@@ -117,11 +125,28 @@ impl KimiClient {
                     content: &command.user_payload,
                 },
             ],
-            reasoning_effort: &self.reasoning_effort,
-            max_completion_tokens: self.max_completion_tokens,
-            prompt_cache_key: command.task_id.to_string(),
-            stream: true,
-        };
+            reasoning_effort: (!self.deepseek).then_some(self.reasoning_effort.as_str()),
+            max_completion_tokens: (!self.deepseek).then_some(self.max_completion_tokens),
+            max_tokens: self.deepseek.then_some(self.max_completion_tokens),
+            prompt_cache_key: (!self.deepseek).then(|| command.task_id.to_string()),
+            thinking: self.deepseek.then_some(Thinking { r#type: "disabled" }),
+            stream_options: (self.deepseek && stream).then_some(StreamOptions {
+                include_usage: true,
+            }),
+            stream,
+        }
+    }
+
+    pub async fn stream_to<F, Fut>(
+        &self,
+        command: &CompletionCommand,
+        mut on_delta: F,
+    ) -> Result<ModelAnswer, DemoError>
+    where
+        F: FnMut(String) -> Fut,
+        Fut: Future<Output = Result<(), DemoError>>,
+    {
+        let payload = self.request(command, true);
         let response = self
             .client
             .post(self.endpoint())
@@ -129,7 +154,7 @@ impl KimiClient {
             .send()
             .await
             .map_err(|source| DemoError::Transport {
-                service: KIMI_SERVICE,
+                service: self.service,
                 source,
             })?;
         let header_request_id = response
@@ -137,7 +162,7 @@ impl KimiClient {
             .get("x-request-id")
             .and_then(|value| value.to_str().ok())
             .map(ToOwned::to_owned);
-        let mut response = require_success(response, KIMI_SERVICE).await?;
+        let mut response = require_success(response, self.service).await?;
         let mut buffered = Vec::<u8>::new();
         let mut answer = String::new();
         let mut response_id = None;
@@ -153,7 +178,7 @@ impl KimiClient {
             .chunk()
             .await
             .map_err(|source| DemoError::Transport {
-                service: KIMI_SERVICE,
+                service: self.service,
                 source,
             })?
         {
@@ -165,7 +190,7 @@ impl KimiClient {
                 }
                 let line =
                     std::str::from_utf8(&line).map_err(|error| DemoError::InvalidResponse {
-                        service: KIMI_SERVICE,
+                        service: self.service,
                         detail: format!("stream contained invalid UTF-8: {error}"),
                     })?;
                 let Some(data) = line.strip_prefix("data:") else {
@@ -177,7 +202,7 @@ impl KimiClient {
                 }
                 let event: ChatCompletionChunk =
                     serde_json::from_str(data).map_err(|error| DemoError::InvalidResponse {
-                        service: KIMI_SERVICE,
+                        service: self.service,
                         detail: format!("invalid stream event: {error}"),
                     })?;
                 response_id = response_id.or(event.id);
@@ -202,19 +227,19 @@ impl KimiClient {
         }
         if !buffered.iter().all(u8::is_ascii_whitespace) {
             return Err(DemoError::InvalidResponse {
-                service: KIMI_SERVICE,
+                service: self.service,
                 detail: "stream ended in the middle of an event".into(),
             });
         }
         if finish_reason.as_deref() == Some("length") {
             return Err(DemoError::InvalidResponse {
-                service: KIMI_SERVICE,
+                service: self.service,
                 detail: "answer was truncated at max_completion_tokens".into(),
             });
         }
         if answer.trim().is_empty() {
             return Err(DemoError::InvalidResponse {
-                service: KIMI_SERVICE,
+                service: self.service,
                 detail: "stream contained no answer text".into(),
             });
         }
@@ -231,10 +256,29 @@ impl KimiClient {
 struct ChatCompletionRequest<'a> {
     model: &'a str,
     messages: [ChatMessage<'a>; 2],
-    reasoning_effort: &'a str,
-    max_completion_tokens: u32,
-    prompt_cache_key: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    reasoning_effort: Option<&'a str>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    max_completion_tokens: Option<u32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    max_tokens: Option<u32>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    prompt_cache_key: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    thinking: Option<Thinking>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    stream_options: Option<StreamOptions>,
     stream: bool,
+}
+
+#[derive(Debug, Serialize)]
+struct Thinking {
+    r#type: &'static str,
+}
+
+#[derive(Debug, Serialize)]
+struct StreamOptions {
+    include_usage: bool,
 }
 
 #[derive(Debug, Serialize)]
@@ -293,23 +337,7 @@ struct ChatDelta {
 #[async_trait]
 impl ChatModel for KimiClient {
     async fn complete(&self, command: &CompletionCommand) -> Result<ModelAnswer, DemoError> {
-        let payload = ChatCompletionRequest {
-            model: &self.model,
-            messages: [
-                ChatMessage {
-                    role: "system",
-                    content: &command.system_prompt,
-                },
-                ChatMessage {
-                    role: "user",
-                    content: &command.user_payload,
-                },
-            ],
-            reasoning_effort: &self.reasoning_effort,
-            max_completion_tokens: self.max_completion_tokens,
-            prompt_cache_key: command.task_id.to_string(),
-            stream: false,
-        };
+        let payload = self.request(command, false);
         let response = self
             .client
             .post(self.endpoint())
@@ -317,7 +345,7 @@ impl ChatModel for KimiClient {
             .send()
             .await
             .map_err(|source| DemoError::Transport {
-                service: KIMI_SERVICE,
+                service: self.service,
                 source,
             })?;
         let request_id = response
@@ -325,13 +353,13 @@ impl ChatModel for KimiClient {
             .get("x-request-id")
             .and_then(|value| value.to_str().ok())
             .map(ToOwned::to_owned);
-        let response = require_success(response, KIMI_SERVICE).await?;
+        let response = require_success(response, self.service).await?;
         let response: ChatCompletionResponse =
             response
                 .json()
                 .await
                 .map_err(|error| DemoError::InvalidResponse {
-                    service: KIMI_SERVICE,
+                    service: self.service,
                     detail: error.to_string(),
                 })?;
         let request_id = request_id.or_else(|| response.id.clone());
@@ -341,12 +369,12 @@ impl ChatModel for KimiClient {
                 .into_iter()
                 .next()
                 .ok_or_else(|| DemoError::InvalidResponse {
-                    service: KIMI_SERVICE,
+                    service: self.service,
                     detail: "choices was empty".into(),
                 })?;
         if choice.finish_reason.as_deref() == Some("length") {
             return Err(DemoError::InvalidResponse {
-                service: KIMI_SERVICE,
+                service: self.service,
                 detail: "answer was truncated at max_completion_tokens".into(),
             });
         }
@@ -355,7 +383,7 @@ impl ChatModel for KimiClient {
             .content
             .filter(|value| !value.trim().is_empty())
             .ok_or_else(|| DemoError::InvalidResponse {
-                service: KIMI_SERVICE,
+                service: self.service,
                 detail: "the first choice contained no answer text".into(),
             })?;
         let usage = response.usage.unwrap_or(ChatUsage {
@@ -553,5 +581,62 @@ mod tests {
         assert_eq!(answer.request_id.as_deref(), Some("chatcmpl-stream"));
         assert_eq!(answer.usage.total_tokens, Some(5));
         assert_eq!(requests.lock().unwrap()[0]["stream"], true);
+    }
+    #[tokio::test]
+    async fn deepseek_uses_its_token_and_stream_usage_contract() {
+        let requests = Arc::new(Mutex::new(Vec::new()));
+        let state = Captured {
+            requests: Arc::clone(&requests),
+        };
+        let app = Router::new()
+            .route("/v1/chat/completions", post(completion_handler))
+            .route("/stream/chat/completions", post(stream_handler))
+            .with_state(state);
+        let listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+        let address = listener.local_addr().unwrap();
+        let server = tokio::spawn(async move {
+            axum::serve(listener, app).await.unwrap();
+        });
+        for stream in [false, true] {
+            let path = if stream { "stream" } else { "v1" };
+            let client = KimiClient::new(KimiConfig {
+                base_url: format!("http://{address}/{path}"),
+                api_key: "test-key".into(),
+                model: "deepseek-flash".into(),
+                reasoning_effort: "high".into(),
+                max_completion_tokens: 1024,
+                timeout: Duration::from_secs(2),
+            })
+            .unwrap();
+            let command = CompletionCommand {
+                task_id: Uuid::new_v4(),
+                system_prompt: "system".into(),
+                user_payload: "hello".into(),
+            };
+            let answer = if stream {
+                client
+                    .stream_to(&command, |_| async { Ok(()) })
+                    .await
+                    .unwrap()
+            } else {
+                client.complete(&command).await.unwrap()
+            };
+            assert!(!answer.content.is_empty());
+            assert!(answer.usage.total_tokens.is_some());
+        }
+        server.abort();
+        let requests = requests.lock().unwrap();
+        assert_eq!(requests.len(), 2);
+        for (index, body) in requests.iter().enumerate() {
+            assert_eq!(body["model"], "deepseek-flash");
+            assert_eq!(body["max_tokens"], 1024);
+            assert_eq!(body["thinking"]["type"], "disabled");
+            assert!(body.get("reasoning_effort").is_none());
+            assert!(body.get("max_completion_tokens").is_none());
+            assert!(body.get("prompt_cache_key").is_none());
+            assert_eq!(body["stream"], index == 1);
+        }
+        assert!(requests[0].get("stream_options").is_none());
+        assert_eq!(requests[1]["stream_options"]["include_usage"], true);
     }
 }

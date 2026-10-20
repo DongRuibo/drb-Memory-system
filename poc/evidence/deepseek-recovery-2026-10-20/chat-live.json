@@ -1,0 +1,536 @@
+{
+  "synthetic_data_only": true,
+  "turns": [
+    {
+      "input": "我叫林舟。以后所有回答都请先给结论再讲细节。请简短确认。",
+      "turn": {
+        "assistant_message_id": "1106693a-5cee-4212-9c2f-91af7c0ba9d8",
+        "attempt_id": "b2127326-c732-4030-95af-895fc25889cf",
+        "cancel_requested_at": null,
+        "completion_tokens": 18,
+        "context_pack_id": "72f195a9-1d6d-5fe1-a6b1-b6f81668fb4c",
+        "created_at": "2026-10-20T02:17:35.974569Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "87df12dd-9db9-4678-8f7a-f3a929c96912",
+        "memory_effects": [
+          {
+            "content": "用户偏好回答技术问题时先给一句结论。",
+            "kind": "remembered",
+            "memory_record_id": "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+            "memory_type": "preference",
+            "memory_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+            "operation_id": "e6748188-d47d-51e4-bb9a-80ab7e333f29",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "content": "用户叫林舟。",
+            "kind": "remembered",
+            "memory_record_id": "e7627565-9696-53bf-b975-a1885dd232d8",
+            "memory_type": "profile_fact",
+            "memory_version_id": "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e",
+            "operation_id": "cd6f88b5-98a1-549c-890f-01bc57a47712",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "candidate_count": 2,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 2,
+            "remembered_count": 2,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 2
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:ba0aa3c2ff994c95b8a243539cc705e1eecec7efd3d5039a034678dc53bbabed",
+        "outcome_receipt_id": "5d15699f-98c8-5894-8f70-b84e720f0a7c",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好回答技术问题时先给一句结论。",
+              "memory_record_id": "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+              "memory_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:57fad047-60e8-4c92-a398-85c9fe6d361e:73aadc43-72c7-4d02-a174-477b3635e4b5#memory-02c911621753d38b"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户叫林舟。",
+              "memory_record_id": "e7627565-9696-53bf-b975-a1885dd232d8",
+              "memory_version_id": "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:57fad047-60e8-4c92-a398-85c9fe6d361e:73aadc43-72c7-4d02-a174-477b3635e4b5#memory-e5890bce95acf3af"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:17:40.701200Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 778,
+        "session_id": "57fad047-60e8-4c92-a398-85c9fe6d361e",
+        "status": "completed",
+        "task_id": "2782dccc-2bff-4d62-854c-42478bfc3144",
+        "total_tokens": 796,
+        "updated_at": "2026-10-20T02:17:42.887356Z",
+        "used_memory_ids": [
+          "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+          "e7627565-9696-53bf-b975-a1885dd232d8"
+        ],
+        "used_memory_version_ids": [
+          "3a167b0f-9533-5394-852b-18b4adefbf25",
+          "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e"
+        ],
+        "user_message_id": "73aadc43-72c7-4d02-a174-477b3635e4b5"
+      },
+      "session": {
+        "session": {
+          "created_at": "2026-10-20T02:17:35.971524Z",
+          "guided_step": "remember",
+          "id": "57fad047-60e8-4c92-a398-85c9fe6d361e",
+          "messages": [
+            {
+              "content": "我叫林舟。以后所有回答都请先给结论再讲细节。请简短确认。",
+              "created_at": "2026-10-20T02:17:35.974569Z",
+              "id": "73aadc43-72c7-4d02-a174-477b3635e4b5",
+              "role": "user",
+              "session_id": "57fad047-60e8-4c92-a398-85c9fe6d361e",
+              "status": "completed",
+              "turn_id": "87df12dd-9db9-4678-8f7a-f3a929c96912",
+              "updated_at": "2026-10-20T02:17:35.974569Z"
+            },
+            {
+              "content": "好的，林舟，已确认：以后回答先给结论，再讲细节。",
+              "created_at": "2026-10-20T02:17:35.974569Z",
+              "id": "1106693a-5cee-4212-9c2f-91af7c0ba9d8",
+              "role": "assistant",
+              "session_id": "57fad047-60e8-4c92-a398-85c9fe6d361e",
+              "status": "completed",
+              "turn_id": "87df12dd-9db9-4678-8f7a-f3a929c96912",
+              "updated_at": "2026-10-20T02:17:42.887356Z"
+            }
+          ],
+          "mode": "free",
+          "title": "我叫林舟。以后所有回答都请先给结论再讲细节。请简短确认。",
+          "turns": [
+            {
+              "assistant_message_id": "1106693a-5cee-4212-9c2f-91af7c0ba9d8",
+              "attempt_id": "b2127326-c732-4030-95af-895fc25889cf",
+              "cancel_requested_at": null,
+              "completion_tokens": 18,
+              "context_pack_id": "72f195a9-1d6d-5fe1-a6b1-b6f81668fb4c",
+              "created_at": "2026-10-20T02:17:35.974569Z",
+              "error_code": null,
+              "error_detail": null,
+              "id": "87df12dd-9db9-4678-8f7a-f3a929c96912",
+              "memory_effects": [
+                {
+                  "content": "用户偏好回答技术问题时先给一句结论。",
+                  "kind": "remembered",
+                  "memory_record_id": "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+                  "memory_type": "preference",
+                  "memory_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+                  "operation_id": "e6748188-d47d-51e4-bb9a-80ab7e333f29",
+                  "projection_status": "pending",
+                  "revision": 0
+                },
+                {
+                  "content": "用户叫林舟。",
+                  "kind": "remembered",
+                  "memory_record_id": "e7627565-9696-53bf-b975-a1885dd232d8",
+                  "memory_type": "profile_fact",
+                  "memory_version_id": "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e",
+                  "operation_id": "cd6f88b5-98a1-549c-890f-01bc57a47712",
+                  "projection_status": "pending",
+                  "revision": 0
+                },
+                {
+                  "candidate_count": 2,
+                  "corrected_count": 0,
+                  "coverage_added_count": 0,
+                  "coverage_enriched_count": 0,
+                  "filtered_reason_counts": {},
+                  "ignored_count": 0,
+                  "kind": "extraction_summary",
+                  "model_candidate_count": 2,
+                  "remembered_count": 2,
+                  "source_merged_count": 0,
+                  "valid_model_candidate_count": 2
+                }
+              ],
+              "model_id": "deepseek-flash",
+              "model_request_id_hash": "sha256:ba0aa3c2ff994c95b8a243539cc705e1eecec7efd3d5039a034678dc53bbabed",
+              "outcome_receipt_id": "5d15699f-98c8-5894-8f70-b84e720f0a7c",
+              "prompt_context": {
+                "memory_context": [
+                  {
+                    "allowed_effect": "response_style_only",
+                    "event_time": null,
+                    "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+                    "memory_data": "用户偏好回答技术问题时先给一句结论。",
+                    "memory_record_id": "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+                    "memory_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+                    "section_kind": "user_preference",
+                    "source_refs": [
+                      "conversation:57fad047-60e8-4c92-a398-85c9fe6d361e:73aadc43-72c7-4d02-a174-477b3635e4b5#memory-02c911621753d38b"
+                    ],
+                    "trust": "untrusted_memory_data"
+                  },
+                  {
+                    "allowed_effect": "factual_personalization_only",
+                    "event_time": null,
+                    "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+                    "memory_data": "用户叫林舟。",
+                    "memory_record_id": "e7627565-9696-53bf-b975-a1885dd232d8",
+                    "memory_version_id": "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e",
+                    "section_kind": "current_fact",
+                    "source_refs": [
+                      "conversation:57fad047-60e8-4c92-a398-85c9fe6d361e:73aadc43-72c7-4d02-a174-477b3635e4b5#memory-e5890bce95acf3af"
+                    ],
+                    "trust": "untrusted_memory_data"
+                  }
+                ],
+                "runtime_context": {
+                  "current_time_utc": "2026-10-20T02:17:40.701200Z",
+                  "local_date": "2026-10-20",
+                  "timezone": "Asia/Shanghai"
+                }
+              },
+              "prompt_tokens": 778,
+              "session_id": "57fad047-60e8-4c92-a398-85c9fe6d361e",
+              "status": "completed",
+              "task_id": "2782dccc-2bff-4d62-854c-42478bfc3144",
+              "total_tokens": 796,
+              "updated_at": "2026-10-20T02:17:42.887356Z",
+              "used_memory_ids": [
+                "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+                "e7627565-9696-53bf-b975-a1885dd232d8"
+              ],
+              "used_memory_version_ids": [
+                "3a167b0f-9533-5394-852b-18b4adefbf25",
+                "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e"
+              ],
+              "user_message_id": "73aadc43-72c7-4d02-a174-477b3635e4b5"
+            }
+          ],
+          "updated_at": "2026-10-20T02:17:35.974569Z"
+        }
+      },
+      "latency_ms": 7124
+    },
+    {
+      "input": "我叫什么？回答时我偏好的结构是什么？请简短回答。",
+      "turn": {
+        "assistant_message_id": "fabd3b47-763c-4503-a0b9-834564ca9c2c",
+        "attempt_id": "071f521c-3884-48f1-afdd-7a547a1cb022",
+        "cancel_requested_at": null,
+        "completion_tokens": 20,
+        "context_pack_id": "4dc1abd6-1227-5807-919b-286dab722eae",
+        "created_at": "2026-10-20T02:17:43.115067Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "2899bdc8-acae-4b12-9aa7-b094fab980f1",
+        "memory_effects": [
+          {
+            "candidate_count": 0,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 0,
+            "remembered_count": 0,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 0
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:ba85b23de199803cee4d7350ac878cd36f8c97ab5cd1d4f18fda7952bd80b5bb",
+        "outcome_receipt_id": "6c9eb1eb-cdb5-592c-b9f7-c62338ad7362",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好回答技术问题时先给一句结论。",
+              "memory_record_id": "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+              "memory_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:57fad047-60e8-4c92-a398-85c9fe6d361e:73aadc43-72c7-4d02-a174-477b3635e4b5#memory-02c911621753d38b"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:17:44.366723Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 561,
+        "session_id": "8b7cb00d-c016-481d-8903-fc7098e55a93",
+        "status": "completed",
+        "task_id": "3917026c-fe15-48bb-bdd3-e3a5502905ba",
+        "total_tokens": 581,
+        "updated_at": "2026-10-20T02:17:46.355613Z",
+        "used_memory_ids": [
+          "ee75f681-86ab-5bfe-b926-80f339f9cedb"
+        ],
+        "used_memory_version_ids": [
+          "3a167b0f-9533-5394-852b-18b4adefbf25"
+        ],
+        "user_message_id": "0baf7c0b-267f-4251-ab09-d91066435e50"
+      },
+      "session": {
+        "session": {
+          "created_at": "2026-10-20T02:17:43.112382Z",
+          "guided_step": "remember",
+          "id": "8b7cb00d-c016-481d-8903-fc7098e55a93",
+          "messages": [
+            {
+              "content": "我叫什么？回答时我偏好的结构是什么？请简短回答。",
+              "created_at": "2026-10-20T02:17:43.115067Z",
+              "id": "0baf7c0b-267f-4251-ab09-d91066435e50",
+              "role": "user",
+              "session_id": "8b7cb00d-c016-481d-8903-fc7098e55a93",
+              "status": "completed",
+              "turn_id": "2899bdc8-acae-4b12-9aa7-b094fab980f1",
+              "updated_at": "2026-10-20T02:17:43.115067Z"
+            },
+            {
+              "content": "我不知道你的名字——记忆中没有相关信息。你的偏好是：回答技术问题时先给一句结论。",
+              "created_at": "2026-10-20T02:17:43.115067Z",
+              "id": "fabd3b47-763c-4503-a0b9-834564ca9c2c",
+              "role": "assistant",
+              "session_id": "8b7cb00d-c016-481d-8903-fc7098e55a93",
+              "status": "completed",
+              "turn_id": "2899bdc8-acae-4b12-9aa7-b094fab980f1",
+              "updated_at": "2026-10-20T02:17:46.355613Z"
+            }
+          ],
+          "mode": "free",
+          "title": "我叫什么？回答时我偏好的结构是什么？请简短回答。",
+          "turns": [
+            {
+              "assistant_message_id": "fabd3b47-763c-4503-a0b9-834564ca9c2c",
+              "attempt_id": "071f521c-3884-48f1-afdd-7a547a1cb022",
+              "cancel_requested_at": null,
+              "completion_tokens": 20,
+              "context_pack_id": "4dc1abd6-1227-5807-919b-286dab722eae",
+              "created_at": "2026-10-20T02:17:43.115067Z",
+              "error_code": null,
+              "error_detail": null,
+              "id": "2899bdc8-acae-4b12-9aa7-b094fab980f1",
+              "memory_effects": [
+                {
+                  "candidate_count": 0,
+                  "corrected_count": 0,
+                  "coverage_added_count": 0,
+                  "coverage_enriched_count": 0,
+                  "filtered_reason_counts": {},
+                  "ignored_count": 0,
+                  "kind": "extraction_summary",
+                  "model_candidate_count": 0,
+                  "remembered_count": 0,
+                  "source_merged_count": 0,
+                  "valid_model_candidate_count": 0
+                }
+              ],
+              "model_id": "deepseek-flash",
+              "model_request_id_hash": "sha256:ba85b23de199803cee4d7350ac878cd36f8c97ab5cd1d4f18fda7952bd80b5bb",
+              "outcome_receipt_id": "6c9eb1eb-cdb5-592c-b9f7-c62338ad7362",
+              "prompt_context": {
+                "memory_context": [
+                  {
+                    "allowed_effect": "response_style_only",
+                    "event_time": null,
+                    "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+                    "memory_data": "用户偏好回答技术问题时先给一句结论。",
+                    "memory_record_id": "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+                    "memory_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+                    "section_kind": "user_preference",
+                    "source_refs": [
+                      "conversation:57fad047-60e8-4c92-a398-85c9fe6d361e:73aadc43-72c7-4d02-a174-477b3635e4b5#memory-02c911621753d38b"
+                    ],
+                    "trust": "untrusted_memory_data"
+                  }
+                ],
+                "runtime_context": {
+                  "current_time_utc": "2026-10-20T02:17:44.366723Z",
+                  "local_date": "2026-10-20",
+                  "timezone": "Asia/Shanghai"
+                }
+              },
+              "prompt_tokens": 561,
+              "session_id": "8b7cb00d-c016-481d-8903-fc7098e55a93",
+              "status": "completed",
+              "task_id": "3917026c-fe15-48bb-bdd3-e3a5502905ba",
+              "total_tokens": 581,
+              "updated_at": "2026-10-20T02:17:46.355613Z",
+              "used_memory_ids": [
+                "ee75f681-86ab-5bfe-b926-80f339f9cedb"
+              ],
+              "used_memory_version_ids": [
+                "3a167b0f-9533-5394-852b-18b4adefbf25"
+              ],
+              "user_message_id": "0baf7c0b-267f-4251-ab09-d91066435e50"
+            }
+          ],
+          "updated_at": "2026-10-20T02:17:43.115067Z"
+        }
+      },
+      "latency_ms": 3564
+    }
+  ],
+  "export": {
+    "format_version": "lazytt-memory-export-v1",
+    "generated_at": "2026-10-20T02:17:46.686519Z",
+    "record_count": 2,
+    "records": [
+      {
+        "memory_record_id": "ee75f681-86ab-5bfe-b926-80f339f9cedb",
+        "scope": {
+          "kind": "user",
+          "id": "demo-alice"
+        },
+        "memory_type": "preference",
+        "semantic_key": "user.response_style.technical.conclusion_first",
+        "head_state": "active",
+        "revision": 0,
+        "current_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+        "identity_retired_at": null,
+        "versions": [
+          {
+            "memory_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+            "version_no": 1,
+            "content": "用户偏好回答技术问题时先给一句结论。",
+            "content_hash": "sha256:b61a8ec6a963c803ea4a8b256247ba120a1927f1e3173ca9fbc99f30766c98a8",
+            "normalized_key": "user.response_style.technical.conclusion_first",
+            "confidence": 0.98,
+            "importance": 0.9,
+            "inference_kind": "derived",
+            "source_refs": [
+              "conversation:57fad047-60e8-4c92-a398-85c9fe6d361e:73aadc43-72c7-4d02-a174-477b3635e4b5#memory-02c911621753d38b"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": null,
+            "structured_content": {
+              "schema_name": "lazytt.preference",
+              "schema_version": 1,
+              "payload": {
+                "applicability": "global",
+                "subject": "user",
+                "value": "先给结论再讲细节"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-preference-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:17:40.675225Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "3a167b0f-9533-5394-852b-18b4adefbf25",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:17:40.675225Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "e7627565-9696-53bf-b975-a1885dd232d8",
+        "scope": {
+          "kind": "user",
+          "id": "demo-alice"
+        },
+        "memory_type": "profile_fact",
+        "semantic_key": "user.name",
+        "head_state": "active",
+        "revision": 0,
+        "current_version_id": "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e",
+        "identity_retired_at": null,
+        "versions": [
+          {
+            "memory_version_id": "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e",
+            "version_no": 1,
+            "content": "用户叫林舟。",
+            "content_hash": "sha256:893916ab31dae53b46126536de830d2a7c8b73eaf305536cb087cc85285458e1",
+            "normalized_key": "user.name",
+            "confidence": 0.99,
+            "importance": 0.7,
+            "inference_kind": "derived",
+            "source_refs": [
+              "conversation:57fad047-60e8-4c92-a398-85c9fe6d361e:73aadc43-72c7-4d02-a174-477b3635e4b5#memory-e5890bce95acf3af"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": null,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "name",
+                "subject": "user",
+                "value": "林舟"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-profile_fact-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:17:40.686749Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "e23d9e4a-ae83-5a25-a576-ebb6832b5c3e",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:17:40.686749Z"
+          }
+        ]
+      }
+    ]
+  }
+}

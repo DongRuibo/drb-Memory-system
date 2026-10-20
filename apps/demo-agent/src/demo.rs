@@ -3,7 +3,8 @@ use std::time::Duration;
 use chrono::Utc;
 use memory_client::{
     ContextPackCommand, ContextPackResponse, ForgetCommand, MemoryExtractionCommand, MemoryPort,
-    OperationResponse, OutcomeReceiptCommand, ScopeSelector, SourceEventCommand, TaskContext,
+    MemoryType, OperationResponse, OutcomeReceiptCommand, ScopeSelector, SourceEventCommand,
+    TaskContext,
 };
 use serde_json::{Map, Value};
 use tokio::time::{Instant, sleep};
@@ -81,6 +82,10 @@ where
         } else {
             self.memory
                 .submit_event(&SourceEventCommand {
+                    memory_type: MemoryType::Preference,
+                    semantic_key: Some("user.response_style.demo".into()),
+                    structured_content: None,
+                    event_time: None,
                     idempotency_key: format!("agent-v1-remember-{run_id}"),
                     event_id: format!("agent-v1-event-{run_id}"),
                     source_type: "conversation_message".into(),

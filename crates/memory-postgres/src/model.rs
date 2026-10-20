@@ -518,6 +518,7 @@ pub struct AuthorizedMemory {
     pub memory_version_id: Uuid,
     pub content: String,
     pub memory_type: String,
+    pub preference_applicability: memory_domain::PreferenceApplicability,
     pub score: f64,
     pub source_refs: Vec<String>,
     pub effective_from: Option<DateTime<Utc>>,

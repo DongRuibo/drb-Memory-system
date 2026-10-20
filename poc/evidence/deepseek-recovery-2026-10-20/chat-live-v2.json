@@ -1,0 +1,261 @@
+{
+  "synthetic_data_only": true,
+  "checks": {
+    "initial_user_empty": true,
+    "global_scope_not_rewritten": true,
+    "cross_session_name_and_preference": false
+  },
+  "turns": [
+    {
+      "input": "我叫林舟。以后所有回答都请先给结论再讲细节。请简短确认。",
+      "turn": {
+        "assistant_message_id": "114781fb-2a0e-436f-9f0c-968a7c7a8a3a",
+        "attempt_id": "046b59b4-862f-49f1-8a84-8f83991e543d",
+        "cancel_requested_at": null,
+        "completion_tokens": 13,
+        "context_pack_id": null,
+        "created_at": "2026-10-20T02:22:18.444782Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "64ed20a3-1814-4b03-a0a2-7b8747e98c56",
+        "memory_effects": [
+          {
+            "content": "用户偏好所有回答先给结论再讲细节。",
+            "kind": "remembered",
+            "memory_record_id": "47910065-e2d6-51b7-a2de-557fdb8ba5ad",
+            "memory_type": "preference",
+            "memory_version_id": "b493bc0f-9d7e-5f2f-b06c-50fbb9c09927",
+            "operation_id": "9634541b-96b7-59b4-8c7b-afca33046ffa",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "content": "用户名叫林舟。",
+            "kind": "remembered",
+            "memory_record_id": "722d199e-9d56-561d-bbd8-56592427cc38",
+            "memory_type": "profile_fact",
+            "memory_version_id": "0e74b692-3f26-5f2b-9460-2a0a92567bfe",
+            "operation_id": "838ba12d-390c-5e2b-bc66-724b7a0703d0",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "candidate_count": 2,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 2,
+            "remembered_count": 2,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 2
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:9f8823e091c159855a8baca3a502a7b58271a20b4333d8d9eea0a02f70988d91",
+        "outcome_receipt_id": null,
+        "prompt_context": {
+          "memory_context": [],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:22:21.606645Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 350,
+        "session_id": "78497684-e009-4a6a-a68f-b4340c80a3b2",
+        "status": "completed",
+        "task_id": "4cee1df9-1c3a-4c42-952e-e461e1900a5a",
+        "total_tokens": 363,
+        "updated_at": "2026-10-20T02:22:25.248396Z",
+        "used_memory_ids": [],
+        "used_memory_version_ids": [],
+        "user_message_id": "6bf72309-4917-4470-b926-36cabb1e1536"
+      },
+      "answer": "好的，林舟。以后我先给结论再讲细节。",
+      "latency_ms": 7144
+    },
+    {
+      "input": "我叫什么？回答时我偏好的结构是什么？请简短回答。",
+      "turn": {
+        "assistant_message_id": "f9dab103-4018-47b3-85d9-a51b84a93183",
+        "attempt_id": "873262fd-9636-481d-9f7c-04654cf3188c",
+        "cancel_requested_at": null,
+        "completion_tokens": 33,
+        "context_pack_id": null,
+        "created_at": "2026-10-20T02:22:25.616575Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "d5392361-9b90-4245-a543-10f3feb8e5ae",
+        "memory_effects": [
+          {
+            "candidate_count": 0,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 0,
+            "remembered_count": 0,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 0
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:0d923fb8a006bd49b076c11eb33caa35ba2b3e15eb33dea050dc00445bf01b23",
+        "outcome_receipt_id": null,
+        "prompt_context": {
+          "memory_context": [],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T02:22:26.689428Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 345,
+        "session_id": "7a138659-fcbe-46e7-bd29-6a4a3a510316",
+        "status": "completed",
+        "task_id": "89648ae2-da11-4d59-9d39-bb7d123c91c6",
+        "total_tokens": 378,
+        "updated_at": "2026-10-20T02:22:29.256983Z",
+        "used_memory_ids": [],
+        "used_memory_version_ids": [],
+        "user_message_id": "51c53cc8-6108-4f3f-be5c-bb92aa452338"
+      },
+      "answer": "我目前不知道你的名字——本轮没有可用的记忆数据。你的偏好结构我也无从得知；如果没有特别说明，我会默认用简短、直接的段落回答。",
+      "latency_ms": 4077
+    }
+  ],
+  "initial_export": {
+    "format_version": "lazytt-memory-export-v1",
+    "generated_at": "2026-10-20T02:22:25.603078Z",
+    "record_count": 2,
+    "records": [
+      {
+        "memory_record_id": "47910065-e2d6-51b7-a2de-557fdb8ba5ad",
+        "scope": {
+          "kind": "user",
+          "id": "demo-alice"
+        },
+        "memory_type": "preference",
+        "semantic_key": "user.response_style.structure.conclusion_first",
+        "head_state": "active",
+        "revision": 0,
+        "current_version_id": "b493bc0f-9d7e-5f2f-b06c-50fbb9c09927",
+        "identity_retired_at": null,
+        "versions": [
+          {
+            "memory_version_id": "b493bc0f-9d7e-5f2f-b06c-50fbb9c09927",
+            "version_no": 1,
+            "content": "用户偏好所有回答先给结论再讲细节。",
+            "content_hash": "sha256:a581ef9052e9ba16fd5cd1e3af9a6a059234622f25c98be0304ddb7cc04e9dee",
+            "normalized_key": "user.response_style.structure.conclusion_first",
+            "confidence": 0.99,
+            "importance": 0.9,
+            "inference_kind": "derived",
+            "source_refs": [
+              "conversation:78497684-e009-4a6a-a68f-b4340c80a3b2:6bf72309-4917-4470-b926-36cabb1e1536#memory-7407fde0bebc7adc"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": null,
+            "structured_content": {
+              "schema_name": "lazytt.preference",
+              "schema_version": 1,
+              "payload": {
+                "applicability": "global",
+                "subject": "user",
+                "value": "先给结论再讲细节"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-preference-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:22:21.553843Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "b493bc0f-9d7e-5f2f-b06c-50fbb9c09927",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:22:21.553843Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "722d199e-9d56-561d-bbd8-56592427cc38",
+        "scope": {
+          "kind": "user",
+          "id": "demo-alice"
+        },
+        "memory_type": "profile_fact",
+        "semantic_key": "user.name",
+        "head_state": "active",
+        "revision": 0,
+        "current_version_id": "0e74b692-3f26-5f2b-9460-2a0a92567bfe",
+        "identity_retired_at": null,
+        "versions": [
+          {
+            "memory_version_id": "0e74b692-3f26-5f2b-9460-2a0a92567bfe",
+            "version_no": 1,
+            "content": "用户名叫林舟。",
+            "content_hash": "sha256:7df0d4023af2b3a25cf6774fd41b698e61e92d927361eb457956e76d647b76fb",
+            "normalized_key": "user.name",
+            "confidence": 0.99,
+            "importance": 0.9,
+            "inference_kind": "derived",
+            "source_refs": [
+              "conversation:78497684-e009-4a6a-a68f-b4340c80a3b2:6bf72309-4917-4470-b926-36cabb1e1536#memory-c0e67d23bae7e9b2"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": null,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "name",
+                "subject": "user",
+                "value": "林舟"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-profile_fact-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:22:21.578148Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "0e74b692-3f26-5f2b-9460-2a0a92567bfe",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:22:21.578148Z"
+          }
+        ]
+      }
+    ]
+  }
+}

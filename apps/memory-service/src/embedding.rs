@@ -55,7 +55,7 @@ impl EmbeddingProbe {
             }
         };
         let mut headers = HeaderMap::new();
-        if let Some(api_key) = embedding_api_key_from_env(&manifest.embedding_provider) {
+        if let Some(api_key) = embedding_api_key_from_env() {
             let mut authorization = HeaderValue::from_str(&format!("Bearer {}", api_key.trim()))
                 .map_err(|_| {
                     EmbeddingProbeError::Config(
@@ -128,21 +128,12 @@ impl EmbeddingProbe {
     }
 }
 
-pub fn embedding_api_key_from_env(provider: &str) -> Option<String> {
-    if provider == "aliyun-bailian" {
-        env::var("OPENAI_API_KEY")
-            .ok()
-            .filter(|value| !value.trim().is_empty())
-            .or_else(|| {
-                env::var("MEMORY_EMBEDDING_API_KEY")
-                    .ok()
-                    .filter(|value| !value.trim().is_empty())
-            })
-    } else {
-        env::var("MEMORY_EMBEDDING_API_KEY")
-            .ok()
-            .filter(|value| !value.trim().is_empty())
-    }
+pub fn embedding_api_key_from_env() -> Option<String> {
+    select_embedding_api_key(|name| env::var(name).ok())
+}
+
+fn select_embedding_api_key(read: impl FnOnce(&str) -> Option<String>) -> Option<String> {
+    read("MEMORY_EMBEDDING_API_KEY").filter(|value| !value.trim().is_empty())
 }
 
 #[derive(Serialize)]
@@ -293,5 +284,18 @@ mod tests {
             "http://retrieval-models-cpu:18082"
         );
         assert!(normalize_base_url("http://retrieval-models-cpu:18082", false).is_err());
+    }
+
+    #[test]
+    fn embedding_credentials_are_read_only_from_the_dedicated_authority() {
+        let requested = std::cell::RefCell::new(Vec::new());
+        let key = select_embedding_api_key(|name| {
+            requested.borrow_mut().push(name.to_owned());
+            Some("dedicated-memory-key".to_owned())
+        });
+
+        assert_eq!(key.as_deref(), Some("dedicated-memory-key"));
+        assert_eq!(requested.into_inner(), vec!["MEMORY_EMBEDDING_API_KEY"]);
+        assert!(select_embedding_api_key(|_| Some("  ".to_owned())).is_none());
     }
 }

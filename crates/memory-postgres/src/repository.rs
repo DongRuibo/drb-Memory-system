@@ -904,12 +904,39 @@ impl MemoryRepository {
                     "Idempotency-Key was already used with a different request".into(),
                 ));
             }
+            let original = sqlx::query(
+                "SELECT memory_type,normalized_key,content,structured_content,scope_kind,scope_id \
+                 FROM memory_core.memory_candidates WHERE tenant_id=$1 AND id=$2",
+            )
+            .bind(&authority.tenant_id)
+            .bind(candidate_id)
+            .fetch_one(&mut *tx)
+            .await?;
+            if original.try_get::<String, _>("memory_type")? != command.memory_type
+                || original
+                    .try_get::<Option<String>, _>("normalized_key")?
+                    .as_deref()
+                    != Some(command.semantic_key.as_str())
+                || original.try_get::<Option<String>, _>("content")?.as_deref()
+                    != Some(command.memory_content.as_str())
+                || original.try_get::<Option<serde_json::Value>, _>("structured_content")?
+                    != structured_content
+                || original.try_get::<String, _>("scope_kind")? != command.scope_kind
+                || original.try_get::<Option<String>, _>("scope_id")? != command.scope_id
+            {
+                return Err(RepositoryError::Conflict(
+                    "Idempotency-Key was already used with different typed memory metadata".into(),
+                ));
+            }
             let resolved_operation_id =
                 load_ingest_operation_id_tx(&mut tx, &authority.tenant_id, source_id)
                     .await?
                     .unwrap_or(operation_id);
-            let view =
+            let mut view =
                 load_operation_tx(&mut tx, &authority.tenant_id, resolved_operation_id).await?;
+            if view.canonical_status == CanonicalStatus::NeedsReview {
+                view.candidate_id = Some(candidate_id);
+            }
             tx.commit().await?;
             return Ok(view);
         }
@@ -1057,6 +1084,62 @@ impl MemoryRepository {
                     .try_get::<Option<String>, _>("event_time_precision")?
                     .as_deref()
                     == event_time_precision;
+            if existing_state == "contested" {
+                sqlx::query(
+                    "UPDATE memory_core.memory_candidates \
+                     SET state='needs_review',target_memory_record_id=$3 \
+                     WHERE tenant_id=$1 AND id=$2",
+                )
+                .bind(&authority.tenant_id)
+                .bind(candidate_id)
+                .bind(existing_record_id)
+                .execute(&mut *tx)
+                .await?;
+                sqlx::query(
+                    "UPDATE memory_core.memory_decisions \
+                     SET outcome='needs_review',reason_code='SEMANTIC_CONFLICT_REQUIRES_REVIEW' \
+                     WHERE tenant_id=$1 AND id=$2",
+                )
+                .bind(&authority.tenant_id)
+                .bind(decision_id)
+                .execute(&mut *tx)
+                .await?;
+                let existing_revision: i64 = existing.try_get("revision")?;
+                let contest_operation_id = sqlx::query_scalar::<_, Uuid>(
+                    "SELECT id FROM memory_core.projection_operations \
+                     WHERE tenant_id=$1 AND memory_record_id=$2 AND memory_version_id=$3 \
+                       AND head_revision=$4 AND operation_type='delete' \
+                     ORDER BY created_at DESC,id DESC LIMIT 1",
+                )
+                .bind(&authority.tenant_id)
+                .bind(existing_record_id)
+                .bind(existing_version_id)
+                .bind(existing_revision)
+                .fetch_optional(&mut *tx)
+                .await?
+                .ok_or_else(|| {
+                    RepositoryError::Invariant(
+                        "contested semantic memory has no current projection delete operation"
+                            .into(),
+                    )
+                })?;
+                insert_ingest_result_tx(
+                    &mut tx,
+                    &authority.tenant_id,
+                    source_id,
+                    candidate_id,
+                    existing_record_id,
+                    existing_version_id,
+                    contest_operation_id,
+                    "needs_review",
+                )
+                .await?;
+                let mut view =
+                    load_operation_tx(&mut tx, &authority.tenant_id, contest_operation_id).await?;
+                view.candidate_id = Some(candidate_id);
+                tx.commit().await?;
+                return Ok(view);
+            }
             if existing_state != "active" {
                 return Err(RepositoryError::Conflict(format!(
                     "semantic memory is in state {existing_state:?}; review or correct it first"
@@ -1553,7 +1636,7 @@ impl MemoryRepository {
         let current_version = sqlx::query(
             "SELECT version_no,content_hash,confidence,importance,classification,\
                     allowed_purposes,consent_ref,retention_policy_id,retain_until,\
-                    event_time_start,event_time_end,event_timezone,event_time_precision \
+                    event_time_start,event_time_end,event_timezone,event_time_precision,structured_content \
              FROM memory_core.memory_versions \
              WHERE tenant_id=$1 AND memory_record_id=$2 AND id=$3",
         )
@@ -1564,7 +1647,10 @@ impl MemoryRepository {
         .await?
         .ok_or_else(|| RepositoryError::Invariant("active Head has no current Version".into()))?;
         let previous_hash: String = current_version.try_get("content_hash")?;
-        if previous_hash == version_hash {
+        if previous_hash == version_hash
+            && current_version.try_get::<Option<serde_json::Value>, _>("structured_content")?
+                == new_structured_content
+        {
             return Err(RepositoryError::Conflict(
                 "correction content is identical to the current Version".into(),
             ));
@@ -1924,6 +2010,34 @@ impl MemoryRepository {
             return Err(RepositoryError::Conflict(
                 "candidate revision changed during review".into(),
             ));
+        }
+
+        // A review resolves the record's contest: accept selects this candidate;
+        // reject keeps the canonical value. Close and audit the other alternatives.
+        let alternatives = sqlx::query_scalar::<_, Uuid>(
+            "UPDATE memory_core.memory_candidates \
+             SET state='rejected',revision=revision+1 \
+             WHERE tenant_id=$1 AND target_memory_record_id=$2 AND id<>$3 \
+               AND state='needs_review' RETURNING id",
+        )
+        .bind(&authority.tenant_id)
+        .bind(record_id)
+        .bind(command.candidate_id)
+        .fetch_all(&mut *tx)
+        .await?;
+        for alternative_id in alternatives {
+            sqlx::query(
+                "INSERT INTO memory_core.memory_decisions (\
+                     tenant_id,id,candidate_id,outcome,reason_code,actor_type,actor_id,policy_version\
+                 ) VALUES ($1,$2,$3,'reject','REVIEW_ALTERNATIVE_SUPERSEDED',\
+                           'reviewer',$4,'demo-policy-v1')",
+            )
+            .bind(&authority.tenant_id)
+            .bind(stable_id(&format!("review-alternative:{decision_id}:{alternative_id}")))
+            .bind(alternative_id)
+            .bind(&authority.user_id)
+            .execute(&mut *tx)
+            .await?;
         }
 
         let (resolved_version_id, resolved_content, resolved_hash) = match command.outcome {
@@ -3131,6 +3245,25 @@ impl MemoryRepository {
         authority: &DemoAuthority,
         command: ProjectionRebuildCommand,
     ) -> Result<ProjectionGenerationView, RepositoryError> {
+        self.start_projection_rebuild_inner(authority, command, false)
+            .await
+    }
+
+    pub async fn start_empty_projection_rebuild(
+        &self,
+        authority: &DemoAuthority,
+        command: ProjectionRebuildCommand,
+    ) -> Result<ProjectionGenerationView, RepositoryError> {
+        self.start_projection_rebuild_inner(authority, command, true)
+            .await
+    }
+
+    async fn start_projection_rebuild_inner(
+        &self,
+        authority: &DemoAuthority,
+        command: ProjectionRebuildCommand,
+        require_empty: bool,
+    ) -> Result<ProjectionGenerationView, RepositoryError> {
         validate_generation_name(&command.generation)?;
         command
             .model_manifest
@@ -3145,6 +3278,22 @@ impl MemoryRepository {
         set_tenant(&mut tx, &authority.tenant_id).await?;
         lock_projection_generation_tx(&mut tx, &authority.tenant_id).await?;
         ensure_default_projection_generation_tx(&mut tx, &authority.tenant_id).await?;
+
+        // Generation counters describe the rebuild snapshot, not later writes.
+        // Check canonical rows under the same lock used by ingestion.
+        if require_empty
+            && sqlx::query_scalar::<_, bool>(
+                "SELECT EXISTS(SELECT 1 FROM memory_core.memory_records WHERE tenant_id=$1)",
+            )
+            .bind(&authority.tenant_id)
+            .fetch_one(&mut *tx)
+            .await?
+        {
+            return Err(RepositoryError::Conflict(
+                "MEMORY_BOOTSTRAP_EMPTY_PROJECTION cannot replace a non-empty tenant; run the controlled projection rebuild instead"
+                    .into(),
+            ));
+        }
 
         if let Some(existing) = sqlx::query(
             "SELECT generation,model_manifest_hash FROM memory_core.projection_generations \
@@ -4006,6 +4155,55 @@ impl MemoryRepository {
         Ok(authorized)
     }
 
+    pub async fn global_preference_hits(
+        &self,
+        authority: &DemoAuthority,
+        generation: &str,
+        limit: usize,
+    ) -> Result<Vec<ProjectionHit>, RepositoryError> {
+        if limit == 0 || limit > 50 {
+            return Err(RepositoryError::Validation(
+                "global preference limit must be between 1 and 50".into(),
+            ));
+        }
+        let mut tx = self.pool.begin().await?;
+        set_tenant(&mut tx, &authority.tenant_id).await?;
+        let rows = sqlx::query(
+            "SELECT r.id AS memory_record_id,v.id AS memory_version_id,h.revision,v.content_hash \
+             FROM memory_core.memory_records r \
+             JOIN memory_core.memory_heads h ON h.tenant_id=r.tenant_id AND h.memory_record_id=r.id \
+             JOIN memory_core.memory_versions v ON v.tenant_id=h.tenant_id AND v.id=h.current_version_id \
+             WHERE r.tenant_id=$1 AND r.scope_kind='user' AND r.scope_id=$2 \
+               AND r.memory_type='preference' AND h.state='active' AND v.content IS NOT NULL \
+               AND v.structured_content->>'schema_name'='lazytt.preference' \
+               AND v.structured_content->'payload'->>'applicability'='global' \
+               AND (v.effective_from IS NULL OR v.effective_from<=transaction_timestamp()) \
+               AND (v.effective_to IS NULL OR v.effective_to>transaction_timestamp()) \
+               AND (v.retain_until IS NULL OR v.retain_until>transaction_timestamp()) \
+               AND NOT EXISTS (SELECT 1 FROM memory_core.tombstones t \
+                   WHERE t.tenant_id=r.tenant_id AND t.memory_record_id=r.id) \
+             ORDER BY v.importance DESC,r.id LIMIT $3",
+        ).bind(&authority.tenant_id).bind(&authority.user_id).bind(limit as i64)
+            .fetch_all(&mut *tx).await?;
+        let mut hits = Vec::with_capacity(rows.len());
+        for row in rows {
+            let version_id: Uuid = row.try_get("memory_version_id")?;
+            let revision: i64 = row.try_get("revision")?;
+            hits.push(ProjectionHit {
+                provider_object_id: format!("global-preference:{version_id}"),
+                memory_record_id: row.try_get("memory_record_id")?,
+                memory_version_id: version_id,
+                head_revision: u64::try_from(revision)
+                    .map_err(|_| RepositoryError::Invariant("negative head revision".into()))?,
+                generation: generation.into(),
+                content_hash: row.try_get("content_hash")?,
+                provider_score: 0.0,
+            });
+        }
+        tx.commit().await?;
+        Ok(hits)
+    }
+
     pub async fn search_local_projection(
         &self,
         authority: &DemoAuthority,
@@ -4519,6 +4717,7 @@ impl MemoryRepository {
                         || is_memory_applicable_without_semantic_threshold(
                             &command.query,
                             &memory.memory_type,
+                            memory.preference_applicability,
                         )
                 })
                 .filter(|memory| seen_records.insert(memory.memory_record_id)),
@@ -5054,7 +5253,7 @@ async fn authorized_hits_tx(
     let rows = sqlx::query(
         "SELECT r.id AS memory_record_id,v.id AS memory_version_id,v.content,\
                 v.content_hash,v.effective_from,v.event_time_start,v.event_time_end,\
-                v.event_timezone,v.event_time_precision,r.memory_type,h.revision,\
+                v.event_timezone,v.event_time_precision,v.structured_content,r.memory_type,h.revision,\
                 COALESCE((\
                     SELECT array_agg(DISTINCT se.source_ref ORDER BY se.source_ref) \
                     FROM memory_core.memory_version_sources mvs \
@@ -5108,6 +5307,11 @@ async fn authorized_hits_tx(
                 row.try_get::<Vec<String>, _>("source_refs")?,
                 row.try_get("effective_from")?,
                 event_time_from_row(&row)?,
+                row.try_get::<Option<sqlx::types::Json<StructuredContent>>, _>(
+                    "structured_content",
+                )?
+                .map(|value| value.0.preference_applicability())
+                .unwrap_or_default(),
             ),
         );
     }
@@ -5124,6 +5328,7 @@ async fn authorized_hits_tx(
             source_refs,
             effective_from,
             event_time,
+            preference_applicability,
         )) = canonical.get(&hit.memory_version_id)
         else {
             continue;
@@ -5145,6 +5350,7 @@ async fn authorized_hits_tx(
             memory_version_id: hit.memory_version_id,
             content,
             memory_type: memory_type.clone(),
+            preference_applicability: *preference_applicability,
             score: hit.provider_score.clamp(0.0, 1.0),
             source_refs: source_refs.clone(),
             effective_from: *effective_from,
@@ -5166,7 +5372,7 @@ async fn authorized_pinned_versions_tx(
     let rows = sqlx::query(
         "SELECT r.id AS memory_record_id,v.id AS memory_version_id,v.content,\
                 v.effective_from,v.event_time_start,v.event_time_end,v.event_timezone,\
-                v.event_time_precision,r.memory_type,\
+                v.event_time_precision,v.structured_content,r.memory_type,\
                 COALESCE((\
                     SELECT array_agg(DISTINCT se.source_ref ORDER BY se.source_ref) \
                     FROM memory_core.memory_version_sources mvs \
@@ -5224,6 +5430,10 @@ async fn authorized_pinned_versions_tx(
             memory_version_id: row.try_get("memory_version_id")?,
             content,
             memory_type: row.try_get("memory_type")?,
+            preference_applicability: row
+                .try_get::<Option<sqlx::types::Json<StructuredContent>>, _>("structured_content")?
+                .map(|value| value.0.preference_applicability())
+                .unwrap_or_default(),
             score: 1.0,
             source_refs,
             effective_from: row.try_get("effective_from")?,
@@ -6134,7 +6344,7 @@ fn validate_retrieval_run(
             .degradation_reason
             .as_ref()
             .is_some_and(|reason| reason.is_empty() || reason.len() > 512)
-        || command.candidates.len() > 1_600
+        || command.candidates.len() > 1_650
         || command.temporal_window.as_ref().is_some_and(|window| {
             window.start >= window.end
                 || window.timezone != command.timezone
@@ -6147,7 +6357,13 @@ fn validate_retrieval_run(
         ));
     }
 
-    let allowed_channels = ["provider", "bm25", "lexical", "temporal"];
+    let allowed_channels = [
+        "provider",
+        "bm25",
+        "lexical",
+        "temporal",
+        "global_preference",
+    ];
     let allowed_exclusions = [
         "RRF_LIMIT",
         "PRE_RERANK_POLICY_DENIED",
@@ -7987,6 +8203,7 @@ mod tests {
             memory_version_id: Uuid::new_v4(),
             content: "1234567890".into(),
             memory_type: "preference".into(),
+            preference_applicability: Default::default(),
             score: 1.0,
             source_refs: vec!["source:first".into()],
             effective_from: None,
@@ -7997,6 +8214,7 @@ mod tests {
             memory_version_id: Uuid::new_v4(),
             content: "12345".into(),
             memory_type: "preference".into(),
+            preference_applicability: Default::default(),
             score: 0.9,
             source_refs: vec!["source:second".into()],
             effective_from: None,
@@ -8661,7 +8879,7 @@ mod tests {
 
     #[tokio::test]
     #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
-    async fn context_pack_retains_authorized_preference_below_topical_threshold() {
+    async fn global_preference_is_authorized_query_independent_and_forget_safe() {
         let database_url = std::env::var("TEST_DATABASE_URL").unwrap_or_else(|_| {
             "postgres://memory:memory-local-only@127.0.0.1:55432/memory".into()
         });
@@ -8669,11 +8887,11 @@ mod tests {
         repository.migrate().await.unwrap();
         let test_id = Uuid::new_v4();
         let authority = DemoAuthority::user(format!("preference-ranking-test-{test_id}"), "alice");
-        let content = format!("回答技术问题时先用生活类比 {test_id}");
+        let content = format!("回答时先给结论 {test_id}");
         let operation = repository
-            .ingest_explicit(
+            .ingest_extracted(
                 &authority,
-                IngestCommand {
+                IngestCandidateCommand {
                     idempotency_key: format!("preference-ranking-ingest-{test_id}"),
                     event_id: format!("preference-ranking-event-{test_id}"),
                     source_type: "conversation_message".into(),
@@ -8681,6 +8899,25 @@ mod tests {
                     source_content: format!("请记住：{content}"),
                     memory_content: content.clone(),
                     occurred_at: Utc::now(),
+                    event_time: None,
+                    structured_content: Some(
+                        StructuredContent::new(
+                            "lazytt.preference",
+                            1,
+                            json!({"subject":"user","value":"先给结论","applicability":"global"}),
+                            MemoryType::Preference,
+                        )
+                        .unwrap(),
+                    ),
+                    memory_type: "preference".into(),
+                    semantic_key: "user.response_style.conclusion_first".into(),
+                    confidence: 1.0,
+                    importance: 0.8,
+                    inference_kind: "explicit".into(),
+                    extractor_name: "test".into(),
+                    extractor_version: "1".into(),
+                    scope_kind: "user".into(),
+                    scope_id: Some("alice".into()),
                 },
             )
             .await
@@ -8719,6 +8956,55 @@ mod tests {
             .await
             .unwrap();
         assert_eq!(manifest.item_count, 1);
+        let global = repository
+            .global_preference_hits(&authority, DEMO_GENERATION, 5)
+            .await
+            .unwrap();
+        assert_eq!(global.len(), 1);
+        assert_eq!(global[0].memory_record_id, operation.memory_record_id);
+        let outsider = DemoAuthority::user(&authority.tenant_id, "bob");
+        assert!(
+            repository
+                .global_preference_hits(&outsider, DEMO_GENERATION, 5)
+                .await
+                .unwrap()
+                .is_empty()
+        );
+        let updated = repository.correct(&authority, CorrectionCommand {
+            idempotency_key: format!("global-contextual-{test_id}"),
+            memory_record_id: operation.memory_record_id, expected_revision: 0,
+            new_content: content.clone(), reason: "only use this preference when relevant".into(),
+            source_ref: format!("conversation:global-contextual:{test_id}"), effective_from: None,
+            new_structured_content: Some(StructuredContent::new("lazytt.preference",1,
+                json!({"subject":"user","value":"先给结论","applicability":"contextual"}),MemoryType::Preference).unwrap()),
+        }).await.unwrap();
+        assert_ne!(updated.memory_version_id, operation.memory_version_id);
+        assert!(
+            repository
+                .global_preference_hits(&authority, DEMO_GENERATION, 5)
+                .await
+                .unwrap()
+                .is_empty()
+        );
+        repository
+            .forget(
+                &authority,
+                ForgetCommand {
+                    idempotency_key: format!("global-forget-{test_id}"),
+                    memory_record_id: operation.memory_record_id,
+                    expected_revision: 1,
+                    reason: "synthetic test cleanup".into(),
+                },
+            )
+            .await
+            .unwrap();
+        assert!(
+            repository
+                .global_preference_hits(&authority, DEMO_GENERATION, 5)
+                .await
+                .unwrap()
+                .is_empty()
+        );
     }
 
     #[tokio::test]
@@ -8849,7 +9135,7 @@ mod tests {
             Err(RepositoryError::Unauthorized)
         ));
 
-        let mut conflicting = base;
+        let mut conflicting = base.clone();
         conflicting.idempotency_key = format!("project-extraction-conflict-{test_id}");
         conflicting.event_id = format!("project-extraction-event-conflict-{test_id}");
         conflicting.source_ref = format!("conversation:project-extraction:{test_id}:conflict");
@@ -8869,6 +9155,56 @@ mod tests {
                 .head_state,
             "contested"
         );
+
+        let mut additional_conflict = base;
+        additional_conflict.idempotency_key =
+            format!("project-extraction-additional-conflict-{test_id}");
+        additional_conflict.event_id =
+            format!("project-extraction-event-additional-conflict-{test_id}");
+        additional_conflict.source_ref =
+            format!("conversation:project-extraction:{test_id}:additional-conflict");
+        additional_conflict.source_content = "当前项目又提出使用另一套数据库作为权威数据库".into();
+        additional_conflict.memory_content = "当前项目计划再次变更权威数据库。".into();
+        let accepted_for_review = repository
+            .ingest_extracted(&authority, additional_conflict.clone())
+            .await
+            .unwrap();
+        let replay = repository
+            .ingest_extracted(&authority, additional_conflict)
+            .await
+            .unwrap();
+        assert_eq!(replay.operation_id, accepted_for_review.operation_id);
+        assert_eq!(replay.candidate_id, accepted_for_review.candidate_id);
+        assert_ne!(accepted_for_review.candidate_id, contested.candidate_id);
+        assert_eq!(
+            accepted_for_review.canonical_status,
+            CanonicalStatus::NeedsReview
+        );
+        assert_eq!(
+            accepted_for_review.memory_record_id,
+            accepted.memory_record_id
+        );
+
+        let review_candidates = sqlx::query_scalar::<_, i64>(
+            "SELECT count(*) FROM memory_core.memory_candidates \
+             WHERE tenant_id=$1 AND target_memory_record_id=$2 AND state='needs_review'",
+        )
+        .bind(&authority.tenant_id)
+        .bind(accepted.memory_record_id)
+        .fetch_one(&repository.pool)
+        .await
+        .unwrap();
+        assert_eq!(review_candidates, 2);
+        let contest_deletes = sqlx::query_scalar::<_, i64>(
+            "SELECT count(*) FROM memory_core.projection_operations \
+             WHERE tenant_id=$1 AND memory_record_id=$2 AND operation_type='delete'",
+        )
+        .bind(&authority.tenant_id)
+        .bind(accepted.memory_record_id)
+        .fetch_one(&repository.pool)
+        .await
+        .unwrap();
+        assert_eq!(contest_deletes, 1);
     }
 
     #[tokio::test]
@@ -9631,6 +9967,100 @@ mod tests {
                 .await,
             Err(RepositoryError::NotFound)
         ));
+    }
+
+    #[tokio::test]
+    #[ignore = "requires a migrated local PostgreSQL configured by TEST_DATABASE_URL"]
+    async fn resolving_multiple_conflicts_closes_and_audits_alternatives() {
+        let database_url = std::env::var("TEST_DATABASE_URL").expect("TEST_DATABASE_URL");
+        let repository = MemoryRepository::connect(&database_url).await.unwrap();
+        repository.migrate().await.unwrap();
+        for outcome in [ReviewOutcome::Accept, ReviewOutcome::Reject] {
+            let label = Uuid::new_v4().to_string();
+            let authority = DemoAuthority::user(format!("multiple-review-{label}"), "alice");
+            let (original, _, first, mut command) =
+                create_test_conflict(&repository, &authority, &label).await;
+            command.idempotency_key = format!("additional-conflict-{label}");
+            command.event_id = format!("additional-event-{label}");
+            command.source_ref = format!("conversation:{label}:additional");
+            command.memory_content = format!("审核键{label}：另一候选");
+            command.source_content = format!("请记住：{}", command.memory_content);
+            let extra_content = command.memory_content.clone();
+            let extra = repository
+                .ingest_explicit(&authority, command)
+                .await
+                .unwrap();
+            assert_ne!(first.candidate_id, extra.candidate_id);
+            let review = ReviewDecisionCommand {
+                idempotency_key: format!("resolve-multiple-{label}"),
+                candidate_id: extra.candidate_id.unwrap(),
+                expected_candidate_revision: 0,
+                outcome,
+                reason: "选择最终值并结束本次冲突".into(),
+            };
+            let resolved = repository
+                .decide_candidate(&authority, review.clone())
+                .await
+                .unwrap();
+            let replay = repository
+                .decide_candidate(&authority, review)
+                .await
+                .unwrap();
+            assert_eq!(resolved.operation_id, replay.operation_id);
+            let inspected = repository
+                .inspect_memory(&authority, original.memory_record_id)
+                .await
+                .unwrap();
+            assert_eq!(inspected.head_state, "active");
+            assert_eq!(
+                resolved.memory_version_id == original.memory_version_id,
+                outcome == ReviewOutcome::Reject
+            );
+            if outcome == ReviewOutcome::Accept {
+                assert!(
+                    inspected
+                        .versions
+                        .iter()
+                        .any(|version| version.content.as_deref() == Some(&extra_content))
+                );
+            }
+            let pending = sqlx::query_scalar::<_, i64>(
+                "SELECT count(*) FROM memory_core.memory_candidates \
+                 WHERE tenant_id=$1 AND target_memory_record_id=$2 AND state='needs_review'",
+            )
+            .bind(&authority.tenant_id)
+            .bind(original.memory_record_id)
+            .fetch_one(&repository.pool)
+            .await
+            .unwrap();
+            assert_eq!(pending, 0);
+            let superseded = sqlx::query_scalar::<_, i64>(
+                "SELECT count(*) FROM memory_core.memory_decisions d \
+                 JOIN memory_core.memory_candidates c ON c.tenant_id=d.tenant_id AND c.id=d.candidate_id \
+                 WHERE d.tenant_id=$1 AND d.candidate_id=$2 \
+                   AND d.reason_code='REVIEW_ALTERNATIVE_SUPERSEDED' \
+                   AND c.state='rejected' AND c.revision=1",
+            )
+            .bind(&authority.tenant_id)
+            .bind(first.candidate_id.unwrap())
+            .fetch_one(&repository.pool).await.unwrap();
+            assert_eq!(superseded, 1);
+            assert!(matches!(
+                repository
+                    .decide_candidate(
+                        &authority,
+                        ReviewDecisionCommand {
+                            idempotency_key: format!("stale-multiple-review-{label}"),
+                            candidate_id: first.candidate_id.unwrap(),
+                            expected_candidate_revision: 0,
+                            outcome: ReviewOutcome::Accept,
+                            reason: "旧候选不能再次覆盖当前值".into(),
+                        }
+                    )
+                    .await,
+                Err(RepositoryError::Conflict(_))
+            ));
+        }
     }
 
     #[tokio::test]

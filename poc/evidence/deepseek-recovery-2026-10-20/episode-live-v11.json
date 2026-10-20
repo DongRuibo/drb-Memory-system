@@ -1,0 +1,1318 @@
+{
+  "synthetic_data_only": true,
+  "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+  "user_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+  "turns": [
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "27ae5bce-94f1-4819-aecd-9962b370b337",
+      "sequence_no": 1,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task_verification.task_1",
+              "content": "用户于2026年10月19日下午验证了 task-1 后台任务。",
+              "confidence": 0.95,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification",
+                  "outcome": "完成对 task-1 后台任务的验证"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "538e6215-54a9-5c25-b985-942b8fc0ece1",
+              "candidate_ids": [
+                "236b742b-1af0-54df-a898-b4ed6a29f630"
+              ],
+              "memory_record_id": "2fd28417-3b1d-5ede-ad8f-45373eaa25ac",
+              "memory_version_id": "e06b365a-b491-50df-a7a3-02176d367565",
+              "head_revision": 0,
+              "canonical_status": "memory_accepted",
+              "projection_status": "pending",
+              "reason_code": null,
+              "provider_object_id": null,
+              "attempts": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "92b9207f-3395-4e63-b61a-f54cf4b829e3",
+      "sequence_no": 2,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task.verification",
+              "content": "用户于2026年10月19日下午验证了 task-2 后台任务。",
+              "confidence": 0.92,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification",
+                  "outcome": "验证了 task-2 后台任务"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "52477b23-73f3-5908-bc7e-0b43685ccf27",
+              "candidate_ids": [
+                "f4d1ac61-aeed-52c1-b6ac-130ff0bb6027"
+              ],
+              "memory_record_id": "b808c352-e9ef-577b-bb91-d644d8e9b6bd",
+              "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+              "head_revision": 0,
+              "canonical_status": "memory_accepted",
+              "projection_status": "pending",
+              "reason_code": null,
+              "provider_object_id": null,
+              "attempts": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "d8e5c93c-1e09-41ab-bb53-4a117f3a4063",
+      "sequence_no": 3,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task.verification",
+              "content": "用户于2026年10月19日下午验证了 task-3 后台任务。",
+              "confidence": 0.95,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "538d1513-9f4d-58cf-bcd5-b49e97519418",
+              "candidate_ids": [
+                "2282e16a-8127-59d2-91ba-0c544373a84b"
+              ],
+              "memory_record_id": "b808c352-e9ef-577b-bb91-d644d8e9b6bd",
+              "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+              "head_revision": 1,
+              "canonical_status": "needs_review",
+              "projection_status": "pending",
+              "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+              "provider_object_id": "8f65b453-7a33-47eb-8048-37c1a5f35c5d",
+              "attempts": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "fb33f0f3-2706-46a2-8b12-eaca6fffcd45",
+      "sequence_no": 4,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task.task_4_verification",
+              "content": "用户于2026年10月19日下午验证了 task-4 后台任务。",
+              "confidence": 0.95,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification",
+                  "outcome": "验证了 task-4 后台任务"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "8c050b5b-50c9-525c-bf61-de3aaaea3d97",
+              "candidate_ids": [
+                "489fd4e4-82b8-5434-940c-7895883664f9"
+              ],
+              "memory_record_id": "485d470b-6372-58ce-8e82-bbb123ec6302",
+              "memory_version_id": "6103ef1e-f986-5db3-a8ad-517daa78524a",
+              "head_revision": 0,
+              "canonical_status": "memory_accepted",
+              "projection_status": "pending",
+              "reason_code": null,
+              "provider_object_id": null,
+              "attempts": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "d97e6a83-c980-4f83-b641-1ecf55647ad3",
+      "sequence_no": 5,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task.task_5_verification",
+              "content": "用户于2026年10月19日下午验证了 task-5 后台任务。",
+              "confidence": 0.92,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification",
+                  "outcome": "完成 task-5 后台任务验证"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "12c4caf4-1492-5216-be3c-24e22fd8a967",
+              "candidate_ids": [
+                "6ef23ae5-84fe-5750-81e0-8230f4535d29"
+              ],
+              "memory_record_id": "4532dad0-96c2-577b-a13f-930fc929c97d",
+              "memory_version_id": "f54d075b-07de-5803-aad6-a247ce848af0",
+              "head_revision": 0,
+              "canonical_status": "memory_accepted",
+              "projection_status": "pending",
+              "reason_code": null,
+              "provider_object_id": null,
+              "attempts": 0
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "0d8af993-2b55-4e27-9fb0-669c53d42c4b",
+      "sequence_no": 6,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task.verification",
+              "content": "用户于2026年10月19日下午验证了 task-6 后台任务。",
+              "confidence": 0.95,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "538d1513-9f4d-58cf-bcd5-b49e97519418",
+              "candidate_ids": [
+                "d94f9d6c-cb33-5120-a9bd-ab2e488e6937"
+              ],
+              "memory_record_id": "b808c352-e9ef-577b-bb91-d644d8e9b6bd",
+              "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+              "head_revision": 1,
+              "canonical_status": "needs_review",
+              "projection_status": "deleted",
+              "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+              "provider_object_id": "8f65b453-7a33-47eb-8048-37c1a5f35c5d",
+              "attempts": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "d70889c9-c3e4-487f-8b27-8391b1242eac",
+      "sequence_no": 7,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task.verification",
+              "content": "用户于2026年10月19日下午验证了 task-7 后台任务。",
+              "confidence": 0.95,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "538d1513-9f4d-58cf-bcd5-b49e97519418",
+              "candidate_ids": [
+                "28ce5cd6-a7d5-5b4e-bc05-33b988aa1dc6"
+              ],
+              "memory_record_id": "b808c352-e9ef-577b-bb91-d644d8e9b6bd",
+              "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+              "head_revision": 1,
+              "canonical_status": "needs_review",
+              "projection_status": "deleted",
+              "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+              "provider_object_id": "8f65b453-7a33-47eb-8048-37c1a5f35c5d",
+              "attempts": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "105bd9bd-1cb9-446f-8fad-dacb14216c4b",
+      "sequence_no": 8,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task.verification",
+              "content": "用户于2026年10月19日下午验证了 task-8 后台任务。",
+              "confidence": 0.92,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification",
+                  "outcome": "完成了 task-8 后台任务验证"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "538d1513-9f4d-58cf-bcd5-b49e97519418",
+              "candidate_ids": [
+                "047f38db-f0bb-5383-9f87-389753d4bada"
+              ],
+              "memory_record_id": "b808c352-e9ef-577b-bb91-d644d8e9b6bd",
+              "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+              "head_revision": 1,
+              "canonical_status": "needs_review",
+              "projection_status": "deleted",
+              "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+              "provider_object_id": "8f65b453-7a33-47eb-8048-37c1a5f35c5d",
+              "attempts": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "5e2b6b13-362d-4605-abcc-33bf75fd677d",
+      "sequence_no": 9,
+      "consolidation_id": null,
+      "consolidation_status": null,
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task.verification",
+              "content": "用户于2026年10月19日下午验证了 task-9 后台任务。",
+              "confidence": 0.95,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification",
+                  "outcome": "task-9 后台任务已验证"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "538d1513-9f4d-58cf-bcd5-b49e97519418",
+              "candidate_ids": [
+                "bdb076bb-856d-580a-9960-6abdb6eb8292"
+              ],
+              "memory_record_id": "b808c352-e9ef-577b-bb91-d644d8e9b6bd",
+              "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+              "head_revision": 1,
+              "canonical_status": "needs_review",
+              "projection_status": "deleted",
+              "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+              "provider_object_id": "8f65b453-7a33-47eb-8048-37c1a5f35c5d",
+              "attempts": 1
+            }
+          }
+        ]
+      }
+    },
+    {
+      "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "turn_id": "8b899a6f-ecc5-40f2-9aac-9849cd879876",
+      "sequence_no": 10,
+      "consolidation_id": "b462ac7e-58b6-54fc-b9b8-ae6e854a9ce2",
+      "consolidation_status": "pending",
+      "per_turn_extraction": {
+        "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+        "candidate_count": 1,
+        "diagnostics": {
+          "model_candidate_count": 1,
+          "valid_model_candidate_count": 1,
+          "filtered_reason_counts": {},
+          "coverage_added_count": 0,
+          "coverage_enriched_count": 0
+        },
+        "candidates": [
+          {
+            "proposal": {
+              "memory_type": "episodic_summary",
+              "semantic_key": "user.experience.background_task_verification",
+              "content": "用户于2026年10月19日下午验证了 task-10 后台任务。",
+              "confidence": 0.95,
+              "importance": 0.5,
+              "event_time": {
+                "start": "2026-10-19T04:00:00Z",
+                "end": "2026-10-19T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              },
+              "structured_content": {
+                "schema_name": "lazytt.episodic_summary",
+                "schema_version": 1,
+                "payload": {
+                  "event_kind": "background_task_verification",
+                  "outcome": "验证了 task-10 后台任务"
+                }
+              }
+            },
+            "operation": {
+              "operation_id": "42040dcb-f63f-581d-8fad-16bc39f82f69",
+              "candidate_ids": [
+                "e6ec3e6a-8d19-5833-8380-69d3738c8046"
+              ],
+              "memory_record_id": "65414721-ce45-5616-95c3-6e3407379af2",
+              "memory_version_id": "c1e062f6-2cfa-57c4-967a-0622831a18f6",
+              "head_revision": 0,
+              "canonical_status": "memory_accepted",
+              "projection_status": "pending",
+              "reason_code": null,
+              "provider_object_id": null,
+              "attempts": 0
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "checks": {
+    "turn_replay_stable": true,
+    "one_completed_job_for_ten_turns": true,
+    "bounded_real_model_proposals": true,
+    "assistant_guess_not_promoted": true,
+    "no_uncovered_turns_rejected": true,
+    "covered_range_not_duplicated": true
+  },
+  "status": {
+    "episode": {
+      "id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+      "state": "active",
+      "last_turn_sequence": 10,
+      "scheduled_through_sequence": 10,
+      "last_consolidated_turn_sequence": 10
+    },
+    "user_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+    "project_id": null,
+    "unconsolidated_turn_count": 0,
+    "consolidations": [
+      {
+        "consolidation_id": "b462ac7e-58b6-54fc-b9b8-ae6e854a9ce2",
+        "episode_id": "7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+        "from_turn_sequence": 1,
+        "through_turn_sequence": 10,
+        "trigger": "threshold",
+        "status": "completed",
+        "attempts": 1,
+        "proposal_count": 4,
+        "operation_ids": [
+          "f23d3509-42b2-5a4f-a3f7-91cc3a54b5d3",
+          "01a1a1b6-9ad5-5015-8697-7665f019d605",
+          "62a61f77-4ca2-5d51-a3ac-e5153f69d27b",
+          "db581ac6-32df-5a2f-9f48-9e719b68d8c5"
+        ],
+        "last_error_code": null,
+        "created_at": "2026-10-20T02:25:29.505269Z",
+        "completed_at": "2026-10-20T02:25:35.067081Z"
+      }
+    ]
+  },
+  "export": {
+    "format_version": "lazytt-memory-export-v1",
+    "generated_at": "2026-10-20T02:27:44.637487Z",
+    "record_count": 9,
+    "records": [
+      {
+        "memory_record_id": "2fd28417-3b1d-5ede-ad8f-45373eaa25ac",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task_verification.task_1",
+        "head_state": "forgotten",
+        "revision": 1,
+        "current_version_id": null,
+        "identity_retired_at": "2026-10-20T02:25:35.357317Z",
+        "versions": [
+          {
+            "memory_version_id": "e06b365a-b491-50df-a7a3-02176d367565",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-1 后台任务。",
+            "content_hash": "sha256:296b6244cbc0ff52d1417eade387e26141c1bfed05c08d691076da690a57afa7",
+            "normalized_key": "user.experience.background_task_verification.task_1",
+            "confidence": 0.95,
+            "importance": 0.5,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turn:27ae5bce-94f1-4819-aecd-9962b370b337#memory-3ae79212bfbc5888"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "完成对 task-1 后台任务的验证"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:12.888840Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "e06b365a-b491-50df-a7a3-02176d367565",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:12.888840Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_forgotten",
+            "memory_version_id": "e06b365a-b491-50df-a7a3-02176d367565",
+            "actor_type": "user",
+            "actor_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+            "reason_code": "USER_REQUESTED_FORGET",
+            "payload": {
+              "reason": "synthetic validation cleanup"
+            },
+            "occurred_at": "2026-10-20T02:25:35.357317Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "b808c352-e9ef-577b-bb91-d644d8e9b6bd",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task.verification",
+        "head_state": "contested",
+        "revision": 1,
+        "current_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+        "identity_retired_at": null,
+        "versions": [
+          {
+            "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-2 后台任务。",
+            "content_hash": "sha256:33d573cc3262426abd66d45e9c2fc42912e549e6533fe051f17f9fd34dc8a21f",
+            "normalized_key": "user.experience.background_task.verification",
+            "confidence": 0.92,
+            "importance": 0.5,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turn:92b9207f-3395-4e63-b61a-f54cf4b829e3#memory-7c100858066cd376"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "验证了 task-2 后台任务"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:14.613876Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:14.613876Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_contested",
+            "memory_version_id": "c4a090d4-39dc-5043-be07-a4f9403c84cb",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+            "payload": {
+              "candidate_id": "2282e16a-8127-59d2-91ba-0c544373a84b"
+            },
+            "occurred_at": "2026-10-20T02:25:16.934549Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "485d470b-6372-58ce-8e82-bbb123ec6302",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task.task_4_verification",
+        "head_state": "forgotten",
+        "revision": 1,
+        "current_version_id": null,
+        "identity_retired_at": "2026-10-20T02:25:58.535295Z",
+        "versions": [
+          {
+            "memory_version_id": "6103ef1e-f986-5db3-a8ad-517daa78524a",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-4 后台任务。",
+            "content_hash": "sha256:d0a5ff9b3ddbb365693359ed90d2dd255cf524777f739fed9f006ce2c937cbb5",
+            "normalized_key": "user.experience.background_task.task_4_verification",
+            "confidence": 0.95,
+            "importance": 0.5,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turn:fb33f0f3-2706-46a2-8b12-eaca6fffcd45#memory-2ff9bd13050b80a7"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "验证了 task-4 后台任务"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:18.268534Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "6103ef1e-f986-5db3-a8ad-517daa78524a",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:18.268534Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_forgotten",
+            "memory_version_id": "6103ef1e-f986-5db3-a8ad-517daa78524a",
+            "actor_type": "user",
+            "actor_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+            "reason_code": "USER_REQUESTED_FORGET",
+            "payload": {
+              "reason": "synthetic validation cleanup"
+            },
+            "occurred_at": "2026-10-20T02:25:58.535295Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "4532dad0-96c2-577b-a13f-930fc929c97d",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task.task_5_verification",
+        "head_state": "forgotten",
+        "revision": 1,
+        "current_version_id": null,
+        "identity_retired_at": "2026-10-20T02:25:58.555295Z",
+        "versions": [
+          {
+            "memory_version_id": "f54d075b-07de-5803-aad6-a247ce848af0",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-5 后台任务。",
+            "content_hash": "sha256:3e9ad675395efea48b04af54337b6b8576a3ac81754de14ac5af9ef905c93f0b",
+            "normalized_key": "user.experience.background_task.task_5_verification",
+            "confidence": 0.92,
+            "importance": 0.5,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turn:d97e6a83-c980-4f83-b641-1ecf55647ad3#memory-6dc4d2f0dde5a95a"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "完成 task-5 后台任务验证"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:20.347115Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "f54d075b-07de-5803-aad6-a247ce848af0",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:20.347115Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_forgotten",
+            "memory_version_id": "f54d075b-07de-5803-aad6-a247ce848af0",
+            "actor_type": "user",
+            "actor_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+            "reason_code": "USER_REQUESTED_FORGET",
+            "payload": {
+              "reason": "synthetic validation cleanup"
+            },
+            "occurred_at": "2026-10-20T02:25:58.555295Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "65414721-ce45-5616-95c3-6e3407379af2",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task_verification",
+        "head_state": "forgotten",
+        "revision": 1,
+        "current_version_id": null,
+        "identity_retired_at": "2026-10-20T02:25:58.578899Z",
+        "versions": [
+          {
+            "memory_version_id": "c1e062f6-2cfa-57c4-967a-0622831a18f6",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-10 后台任务。",
+            "content_hash": "sha256:d5ee433952ed2fb2a5eb7b19c552b083b0672ac062dbc5090c19fadec5011351",
+            "normalized_key": "user.experience.background_task_verification",
+            "confidence": 0.95,
+            "importance": 0.5,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turn:8b899a6f-ecc5-40f2-9aac-9849cd879876#memory-63c514122fc913ae"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "验证了 task-10 后台任务"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:31.181696Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "c1e062f6-2cfa-57c4-967a-0622831a18f6",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:31.181696Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_forgotten",
+            "memory_version_id": "c1e062f6-2cfa-57c4-967a-0622831a18f6",
+            "actor_type": "user",
+            "actor_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+            "reason_code": "USER_REQUESTED_FORGET",
+            "payload": {
+              "reason": "synthetic validation cleanup"
+            },
+            "occurred_at": "2026-10-20T02:25:58.578899Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "158d98ce-86cd-5611-99ef-c8026e25c22e",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task.verification.task_1",
+        "head_state": "forgotten",
+        "revision": 1,
+        "current_version_id": null,
+        "identity_retired_at": "2026-10-20T02:25:58.599929Z",
+        "versions": [
+          {
+            "memory_version_id": "f20bf460-c93f-50e3-aa22-ee01c00a1439",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-1 后台任务。",
+            "content_hash": "sha256:296b6244cbc0ff52d1417eade387e26141c1bfed05c08d691076da690a57afa7",
+            "normalized_key": "user.experience.background_task.verification.task_1",
+            "confidence": 0.95,
+            "importance": 0.35,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turns:1-10#candidate-0"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "已完成 task-1 后台任务验证"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:34.984510Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "f20bf460-c93f-50e3-aa22-ee01c00a1439",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:34.984510Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_forgotten",
+            "memory_version_id": "f20bf460-c93f-50e3-aa22-ee01c00a1439",
+            "actor_type": "user",
+            "actor_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+            "reason_code": "USER_REQUESTED_FORGET",
+            "payload": {
+              "reason": "synthetic validation cleanup"
+            },
+            "occurred_at": "2026-10-20T02:25:58.599929Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "ad1515f3-5514-5954-a25d-bbeef2aea5d9",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task.verification.task_2",
+        "head_state": "forgotten",
+        "revision": 1,
+        "current_version_id": null,
+        "identity_retired_at": "2026-10-20T02:25:58.616739Z",
+        "versions": [
+          {
+            "memory_version_id": "dd08ed31-845a-5d97-9b3f-08d7ae881c50",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-2 后台任务。",
+            "content_hash": "sha256:33d573cc3262426abd66d45e9c2fc42912e549e6533fe051f17f9fd34dc8a21f",
+            "normalized_key": "user.experience.background_task.verification.task_2",
+            "confidence": 0.95,
+            "importance": 0.35,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turns:1-10#candidate-1"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "已完成 task-2 后台任务验证"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:35.007372Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "dd08ed31-845a-5d97-9b3f-08d7ae881c50",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:35.007372Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_forgotten",
+            "memory_version_id": "dd08ed31-845a-5d97-9b3f-08d7ae881c50",
+            "actor_type": "user",
+            "actor_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+            "reason_code": "USER_REQUESTED_FORGET",
+            "payload": {
+              "reason": "synthetic validation cleanup"
+            },
+            "occurred_at": "2026-10-20T02:25:58.616739Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "607a3f4e-b743-5b64-80fd-2bbd2b357d00",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task.verification.task_3",
+        "head_state": "forgotten",
+        "revision": 1,
+        "current_version_id": null,
+        "identity_retired_at": "2026-10-20T02:25:58.630385Z",
+        "versions": [
+          {
+            "memory_version_id": "7d6a5888-6fbf-5cb5-8ffe-a820d920cbd8",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-3 后台任务。",
+            "content_hash": "sha256:e41678dfd1b94158056498f943438d81bd8c88a1aca1425e51dc29097d669c2e",
+            "normalized_key": "user.experience.background_task.verification.task_3",
+            "confidence": 0.95,
+            "importance": 0.35,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turns:1-10#candidate-2"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "已完成 task-3 后台任务验证"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:35.026973Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "7d6a5888-6fbf-5cb5-8ffe-a820d920cbd8",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:35.026973Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_forgotten",
+            "memory_version_id": "7d6a5888-6fbf-5cb5-8ffe-a820d920cbd8",
+            "actor_type": "user",
+            "actor_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+            "reason_code": "USER_REQUESTED_FORGET",
+            "payload": {
+              "reason": "synthetic validation cleanup"
+            },
+            "occurred_at": "2026-10-20T02:25:58.630385Z"
+          }
+        ]
+      },
+      {
+        "memory_record_id": "60f8c65c-6a8d-5026-964b-cb5b4adf5cf6",
+        "scope": {
+          "kind": "user",
+          "id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2"
+        },
+        "memory_type": "episodic_summary",
+        "semantic_key": "user.experience.background_task.verification.task_4",
+        "head_state": "forgotten",
+        "revision": 1,
+        "current_version_id": null,
+        "identity_retired_at": "2026-10-20T02:25:58.650170Z",
+        "versions": [
+          {
+            "memory_version_id": "e98188f3-c7cf-544d-80b7-8bb04dbf56d3",
+            "version_no": 1,
+            "content": "用户于2026年10月19日下午验证了 task-4 后台任务。",
+            "content_hash": "sha256:d0a5ff9b3ddbb365693359ed90d2dd255cf524777f739fed9f006ce2c937cbb5",
+            "normalized_key": "user.experience.background_task.verification.task_4",
+            "confidence": 0.95,
+            "importance": 0.35,
+            "inference_kind": "derived",
+            "source_refs": [
+              "episode:7a5b0094-207b-4d25-8c6b-86cb37a2efe2:turns:1-10#candidate-3"
+            ],
+            "effective_from": null,
+            "effective_to": null,
+            "event_time": {
+              "start": "2026-10-19T04:00:00Z",
+              "end": "2026-10-19T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "background_task_verification",
+                "outcome": "已完成 task-4 后台任务验证"
+              }
+            },
+            "classification": "personal",
+            "allowed_purposes": [
+              "answer_user"
+            ],
+            "consent_ref": null,
+            "retention_policy_id": "demo-user-episodic_summary-v1",
+            "retain_until": null,
+            "created_at": "2026-10-20T02:25:35.051749Z",
+            "content_erased_at": null
+          }
+        ],
+        "events": [
+          {
+            "sequence_no": 1,
+            "event_type": "memory_accepted",
+            "memory_version_id": "e98188f3-c7cf-544d-80b7-8bb04dbf56d3",
+            "actor_type": "policy",
+            "actor_id": "demo-policy",
+            "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+            "payload": {},
+            "occurred_at": "2026-10-20T02:25:35.051749Z"
+          },
+          {
+            "sequence_no": 2,
+            "event_type": "memory_forgotten",
+            "memory_version_id": "e98188f3-c7cf-544d-80b7-8bb04dbf56d3",
+            "actor_type": "user",
+            "actor_id": "episode-7a5b0094-207b-4d25-8c6b-86cb37a2efe2",
+            "reason_code": "USER_REQUESTED_FORGET",
+            "payload": {
+              "reason": "synthetic validation cleanup"
+            },
+            "occurred_at": "2026-10-20T02:25:58.650170Z"
+          }
+        ]
+      }
+    ]
+  },
+  "cleanup_record_count": 9,
+  "all_passed": true,
+  "verification_note": "Rechecked real ten-turn run after correcting test expectations: scheduling with zero uncovered turns must reject, and contested records require review before Forget."
+}

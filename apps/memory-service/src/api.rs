@@ -17,20 +17,20 @@ use memory_application::{
     reciprocal_rank_contribution, weighted_reciprocal_rank_fusion,
 };
 use memory_domain::{
-    CANONICAL_MEMORY_TYPE_NAMES, ConsolidationTrigger, MEMORY_TAXONOMY_VERSION, MemoryType,
-    MemoryTypeMapping, StructuredContent, TurnOutcome, VerifiedToolResult,
+    CANONICAL_MEMORY_TYPE_NAMES, ConsolidationTrigger, EventTime, MEMORY_TAXONOMY_VERSION,
+    MemoryType, MemoryTypeMapping, StructuredContent, TurnOutcome, VerifiedToolResult,
 };
 use memory_postgres::{
     AppendCompletedTurnCommand, AuthorizedMemory, CanonicalStatus, CompletedTurnReceiptView,
     ConsolidationView, ConsumeContextPackCommand, ContextPackCommand, ContextPackManifestView,
     ContextPackView, CorrectionCommand, DEMO_CONTEXT_TOKENIZER_ID, DemoAuthority,
     EpisodeStatusView, ErasureCommand, ErasureRequestView, ErasureTargetKind,
-    ExtractionSnapshotCommand, ForgetCommand, IngestCandidateCommand, IngestCommand,
-    MemoryExportView, MemoryRecordView, MemoryRepository, OperationView, OutcomeReceiptCommand,
-    OutcomeReceiptView, ProjectionGenerationView, ProjectionModelManifest,
-    ProjectionOperationStatus, ProjectionRebuildCommand, RepositoryError,
-    RequestConsolidationCommand, RetrievalCandidateReceiptCommand, RetrievalRunCommand,
-    RetrievalRunView, ReviewDecisionCommand, ReviewOutcome, authorized_namespace_key,
+    ExtractionSnapshotCommand, ForgetCommand, IngestCandidateCommand, MemoryExportView,
+    MemoryRecordView, MemoryRepository, OperationView, OutcomeReceiptCommand, OutcomeReceiptView,
+    ProjectionGenerationView, ProjectionModelManifest, ProjectionOperationStatus,
+    ProjectionRebuildCommand, RepositoryError, RequestConsolidationCommand,
+    RetrievalCandidateReceiptCommand, RetrievalRunCommand, RetrievalRunView, ReviewDecisionCommand,
+    ReviewOutcome, authorized_namespace_key,
 };
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -52,6 +52,7 @@ use crate::worker::DynamicTenantWorkers;
 const COMPLETED_TURN_EXTRACTION_SOURCE_MAX_BYTES: usize = 32_000;
 
 pub struct AppState {
+    pub support: Option<crate::support::SupportVerifier>,
     pub repository: MemoryRepository,
     pub index: Arc<dyn RetrievalIndex>,
     pub reranker: Arc<dyn MemoryReranker>,
@@ -248,7 +249,7 @@ async fn root(State(state): State<Arc<AppState>>) -> Json<serde_json::Value> {
         "projection": state.projection_model_manifest.index_provider,
         "projection_model_manifest": state.projection_model_manifest,
         "extractor": state.extractor.as_ref().map(|extractor| extractor.version()),
-        "reranker": state.reranker.version()
+        "reranker": state.support.as_ref().map(|support| support.version(state.reranker.version())).unwrap_or_else(|| state.reranker.version().into())
     }))
 }
 
@@ -281,6 +282,13 @@ async fn readiness(State(state): State<Arc<AppState>>) -> Result<StatusCode, Api
 #[derive(Debug, Deserialize)]
 #[serde(deny_unknown_fields)]
 struct SourceEventRequest {
+    memory_type: MemoryType,
+    #[serde(default)]
+    semantic_key: Option<String>,
+    #[serde(default)]
+    structured_content: Option<StructuredContent>,
+    #[serde(default)]
+    event_time: Option<EventTime>,
     event_id: String,
     source_type: String,
     source_ref: String,
@@ -326,7 +334,23 @@ async fn submit_memory_event(
             "Demo v0 accepts conversation_message events only",
         ));
     }
-    validate_user_write_scope(request.scope_selector.as_ref(), authority)?;
+    let (scope_kind, scope_id) = if request.memory_type == MemoryType::SemanticFact {
+        validate_project_write_scope(request.scope_selector.as_ref(), authority)?;
+        let project = request
+            .scope_selector
+            .as_ref()
+            .and_then(|scope| scope.id.clone())
+            .ok_or_else(|| {
+                ApiError::bad_request(
+                    "PROJECT_SCOPE_REQUIRED",
+                    "semantic facts require an explicit authorized project scope",
+                )
+            })?;
+        ("project".to_owned(), project)
+    } else {
+        validate_user_write_scope(request.scope_selector.as_ref(), authority)?;
+        ("user".to_owned(), authority.user_id.clone())
+    };
     if request
         .metadata
         .as_ref()
@@ -343,11 +367,17 @@ async fn submit_memory_event(
     }
     let memory_content =
         sanitize_boundary_text(&extract_explicit_memory(&request.content)?)?.redacted_text;
+    let semantic_key = request.semantic_key.unwrap_or_else(|| {
+        format!(
+            "explicit.{}",
+            hex::encode(Sha256::digest(memory_content.as_bytes()))
+        )
+    });
     let operation = state
         .repository
-        .ingest_explicit(
+        .ingest_extracted(
             authority,
-            IngestCommand {
+            IngestCandidateCommand {
                 idempotency_key,
                 event_id: request.event_id,
                 source_type: request.source_type,
@@ -355,6 +385,17 @@ async fn submit_memory_event(
                 source_content: request.content,
                 memory_content,
                 occurred_at: request.occurred_at,
+                memory_type: request.memory_type.as_str().into(),
+                semantic_key,
+                structured_content: request.structured_content,
+                event_time: request.event_time,
+                scope_kind,
+                scope_id: Some(scope_id),
+                confidence: 1.0,
+                importance: 0.8,
+                inference_kind: "explicit".into(),
+                extractor_name: "typed-explicit-memory".into(),
+                extractor_version: "1".into(),
             },
         )
         .await?;
@@ -1110,6 +1151,7 @@ async fn execute_retrieval(
         candidate_limit,
         &request.scope_selectors,
         temporal_window.as_ref(),
+        memory_types.values.iter().any(|kind| kind == "preference"),
     )
     .await?;
     let mut authorized = state
@@ -1140,13 +1182,21 @@ async fn execute_retrieval(
         .iter()
         .filter(|hit| {
             hit.score >= MIN_TRANSPARENT_RELEVANCE_SCORE
-                || is_memory_applicable_without_semantic_threshold(&query, &hit.memory_type)
+                || is_memory_applicable_without_semantic_threshold(
+                    &query,
+                    &hit.memory_type,
+                    hit.preference_applicability,
+                )
         })
         .map(|memory| memory.memory_version_id)
         .collect::<HashSet<_>>();
     hits.retain(|hit| {
         hit.score >= MIN_TRANSPARENT_RELEVANCE_SCORE
-            || is_memory_applicable_without_semantic_threshold(&query, &hit.memory_type)
+            || is_memory_applicable_without_semantic_threshold(
+                &query,
+                &hit.memory_type,
+                hit.preference_applicability,
+            )
     });
     hits.truncate(request.limit);
     let final_ranks = hits
@@ -1386,6 +1436,7 @@ async fn compile_context_pack_inner(
         candidate_limit,
         &request.scope_selectors,
         temporal_window.as_ref(),
+        memory_types.values.iter().any(|kind| kind == "preference"),
     )
     .await?;
     let mut authorized = state
@@ -2092,6 +2143,7 @@ async fn search_authorized_scopes(
     limit: usize,
     selectors: &[ScopeSelector],
     temporal_window: Option<&TemporalWindow>,
+    allow_global_preferences: bool,
 ) -> Result<RetrievalCandidates, ApiError> {
     let scopes = requested_authorized_scopes(selectors, authority)?;
     let generation = require_runtime_projection_model(state, authority)
@@ -2100,6 +2152,22 @@ async fn search_authorized_scopes(
     let mut sources = Vec::<(f64, Vec<ProjectionHit>)>::new();
     let mut channel_candidates = Vec::new();
     let mut degradation_reasons = BTreeSet::new();
+    let include_globals = allow_global_preferences
+        && scopes
+            .iter()
+            .any(|(kind, id)| kind == "user" && id.as_deref() == Some(&authority.user_id));
+    let global_hits = if include_globals {
+        state
+            .repository
+            .global_preference_hits(authority, &generation, limit)
+            .await?
+    } else {
+        Vec::new()
+    };
+    let global_ids = global_hits
+        .iter()
+        .map(|hit| hit.memory_version_id)
+        .collect::<HashSet<_>>();
     for (scope_kind, scope_id) in scopes {
         let temporal_hits = if let Some(window) = temporal_window {
             Some(
@@ -2229,7 +2297,7 @@ async fn search_authorized_scopes(
             );
         }
     }
-    if sources.is_empty() {
+    if sources.is_empty() && global_hits.is_empty() {
         return Err(ApiError::provider(IndexError::Transport(
             "all retrieval candidate sources were unavailable".into(),
         )));
@@ -2238,8 +2306,23 @@ async fn search_authorized_scopes(
         .iter()
         .map(|(weight, hits)| (*weight, hits.as_slice()))
         .collect::<Vec<_>>();
+    let mut fused = weighted_reciprocal_rank_fusion(&weighted_sources, limit);
+    let mut global_sources = Vec::new();
+    add_retrieval_channel(
+        &mut global_sources,
+        &mut channel_candidates,
+        "user",
+        Some(&authority.user_id),
+        "global_preference",
+        1.0,
+        global_hits.clone(),
+    );
+    fused.retain(|hit| !global_ids.contains(&hit.memory_version_id));
+    let mut hits = global_hits;
+    hits.extend(fused);
+    hits.truncate(limit);
     Ok(RetrievalCandidates {
-        hits: weighted_reciprocal_rank_fusion(&weighted_sources, limit),
+        hits,
         channel_candidates,
         generation,
         degraded: !degradation_reasons.is_empty(),
@@ -2434,13 +2517,14 @@ async fn rerank_authorized(
                 memory_version_id: memory.memory_version_id,
                 content: memory.content.clone(),
                 memory_type: memory.memory_type.clone(),
+                preference_applicability: memory.preference_applicability,
                 retrieval_score: memory.score,
             })
             .collect(),
-        limit,
+        limit: memories.len().clamp(1, 50),
     };
     let primary_version = state.reranker.version().to_owned();
-    let (ranked, version, degraded, degradation_reason) =
+    let (mut ranked, mut version, degraded, degradation_reason) =
         match state.reranker.rerank(request.clone()).await {
             Ok(ranked) => (ranked, primary_version, false, None),
             Err(error) => {
@@ -2450,11 +2534,14 @@ async fn rerank_authorized(
                     "semantic reranker failed; using transparent fallback"
                 );
                 let fallback = TransparentReranker;
-                let ranked = fallback.rerank(request).await.map_err(|fallback_error| {
-                    ApiError::provider(IndexError::Transport(format!(
-                        "primary and fallback rerankers failed: {fallback_error}"
-                    )))
-                })?;
+                let ranked = fallback
+                    .rerank(request.clone())
+                    .await
+                    .map_err(|fallback_error| {
+                        ApiError::provider(IndexError::Transport(format!(
+                            "primary and fallback rerankers failed: {fallback_error}"
+                        )))
+                    })?;
                 (
                     ranked,
                     fallback.version().to_owned(),
@@ -2463,6 +2550,17 @@ async fn rerank_authorized(
                 )
             }
         };
+    if let Some(support) = &state.support {
+        ranked = support
+            .verify(query, &request.candidates, &ranked)
+            .await
+            .map_err(|_| {
+                ApiError::provider(IndexError::Transport(
+                    "answer-support verification unavailable; memory withheld".into(),
+                ))
+            })?;
+        version = support.version(&version);
+    }
     let mut memory_by_version = memories
         .into_iter()
         .map(|memory| (memory.memory_version_id, memory))
@@ -2488,6 +2586,11 @@ async fn rerank_authorized(
         memory.score = item.relevance_score;
         ordered.push(memory);
     }
+    ordered.sort_by_key(|memory| {
+        !(memory.memory_type == "preference"
+            && memory.preference_applicability == memory_domain::PreferenceApplicability::Global)
+    });
+    ordered.truncate(limit);
     Ok(RankedAuthorized {
         memories: ordered,
         version,
@@ -2754,6 +2857,17 @@ mod tests {
     use chrono::TimeZone;
 
     use super::*;
+
+    #[test]
+    fn explicit_event_requires_a_type_instead_of_guessing_preference() {
+        let mut event = json!({"event_id":"typed-event","source_type":"conversation_message",
+            "source_ref":"conversation:typed","content":"请记住：项目使用PostgreSQL",
+            "occurred_at":"2026-10-20T00:00:00Z"});
+        assert!(serde_json::from_value::<SourceEventRequest>(event.clone()).is_err());
+        event["memory_type"] = json!("semantic_fact");
+        let parsed: SourceEventRequest = serde_json::from_value(event).unwrap();
+        assert_eq!(parsed.memory_type, MemoryType::SemanticFact);
+    }
 
     #[derive(Default)]
     struct CompletedTurnFakeExtractor {
@@ -3298,6 +3412,7 @@ mod tests {
             provider_score: score,
         };
         let authorized = |memory_version_id: Uuid, score: f64| AuthorizedMemory {
+            preference_applicability: Default::default(),
             memory_record_id: Uuid::new_v4(),
             memory_version_id,
             content: "authorized memory".into(),

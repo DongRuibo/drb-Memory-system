@@ -183,7 +183,7 @@ struct ModelRankedCandidate {
 #[async_trait]
 impl MemoryReranker for KimiReranker {
     fn version(&self) -> &str {
-        "kimi-k3-semantic-v1"
+        "kimi-k3-semantic-v2-preference-applicability"
     }
 
     async fn rerank(
@@ -302,6 +302,7 @@ impl MemoryReranker for KimiReranker {
             let type_applicable = is_memory_applicable_without_semantic_threshold(
                 &request.query,
                 &candidate.memory_type,
+                candidate.preference_applicability,
             );
             if relevance_score >= self.minimum_score || type_applicable {
                 ranked.push(RerankedCandidate {
@@ -612,12 +613,14 @@ mod tests {
                         memory_version_id: Uuid::new_v4(),
                         content: "无关内容".into(),
                         memory_type: "episodic_summary".into(),
+                        preference_applicability: Default::default(),
                         retrieval_score: 1.0,
                     },
                     RerankCandidate {
                         memory_version_id: relevant_id,
                         content: "不要在食物里加入香菜".into(),
                         memory_type: "preference".into(),
+                        preference_applicability: Default::default(),
                         retrieval_score: 0.2,
                     },
                 ],
@@ -628,7 +631,10 @@ mod tests {
         server.abort();
         assert_eq!(result.len(), 1);
         assert_eq!(result[0].memory_version_id, relevant_id);
-        assert_eq!(reranker.version(), "kimi-k3-semantic-v1");
+        assert_eq!(
+            reranker.version(),
+            "kimi-k3-semantic-v2-preference-applicability"
+        );
         let requests = captured.0.lock().unwrap();
         assert_eq!(requests[0]["model"], "k3");
         assert_eq!(requests[0]["stream"], false);

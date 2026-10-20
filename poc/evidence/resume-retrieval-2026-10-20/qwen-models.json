@@ -1,0 +1,38 @@
+{
+  "health": {
+    "status": "ok",
+    "semantic": true,
+    "device": "cpu",
+    "embedding": {
+      "model": "Qwen/Qwen3-Embedding-0.6B",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "dimensions": 1024,
+      "normalization": "l2",
+      "aliases": [
+        "text-embedding-3-small"
+      ]
+    },
+    "reranker": {
+      "model": "Qwen/Qwen3-Reranker-0.6B",
+      "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473"
+    }
+  },
+  "embedding_norms": [
+    1.0000000026808373,
+    0.999999883659653
+  ],
+  "distinct_text_cosine": 0.2227293121256399,
+  "rerank": {
+    "model": "Qwen/Qwen3-Reranker-0.6B",
+    "results": [
+      {
+        "index": 0,
+        "relevance_score": 0.7046732306480408
+      },
+      {
+        "index": 1,
+        "relevance_score": 8.662212349008769e-05
+      }
+    ]
+  }
+}

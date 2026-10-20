@@ -3,8 +3,12 @@ set -euo pipefail
 
 script_dir="$(CDPATH= cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 repository_root="$(CDPATH= cd -- "${script_dir}/.." && pwd)"
-memory_base_url="${MEMORY_BASE_URL:-http://localhost:8080}"
-web_api_url="${DEMO_WEB_API_URL:-http://localhost:8090}"
+export DEMO_WEB_API_BIND="${DEMO_WEB_API_BIND:-127.0.0.1:8090}"
+memory_base_url="${MEMORY_BASE_URL:-http://127.0.0.1:8080}"
+web_api_url="${DEMO_WEB_API_URL:-http://${DEMO_WEB_API_BIND}}"
+web_port="${DEMO_WEB_PORT:-3000}"
+export NEXT_PUBLIC_DEMO_API_URL="$web_api_url"
+export DEMO_WEB_ALLOWED_ORIGINS="${DEMO_WEB_ALLOWED_ORIGINS:-http://localhost:${web_port},http://127.0.0.1:${web_port}}"
 api_pid=""
 web_pid=""
 
@@ -68,18 +72,18 @@ else
   fi
 fi
 
-if lsof -nP -iTCP:3000 -sTCP:LISTEN >/dev/null 2>&1; then
-  printf 'Port 3000 is already in use; stop the existing Web process first.\n' >&2
+if lsof -nP -iTCP:"$web_port" -sTCP:LISTEN >/dev/null 2>&1; then
+  printf 'Port %s is already in use; stop the existing Web process first.\n' "$web_port" >&2
   exit 1
 fi
 
 printf '\nLazyTT Memory Web Demo is ready.\n'
-printf 'Open: http://localhost:3000\n'
+printf 'Open: http://localhost:%s\n' "$web_port"
 printf 'Press Ctrl-C here after the meeting.\n\n'
 
 (
   cd "${repository_root}/apps/demo-web"
-  exec npm run dev
+  exec npm run dev -- --hostname 127.0.0.1 --port "$web_port"
 ) &
 web_pid="$!"
 wait "$web_pid"

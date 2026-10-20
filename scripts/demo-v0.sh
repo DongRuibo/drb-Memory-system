@@ -50,6 +50,9 @@ event_payload="$(jq -n \
   --arg source_ref "conversation:demo-${demo_run_id}:message-1" \
   --arg content "请记住：${expected_memory}" \
   '{
+    memory_type: "preference",
+    semantic_key: "user.response_style.principle_then_code",
+    structured_content: {schema_name: "lazytt.preference", schema_version: 1, payload: {subject: "user", value: "先讲原理再讲代码", applicability: "global"}},
     event_id: $event_id,
     source_type: "conversation_message",
     source_ref: $source_ref,

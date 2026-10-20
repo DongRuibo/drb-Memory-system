@@ -1,4 +1,12 @@
+> 简历项目恢复分支：基于 `2b48ba9` 的 PostgreSQL＋pgvector 方案。
+> 当前启动与验收入口见 [本机演示说明](docs/resume-demo.md)，最新证据见
+> [DeepSeek 恢复验收](poc/evidence/deepseek-recovery-2026-10-20.md)。下方历史说明不等于本轮验收结果。
+
 # LazyTT Memory System
+
+> 简历项目恢复工作区基于 `2b48ba9`。本轮恢复状态、隔离配置及验收入口见
+> [恢复运行说明](./docs/resume-recovery.md)。下文已有的真实模型验收描述属于历史记录，
+> 不代表本次恢复环境已重新通过相同验收。
 
 > Repository split in progress: this repository is converging on the independently deployable
 > Memory backend. 独立 Demo 已发布到 `lazyaix-dev/lazytt-frontend-console` 的

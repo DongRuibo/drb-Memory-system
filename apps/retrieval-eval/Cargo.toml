@@ -9,6 +9,7 @@ rust-version.workspace = true
 chrono.workspace = true
 mem0-adapter = { path = "../../crates/provider-adapters/mem0-adapter" }
 memory-application = { path = "../../crates/memory-application" }
+memory-domain = { path = "../../crates/memory-domain" }
 memory-postgres = { path = "../../crates/memory-postgres" }
 reqwest.workspace = true
 serde.workspace = true

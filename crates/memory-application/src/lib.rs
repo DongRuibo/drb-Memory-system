@@ -1,5 +1,7 @@
 //! Application ports used by the memory service.
 
+pub use memory_domain::PreferenceApplicability;
+
 mod extractor;
 mod provider;
 mod ranking;
