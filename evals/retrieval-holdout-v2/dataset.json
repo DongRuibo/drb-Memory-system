@@ -1,0 +1,503 @@
+{
+  "version": "retrieval-holdout-v2.0.0",
+  "documents": [
+    {
+      "id": "role",
+      "content": "用户是苗圃生产记录管理员。",
+      "memory_type": "profile_fact"
+    },
+    {
+      "id": "language",
+      "content": "用户主要用 Python 编写苗圃统计脚本。",
+      "memory_type": "profile_fact"
+    },
+    {
+      "id": "city",
+      "content": "用户居住在杭州。",
+      "memory_type": "profile_fact"
+    },
+    {
+      "id": "name",
+      "content": "用户希望被称为青岚。",
+      "memory_type": "profile_fact"
+    },
+    {
+      "id": "substrate",
+      "content": "苗圃的扦插基质采用椰糠。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "storage",
+      "content": "苗圃的备件存放在 B3 柜。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "stock_unit",
+      "content": "苗圃统计育苗盘的库存单位是盘。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "watering_rule",
+      "content": "苗圃的常规浇水计划是每周二和周五。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "fault_code",
+      "content": "PUMP_FLOW_LOW 表示灌溉泵流量过低。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "password_reset",
+      "content": "忘记苗圃管理台密码时，应点击登录页的重置链接并通过登记邮箱验证。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "backup_rule",
+      "content": "苗圃生产记录每周五做一次离线备份。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "field_style",
+      "content": "写田间观察记录时，用户偏好先写天气，再写作物状态。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "先写天气，再写作物状态",
+          "qualifier": "写田间观察记录时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "sun_protection",
+      "content": "安排户外巡检时，用户偏好避开正午烈日。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "避开正午烈日",
+          "qualifier": "安排户外巡检时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "food",
+      "content": "给用户点饮料时，不要加入冰块。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "不要加入冰块",
+          "qualifier": "点饮料时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "code_example",
+      "content": "提供苗圃数据分析代码示例时，用户偏好使用 pandas。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "代码示例使用 pandas",
+          "qualifier": "提供苗圃数据分析代码示例时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "image_format",
+      "content": "导出植物观察原片供存档时，用户偏好 TIFF。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "使用 TIFF",
+          "qualifier": "导出植物观察原片供存档时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "sowing",
+      "content": "用户曾播种番茄，采用穴盘育苗。",
+      "memory_type": "episodic_summary",
+      "occurred_at": "2026-10-20T04:00:00Z",
+      "event_time": {
+        "start": "2026-05-11T16:00:00Z",
+        "end": "2026-05-12T16:00:00Z",
+        "timezone": "Asia/Shanghai",
+        "precision": "day"
+      }
+    },
+    {
+      "id": "repotting",
+      "content": "用户曾给月季换盆，换用了透气盆。",
+      "memory_type": "episodic_summary",
+      "occurred_at": "2026-10-20T04:00:00Z",
+      "event_time": {
+        "start": "2026-05-13T04:00:00Z",
+        "end": "2026-05-13T10:00:00Z",
+        "timezone": "Asia/Shanghai",
+        "precision": "part_of_day"
+      }
+    },
+    {
+      "id": "harvest",
+      "content": "用户曾采收第一批草莓。",
+      "memory_type": "episodic_summary",
+      "occurred_at": "2026-10-20T04:00:00Z",
+      "event_time": {
+        "start": "2026-06-21T02:30:00Z",
+        "end": "2026-06-21T02:30:01Z",
+        "timezone": "Asia/Shanghai",
+        "precision": "instant"
+      }
+    },
+    {
+      "id": "pump_repair",
+      "content": "用户曾修复灌溉泵漏水，更换了密封圈。",
+      "memory_type": "episodic_summary",
+      "occurred_at": "2026-10-20T04:00:00Z"
+    }
+  ],
+  "positive_queries": [
+    {
+      "id": "v01",
+      "query": "我的职业是什么？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "role"
+      ]
+    },
+    {
+      "id": "v02",
+      "query": "我主要使用哪种语言写统计脚本？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "language"
+      ]
+    },
+    {
+      "id": "v03",
+      "query": "我住在哪座城市？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "city"
+      ]
+    },
+    {
+      "id": "v04",
+      "query": "该怎么称呼我？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "name"
+      ]
+    },
+    {
+      "id": "v05",
+      "query": "扦插基质用的是什么？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "substrate"
+      ]
+    },
+    {
+      "id": "v06",
+      "query": "苗圃备件放在哪个柜子？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "storage"
+      ]
+    },
+    {
+      "id": "v07",
+      "query": "育苗盘库存按什么单位统计？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "stock_unit"
+      ]
+    },
+    {
+      "id": "v08",
+      "query": "常规浇水计划是哪几天？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "watering_rule"
+      ]
+    },
+    {
+      "id": "v09",
+      "query": "PUMP_FLOW_LOW 错误是什么意思？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "fault_code"
+      ]
+    },
+    {
+      "id": "v10",
+      "query": "忘记管理台密码应该怎么重置？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "password_reset"
+      ]
+    },
+    {
+      "id": "v11",
+      "query": "生产记录多久做一次离线备份？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "backup_rule"
+      ]
+    },
+    {
+      "id": "v12",
+      "query": "田间观察记录按我偏好的什么顺序写？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "field_style"
+      ]
+    },
+    {
+      "id": "v13",
+      "query": "帮我安排明天的户外巡检，考虑我的时间偏好。",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "sun_protection"
+      ]
+    },
+    {
+      "id": "v14",
+      "query": "给我点一杯饮料，要考虑我的偏好。",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "food"
+      ]
+    },
+    {
+      "id": "v15",
+      "query": "给出苗圃数据分析代码示例，按我偏好的库来。",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "code_example"
+      ]
+    },
+    {
+      "id": "v16",
+      "query": "植物观察原片供存档要导出成什么格式？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "image_format"
+      ]
+    },
+    {
+      "id": "v17",
+      "query": "我在2026年5月12日播种了什么，采用什么方式？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai",
+      "relevant_document_ids": [
+        "sowing"
+      ]
+    },
+    {
+      "id": "v18",
+      "query": "我在2026年5月13日下午做过什么园艺工作？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai",
+      "relevant_document_ids": [
+        "repotting"
+      ]
+    },
+    {
+      "id": "v19",
+      "query": "我在2026年6月21日几点采收了草莓？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai",
+      "relevant_document_ids": [
+        "harvest"
+      ]
+    },
+    {
+      "id": "v20",
+      "query": "我以前怎么修好灌溉泵漏水的？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "pump_repair"
+      ]
+    },
+    {
+      "id": "v21",
+      "query": "扦插基质是什么，备件存在哪个柜子？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "substrate",
+        "storage"
+      ]
+    },
+    {
+      "id": "v22",
+      "query": "我的常用脚本语言是什么，分析代码例子又偏好什么库？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "language",
+        "code_example"
+      ]
+    },
+    {
+      "id": "v23",
+      "query": "苗圃常规浇水和生产记录备份分别安排在星期几？",
+      "top_k": 3,
+      "relevant_document_ids": [
+        "watering_rule",
+        "backup_rule"
+      ]
+    },
+    {
+      "id": "v24",
+      "query": "我在2026年5月做过哪些园艺工作？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai",
+      "relevant_document_ids": [
+        "sowing",
+        "repotting"
+      ]
+    }
+  ],
+  "negative_queries": [
+    {
+      "id": "vn01",
+      "query": "苗圃管理台当前的登录密码是什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn02",
+      "query": "B3柜里现在具体剩多少个密封圈？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn03",
+      "query": "当前是哪一台泵触发了 PUMP_FLOW_LOW？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn04",
+      "query": "我电脑上安装的 Python 具体版本是多少？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn05",
+      "query": "苗圃生产负责人登记的邮箱地址是什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn06",
+      "query": "我在2026年5月12日上午几点完成番茄播种？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn07",
+      "query": "我在哪一天几点换了灌溉泵密封圈？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn08",
+      "query": "2026年5月13日上午我给月季换盆了吗？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn09",
+      "query": "2026年6月21日10点31分我采收过什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn10",
+      "query": "我今天实际喝了什么饮料？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn11",
+      "query": "我的户外巡检已经预约在几点？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn12",
+      "query": "其他用户的苗圃生产记录里写了什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn13",
+      "query": "我家的门牌号码是多少？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn14",
+      "query": "苗圃备份文件今天的校验值是什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn15",
+      "query": "我给植物图片做网页预览时要求多大的尺寸？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "vn16",
+      "query": "苗圃服务器的SSH私钥内容是什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    }
+  ],
+  "thresholds": {
+    "recall_at_3": 0.85,
+    "mean_reciprocal_rank": 0.75,
+    "negative_query_hit_rate": 0.0,
+    "forgotten_injection_count": 0
+  }
+}

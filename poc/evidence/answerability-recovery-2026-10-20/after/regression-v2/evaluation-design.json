@@ -1,0 +1,15 @@
+{
+  "dataset_sha256": "a617f84cd034c3e60f55a0905989f5d460bfa2844003b3ac314468b505f1f6fe",
+  "dataset_use": "regression",
+  "policy_hashes": {
+    "apps/memory-service/src/support.rs": "d2496e457efdf3b12da5aba704b75c2aef2bab9adc68141df652dc6db88ea78c",
+    "apps/memory-service/src/api.rs": "59d8e3e9fe768a8c4d31c83a2aabfa505f129377a09fc4c7860168dc9eb9ccc1",
+    "crates/memory-application/src/reranker.rs": "4b6faf5014b747c13b6ecbd15d320fd6485d01f4befd53e6fa91504a32f44d51",
+    "crates/memory-application/src/temporal.rs": "7cd0dfeb05acfa2695cbddebc1d0ce8b1c6814b19f3496628e1afc515491cfd6",
+    "apps/retrieval-eval/src/main.rs": "0bb9b406b15881be0cd78b1d8b041a1d1b02c1a9177ea91aac253d54cd41af2a"
+  },
+  "initial_ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+  "additional_precision_gate": {
+    "irrelevant_injection_rate_max": 0.1
+  }
+}

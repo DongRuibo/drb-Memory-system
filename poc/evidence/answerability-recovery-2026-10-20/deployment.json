@@ -1,0 +1,43 @@
+{
+  "health": {
+    "http://127.0.0.1:19080/health/ready": 200,
+    "http://127.0.0.1:19090/api/health": 200,
+    "http://127.0.0.1:13000": 200
+  },
+  "reranker": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+  "extractor": "openai-compatible-memory-extractor-v7-global-style-guard:deepseek-flash",
+  "binary_sha256": "e62a5e7324f52bbd0da0403720d60f02e650d08b10da39dcd0fde04f746df204",
+  "original_record_heads_unchanged": true,
+  "before_fingerprints": {
+    "demo-alice": {
+      "records": 13,
+      "active": 8,
+      "sha256": "01883df8752e511af1dc6b0e26ef105ece660d2a778c94d7d3225cc8c9c3d393"
+    },
+    "demo-bob": {
+      "records": 2,
+      "active": 1,
+      "sha256": "10c563196770264db24a8c35c786f62ba24b9137ce8647b357d0d1360907fee5"
+    }
+  },
+  "after_fingerprints": {
+    "demo-alice": {
+      "records": 13,
+      "active": 8,
+      "sha256": "01883df8752e511af1dc6b0e26ef105ece660d2a778c94d7d3225cc8c9c3d393"
+    },
+    "demo-bob": {
+      "records": 2,
+      "active": 1,
+      "sha256": "10c563196770264db24a8c35c786f62ba24b9137ce8647b357d0d1360907fee5"
+    }
+  },
+  "alice_active_memories": 8,
+  "demo_project_database": "CockroachDB",
+  "demo_project_version": 3,
+  "actual_authoritative_store": "PostgreSQL",
+  "forgotten_episode_local_state_verified": true,
+  "original_cloud_retrieval_performed": false,
+  "original_cloud_retrieval_blocked": "Automatic approval rejected potential disclosure of original memory content to DeepSeek without explicit data-disclosure authorization; no search attempted.",
+  "browser_clicks_performed_this_phase": false
+}

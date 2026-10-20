@@ -58,3 +58,6 @@
 [可移植截图索引](../poc/evidence/final-recovery-2026-10-20/browser-after-fix/index.json)、
 [总验收结论](../poc/evidence/final-recovery-2026-10-20.md)。
 这是已有数据复验；总验收仍保留未通过的检索质量门槛。
+
+后续检索门槛已修复，见 [答案依据修复验收](../poc/evidence/answerability-recovery-2026-10-20.md)。
+本清单的 14 项／17 张截图仍对应此前浏览器运行；后续阶段没有重做浏览器截图，新增证据为真实 API 与回答快照回归。

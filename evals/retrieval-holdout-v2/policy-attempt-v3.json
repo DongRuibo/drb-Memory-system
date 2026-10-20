@@ -1,0 +1,13 @@
+{
+  "frozen_at": "2026-10-20T05:44:39.286848+00:00",
+  "base_commit": "c85fa60831c75785b2cc699dc94789e235fbfbd7",
+  "note": "Candidate policy frozen after offline checks and before first new-policy model call; dataset froze before implementation",
+  "hashes": {
+    "apps/memory-service/src/support.rs": "c9ce605614723340c9927baf1be081ad102f1128c2057f055b77e765d72dc79c",
+    "apps/memory-service/src/api.rs": "01cfa39e6c9002a4a10ed1d823caf5f4662824cb0875cad77339c5e8b069e001",
+    "crates/memory-application/src/reranker.rs": "4b6faf5014b747c13b6ecbd15d320fd6485d01f4befd53e6fa91504a32f44d51",
+    "apps/retrieval-eval/src/main.rs": "0bb9b406b15881be0cd78b1d8b041a1d1b02c1a9177ea91aac253d54cd41af2a",
+    "scripts/eval-resume-final.py": "4cc7b335a10b5dd7147ee99fc89923084158e4a6586165d4443810d78cf1c937",
+    "scripts/eval-resume-live.py": "a037200e27fb7af408a5dc60b72fffbee43bfe856d301edd0ee73e4a63a0b7a2"
+  }
+}

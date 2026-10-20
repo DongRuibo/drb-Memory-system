@@ -1,0 +1,77 @@
+{
+  "verified_at": "2026-10-20T07:21:44.220442+00:00",
+  "scope": "Local resume prototype: remaining answerability, retrieval precision and discovered extraction regressions",
+  "retrieval_acceptance_passed": true,
+  "datasets": {
+    "fixed": {
+      "positive_queries": 19,
+      "negative_queries": 5,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "non_target_candidate_rate": 0.05,
+      "negative_hits": 0,
+      "forgotten_injection_count": 0,
+      "all_gates_passed": true
+    },
+    "regression-v1": {
+      "positive_queries": 24,
+      "negative_queries": 14,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "non_target_candidate_rate": 0.0,
+      "negative_hits": 0,
+      "forgotten_injection_count": 0,
+      "all_gates_passed": true
+    },
+    "regression-v2": {
+      "positive_queries": 24,
+      "negative_queries": 16,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "non_target_candidate_rate": 0.0,
+      "negative_hits": 0,
+      "forgotten_injection_count": 0,
+      "all_gates_passed": true
+    },
+    "holdout-v3": {
+      "positive_queries": 20,
+      "negative_queries": 12,
+      "recall_at_3": 1.0,
+      "mrr": 1.0,
+      "non_target_candidate_rate": 0.0,
+      "negative_hits": 0,
+      "forgotten_injection_count": 0,
+      "all_gates_passed": true
+    }
+  },
+  "engineering": {
+    "rust_tests": 159,
+    "postgres_tests": 21,
+    "python_tests": 8,
+    "clippy_passed": true
+  },
+  "real_model_checks": {
+    "chat": 19,
+    "applicability": 16,
+    "extraction_pipeline": 22,
+    "scoped_facts_and_permissions": 8
+  },
+  "original_record_heads_unchanged": true,
+  "local_demo_updated": true,
+  "original_cloud_retrieval_performed": false,
+  "original_cloud_retrieval_blocked_by_automatic_review": true,
+  "original_cloud_retrieval_reason": "Explicit authorization to disclose these original memory contents to DeepSeek was not established; completed local-only readiness, versions and ledger-head checks instead.",
+  "browser_retested_this_phase": false,
+  "prior_browser_evidence": "../final-recovery-2026-10-20/browser-after-fix/results.json",
+  "scoped_acceptance_passed": true,
+  "production_acceptance": false,
+  "remaining_requested_scope": [],
+  "limitations": [
+    "Developer-authored synthetic data, no external blind annotation; holdout v3 uses typed ingestion and does not measure extraction generalization.",
+    "Extraction validation includes deterministic normalization and bounded source-supported coverage; not raw model-only accuracy.",
+    "Read-after-write recall checks explicitly wait for asynchronous Outbox convergence; no zero-delay consistency promise.",
+    "Current browser clicks were not repeated; earlier frontend evidence is retained separately.",
+    "Original private memories were not sent to cloud inference during deployment revalidation.",
+    "No fresh concurrency, capacity, production-deployment or physical-erasure validation; DeepSeek is a provider alias, not frozen weights."
+  ]
+}

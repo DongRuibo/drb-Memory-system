@@ -1,0 +1,39 @@
+{
+  "files": {
+    "apps/memory-service/src/support.rs": "d2496e457efdf3b12da5aba704b75c2aef2bab9adc68141df652dc6db88ea78c",
+    "apps/memory-service/src/api.rs": "59d8e3e9fe768a8c4d31c83a2aabfa505f129377a09fc4c7860168dc9eb9ccc1",
+    "crates/memory-application/src/temporal.rs": "7cd0dfeb05acfa2695cbddebc1d0ce8b1c6814b19f3496628e1afc515491cfd6",
+    "crates/extractors/kimi-extractor/src/lib.rs": "05b1d2ad2da3888660da17e2084594fef07510801e30af43bca3147df4101c77",
+    "scripts/eval-resume-final.py": "8f333e882b3453df7112717e338115cf9e7e5117df57df148ca9752fd2462266",
+    "scripts/eval-resume-live.py": "a037200e27fb7af408a5dc60b72fffbee43bfe856d301edd0ee73e4a63a0b7a2",
+    "scripts/verify-browser-regressions.py": "c2558f488847ca4121996f061e809731aca63f6105fbd17a5bb8bfcf3864ebac"
+  },
+  "extraction_dataset_sha256": "c85c2a66e4121146821fcbf88a918fc6380e5ca259983fffeb94f8193a5a4ca9",
+  "retrieval_runtime": {
+    "tenant": "quality-evidence-v6-20261020",
+    "ports": [
+      19180,
+      19190
+    ],
+    "owner_pid": 3543,
+    "children": [
+      3556,
+      3558
+    ],
+    "memory_binary_sha256": "8091063b572d97b759090b0681597e582811a4c6e4ffdf00e8f57af3bd457ea5"
+  },
+  "verified_runtime": {
+    "tenant": "quality-evidence-verified-20261020",
+    "ports": [
+      19180,
+      19190
+    ],
+    "owner_pid": 8270,
+    "children": [
+      8281,
+      8282
+    ],
+    "memory_binary_sha256": "e62a5e7324f52bbd0da0403720d60f02e650d08b10da39dcd0fde04f746df204"
+  },
+  "note": "Typed retrieval evaluation does not execute the extractor; extraction fixes have separate real-chain evidence."
+}

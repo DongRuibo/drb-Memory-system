@@ -1,0 +1,1191 @@
+{
+  "current_provider": [
+    {
+      "query_id": "q01",
+      "returned_document_ids": [
+        "answer_style",
+        "contact_name",
+        "deployment_flow"
+      ],
+      "scores": [
+        0.6634311077086155,
+        0.464029461145401,
+        0.3991172731975019
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q02",
+      "returned_document_ids": [
+        "code_language",
+        "answer_style",
+        "billing_currency"
+      ],
+      "scores": [
+        0.580028235912323,
+        0.42477054221366894,
+        0.4191304272154103
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q03",
+      "returned_document_ids": [
+        "food_preference",
+        "deployment_flow",
+        "release_old"
+      ],
+      "scores": [
+        0.7783340547483087,
+        0.3267449438572023,
+        0.27582915281231557
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q04",
+      "returned_document_ids": [
+        "meeting_time",
+        "office_schedule",
+        "absolute_deadline"
+      ],
+      "scores": [
+        0.8581529513324005,
+        0.5403590106108164,
+        0.4745813072725994
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q05",
+      "returned_document_ids": [
+        "deployment_flow",
+        "release_yesterday",
+        "release_old"
+      ],
+      "scores": [
+        0.7542304093563122,
+        0.5258146524429321,
+        0.5086837107727709
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q06",
+      "returned_document_ids": [
+        "document_style",
+        "deployment_flow",
+        "answer_style"
+      ],
+      "scores": [
+        0.7176134495234294,
+        0.4523207062910304,
+        0.4314124157603949
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q07",
+      "returned_document_ids": [
+        "database_choice",
+        "datacenter",
+        "projection_table"
+      ],
+      "scores": [
+        0.8504185169685786,
+        0.6923617903970617,
+        0.4992802740430351
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q08",
+      "returned_document_ids": [
+        "alert_method",
+        "deployment_flow",
+        "error_code"
+      ],
+      "scores": [
+        0.7686588030254141,
+        0.4652674218852939,
+        0.464461445808414
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q09",
+      "returned_document_ids": [
+        "billing_currency",
+        "contact_name",
+        "consume_route"
+      ],
+      "scores": [
+        0.7614293637021459,
+        0.39875076994309344,
+        0.3970465059647734
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q10",
+      "returned_document_ids": [
+        "office_schedule",
+        "meeting_time",
+        "absolute_deadline"
+      ],
+      "scores": [
+        0.7372933939345658,
+        0.4611915969138394,
+        0.3897248041957878
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q11",
+      "returned_document_ids": [
+        "contact_name",
+        "answer_style",
+        "billing_currency"
+      ],
+      "scores": [
+        0.6497024119255098,
+        0.4084238288276336,
+        0.3225198099744526
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q12",
+      "returned_document_ids": [
+        "release_codename",
+        "contact_name",
+        "alert_method"
+      ],
+      "scores": [
+        0.6671314836379665,
+        0.43646275997161865,
+        0.3871392011642456
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q13",
+      "returned_document_ids": [
+        "error_code",
+        "release_yesterday",
+        "datacenter"
+      ],
+      "scores": [
+        0.8823466300964418,
+        0.49425676430802223,
+        0.4860261968389876
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q14",
+      "returned_document_ids": [
+        "consume_route",
+        "release_old",
+        "release_yesterday"
+      ],
+      "scores": [
+        0.8227746731869783,
+        0.4587099576765332,
+        0.4500173330307007
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q15",
+      "returned_document_ids": [
+        "projection_table",
+        "datacenter",
+        "database_choice"
+      ],
+      "scores": [
+        0.8111825810453257,
+        0.5048105716705322,
+        0.4844948649406433
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q16",
+      "returned_document_ids": [
+        "datacenter",
+        "database_choice",
+        "projection_table"
+      ],
+      "scores": [
+        0.8560088191037681,
+        0.6050317648072113,
+        0.48643252334401654
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q17",
+      "returned_document_ids": [
+        "absolute_deadline",
+        "error_code",
+        "release_yesterday"
+      ],
+      "scores": [
+        0.8663531105097462,
+        0.526815621446633,
+        0.49432215094566345
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q18",
+      "returned_document_ids": [
+        "tokenizer_version",
+        "release_old",
+        "projection_table"
+      ],
+      "scores": [
+        0.8785883477715617,
+        0.4445225993652472,
+        0.38136565533503175
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q19",
+      "returned_document_ids": [
+        "release_old",
+        "release_yesterday",
+        "deployment_flow"
+      ],
+      "scores": [
+        0.8291174914644086,
+        0.8213608296753303,
+        0.7008609384555157
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "hybrid_service": [
+    {
+      "query_id": "q01",
+      "returned_document_ids": [
+        "answer_style"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q02",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q03",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q04",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q05",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q06",
+      "returned_document_ids": [
+        "document_style"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q07",
+      "returned_document_ids": [
+        "database_choice"
+      ],
+      "scores": [
+        0.97
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q08",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q09",
+      "returned_document_ids": [
+        "billing_currency"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q10",
+      "returned_document_ids": [
+        "office_schedule"
+      ],
+      "scores": [
+        0.99
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q11",
+      "returned_document_ids": [
+        "contact_name"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q12",
+      "returned_document_ids": [
+        "release_codename"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q13",
+      "returned_document_ids": [
+        "error_code"
+      ],
+      "scores": [
+        0.99
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q14",
+      "returned_document_ids": [
+        "consume_route"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q15",
+      "returned_document_ids": [
+        "projection_table"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q16",
+      "returned_document_ids": [
+        "datacenter"
+      ],
+      "scores": [
+        0.97
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q17",
+      "returned_document_ids": [
+        "absolute_deadline"
+      ],
+      "scores": [
+        0.99
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q18",
+      "returned_document_ids": [
+        "tokenizer_version"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q19",
+      "returned_document_ids": [
+        "release_yesterday"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "local_chinese_bm25": [
+    {
+      "query_id": "q01",
+      "returned_document_ids": [
+        "answer_style"
+      ],
+      "scores": [
+        8.500668970094528
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q02",
+      "returned_document_ids": [
+        "code_language"
+      ],
+      "scores": [
+        9.893279547401862
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q03",
+      "returned_document_ids": [
+        "food_preference"
+      ],
+      "scores": [
+        8.934555803382805
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q04",
+      "returned_document_ids": [
+        "meeting_time",
+        "absolute_deadline"
+      ],
+      "scores": [
+        7.978366049005686,
+        1.9400454764127881
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q05",
+      "returned_document_ids": [
+        "deployment_flow",
+        "release_codename",
+        "release_old"
+      ],
+      "scores": [
+        8.330565006638063,
+        3.9520223006883164,
+        2.1619925796653834
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q06",
+      "returned_document_ids": [
+        "document_style"
+      ],
+      "scores": [
+        5.9987816571674015
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q07",
+      "returned_document_ids": [
+        "database_choice",
+        "code_language",
+        "billing_currency"
+      ],
+      "scores": [
+        13.708157208581685,
+        2.0220067199009355,
+        1.846264948011912
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q08",
+      "returned_document_ids": [
+        "alert_method",
+        "error_code"
+      ],
+      "scores": [
+        6.949915682516202,
+        2.316638560838734
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q09",
+      "returned_document_ids": [
+        "billing_currency"
+      ],
+      "scores": [
+        2.7193376829545928
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q10",
+      "returned_document_ids": [
+        "office_schedule"
+      ],
+      "scores": [
+        2.4057019826565402
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q11",
+      "returned_document_ids": [
+        "contact_name"
+      ],
+      "scores": [
+        6.915094279607594
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q12",
+      "returned_document_ids": [
+        "release_codename"
+      ],
+      "scores": [
+        5.685763090761194
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q13",
+      "returned_document_ids": [
+        "error_code"
+      ],
+      "scores": [
+        9.266554243354935
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q14",
+      "returned_document_ids": [
+        "consume_route",
+        "release_codename"
+      ],
+      "scores": [
+        12.578373320919745,
+        2.842881545380597
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q15",
+      "returned_document_ids": [
+        "projection_table"
+      ],
+      "scores": [
+        9.502603715226773
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q16",
+      "returned_document_ids": [
+        "datacenter",
+        "database_choice"
+      ],
+      "scores": [
+        7.978366049005685,
+        2.1929726993154697
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q17",
+      "returned_document_ids": [
+        "absolute_deadline"
+      ],
+      "scores": [
+        9.622807930626161
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q18",
+      "returned_document_ids": [
+        "tokenizer_version",
+        "code_language",
+        "error_code"
+      ],
+      "scores": [
+        12.52597863298389,
+        2.0220067199009355,
+        1.868221497442344
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q19",
+      "returned_document_ids": [
+        "release_old",
+        "release_yesterday",
+        "release_codename"
+      ],
+      "scores": [
+        8.92921354781884,
+        8.92921354781884,
+        3.3188386848876488
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "local_lexical": [
+    {
+      "query_id": "q01",
+      "returned_document_ids": [
+        "answer_style",
+        "alert_method",
+        "code_language"
+      ],
+      "scores": [
+        0.42500000000000004,
+        0.024999999999999998,
+        0.024999999999999998
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q02",
+      "returned_document_ids": [
+        "code_language",
+        "error_code",
+        "billing_currency"
+      ],
+      "scores": [
+        0.4109090909090909,
+        0.05454545454545454,
+        0.02727272727272727
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q03",
+      "returned_document_ids": [
+        "food_preference"
+      ],
+      "scores": [
+        0.4232142857142857
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q04",
+      "returned_document_ids": [
+        "meeting_time",
+        "absolute_deadline",
+        "office_schedule"
+      ],
+      "scores": [
+        0.6104166666666666,
+        0.2375,
+        0.06666666666666667
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q05",
+      "returned_document_ids": [
+        "deployment_flow",
+        "release_codename",
+        "release_old"
+      ],
+      "scores": [
+        0.29903846153846153,
+        0.183974358974359,
+        0.0919871794871795
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q06",
+      "returned_document_ids": [
+        "document_style",
+        "tokenizer_version"
+      ],
+      "scores": [
+        0.2740909090909091,
+        0.02727272727272727
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q07",
+      "returned_document_ids": [
+        "database_choice",
+        "datacenter",
+        "consume_route"
+      ],
+      "scores": [
+        0.6385964912280702,
+        0.3192982456140351,
+        0.1868421052631579
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q08",
+      "returned_document_ids": [
+        "alert_method",
+        "absolute_deadline",
+        "billing_currency"
+      ],
+      "scores": [
+        0.275,
+        0.024999999999999998,
+        0.024999999999999998
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q09",
+      "returned_document_ids": [
+        "billing_currency",
+        "tokenizer_version",
+        "consume_route"
+      ],
+      "scores": [
+        0.17857142857142855,
+        0.09999999999999999,
+        0.08
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q10",
+      "returned_document_ids": [
+        "office_schedule",
+        "alert_method",
+        "billing_currency"
+      ],
+      "scores": [
+        0.1511111111111111,
+        0.03,
+        0.03
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q11",
+      "returned_document_ids": [
+        "contact_name",
+        "billing_currency",
+        "alert_method"
+      ],
+      "scores": [
+        0.11153846153846154,
+        0.046153846153846156,
+        0.023076923076923078
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q12",
+      "returned_document_ids": [
+        "release_codename"
+      ],
+      "scores": [
+        0.3857142857142857
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q13",
+      "returned_document_ids": [
+        "error_code",
+        "consume_route",
+        "projection_table"
+      ],
+      "scores": [
+        0.7211500974658869,
+        0.23937621832358674,
+        0.20321637426900585
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q14",
+      "returned_document_ids": [
+        "consume_route",
+        "database_choice",
+        "datacenter"
+      ],
+      "scores": [
+        0.6333333333333333,
+        0.16190476190476188,
+        0.15833333333333333
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q15",
+      "returned_document_ids": [
+        "projection_table",
+        "absolute_deadline",
+        "error_code"
+      ],
+      "scores": [
+        0.49318181818181817,
+        0.02727272727272727,
+        0.02727272727272727
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q16",
+      "returned_document_ids": [
+        "datacenter",
+        "database_choice",
+        "consume_route"
+      ],
+      "scores": [
+        0.5833333333333334,
+        0.42500000000000004,
+        0.19166666666666665
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q17",
+      "returned_document_ids": [
+        "absolute_deadline",
+        "release_old",
+        "document_style"
+      ],
+      "scores": [
+        0.4252747252747253,
+        0.04285714285714285,
+        0.021428571428571425
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q18",
+      "returned_document_ids": [
+        "tokenizer_version",
+        "error_code",
+        "consume_route"
+      ],
+      "scores": [
+        0.6166666666666667,
+        0.13055555555555554,
+        0.08333333333333333
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "q19",
+      "returned_document_ids": [
+        "release_old",
+        "release_yesterday",
+        "deployment_flow"
+      ],
+      "scores": [
+        0.4252747252747253,
+        0.4252747252747253,
+        0.21263736263736266
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "negative_queries": [
+    {
+      "query_id": "n01",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "n02",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "n03",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "n04",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "n05",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v3-evidence:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ]
+}

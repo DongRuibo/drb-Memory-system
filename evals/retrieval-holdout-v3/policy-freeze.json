@@ -1,0 +1,16 @@
+{
+  "frozen_at": "2026-10-20T06:27:20.770981+00:00",
+  "base_commit": "c85fa60831c75785b2cc699dc94789e235fbfbd7",
+  "note": "Final v6 query-derived time policy; no v3 model calls have run (v5 preflight rejected changed source before evaluation); chat driver ownership guard updated before any v3 calls; retrieval policy unchanged",
+  "hashes": {
+    "apps/memory-service/src/support.rs": "d2496e457efdf3b12da5aba704b75c2aef2bab9adc68141df652dc6db88ea78c",
+    "apps/memory-service/src/api.rs": "59d8e3e9fe768a8c4d31c83a2aabfa505f129377a09fc4c7860168dc9eb9ccc1",
+    "crates/memory-application/src/reranker.rs": "4b6faf5014b747c13b6ecbd15d320fd6485d01f4befd53e6fa91504a32f44d51",
+    "crates/memory-application/src/temporal.rs": "7cd0dfeb05acfa2695cbddebc1d0ce8b1c6814b19f3496628e1afc515491cfd6",
+    "apps/retrieval-eval/src/main.rs": "0bb9b406b15881be0cd78b1d8b041a1d1b02c1a9177ea91aac253d54cd41af2a",
+    "scripts/eval-resume-final.py": "8f333e882b3453df7112717e338115cf9e7e5117df57df148ca9752fd2462266",
+    "scripts/eval-resume-live.py": "a037200e27fb7af408a5dc60b72fffbee43bfe856d301edd0ee73e4a63a0b7a2",
+    "scripts/verify-browser-regressions.py": "c2558f488847ca4121996f061e809731aca63f6105fbd17a5bb8bfcf3864ebac"
+  },
+  "driver_safety_update_at": "2026-10-20T06:31:16.942901+00:00"
+}

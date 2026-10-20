@@ -1,0 +1,444 @@
+{
+  "version": "retrieval-holdout-v3.0.0",
+  "documents": [
+    {
+      "id": "role",
+      "content": "用户是机器视觉质检工程师。",
+      "memory_type": "profile_fact"
+    },
+    {
+      "id": "language",
+      "content": "用户主要用 C++ 编写相机采集程序。",
+      "memory_type": "profile_fact"
+    },
+    {
+      "id": "name",
+      "content": "用户希望被称为远舟。",
+      "memory_type": "profile_fact"
+    },
+    {
+      "id": "image_store",
+      "content": "质检项目的图像存储在 Ceph。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "retention",
+      "content": "质检原图保留 45 天。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "error",
+      "content": "FRAME_COUNTER_GAP 表示相机帧序号不连续。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "reset",
+      "content": "忘记质检管理台密码时，通过企业身份平台发起密码重置。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "lens",
+      "content": "二号工位相机使用 25mm 定焦镜头。",
+      "memory_type": "semantic_fact"
+    },
+    {
+      "id": "report",
+      "content": "写缺陷分析报告时，用户偏好按现象、证据、结论的顺序写。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "按现象、证据、结论写",
+          "qualifier": "写缺陷分析报告时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "visit",
+      "content": "安排工厂现场走访时，用户偏好乘坐地铁。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "乘坐地铁",
+          "qualifier": "安排工厂现场走访时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "food",
+      "content": "给用户点咖啡时，不要加糖。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "不要加糖",
+          "qualifier": "点咖啡时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "chart",
+      "content": "展示缺陷率趋势时，用户偏好使用折线图。",
+      "memory_type": "preference",
+      "structured_content": {
+        "schema_name": "lazytt.preference",
+        "schema_version": 1,
+        "payload": {
+          "subject": "user",
+          "value": "使用折线图",
+          "qualifier": "展示缺陷率趋势时",
+          "applicability": "contextual"
+        }
+      }
+    },
+    {
+      "id": "lens_test",
+      "content": "用户曾完成镜头畸变校准，使用棋盘格标定板。",
+      "memory_type": "episodic_summary",
+      "occurred_at": "2026-10-20T04:00:00Z",
+      "event_time": {
+        "start": "2026-04-09T01:42:00Z",
+        "end": "2026-04-09T01:42:01Z",
+        "timezone": "Asia/Shanghai",
+        "precision": "instant"
+      }
+    },
+    {
+      "id": "light_test",
+      "content": "用户曾调试条形光源，降低了金属反光。",
+      "memory_type": "episodic_summary",
+      "occurred_at": "2026-10-20T04:00:00Z",
+      "event_time": {
+        "start": "2026-04-09T05:10:00Z",
+        "end": "2026-04-09T05:10:01Z",
+        "timezone": "Asia/Shanghai",
+        "precision": "instant"
+      }
+    },
+    {
+      "id": "shift_day",
+      "content": "用户曾整理缺陷样本，按缺陷类型分组。",
+      "memory_type": "episodic_summary",
+      "occurred_at": "2026-10-20T04:00:00Z",
+      "event_time": {
+        "start": "2026-03-02T16:00:00Z",
+        "end": "2026-03-03T16:00:00Z",
+        "timezone": "Asia/Shanghai",
+        "precision": "day"
+      }
+    },
+    {
+      "id": "cable",
+      "content": "用户曾修复丢帧问题，更换了网线。",
+      "memory_type": "episodic_summary",
+      "occurred_at": "2026-10-20T04:00:00Z"
+    }
+  ],
+  "positive_queries": [
+    {
+      "id": "z01",
+      "query": "我的职业是什么？",
+      "relevant_document_ids": [
+        "role"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z02",
+      "query": "我主要用哪种编程语言采集图像？",
+      "relevant_document_ids": [
+        "language"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z03",
+      "query": "怎么称呼我？",
+      "relevant_document_ids": [
+        "name"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z04",
+      "query": "质检原图存在哪里，保留几天？",
+      "relevant_document_ids": [
+        "image_store",
+        "retention"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z05",
+      "query": "FRAME_COUNTER_GAP 表示什么？",
+      "relevant_document_ids": [
+        "error"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z06",
+      "query": "忘记质检管理台密码，该走什么重置流程？",
+      "relevant_document_ids": [
+        "reset"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z07",
+      "query": "二号工位相机的镜头焦距是多少？",
+      "relevant_document_ids": [
+        "lens"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z08",
+      "query": "缺陷分析报告按我的偏好怎么组织？",
+      "relevant_document_ids": [
+        "report"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z09",
+      "query": "安排我明天去工厂现场走访，交通要考虑我的偏好。",
+      "relevant_document_ids": [
+        "visit"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z10",
+      "query": "给我点一杯咖啡，考虑我的偏好。",
+      "relevant_document_ids": [
+        "food"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z11",
+      "query": "明天展示缺陷率趋势，用我偏好的图形。",
+      "relevant_document_ids": [
+        "chart"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z12",
+      "query": "我在2026年4月9日几点做过镜头校准？",
+      "relevant_document_ids": [
+        "lens_test"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z13",
+      "query": "我在2026年4月9日上午9点42分完成过什么？",
+      "relevant_document_ids": [
+        "lens_test"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z14",
+      "query": "我在2026-04-09 13:10完成过什么？",
+      "relevant_document_ids": [
+        "light_test"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z15",
+      "query": "我在2026年4月9日下午1点10分做过什么？",
+      "relevant_document_ids": [
+        "light_test"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z16",
+      "query": "我在2026年4月9日13点做过什么？",
+      "relevant_document_ids": [
+        "light_test"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z17",
+      "query": "我在2026年4月9日做过哪两件事情？",
+      "relevant_document_ids": [
+        "lens_test",
+        "light_test"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z18",
+      "query": "我在2026年3月3日怎么整理缺陷样本？",
+      "relevant_document_ids": [
+        "shift_day"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z19",
+      "query": "我以前怎么修复丢帧问题的？",
+      "relevant_document_ids": [
+        "cable"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "z20",
+      "query": "原图保存在哪里，二号工位用什么镜头？",
+      "relevant_document_ids": [
+        "image_store",
+        "lens"
+      ],
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    }
+  ],
+  "negative_queries": [
+    {
+      "id": "zn01",
+      "query": "质检项目 Ceph 管理员密码是什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn02",
+      "query": "现在具体哪台相机报了 FRAME_COUNTER_GAP？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn03",
+      "query": "二号工位的相机现在实际装了哪版固件？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn04",
+      "query": "我在2026年4月9日上午9点43分做过镜头校准吗？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn05",
+      "query": "我在2026-04-09 13:09调过什么光源？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn06",
+      "query": "我在2026年3月3日上午几点整理完了样本？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn07",
+      "query": "我在哪一天几点换的网线？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn08",
+      "query": "我的明天地铁票已经买在哪一班？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn09",
+      "query": "我今天实际喝了哪种咖啡？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn10",
+      "query": "其他用户刚上传的缺陷图片是什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn11",
+      "query": "质检项目备份机房在哪个城市？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    },
+    {
+      "id": "zn12",
+      "query": "我的具体街道门牌号是什么？",
+      "top_k": 3,
+      "reference_time": "2026-10-20T04:00:00Z",
+      "timezone": "Asia/Shanghai"
+    }
+  ],
+  "thresholds": {
+    "recall_at_3": 0.85,
+    "mean_reciprocal_rank": 0.75,
+    "negative_query_hit_rate": 0.0,
+    "forgotten_injection_count": 0
+  }
+}

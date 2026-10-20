@@ -1,0 +1,14 @@
+{
+  "evaluation_id": "d38121e3-868d-4ccb-8d50-7bfb2bc0c6dd",
+  "dataset_version": "retrieval-holdout-v1.0.0",
+  "started_at": "2026-10-20T06:30:37.468118Z",
+  "completed_at": "2026-10-20T06:34:31.788768Z",
+  "memory_service": "http://127.0.0.1:19180",
+  "provider": "http://127.0.0.1:19889",
+  "provider_profile": "qwen3-cpu-plus-deepseek-query-time-v6",
+  "generation": "bootstrap-926ecc0230c4736f",
+  "ranking_version": "hybrid-rrf60-answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+  "query_concurrency": 1,
+  "tenant_id": "quality-evidence-v6-20261020",
+  "synthetic_data_only": true
+}

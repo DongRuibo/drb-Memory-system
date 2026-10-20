@@ -1,0 +1,27 @@
+{
+  "before": {
+    "demo-alice": {
+      "records": 13,
+      "active": 8,
+      "sha256": "01883df8752e511af1dc6b0e26ef105ece660d2a778c94d7d3225cc8c9c3d393"
+    },
+    "demo-bob": {
+      "records": 2,
+      "active": 1,
+      "sha256": "10c563196770264db24a8c35c786f62ba24b9137ce8647b357d0d1360907fee5"
+    }
+  },
+  "after": {
+    "demo-alice": {
+      "records": 13,
+      "active": 8,
+      "sha256": "01883df8752e511af1dc6b0e26ef105ece660d2a778c94d7d3225cc8c9c3d393"
+    },
+    "demo-bob": {
+      "records": 2,
+      "active": 1,
+      "sha256": "10c563196770264db24a8c35c786f62ba24b9137ce8647b357d0d1360907fee5"
+    }
+  },
+  "unchanged": true
+}

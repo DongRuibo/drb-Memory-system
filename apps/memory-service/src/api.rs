@@ -1163,7 +1163,14 @@ async fn execute_retrieval(
         .iter()
         .map(|memory| memory.memory_version_id)
         .collect::<HashSet<_>>();
-    let ranked = rerank_authorized(state, &query, request.limit, authorized).await?;
+    let ranked = rerank_authorized(
+        state,
+        &query,
+        request.limit,
+        authorized,
+        temporal_window.as_ref(),
+    )
+    .await?;
     let rerank_scores = ranked
         .memories
         .iter()
@@ -1444,7 +1451,14 @@ async fn compile_context_pack_inner(
         .authorized_hits(authority, &candidates.hits)
         .await?;
     authorized.retain(|hit| memory_types.values.binary_search(&hit.memory_type).is_ok());
-    let ranked = rerank_authorized(state, &query, request.limit, authorized).await?;
+    let ranked = rerank_authorized(
+        state,
+        &query,
+        request.limit,
+        authorized,
+        temporal_window.as_ref(),
+    )
+    .await?;
     let ranked_hits = align_ranked_projection_hits(&candidates.hits, &ranked.memories);
     let degradation_reason =
         merge_degradation_reasons(candidates.degradation_reason, ranked.degradation_reason);
@@ -2152,6 +2166,7 @@ async fn search_authorized_scopes(
     let mut sources = Vec::<(f64, Vec<ProjectionHit>)>::new();
     let mut channel_candidates = Vec::new();
     let mut degradation_reasons = BTreeSet::new();
+    let mut temporal_versions = HashSet::new();
     let include_globals = allow_global_preferences
         && scopes
             .iter()
@@ -2187,11 +2202,9 @@ async fn search_authorized_scopes(
         } else {
             None
         };
-        let temporal_versions = temporal_hits.as_ref().map(|hits| {
-            hits.iter()
-                .map(|hit| hit.memory_version_id)
-                .collect::<HashSet<_>>()
-        });
+        if let Some(hits) = &temporal_hits {
+            temporal_versions.extend(hits.iter().map(|hit| hit.memory_version_id));
+        }
         let namespace_key = authorized_namespace_key(authority, &scope_kind, scope_id.as_deref())
             .expect("requested scopes were authorized");
         match state
@@ -2204,10 +2217,7 @@ async fn search_authorized_scopes(
             })
             .await
         {
-            Ok(mut hits) => {
-                if let Some(versions) = &temporal_versions {
-                    hits.retain(|hit| versions.contains(&hit.memory_version_id));
-                }
+            Ok(hits) => {
                 add_retrieval_channel(
                     &mut sources,
                     &mut channel_candidates,
@@ -2234,10 +2244,7 @@ async fn search_authorized_scopes(
             )
             .await
         {
-            Ok(mut hits) => {
-                if let Some(versions) = &temporal_versions {
-                    hits.retain(|hit| versions.contains(&hit.memory_version_id));
-                }
+            Ok(hits) => {
                 add_retrieval_channel(
                     &mut sources,
                     &mut channel_candidates,
@@ -2264,10 +2271,7 @@ async fn search_authorized_scopes(
             )
             .await
         {
-            Ok(mut hits) => {
-                if let Some(versions) = &temporal_versions {
-                    hits.retain(|hit| versions.contains(&hit.memory_version_id));
-                }
+            Ok(hits) => {
                 add_retrieval_channel(
                     &mut sources,
                     &mut channel_candidates,
@@ -2306,7 +2310,29 @@ async fn search_authorized_scopes(
         .iter()
         .map(|(weight, hits)| (*weight, hits.as_slice()))
         .collect::<Vec<_>>();
-    let mut fused = weighted_reciprocal_rank_fusion(&weighted_sources, limit);
+    let mut fused = weighted_reciprocal_rank_fusion(
+        &weighted_sources,
+        if temporal_window.is_some() {
+            usize::MAX
+        } else {
+            limit
+        },
+    );
+    if temporal_window.is_some() {
+        // Time constrains event evidence, not timeless facts or preferences for a future task.
+        let eligible = state
+            .repository
+            .authorized_hits(authority, &fused)
+            .await?
+            .into_iter()
+            .filter(|memory| {
+                memory.memory_type != "episodic_summary"
+                    || temporal_versions.contains(&memory.memory_version_id)
+            })
+            .map(|memory| memory.memory_version_id)
+            .collect::<HashSet<_>>();
+        fused.retain(|hit| eligible.contains(&hit.memory_version_id));
+    }
     let mut global_sources = Vec::new();
     add_retrieval_channel(
         &mut global_sources,
@@ -2508,6 +2534,7 @@ async fn rerank_authorized(
     query: &str,
     limit: usize,
     memories: Vec<AuthorizedMemory>,
+    window: Option<&TemporalWindow>,
 ) -> Result<RankedAuthorized, ApiError> {
     let request = RerankRequest {
         query: query.into(),
@@ -2561,7 +2588,7 @@ async fn rerank_authorized(
             })
             .collect();
         ranked = support
-            .verify(query, &request.candidates, &ranked, &event_times)
+            .verify(query, &request.candidates, &ranked, &event_times, window)
             .await
             .map_err(|_| {
                 ApiError::provider(IndexError::Transport(

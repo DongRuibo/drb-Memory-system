@@ -346,6 +346,66 @@ pub fn parse_temporal_query(
         return Ok(None);
     };
 
+    let clock = Regex::new(r"(?P<hour>\d{1,2})\s*(?:[点时](?:\s*(?P<zh_minute>\d{1,2})\s*分?(?:\s*(?P<zh_second>\d{1,2})\s*秒)?)?|[:：](?P<minute>\d{2})(?:[:：](?P<second>\d{2}))?)")
+        .expect("built-in clock regex must compile");
+    if let Some(captures) = clock.captures(query) {
+        let offset_clock = Regex::new(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2})")
+            .expect("built-in timestamp regex must compile");
+        if let Some(timestamp) = offset_clock.find(query) {
+            let start = DateTime::parse_from_rfc3339(timestamp.as_str())
+                .map_err(|_| TemporalError::InvalidDate(timestamp.as_str().into()))?
+                .with_timezone(&Utc);
+            return Ok(Some(TemporalWindow {
+                start,
+                end: start + Duration::seconds(1),
+                precision: "instant".into(),
+                timezone: timezone.into(),
+                source_expression: expression,
+            }));
+        }
+        let minute = captures
+            .name("minute")
+            .or_else(|| captures.name("zh_minute"));
+        let second = captures
+            .name("second")
+            .or_else(|| captures.name("zh_second"));
+        let mut hour: u32 = captures["hour"].parse().unwrap();
+        if hour < 12
+            && ["下午", "晚上", "中午"]
+                .iter()
+                .any(|part| query.contains(part))
+        {
+            hour += 12;
+        } else if hour == 12 && query.contains("凌晨") {
+            hour = 0;
+        }
+        let minute_value = minute.map_or(0, |value| value.as_str().parse::<u32>().unwrap());
+        let second_value = second.map_or(0, |value| value.as_str().parse::<u32>().unwrap());
+        let naive = date
+            .and_hms_opt(hour, minute_value, second_value)
+            .ok_or_else(|| TemporalError::InvalidDate(captures[0].into()))?;
+        let start = match tz.from_local_datetime(&naive) {
+            LocalResult::Single(value) | LocalResult::Ambiguous(value, _) => {
+                value.with_timezone(&Utc)
+            }
+            LocalResult::None => return Err(TemporalError::AmbiguousLocalTime),
+        };
+        let (precision, duration) = if second.is_some() {
+            ("instant", Duration::seconds(1))
+        } else if minute.is_some() {
+            ("minute", Duration::minutes(1))
+        } else {
+            ("hour", Duration::hours(1))
+        };
+        return Ok(Some(TemporalWindow {
+            start,
+            end: start + duration,
+            precision: precision.into(),
+            timezone: timezone.into(),
+            source_expression: expression,
+        }));
+    }
+
     let (start_hour, end_hour) = if query.contains("凌晨") {
         precision = "part_of_day";
         (0, 6)
@@ -441,6 +501,73 @@ mod tests {
     use chrono::TimeZone;
 
     use super::*;
+
+    #[test]
+    fn explicit_clocks_preserve_minute_hour_second_and_timezone_boundaries() {
+        let now = "2026-10-20T04:00:00Z".parse().unwrap();
+        for (query, start, seconds, precision) in [
+            (
+                "2026年6月21日10点31分做过什么",
+                "2026-06-21T02:31:00Z",
+                60,
+                "minute",
+            ),
+            (
+                "2026-04-09 13:10做过什么",
+                "2026-04-09T05:10:00Z",
+                60,
+                "minute",
+            ),
+            (
+                "2026年4月9日下午1点10分做过什么",
+                "2026-04-09T05:10:00Z",
+                60,
+                "minute",
+            ),
+            (
+                "2026年4月9日13点做过什么",
+                "2026-04-09T05:00:00Z",
+                3600,
+                "hour",
+            ),
+            (
+                "2026-04-09 13:10:08做过什么",
+                "2026-04-09T05:10:08Z",
+                1,
+                "instant",
+            ),
+            (
+                "2026-04-09T13:10:08+08:00做过什么",
+                "2026-04-09T05:10:08Z",
+                1,
+                "instant",
+            ),
+            (
+                "2026-04-09T05:10:08Z做过什么",
+                "2026-04-09T05:10:08Z",
+                1,
+                "instant",
+            ),
+        ] {
+            let window = parse_temporal_query(query, now, "Asia/Shanghai")
+                .unwrap()
+                .unwrap();
+            assert_eq!(
+                window.start,
+                start.parse::<DateTime<Utc>>().unwrap(),
+                "{query}"
+            );
+            assert_eq!(window.end - window.start, Duration::seconds(seconds));
+            assert_eq!(window.precision, precision);
+        }
+        for query in [
+            "2026年4月9日24点",
+            "2026-04-09 13:61",
+            "2026-04-09 13:10:61",
+        ] {
+            assert!(parse_temporal_query(query, now, "Asia/Shanghai").is_err());
+        }
+    }
 
     fn reference_time() -> DateTime<Utc> {
         Utc.with_ymd_and_hms(2026, 7, 30, 4, 0, 0).unwrap()

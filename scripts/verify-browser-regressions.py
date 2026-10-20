@@ -85,7 +85,31 @@ def main():
         save()
         assert current['status'] == 'completed', current.get('error_code')
         assert current['context_pack_id'], 'must not pass using an empty-context fallback'
+        # Canonical acceptance precedes asynchronous Outbox projection readiness.
+        # Check recall after convergence; do not silently assert read-after-write consistency.
+        for effect in current.get('memory_effects', []):
+            operation_id = effect.get('operation_id')
+            if not operation_id:
+                continue
+            started = time.monotonic()
+            for _ in range(360):
+                operation = alice('/v1/memory/operations/' + operation_id)
+                if operation['projection_status'] in ('ready', 'deleted'):
+                    break
+                assert operation['projection_status'] not in ('failed', 'dead_letter', 'stale')
+                time.sleep(.25)
+            else:
+                raise AssertionError('projection did not converge within 90 seconds')
+            proof.setdefault('projection_waits', []).append({'operation_id': operation_id,
+                'projection_status': operation['projection_status'],
+                'wait_seconds': round(time.monotonic() - started, 3)})
+            save()
         return current, answer
+
+    if alice('/v1/memory/export')['records']:
+        raise RuntimeError('regression requires a fresh tenant before any write or cleanup')
+    proof['fresh_scope_export_empty'] = True
+    save()
 
     # Repeat the whole source unchanged in separate identities, never split clauses.
     for _ in range(3):
@@ -99,10 +123,9 @@ def main():
             {'profile_fact', 'preference', 'episodic_summary'} <= {c['proposal']['memory_type'] for c in response['candidates']})
         check('whole_source_language_' + str(len(proof['extractions'])),
             any(c['proposal']['memory_type'] == 'profile_fact' and 'Rust' in c['proposal']['content'] for c in response['candidates']))
-        for record in memory(user, project, '/v1/memory/export')['records']:
-            if record['head_state'] == 'active':
-                memory(user, project, '/v1/memories/' + record['memory_record_id'] + '/forget',
-                    {'expected_revision': record['revision'], 'reason': 'synthetic regression cleanup'})
+        owned = {c['operation']['memory_record_id'] for c in response['candidates']
+            if c.get('operation') and c['operation'].get('memory_record_id')}
+        live.Memory(args.tenant, user, project, args.memory_base).cleanup(owned)
 
     bootstrap = demo('/api/demo/bootstrap')
     revision = bootstrap['identity_revision']

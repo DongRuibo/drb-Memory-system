@@ -1,0 +1,1630 @@
+{
+  "current_provider": [
+    {
+      "query_id": "v01",
+      "returned_document_ids": [
+        "name",
+        "role",
+        "field_style"
+      ],
+      "scores": [
+        0.4482034311233946,
+        0.4294090355147081,
+        0.3192712354008538
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v02",
+      "returned_document_ids": [
+        "language",
+        "code_example",
+        "field_style"
+      ],
+      "scores": [
+        0.7497435212746861,
+        0.5384336343228365,
+        0.4396780002213356
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v03",
+      "returned_document_ids": [
+        "city",
+        "name",
+        "harvest"
+      ],
+      "scores": [
+        0.6207927465438843,
+        0.3479173883175073,
+        0.32450544834136963
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v04",
+      "returned_document_ids": [
+        "name",
+        "field_style",
+        "role"
+      ],
+      "scores": [
+        0.530431763244622,
+        0.32398115455823817,
+        0.29093296581906336
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v05",
+      "returned_document_ids": [
+        "substrate",
+        "repotting",
+        "sowing"
+      ],
+      "scores": [
+        0.8632443723003009,
+        0.5735345824679494,
+        0.5586068533605506
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v06",
+      "returned_document_ids": [
+        "storage",
+        "stock_unit",
+        "password_reset"
+      ],
+      "scores": [
+        0.8963392315113102,
+        0.6175768743501242,
+        0.5730523383366175
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v07",
+      "returned_document_ids": [
+        "stock_unit",
+        "sowing",
+        "storage"
+      ],
+      "scores": [
+        0.9136748313903807,
+        0.5733149222527424,
+        0.5034509897232056
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v08",
+      "returned_document_ids": [
+        "watering_rule",
+        "backup_rule",
+        "field_style"
+      ],
+      "scores": [
+        0.7642728318057311,
+        0.5503578782081604,
+        0.5445129490663095
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v09",
+      "returned_document_ids": [
+        "fault_code",
+        "pump_repair",
+        "password_reset"
+      ],
+      "scores": [
+        0.8662737767370075,
+        0.4980236289529394,
+        0.37984113037112754
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v10",
+      "returned_document_ids": [
+        "password_reset",
+        "role",
+        "backup_rule"
+      ],
+      "scores": [
+        0.7348762969635817,
+        0.3878305621248155,
+        0.37400391697883606
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v11",
+      "returned_document_ids": [
+        "backup_rule",
+        "role",
+        "image_format"
+      ],
+      "scores": [
+        0.7717641592025757,
+        0.434320632557832,
+        0.4210563004016876
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v12",
+      "returned_document_ids": [
+        "field_style",
+        "backup_rule",
+        "image_format"
+      ],
+      "scores": [
+        0.8710351615323498,
+        0.5440740909620587,
+        0.5152174541483802
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v13",
+      "returned_document_ids": [
+        "sun_protection",
+        "field_style",
+        "backup_rule"
+      ],
+      "scores": [
+        0.7266996286302945,
+        0.47728071903713065,
+        0.443046066579458
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v14",
+      "returned_document_ids": [
+        "food",
+        "repotting",
+        "harvest"
+      ],
+      "scores": [
+        0.6962356152394059,
+        0.42842486927361145,
+        0.4281140608719558
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v15",
+      "returned_document_ids": [
+        "code_example",
+        "language",
+        "password_reset"
+      ],
+      "scores": [
+        0.8706523853151584,
+        0.721323165735821,
+        0.5354081232724175
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v16",
+      "returned_document_ids": [
+        "image_format",
+        "field_style",
+        "backup_rule"
+      ],
+      "scores": [
+        0.8297043544230265,
+        0.504955873336434,
+        0.4848852166601896
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v17",
+      "returned_document_ids": [
+        "sowing",
+        "field_style",
+        "password_reset"
+      ],
+      "scores": [
+        0.658718486390069,
+        0.5640470630000688,
+        0.5277838268215607
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v18",
+      "returned_document_ids": [
+        "repotting",
+        "backup_rule",
+        "sowing"
+      ],
+      "scores": [
+        0.5585505962371826,
+        0.5496821999549866,
+        0.5371862810011592
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v19",
+      "returned_document_ids": [
+        "harvest",
+        "sun_protection",
+        "field_style"
+      ],
+      "scores": [
+        0.7190753127797994,
+        0.4044600718528013,
+        0.3985004008263444
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v20",
+      "returned_document_ids": [
+        "pump_repair",
+        "fault_code",
+        "repotting"
+      ],
+      "scores": [
+        0.8623544327654435,
+        0.6336218933092521,
+        0.445215907407756
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v21",
+      "returned_document_ids": [
+        "substrate",
+        "storage",
+        "repotting"
+      ],
+      "scores": [
+        0.7463533727141245,
+        0.6813926899848193,
+        0.5506261751242335
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v22",
+      "returned_document_ids": [
+        "language",
+        "code_example",
+        "field_style"
+      ],
+      "scores": [
+        0.6728721249928263,
+        0.5740654380243535,
+        0.4275486000641917
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v23",
+      "returned_document_ids": [
+        "watering_rule",
+        "backup_rule",
+        "field_style"
+      ],
+      "scores": [
+        0.8439078582497797,
+        0.8018057942390442,
+        0.5980899033084434
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v24",
+      "returned_document_ids": [
+        "backup_rule",
+        "repotting",
+        "sowing"
+      ],
+      "scores": [
+        0.5485615297723275,
+        0.5466054840864388,
+        0.5131038733186646
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "hybrid_service": [
+    {
+      "query_id": "v01",
+      "returned_document_ids": [
+        "role"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v02",
+      "returned_document_ids": [
+        "language"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v03",
+      "returned_document_ids": [
+        "city"
+      ],
+      "scores": [
+        0.99
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v04",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": null,
+      "projection_generation": null,
+      "degraded": true,
+      "degradation_reason": "HYBRID_ERROR:HTTP status server error (503 Service Unavailable) for url (http://127.0.0.1:19180/v1/memory/search)"
+    },
+    {
+      "query_id": "v05",
+      "returned_document_ids": [
+        "substrate"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v06",
+      "returned_document_ids": [
+        "storage"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v07",
+      "returned_document_ids": [
+        "stock_unit"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v08",
+      "returned_document_ids": [
+        "watering_rule"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v09",
+      "returned_document_ids": [
+        "fault_code"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v10",
+      "returned_document_ids": [
+        "password_reset"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v11",
+      "returned_document_ids": [
+        "backup_rule"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v12",
+      "returned_document_ids": [
+        "field_style"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v13",
+      "returned_document_ids": [
+        "sun_protection"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v14",
+      "returned_document_ids": [
+        "food"
+      ],
+      "scores": [
+        0.99
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v15",
+      "returned_document_ids": [
+        "code_example"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v16",
+      "returned_document_ids": [
+        "image_format"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v17",
+      "returned_document_ids": [
+        "sowing"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v18",
+      "returned_document_ids": [
+        "repotting"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v19",
+      "returned_document_ids": [
+        "harvest"
+      ],
+      "scores": [
+        0.9
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v20",
+      "returned_document_ids": [
+        "pump_repair"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v21",
+      "returned_document_ids": [
+        "storage",
+        "substrate"
+      ],
+      "scores": [
+        0.98,
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v22",
+      "returned_document_ids": [
+        "language",
+        "code_example"
+      ],
+      "scores": [
+        0.97,
+        0.95
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v23",
+      "returned_document_ids": [
+        "watering_rule",
+        "backup_rule"
+      ],
+      "scores": [
+        0.98,
+        0.98
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v24",
+      "returned_document_ids": [
+        "sowing",
+        "repotting"
+      ],
+      "scores": [
+        0.95,
+        0.95
+      ],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "local_chinese_bm25": [
+    {
+      "query_id": "v01",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v02",
+      "returned_document_ids": [
+        "language",
+        "field_style",
+        "code_example"
+      ],
+      "scores": [
+        7.614000936063332,
+        3.1047733289591277,
+        2.2160023378448734
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v03",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v04",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v05",
+      "returned_document_ids": [
+        "substrate",
+        "language"
+      ],
+      "scores": [
+        6.111501184372178,
+        2.713049591193257
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v06",
+      "returned_document_ids": [
+        "storage",
+        "role",
+        "substrate"
+      ],
+      "scores": [
+        3.974228174321479,
+        0.9184775821353901,
+        0.9184775821353901
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v07",
+      "returned_document_ids": [
+        "stock_unit",
+        "sowing",
+        "language"
+      ],
+      "scores": [
+        13.49994480767236,
+        2.317876115281381,
+        2.187901753676818
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v08",
+      "returned_document_ids": [
+        "watering_rule"
+      ],
+      "scores": [
+        8.13914877357977
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v09",
+      "returned_document_ids": [
+        "fault_code"
+      ],
+      "scores": [
+        7.70698158206226
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v10",
+      "returned_document_ids": [
+        "password_reset",
+        "role"
+      ],
+      "scores": [
+        8.35503420762954,
+        2.464268290983363
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v11",
+      "returned_document_ids": [
+        "backup_rule",
+        "role",
+        "field_style"
+      ],
+      "scores": [
+        12.739074034313754,
+        4.538937150089533,
+        1.438638989891139
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v12",
+      "returned_document_ids": [
+        "field_style",
+        "image_format",
+        "role"
+      ],
+      "scores": [
+        9.608016321808545,
+        3.391213799559713,
+        2.0746688591061693
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v13",
+      "returned_document_ids": [
+        "sun_protection",
+        "image_format",
+        "code_example"
+      ],
+      "scores": [
+        9.206529852010812,
+        1.4239407941528268,
+        1.293503469497606
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v14",
+      "returned_document_ids": [
+        "food",
+        "repotting",
+        "sun_protection"
+      ],
+      "scores": [
+        4.900951344870075,
+        2.187901753676818,
+        1.499548269948552
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v15",
+      "returned_document_ids": [
+        "code_example",
+        "sun_protection",
+        "image_format"
+      ],
+      "scores": [
+        13.039586687751456,
+        1.499548269948552,
+        1.4239407941528268
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v16",
+      "returned_document_ids": [
+        "image_format",
+        "field_style"
+      ],
+      "scores": [
+        14.16459679774632,
+        1.7087991798789741
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v17",
+      "returned_document_ids": [
+        "sowing",
+        "substrate"
+      ],
+      "scores": [
+        5.1920969693178005,
+        2.464268290983363
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v18",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v19",
+      "returned_document_ids": [
+        "harvest"
+      ],
+      "scores": [
+        5.74844170807284
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v20",
+      "returned_document_ids": [
+        "pump_repair",
+        "fault_code"
+      ],
+      "scores": [
+        6.71245381897803,
+        4.14345995829061
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v21",
+      "returned_document_ids": [
+        "substrate",
+        "storage"
+      ],
+      "scores": [
+        6.111501184372178,
+        3.055750592186089
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v22",
+      "returned_document_ids": [
+        "code_example",
+        "language",
+        "sun_protection"
+      ],
+      "scores": [
+        5.725508145187353,
+        2.713049591193257,
+        1.499548269948552
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v23",
+      "returned_document_ids": [
+        "backup_rule",
+        "watering_rule",
+        "role"
+      ],
+      "scores": [
+        6.470005646552368,
+        6.241569932880552,
+        5.4574147322249225
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v24",
+      "returned_document_ids": [
+        "backup_rule"
+      ],
+      "scores": [
+        2.3223704500614275
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "local_lexical": [
+    {
+      "query_id": "v01",
+      "returned_document_ids": [
+        "stock_unit",
+        "watering_rule",
+        "password_reset"
+      ],
+      "scores": [
+        0.0857142857142857,
+        0.0857142857142857,
+        0.04285714285714285
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v02",
+      "returned_document_ids": [
+        "language",
+        "code_example",
+        "stock_unit"
+      ],
+      "scores": [
+        0.34065934065934067,
+        0.08516483516483517,
+        0.08516483516483517
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v03",
+      "returned_document_ids": [
+        "city",
+        "storage"
+      ],
+      "scores": [
+        0.17738095238095236,
+        0.04285714285714285
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v04",
+      "returned_document_ids": [
+        "name"
+      ],
+      "scores": [
+        0.049999999999999996
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v05",
+      "returned_document_ids": [
+        "substrate",
+        "role",
+        "stock_unit"
+      ],
+      "scores": [
+        0.40625,
+        0.06666666666666667,
+        0.06666666666666667
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v06",
+      "returned_document_ids": [
+        "storage",
+        "backup_rule",
+        "code_example"
+      ],
+      "scores": [
+        0.3933333333333333,
+        0.1511111111111111,
+        0.12111111111111111
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v07",
+      "returned_document_ids": [
+        "stock_unit",
+        "language",
+        "sowing"
+      ],
+      "scores": [
+        0.475,
+        0.125,
+        0.125
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v08",
+      "returned_document_ids": [
+        "watering_rule",
+        "stock_unit",
+        "field_style"
+      ],
+      "scores": [
+        0.5766666666666667,
+        0.06,
+        0.03
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v09",
+      "returned_document_ids": [
+        "fault_code",
+        "language",
+        "code_example"
+      ],
+      "scores": [
+        0.44333333333333336,
+        0.04285714285714285,
+        0.021428571428571425
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v10",
+      "returned_document_ids": [
+        "password_reset",
+        "role",
+        "backup_rule"
+      ],
+      "scores": [
+        0.5057692307692307,
+        0.11923076923076924,
+        0.023076923076923078
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v11",
+      "returned_document_ids": [
+        "backup_rule",
+        "role",
+        "field_style"
+      ],
+      "scores": [
+        0.6663461538461539,
+        0.2423076923076923,
+        0.0919871794871795
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v12",
+      "returned_document_ids": [
+        "field_style",
+        "image_format",
+        "role"
+      ],
+      "scores": [
+        0.38875000000000004,
+        0.14833333333333332,
+        0.0875
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v13",
+      "returned_document_ids": [
+        "sun_protection",
+        "field_style",
+        "code_example"
+      ],
+      "scores": [
+        0.3306985294117647,
+        0.13643790849673204,
+        0.1011437908496732
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v14",
+      "returned_document_ids": [
+        "food",
+        "code_example",
+        "field_style"
+      ],
+      "scores": [
+        0.16121794871794873,
+        0.08846153846153847,
+        0.08846153846153847
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v15",
+      "returned_document_ids": [
+        "code_example",
+        "stock_unit",
+        "storage"
+      ],
+      "scores": [
+        0.4950292397660819,
+        0.14777327935222673,
+        0.10236842105263158
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v16",
+      "returned_document_ids": [
+        "image_format",
+        "field_style",
+        "code_example"
+      ],
+      "scores": [
+        0.5034926470588236,
+        0.08731617647058823,
+        0.01764705882352941
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v17",
+      "returned_document_ids": [
+        "sowing",
+        "substrate",
+        "repotting"
+      ],
+      "scores": [
+        0.15482456140350875,
+        0.08657894736842106,
+        0.047368421052631574
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v18",
+      "returned_document_ids": [
+        "storage",
+        "sun_protection",
+        "backup_rule"
+      ],
+      "scores": [
+        0.028571428571428567,
+        0.028571428571428567,
+        0.014285714285714284
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v19",
+      "returned_document_ids": [
+        "harvest",
+        "repotting",
+        "city"
+      ],
+      "scores": [
+        0.19722222222222224,
+        0.0375,
+        0.01875
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v20",
+      "returned_document_ids": [
+        "pump_repair",
+        "fault_code",
+        "watering_rule"
+      ],
+      "scores": [
+        0.3217948717948718,
+        0.1608974358974359,
+        0.046153846153846156
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v21",
+      "returned_document_ids": [
+        "substrate",
+        "storage",
+        "stock_unit"
+      ],
+      "scores": [
+        0.245,
+        0.21000000000000002,
+        0.04
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v22",
+      "returned_document_ids": [
+        "code_example",
+        "watering_rule",
+        "sun_protection"
+      ],
+      "scores": [
+        0.21904761904761905,
+        0.07952380952380952,
+        0.07723214285714286
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v23",
+      "returned_document_ids": [
+        "backup_rule",
+        "role",
+        "watering_rule"
+      ],
+      "scores": [
+        0.2976190476190476,
+        0.2857142857142857,
+        0.24666666666666665
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "v24",
+      "returned_document_ids": [
+        "backup_rule",
+        "city",
+        "fault_code"
+      ],
+      "scores": [
+        0.01875,
+        0.01875,
+        0.01875
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "negative_queries": [
+    {
+      "query_id": "vn01",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn02",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn03",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn04",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn05",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn06",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn07",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn08",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn09",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn10",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn11",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn12",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn13",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn14",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn15",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "vn16",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v5-evidence-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ]
+}

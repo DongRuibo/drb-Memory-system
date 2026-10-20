@@ -1,0 +1,32 @@
+{
+  "rust-workspace": {
+    "exit_code": 0,
+    "passed": 159,
+    "failed": 0,
+    "ignored": 21
+  },
+  "memory-postgres-integration": {
+    "exit_code": 0,
+    "passed": 20,
+    "failed": 0,
+    "ignored": 0
+  },
+  "demo-chat-integration": {
+    "exit_code": 0,
+    "passed": 1,
+    "failed": 0,
+    "ignored": 0
+  },
+  "clippy": {
+    "exit_code": 0,
+    "passed": 0,
+    "failed": 0,
+    "ignored": 0
+  },
+  "python-startup": {
+    "exit_code": 0,
+    "passed": 0,
+    "failed": 0,
+    "ignored": 0
+  }
+}

@@ -1,0 +1,1354 @@
+{
+  "current_provider": [
+    {
+      "query_id": "z01",
+      "returned_document_ids": [
+        "role",
+        "name",
+        "visit"
+      ],
+      "scores": [
+        0.5053765623159261,
+        0.425807195132758,
+        0.3701808386717733
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z02",
+      "returned_document_ids": [
+        "language",
+        "role",
+        "image_store"
+      ],
+      "scores": [
+        0.6918325240512219,
+        0.4935306755760516,
+        0.4618966028813629
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z03",
+      "returned_document_ids": [
+        "name",
+        "role",
+        "food"
+      ],
+      "scores": [
+        0.5086025736985346,
+        0.3546052258069651,
+        0.3177759619550913
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z04",
+      "returned_document_ids": [
+        "retention",
+        "image_store",
+        "role"
+      ],
+      "scores": [
+        0.9072223139803182,
+        0.5779524604167126,
+        0.5418844657574775
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z05",
+      "returned_document_ids": [
+        "error",
+        "shift_day",
+        "cable"
+      ],
+      "scores": [
+        0.8732577041830016,
+        0.42434045672416687,
+        0.4196518361568451
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z06",
+      "returned_document_ids": [
+        "reset",
+        "cable",
+        "role"
+      ],
+      "scores": [
+        0.886070496674152,
+        0.4341512063651566,
+        0.4265502564147056
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z07",
+      "returned_document_ids": [
+        "lens",
+        "error",
+        "lens_test"
+      ],
+      "scores": [
+        0.93468182889711,
+        0.4731743633747134,
+        0.4550957626218513
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z08",
+      "returned_document_ids": [
+        "report",
+        "shift_day",
+        "chart"
+      ],
+      "scores": [
+        0.7737516760826331,
+        0.6936934821240334,
+        0.5401132363384704
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z09",
+      "returned_document_ids": [
+        "visit",
+        "name",
+        "role"
+      ],
+      "scores": [
+        0.6690528592185279,
+        0.40937884021619375,
+        0.39705259747253896
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z10",
+      "returned_document_ids": [
+        "food",
+        "visit",
+        "report"
+      ],
+      "scores": [
+        0.6624592132745123,
+        0.43343014318583994,
+        0.3983081104388133
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z11",
+      "returned_document_ids": [
+        "chart",
+        "shift_day",
+        "report"
+      ],
+      "scores": [
+        0.8376582224252126,
+        0.6518094332104595,
+        0.6133319965999227
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z12",
+      "returned_document_ids": [
+        "lens_test",
+        "lens",
+        "error"
+      ],
+      "scores": [
+        0.6943325218160475,
+        0.5530648231506348,
+        0.516271441205059
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z13",
+      "returned_document_ids": [
+        "lens_test",
+        "retention",
+        "shift_day"
+      ],
+      "scores": [
+        0.464330102721465,
+        0.42994789181587545,
+        0.408058637860933
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z14",
+      "returned_document_ids": [
+        "lens_test",
+        "shift_day",
+        "retention"
+      ],
+      "scores": [
+        0.4878054261207615,
+        0.4551548090484861,
+        0.42566962701137057
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z15",
+      "returned_document_ids": [
+        "lens_test",
+        "error",
+        "food"
+      ],
+      "scores": [
+        0.4105933361891969,
+        0.386242380218081,
+        0.36975628788884896
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z16",
+      "returned_document_ids": [
+        "lens_test",
+        "error",
+        "retention"
+      ],
+      "scores": [
+        0.4075377053801156,
+        0.3818354790855817,
+        0.36292020280009774
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z17",
+      "returned_document_ids": [
+        "lens_test",
+        "error",
+        "retention"
+      ],
+      "scores": [
+        0.4176530788930113,
+        0.4039049503859915,
+        0.3889555964364153
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z18",
+      "returned_document_ids": [
+        "shift_day",
+        "report",
+        "retention"
+      ],
+      "scores": [
+        0.7617271400527456,
+        0.603445374760317,
+        0.5825725145854193
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z19",
+      "returned_document_ids": [
+        "cable",
+        "error",
+        "lens_test"
+      ],
+      "scores": [
+        0.8850149053317484,
+        0.608790646411662,
+        0.5334342400172891
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z20",
+      "returned_document_ids": [
+        "lens",
+        "retention",
+        "lens_test"
+      ],
+      "scores": [
+        0.7342166146169088,
+        0.5556149946495964,
+        0.5548375910326947
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "hybrid_service": [
+    {
+      "query_id": "z01",
+      "returned_document_ids": [
+        "role"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z02",
+      "returned_document_ids": [
+        "language"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z03",
+      "returned_document_ids": [
+        "name"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z04",
+      "returned_document_ids": [
+        "retention",
+        "image_store"
+      ],
+      "scores": [
+        0.98,
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z05",
+      "returned_document_ids": [
+        "error"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z06",
+      "returned_document_ids": [
+        "reset"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z07",
+      "returned_document_ids": [
+        "lens"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z08",
+      "returned_document_ids": [
+        "report"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z09",
+      "returned_document_ids": [
+        "visit"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z10",
+      "returned_document_ids": [
+        "food"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z11",
+      "returned_document_ids": [
+        "chart"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z12",
+      "returned_document_ids": [
+        "lens_test"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z13",
+      "returned_document_ids": [
+        "lens_test"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z14",
+      "returned_document_ids": [
+        "light_test"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z15",
+      "returned_document_ids": [
+        "light_test"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z16",
+      "returned_document_ids": [
+        "light_test"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z17",
+      "returned_document_ids": [
+        "light_test",
+        "lens_test"
+      ],
+      "scores": [
+        0.98,
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z18",
+      "returned_document_ids": [
+        "shift_day"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z19",
+      "returned_document_ids": [
+        "cable"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z20",
+      "returned_document_ids": [
+        "lens",
+        "image_store"
+      ],
+      "scores": [
+        0.95,
+        0.95
+      ],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "local_chinese_bm25": [
+    {
+      "query_id": "z01",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z02",
+      "returned_document_ids": [
+        "language",
+        "image_store"
+      ],
+      "scores": [
+        7.5359401680237905,
+        2.825705232126874
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z03",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z04",
+      "returned_document_ids": [
+        "retention",
+        "image_store",
+        "role"
+      ],
+      "scores": [
+        7.198418652674981,
+        1.5470081884212334,
+        1.5470081884212334
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z05",
+      "returned_document_ids": [
+        "error"
+      ],
+      "scores": [
+        9.043825489638545
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z06",
+      "returned_document_ids": [
+        "reset",
+        "image_store",
+        "retention"
+      ],
+      "scores": [
+        11.354868564782212,
+        1.5470081884212334,
+        1.5470081884212334
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z07",
+      "returned_document_ids": [
+        "lens",
+        "lens_test",
+        "language"
+      ],
+      "scores": [
+        8.642676033026643,
+        1.7002710809969108,
+        1.6352848141886338
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z08",
+      "returned_document_ids": [
+        "report",
+        "shift_day",
+        "chart"
+      ],
+      "scores": [
+        8.04496995705384,
+        4.0225870973931235,
+        2.8036542022507045
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z09",
+      "returned_document_ids": [
+        "visit",
+        "chart",
+        "report"
+      ],
+      "scores": [
+        11.068748673901975,
+        1.4018271011253522,
+        1.2800026578169332
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z10",
+      "returned_document_ids": [
+        "food",
+        "visit",
+        "chart"
+      ],
+      "scores": [
+        5.3192459308445486,
+        1.549280061360598,
+        1.4018271011253522
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z11",
+      "returned_document_ids": [
+        "chart",
+        "report",
+        "language"
+      ],
+      "scores": [
+        9.263743031019281,
+        2.5600053156338665,
+        2.51198005600793
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z12",
+      "returned_document_ids": [
+        "lens_test",
+        "lens"
+      ],
+      "scores": [
+        3.8536340239197697,
+        1.983431106822148
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z13",
+      "returned_document_ids": [
+        "food",
+        "lens_test"
+      ],
+      "scores": [
+        2.6596229654222743,
+        2.153362942922859
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z14",
+      "returned_document_ids": [
+        "lens_test"
+      ],
+      "scores": [
+        2.153362942922859
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z15",
+      "returned_document_ids": [
+        "food"
+      ],
+      "scores": [
+        2.6596229654222743
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z16",
+      "returned_document_ids": [
+        "food"
+      ],
+      "scores": [
+        2.6596229654222743
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z17",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z18",
+      "returned_document_ids": [
+        "shift_day",
+        "chart",
+        "report"
+      ],
+      "scores": [
+        6.903205154176357,
+        1.4018271011253522,
+        1.2800026578169332
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z19",
+      "returned_document_ids": [
+        "cable",
+        "error"
+      ],
+      "scores": [
+        9.519371274845938,
+        1.785225638826042
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z20",
+      "returned_document_ids": [
+        "lens",
+        "retention",
+        "language"
+      ],
+      "scores": [
+        7.007391218838008,
+        2.825705232126874,
+        2.51198005600793
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "local_lexical": [
+    {
+      "query_id": "z01",
+      "returned_document_ids": [
+        "image_store",
+        "report",
+        "reset"
+      ],
+      "scores": [
+        0.04285714285714285,
+        0.04285714285714285,
+        0.04285714285714285
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z02",
+      "returned_document_ids": [
+        "language",
+        "image_store",
+        "chart"
+      ],
+      "scores": [
+        0.27692307692307694,
+        0.08516483516483517,
+        0.04285714285714285
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z03",
+      "returned_document_ids": [
+        "name"
+      ],
+      "scores": [
+        0.06
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z04",
+      "returned_document_ids": [
+        "retention",
+        "image_store",
+        "reset"
+      ],
+      "scores": [
+        0.45000000000000007,
+        0.175,
+        0.1
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z05",
+      "returned_document_ids": [
+        "error",
+        "image_store",
+        "chart"
+      ],
+      "scores": [
+        0.7513888888888889,
+        0.056249999999999994,
+        0.01875
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z06",
+      "returned_document_ids": [
+        "reset",
+        "retention",
+        "role"
+      ],
+      "scores": [
+        0.5034926470588236,
+        0.10404411764705883,
+        0.10294117647058823
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z07",
+      "returned_document_ids": [
+        "lens",
+        "error",
+        "language"
+      ],
+      "scores": [
+        0.4467032967032968,
+        0.10659340659340659,
+        0.08516483516483517
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z08",
+      "returned_document_ids": [
+        "report",
+        "chart",
+        "shift_day"
+      ],
+      "scores": [
+        0.4357142857142857,
+        0.15857142857142859,
+        0.1392857142857143
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z09",
+      "returned_document_ids": [
+        "visit",
+        "report",
+        "chart"
+      ],
+      "scores": [
+        0.390625,
+        0.0875,
+        0.064375
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z10",
+      "returned_document_ids": [
+        "food",
+        "report",
+        "chart"
+      ],
+      "scores": [
+        0.155,
+        0.12083333333333333,
+        0.09583333333333333
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z11",
+      "returned_document_ids": [
+        "chart",
+        "report",
+        "shift_day"
+      ],
+      "scores": [
+        0.4629166666666667,
+        0.18583333333333332,
+        0.09553571428571428
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z12",
+      "returned_document_ids": [
+        "lens_test",
+        "lens",
+        "food"
+      ],
+      "scores": [
+        0.12777777777777777,
+        0.08666666666666667,
+        0.016666666666666666
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z13",
+      "returned_document_ids": [
+        "lens_test",
+        "food",
+        "image_store"
+      ],
+      "scores": [
+        0.062134502923976605,
+        0.015789473684210523,
+        0.015789473684210523
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z14",
+      "returned_document_ids": [
+        "lens_test",
+        "image_store",
+        "lens"
+      ],
+      "scores": [
+        0.0734126984126984,
+        0.021428571428571425,
+        0.021428571428571425
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z15",
+      "returned_document_ids": [
+        "food",
+        "image_store",
+        "lens"
+      ],
+      "scores": [
+        0.015789473684210523,
+        0.015789473684210523,
+        0.015789473684210523
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z16",
+      "returned_document_ids": [
+        "food",
+        "image_store",
+        "lens"
+      ],
+      "scores": [
+        0.01764705882352941,
+        0.01764705882352941,
+        0.01764705882352941
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z17",
+      "returned_document_ids": [
+        "image_store",
+        "lens",
+        "reset"
+      ],
+      "scores": [
+        0.01764705882352941,
+        0.01764705882352941,
+        0.01764705882352941
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z18",
+      "returned_document_ids": [
+        "shift_day",
+        "chart",
+        "report"
+      ],
+      "scores": [
+        0.30231092436974794,
+        0.06966911764705883,
+        0.06584967320261438
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z19",
+      "returned_document_ids": [
+        "cable",
+        "error",
+        "image_store"
+      ],
+      "scores": [
+        0.4,
+        0.024999999999999998,
+        0.024999999999999998
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "z20",
+      "returned_document_ids": [
+        "lens",
+        "retention",
+        "lens_test"
+      ],
+      "scores": [
+        0.2779166666666667,
+        0.19375,
+        0.09291666666666666
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "negative_queries": [
+    {
+      "query_id": "zn01",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn02",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn03",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn04",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn05",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn06",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn07",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn08",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn09",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn10",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn11",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "zn12",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v6-query-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ]
+}

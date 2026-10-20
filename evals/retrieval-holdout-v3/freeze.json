@@ -1,0 +1,17 @@
+{
+  "frozen_at": "2026-10-20T06:06:43.425791+00:00",
+  "base_commit": "c85fa60831c75785b2cc699dc94789e235fbfbd7",
+  "hashes": {
+    "evals/retrieval-holdout-v3/dataset.json": "198a3778e0205bafb37d6314a553172cc867d291f5c4a1edd651f51a8269b381"
+  },
+  "baseline_policy_hashes": {
+    "apps/memory-service/src/support.rs": "8cd6ab9d2ae106cda42cd6c2fb2090ece4105eab7853ea87707e3c8cfe8fb356",
+    "apps/memory-service/src/api.rs": "01cfa39e6c9002a4a10ed1d823caf5f4662824cb0875cad77339c5e8b069e001",
+    "crates/memory-application/src/temporal.rs": "439d8b6f76e775dc12f44d544eaf65fe00d58230d7020953316bfa82d267d17c"
+  },
+  "policy_freeze": "policy-freeze.json",
+  "additional_precision_gate": {
+    "irrelevant_injection_rate_max": 0.1
+  },
+  "labeling": "developer-authored new-scene validation; frozen before v5 implementation; not independent annotation"
+}

@@ -1,0 +1,7 @@
+{"method":"local_lexical","query_id":"h22","expected_document_ids":["page_order","scanner_calibration"],"returned_document_ids":["scan_retention","duplicate_photos","scan_storage"],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"h01","expected_document_ids":["archive_role"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"h03","expected_document_ids":["home_city"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"h14","expected_document_ids":["food_celery"],"returned_document_ids":["review_photo"],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"h22","expected_document_ids":["page_order","scanner_calibration"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"current_provider","query_id":"h22","expected_document_ids":["page_order","scanner_calibration"],"returned_document_ids":["ocr_route","archive_role","project_timezone"],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"hybrid_service","query_id":"h20","expected_document_ids":["catalog_alignment"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}

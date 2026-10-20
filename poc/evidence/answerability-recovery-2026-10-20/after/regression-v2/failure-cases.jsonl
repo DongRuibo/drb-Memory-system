@@ -1,0 +1,8 @@
+{"method":"local_lexical","query_id":"v01","expected_document_ids":["role"],"returned_document_ids":["stock_unit","watering_rule","password_reset"],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_lexical","query_id":"v18","expected_document_ids":["repotting"],"returned_document_ids":["storage","sun_protection","backup_rule"],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_lexical","query_id":"v24","expected_document_ids":["sowing","repotting"],"returned_document_ids":["backup_rule","city","fault_code"],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"v01","expected_document_ids":["role"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"v03","expected_document_ids":["city"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"v04","expected_document_ids":["name"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"v18","expected_document_ids":["repotting"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"local_chinese_bm25","query_id":"v24","expected_document_ids":["sowing","repotting"],"returned_document_ids":["backup_rule"],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}

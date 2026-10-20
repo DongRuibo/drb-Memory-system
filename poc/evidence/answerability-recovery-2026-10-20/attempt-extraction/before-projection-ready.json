@@ -1,0 +1,1059 @@
+{
+  "synthetic_data_only": true,
+  "checks": {
+    "whole_source_types_1": true,
+    "whole_source_language_1": true,
+    "whole_source_types_2": true,
+    "whole_source_language_2": true,
+    "whole_source_types_3": true,
+    "whole_source_language_3": true,
+    "fresh_demo_user": true,
+    "whole_chat_four_types": true,
+    "cross_session_recall": false
+  },
+  "turns": [
+    {
+      "input": "我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 PostgreSQL 作为权威数据库。2026年7月15日下午做 Outbox 时遇到过重复消费，后来用 event_id 去重解决了。我喜欢回答技术问题时先给一句结论，再列出要点。请根据这些情况，简要说说上线前最需要关注什么。",
+      "turn": {
+        "assistant_message_id": "549154e6-219e-4cf4-b815-ba4e785194c5",
+        "attempt_id": "6c3f0a48-3ea0-4ae3-9842-39a8442ae4e8",
+        "cancel_requested_at": null,
+        "completion_tokens": 264,
+        "context_pack_id": "054ff3bc-75b5-5bf8-971d-268ffb581158",
+        "created_at": "2026-10-20T06:13:07.591584Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "423ff08f-870a-4b4b-a69d-8e480468e567",
+        "memory_effects": [
+          {
+            "content": "用户曾通过event_id去重解决Outbox重复消费。",
+            "kind": "remembered",
+            "memory_record_id": "6b245cba-77cf-51ac-8f0a-c6e29226a89d",
+            "memory_type": "episodic_summary",
+            "memory_version_id": "7bab8b4b-c4d4-55e0-bec8-5a1c8424853c",
+            "operation_id": "fd31022d-4ca8-5be8-972d-0b57c7caf5aa",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "content": "用户偏好回答技术问题时先给一句结论，再列出要点。",
+            "kind": "remembered",
+            "memory_record_id": "30a7e520-068b-54b2-88f1-178d2816f87d",
+            "memory_type": "preference",
+            "memory_version_id": "549197b1-dbe7-53cf-aa61-b321c9e0107e",
+            "operation_id": "a51f7597-65e9-5da4-910f-4ca23b2f261d",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "content": "用户是Agent研发工程师。",
+            "kind": "remembered",
+            "memory_record_id": "1d1cd4f3-8fdd-57e7-a090-14665d03e705",
+            "memory_type": "profile_fact",
+            "memory_version_id": "ef35faf0-2d0b-540b-bf0d-39e4091fa4a8",
+            "operation_id": "aef5dbed-182e-59ef-9b28-ceab633ac7a5",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "content": "用户主要使用Rust。",
+            "kind": "remembered",
+            "memory_record_id": "79db2f88-398b-52a7-bce5-dbc8baaeb084",
+            "memory_type": "profile_fact",
+            "memory_version_id": "638fcc85-320e-5263-b572-2ac37bb644c8",
+            "operation_id": "7c495a88-7492-569a-9408-4bc8d1eecddd",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "content": "当前项目使用PostgreSQL作为权威数据库。",
+            "kind": "remembered",
+            "memory_record_id": "711077e8-0bac-54a6-8e07-513948118cda",
+            "memory_type": "semantic_fact",
+            "memory_version_id": "d0001ea4-b14e-53bd-983a-18b1a1423c77",
+            "operation_id": "2042ffc3-a679-5441-806c-873f0dfb0d23",
+            "projection_status": "pending",
+            "revision": 0
+          },
+          {
+            "candidate_count": 5,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 5,
+            "remembered_count": 5,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 5
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:2352ead01fc1a23ff020f6af54f00531d49fa5249d785275e94d55396d376e2c",
+        "outcome_receipt_id": "bff72600-1093-561d-a128-9360ebbcf04f",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "contextual_example_only",
+              "event_time": {
+                "end": "2026-07-15T10:00:00Z",
+                "precision": "part_of_day",
+                "start": "2026-07-15T04:00:00Z",
+                "timezone": "Asia/Shanghai"
+              },
+              "event_time_local": "[2026-07-15 12:00:00, 2026-07-15 18:00:00) Asia/Shanghai",
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_data": "用户曾通过event_id去重解决Outbox重复消费。",
+              "memory_record_id": "6b245cba-77cf-51ac-8f0a-c6e29226a89d",
+              "memory_version_id": "7bab8b4b-c4d4-55e0-bec8-5a1c8424853c",
+              "section_kind": "relevant_experience",
+              "source_refs": [
+                "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-503c134bc2fc1ec4"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "event_time_local": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好回答技术问题时先给一句结论，再列出要点。",
+              "memory_record_id": "30a7e520-068b-54b2-88f1-178d2816f87d",
+              "memory_version_id": "549197b1-dbe7-53cf-aa61-b321c9e0107e",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-864141e68c97c2cb"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "event_time_local": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户是Agent研发工程师。",
+              "memory_record_id": "1d1cd4f3-8fdd-57e7-a090-14665d03e705",
+              "memory_version_id": "ef35faf0-2d0b-540b-bf0d-39e4091fa4a8",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-93f0da6153cc941e"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "event_time_local": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户主要使用Rust。",
+              "memory_record_id": "79db2f88-398b-52a7-bce5-dbc8baaeb084",
+              "memory_version_id": "638fcc85-320e-5263-b572-2ac37bb644c8",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-8000ee4134fc0980"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "event_time_local": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "当前项目使用PostgreSQL作为权威数据库。",
+              "memory_record_id": "711077e8-0bac-54a6-8e07-513948118cda",
+              "memory_version_id": "d0001ea4-b14e-53bd-983a-18b1a1423c77",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-4dd8d3ebb03a5ef6"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T06:13:09.910272Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 1709,
+        "session_id": "4778b6c0-996e-4ca2-bbca-5afd8c2edb5e",
+        "status": "completed",
+        "task_id": "172620b7-81af-4317-a930-68f0cb103683",
+        "total_tokens": 1973,
+        "updated_at": "2026-10-20T06:13:21.235903Z",
+        "used_memory_ids": [
+          "6b245cba-77cf-51ac-8f0a-c6e29226a89d",
+          "30a7e520-068b-54b2-88f1-178d2816f87d",
+          "1d1cd4f3-8fdd-57e7-a090-14665d03e705",
+          "79db2f88-398b-52a7-bce5-dbc8baaeb084",
+          "711077e8-0bac-54a6-8e07-513948118cda"
+        ],
+        "used_memory_version_ids": [
+          "7bab8b4b-c4d4-55e0-bec8-5a1c8424853c",
+          "549197b1-dbe7-53cf-aa61-b321c9e0107e",
+          "ef35faf0-2d0b-540b-bf0d-39e4091fa4a8",
+          "638fcc85-320e-5263-b572-2ac37bb644c8",
+          "d0001ea4-b14e-53bd-983a-18b1a1423c77"
+        ],
+        "user_message_id": "27a56a30-455c-4697-bbe4-5e8bb7f91140"
+      },
+      "answer": "结论：上线前最该盯住的是“记忆数据的一致性与生命周期”，而不是检索效果本身。\n\n要点：\n1. Outbox 去重要持久化、可审计：既然你们用 PostgreSQL 作权威库，event_id 唯一约束应落在库层，配合消费位点记录和幂等消费重试；你 7 月 15 日下午遇到过重复消费，这类回归要纳入压测。\n2. 写入与更新的顺序：Outbox 到实际记忆表之间要有明确的事务边界，失败可重放；确保“权威库”是唯一事实来源。\n3. 记忆版本与删除：做好版本链、软删除和过期清理，避免旧版本被检索到；用户偏好与事实类记忆要能单独更新。\n4. 检索与权限隔离：按租户/用户做行级隔离，向量索引与权威库保持同步，索引可重建。\n5. 可观测性：消费延迟、重复率、索引落后量等指标加上告警，Rust 侧要有结构化日志与追踪。\n6. 故障演练：Outbox 积压、DB 切换、索引重建的回滚方案要跑通。\n\n建议把 event_id 去重从代码约定升级为数据库约束加回归测试。"
+    },
+    {
+      "input": "我的职业、常用编程语言、当前项目权威数据库和回答格式偏好是什么？",
+      "turn": {
+        "assistant_message_id": "8353d25b-4ed1-44c1-969e-13224dc4acf0",
+        "attempt_id": "91ea6c12-a0e9-4a10-963f-cf3017ef2248",
+        "cancel_requested_at": null,
+        "completion_tokens": 89,
+        "context_pack_id": "ea2fa405-b787-5f79-be97-541b7c146932",
+        "created_at": "2026-10-20T06:13:21.522305Z",
+        "error_code": null,
+        "error_detail": null,
+        "id": "e39e1d1f-252b-43fa-9212-f207e88dcce3",
+        "memory_effects": [
+          {
+            "candidate_count": 0,
+            "corrected_count": 0,
+            "coverage_added_count": 0,
+            "coverage_enriched_count": 0,
+            "filtered_reason_counts": {},
+            "ignored_count": 0,
+            "kind": "extraction_summary",
+            "model_candidate_count": 0,
+            "remembered_count": 0,
+            "source_merged_count": 0,
+            "valid_model_candidate_count": 0
+          }
+        ],
+        "model_id": "deepseek-flash",
+        "model_request_id_hash": "sha256:529759787499cb5e791ab7c1692ec294e8cebe1ea1eba904677350a33619eac7",
+        "outcome_receipt_id": "2b6f7b45-7086-55da-84a3-542bc0d93515",
+        "prompt_context": {
+          "memory_context": [
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "event_time_local": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户是Agent研发工程师。",
+              "memory_record_id": "1d1cd4f3-8fdd-57e7-a090-14665d03e705",
+              "memory_version_id": "ef35faf0-2d0b-540b-bf0d-39e4091fa4a8",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-93f0da6153cc941e"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "factual_personalization_only",
+              "event_time": null,
+              "event_time_local": null,
+              "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+              "memory_data": "用户主要使用Rust。",
+              "memory_record_id": "79db2f88-398b-52a7-bce5-dbc8baaeb084",
+              "memory_version_id": "638fcc85-320e-5263-b572-2ac37bb644c8",
+              "section_kind": "current_fact",
+              "source_refs": [
+                "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-8000ee4134fc0980"
+              ],
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "allowed_effect": "response_style_only",
+              "event_time": null,
+              "event_time_local": null,
+              "inclusion_reason": "AUTHORIZED_USER_PREFERENCE",
+              "memory_data": "用户偏好回答技术问题时先给一句结论，再列出要点。",
+              "memory_record_id": "30a7e520-068b-54b2-88f1-178d2816f87d",
+              "memory_version_id": "549197b1-dbe7-53cf-aa61-b321c9e0107e",
+              "section_kind": "user_preference",
+              "source_refs": [
+                "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-864141e68c97c2cb"
+              ],
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "runtime_context": {
+            "current_time_utc": "2026-10-20T06:13:22.643736Z",
+            "local_date": "2026-10-20",
+            "timezone": "Asia/Shanghai"
+          }
+        },
+        "prompt_tokens": 1086,
+        "session_id": "b4283721-77c2-4147-b42f-4c5e9b3463ed",
+        "status": "completed",
+        "task_id": "f1b036ec-fb1e-4c0f-9a27-d093960d15de",
+        "total_tokens": 1175,
+        "updated_at": "2026-10-20T06:13:30.054796Z",
+        "used_memory_ids": [
+          "1d1cd4f3-8fdd-57e7-a090-14665d03e705",
+          "79db2f88-398b-52a7-bce5-dbc8baaeb084",
+          "30a7e520-068b-54b2-88f1-178d2816f87d"
+        ],
+        "used_memory_version_ids": [
+          "ef35faf0-2d0b-540b-bf0d-39e4091fa4a8",
+          "638fcc85-320e-5263-b572-2ac37bb644c8",
+          "549197b1-dbe7-53cf-aa61-b321c9e0107e"
+        ],
+        "user_message_id": "a97377b1-fc94-40a5-8a09-026f15a1c8d2"
+      },
+      "answer": "结论：根据当前可用的记忆，你的职业是 Agent 研发工程师，常用语言是 Rust，偏好先给一句结论、再列要点；但记忆中没有“当前项目权威数据库”的信息。\n\n- 职业：Agent 研发工程师\n- 常用编程语言：Rust\n- 回答格式偏好：技术问题先给一句结论，再列出要点\n- 当前项目权威数据库：未记录，无法确认"
+    }
+  ],
+  "extractions": [
+    {
+      "extractor_version": "openai-compatible-memory-extractor-v4-deepseek-json-budget:deepseek-flash",
+      "candidate_count": 4,
+      "diagnostics": {
+        "model_candidate_count": 4,
+        "valid_model_candidate_count": 4,
+        "filtered_reason_counts": {},
+        "coverage_added_count": 0,
+        "coverage_enriched_count": 0
+      },
+      "candidates": [
+        {
+          "proposal": {
+            "memory_type": "episodic_summary",
+            "semantic_key": "user.experience.outbox.duplicate_consumption",
+            "content": "用户曾通过event_id去重解决Outbox重复消费。",
+            "confidence": 0.95,
+            "importance": 0.85,
+            "event_time": {
+              "start": "2026-07-15T04:00:00Z",
+              "end": "2026-07-15T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "outbox_duplicate_consumption",
+                "outcome": "通过 event_id 去重解决"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "43147f7d-8416-5781-8b52-b72d1a38d601",
+            "candidate_ids": [
+              "3170f082-d5df-5274-b732-0e101ef550ed"
+            ],
+            "memory_record_id": "f3b8c3fd-13aa-50d3-ab55-da1b43c584c0",
+            "memory_version_id": "7ecebb5a-4026-5926-a8d7-aa4a3fb54572",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "preference",
+            "semantic_key": "user.response_style.technical.conclusion_first",
+            "content": "用户偏好回答技术问题时先给一句结论，再列出要点。",
+            "confidence": 0.96,
+            "importance": 0.8,
+            "structured_content": {
+              "schema_name": "lazytt.preference",
+              "schema_version": 1,
+              "payload": {
+                "applicability": "contextual",
+                "qualifier": "技术问题",
+                "subject": "user",
+                "value": "先给一句结论，再列出要点"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "bd5a915e-48b9-5b5b-9195-fc8ebdb51340",
+            "candidate_ids": [
+              "6e4cc42f-5c87-5686-abd4-e18d1f945e21"
+            ],
+            "memory_record_id": "40d556d3-e400-5fb4-950b-19147db80fcf",
+            "memory_version_id": "da946b9a-861f-5587-a82f-16c258e80a96",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "profile_fact",
+            "semantic_key": "user.role",
+            "content": "用户是Agent研发工程师。",
+            "confidence": 0.97,
+            "importance": 0.8,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "role",
+                "subject": "user",
+                "value": "Agent 研发工程师"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "db402b1e-abca-59bf-acd3-59860a1fa53d",
+            "candidate_ids": [
+              "cd47bb54-05e0-54fc-8cda-92cb21c122e7"
+            ],
+            "memory_record_id": "6a99b863-25b4-56ca-bf5c-88966635baf1",
+            "memory_version_id": "d006710a-324d-5369-ae7d-aff0118dc9da",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "profile_fact",
+            "semantic_key": "user.tooling",
+            "content": "用户主要使用Rust。",
+            "confidence": 0.96,
+            "importance": 0.75,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "language",
+                "subject": "user",
+                "value": "Rust"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "af0566a0-8cab-5688-8f57-6a100a4eb5b7",
+            "candidate_ids": [
+              "1cccb13d-430a-58c8-afe0-4472fe9d14bb"
+            ],
+            "memory_record_id": "6cac96cc-49c6-550c-8641-06b76ce4848c",
+            "memory_version_id": "6fcfc45b-d35e-5355-8016-e15ce6f08f84",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        }
+      ]
+    },
+    {
+      "extractor_version": "openai-compatible-memory-extractor-v4-deepseek-json-budget:deepseek-flash",
+      "candidate_count": 4,
+      "diagnostics": {
+        "model_candidate_count": 4,
+        "valid_model_candidate_count": 4,
+        "filtered_reason_counts": {},
+        "coverage_added_count": 0,
+        "coverage_enriched_count": 0
+      },
+      "candidates": [
+        {
+          "proposal": {
+            "memory_type": "episodic_summary",
+            "semantic_key": "user.experience.outbox.duplicate_consumption",
+            "content": "用户曾通过event_id去重解决Outbox重复消费。",
+            "confidence": 0.95,
+            "importance": 0.85,
+            "event_time": {
+              "start": "2026-07-15T04:00:00Z",
+              "end": "2026-07-15T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "outbox_duplicate_consumption",
+                "outcome": "通过 event_id 去重解决"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "bb9b22ba-910e-5b08-ae58-b49ac06f5571",
+            "candidate_ids": [
+              "6e96abfc-acae-5cf6-8f56-9a1aebc9e018"
+            ],
+            "memory_record_id": "aac10708-065d-57d7-8d32-f61ce2afe814",
+            "memory_version_id": "f7f4636f-9f10-5704-85fe-93a6ea6a1c39",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "preference",
+            "semantic_key": "user.response_style.technical.conclusion_first",
+            "content": "用户偏好回答技术问题时先给一句结论，再列出要点。",
+            "confidence": 0.95,
+            "importance": 0.8,
+            "structured_content": {
+              "schema_name": "lazytt.preference",
+              "schema_version": 1,
+              "payload": {
+                "applicability": "contextual",
+                "qualifier": "技术问题",
+                "subject": "user",
+                "value": "先给一句结论，再列出要点"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "b09c3b2c-3b58-504a-afed-3ba9d81ea774",
+            "candidate_ids": [
+              "ac54c30b-9765-5407-b63f-1f4a49e930b5"
+            ],
+            "memory_record_id": "66e28fab-20f2-5cb1-bfa8-955a8a6b824c",
+            "memory_version_id": "12cfe769-e273-5cde-b4c2-2410640af7d6",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "profile_fact",
+            "semantic_key": "user.role",
+            "content": "用户是Agent研发工程师。",
+            "confidence": 0.95,
+            "importance": 0.8,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "role",
+                "subject": "user",
+                "value": "Agent 研发工程师"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "2786fea2-2212-5a1d-a4cc-f33da212f44c",
+            "candidate_ids": [
+              "2cb0f8f2-ffa8-504e-aa57-40141ae04028"
+            ],
+            "memory_record_id": "afe4b6a3-de5e-5725-87cb-225cc9fe6d9e",
+            "memory_version_id": "0a5b0758-0773-5a43-8344-5d1261f7c25c",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "profile_fact",
+            "semantic_key": "user.tooling",
+            "content": "用户主要使用Rust。",
+            "confidence": 0.95,
+            "importance": 0.75,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "language",
+                "subject": "user",
+                "value": "Rust"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "3ec33467-e197-5ccc-b2e6-334437385327",
+            "candidate_ids": [
+              "3e43dfb0-b562-5d9c-989b-42690bda26ad"
+            ],
+            "memory_record_id": "90b5d68c-7c4f-535b-84ce-7b860244bab8",
+            "memory_version_id": "10dd1154-d679-5c97-a13b-bca3b5bd25ee",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        }
+      ]
+    },
+    {
+      "extractor_version": "openai-compatible-memory-extractor-v4-deepseek-json-budget:deepseek-flash",
+      "candidate_count": 4,
+      "diagnostics": {
+        "model_candidate_count": 4,
+        "valid_model_candidate_count": 4,
+        "filtered_reason_counts": {},
+        "coverage_added_count": 0,
+        "coverage_enriched_count": 0
+      },
+      "candidates": [
+        {
+          "proposal": {
+            "memory_type": "episodic_summary",
+            "semantic_key": "user.experience.outbox.duplicate_consumption",
+            "content": "用户曾通过event_id去重解决Outbox重复消费。",
+            "confidence": 0.95,
+            "importance": 0.85,
+            "event_time": {
+              "start": "2026-07-15T04:00:00Z",
+              "end": "2026-07-15T10:00:00Z",
+              "timezone": "Asia/Shanghai",
+              "precision": "part_of_day"
+            },
+            "structured_content": {
+              "schema_name": "lazytt.episodic_summary",
+              "schema_version": 1,
+              "payload": {
+                "event_kind": "outbox_duplicate_consumption",
+                "outcome": "通过 event_id 去重解决"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "4626dcce-dfa3-5031-b995-cefafd6de29c",
+            "candidate_ids": [
+              "1d2ddb74-3ab2-546c-8906-4ca1ffac9eed"
+            ],
+            "memory_record_id": "1afef9ae-e376-58d5-bf5b-b96b1a161e44",
+            "memory_version_id": "0d6b28ed-1114-5e9d-b71e-6d1985092a23",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "preference",
+            "semantic_key": "user.response_style.structure.conclusion_first",
+            "content": "用户偏好回答技术问题时先给一句结论，再列出要点。",
+            "confidence": 0.95,
+            "importance": 0.8,
+            "structured_content": {
+              "schema_name": "lazytt.preference",
+              "schema_version": 1,
+              "payload": {
+                "applicability": "global",
+                "subject": "user",
+                "value": "先给一句结论，再列出要点"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "16f67d7d-097e-5e09-9e73-874f57f8830a",
+            "candidate_ids": [
+              "39e3cb67-0977-557d-afc0-5711eafc3f6d"
+            ],
+            "memory_record_id": "4ef8122c-ee9c-5038-87e5-6ef96741d796",
+            "memory_version_id": "b6c546aa-ed6d-514c-bee2-e9a9cd505ed9",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "profile_fact",
+            "semantic_key": "user.role",
+            "content": "用户是Agent研发工程师。",
+            "confidence": 0.97,
+            "importance": 0.8,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "role",
+                "subject": "user",
+                "value": "Agent 研发工程师"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "cc3623af-eadc-5b8b-bbc5-91a9cf5dd83f",
+            "candidate_ids": [
+              "f5ea57ad-68a4-5ec0-949b-400c1a0a75fb"
+            ],
+            "memory_record_id": "1ac0069c-1d01-57d3-90b2-9841b0c54019",
+            "memory_version_id": "7bc9ec06-51d6-5b2d-87d8-ad477a917af8",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        },
+        {
+          "proposal": {
+            "memory_type": "profile_fact",
+            "semantic_key": "user.tooling",
+            "content": "用户主要使用Rust。",
+            "confidence": 0.95,
+            "importance": 0.75,
+            "structured_content": {
+              "schema_name": "lazytt.profile_fact",
+              "schema_version": 1,
+              "payload": {
+                "attribute": "language",
+                "subject": "user",
+                "value": "Rust"
+              }
+            }
+          },
+          "operation": {
+            "operation_id": "07d01298-13fe-5cd6-a994-942c65ef55f6",
+            "candidate_ids": [
+              "b9c41022-736b-56ce-9091-26b0433bd9d7"
+            ],
+            "memory_record_id": "590a85c3-be3f-59d3-86aa-41a98898edeb",
+            "memory_version_id": "9b91f095-84ca-5b32-844d-6e50ba41aed0",
+            "head_revision": 0,
+            "canonical_status": "memory_accepted",
+            "projection_status": "pending",
+            "reason_code": null,
+            "provider_object_id": null,
+            "attempts": 0
+          }
+        }
+      ]
+    }
+  ],
+  "initial_records": [
+    {
+      "memory_record_id": "6b245cba-77cf-51ac-8f0a-c6e29226a89d",
+      "scope": {
+        "kind": "user",
+        "id": "demo-alice"
+      },
+      "memory_type": "episodic_summary",
+      "semantic_key": "user.experience.outbox.duplicate_consumption",
+      "head_state": "active",
+      "revision": 0,
+      "current_version_id": "7bab8b4b-c4d4-55e0-bec8-5a1c8424853c",
+      "identity_retired_at": null,
+      "versions": [
+        {
+          "memory_version_id": "7bab8b4b-c4d4-55e0-bec8-5a1c8424853c",
+          "version_no": 1,
+          "content": "用户曾通过event_id去重解决Outbox重复消费。",
+          "content_hash": "sha256:f38209c1e56dd1e10b66754a9e9cfe73d3592c7422f8add968d94c21477bf55a",
+          "normalized_key": "user.experience.outbox.duplicate_consumption",
+          "confidence": 0.95,
+          "importance": 0.85,
+          "inference_kind": "derived",
+          "source_refs": [
+            "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-503c134bc2fc1ec4"
+          ],
+          "effective_from": null,
+          "effective_to": null,
+          "event_time": {
+            "start": "2026-07-15T04:00:00Z",
+            "end": "2026-07-15T10:00:00Z",
+            "timezone": "Asia/Shanghai",
+            "precision": "part_of_day"
+          },
+          "structured_content": {
+            "schema_name": "lazytt.episodic_summary",
+            "schema_version": 1,
+            "payload": {
+              "event_kind": "outbox_duplicate_consumption",
+              "outcome": "通过 event_id 去重解决"
+            }
+          },
+          "classification": "personal",
+          "allowed_purposes": [
+            "answer_user"
+          ],
+          "consent_ref": null,
+          "retention_policy_id": "demo-user-episodic_summary-v1",
+          "retain_until": null,
+          "created_at": "2026-10-20T06:13:09.715452Z",
+          "content_erased_at": null
+        }
+      ],
+      "events": [
+        {
+          "sequence_no": 1,
+          "event_type": "memory_accepted",
+          "memory_version_id": "7bab8b4b-c4d4-55e0-bec8-5a1c8424853c",
+          "actor_type": "policy",
+          "actor_id": "demo-policy",
+          "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+          "payload": {},
+          "occurred_at": "2026-10-20T06:13:09.715452Z"
+        }
+      ]
+    },
+    {
+      "memory_record_id": "30a7e520-068b-54b2-88f1-178d2816f87d",
+      "scope": {
+        "kind": "user",
+        "id": "demo-alice"
+      },
+      "memory_type": "preference",
+      "semantic_key": "user.response_style.technical.conclusion_first",
+      "head_state": "active",
+      "revision": 0,
+      "current_version_id": "549197b1-dbe7-53cf-aa61-b321c9e0107e",
+      "identity_retired_at": null,
+      "versions": [
+        {
+          "memory_version_id": "549197b1-dbe7-53cf-aa61-b321c9e0107e",
+          "version_no": 1,
+          "content": "用户偏好回答技术问题时先给一句结论，再列出要点。",
+          "content_hash": "sha256:de7d79fed821395e2ed1584a0814d8d45376b9cbd382801b64f24c9ef8bd672f",
+          "normalized_key": "user.response_style.technical.conclusion_first",
+          "confidence": 0.95,
+          "importance": 0.8,
+          "inference_kind": "derived",
+          "source_refs": [
+            "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-864141e68c97c2cb"
+          ],
+          "effective_from": null,
+          "effective_to": null,
+          "event_time": null,
+          "structured_content": {
+            "schema_name": "lazytt.preference",
+            "schema_version": 1,
+            "payload": {
+              "applicability": "contextual",
+              "qualifier": "技术问题",
+              "subject": "user",
+              "value": "先给一句结论，再列出要点"
+            }
+          },
+          "classification": "personal",
+          "allowed_purposes": [
+            "answer_user"
+          ],
+          "consent_ref": null,
+          "retention_policy_id": "demo-user-preference-v1",
+          "retain_until": null,
+          "created_at": "2026-10-20T06:13:09.748343Z",
+          "content_erased_at": null
+        }
+      ],
+      "events": [
+        {
+          "sequence_no": 1,
+          "event_type": "memory_accepted",
+          "memory_version_id": "549197b1-dbe7-53cf-aa61-b321c9e0107e",
+          "actor_type": "policy",
+          "actor_id": "demo-policy",
+          "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+          "payload": {},
+          "occurred_at": "2026-10-20T06:13:09.748343Z"
+        }
+      ]
+    },
+    {
+      "memory_record_id": "1d1cd4f3-8fdd-57e7-a090-14665d03e705",
+      "scope": {
+        "kind": "user",
+        "id": "demo-alice"
+      },
+      "memory_type": "profile_fact",
+      "semantic_key": "user.role",
+      "head_state": "active",
+      "revision": 0,
+      "current_version_id": "ef35faf0-2d0b-540b-bf0d-39e4091fa4a8",
+      "identity_retired_at": null,
+      "versions": [
+        {
+          "memory_version_id": "ef35faf0-2d0b-540b-bf0d-39e4091fa4a8",
+          "version_no": 1,
+          "content": "用户是Agent研发工程师。",
+          "content_hash": "sha256:33c99680f13f20811b3b5c8bfa7e0f9c756f6dd1836198cb360038f38de44621",
+          "normalized_key": "user.role",
+          "confidence": 0.95,
+          "importance": 0.8,
+          "inference_kind": "derived",
+          "source_refs": [
+            "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-93f0da6153cc941e"
+          ],
+          "effective_from": null,
+          "effective_to": null,
+          "event_time": null,
+          "structured_content": {
+            "schema_name": "lazytt.profile_fact",
+            "schema_version": 1,
+            "payload": {
+              "attribute": "role",
+              "subject": "user",
+              "value": "Agent 研发工程师"
+            }
+          },
+          "classification": "personal",
+          "allowed_purposes": [
+            "answer_user"
+          ],
+          "consent_ref": null,
+          "retention_policy_id": "demo-user-profile_fact-v1",
+          "retain_until": null,
+          "created_at": "2026-10-20T06:13:09.801578Z",
+          "content_erased_at": null
+        }
+      ],
+      "events": [
+        {
+          "sequence_no": 1,
+          "event_type": "memory_accepted",
+          "memory_version_id": "ef35faf0-2d0b-540b-bf0d-39e4091fa4a8",
+          "actor_type": "policy",
+          "actor_id": "demo-policy",
+          "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+          "payload": {},
+          "occurred_at": "2026-10-20T06:13:09.801578Z"
+        }
+      ]
+    },
+    {
+      "memory_record_id": "79db2f88-398b-52a7-bce5-dbc8baaeb084",
+      "scope": {
+        "kind": "user",
+        "id": "demo-alice"
+      },
+      "memory_type": "profile_fact",
+      "semantic_key": "user.tooling",
+      "head_state": "active",
+      "revision": 0,
+      "current_version_id": "638fcc85-320e-5263-b572-2ac37bb644c8",
+      "identity_retired_at": null,
+      "versions": [
+        {
+          "memory_version_id": "638fcc85-320e-5263-b572-2ac37bb644c8",
+          "version_no": 1,
+          "content": "用户主要使用Rust。",
+          "content_hash": "sha256:ff29c08fafda0a079441f334b44d363d20a4005bc394df4ba5e0cc75a3d90570",
+          "normalized_key": "user.tooling",
+          "confidence": 0.95,
+          "importance": 0.75,
+          "inference_kind": "derived",
+          "source_refs": [
+            "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-8000ee4134fc0980"
+          ],
+          "effective_from": null,
+          "effective_to": null,
+          "event_time": null,
+          "structured_content": {
+            "schema_name": "lazytt.profile_fact",
+            "schema_version": 1,
+            "payload": {
+              "attribute": "language",
+              "subject": "user",
+              "value": "Rust"
+            }
+          },
+          "classification": "personal",
+          "allowed_purposes": [
+            "answer_user"
+          ],
+          "consent_ref": null,
+          "retention_policy_id": "demo-user-profile_fact-v1",
+          "retain_until": null,
+          "created_at": "2026-10-20T06:13:09.837820Z",
+          "content_erased_at": null
+        }
+      ],
+      "events": [
+        {
+          "sequence_no": 1,
+          "event_type": "memory_accepted",
+          "memory_version_id": "638fcc85-320e-5263-b572-2ac37bb644c8",
+          "actor_type": "policy",
+          "actor_id": "demo-policy",
+          "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+          "payload": {},
+          "occurred_at": "2026-10-20T06:13:09.837820Z"
+        }
+      ]
+    },
+    {
+      "memory_record_id": "711077e8-0bac-54a6-8e07-513948118cda",
+      "scope": {
+        "kind": "project",
+        "id": "lazytt-memory-system-demo"
+      },
+      "memory_type": "semantic_fact",
+      "semantic_key": "project.architecture.authority_store",
+      "head_state": "active",
+      "revision": 0,
+      "current_version_id": "d0001ea4-b14e-53bd-983a-18b1a1423c77",
+      "identity_retired_at": null,
+      "versions": [
+        {
+          "memory_version_id": "d0001ea4-b14e-53bd-983a-18b1a1423c77",
+          "version_no": 1,
+          "content": "当前项目使用PostgreSQL作为权威数据库。",
+          "content_hash": "sha256:26482983338fe3bf0f465cf46c6cc50d74771b496ed153eaa0dcbd29db0b6472",
+          "normalized_key": "project.architecture.authority_store",
+          "confidence": 0.95,
+          "importance": 0.8,
+          "inference_kind": "derived",
+          "source_refs": [
+            "conversation:4778b6c0-996e-4ca2-bbca-5afd8c2edb5e:27a56a30-455c-4697-bbe4-5e8bb7f91140#memory-4dd8d3ebb03a5ef6"
+          ],
+          "effective_from": null,
+          "effective_to": null,
+          "event_time": null,
+          "structured_content": {
+            "schema_name": "lazytt.semantic_fact",
+            "schema_version": 1,
+            "payload": {
+              "object": "PostgreSQL",
+              "predicate": "authority_store",
+              "subject": "current_project"
+            }
+          },
+          "classification": "internal",
+          "allowed_purposes": [
+            "answer_user"
+          ],
+          "consent_ref": null,
+          "retention_policy_id": "demo-project-semantic_fact-v1",
+          "retain_until": null,
+          "created_at": "2026-10-20T06:13:09.871376Z",
+          "content_erased_at": null
+        }
+      ],
+      "events": [
+        {
+          "sequence_no": 1,
+          "event_type": "memory_accepted",
+          "memory_version_id": "d0001ea4-b14e-53bd-983a-18b1a1423c77",
+          "actor_type": "policy",
+          "actor_id": "demo-policy",
+          "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+          "payload": {},
+          "occurred_at": "2026-10-20T06:13:09.871376Z"
+        }
+      ]
+    }
+  ]
+}

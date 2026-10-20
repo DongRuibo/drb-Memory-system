@@ -1,0 +1,18 @@
+{
+  "frozen_at": "2026-10-20T05:41:11.921985+00:00",
+  "base_commit": "c85fa60831c75785b2cc699dc94789e235fbfbd7",
+  "hashes": {
+    "evals/retrieval-holdout-v2/dataset.json": "a617f84cd034c3e60f55a0905989f5d460bfa2844003b3ac314468b505f1f6fe"
+  },
+  "baseline_policy_hashes": {
+    "apps/memory-service/src/support.rs": "9017f808d9a7074e56acf86d4a87c609c3c449d773e92cb60bf2da89a26a0fef",
+    "apps/memory-service/src/api.rs": "01cfa39e6c9002a4a10ed1d823caf5f4662824cb0875cad77339c5e8b069e001",
+    "crates/memory-application/src/reranker.rs": "4b6faf5014b747c13b6ecbd15d320fd6485d01f4befd53e6fa91504a32f44d51",
+    "apps/retrieval-eval/src/main.rs": "0bb9b406b15881be0cd78b1d8b041a1d1b02c1a9177ea91aac253d54cd41af2a"
+  },
+  "additional_precision_gate": {
+    "irrelevant_injection_rate_max": 0.1
+  },
+  "policy_freeze": "policy-freeze.json",
+  "labeling": "developer-authored; data frozen before implementation and model calls; not independent annotation"
+}

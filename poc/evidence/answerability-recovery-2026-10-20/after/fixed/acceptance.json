@@ -1,0 +1,7 @@
+{
+  "original_release_gate_passed": true,
+  "irrelevant_injection_rate": 0.05,
+  "irrelevant_injection_rate_max": 0.1,
+  "precision_gate_passed": true,
+  "all_gates_passed": true
+}

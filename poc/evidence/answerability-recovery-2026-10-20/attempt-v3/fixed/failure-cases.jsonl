@@ -1,0 +1,5 @@
+{"method":"hybrid_service","query_id":"q02","expected_document_ids":["code_language"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"hybrid_service","query_id":"q03","expected_document_ids":["food_preference"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"hybrid_service","query_id":"q04","expected_document_ids":["meeting_time"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"hybrid_service","query_id":"q05","expected_document_ids":["deployment_flow"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}
+{"method":"hybrid_service","query_id":"q08","expected_document_ids":["alert_method"],"returned_document_ids":[],"reason":"NO_RELEVANT_DOCUMENT_IN_TOP_K"}

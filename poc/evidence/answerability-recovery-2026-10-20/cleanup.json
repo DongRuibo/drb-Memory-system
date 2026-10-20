@@ -1,0 +1,35 @@
+{
+  "chat_owned_ids": [
+    "16d7cc03-e338-5c81-a624-1254ef68c4ab",
+    "28a9fc71-771a-5d13-9041-1722a470155b",
+    "505239ee-ca55-5f55-b9fa-0687457eb7b1",
+    "d67370d9-98e4-537d-89b2-95d8f220a8b0",
+    "dffcb7b3-a3d1-5184-a406-bf416e0b8c21"
+  ],
+  "chat_active_after": 0,
+  "retrieval_scope_checks": [
+    {
+      "dataset": "fixed",
+      "records": 20,
+      "active_after": 0
+    },
+    {
+      "dataset": "regression-v1",
+      "records": 20,
+      "active_after": 0
+    },
+    {
+      "dataset": "regression-v2",
+      "records": 20,
+      "active_after": 0
+    },
+    {
+      "dataset": "holdout-v3",
+      "records": 16,
+      "active_after": 0
+    }
+  ],
+  "final_validation_tenant_states": {
+    "forgotten": 54
+  }
+}

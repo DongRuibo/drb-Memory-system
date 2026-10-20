@@ -1,0 +1,59 @@
+{
+  "dataset_version": "retrieval-holdout-v3.0.0",
+  "generated_at": "2026-10-20T06:41:31.715863Z",
+  "methods": {
+    "current_provider": {
+      "sample_count": 20,
+      "recall_at_1": 0.775,
+      "recall_at_3": 0.8,
+      "mean_reciprocal_rank": 0.85,
+      "mean_ndcg_at_k": 0.85,
+      "irrelevant_injection_rate": 0.7
+    },
+    "hybrid_service": {
+      "sample_count": 20,
+      "recall_at_1": 0.925,
+      "recall_at_3": 1.0,
+      "mean_reciprocal_rank": 1.0,
+      "mean_ndcg_at_k": 1.0,
+      "irrelevant_injection_rate": 0.0
+    },
+    "local_chinese_bm25": {
+      "sample_count": 20,
+      "recall_at_1": 0.6,
+      "recall_at_3": 0.675,
+      "mean_reciprocal_rank": 0.675,
+      "mean_ndcg_at_k": 0.6815464876785728,
+      "irrelevant_injection_rate": 0.6153846153846154
+    },
+    "local_lexical": {
+      "sample_count": 20,
+      "recall_at_1": 0.7,
+      "recall_at_3": 0.725,
+      "mean_reciprocal_rank": 0.75,
+      "mean_ndcg_at_k": 0.75,
+      "irrelevant_injection_rate": 0.7241379310344828
+    },
+    "no_memory": {
+      "sample_count": 20,
+      "recall_at_1": 0.0,
+      "recall_at_3": 0.0,
+      "mean_reciprocal_rank": 0.0,
+      "mean_ndcg_at_k": 0.0,
+      "irrelevant_injection_rate": 0.0
+    },
+    "oracle": {
+      "sample_count": 20,
+      "recall_at_1": 0.925,
+      "recall_at_3": 1.0,
+      "mean_reciprocal_rank": 1.0,
+      "mean_ndcg_at_k": 1.0,
+      "irrelevant_injection_rate": 0.0
+    }
+  },
+  "negative_query_hit_rate": 0.0,
+  "forgotten_injection_count": 0,
+  "quality_gate_passed": true,
+  "safety_gate_passed": true,
+  "release_gate_passed": true
+}

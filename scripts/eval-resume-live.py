@@ -33,8 +33,9 @@ def jwt(tenant, user, project):
 
 
 class Memory:
-    def __init__(self, tenant, user, project):
+    def __init__(self, tenant, user, project, base_url='http://127.0.0.1:19080'):
         self.user, self.project = user, project
+        self.base_url = base_url
         self.token = jwt(tenant, user, project)
         self.client = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
@@ -42,7 +43,7 @@ class Memory:
         headers = {'Content-Type': 'application/json', 'Authorization': 'Bearer ' + self.token}
         if key:
             headers['Idempotency-Key'] = key
-        request = urllib.request.Request('http://127.0.0.1:19080' + path,
+        request = urllib.request.Request(self.base_url + path,
             data=None if body is None else json.dumps(body, ensure_ascii=False).encode(), headers=headers)
         with self.client.open(request, timeout=120) as response:
             raw = response.read()
