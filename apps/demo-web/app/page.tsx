@@ -378,8 +378,14 @@ export default function Home() {
   }
 
   async function runGuidedStep(action: GuidedAction) {
+    if (busy || activeTurn) return;
     const step = guidedSteps.find((candidate) => candidate.action === action);
     if (!step) return;
+    if (action === "introduce" && session?.mode !== "guided") {
+      const created = await createSession("guided");
+      await sendMessage(step.message ?? "", undefined, created.id);
+      return;
+    }
     if (action === "inspect") {
       if (activeMemories.length === 0) {
         setError("请先完成第 1 步，让系统形成记忆。");
@@ -570,6 +576,14 @@ export default function Home() {
           type="button"
         >
           <span>＋</span> 新建对话
+        </button>
+        <button
+          className="new-chat"
+          disabled={busy || Boolean(activeTurn)}
+          onClick={() => createSession("guided")}
+          type="button"
+        >
+          六步演示
         </button>
         <div className="conversation-label">当前用户的对话</div>
         <div className="conversation-list">

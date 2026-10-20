@@ -2551,8 +2551,17 @@ async fn rerank_authorized(
             }
         };
     if let Some(support) = &state.support {
+        let event_times = memories
+            .iter()
+            .filter_map(|memory| {
+                memory
+                    .event_time
+                    .clone()
+                    .map(|time| (memory.memory_version_id, time))
+            })
+            .collect();
         ranked = support
-            .verify(query, &request.candidates, &ranked)
+            .verify(query, &request.candidates, &ranked, &event_times)
             .await
             .map_err(|_| {
                 ApiError::provider(IndexError::Transport(

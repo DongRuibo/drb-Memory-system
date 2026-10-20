@@ -1,0 +1,29 @@
+{
+  "evaluations": {
+    "fixed-v1": {
+      "records": 20,
+      "active": 0,
+      "all_forgotten": true
+    },
+    "holdout-v1": {
+      "records": 20,
+      "active": 0,
+      "all_forgotten": true
+    }
+  },
+  "original_users_unchanged": false,
+  "health": {
+    "memory": 200,
+    "demo": 200
+  },
+  "shared_fact_restored_with_new_record": true,
+  "old_versions_retained": 3,
+  "restored_record_id": "4638e3a1-1394-5f15-a621-efd9270d93df",
+  "restored_record_version": 1,
+  "alice_bob_shared_recall": {
+    "demo-alice": true,
+    "demo-bob": true
+  },
+  "cleanup_scope_regression_passed": true,
+  "incident": "Previous repair-stage probe cleanup used shared project authority. Historical original_users_unchanged=false is retained; fact restored through normal re-ingestion, no audit rollback."
+}

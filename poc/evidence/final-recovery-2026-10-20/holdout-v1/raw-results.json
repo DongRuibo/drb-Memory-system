@@ -1,0 +1,1656 @@
+{
+  "current_provider": [
+    {
+      "query_id": "h01",
+      "returned_document_ids": [
+        "archive_role",
+        "preferred_name",
+        "ocr_route"
+      ],
+      "scores": [
+        0.5011101065081176,
+        0.41799204027795145,
+        0.34254543952508587
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h02",
+      "returned_document_ids": [
+        "import_language",
+        "csv_example",
+        "local_cache"
+      ],
+      "scores": [
+        0.709677227081758,
+        0.6443213992502019,
+        0.4448683759334767
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h03",
+      "returned_document_ids": [
+        "home_city",
+        "preferred_name",
+        "project_timezone"
+      ],
+      "scores": [
+        0.6081703176295422,
+        0.37609763430385446,
+        0.37569978092311573
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h04",
+      "returned_document_ids": [
+        "preferred_name",
+        "ocr_route",
+        "archive_role"
+      ],
+      "scores": [
+        0.6063545400183381,
+        0.3051384273253934,
+        0.3006984322638755
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h05",
+      "returned_document_ids": [
+        "scan_storage",
+        "scan_retention",
+        "archive_role"
+      ],
+      "scores": [
+        0.7983851430393972,
+        0.7896494614660098,
+        0.5601086282665445
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h06",
+      "returned_document_ids": [
+        "local_cache",
+        "scan_storage",
+        "scan_retention"
+      ],
+      "scores": [
+        0.8398583590773286,
+        0.611403336179853,
+        0.5441526389349461
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h07",
+      "returned_document_ids": [
+        "scan_retention",
+        "scan_storage",
+        "ocr_route"
+      ],
+      "scores": [
+        0.9560097999584436,
+        0.7056437590187432,
+        0.4866423445918274
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h08",
+      "returned_document_ids": [
+        "ocr_route",
+        "page_order",
+        "scan_storage"
+      ],
+      "scores": [
+        0.8238459369998522,
+        0.5098253792420264,
+        0.48114283101898914
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h09",
+      "returned_document_ids": [
+        "checksum_error",
+        "ocr_route",
+        "page_order"
+      ],
+      "scores": [
+        0.9489332720319416,
+        0.5875988952874479,
+        0.5589403080624437
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h10",
+      "returned_document_ids": [
+        "project_timezone",
+        "weekly_style",
+        "travel_rail"
+      ],
+      "scores": [
+        0.8218534098951108,
+        0.45692334092577536,
+        0.4282907120488378
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h11",
+      "returned_document_ids": [
+        "metadata_format",
+        "scan_storage",
+        "review_photo"
+      ],
+      "scores": [
+        0.7766337064941334,
+        0.5700564894130691,
+        0.533589951136139
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h12",
+      "returned_document_ids": [
+        "weekly_style",
+        "page_order",
+        "project_timezone"
+      ],
+      "scores": [
+        0.8398628735460578,
+        0.4523072512332955,
+        0.40714015449764185
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h13",
+      "returned_document_ids": [
+        "travel_rail",
+        "weekly_style",
+        "review_photo"
+      ],
+      "scores": [
+        0.8268805948638266,
+        0.437814861536026,
+        0.4053378926902189
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h14",
+      "returned_document_ids": [
+        "food_celery",
+        "travel_rail",
+        "weekly_style"
+      ],
+      "scores": [
+        0.7856224881669155,
+        0.34212546442443803,
+        0.3073306679725647
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h15",
+      "returned_document_ids": [
+        "csv_example",
+        "import_language",
+        "metadata_format"
+      ],
+      "scores": [
+        0.8115477207764308,
+        0.5795353573145294,
+        0.43419464520860385
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h16",
+      "returned_document_ids": [
+        "review_photo",
+        "metadata_format",
+        "duplicate_photos"
+      ],
+      "scores": [
+        0.8645513476833145,
+        0.5083080681654418,
+        0.5025514966372252
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h17",
+      "returned_document_ids": [
+        "page_order",
+        "ocr_route",
+        "duplicate_photos"
+      ],
+      "scores": [
+        0.5441279683036833,
+        0.4489132032122272,
+        0.4429203403866442
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h18",
+      "returned_document_ids": [
+        "scanner_calibration",
+        "project_timezone",
+        "page_order"
+      ],
+      "scores": [
+        0.5817932833309939,
+        0.4241886518170226,
+        0.403974813341344
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h19",
+      "returned_document_ids": [
+        "duplicate_photos",
+        "review_photo",
+        "page_order"
+      ],
+      "scores": [
+        0.7709680522642212,
+        0.470451852883029,
+        0.44652123589877024
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h20",
+      "returned_document_ids": [
+        "catalog_alignment",
+        "page_order",
+        "scan_storage"
+      ],
+      "scores": [
+        0.8006934881003683,
+        0.5500992208660123,
+        0.4916131046895173
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h21",
+      "returned_document_ids": [
+        "scan_retention",
+        "scan_storage",
+        "catalog_alignment"
+      ],
+      "scores": [
+        0.7485100030899101,
+        0.6797042691619551,
+        0.5589134526576586
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h22",
+      "returned_document_ids": [
+        "ocr_route",
+        "archive_role",
+        "project_timezone"
+      ],
+      "scores": [
+        0.4642470915391177,
+        0.45103756176977927,
+        0.4500704973978109
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h23",
+      "returned_document_ids": [
+        "csv_example",
+        "import_language",
+        "metadata_format"
+      ],
+      "scores": [
+        0.7708535330978924,
+        0.6114934682846113,
+        0.4644556705136896
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h24",
+      "returned_document_ids": [
+        "review_photo",
+        "duplicate_photos",
+        "ocr_route"
+      ],
+      "scores": [
+        0.8303700594991401,
+        0.501481071158685,
+        0.4877024147599236
+      ],
+      "ranking_version": "provider-native-v1",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "hybrid_service": [
+    {
+      "query_id": "h01",
+      "returned_document_ids": [
+        "archive_role"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h02",
+      "returned_document_ids": [
+        "import_language",
+        "csv_example"
+      ],
+      "scores": [
+        1.0,
+        0.9
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h03",
+      "returned_document_ids": [
+        "home_city"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h04",
+      "returned_document_ids": [
+        "preferred_name"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h05",
+      "returned_document_ids": [
+        "scan_storage",
+        "scan_retention"
+      ],
+      "scores": [
+        0.98,
+        0.55
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h06",
+      "returned_document_ids": [
+        "local_cache"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h07",
+      "returned_document_ids": [
+        "scan_retention",
+        "scan_storage"
+      ],
+      "scores": [
+        0.99,
+        0.55
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h08",
+      "returned_document_ids": [
+        "ocr_route"
+      ],
+      "scores": [
+        0.99
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h09",
+      "returned_document_ids": [
+        "checksum_error"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h10",
+      "returned_document_ids": [
+        "project_timezone"
+      ],
+      "scores": [
+        0.99
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h11",
+      "returned_document_ids": [
+        "metadata_format"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h12",
+      "returned_document_ids": [
+        "weekly_style"
+      ],
+      "scores": [
+        0.99
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h13",
+      "returned_document_ids": [
+        "travel_rail"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h14",
+      "returned_document_ids": [
+        "food_celery"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h15",
+      "returned_document_ids": [
+        "csv_example",
+        "import_language"
+      ],
+      "scores": [
+        0.98,
+        0.85
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h16",
+      "returned_document_ids": [
+        "review_photo"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h17",
+      "returned_document_ids": [
+        "page_order"
+      ],
+      "scores": [
+        0.96
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h18",
+      "returned_document_ids": [
+        "scanner_calibration"
+      ],
+      "scores": [
+        0.98
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h19",
+      "returned_document_ids": [
+        "duplicate_photos"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h20",
+      "returned_document_ids": [
+        "catalog_alignment"
+      ],
+      "scores": [
+        0.97
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h21",
+      "returned_document_ids": [
+        "scan_storage",
+        "scan_retention"
+      ],
+      "scores": [
+        0.98,
+        0.97
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h22",
+      "returned_document_ids": [
+        "scanner_calibration",
+        "page_order"
+      ],
+      "scores": [
+        0.95,
+        0.95
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h23",
+      "returned_document_ids": [
+        "csv_example",
+        "import_language"
+      ],
+      "scores": [
+        0.98,
+        0.97
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h24",
+      "returned_document_ids": [
+        "review_photo"
+      ],
+      "scores": [
+        1.0
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "local_chinese_bm25": [
+    {
+      "query_id": "h01",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h02",
+      "returned_document_ids": [
+        "import_language",
+        "csv_example",
+        "local_cache"
+      ],
+      "scores": [
+        11.932485622495545,
+        3.174262978611228,
+        1.247398201959071
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h03",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h04",
+      "returned_document_ids": [
+        "preferred_name"
+      ],
+      "scores": [
+        3.820914464386779
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h05",
+      "returned_document_ids": [
+        "scan_storage",
+        "scan_retention",
+        "local_cache"
+      ],
+      "scores": [
+        8.295184960540382,
+        7.877174520199602,
+        2.342583006555067
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h06",
+      "returned_document_ids": [
+        "local_cache",
+        "metadata_format",
+        "scan_storage"
+      ],
+      "scores": [
+        7.956804023802622,
+        4.164366085538099,
+        2.342583006555067
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h07",
+      "returned_document_ids": [
+        "scan_retention",
+        "scan_storage",
+        "local_cache"
+      ],
+      "scores": [
+        10.542829292106616,
+        8.295184960540382,
+        2.342583006555067
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h08",
+      "returned_document_ids": [
+        "ocr_route",
+        "page_order",
+        "checksum_error"
+      ],
+      "scores": [
+        10.83451934484004,
+        1.5721469272798694,
+        1.3896535178363765
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h09",
+      "returned_document_ids": [
+        "checksum_error"
+      ],
+      "scores": [
+        10.23400563763097
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h10",
+      "returned_document_ids": [
+        "project_timezone",
+        "local_cache",
+        "csv_example"
+      ],
+      "scores": [
+        10.996450063670325,
+        2.494796403918142,
+        2.255423614629621
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h11",
+      "returned_document_ids": [
+        "metadata_format",
+        "import_language",
+        "duplicate_photos"
+      ],
+      "scores": [
+        12.6965200912456,
+        2.2637558946651413,
+        2.0465511712964175
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h12",
+      "returned_document_ids": [
+        "weekly_style",
+        "page_order",
+        "csv_example"
+      ],
+      "scores": [
+        10.93654692369052,
+        1.8673784033813616,
+        1.722992581283268
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h13",
+      "returned_document_ids": [
+        "travel_rail",
+        "food_celery",
+        "csv_example"
+      ],
+      "scores": [
+        11.847158477618303,
+        1.247398201959071,
+        1.1277118073148105
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h14",
+      "returned_document_ids": [
+        "review_photo"
+      ],
+      "scores": [
+        2.421596857897216
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h15",
+      "returned_document_ids": [
+        "csv_example",
+        "import_language",
+        "food_celery"
+      ],
+      "scores": [
+        13.325349167579088,
+        2.2637558946651413,
+        1.247398201959071
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h16",
+      "returned_document_ids": [
+        "review_photo",
+        "duplicate_photos",
+        "metadata_format"
+      ],
+      "scores": [
+        15.236231824870435,
+        2.0465511712964175,
+        2.0465511712964175
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h17",
+      "returned_document_ids": [
+        "page_order"
+      ],
+      "scores": [
+        4.631186208780084
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h18",
+      "returned_document_ids": [
+        "scanner_calibration"
+      ],
+      "scores": [
+        5.07554309448393
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h19",
+      "returned_document_ids": [
+        "duplicate_photos",
+        "review_photo"
+      ],
+      "scores": [
+        7.122094265780348,
+        1.9528636812574158
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h20",
+      "returned_document_ids": [
+        "catalog_alignment"
+      ],
+      "scores": [
+        8.985077327870762
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h21",
+      "returned_document_ids": [
+        "scan_retention",
+        "scan_storage",
+        "scanner_calibration"
+      ],
+      "scores": [
+        8.318293581514569,
+        5.952601953985315,
+        1.2883544345708613
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h22",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h23",
+      "returned_document_ids": [
+        "csv_example",
+        "import_language",
+        "review_photo"
+      ],
+      "scores": [
+        11.38285839430558,
+        5.070866403288918,
+        1.6441170307667403
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h24",
+      "returned_document_ids": [
+        "review_photo",
+        "csv_example",
+        "weekly_style"
+      ],
+      "scores": [
+        11.46912526600509,
+        2.8507043885980785,
+        2.492041674282384
+      ],
+      "ranking_version": "local-chinese-bm25-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "local_lexical": [
+    {
+      "query_id": "h01",
+      "returned_document_ids": [
+        "metadata_format",
+        "preferred_name",
+        "archive_role"
+      ],
+      "scores": [
+        0.0857142857142857,
+        0.0857142857142857,
+        0.04285714285714285
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h02",
+      "returned_document_ids": [
+        "import_language",
+        "csv_example",
+        "review_photo"
+      ],
+      "scores": [
+        0.4441666666666667,
+        0.14375,
+        0.090625
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h03",
+      "returned_document_ids": [
+        "home_city",
+        "food_celery",
+        "scan_storage"
+      ],
+      "scores": [
+        0.17738095238095236,
+        0.04285714285714285,
+        0.04285714285714285
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h04",
+      "returned_document_ids": [
+        "preferred_name"
+      ],
+      "scores": [
+        0.17738095238095236
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h05",
+      "returned_document_ids": [
+        "scan_storage",
+        "scan_retention",
+        "local_cache"
+      ],
+      "scores": [
+        0.5741758241758241,
+        0.48901098901098905,
+        0.23406593406593407
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h06",
+      "returned_document_ids": [
+        "local_cache",
+        "metadata_format",
+        "project_timezone"
+      ],
+      "scores": [
+        0.4157142857142857,
+        0.27714285714285714,
+        0.21785714285714286
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h07",
+      "returned_document_ids": [
+        "scan_retention",
+        "scan_storage",
+        "metadata_format"
+      ],
+      "scores": [
+        0.6328571428571429,
+        0.5735714285714286,
+        0.2571428571428571
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h08",
+      "returned_document_ids": [
+        "ocr_route",
+        "checksum_error",
+        "page_order"
+      ],
+      "scores": [
+        0.46111111111111114,
+        0.14722222222222223,
+        0.06388888888888888
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h09",
+      "returned_document_ids": [
+        "checksum_error",
+        "ocr_route",
+        "project_timezone"
+      ],
+      "scores": [
+        0.7555555555555555,
+        0.24814814814814815,
+        0.11666666666666667
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h10",
+      "returned_document_ids": [
+        "project_timezone",
+        "local_cache",
+        "weekly_style"
+      ],
+      "scores": [
+        0.6000000000000001,
+        0.2,
+        0.15
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h11",
+      "returned_document_ids": [
+        "metadata_format",
+        "archive_role",
+        "ocr_route"
+      ],
+      "scores": [
+        0.40036764705882355,
+        0.12558823529411767,
+        0.10496323529411765
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h12",
+      "returned_document_ids": [
+        "weekly_style",
+        "scan_retention",
+        "metadata_format"
+      ],
+      "scores": [
+        0.45238970588235294,
+        0.0896078431372549,
+        0.08731617647058823
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h13",
+      "returned_document_ids": [
+        "travel_rail",
+        "page_order",
+        "project_timezone"
+      ],
+      "scores": [
+        0.5974358974358975,
+        0.046153846153846156,
+        0.046153846153846156
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h14",
+      "returned_document_ids": [
+        "food_celery",
+        "review_photo",
+        "csv_example"
+      ],
+      "scores": [
+        0.183974358974359,
+        0.046153846153846156,
+        0.023076923076923078
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h15",
+      "returned_document_ids": [
+        "csv_example",
+        "import_language",
+        "checksum_error"
+      ],
+      "scores": [
+        0.5041353383458647,
+        0.0938095238095238,
+        0.0857142857142857
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h16",
+      "returned_document_ids": [
+        "review_photo",
+        "csv_example",
+        "metadata_format"
+      ],
+      "scores": [
+        0.5568627450980392,
+        0.08235294117647059,
+        0.08235294117647059
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h17",
+      "returned_document_ids": [
+        "page_order",
+        "scan_retention",
+        "duplicate_photos"
+      ],
+      "scores": [
+        0.11521739130434783,
+        0.03913043478260869,
+        0.02608695652173913
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h18",
+      "returned_document_ids": [
+        "scanner_calibration",
+        "scan_retention",
+        "food_celery"
+      ],
+      "scores": [
+        0.14005847953216374,
+        0.03157894736842105,
+        0.015789473684210523
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h19",
+      "returned_document_ids": [
+        "duplicate_photos",
+        "review_photo",
+        "scan_retention"
+      ],
+      "scores": [
+        0.2666118421052631,
+        0.07486842105263158,
+        0.047368421052631574
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h20",
+      "returned_document_ids": [
+        "catalog_alignment",
+        "metadata_format",
+        "preferred_name"
+      ],
+      "scores": [
+        0.36762820512820515,
+        0.06923076923076923,
+        0.046153846153846156
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h21",
+      "returned_document_ids": [
+        "scan_retention",
+        "scan_storage",
+        "checksum_error"
+      ],
+      "scores": [
+        0.3615384615384616,
+        0.3615384615384616,
+        0.10659340659340659
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h22",
+      "returned_document_ids": [
+        "scan_retention",
+        "duplicate_photos",
+        "scan_storage"
+      ],
+      "scores": [
+        0.052941176470588235,
+        0.03529411764705882,
+        0.03529411764705882
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h23",
+      "returned_document_ids": [
+        "csv_example",
+        "import_language",
+        "checksum_error"
+      ],
+      "scores": [
+        0.4405263157894737,
+        0.14833333333333332,
+        0.09
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "h24",
+      "returned_document_ids": [
+        "review_photo",
+        "csv_example",
+        "weekly_style"
+      ],
+      "scores": [
+        0.3774509803921569,
+        0.09901960784313726,
+        0.08235294117647059
+      ],
+      "ranking_version": "local-lexical-v1",
+      "projection_generation": null,
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ],
+  "negative_queries": [
+    {
+      "query_id": "hn01",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn02",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn03",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn04",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn05",
+      "returned_document_ids": [
+        "scan_storage",
+        "scan_retention",
+        "metadata_format"
+      ],
+      "scores": [
+        0.55,
+        0.5,
+        0.45
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn06",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn07",
+      "returned_document_ids": [
+        "checksum_error",
+        "ocr_route"
+      ],
+      "scores": [
+        0.85,
+        0.55
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn08",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn09",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn10",
+      "returned_document_ids": [
+        "duplicate_photos"
+      ],
+      "scores": [
+        0.6
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn11",
+      "returned_document_ids": [
+        "catalog_alignment"
+      ],
+      "scores": [
+        0.95
+      ],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn12",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn13",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    },
+    {
+      "query_id": "hn14",
+      "returned_document_ids": [],
+      "scores": [],
+      "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+      "projection_generation": "bootstrap-926ecc0230c4736f",
+      "degraded": false,
+      "degradation_reason": null
+    }
+  ]
+}

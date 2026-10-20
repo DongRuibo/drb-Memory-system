@@ -1,0 +1,327 @@
+{
+  "extraction": {
+    "extractor_version": "openai-compatible-memory-extractor-v3-preserve-global-scope:deepseek-flash",
+    "candidate_count": 1,
+    "diagnostics": {
+      "model_candidate_count": 1,
+      "valid_model_candidate_count": 1,
+      "filtered_reason_counts": {},
+      "coverage_added_count": 0,
+      "coverage_enriched_count": 0
+    },
+    "candidates": [
+      {
+        "proposal": {
+          "memory_type": "episodic_summary",
+          "semantic_key": "user.experience.outbox.duplicate_consumption",
+          "content": "用户曾通过event_id去重解决Outbox重复消费。",
+          "confidence": 0.95,
+          "importance": 0.8,
+          "event_time": {
+            "start": "2026-07-15T04:00:00Z",
+            "end": "2026-07-15T10:00:00Z",
+            "timezone": "Asia/Shanghai",
+            "precision": "part_of_day"
+          },
+          "structured_content": {
+            "schema_name": "lazytt.episodic_summary",
+            "schema_version": 1,
+            "payload": {
+              "event_kind": "outbox_duplicate_consumption",
+              "outcome": "通过event_id去重解决"
+            }
+          }
+        },
+        "operation": {
+          "operation_id": "e22c1380-ae8b-564d-87fd-c902871cfe5b",
+          "candidate_ids": [
+            "7cc4a246-0e07-5d6b-81b4-73c613f16bbb"
+          ],
+          "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+          "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+          "head_revision": 0,
+          "canonical_status": "memory_accepted",
+          "projection_status": "pending",
+          "reason_code": null,
+          "provider_object_id": null,
+          "attempts": 0
+        }
+      }
+    ]
+  },
+  "queries": [
+    {
+      "query": "我在2026年7月15日下午处理过什么工程问题，最后是怎么解决的？请根据已有记忆回答，不知道的不要猜。",
+      "response": {
+        "search": {
+          "retrieval_run_id": "554f0c10-8342-46a3-a9ab-fee9e40cfe56",
+          "hits": [
+            {
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "content": "用户曾通过event_id去重解决Outbox重复消费。",
+              "memory_type": "episodic_summary",
+              "preference_applicability": "contextual",
+              "score": 0.6,
+              "source_refs": [
+                "synthetic:date:6d2fc914-7adf-4100-909b-6cfcc1701a2d#memory-32742c87e58e6f65"
+              ],
+              "effective_from": null,
+              "event_time": {
+                "start": "2026-07-15T04:00:00Z",
+                "end": "2026-07-15T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              }
+            }
+          ],
+          "ranking_version": "answer-support-v1:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+          "projection_generation": "bootstrap-926ecc0230c4736f",
+          "degraded": false,
+          "degradation_reason": null,
+          "temporal_window": {
+            "start": "2026-07-15T04:00:00Z",
+            "end": "2026-07-15T10:00:00Z",
+            "precision": "part_of_day",
+            "timezone": "Asia/Shanghai",
+            "source_expression": "2026年7月15日"
+          }
+        },
+        "run": {
+          "retrieval_run_id": "554f0c10-8342-46a3-a9ab-fee9e40cfe56",
+          "task_id": "35093d0d-0c3e-4212-9610-ea614718986d",
+          "attempt_id": "256390e6-fc6a-49fe-8a8e-7ce117c17964",
+          "purpose": "answer_user",
+          "query_hash": "sha256:4a454b3c1a54f257ba9cccc6d6c0352a562ef04d17e63fc932b7235270adfc2c",
+          "requested_limit": 8,
+          "candidate_limit": 32,
+          "reference_time": "2026-10-20T04:00:00Z",
+          "timezone": "Asia/Shanghai",
+          "temporal_window": {
+            "start": "2026-07-15T04:00:00Z",
+            "end": "2026-07-15T10:00:00Z",
+            "precision": "part_of_day",
+            "timezone": "Asia/Shanghai",
+            "source_expression": "2026年7月15日"
+          },
+          "projection_generation": "bootstrap-926ecc0230c4736f",
+          "ranking_version": "answer-support-v1:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+          "degraded": false,
+          "degradation_reason": null,
+          "candidates": [
+            {
+              "scope_kind": "user",
+              "scope_id": "date-probe-6d2fc914-7adf-4100-909b-6cfcc1701a2d",
+              "channel": "bm25",
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "channel_rank": 1,
+              "raw_score": 1.0,
+              "channel_weight": 1.15,
+              "rrf_contribution": 0.01885245901639344,
+              "fused_score": 1.0,
+              "preauthorized": true,
+              "rerank_score": 0.6,
+              "postauthorized": true,
+              "final_rank": 1,
+              "included": true,
+              "exclusion_reason": null
+            },
+            {
+              "scope_kind": "user",
+              "scope_id": "date-probe-6d2fc914-7adf-4100-909b-6cfcc1701a2d",
+              "channel": "lexical",
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "channel_rank": 1,
+              "raw_score": 0.04293023255813953,
+              "channel_weight": 0.65,
+              "rrf_contribution": 0.010655737704918034,
+              "fused_score": 1.0,
+              "preauthorized": true,
+              "rerank_score": 0.6,
+              "postauthorized": true,
+              "final_rank": 1,
+              "included": true,
+              "exclusion_reason": null
+            },
+            {
+              "scope_kind": "user",
+              "scope_id": "date-probe-6d2fc914-7adf-4100-909b-6cfcc1701a2d",
+              "channel": "provider",
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "channel_rank": 1,
+              "raw_score": 0.4727356796894837,
+              "channel_weight": 1.0,
+              "rrf_contribution": 0.01639344262295082,
+              "fused_score": 1.0,
+              "preauthorized": true,
+              "rerank_score": 0.6,
+              "postauthorized": true,
+              "final_rank": 1,
+              "included": true,
+              "exclusion_reason": null
+            },
+            {
+              "scope_kind": "user",
+              "scope_id": "date-probe-6d2fc914-7adf-4100-909b-6cfcc1701a2d",
+              "channel": "temporal",
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "channel_rank": 1,
+              "raw_score": 0.8888888888888888,
+              "channel_weight": 1.1,
+              "rrf_contribution": 0.018032786885245903,
+              "fused_score": 1.0,
+              "preauthorized": true,
+              "rerank_score": 0.6,
+              "postauthorized": true,
+              "final_rank": 1,
+              "included": true,
+              "exclusion_reason": null
+            }
+          ],
+          "created_at": "2026-10-20T03:46:54.090548Z"
+        }
+      }
+    },
+    {
+      "query": "我在2026年7月15日下午处理过什么Outbox问题？",
+      "response": {
+        "search": {
+          "retrieval_run_id": "e55fc7ae-9cfe-4dd9-854f-1707b954e761",
+          "hits": [
+            {
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "content": "用户曾通过event_id去重解决Outbox重复消费。",
+              "memory_type": "episodic_summary",
+              "preference_applicability": "contextual",
+              "score": 0.6,
+              "source_refs": [
+                "synthetic:date:6d2fc914-7adf-4100-909b-6cfcc1701a2d#memory-32742c87e58e6f65"
+              ],
+              "effective_from": null,
+              "event_time": {
+                "start": "2026-07-15T04:00:00Z",
+                "end": "2026-07-15T10:00:00Z",
+                "timezone": "Asia/Shanghai",
+                "precision": "part_of_day"
+              }
+            }
+          ],
+          "ranking_version": "answer-support-v1:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+          "projection_generation": "bootstrap-926ecc0230c4736f",
+          "degraded": false,
+          "degradation_reason": null,
+          "temporal_window": {
+            "start": "2026-07-15T04:00:00Z",
+            "end": "2026-07-15T10:00:00Z",
+            "precision": "part_of_day",
+            "timezone": "Asia/Shanghai",
+            "source_expression": "2026年7月15日"
+          }
+        },
+        "run": {
+          "retrieval_run_id": "e55fc7ae-9cfe-4dd9-854f-1707b954e761",
+          "task_id": "08b47c03-2bc3-488a-b69a-cc8c4c3afd2f",
+          "attempt_id": "7fdd3d95-f87c-4cee-b1e5-f2714532f932",
+          "purpose": "answer_user",
+          "query_hash": "sha256:a3fe94d83c04e9338b01e6aa0cc06dee50eaa0476856707cfde44d762747a3a9",
+          "requested_limit": 8,
+          "candidate_limit": 32,
+          "reference_time": "2026-10-20T04:00:00Z",
+          "timezone": "Asia/Shanghai",
+          "temporal_window": {
+            "start": "2026-07-15T04:00:00Z",
+            "end": "2026-07-15T10:00:00Z",
+            "precision": "part_of_day",
+            "timezone": "Asia/Shanghai",
+            "source_expression": "2026年7月15日"
+          },
+          "projection_generation": "bootstrap-926ecc0230c4736f",
+          "ranking_version": "answer-support-v1:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+          "degraded": false,
+          "degradation_reason": null,
+          "candidates": [
+            {
+              "scope_kind": "user",
+              "scope_id": "date-probe-6d2fc914-7adf-4100-909b-6cfcc1701a2d",
+              "channel": "bm25",
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "channel_rank": 1,
+              "raw_score": 1.0,
+              "channel_weight": 1.15,
+              "rrf_contribution": 0.01885245901639344,
+              "fused_score": 1.0,
+              "preauthorized": true,
+              "rerank_score": 0.6,
+              "postauthorized": true,
+              "final_rank": 1,
+              "included": true,
+              "exclusion_reason": null
+            },
+            {
+              "scope_kind": "user",
+              "scope_id": "date-probe-6d2fc914-7adf-4100-909b-6cfcc1701a2d",
+              "channel": "lexical",
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "channel_rank": 1,
+              "raw_score": 0.182,
+              "channel_weight": 0.65,
+              "rrf_contribution": 0.010655737704918034,
+              "fused_score": 1.0,
+              "preauthorized": true,
+              "rerank_score": 0.6,
+              "postauthorized": true,
+              "final_rank": 1,
+              "included": true,
+              "exclusion_reason": null
+            },
+            {
+              "scope_kind": "user",
+              "scope_id": "date-probe-6d2fc914-7adf-4100-909b-6cfcc1701a2d",
+              "channel": "provider",
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "channel_rank": 1,
+              "raw_score": 0.6548406481743045,
+              "channel_weight": 1.0,
+              "rrf_contribution": 0.01639344262295082,
+              "fused_score": 1.0,
+              "preauthorized": true,
+              "rerank_score": 0.6,
+              "postauthorized": true,
+              "final_rank": 1,
+              "included": true,
+              "exclusion_reason": null
+            },
+            {
+              "scope_kind": "user",
+              "scope_id": "date-probe-6d2fc914-7adf-4100-909b-6cfcc1701a2d",
+              "channel": "temporal",
+              "memory_record_id": "c37401ee-eb0c-58b6-834f-d1f03ef9590b",
+              "memory_version_id": "0ae65110-cec0-5e1e-a147-30146b7cbb25",
+              "channel_rank": 1,
+              "raw_score": 0.8888888888888888,
+              "channel_weight": 1.1,
+              "rrf_contribution": 0.018032786885245903,
+              "fused_score": 1.0,
+              "preauthorized": true,
+              "rerank_score": 0.6,
+              "postauthorized": true,
+              "final_rank": 1,
+              "included": true,
+              "exclusion_reason": null
+            }
+          ],
+          "created_at": "2026-10-20T03:46:55.565513Z"
+        }
+      }
+    }
+  ],
+  "cleanup_record_count": 1
+}

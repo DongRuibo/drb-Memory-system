@@ -1,0 +1,19 @@
+{
+  "shared-project-recovery.json": "f8e0189cdd6ccbfb8003d681d5adf86fbc7fc1dc488c28eb668389aa418ad018",
+  "cleanup-boundary-live.json": "a9c1108ce702f07ec901e26fb9002817a63ba290b327247990a4a415908d8a83",
+  "acceptance-summary.json": "85e94ec3418528542344ccf253b62a842b4742aecb8e84f6cd8feff17b849c20",
+  "check-summary.json": "b630867973df04bb4227ce942712a614c4745cb03374bec8885f21a5e8930e78",
+  "cleanup-and-preservation.json": "d36a790d895d9693176bc79c82c0f7c5dc252f36fd5069aee62299bf9731ed20",
+  "fixed-v1/metric-results.json": "c10a49d8c441bf507ebb1e1dd593805bf1859b15d6ab243f0398eb1e6577abfe",
+  "fixed-v1/comparison-report.md": "3e5defa0124b5cd4b6df8cd767958b206caacd5ab7ef49b06a3004a68af0ee50",
+  "fixed-v1/failure-cases.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "fixed-v1/raw-results.json": "22010fb568278556a9821090a212ff74820d6f86e6647ef9e9fb91717da4f87a",
+  "fixed-v1/dataset-sha256.json": "e679e432f595aa29695db5797423dd2f6b634fb7dbf250823d42c6524b5c36fb",
+  "fixed-v1/evaluation-manifest.json": "b6ccd64180d48609bba31e015615464eb0e0ece8b96ca3a8cc05cddd2eadddf2",
+  "holdout-v1/metric-results.json": "6353bf693d871eb304aff6b5ed2d176aa1bc198b98f5cc173773b03d97aab3be",
+  "holdout-v1/comparison-report.md": "579b0e55dcece3b6b985c856359a38a2d76e6a7b01656dd1e74e8f7b8f6879ee",
+  "holdout-v1/failure-cases.jsonl": "02ac015de742840177ed10ffd1caa9d4a8789b511051042a36e43d36852be66d",
+  "holdout-v1/raw-results.json": "e211c33895d8b4912d2ace0983128701f2641757c6ffb1d652eb2de69087d607",
+  "holdout-v1/dataset-sha256.json": "463961ca6466b7391e65fbc4f2f371ad1309cb045aff6d435405e0e05ab140a9",
+  "holdout-v1/evaluation-manifest.json": "5a2a5dff33d380fc983be400d596e3301e25c252963fec52c9d44bf438fb5674"
+}

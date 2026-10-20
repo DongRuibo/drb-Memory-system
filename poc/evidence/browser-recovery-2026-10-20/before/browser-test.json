@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-20",
+  "target": "http://127.0.0.1:13000/",
+  "method": "通过浏览器实际点击、发送消息、等待完成、展开模型实际上下文快照和记忆卡片；无代码或配置修改",
+  "modelShownByPage": "deepseek-flash",
+  "overall": "未全部通过",
+  "identity": "主流程 Alice；个人隔离对照 Bob；结束时 Alice",
+  "fallback": "Alice 没有记忆演示对话，用户明确同意等价消息测试和通过卡片忘记。空白对话的开始六步演示只发送自然介绍，仍为自由对话；六步按钮未完整测试。",
+  "cases": [
+    {
+      "id": "1",
+      "name": "整段自然介绍",
+      "result": "失败",
+      "observed": "回答正常；0条可用记忆，提示没有声称保存新记忆；展开上下文没有长期记忆。后续单句/短句补录可成功，不能抵消原始失败。",
+      "screenshot": "/private/tmp/lazytt-memory-step1.jpg"
+    },
+    {
+      "id": "2",
+      "name": "记忆类型和结构",
+      "result": "分拆补录后通过",
+      "observed": "职业和Rust分别为用户资料/个人范围；CockroachDB为项目事实/项目共享；Outbox为经历摘要/个人范围；回答方式为用户偏好/个人范围。",
+      "screenshot": "/private/tmp/lazytt-memory-profile-types.jpg"
+    },
+    {
+      "id": "3",
+      "name": "跨对话回忆",
+      "result": "原始介绍后失败；分拆补录后通过",
+      "observed": "最终新对话回答职业、Rust、CockroachDB、先结论再细节；实际上下文4条且匹配对应来源和版本。",
+      "screenshot": "/private/tmp/lazytt-memory-final.jpg",
+      "contextPackVisiblePrefix": "fd138aff…c3c7",
+      "outcomeReceiptVisiblePrefix": "0652af16…c211"
+    },
+    {
+      "id": "4",
+      "name": "按事件时间回忆",
+      "result": "失败",
+      "observed": "独立写入的Outbox经历事件时间为2026-07-15 12:00至18:00 Asia/Shanghai；按2026年7月15日下午提问仍0条上下文并回答不知道。含Outbox关键词可召回1条，说明记录存在。该回答错误地把下午描述成上午到下午。",
+      "screenshot": "/private/tmp/lazytt-memory-time-recall.jpg",
+      "episodeVersionVisiblePrefix": "27e014d2…69cd"
+    },
+    {
+      "id": "5",
+      "name": "事实更新和历史版本",
+      "result": "补齐前置事实后通过",
+      "observed": "初次CockroachDB仅新增v1。补测先更正为PostgreSQL形成v2，再按原定更新为CockroachDB形成v3；同一卡片时间线保留v1/v2/v3。最终新对话使用v3回答CockroachDB。",
+      "screenshot": "/private/tmp/lazytt-memory-version-history.jpg",
+      "currentVersionVisiblePrefix": "43a190d6…688f"
+    },
+    {
+      "id": "6",
+      "name": "忘记指定经历",
+      "result": "通过",
+      "observed": "忘记前新对话含Outbox关键词可召回经历。仅点击该经历卡片的忘记，可用记忆2降为1，非当前记录2增为3，项目事实保留。新对话月份问题及相同Outbox问题均无该经历，实际上下文0条。不执行物理清除。",
+      "screenshot": "/private/tmp/lazytt-memory-after-forget-keyword.jpg"
+    },
+    {
+      "id": "7",
+      "name": "通用偏好与场景偏好",
+      "result": "通过指定用例",
+      "observed": "原始JSON分别为applicability global，以及contextual加qualifier讨论数据库设计时。散步问题仅使用global偏好；订单数据库问题使用global、contextual和项目事实，回答实际说明事务与一致性取舍。",
+      "screenshots": [
+        "/private/tmp/lazytt-memory-preference-global.jpg",
+        "/private/tmp/lazytt-memory-preference-contextual.jpg",
+        "/private/tmp/lazytt-memory-preference-walk.jpg",
+        "/private/tmp/lazytt-memory-preference-database.jpg"
+      ],
+      "preferenceVersionsVisiblePrefix": [
+        "15a7869c…e3db",
+        "e44c2978…b94e"
+      ]
+    },
+    {
+      "id": "8",
+      "name": "个人用户隔离和项目共享",
+      "result": "通过Alice/Bob用例",
+      "observed": "Alice将青杉4826存为用户资料/个人范围，新对话能召回，实际含个人代号和global偏好。Bob同样提问回答不知道，实际0条且无代号。Bob可正常回答共享CockroachDB，仅使用项目事实。",
+      "screenshots": [
+        "/private/tmp/lazytt-memory-alice-code-recall.jpg",
+        "/private/tmp/lazytt-memory-bob-isolation.jpg",
+        "/private/tmp/lazytt-memory-bob-project.jpg"
+      ],
+      "personalCodeVersionVisiblePrefix": "06d7d5c1…87d6"
+    }
+  ],
+  "finalState": {
+    "user": "Alice",
+    "currentMemories": 6,
+    "otherRecords": 3,
+    "database": "CockroachDB v3",
+    "episode": "已忘记",
+    "resetsPerformed": false,
+    "physicalPurgePerformed": false
+  },
+  "limitations": [
+    "没有定位抽取失败或时间召回失败的代码根因，也没有修复",
+    "Alice六步按钮入口缺失，完整按钮流程未测",
+    "隔离仅覆盖Alice/Bob，未覆盖全部身份、租户、直连API及持久化重启",
+    "结果依据页面实际上下文快照、卡片和回答；未独立审计数据库或模型供应商日志"
+  ],
+  "finalScreenshot": "/private/tmp/lazytt-memory-final.jpg"
+}

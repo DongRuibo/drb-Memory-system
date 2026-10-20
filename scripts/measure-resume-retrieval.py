@@ -24,6 +24,7 @@ def main():
     proof = {'synthetic_data_only': True, 'sample_count': 30, 'warmup_count': 3,
              'query_concurrency': 1, 'record_count': 3, 'endpoint': 'POST /v1/memory/search', 'samples_ms': []}
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    owned_records = set()
     try:
         for number, content in enumerate(['当前项目的权威数据库是 PostgreSQL。', '当前项目使用事务型 Outbox 投递消息。', '当前项目部署在本机 Docker 中。']):
             key = run + str(number)
@@ -31,6 +32,7 @@ def main():
                 'event_id': key, 'source_type': 'conversation_message', 'source_ref': 'synthetic-latency:' + key,
                 'content': '请记住：' + content, 'occurred_at': '2026-10-20T02:00:00Z',
                 'scope_selector': {'kind': 'project', 'id': memory.project}}, key)
+            owned_records.add(operation['memory_record_id'])
             for _ in range(240):
                 state = memory.call('/v1/memory/operations/' + operation['operation_id'])['projection_status']
                 if state == 'ready':
@@ -57,7 +59,7 @@ def main():
                       'p95_ms': ordered[math.ceil(len(ordered) * .95) - 1], 'all_requests_succeeded': True,
                       'boundary': 'single repeated query, 3 records, loopback client; includes local retrieval and DeepSeek verification, excludes chat generation and extraction'})
     finally:
-        proof['cleanup_record_count'] = memory.cleanup()
+        proof['cleanup_record_count'] = memory.cleanup(owned_records)
         args.output.write_text(json.dumps(proof, ensure_ascii=False, indent=2) + '\n')
 
 

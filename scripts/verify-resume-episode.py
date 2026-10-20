@@ -23,6 +23,9 @@ def main():
     memory = live.Memory(args.tenant, 'episode-' + episode, 'episode-project-' + episode)
     proof = {'synthetic_data_only': True, 'episode_id': episode, 'user_id': memory.user, 'turns': [], 'checks': {}}
     args.output.parent.mkdir(parents=True, exist_ok=True)
+    initial_records = {r['memory_record_id'] for r in memory.call('/v1/memory/export')['records']}
+    if initial_records:
+        raise RuntimeError('Episode validation requires fresh user and project scopes')
 
     def save():
         args.output.write_text(json.dumps(proof, ensure_ascii=False, indent=2) + '\n')
@@ -70,7 +73,8 @@ def main():
         print(json.dumps(proof['checks']), flush=True)
         assert proof['all_passed']
     finally:
-        proof['cleanup_record_count'] = memory.cleanup()
+        created = {r['memory_record_id'] for r in memory.call('/v1/memory/export')['records']} - initial_records
+        proof['cleanup_record_count'] = memory.cleanup(created)
         save()
 
 

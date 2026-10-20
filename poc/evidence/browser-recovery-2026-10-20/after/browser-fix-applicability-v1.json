@@ -1,0 +1,369 @@
+{
+  "version": "answer-support-regressions-v1",
+  "method": "full Memory API with Qwen plus DeepSeek support",
+  "synthetic_data_only": true,
+  "passed": 16,
+  "total": 16,
+  "results": [
+    {
+      "case_id": "route-positive",
+      "query": "哪个接口用于原子消费 Context Pack？",
+      "expected_relevant": true,
+      "response": {
+        "retrieval_run_id": "bc31fc27-4fce-4ebf-94a8-8a9f6cb23782",
+        "hits": [
+          {
+            "memory_record_id": "7ee7cbcc-1c62-5626-a768-952970eb62fb",
+            "memory_version_id": "683798a8-d300-59a7-906a-7b1916a6d716",
+            "content": "POST /v1/context-packs/{id}/consume 用于原子消费 Context Pack。",
+            "memory_type": "semantic_fact",
+            "preference_applicability": "contextual",
+            "score": 0.99,
+            "source_refs": [
+              "synthetic-applicability:f7e868e5-9b15-4302-bf6d-2d5d5fc1612b"
+            ],
+            "effective_from": null,
+            "event_time": null
+          }
+        ],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "route-other-tenant-regression",
+      "query": "其他租户的 Context Pack 里有什么？",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "b17a42a5-ac41-4f97-ad68-f43ee9ee6514",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "route-other-user",
+      "query": "其他用户上次对话的具体内容是什么？",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "b8d19f49-c72e-4108-8bb2-4896cb057ef3",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "route-current-contents",
+      "query": "我的 Context Pack 当前装了哪三条记忆？",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "da174504-0fda-405e-a3ce-521937d4761e",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "database-positive",
+      "query": "当前项目用什么作为权威数据存储？",
+      "expected_relevant": true,
+      "response": {
+        "retrieval_run_id": "53dc1e68-724d-4ee3-a765-fa55ea9d7f51",
+        "hits": [
+          {
+            "memory_record_id": "15a455eb-d714-5277-ac0f-501f9c4dba91",
+            "memory_version_id": "d7f7814c-6edc-5fdd-b6bf-fd807e226c83",
+            "content": "当前项目使用 PostgreSQL 作为权威数据存储。",
+            "memory_type": "semantic_fact",
+            "preference_applicability": "contextual",
+            "score": 1.0,
+            "source_refs": [
+              "synthetic-applicability:21e1819b-2956-47ad-93cb-1499f70ead22"
+            ],
+            "effective_from": null,
+            "event_time": null
+          }
+        ],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "database-password",
+      "query": "数据库管理员密码是什么？",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "1d3596c0-4050-47f1-b33d-7230d153669d",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "role-positive",
+      "query": "我的职业是什么？",
+      "expected_relevant": true,
+      "response": {
+        "retrieval_run_id": "9ded3bd1-f1f1-4f63-a731-f3b06806af79",
+        "hits": [
+          {
+            "memory_record_id": "41e75d45-9e2f-5865-82fa-c0ce67894340",
+            "memory_version_id": "024194e2-6167-561e-a141-e0d4e4f385c8",
+            "content": "用户是 Agent 研发工程师。",
+            "memory_type": "profile_fact",
+            "preference_applicability": "contextual",
+            "score": 1.0,
+            "source_refs": [
+              "synthetic-applicability:93556a2d-3ec7-4046-afbb-9ea49f2dbddf"
+            ],
+            "effective_from": null,
+            "event_time": null
+          }
+        ],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "role-company",
+      "query": "我在哪家公司上班？",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "f14866cb-7322-4094-9c09-00073f282b96",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "code-context-positive",
+      "query": "给我一段排序算法代码示例。",
+      "expected_relevant": true,
+      "response": {
+        "retrieval_run_id": "898d36a8-da42-4715-b36c-f7465a5d2d73",
+        "hits": [
+          {
+            "memory_record_id": "529ec336-e381-55e3-bacf-e6292c245c05",
+            "memory_version_id": "6c14af4d-b210-5047-ad81-f5ba26195744",
+            "content": "代码示例优先使用 Rust。",
+            "memory_type": "preference",
+            "preference_applicability": "contextual",
+            "score": 0.95,
+            "source_refs": [
+              "synthetic-applicability:e8fc2e29-5d9b-489c-b5d0-af22177abcb5"
+            ],
+            "effective_from": null,
+            "event_time": null
+          }
+        ],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "code-context-unrelated",
+      "query": "晚饭吃什么？",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "df18f05a-b608-4e32-a644-b2e643822550",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "food-context-positive",
+      "query": "帮我推荐适合我的菜。",
+      "expected_relevant": true,
+      "response": {
+        "retrieval_run_id": "963ee17b-3bc2-408c-9650-628e4ffddccc",
+        "hits": [
+          {
+            "memory_record_id": "418de57c-1a00-54ee-bfd1-e553fc5cefdb",
+            "memory_version_id": "4599d922-a7eb-52d6-bd6b-420eacec34c3",
+            "content": "用户不吃香菜。",
+            "memory_type": "preference",
+            "preference_applicability": "contextual",
+            "score": 0.9,
+            "source_refs": [
+              "synthetic-applicability:3346cc8c-1b95-45cd-bbef-895752a1dc2f"
+            ],
+            "effective_from": null,
+            "event_time": null
+          }
+        ],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "food-context-unrelated",
+      "query": "解释 Outbox 消息重试。",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "e2a6e1fa-df9e-4990-ae5e-82de84302c7d",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "episode-positive",
+      "query": "以前怎么解决 Outbox 重复消息？",
+      "expected_relevant": true,
+      "response": {
+        "retrieval_run_id": "7f3fdad9-79aa-4b87-94b7-3965eb625acf",
+        "hits": [
+          {
+            "memory_record_id": "0dfaea63-03e3-5155-bea6-c5f528024358",
+            "memory_version_id": "eb23ede7-95f4-5297-811a-c6d8a6ba9fb0",
+            "content": "用户曾通过 event_id 去重解决 Outbox 重复消费。",
+            "memory_type": "episodic_summary",
+            "preference_applicability": "contextual",
+            "score": 0.98,
+            "source_refs": [
+              "synthetic-applicability:6fc4c4a8-9eac-4362-a98a-023787794c01"
+            ],
+            "effective_from": null,
+            "event_time": null
+          }
+        ],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "episode-unspecified-time",
+      "query": "用户昨天几点解决了 Outbox 重复消息？",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "8be36ced-554d-4db5-8f48-0c8d15c70149",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": {
+          "start": "2026-10-18T16:00:00Z",
+          "end": "2026-10-19T16:00:00Z",
+          "precision": "day",
+          "timezone": "Asia/Shanghai",
+          "source_expression": "昨天"
+        }
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "name-positive",
+      "query": "应该如何称呼用户？",
+      "expected_relevant": true,
+      "response": {
+        "retrieval_run_id": "1a444bc4-2644-4d94-b1d1-ba0fef6c7cf4",
+        "hits": [
+          {
+            "memory_record_id": "cc99d5c9-72e4-5abc-bacb-b11db218c0c5",
+            "memory_version_id": "cd3d46ea-d114-534b-a435-2f73db4e9680",
+            "content": "用户的称呼是 DRB。",
+            "memory_type": "profile_fact",
+            "preference_applicability": "contextual",
+            "score": 0.99,
+            "source_refs": [
+              "synthetic-applicability:4dc62b19-dc17-4bff-be2e-e9e6651f8bfe"
+            ],
+            "effective_from": null,
+            "event_time": null
+          }
+        ],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    },
+    {
+      "case_id": "name-football",
+      "query": "用户最喜欢的球队是哪支？",
+      "expected_relevant": false,
+      "response": {
+        "retrieval_run_id": "74b7cb37-dd54-4717-a77c-af4f5ec6043f",
+        "hits": [],
+        "ranking_version": "answer-support-v2-event-time:3db6580ff7f45c00dc51d4b198ac732895643789a20e4ae90fc6fca1470ede79",
+        "projection_generation": "bootstrap-926ecc0230c4736f",
+        "degraded": false,
+        "degradation_reason": null,
+        "temporal_window": null
+      },
+      "passed": true,
+      "cleanup_record_count": 1
+    }
+  ]
+}

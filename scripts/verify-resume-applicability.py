@@ -25,12 +25,14 @@ def main():
         run = str(uuid.uuid4())
         memory = live.Memory(args.tenant, 'applicability-' + run, 'applicability-project-' + run)
         result = {'case_id': case['id'], 'query': case['query'], 'expected_relevant': case['relevant']}
+        owned_records = set()
         try:
             project = case['memory_type'] == 'semantic_fact'
             operation = memory.call('/v1/memory/events', {'memory_type': case['memory_type'], 'semantic_key': 'applicability.' + case['id'],
                 'event_id': run, 'source_type': 'conversation_message', 'source_ref': 'synthetic-applicability:' + run,
                 'content': '请记住：' + case['content'], 'occurred_at': '2026-10-20T02:00:00Z',
                 'scope_selector': {'kind': 'project', 'id': memory.project} if project else {'kind': 'user', 'id': memory.user}}, run)
+            owned_records.add(operation['memory_record_id'])
             for _ in range(240):
                 status = memory.call('/v1/memory/operations/' + operation['operation_id'])['projection_status']
                 if status == 'ready':
@@ -47,7 +49,7 @@ def main():
         except Exception as error:
             result.update({'passed': False, 'error_type': type(error).__name__})
         finally:
-            result['cleanup_record_count'] = memory.cleanup()
+            result['cleanup_record_count'] = memory.cleanup(owned_records)
         results.append(result)
         args.output.write_text(json.dumps({'version': data['version'], 'method': 'full Memory API with Qwen plus DeepSeek support',
             'synthetic_data_only': True, 'passed': sum(item['passed'] for item in results), 'total': len(results), 'results': results}, ensure_ascii=False, indent=2) + '\n')

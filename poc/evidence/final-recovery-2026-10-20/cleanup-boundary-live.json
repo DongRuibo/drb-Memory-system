@@ -1,0 +1,13 @@
+{
+  "cleanup_of_owned_personal_record_passed": true,
+  "visible_shared_record_unchanged": true,
+  "correctly_scoped_initial_probe_ids": [
+    "025b61b7-7aa7-5f0b-ab7a-c0287c53bae0",
+    "284d3e24-110e-5947-a9f3-e895239c6c83",
+    "ab174728-bd9d-5519-aec6-88a61191ffce",
+    "b6b981d4-a00f-5d19-82f2-c439df6c819d",
+    "c11a7cdc-797a-5713-9529-7f738e3d405a",
+    "cf7c3c9c-10cc-5500-8530-0f280a82fdf5"
+  ],
+  "shared_fact_still_active": true
+}

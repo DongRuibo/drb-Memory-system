@@ -1,0 +1,276 @@
+{
+  "incident": "previous probe cleanup used shared project authority and forgot original project fact",
+  "old_record": {
+    "memory_record_id": "6840cf7a-3bc9-5c5a-876c-6d3ad0b72ad7",
+    "scope": {
+      "kind": "project",
+      "id": "lazytt-memory-system-demo"
+    },
+    "memory_type": "semantic_fact",
+    "semantic_key": "project.architecture.authority_store",
+    "head_state": "forgotten",
+    "revision": 5,
+    "current_version_id": null,
+    "identity_retired_at": "2026-10-20T03:54:38.630468Z",
+    "versions": [
+      {
+        "memory_version_id": "0c0bb94f-d3ae-5b99-9fd5-499409465fc6",
+        "version_no": 1,
+        "content": "当前项目使用CockroachDB作为权威数据库。",
+        "content_hash": "sha256:fce19880f9d1e865ee4e6c5e411b38ec70eddf7d7a905a7c739c35fa3c7d9d4e",
+        "normalized_key": "project.architecture.authority_store",
+        "confidence": 0.98,
+        "importance": 0.9,
+        "inference_kind": "derived",
+        "source_refs": [
+          "conversation:453cbb6e-73fe-495f-a8d8-a0ddd2e6e0a7:682233ca-45ae-4a3c-96f9-5ee7e78f5efe#memory-5c3a4d6fb4167b3b"
+        ],
+        "effective_from": null,
+        "effective_to": null,
+        "event_time": null,
+        "structured_content": {
+          "schema_name": "lazytt.semantic_fact",
+          "schema_version": 1,
+          "payload": {
+            "object": "CockroachDB",
+            "predicate": "权威数据库",
+            "subject": "当前项目"
+          }
+        },
+        "classification": "internal",
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "consent_ref": null,
+        "retention_policy_id": "demo-project-semantic_fact-v1",
+        "retain_until": null,
+        "created_at": "2026-10-20T03:22:15.349174Z",
+        "content_erased_at": null
+      },
+      {
+        "memory_version_id": "59931268-a4df-544f-aa23-21437fbfdee0",
+        "version_no": 2,
+        "content": "当前项目使用PostgreSQL作为权威数据库。",
+        "content_hash": "sha256:26482983338fe3bf0f465cf46c6cc50d74771b496ed153eaa0dcbd29db0b6472",
+        "normalized_key": "project.architecture.authority_store",
+        "confidence": 0.98,
+        "importance": 0.9,
+        "inference_kind": "derived",
+        "source_refs": [
+          "conversation:283a4040-857e-425d-a4c1-ae6467c2481f:bf24fccd-8298-4606-a712-f8c9895695bb#memory-665d9cc552c716f6"
+        ],
+        "effective_from": "2026-10-20T03:32:28.450576Z",
+        "effective_to": null,
+        "event_time": null,
+        "structured_content": {
+          "schema_name": "lazytt.semantic_fact",
+          "schema_version": 1,
+          "payload": {
+            "object": "PostgreSQL",
+            "predicate": "authority_store",
+            "subject": "current_project"
+          }
+        },
+        "classification": "internal",
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "consent_ref": null,
+        "retention_policy_id": "demo-project-semantic_fact-v1",
+        "retain_until": null,
+        "created_at": "2026-10-20T03:32:30.495432Z",
+        "content_erased_at": null
+      },
+      {
+        "memory_version_id": "43a190d6-f7f4-59b2-8b42-2c31db2d688f",
+        "version_no": 3,
+        "content": "当前项目使用CockroachDB作为权威数据库。",
+        "content_hash": "sha256:fce19880f9d1e865ee4e6c5e411b38ec70eddf7d7a905a7c739c35fa3c7d9d4e",
+        "normalized_key": "project.architecture.authority_store",
+        "confidence": 0.97,
+        "importance": 0.9,
+        "inference_kind": "derived",
+        "source_refs": [
+          "conversation:283a4040-857e-425d-a4c1-ae6467c2481f:d7159440-c1ca-44a9-a13c-e36d77817a78#memory-aaf5647c4dae37be"
+        ],
+        "effective_from": "2026-10-20T03:32:56.602154Z",
+        "effective_to": null,
+        "event_time": null,
+        "structured_content": {
+          "schema_name": "lazytt.semantic_fact",
+          "schema_version": 1,
+          "payload": {
+            "object": "CockroachDB",
+            "predicate": "authoritative_database",
+            "subject": "current_project"
+          }
+        },
+        "classification": "internal",
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "consent_ref": null,
+        "retention_policy_id": "demo-project-semantic_fact-v1",
+        "retain_until": null,
+        "created_at": "2026-10-20T03:32:58.743088Z",
+        "content_erased_at": null
+      }
+    ],
+    "events": [
+      {
+        "sequence_no": 1,
+        "event_type": "memory_accepted",
+        "memory_version_id": "0c0bb94f-d3ae-5b99-9fd5-499409465fc6",
+        "actor_type": "policy",
+        "actor_id": "demo-policy",
+        "reason_code": "DERIVED_HIGH_CONFIDENCE_MEMORY",
+        "payload": {},
+        "occurred_at": "2026-10-20T03:22:15.349174Z"
+      },
+      {
+        "sequence_no": 2,
+        "event_type": "memory_contested",
+        "memory_version_id": "0c0bb94f-d3ae-5b99-9fd5-499409465fc6",
+        "actor_type": "policy",
+        "actor_id": "demo-policy",
+        "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+        "payload": {
+          "candidate_id": "daeba236-771e-5794-83b7-78f90c3a4a59"
+        },
+        "occurred_at": "2026-10-20T03:32:30.472129Z"
+      },
+      {
+        "sequence_no": 3,
+        "event_type": "memory_contest_resolved",
+        "memory_version_id": "59931268-a4df-544f-aa23-21437fbfdee0",
+        "actor_type": "reviewer",
+        "actor_id": "demo-alice",
+        "reason_code": "REVIEW_ACCEPTED_CONFLICTING_VALUE",
+        "payload": {
+          "candidate_id": "daeba236-771e-5794-83b7-78f90c3a4a59",
+          "outcome": "accept",
+          "reason_hash": "sha256:016b2078f37275621c930e731ed3c203d3275371febe48e59a69231f57313331"
+        },
+        "occurred_at": "2026-10-20T03:32:30.495432Z"
+      },
+      {
+        "sequence_no": 4,
+        "event_type": "memory_contested",
+        "memory_version_id": "59931268-a4df-544f-aa23-21437fbfdee0",
+        "actor_type": "policy",
+        "actor_id": "demo-policy",
+        "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+        "payload": {
+          "candidate_id": "89821c8f-8ca3-5d74-893a-8059d9532295"
+        },
+        "occurred_at": "2026-10-20T03:32:58.719637Z"
+      },
+      {
+        "sequence_no": 5,
+        "event_type": "memory_contest_resolved",
+        "memory_version_id": "43a190d6-f7f4-59b2-8b42-2c31db2d688f",
+        "actor_type": "reviewer",
+        "actor_id": "demo-alice",
+        "reason_code": "REVIEW_ACCEPTED_CONFLICTING_VALUE",
+        "payload": {
+          "candidate_id": "89821c8f-8ca3-5d74-893a-8059d9532295",
+          "outcome": "accept",
+          "reason_hash": "sha256:016b2078f37275621c930e731ed3c203d3275371febe48e59a69231f57313331"
+        },
+        "occurred_at": "2026-10-20T03:32:58.743088Z"
+      },
+      {
+        "sequence_no": 6,
+        "event_type": "memory_forgotten",
+        "memory_version_id": "43a190d6-f7f4-59b2-8b42-2c31db2d688f",
+        "actor_type": "user",
+        "actor_id": "regression-probe-3f5bd7f8-8ec1-4b7b-bddc-31ed780189fa",
+        "reason_code": "USER_REQUESTED_FORGET",
+        "payload": {
+          "reason": "synthetic validation cleanup"
+        },
+        "occurred_at": "2026-10-20T03:54:38.630468Z"
+      }
+    ]
+  },
+  "restored_record": {
+    "memory_record_id": "4638e3a1-1394-5f15-a621-efd9270d93df",
+    "scope": {
+      "kind": "project",
+      "id": "lazytt-memory-system-demo"
+    },
+    "memory_type": "semantic_fact",
+    "semantic_key": "project.architecture.authority_store",
+    "head_state": "active",
+    "revision": 0,
+    "current_version_id": "8bd22e52-01eb-59a7-90e3-e761cca8fc8c",
+    "identity_retired_at": null,
+    "versions": [
+      {
+        "memory_version_id": "8bd22e52-01eb-59a7-90e3-e761cca8fc8c",
+        "version_no": 1,
+        "content": "当前项目使用CockroachDB作为权威数据库。",
+        "content_hash": "sha256:fce19880f9d1e865ee4e6c5e411b38ec70eddf7d7a905a7c739c35fa3c7d9d4e",
+        "normalized_key": "project.architecture.authority_store",
+        "confidence": 1.0,
+        "importance": 0.8,
+        "inference_kind": "explicit",
+        "source_refs": [
+          "operator-recovery:6840cf7a-3bc9-5c5a-876c-6d3ad0b72ad7:43a190d6-f7f4-59b2-8b42-2c31db2d688f"
+        ],
+        "effective_from": null,
+        "effective_to": null,
+        "event_time": null,
+        "structured_content": {
+          "schema_name": "lazytt.semantic_fact",
+          "schema_version": 1,
+          "payload": {
+            "object": "CockroachDB",
+            "predicate": "authoritative_database",
+            "subject": "current_project"
+          }
+        },
+        "classification": "internal",
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "consent_ref": null,
+        "retention_policy_id": "demo-project-semantic_fact-v1",
+        "retain_until": null,
+        "created_at": "2026-10-20T04:39:28.869422Z",
+        "content_erased_at": null
+      }
+    ],
+    "events": [
+      {
+        "sequence_no": 1,
+        "event_type": "memory_accepted",
+        "memory_version_id": "8bd22e52-01eb-59a7-90e3-e761cca8fc8c",
+        "actor_type": "policy",
+        "actor_id": "demo-policy",
+        "reason_code": "EXPLICIT_LOW_RISK_PREFERENCE",
+        "payload": {},
+        "occurred_at": "2026-10-20T04:39:28.869422Z"
+      }
+    ]
+  },
+  "operation": {
+    "operation_id": "9eb47afd-d986-50bd-bba2-fd2ec9d271f7",
+    "candidate_ids": [
+      "4bff09ea-2be0-5d5e-9b6d-c9fff5ef0f5a"
+    ],
+    "memory_record_id": "4638e3a1-1394-5f15-a621-efd9270d93df",
+    "memory_version_id": "8bd22e52-01eb-59a7-90e3-e761cca8fc8c",
+    "head_revision": 0,
+    "canonical_status": "memory_accepted",
+    "projection_status": "ready",
+    "reason_code": null,
+    "provider_object_id": "ca0d2200-667a-4fbe-93ff-5dfa26fa977a",
+    "attempts": 1
+  },
+  "alice_bob_shared_recall": {
+    "demo-alice": true,
+    "demo-bob": true
+  },
+  "boundary": "Normal typed re-ingestion creates a new v1 record; old v1-v3 and mistaken Forget audit remain unchanged. No tombstone rollback or physical erase."
+}

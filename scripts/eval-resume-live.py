@@ -53,9 +53,20 @@ class Memory:
             {'expected_revision': revision, 'reason': 'synthetic validation cleanup'}, str(uuid.uuid4()))
 
 
-    def cleanup(self):
+    def cleanup(self, record_ids):
+        # Cleanup authority is narrower than read authority: a project member
+        # may see existing shared facts that this test did not create.
+        owned = set(record_ids)
         exported = self.call('/v1/memory/export')
-        for record in exported['records']:
+        records = {record['memory_record_id']: record for record in exported['records']}
+        if not owned <= records.keys():
+            raise ValueError('cleanup IDs must be present in the authorized export')
+        selected = [record for key, record in records.items() if key in owned]
+        for record in selected:
+            scope = record['scope']
+            if (scope['kind'], scope.get('id')) not in [('user', self.user), ('project', self.project)]:
+                raise ValueError('cleanup scope does not belong to this test identity')
+        for record in selected:
             if record['head_state'] == 'contested':
                 event = next(event for event in reversed(record['events']) if event['event_type'] == 'memory_contested')
                 self.call('/v1/memory-candidates/' + event['payload']['candidate_id'] + '/decisions',
@@ -63,7 +74,7 @@ class Memory:
                 record = self.call('/v1/memories/' + record['memory_record_id'])
             if record['head_state'] == 'active':
                 self.forget(record['memory_record_id'], record['revision'])
-        return exported['record_count']
+        return len(selected)
 
 
 def main():
@@ -96,8 +107,27 @@ def main():
             if case['check'] == 'no_event_time':
                 passed &= all(item.get('event_time') is None for item in proposals)
             if case['id'] == 'global-language':
+                for candidate in response['candidates']:
+                    for _ in range(240):
+                        status = memory.call('/v1/memory/operations/' + candidate['operation']['operation_id'])['projection_status']
+                        if status == 'ready':
+                            break
+                        assert status != 'failed'
+                        time.sleep(.25)
+                    else:
+                        raise RuntimeError('projection timeout')
+                before = memory.call('/v1/memory/export')['records']
                 replay = memory.call('/v1/memory/extractions', payload, run + case['id'])
-                result['idempotent_replay'] = replay == response
+                after = memory.call('/v1/memory/export')['records']
+                stable = []
+                for value in (response, replay):
+                    stable.append(value | {'candidates': [candidate | {'operation': {
+                        key: item for key, item in candidate['operation'].items()
+                        if key not in ('projection_status', 'provider_object_id', 'attempts')
+                    }} for candidate in value['candidates']]})
+                result['replay_response'] = replay
+                result['replay_ledger_unchanged'] = before == after
+                result['idempotent_replay'] = stable[0] == stable[1] and before == after
                 passed &= result['idempotent_replay']
             result['passed'] = passed
             cleaned = set()

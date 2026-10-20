@@ -1011,6 +1011,7 @@ mod tests {
                 memory_data: "当前项目使用 PostgreSQL。".into(),
                 source_refs: vec!["demo:test".into()],
                 event_time: None,
+                event_time_local: None,
                 inclusion_reason: "supports_answer".into(),
                 trust: "untrusted_memory_data".into(),
                 allowed_effect: "factual_personalization_only".into(),

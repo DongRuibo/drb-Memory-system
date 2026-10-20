@@ -1,0 +1,27 @@
+{
+  "users": [
+    "demo-alice",
+    "demo-bob"
+  ],
+  "unchanged": true,
+  "before": {
+    "demo-alice": {
+      "record_count": 9,
+      "fingerprint": "7fac298d76382bfbb4fadef54d78103024fef17ad6b0cf7317ad7149a74693fe"
+    },
+    "demo-bob": {
+      "record_count": 1,
+      "fingerprint": "dea71bf5972dbd17f047c8cd312e48011face1720589e62a45de72314e304268"
+    }
+  },
+  "after": {
+    "demo-alice": {
+      "record_count": 9,
+      "fingerprint": "7fac298d76382bfbb4fadef54d78103024fef17ad6b0cf7317ad7149a74693fe"
+    },
+    "demo-bob": {
+      "record_count": 1,
+      "fingerprint": "dea71bf5972dbd17f047c8cd312e48011face1720589e62a45de72314e304268"
+    }
+  }
+}

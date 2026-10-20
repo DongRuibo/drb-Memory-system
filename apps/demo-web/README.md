@@ -40,7 +40,13 @@ Web 和 `demo-web-api` 属于可选 Demo/测试客户端，不属于正式 Memor
 边界与本地联调约定见
 [`docs/21-repository-split-and-local-integration.md`](../../docs/21-repository-split-and-local-integration.md)。
 
-## 推荐启动
+## 恢复分支启动
+
+当前 PostgreSQL＋pgvector 恢复版使用 DeepSeek，Web 端口为 `13000`。
+请按 [隔离演示说明](../../docs/resume-demo.md) 启动；完整网页复验见
+[修复后六步清单](../../docs/browser-final-checklist.md)。
+
+## 历史 Kimi 启动方式
 
 先启动 PostgreSQL、Mem0 和 Qwen3 Embedding/Rerank 网关，并在当前 shell 中提供
 `KIMI_API_KEY`。然后从仓库根目录执行：
@@ -79,9 +85,13 @@ Alice 可执行，并会影响同项目成员。
 
 ```bash
 cd apps/demo-web
+npm run typecheck
 npm run lint
 npm test
 ```
+
+Cloudflare 运行时类型使用与现有 Wrangler 兼容的官方 `@cloudflare/workers-types` 固定版本。
+`cloudflare-env.d.ts` 标记模板 D1 为可选绑定；本机记忆仍通过 Rust API 使用 PostgreSQL。
 
 HTTP 契约见
 [`docs/api/demo-web-openapi.yaml`](../../docs/api/demo-web-openapi.yaml)，讲解路线见

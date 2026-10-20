@@ -1,0 +1,18 @@
+{
+  "engineering_checks_passed": true,
+  "fixed_dataset": {
+    "original_release_gate_passed": true,
+    "precision_gate_passed": false
+  },
+  "developer_holdout": {
+    "original_release_gate_passed": false,
+    "precision_gate_passed": false
+  },
+  "browser_after_fix_acceptance": "pending",
+  "overall_acceptance_passed": false,
+  "remaining": [
+    "browser button workflow and screenshots",
+    "answerability filtering for unknown credentials, live incident state and exact event time",
+    "positive-query non-target candidate precision"
+  ]
+}
