@@ -1,0 +1,659 @@
+{
+  "source_results": "results.json",
+  "path_resolution": "captured paths are relative to this directory; source results kept byte-identical",
+  "cases": [
+    {
+      "id": "baseline",
+      "result": "通过",
+      "evidence_ids": [
+        "baseline"
+      ]
+    },
+    {
+      "id": "entry-sidebar",
+      "result": "通过",
+      "evidence_ids": [
+        "entry-sidebar"
+      ]
+    },
+    {
+      "id": "entry-blank-start",
+      "result": "通过",
+      "evidence_ids": [
+        "entry-blank-start"
+      ]
+    },
+    {
+      "id": "step-1",
+      "result": "通过",
+      "evidence_ids": [
+        "entry-blank-start",
+        "step-1"
+      ]
+    },
+    {
+      "id": "step-2",
+      "result": "通过",
+      "evidence_ids": [
+        "step-2-structure",
+        "classification-profiles-visible",
+        "classification-contextual-preference-visible"
+      ]
+    },
+    {
+      "id": "step-3",
+      "result": "通过",
+      "evidence_ids": [
+        "step-3"
+      ]
+    },
+    {
+      "id": "step-4",
+      "result": "通过",
+      "evidence_ids": [
+        "step-4-date"
+      ]
+    },
+    {
+      "id": "step-4-morning-negative",
+      "result": "通过",
+      "evidence_ids": [
+        "step-4-morning-negative"
+      ]
+    },
+    {
+      "id": "step-5",
+      "result": "通过",
+      "evidence_ids": [
+        "step-5-update",
+        "version-timeline-visible"
+      ]
+    },
+    {
+      "id": "step-5-new-conversation",
+      "result": "通过",
+      "evidence_ids": [
+        "step-5-new-conversation"
+      ]
+    },
+    {
+      "id": "step-6",
+      "result": "通过",
+      "evidence_ids": [
+        "step-6-forget"
+      ]
+    },
+    {
+      "id": "step-6-date-new-conversation",
+      "result": "通过",
+      "evidence_ids": [
+        "step-6-date-new-conversation"
+      ]
+    },
+    {
+      "id": "step-6-keyword-new-conversation",
+      "result": "通过",
+      "evidence_ids": [
+        "step-6-keyword-new-conversation"
+      ]
+    },
+    {
+      "id": "post-forget-retained-facts",
+      "result": "通过",
+      "evidence_ids": [
+        "post-forget-retained-facts",
+        "version-timeline-visible"
+      ]
+    }
+  ],
+  "evidence_index": [
+    {
+      "id": "baseline",
+      "captured": {
+        "dom": "00-baseline.dom.txt",
+        "screenshot": "00-baseline.jpg"
+      },
+      "actual_context": null,
+      "captured_at": "2026-10-20T13:15:10.124+08:00"
+    },
+    {
+      "id": "entry-sidebar",
+      "captured": {
+        "dom": "01-entry-sidebar.dom.txt",
+        "screenshot": "01-entry-sidebar.jpg"
+      },
+      "actual_context": null,
+      "captured_at": "2026-10-20T13:15:21.969+08:00"
+    },
+    {
+      "id": "entry-blank-start",
+      "captured": {
+        "dom": "02-entry-blank-start.dom.txt",
+        "screenshot": "02-entry-blank-start.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "d6124266…1c0a",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "1185460c…2252",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "20f59142…c4c7",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "0c1c88d2…67b6",
+            "source_count": 1
+          }
+        ],
+        "context_pack_visible_prefix": "87e2de8c…f251",
+        "outcome_receipt_visible_prefix": "94ea1a49…c125"
+      },
+      "captured_at": "2026-10-20T13:16:05.675+08:00"
+    },
+    {
+      "id": "step-1",
+      "captured": {
+        "dom": "03-step1-memory-actual.dom.txt",
+        "screenshot": "03-step1-memory-actual.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "d6124266…1c0a",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "1185460c…2252",
+            "source_count": 3
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "20f59142…c4c7",
+            "source_count": 2
+          }
+        ],
+        "context_pack_visible_prefix": "70eeac0d…c7ff",
+        "outcome_receipt_visible_prefix": "b4b8352a…7e40"
+      },
+      "captured_at": "2026-10-20T13:16:49.483+08:00"
+    },
+    {
+      "id": "step-2-structure",
+      "captured": {
+        "dom": "04-step2-structures-event-time.dom.txt",
+        "screenshot": "04-step2-structures-event-time.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "d6124266…1c0a",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "1185460c…2252",
+            "source_count": 3
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "20f59142…c4c7",
+            "source_count": 2
+          }
+        ],
+        "context_pack_visible_prefix": "70eeac0d…c7ff",
+        "outcome_receipt_visible_prefix": "b4b8352a…7e40"
+      },
+      "captured_at": "2026-10-20T13:17:11.917+08:00"
+    },
+    {
+      "id": "step-3",
+      "captured": {
+        "dom": "05-step3-new-conversation-context.dom.txt",
+        "screenshot": "05-step3-new-conversation-context.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "e44c2978…b94e",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "0c1c88d2…67b6",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "7d869065…4eef",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "1185460c…2252",
+            "source_count": 3
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "20f59142…c4c7",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "d6124266…1c0a",
+            "source_count": 2
+          }
+        ],
+        "context_pack_visible_prefix": "ec3eeca8…e410",
+        "outcome_receipt_visible_prefix": "15f4217e…805a"
+      },
+      "captured_at": "2026-10-20T13:17:49.358+08:00"
+    },
+    {
+      "id": "step-4-date",
+      "captured": {
+        "dom": "06-step4-date-context.dom.txt",
+        "screenshot": "06-step4-date-context.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "d6124266…1c0a",
+            "source_count": 2
+          }
+        ],
+        "context_pack_visible_prefix": "edeb2ac0…4c87",
+        "outcome_receipt_visible_prefix": "74dff99b…6475"
+      },
+      "captured_at": "2026-10-20T13:18:24.796+08:00"
+    },
+    {
+      "id": "step-4-morning-negative",
+      "captured": {
+        "dom": "07-step4-morning-negative.dom.txt",
+        "screenshot": "07-step4-morning-negative.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          }
+        ],
+        "context_pack_visible_prefix": "d1968837…c0af",
+        "outcome_receipt_visible_prefix": "dde4dc87…8f81"
+      },
+      "captured_at": "2026-10-20T13:18:52.913+08:00"
+    },
+    {
+      "id": "step-5-update",
+      "captured": {
+        "dom": "08-step5-version-timeline.dom.txt",
+        "screenshot": "08-step5-version-timeline.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "18eecce7…d66f",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "e44c2978…b94e",
+            "source_count": 1
+          }
+        ],
+        "context_pack_visible_prefix": "f6809887…0b0f",
+        "outcome_receipt_visible_prefix": "77c0ea0e…42c6"
+      },
+      "captured_at": "2026-10-20T13:20:22.212+08:00"
+    },
+    {
+      "id": "step-5-new-conversation",
+      "captured": {
+        "dom": "09-step5-current-version-new-conversation.dom.txt",
+        "screenshot": "09-step5-current-version-new-conversation.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "18eecce7…d66f",
+            "source_count": 1
+          }
+        ],
+        "context_pack_visible_prefix": "459518ce…8e36",
+        "outcome_receipt_visible_prefix": "e81b9669…0fda"
+      },
+      "captured_at": "2026-10-20T13:20:58.824+08:00"
+    },
+    {
+      "id": "step-6-forget",
+      "captured": {
+        "dom": "10-step6-logical-forget.dom.txt",
+        "screenshot": "10-step6-logical-forget.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          }
+        ],
+        "context_pack_visible_prefix": "d2d53456…7a55",
+        "outcome_receipt_visible_prefix": "c49fac6f…fab1"
+      },
+      "captured_at": "2026-10-20T13:21:41.370+08:00"
+    },
+    {
+      "id": "step-6-date-new-conversation",
+      "captured": {
+        "dom": "11-step6-after-forget-date.dom.txt",
+        "screenshot": "11-step6-after-forget-date.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          }
+        ],
+        "context_pack_visible_prefix": "e7f251c8…3578",
+        "outcome_receipt_visible_prefix": "80b925cc…4fdd"
+      },
+      "captured_at": "2026-10-20T13:22:10.934+08:00"
+    },
+    {
+      "id": "step-6-keyword-new-conversation",
+      "captured": {
+        "dom": "12-step6-after-forget-keyword.dom.txt",
+        "screenshot": "12-step6-after-forget-keyword.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          }
+        ],
+        "context_pack_visible_prefix": "473ce7f3…55a5",
+        "outcome_receipt_visible_prefix": "d1176a73…e08b"
+      },
+      "captured_at": "2026-10-20T13:23:06.377+08:00"
+    },
+    {
+      "id": "post-forget-retained-facts",
+      "captured": {
+        "dom": "13-post-forget-retained-facts.dom.txt",
+        "screenshot": "13-post-forget-retained-facts.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "18eecce7…d66f",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "7d869065…4eef",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "1185460c…2252",
+            "source_count": 3
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "20f59142…c4c7",
+            "source_count": 2
+          }
+        ],
+        "context_pack_visible_prefix": "6e4419b6…7e6c",
+        "outcome_receipt_visible_prefix": "e5653804…afea"
+      },
+      "captured_at": "2026-10-20T13:23:50.983+08:00"
+    },
+    {
+      "id": "version-timeline-visible",
+      "captured": {
+        "dom": "14-version-timeline-visible.dom.txt",
+        "screenshot": "14-version-timeline-visible.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "18eecce7…d66f",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "7d869065…4eef",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "1185460c…2252",
+            "source_count": 3
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "20f59142…c4c7",
+            "source_count": 2
+          }
+        ],
+        "context_pack_visible_prefix": "6e4419b6…7e6c",
+        "outcome_receipt_visible_prefix": "e5653804…afea"
+      },
+      "captured_at": "2026-10-20T13:24:44.708+08:00"
+    },
+    {
+      "id": "classification-profiles-visible",
+      "captured": {
+        "dom": "15-classification-profiles.dom.txt",
+        "screenshot": "15-classification-profiles.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "18eecce7…d66f",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "7d869065…4eef",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "1185460c…2252",
+            "source_count": 3
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "20f59142…c4c7",
+            "source_count": 2
+          }
+        ],
+        "context_pack_visible_prefix": "6e4419b6…7e6c",
+        "outcome_receipt_visible_prefix": "e5653804…afea"
+      },
+      "captured_at": "2026-10-20T13:24:53.039+08:00"
+    },
+    {
+      "id": "classification-contextual-preference-visible",
+      "captured": {
+        "dom": "16-classification-contextual-json.dom.txt",
+        "screenshot": "16-classification-contextual-json.jpg"
+      },
+      "actual_context": {
+        "record_ids_note": "页面只显示版本ID前缀与来源数量，未显示record ID，未猜测",
+        "used_memories": [
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "15a7869c…e3db",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "288e69d9…e342",
+            "source_count": 2
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "18eecce7…d66f",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "7d869065…4eef",
+            "source_count": 1
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "1185460c…2252",
+            "source_count": 3
+          },
+          {
+            "record_id_visible_prefix": null,
+            "version_id_visible_prefix": "20f59142…c4c7",
+            "source_count": 2
+          }
+        ],
+        "context_pack_visible_prefix": "6e4419b6…7e6c",
+        "outcome_receipt_visible_prefix": "e5653804…afea"
+      },
+      "captured_at": "2026-10-20T13:25:40.587+08:00"
+    }
+  ]
+}

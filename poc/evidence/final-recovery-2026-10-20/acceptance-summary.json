@@ -8,11 +8,27 @@
     "original_release_gate_passed": false,
     "precision_gate_passed": false
   },
-  "browser_after_fix_acceptance": "pending",
+  "browser_after_fix_acceptance": "passed",
   "overall_acceptance_passed": false,
   "remaining": [
-    "browser button workflow and screenshots",
     "answerability filtering for unknown credentials, live incident state and exact event time",
     "positive-query non-target candidate precision"
-  ]
+  ],
+  "browser_after_fix_evidence": {
+    "results": "browser-after-fix/results.json",
+    "portable_index": "browser-after-fix/index.json",
+    "verification": "browser-after-fix/verification.json",
+    "code_commit": "0a9e6f7ab93e9f695e8f705c8ee6d41bcd84d57a",
+    "checks_passed": 14,
+    "screenshot_count": 17,
+    "dom_snapshot_count": 17,
+    "scope": "existing-data browser revalidation; user-returned artifacts verified locally",
+    "final_state": {
+      "user": "Alice",
+      "current_memories": 8,
+      "shared_database_demo_fact": "CockroachDB v3",
+      "actual_system_authoritative_store": "PostgreSQL",
+      "target_episode": "logically forgotten"
+    }
+  }
 }

@@ -1,0 +1,46 @@
+{
+  "verified_at": "2026-10-20T05:37:04.111910+00:00",
+  "method": "Local inspection of user-returned evidence; no browser automation or application mutation in this conversation",
+  "source_run": "browser-after-fix-2026-10-20T05-15-10-038Z",
+  "source_zip_sha256": "968007ce43dca66616ce3be07ceee3ddb4136ae77e5828ee7618b58737ee5454",
+  "source_code_commit": "0a9e6f7ab93e9f695e8f705c8ee6d41bcd84d57a",
+  "source_manifest_hashes_verified": 36,
+  "zip_crc_passed": true,
+  "zip_files_byte_identical_to_source_directory": 37,
+  "case_count": 14,
+  "all_reported_cases_passed": true,
+  "case_evidence_references_verified": true,
+  "screenshot_count": 17,
+  "dom_snapshot_count": 17,
+  "context_snapshots_with_visible_ids_and_counts_verified": 15,
+  "visually_inspected_screenshots": [
+    "02-entry-blank-start.jpg",
+    "06-step4-date-context.jpg",
+    "07-step4-morning-negative.jpg",
+    "09-step5-current-version-new-conversation.jpg",
+    "11-step6-after-forget-date.jpg",
+    "12-step6-after-forget-keyword.jpg",
+    "14-version-timeline-visible.jpg"
+  ],
+  "credential_values_scan_passed": true,
+  "scope": "Existing-data browser revalidation supplied by user; not a new first-extraction, fresh browser rerun, deployment binary attestation or overall quality acceptance",
+  "final_state_from_evidence": {
+    "user": "Alice",
+    "current_memories": 8,
+    "other_records": 5,
+    "shared_database": "CockroachDB v3",
+    "shared_database_version_visible_prefix": "18eecce7…d66f",
+    "target_episode": "逻辑遗忘；新日期与关键词会话均未进入上下文",
+    "retained": [
+      "职业",
+      "Rust资料",
+      "个人测试代号",
+      "通用回答偏好",
+      "数据库场景偏好",
+      "技术场景偏好",
+      "共享项目数据库事实"
+    ],
+    "filters": "全部类型／全部范围",
+    "bob": "本轮未切换或重置Bob，未操作Bob个人会话与个人资料；共享项目事实按演示流程更新。"
+  }
+}

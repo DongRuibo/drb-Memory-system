@@ -1,0 +1,448 @@
+- main:
+  - complementary:
+    - generic: L
+    - strong: LazyTT Memory
+    - generic: 会记忆的 AI
+    - region "切换演示用户":
+      - generic: 当前演示身份
+      - generic: A
+      - combobox "当前演示身份":
+        - option "Alice · Agent 开发工程师" [selected]
+        - option "Bob · 平台工程师"
+        - option "Carol · 外部协作者"
+      - paragraph: Agent 开发工程师 · LazyTT 项目
+      - generic: 个人记忆彼此隔离；同项目成员共享项目事实。
+    - button "＋ 新建对话"
+    - button "六步演示"
+    - generic: 当前用户的对话
+    - button "✦ 我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 Postgre 引导演示":
+      - generic: ✦
+      - strong: 我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 Postgre
+      - generic: 引导演示
+    - button "○ 新的对话 自由对话":
+      - generic: ○
+      - strong: 新的对话
+      - generic: 自由对话
+    - button "✦ 记忆演示 引导演示":
+      - generic: ✦
+      - strong: 记忆演示
+      - generic: 引导演示
+    - button "○ 我的职业、常用编程语言、当前项目的权威数据库和技术回答格式分别是什么？请根据已有记忆简要回答，不知道的不要猜。 自由对话":
+      - generic: ○
+      - strong: 我的职业、常用编程语言、当前项目的权威数据库和技术回答格式分别是什么？请根据已有记忆简要回答，不知道的不要猜。
+      - generic: 自由对话
+    - button "○ 更正当前项目事实：当前项目使用 PostgreSQL 作为权威数据库。 自由对话":
+      - generic: ○
+      - strong: 更正当前项目事实：当前项目使用 PostgreSQL 作为权威数据库。
+      - generic: 自由对话
+    - button "○ 我的个人测试代号是什么？ 自由对话":
+      - generic: ○
+      - strong: 我的个人测试代号是什么？
+      - generic: 自由对话
+    - button "○ 我的个人测试代号是青杉4826，请记住。 自由对话":
+      - generic: ○
+      - strong: 我的个人测试代号是青杉4826，请记住。
+      - generic: 自由对话
+    - button "○ 我的职业是 Agent 研发工程师，常用编程语言是 Rust。 自由对话":
+      - generic: ○
+      - strong: 我的职业是 Agent 研发工程师，常用编程语言是 Rust。
+      - generic: 自由对话
+    - button "○ 如何设计订单数据库？ 自由对话":
+      - generic: ○
+      - strong: 如何设计订单数据库？
+      - generic: 自由对话
+    - button "○ 如何安排一次周末散步？ 自由对话":
+      - generic: ○
+      - strong: 如何安排一次周末散步？
+      - generic: 自由对话
+    - button "○ 以后所有回答都请先给结论，再讲细节。 自由对话":
+      - generic: ○
+      - strong: 以后所有回答都请先给结论，再讲细节。
+      - generic: 自由对话
+    - button "○ 我在2026年7月处理过什么工程问题？ 自由对话":
+      - generic: ○
+      - strong: 我在2026年7月处理过什么工程问题？
+      - generic: 自由对话
+    - button "○ 你记得我处理 Outbox 重复消费的经历吗？发生在什么时候，最后是怎么解决的？ 自由对话":
+      - generic: ○
+      - strong: 你记得我处理 Outbox 重复消费的经历吗？发生在什么时候，最后是怎么解决的？
+      - generic: 自由对话
+    - button "○ 我在2026年7月15日下午处理过什么工程问题，最后是怎么解决的？请根据已有记忆回答，不知道的不要猜。 自由对话":
+      - generic: ○
+      - strong: 我在2026年7月15日下午处理过什么工程问题，最后是怎么解决的？请根据已有记忆回答，不知道的不要猜。
+      - generic: 自由对话
+    - button "○ 2026年7月15日下午，我在开发当前项目的 Outbox 时遇到重复消费，后来用 event_id 去重解决了。 自由对话":
+      - generic: ○
+      - strong: 2026年7月15日下午，我在开发当前项目的 Outbox 时遇到重复消费，后来用 event_id 去重解决了。
+      - generic: 自由对话
+    - button "○ 当前项目的权威数据库是什么？ 自由对话":
+      - generic: ○
+      - strong: 当前项目的权威数据库是什么？
+      - generic: 自由对话
+    - button "○ 更新一下：我们当前项目的权威数据库已经从 PostgreSQL 改用 CockroachDB，请以 CockroachD 自由对话":
+      - generic: ○
+      - strong: 更新一下：我们当前项目的权威数据库已经从 PostgreSQL 改用 CockroachDB，请以 CockroachD
+      - generic: 自由对话
+    - button "○ 我在2026年7月15日下午处理过什么工程问题，最后是怎么解决的？请根据已有记忆回答，不知道的不要猜。 自由对话":
+      - generic: ○
+      - strong: 我在2026年7月15日下午处理过什么工程问题，最后是怎么解决的？请根据已有记忆回答，不知道的不要猜。
+      - generic: 自由对话
+    - button "○ 你还记得我的职业、常用编程语言、当前项目的权威数据库、2026年7月的工程经历，以及我偏好的技术回答格式吗？请根据已有记 自由对话":
+      - generic: ○
+      - strong: 你还记得我的职业、常用编程语言、当前项目的权威数据库、2026年7月的工程经历，以及我偏好的技术回答格式吗？请根据已有记
+      - generic: 自由对话
+    - button "○ 我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 Postgre 自由对话":
+      - generic: ○
+      - strong: 我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 Postgre
+      - generic: 自由对话
+    - button "○ 我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 Postgre 自由对话":
+      - generic: ○
+      - strong: 我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 Postgre
+      - generic: 自由对话
+    - button "○ 我叫什么？请简短回答。 自由对话":
+      - generic: ○
+      - strong: 我叫什么？请简短回答。
+      - generic: 自由对话
+    - button "○ 我叫什么？请简短回答。 自由对话":
+      - generic: ○
+      - strong: 我叫什么？请简短回答。
+      - generic: 自由对话
+    - button "○ 我叫什么？请简短回答。 自由对话":
+      - generic: ○
+      - strong: 我叫什么？请简短回答。
+      - generic: 自由对话
+    - button "○ 把我的姓名更正为陈星，请简短确认。 自由对话":
+      - generic: ○
+      - strong: 把我的姓名更正为陈星，请简短确认。
+      - generic: 自由对话
+    - button "○ 我叫什么？回答时我偏好的结构是什么？请简短回答。 自由对话":
+      - generic: ○
+      - strong: 我叫什么？回答时我偏好的结构是什么？请简短回答。
+      - generic: 自由对话
+    - button "○ 我叫林舟。以后所有回答都请先给结论再讲细节。请简短确认。 自由对话":
+      - generic: ○
+      - strong: 我叫林舟。以后所有回答都请先给结论再讲细节。请简短确认。
+      - generic: 自由对话
+    - generic: 真实链路已就绪
+    - button "重置当前用户"
+    - button "重置共享项目"
+  - heading "我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 Postgre" [level=1]
+  - paragraph: 验证分类、范围、时间、结构、版本和遗忘
+  - generic: A
+  - text: Alice
+  - generic: 个人隔离 · 项目共享
+  - region "六步核心演示":
+    - generic: 六步验证核心能力
+    - generic: 分类、范围、时间、结构、版本、遗忘都可检查
+    - button "1 自然形成记忆 →":
+      - generic: "1"
+      - strong: 自然形成记忆
+      - generic: →
+    - button "2 查看记忆结构 →":
+      - generic: "2"
+      - strong: 查看记忆结构
+      - generic: →
+    - button "3 跨对话回忆 →":
+      - generic: "3"
+      - strong: 跨对话回忆
+      - generic: →
+    - button "4 按时间回忆 →":
+      - generic: "4"
+      - strong: 按时间回忆
+      - generic: →
+    - button "5 事实更新 →":
+      - generic: "5"
+      - strong: 事实更新
+      - generic: →
+    - button "6 忘记与清除 →":
+      - generic: "6"
+      - strong: 忘记与清除
+      - generic: →
+  - article:
+    - generic: Alice
+    - generic: 我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 PostgreSQL 作为权威数据库。2026年7月15日下午做 Outbox 时遇到过重复消费，后来用 event_id 去重解决了。我喜欢回答技术问题时先给一句结论，再列出要点。请根据这些情况，简要说说上线前最需要关注什么。
+  - article:
+    - generic: L
+    - generic: LazyTT
+    - paragraph: "**结论：上线前最需要关注“数据一致性边界”和“故障可恢复性”，尤其是 Outbox 从“去重”升级为“可验证的端到端幂等”。"
+    - paragraph: 要点：
+    - list:
+      - strong: Outbox 幂等闭环
+      - text: ：你 7 月 15 日下午用 event
+      - emphasis: id 去重解决了重复消费，但上线前要确认去重记录与业务写入在同一事务、event
+      - text: id 全局唯一且有索引，并明确保留窗口，避免清理后旧消息重放。
+      - strong: PostgreSQL 作为权威源
+      - text: ：定义清楚哪些状态以 DB 为准、缓存和向量/检索副本如何失效与重建，避免出现“库里有、索引里没有”的偏差。
+      - strong: 失败与重试策略
+      - text: ：消费者崩溃、事务回滚、投递延迟、顺序错乱都要有可观测的补偿路径；至少做到 at-least-once + 可重放。
+      - strong: 一致性校验
+      - text: ：上线前做对账任务或影子消费，验证 Outbox 与业务表的最终一致，并压测重复投递、并发消费场景。
+      - strong: Rust 侧实现细节
+      - text: ：序列化兼容性（版本化 schema）、错误分类（可重试 vs 永久失败）、连接池与超时配置。
+      - strong: 可观测与回滚
+      - text: ：事件 ID 贯穿日志与指标，准备好灰度、限流和回滚方案，以及数据修复脚本。
+    - paragraph: 建议优先把“幂等 + 对账 + 可重放”三项做成上线门禁。
+    - generic: ✓
+    - text: 已自动更新记忆：当前项目使用PostgreSQL作为权威数据库。
+    - strong: 本轮形成 5 条有效记忆候选
+    - generic: 新增 3 · 合并来源 1 · 更新 1
+    - button "✓ 本次使用了 6 条记忆 查看版本证据":
+      - generic: ✓
+      - text: 本次使用了 6 条记忆
+      - generic: 查看版本证据
+  - article:
+    - generic: Alice
+    - generic: 我是 Agent 研发工程师，主要使用 Rust。我们正在开发企业级 Agent 记忆系统，当前项目使用 PostgreSQL 作为权威数据库。2026年7月15日下午做 Outbox 时遇到过重复消费，后来用 event_id 去重解决了。我喜欢回答技术问题时先给一句结论，再列出要点。请根据这些情况，简要说说上线前最需要关注什么。
+  - article:
+    - generic: L
+    - generic: LazyTT
+    - paragraph: 结论：上线前最该盯的是“记忆写入的幂等性与一致性边界”——把你们7月15日下午做 Outbox 时用 event_id 去重的那套思路，从消息层扩展到记忆层和整条写入链路。
+    - paragraph: 要点：
+    - list:
+      - strong: 写入幂等
+      - text: ：记忆记录、版本、来源引用都要有稳定业务键（如 memory
+      - emphasis: record
+      - text: id + memory
+      - emphasis: version
+      - text: id + source_ref 哈希），唯一约束兜底，避免重试或重放产生重复记忆。
+      - strong: Outbox 完整闭环
+      - text: ：与 PostgreSQL 权威库同事务落库；消费端至少一次投递下必须幂等，event_id 去重表要设保留期与清理策略，防止无限膨胀。
+      - strong: 事务与并发
+      - text: ：版本号/乐观锁控制同一记忆的并发更新；关注 PG 隔离级别下读写冲突与死锁重试。
+      - strong: 授权与隔离
+      - text: ：检索侧强制按用户/租户过滤，别让“记忆共享”变成越权读；审计来源引用可追溯。
+      - strong: Rust 侧细节
+      - text: ：连接池超时、重试退避加抖动、错误分类（可重试 vs 永久失败），避免重试风暴。
+      - strong: 一致性与回放
+      - text: ：定期对账 Outbox 未消费量与业务表差异；演练消费者宕机、消息乱序、重复投递。
+      - strong: 可观测与灰度
+      - text: ：幂等命中率、重复消费次数、端到端延迟上监控告警；先灰度小流量再全量。
+    - strong: 本轮形成 4 条有效记忆候选
+    - generic: 新增 0 · 合并来源 4 · 更新 0
+    - button "✓ 本次使用了 5 条记忆 收起":
+      - generic: ✓
+      - text: 本次使用了 5 条记忆
+      - generic: 收起
+    - generic: 模型实际收到的上下文快照
+    - strong: 5 条已授权记忆
+    - generic: 服务器运行时上下文
+    - strong: 2026年10月20日 13:16:07
+    - paragraph: 本地日期 2026-10-20 · 时区 Asia/Shanghai
+    - article:
+      - generic: 经历摘要
+      - generic: untrusted_memory_data
+      - strong: 用户曾通过event_id去重解决Outbox重复消费。
+      - time: 2026年7月15日 12:00 — 2026年7月15日 18:00（时段，Asia/Shanghai）
+      - paragraph: 用于：仅作为相关经验背景 · 来源 2 个 · 版本 d6124266…1c0a
+    - article:
+      - generic: 用户偏好
+      - generic: untrusted_memory_data
+      - strong: 用户偏好回答技术问题时先给一句结论，再列出要点。
+      - paragraph: 用于：仅调整回答方式 · 来源 2 个 · 版本 288e69d9…e342
+    - article:
+      - generic: 用户偏好
+      - generic: untrusted_memory_data
+      - strong: 用户偏好所有回答先给结论，再讲细节。
+      - paragraph: 用于：仅调整回答方式 · 来源 1 个 · 版本 15a7869c…e3db
+    - article:
+      - generic: 当前事实
+      - generic: untrusted_memory_data
+      - strong: 用户是Agent研发工程师。
+      - paragraph: 用于：仅用于事实个性化 · 来源 3 个 · 版本 1185460c…2252
+    - article:
+      - generic: 当前事实
+      - generic: untrusted_memory_data
+      - strong: 用户主要使用Rust。
+      - paragraph: 用于：仅用于事实个性化 · 来源 2 个 · 版本 20f59142…c4c7
+    - generic: Context Pack
+    - code: 70eeac0d…c7ff
+    - generic: Outcome Receipt
+    - code: b4b8352a…7e40
+    - generic: 模型
+    - code: deepseek-flash
+  - generic: ✓
+  - text: 展开右侧记忆，可检查类型、范围、事件时间、结构化内容和版本。
+  - button "×"
+  - textbox "发送消息":
+    - /placeholder: 自然输入；系统按类型、范围和用途治理值得长期使用的信息…
+  - button "发送" [disabled]: ↑
+  - paragraph: 用户偏好、用户资料、事实知识与经历摘要是类型；个人、项目、租户与 Agent 是可见范围。密码和临时指令不会保存。
+  - complementary:
+    - generic: ✦
+    - heading "记忆档案" [level=2]
+    - paragraph: 当前版本与历史证据
+    - strong: "9"
+    - text: 条当前可用记忆
+    - paragraph: 类型说明“是什么”，范围说明“谁可见”。只有相关且仍获授权的版本才进入回答。
+    - combobox "按记忆类型筛选":
+      - option "全部类型" [selected]
+      - option "用户偏好"
+      - option "用户资料"
+      - option "事实知识"
+      - option "经历摘要"
+    - combobox "按记忆范围筛选":
+      - option "全部范围" [selected]
+      - option "个人"
+      - option "项目"
+      - option "租户"
+      - option "Agent"
+    - generic "用户偏好 个人范围 用户偏好所有回答先给结论，再讲细节。 当前 v1 1 个来源":
+      - generic: 用户偏好
+      - generic: 个人范围
+      - paragraph: 用户偏好所有回答先给结论，再讲细节。
+      - generic: 当前 v1
+      - generic: 1 个来源
+    - generic "用户偏好 个人范围 用户偏好仅在讨论数据库设计时，额外说明事务与一致性的取舍。 当前 v1 1 个来源":
+      - generic: 用户偏好
+      - generic: 个人范围
+      - paragraph: 用户偏好仅在讨论数据库设计时，额外说明事务与一致性的取舍。
+      - generic: 当前 v1
+      - generic: 1 个来源
+    - generic "用户资料 个人范围 用户的常用编程语言是 Rust。 当前 v1 1 个来源":
+      - generic: 用户资料
+      - generic: 个人范围
+      - paragraph: 用户的常用编程语言是 Rust。
+      - generic: 当前 v1
+      - generic: 1 个来源
+    - generic "用户资料 个人范围 用户是Agent研发工程师。 当前 v1 3 个来源":
+      - generic: 用户资料
+      - generic: 个人范围
+      - paragraph: 用户是Agent研发工程师。
+      - generic: 当前 v1
+      - generic: 3 个来源
+    - generic: 可影响
+    - strong: 按用户背景个性化
+    - generic: 结构化内容
+    - generic: lazytt.profile_fact · v1
+    - term: 属性
+    - definition: role
+    - term: 主体
+    - definition: user
+    - term: 取值
+    - definition: Agent 研发工程师
+    - generic "查看原始 JSON"
+    - generic: "{ \"attribute\": \"role\", \"subject\": \"user\", \"value\": \"Agent 研发工程师\" }"
+    - heading "版本时间线" [level=3]
+    - generic: v1
+    - paragraph:
+      - text: 用户是Agent研发工程师。
+      - generic: 2026/10/20 11:29
+    - button "忘记"
+    - button "物理清除"
+    - generic "用户资料 个人范围 用户的个人测试代号是青杉4826。 当前 v1 1 个来源":
+      - generic: 用户资料
+      - generic: 个人范围
+      - paragraph: 用户的个人测试代号是青杉4826。
+      - generic: 当前 v1
+      - generic: 1 个来源
+    - generic "项目事实 项目共享 当前项目使用PostgreSQL作为权威数据库。 当前 v2 1 个来源":
+      - generic: 项目事实
+      - generic: 项目共享
+      - paragraph: 当前项目使用PostgreSQL作为权威数据库。
+      - generic: 当前 v2
+      - generic: 1 个来源
+    - generic: 可影响
+    - strong: 使用当前事实知识
+    - generic: 结构化内容
+    - generic: lazytt.semantic_fact · v1
+    - term: 对象
+    - definition: PostgreSQL
+    - term: 关系
+    - definition: authority_store
+    - term: 主体
+    - definition: current_project
+    - generic "查看原始 JSON"
+    - generic: "{ \"object\": \"PostgreSQL\", \"predicate\": \"authority_store\", \"subject\": \"current_project\" }"
+    - heading "版本时间线" [level=3]
+    - generic: v2
+    - paragraph:
+      - text: 当前项目使用PostgreSQL作为权威数据库。
+      - generic: 2026/10/20 13:15
+    - generic: v1
+    - paragraph:
+      - text: 当前项目使用CockroachDB作为权威数据库。
+      - generic: 2026/10/20 12:39
+    - button "忘记"
+    - button "物理清除"
+    - generic "经历摘要 个人范围 用户曾通过event_id去重解决Outbox重复消费。 当前 v1 2 个来源":
+      - generic: 经历摘要
+      - generic: 个人范围
+      - paragraph: 用户曾通过event_id去重解决Outbox重复消费。
+      - generic: 当前 v1
+      - generic: 2 个来源
+    - generic: 可影响
+    - strong: 参考相关历史经验
+    - generic: 事件时间
+    - strong: 2026年7月15日 12:00 — 2026年7月15日 18:00（时段，Asia/Shanghai）
+    - generic: 结构化内容
+    - generic: lazytt.episodic_summary · v1
+    - term: 事件类型
+    - definition: outbox_duplicate_consumption
+    - term: 结果
+    - definition: 通过event_id去重解决
+    - generic "查看原始 JSON" [active]
+    - generic: "{ \"event_kind\": \"outbox_duplicate_consumption\", \"outcome\": \"通过event_id去重解决\" }"
+    - heading "版本时间线" [level=3]
+    - generic: v1
+    - paragraph:
+      - text: 用户曾通过event_id去重解决Outbox重复消费。
+      - generic: 2026/10/20 13:15
+    - button "忘记"
+    - button "物理清除"
+    - generic "用户偏好 个人范围 用户偏好回答技术问题时先给一句结论，再列出要点。 当前 v1 2 个来源":
+      - generic: 用户偏好
+      - generic: 个人范围
+      - paragraph: 用户偏好回答技术问题时先给一句结论，再列出要点。
+      - generic: 当前 v1
+      - generic: 2 个来源
+    - generic: 可影响
+    - strong: 调整回答方式
+    - generic: 结构化内容
+    - generic: lazytt.preference · v1
+    - term: applicability
+    - definition: contextual
+    - term: 限定
+    - definition: 技术问题
+    - term: 主体
+    - definition: user
+    - term: 取值
+    - definition: 先给一句结论，再列出要点
+    - generic "查看原始 JSON"
+    - generic: "{ \"applicability\": \"contextual\", \"qualifier\": \"技术问题\", \"subject\": \"user\", \"value\": \"先给一句结论，再列出要点\" }"
+    - heading "版本时间线" [level=3]
+    - generic: v1
+    - paragraph:
+      - text: 用户偏好回答技术问题时先给一句结论，再列出要点。
+      - generic: 2026/10/20 13:15
+    - button "忘记"
+    - button "物理清除"
+    - generic "用户资料 个人范围 用户主要使用Rust。 当前 v1 2 个来源":
+      - generic: 用户资料
+      - generic: 个人范围
+      - paragraph: 用户主要使用Rust。
+      - generic: 当前 v1
+      - generic: 2 个来源
+    - generic: 可影响
+    - strong: 按用户背景个性化
+    - generic: 结构化内容
+    - generic: lazytt.profile_fact · v1
+    - term: 属性
+    - definition: language
+    - term: 主体
+    - definition: user
+    - term: 取值
+    - definition: Rust
+    - generic "查看原始 JSON"
+    - generic: "{ \"attribute\": \"language\", \"subject\": \"user\", \"value\": \"Rust\" }"
+    - heading "版本时间线" [level=3]
+    - generic: v1
+    - paragraph:
+      - text: 用户主要使用Rust。
+      - generic: 2026/10/20 13:15
+    - button "忘记"
+    - button "物理清除"
+    - generic: 另有 4 条争议中、已忘记或已清除记录
+    - generic: 权威档案
+    - strong: PostgreSQL
+    - generic: 搜索投影
+    - strong: Mem0

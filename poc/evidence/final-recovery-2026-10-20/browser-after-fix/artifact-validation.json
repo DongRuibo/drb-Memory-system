@@ -1,0 +1,14 @@
+{
+  "artifact_validation": "pass",
+  "case_count": 14,
+  "screenshot_count": 17,
+  "dom_snapshot_count": 17,
+  "checks": [
+    "JSON格式与phase正确",
+    "所有案例均有实际证据路径",
+    "17张JPEG与17份DOM快照存在且非空",
+    "正反例实际版本引用与结论一致",
+    "代码提交起止一致",
+    "未拆句补录、未重置、未物理清除"
+  ]
+}
