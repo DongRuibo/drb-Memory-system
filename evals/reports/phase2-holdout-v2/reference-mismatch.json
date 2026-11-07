@@ -1,0 +1,48 @@
+{
+  "id": "h24",
+  "variant": "before",
+  "result": [
+    {
+      "bm25_score": 17.030803337759224,
+      "memory_record_id": "8d9b8644-e4e2-569d-9708-432c81bd083a",
+      "memory_version_id": "ebc759a9-c19d-5987-af07-d26f240b32d6"
+    },
+    {
+      "bm25_score": 17.03080333775922,
+      "memory_record_id": "6a467cc7-6aad-5d66-9ca8-3a7cea54100b",
+      "memory_version_id": "394cf3d9-7c61-5430-9eed-d4b0f113204c"
+    },
+    {
+      "bm25_score": 4.981253223157603,
+      "memory_record_id": "4945136e-889d-512b-933c-58bed0cb3a14",
+      "memory_version_id": "b5ae03d7-ccdb-576c-a878-651e4fdf63aa"
+    },
+    {
+      "bm25_score": 4.981253223157603,
+      "memory_record_id": "c9629a57-4a74-5974-a643-3ed36ead588a",
+      "memory_version_id": "64314653-9715-5ff4-a1d7-99ea0298a8c5"
+    }
+  ],
+  "reference": [
+    {
+      "memory_version_id": "394cf3d9-7c61-5430-9eed-d4b0f113204c",
+      "memory_record_id": "6a467cc7-6aad-5d66-9ca8-3a7cea54100b",
+      "bm25_score": 17.03080333775922
+    },
+    {
+      "memory_version_id": "ebc759a9-c19d-5987-af07-d26f240b32d6",
+      "memory_record_id": "8d9b8644-e4e2-569d-9708-432c81bd083a",
+      "bm25_score": 17.03080333775922
+    },
+    {
+      "memory_version_id": "b5ae03d7-ccdb-576c-a878-651e4fdf63aa",
+      "memory_record_id": "4945136e-889d-512b-933c-58bed0cb3a14",
+      "bm25_score": 4.981253223157604
+    },
+    {
+      "memory_version_id": "64314653-9715-5ff4-a1d7-99ea0298a8c5",
+      "memory_record_id": "c9629a57-4a74-5974-a643-3ed36ead588a",
+      "bm25_score": 4.981253223157604
+    }
+  ]
+}

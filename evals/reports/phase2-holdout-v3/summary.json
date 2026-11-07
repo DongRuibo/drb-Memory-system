@@ -1,0 +1,54 @@
+{
+  "bm25": {
+    "recall_at_1": 0.65,
+    "recall_at_5": 0.9,
+    "mrr_at_10": 0.8125,
+    "ndcg_at_10": 0.8306128427182248,
+    "positive_n": 20,
+    "negative_n": 4,
+    "negative_any_hit_rate": 1.0,
+    "recall_at_5_query_bootstrap_95_ci": [
+      0.75,
+      1.0
+    ]
+  },
+  "vector_tfidf": {
+    "recall_at_1": 0.65,
+    "recall_at_5": 0.95,
+    "mrr_at_10": 0.8416666666666666,
+    "ndcg_at_10": 0.8635002288026211,
+    "positive_n": 20,
+    "negative_n": 4,
+    "negative_any_hit_rate": 1.0,
+    "recall_at_5_query_bootstrap_95_ci": [
+      0.85,
+      1.0
+    ]
+  },
+  "hybrid": {
+    "recall_at_1": 0.65,
+    "recall_at_5": 0.95,
+    "mrr_at_10": 0.8375,
+    "ndcg_at_10": 0.8600340567062907,
+    "positive_n": 20,
+    "negative_n": 4,
+    "negative_any_hit_rate": 1.0,
+    "recall_at_5_query_bootstrap_95_ci": [
+      0.85,
+      1.0
+    ]
+  },
+  "hybrid_rerank": {
+    "recall_at_1": 0.75,
+    "recall_at_5": 0.95,
+    "mrr_at_10": 0.9,
+    "ndcg_at_10": 0.9130929753571457,
+    "positive_n": 20,
+    "negative_n": 4,
+    "negative_any_hit_rate": 1.0,
+    "recall_at_5_query_bootstrap_95_ci": [
+      0.85,
+      1.0
+    ]
+  }
+}

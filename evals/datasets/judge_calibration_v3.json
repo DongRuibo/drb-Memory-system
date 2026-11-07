@@ -1,0 +1,802 @@
+{
+  "kind": "synthetic_scoring_contract_cases",
+  "human_review_status": "pending_final_confirmation",
+  "official_benchmark_score": false,
+  "cases": [
+    {
+      "id": "preference_rubric_positive",
+      "question": "What could Ada do this evening?",
+      "answers": [
+        "Recommend a quiet indoor activity reflecting an interest in chess; avoid traffic and crowds."
+      ],
+      "context": "Ada enjoys chess, prefers quiet indoor activities, and wants to avoid traffic noise and crowds.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Try a quiet indoor chess evening.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-preference",
+      "review_note": "补充明确的安静室内活动偏好，消除indoor推断歧义；预期true/true保持。",
+      "critical_checks": []
+    },
+    {
+      "id": "full_sentence",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada lives in Paris.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Ada lives in Paris.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留正确、有据；完整句与短答案语义等价。",
+      "critical_checks": []
+    },
+    {
+      "id": "synonym",
+      "question": "What does Ada drink with dinner?",
+      "answers": [
+        "sparkling water"
+      ],
+      "context": "Ada drinks plain sparkling water with dinner.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "carbonated water",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user",
+      "review_note": "用sparkling water/carbonated water替换有歧义的bike/bicycle；标签不变。",
+      "critical_checks": []
+    },
+    {
+      "id": "number_format",
+      "question": "How many files?",
+      "answers": [
+        "1000"
+      ],
+      "context": "There are 1000 files.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "1,000",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留正确、有据；英文千位分隔不改变数值。",
+      "critical_checks": []
+    },
+    {
+      "id": "date_format",
+      "question": "When did it start?",
+      "answers": [
+        "2024-02-01"
+      ],
+      "context": "It started on 2024-02-01.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "February 1, 2024",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留正确、有据；两种格式表示同一日期。",
+      "critical_checks": []
+    },
+    {
+      "id": "supported_explanation",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada has lived in Paris since 2020.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Paris, her home since 2020.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留正确、有据；附加2020年事实也得到证据支持。",
+      "critical_checks": []
+    },
+    {
+      "id": "invented_explanation",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada has lived in Paris continuously since 2020 and did not live there before 2020.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Paris, her home since 2019.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留错误、无据；明确2020年才开始且此前未居住，使附加2019年事实与证据直接矛盾，测试核心答案正确但完整回答错误。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "material_false_addition_marked_accurate"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "material_false_addition_marked_supported"
+        }
+      ]
+    },
+    {
+      "id": "decimal_error",
+      "question": "What is the dose in mg?",
+      "answers": [
+        "1.5"
+      ],
+      "context": "The dose is 1.5 mg.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "15",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留错误、无据；1.5与15相差十倍。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "decimal_error_marked_accurate"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "decimal_error_marked_supported"
+        }
+      ]
+    },
+    {
+      "id": "entity_swap",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada lives in Paris. Bea lives in Lyon.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Lyon",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留错误、无据；Lyon属于Bea，不能移到Ada。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "wrong_entity_marked_accurate"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "wrong_entity_marked_supported"
+        }
+      ]
+    },
+    {
+      "id": "correct_abstention",
+      "question": "Where does Ada live?",
+      "answers": [
+        "unknown"
+      ],
+      "context": "Ada likes chess.",
+      "unanswerable": true,
+      "prediction": {
+        "answer": "Insufficient evidence.",
+        "abstained": true,
+        "citations": []
+      },
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": null
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留正确拒答、supported=null；null为不适用，不代表无幻觉。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "correct_abstention_marked_incorrect"
+        },
+        {
+          "field": "supported",
+          "operator": "not_null",
+          "code": "correct_abstention_support_not_null"
+        }
+      ]
+    },
+    {
+      "id": "unsupported_guess",
+      "question": "Where does Ada live?",
+      "answers": [
+        "unknown"
+      ],
+      "context": "Ada likes chess.",
+      "unanswerable": true,
+      "prediction": {
+        "answer": "Paris",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留错误、无据；无答案题不能凭空猜测城市。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "unsupported_guess_marked_accurate"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "unsupported_guess_marked_supported"
+        }
+      ]
+    },
+    {
+      "id": "lucky_guess",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada likes chess.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Paris",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": false
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留正确、无据；准确性与证据支持分离。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "lucky_guess_marked_inaccurate"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "lucky_guess_marked_supported"
+        }
+      ]
+    },
+    {
+      "id": "arithmetic",
+      "question": "How many days in total?",
+      "answers": [
+        "17 days"
+      ],
+      "context": "The two breaks did not overlap: the first lasted 10 days and the second lasted 7 days.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "17 days",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user",
+      "review_note": "明确两段时间不重叠，排除重复计算歧义；保留正确、有据。",
+      "critical_checks": []
+    },
+    {
+      "id": "partial_answer",
+      "question": "Which two cities did Ada visit?",
+      "answers": [
+        "Paris and Lyon"
+      ],
+      "context": "Ada visited Paris and Lyon.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Paris",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": true
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留错误、有据；已陈述Paris属实，但遗漏必须回答的Lyon。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "partial_answer_marked_accurate"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "partial_answer_marked_unsupported"
+        }
+      ]
+    },
+    {
+      "id": "preference_rubric_negative",
+      "question": "What could Ada do this evening?",
+      "answers": [
+        "Recommend a quiet indoor activity reflecting an interest in chess; avoid traffic and crowds."
+      ],
+      "context": "Ada enjoys chess and wants to avoid traffic noise and crowds.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Attend the busy Red Square parade tonight.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-preference",
+      "review_note": "保留错误、无据；违背避开人群的偏好并暗示未提供依据的具体地点与今晚活动。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "constraint_violation_marked_accurate"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "constraint_violation_marked_supported"
+        }
+      ]
+    },
+    {
+      "id": "unnecessary_abstention",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada lives in Paris.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Insufficient evidence.",
+        "abstained": true,
+        "citations": []
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": null
+      },
+      "question_type": "single-session-user",
+      "review_note": "保留错误拒答、supported=null；证据明确却拒答属于未完成问题。",
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "unnecessary_abstention_marked_correct"
+        },
+        {
+          "field": "supported",
+          "operator": "not_null",
+          "code": "unnecessary_abstention_support_not_null"
+        }
+      ]
+    }
+  ],
+  "version": "judge-calibration-v3",
+  "derived_from": {
+    "path": "evals/datasets/judge_calibration_v2.json",
+    "sha256": "e6ba50bd599e149c2258c7aeb5055ab60607e6b598c1d71f23959d237aa03e0d"
+  },
+  "review_basis": "应用用户最后一次小范围修正：仅补充正例室内偏好事实及指定关键错误门禁；尚待最终授权，收费调用禁止。",
+  "paid_api_authorized": false,
+  "gate": {
+    "expected_cases": 16,
+    "minimum_complete_case_matches": 15,
+    "match_fields": [
+      "semantic_accuracy",
+      "supported"
+    ],
+    "null_support_is_required_for_abstentions": true,
+    "critical_error_tolerance": 0
+  },
+  "changes": [
+    {
+      "case_id": "preference_rubric_positive",
+      "changed_fields": {
+        "context": {
+          "before": "Ada enjoys chess and wants to avoid traffic noise and crowds.",
+          "after": "Ada enjoys chess, prefers quiet indoor activities, and wants to avoid traffic noise and crowds."
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "仅补充用户指定的室内偏好事实；标签不变。"
+    },
+    {
+      "case_id": "full_sentence",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "synonym",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "number_format",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "date_format",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "supported_explanation",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "invented_explanation",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "material_false_addition_marked_accurate"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "material_false_addition_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "material_false_addition_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "decimal_error",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "decimal_error_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "decimal_error_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "entity_swap",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "wrong_entity_marked_accurate"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "wrong_entity_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "wrong_entity_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "correct_abstention",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": false,
+              "code": "correct_abstention_marked_incorrect"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": false,
+              "code": "correct_abstention_marked_incorrect"
+            },
+            {
+              "field": "supported",
+              "operator": "not_null",
+              "code": "correct_abstention_support_not_null"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "unsupported_guess",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "unsupported_guess_marked_supported"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "unsupported_guess_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "unsupported_guess_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "lucky_guess",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "lucky_guess_marked_supported"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": false,
+              "code": "lucky_guess_marked_inaccurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "lucky_guess_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "arithmetic",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "partial_answer",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "partial_answer_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": false,
+              "code": "partial_answer_marked_unsupported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "preference_rubric_negative",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "constraint_violation_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "constraint_violation_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "unnecessary_abstention",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "unnecessary_abstention_marked_correct"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "unnecessary_abstention_marked_correct"
+            },
+            {
+              "field": "supported",
+              "operator": "not_null",
+              "code": "unnecessary_abstention_support_not_null"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    }
+  ]
+}

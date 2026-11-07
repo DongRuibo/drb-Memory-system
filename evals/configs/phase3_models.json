@@ -1,0 +1,83 @@
+{
+  "embedding": {
+    "model": "Qwen/Qwen3-Embedding-0.6B",
+    "requested_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "files": {
+      "tokenizer.json": {
+        "bytes": 11423705,
+        "sha256": "def76fb086971c7867b829c23a26261e38d9d74e02139253b38aeb9df8b4b50a",
+        "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/tokenizer.json"
+      },
+      "tokenizer_config.json": {
+        "bytes": 9706,
+        "sha256": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+        "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/tokenizer_config.json"
+      }
+    }
+  },
+  "reranker": {
+    "model": "Qwen/Qwen3-Reranker-0.6B",
+    "requested_revision": "e61197e",
+    "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+    "files": {
+      "tokenizer.json": {
+        "bytes": 11422654,
+        "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+        "url": "https://huggingface.co/Qwen/Qwen3-Reranker-0.6B/resolve/e61197ed45024b0ed8a2d74b80b4d909f1255473/tokenizer.json"
+      },
+      "tokenizer_config.json": {
+        "bytes": 9706,
+        "sha256": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+        "url": "https://huggingface.co/Qwen/Qwen3-Reranker-0.6B/resolve/e61197ed45024b0ed8a2d74b80b4d909f1255473/tokenizer_config.json"
+      }
+    }
+  },
+  "reader_tokenizer": {
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "requested_revision": "main",
+    "revision": "a7e62ac04ecb2c0a54d736dc46601c5606cf10a6",
+    "files": {
+      "tokenizer.json": {
+        "bytes": 7847502,
+        "sha256": "cd050be35cae877f8f0aa847f45aa87e23835a56ca32b29b28545597852784e5",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/resolve/a7e62ac04ecb2c0a54d736dc46601c5606cf10a6/tokenizer.json"
+      },
+      "tokenizer_config.json": {
+        "bytes": 795,
+        "sha256": "b5de6cc1c6758d02c0d3cec0efa062f1161654475458003f6f293f6ef28acdaa",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/resolve/a7e62ac04ecb2c0a54d736dc46601c5606cf10a6/tokenizer_config.json"
+      }
+    }
+  },
+  "reader": {
+    "provider": "SiliconFlow CN",
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "revision": "provider-managed alias; immutable serving revision unavailable",
+    "base_url": "https://api.siliconflow.cn/v1",
+    "availability": "publicly listed; account access not probed",
+    "temperature": 0,
+    "enable_thinking": false,
+    "thinking_budget": 128,
+    "max_tokens": 768
+  },
+  "embedding_parameters": {
+    "dimensions": 1024,
+    "normalization": "l2",
+    "input_type": [
+      "document",
+      "query"
+    ],
+    "instruction": "Given an agent memory query, retrieve user memories that are relevant to completing the current task",
+    "max_length": 4096,
+    "batch_size": 32,
+    "backend": "eval exact cosine; production pgvector/ANN not claimed",
+    "device": "mps",
+    "dtype": "torch.float32",
+    "torch_version": "2.9.1",
+    "transformers_version": "4.57.1",
+    "tokenizers_version": "0.22.1",
+    "pooling": "last_token_with_left_padding",
+    "add_special_tokens": true
+  }
+}

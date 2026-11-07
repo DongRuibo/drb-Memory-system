@@ -1,0 +1,147 @@
+{
+  "derived_from": {
+    "path": "evals/datasets/judge_calibration_v1.json",
+    "sha256": "93ab2e268dfa40a86a4fc38dee1f2c84789b34bed51b14b61bce598e97d560a1"
+  },
+  "changes": [
+    {
+      "case_id": "preference_rubric_positive",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留正确、有据；支持性指建议符合用户偏好及已有约束，不是证明某个活动真实存在。"
+    },
+    {
+      "case_id": "full_sentence",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留正确、有据；完整句与短答案语义等价。"
+    },
+    {
+      "case_id": "synonym",
+      "changed_fields": {
+        "question": {
+          "before": "What does Ada ride?",
+          "after": "What does Ada drink with dinner?"
+        },
+        "answers": {
+          "before": [
+            "bicycle"
+          ],
+          "after": [
+            "sparkling water"
+          ]
+        },
+        "context": {
+          "before": "Ada rides a bike.",
+          "after": "Ada drinks plain sparkling water with dinner."
+        },
+        "prediction": {
+          "before": {
+            "answer": "a bike",
+            "abstained": false,
+            "citations": [
+              "s"
+            ]
+          },
+          "after": {
+            "answer": "carbonated water",
+            "abstained": false,
+            "citations": [
+              "s"
+            ]
+          }
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "用sparkling water/carbonated water替换有歧义的bike/bicycle；标签不变。"
+    },
+    {
+      "case_id": "number_format",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留正确、有据；英文千位分隔不改变数值。"
+    },
+    {
+      "case_id": "date_format",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留正确、有据；两种格式表示同一日期。"
+    },
+    {
+      "case_id": "supported_explanation",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留正确、有据；附加2020年事实也得到证据支持。"
+    },
+    {
+      "case_id": "invented_explanation",
+      "changed_fields": {
+        "context": {
+          "before": "Ada moved to Paris in 2020.",
+          "after": "Ada has lived in Paris continuously since 2020 and did not live there before 2020."
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "保留错误、无据；明确2020年才开始且此前未居住，使附加2019年事实与证据直接矛盾，测试核心答案正确但完整回答错误。"
+    },
+    {
+      "case_id": "decimal_error",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留错误、无据；1.5与15相差十倍。"
+    },
+    {
+      "case_id": "entity_swap",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留错误、无据；Lyon属于Bea，不能移到Ada。"
+    },
+    {
+      "case_id": "correct_abstention",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留正确拒答、supported=null；null为不适用，不代表无幻觉。"
+    },
+    {
+      "case_id": "unsupported_guess",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留错误、无据；无答案题不能凭空猜测城市。"
+    },
+    {
+      "case_id": "lucky_guess",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留正确、无据；准确性与证据支持分离。"
+    },
+    {
+      "case_id": "arithmetic",
+      "changed_fields": {
+        "context": {
+          "before": "Two breaks lasted 10 days and 7 days.",
+          "after": "The two breaks did not overlap: the first lasted 10 days and the second lasted 7 days."
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "明确两段时间不重叠，排除重复计算歧义；保留正确、有据。"
+    },
+    {
+      "case_id": "partial_answer",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留错误、有据；已陈述Paris属实，但遗漏必须回答的Lyon。"
+    },
+    {
+      "case_id": "preference_rubric_negative",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留错误、无据；违背避开人群的偏好并暗示未提供依据的具体地点与今晚活动。"
+    },
+    {
+      "case_id": "unnecessary_abstention",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留错误拒答、supported=null；证据明确却拒答属于未完成问题。"
+    }
+  ]
+}

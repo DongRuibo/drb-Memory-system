@@ -1,0 +1,106 @@
+   Compiling memory-postgres v0.1.0 (/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/crates/memory-postgres)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.71s
+     Running unittests src/lib.rs (/tmp/drb-memory-eval-target/debug/deps/kimi_extractor-96b4897910db6a21)
+
+running 14 tests
+test tests::kimi_request_keeps_kimi_specific_fields ... ok
+test tests::controlled_coverage_requires_date_problem_dedup_and_resolution_evidence ... ok
+test tests::openai_compatible_request_uses_portable_json_mode_fields ... ok
+test tests::canonicalizes_observed_conclusion_first_aliases_for_exact_deduplication ... ok
+test tests::drops_low_confidence_and_deduplicates_identity_without_poisoning_batch ... ok
+test tests::diagnostics_count_rejected_and_degraded_model_candidates_without_content ... ok
+test tests::event_time_is_only_accepted_for_supported_episodic_evidence ... ok
+test tests::parses_and_sorts_bounded_candidates ... ok
+test tests::prompt_policy_requires_all_user_completed_actions_without_an_importance_gate ... ok
+test tests::reclassifies_common_model_type_drift_at_the_deterministic_boundary ... ok
+test tests::semantic_facts_require_service_authorization_and_higher_confidence ... ok
+test tests::structured_content_is_typed_and_invalid_structure_degrades_to_text ... ok
+test tests::controlled_coverage_adds_explicit_dated_outbox_experience_when_model_omits_it ... ok
+test tests::openai_compatible_urls_require_https_except_for_loopback ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (/tmp/drb-memory-eval-target/debug/deps/memory_application-6a522d08492fd662)
+
+running 21 tests
+test ranking::tests::explain_contribution_matches_weighted_rrf_formula ... ok
+test ranking::tests::rank_fusion_rewards_cross_source_agreement ... ok
+test ranking::tests::weighted_rank_fusion_can_prioritize_a_chinese_lexical_channel ... ok
+test ranking::tests::transparent_score_can_override_bad_provider_order_with_exact_evidence ... ok
+test ranking::tests::lexical_score_is_language_agnostic_and_deterministic ... ok
+test reranker::tests::transparent_reranker_retains_a_requested_preference_with_low_topical_score ... ok
+test reranker::tests::transparent_reranker_retains_temporally_selected_episode ... ok
+test reranker::tests::transparent_reranker_filters_irrelevant_candidates ... ok
+test reranker::tests::transparent_reranker_retains_explicitly_requested_memory_categories ... ok
+test temporal::tests::parses_explicit_day_month_quarter_and_year ... ok
+test security::tests::uuid_identifiers_are_not_mistaken_for_phone_or_card_numbers ... ok
+test temporal::tests::parses_current_year_numeric_month_without_shadowing_specific_dates ... ok
+test security::tests::blocks_injection_and_redacts_credentials ... ok
+test text::tests::normalization_is_nfkc_lowercase_and_whitespace_stable ... ok
+test security::tests::safety_guidance_is_not_treated_as_an_attack ... ok
+test temporal::tests::rejects_bad_timezone_and_out_of_range_window ... ok
+test temporal::tests::parses_relative_chinese_windows_in_asia_shanghai ... ok
+test security::tests::redacts_chinese_pii ... ok
+test security::tests::recursively_sanitizes_json_keys_and_values ... ok
+test security::tests::catches_obfuscated_injection_and_production_secrets ... ok
+test text::tests::tokenizes_chinese_for_search_and_drops_stop_words ... ok
+
+test result: ok. 21 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.87s
+
+     Running unittests src/lib.rs (/tmp/drb-memory-eval-target/debug/deps/memory_domain-6b498badafd1f576)
+
+running 14 tests
+test candidate::tests::final_decision_cannot_be_reversed ... ok
+test candidate::tests::only_accepted_candidate_is_indexable ... ok
+test memory::tests::both_projects_map_to_four_canonical_memory_types ... ok
+test memory::tests::canonical_policy_types_roll_up_to_two_cognitive_families ... ok
+test episode::tests::episode_coverage_is_monotonic_and_bounded ... ok
+test episode::tests::threshold_uses_only_unscheduled_completed_turns ... ok
+test memory::tests::forgotten_head_is_not_readable_or_reactivated ... ok
+test memory::tests::concurrent_revision_has_single_winner ... ok
+test scope::tests::project_scope_requires_scope_id ... ok
+test scope::tests::tenant_scope_rejects_scope_id ... ok
+test scope::tests::typed_scope_is_valid ... ok
+test event_time::tests::event_time_requires_a_valid_half_open_interval_and_timezone ... ok
+test structured_content::tests::rejects_unknown_nested_shape_and_unbounded_text ... ok
+test structured_content::tests::validates_each_v1_schema_and_rejects_type_drift ... ok
+
+test result: ok. 14 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/lib.rs (/tmp/drb-memory-eval-target/debug/deps/memory_postgres-9546f82ae4ec0cae)
+
+running 31 tests
+test repository::tests::chinese_bm25_prefers_exact_identifier_and_is_generation_bound ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::context_pack_consume_is_atomic_bound_and_idempotent ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::context_pack_retains_authorized_preference_below_topical_threshold ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::correction_appends_version_invalidates_pack_and_has_single_revision_winner ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::erasure_scrubs_canonical_content_and_completes_after_projection_receipt ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::exact_semantic_dedupe_reuses_record_and_attaches_sources_under_concurrency ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::export_is_authorized_and_expiry_is_fail_closed_and_projection_safe ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::extracted_semantic_fact_is_project_scoped_authorized_and_conflict_safe ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::context_budget_is_deterministic_and_conservative ... ok
+test repository::tests::extraction_snapshot_accepts_zero_candidates_and_rejects_duplicate_identity ... ok
+test repository::tests::context_memory_types_map_to_safe_sections ... ok
+test repository::tests::extraction_snapshot_freezes_first_result_and_persists_zero_candidates ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::ingest_redacts_pii_before_ledger_and_version_storage ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::content_hash_is_stable_and_prefixed ... ok
+test repository::tests::consume_hash_binds_pack_and_attempt ... ok
+test repository::tests::pinned_current_version_is_authorized_without_waiting_for_projection ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::correction_hash_binds_record_revision_and_content ... ok
+test repository::tests::derived_candidate_requires_normalized_identity_and_high_confidence ... ok
+test repository::tests::projection_generation_rebuild_switch_rollback_and_finalize_are_safe ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::projection_generation_names_are_strict_and_bounded ... ok
+test repository::tests::retrieval_explain_receipt_is_tenant_isolated_and_content_minimized ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::semantic_conflict_is_fail_closed_until_review_accept_or_reject ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::projection_model_manifest_hash_detects_drift ... ok
+test repository::tests::temporal_candidates_use_event_time_and_still_require_canonical_authorization ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::stable_ids_are_repeatable_and_purpose_specific ... ok
+test repository::tests::typed_scopes_intersect_authority_and_project_erasure_is_tracked ... ignored, requires a migrated local PostgreSQL configured by TEST_DATABASE_URL
+test repository::tests::review_hash_binds_candidate_revision_and_outcome ... ok
+test repository::tests::namespace_is_opaque_and_scope_bound ... ok
+test repository::tests::preference_semantic_key_normalizes_exact_and_key_value_preferences ... ok
+test repository::tests::context_pack_hash_binds_attempt_and_budget ... ok
+test repository::tests::lexical_retrieval_score_is_language_agnostic_and_deterministic ... ok
+
+test result: ok. 15 passed; 0 failed; 16 ignored; 0 measured; 0 filtered out; finished in 0.01s
+

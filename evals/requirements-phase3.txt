@@ -1,0 +1,2 @@
+# 仅用于离线 Token 计数；模型权重运行环境沿用 deploy/models/requirements.txt。
+tokenizers==0.22.1

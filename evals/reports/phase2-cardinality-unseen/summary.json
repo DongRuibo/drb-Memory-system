@@ -1,0 +1,32 @@
+{
+  "kind": "synthetic multi-tenant planner fixture, not benchmark score",
+  "source_question": "35a27287",
+  "target_documents": 827,
+  "copies": 11,
+  "total_projection_documents": 9924,
+  "input_ingestion": {
+    "input_documents": 827,
+    "indexed_documents": 827,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "memory_sample": "969.9MiB / 4.801GiB",
+  "variants": {
+    "before": {
+      "timeouts": 3,
+      "sql_p50_ms": 3000.880917
+    },
+    "materialized": {
+      "timeouts": 0,
+      "sql_p50_ms": 2912.138042
+    },
+    "materialized_uncached": {
+      "timeouts": 1,
+      "sql_p50_ms": 2938.5689159999997
+    },
+    "lateral": {
+      "timeouts": 0,
+      "sql_p50_ms": 2899.527458
+    }
+  }
+}

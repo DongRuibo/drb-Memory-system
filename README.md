@@ -67,3 +67,25 @@ Memory 业务入口由 `LAZYTT_MEMORY_HOST_BIND` 与 `LAZYTT_MEMORY_HOST_PORT` �
 业务代码和原有 SQLx [migrations](migrations/README.md) 保持原位置。
 `deploy/models/`、本机模型脚本及 governed 评测/投影脚本是独立开发工具，
 其 `.env` 与历史测试结果不属于本轮 `.env.local`/ECS 部署，不自动执行。
+
+## 可复现评测（独立 governed 开发工具）
+
+新增评测使用一次性 PostgreSQL，不连接当前部署或已有数据；模型 API 调用和费用上限均为 0。
+它复用 governed 的存储、BM25、RRF、透明重排和 Context Pack，不代表 `mem0_primary` 部署已完成业务验收。
+
+```bash
+python3 -m unittest discover -s evals/tests -v
+python3 -m evals.memory_eval --output evals/runs/local-001 --seed 20261106 --repeats 3
+```
+
+环境依赖、LongMemEval-S 子集复现命令、指标合同和结果边界见 [评测说明](evals/README.md)。
+Vector 对照为 TF-IDF，Formation/Reader 为本地规则；未冒充语义模型或官方排行榜成绩。
+[代码审计](docs/EVAL_AUDIT.md) · [Benchmark 核对](docs/EVAL_BENCHMARKS.md) · [性能发现](docs/EVAL_PERFORMANCE.md) · [面试材料](docs/EVAL_INTERVIEW.md)。
+
+第二阶段补充了 [逐题诊断与最小修复报告](docs/EVAL_PHASE2.md)：Oracle Evidence、
+上下文分数合同、BM25 执行计划和预备语句缓存、独立留出集及真实隔离 PG 集成测试。
+[后续真实模型执行条件与预算草案](docs/EVAL_REAL_MODELS_PLAN.md) 单列；本阶段模型 API 预算仍为 0。
+
+第三阶段的 [离线准备与锁定协议](docs/EVAL_PHASE3_PREPARATION.md) 已提供独立测试集、
+真实语义模型Adapter、Reader/Judge预算账本和冷/热性能复核。收费执行使用独立入口，
+必须在明确授权后启动；未运行的真实LLM成绩保持空缺。复现命令见 [evals/README](evals/README.md#第三阶段离线准备与待授权的真实模型实验)。

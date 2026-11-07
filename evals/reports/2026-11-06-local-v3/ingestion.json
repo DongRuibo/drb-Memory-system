@@ -1,0 +1,138 @@
+{
+  "self_constructed": {
+    "input_documents": 40,
+    "indexed_documents": 40,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "self_qa_formation": {
+    "input_documents": 14,
+    "indexed_documents": 14,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "19b5f2b3_abs": {
+    "input_documents": 827,
+    "indexed_documents": 827,
+    "redacted_documents": 1,
+    "rejected": []
+  },
+  "c6853660": {
+    "input_documents": 801,
+    "indexed_documents": 801,
+    "redacted_documents": 2,
+    "rejected": []
+  },
+  "37f165cf": {
+    "input_documents": 893,
+    "indexed_documents": 893,
+    "redacted_documents": 1,
+    "rejected": []
+  },
+  "51b23612": {
+    "input_documents": 795,
+    "indexed_documents": 795,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "1a1907b4": {
+    "input_documents": 842,
+    "indexed_documents": 842,
+    "redacted_documents": 1,
+    "rejected": []
+  },
+  "1faac195": {
+    "input_documents": 792,
+    "indexed_documents": 792,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "gpt4_2f584639": {
+    "input_documents": 781,
+    "indexed_documents": 779,
+    "redacted_documents": 0,
+    "rejected": [
+      {
+        "id": "sharegpt_kS6twK0_14:0:4",
+        "error": "validation failed: credential or secret-like content cannot enter the canonical ledger"
+      },
+      {
+        "id": "sharegpt_kS6twK0_14:0:5",
+        "error": "validation failed: credential or secret-like content cannot enter the canonical ledger"
+      }
+    ]
+  },
+  "c8090214_abs": {
+    "input_documents": 817,
+    "indexed_documents": 816,
+    "redacted_documents": 3,
+    "rejected": [
+      {
+        "id": "2cfd748e_5:3:0",
+        "error": "validation failed: prompt-injection content cannot enter the canonical ledger"
+      }
+    ]
+  },
+  "d7c942c3": {
+    "input_documents": 822,
+    "indexed_documents": 822,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "6cb6f249": {
+    "input_documents": 786,
+    "indexed_documents": 784,
+    "redacted_documents": 2,
+    "rejected": [
+      {
+        "id": "cbe70f21:9:1",
+        "error": "validation failed: prompt-injection content cannot enter the canonical ledger"
+      },
+      {
+        "id": "sharegpt_h0un5Rm_167:0:0",
+        "error": "validation failed: credential or secret-like content cannot enter the canonical ledger"
+      }
+    ]
+  },
+  "1b9b7252": {
+    "input_documents": 784,
+    "indexed_documents": 777,
+    "redacted_documents": 4,
+    "rejected": [
+      {
+        "id": "0e726047:3:0",
+        "error": "validation failed: prompt-injection content cannot enter the canonical ledger"
+      },
+      {
+        "id": "b5263ca4_1:3:1",
+        "error": "validation failed: prompt-injection content cannot enter the canonical ledger"
+      },
+      {
+        "id": "sharegpt_qdSOdaF_8:0:3",
+        "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+      },
+      {
+        "id": "sharegpt_qdSOdaF_8:0:4",
+        "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+      },
+      {
+        "id": "sharegpt_qdSOdaF_8:0:5",
+        "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+      },
+      {
+        "id": "sharegpt_qdSOdaF_8:0:6",
+        "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+      },
+      {
+        "id": "sharegpt_qdSOdaF_8:0:7",
+        "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+      }
+    ]
+  },
+  "35a27287": {
+    "input_documents": 827,
+    "indexed_documents": 827,
+    "redacted_documents": 0,
+    "rejected": []
+  }
+}

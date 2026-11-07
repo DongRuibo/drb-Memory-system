@@ -1,0 +1,1622 @@
+[
+  {
+    "id": "qa0",
+    "method": "hybrid_rerank",
+    "query": "我住在哪个城市？",
+    "prediction": {
+      "text": "我住在成都",
+      "refused": false,
+      "citations": [
+        "b796eab8-8412-598c-bb45-725e1d3af175"
+      ]
+    },
+    "labels": {
+      "id": "qa0",
+      "query": "我住在哪个城市？",
+      "answers": [
+        "我住在成都。"
+      ],
+      "qrels": {
+        "residence": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "residence"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 37,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:fffa7f03adaae16ea2c1e49eeb728750cbf342c645f82f371f479aa96a44893c",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "abb4896a-54a5-566c-8060-ee6353417eb2",
+        "memory_version_id": "b796eab8-8412-598c-bb45-725e1d3af175",
+        "provider_object_id": "local-bm25:b796eab8-8412-598c-bb45-725e1d3af175",
+        "provider_score": 0.6123214285714286
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:fffa7f03adaae16ea2c1e49eeb728750cbf342c645f82f371f479aa96a44893c",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "abb4896a-54a5-566c-8060-ee6353417eb2",
+        "memory_version_id": "b796eab8-8412-598c-bb45-725e1d3af175",
+        "provider_object_id": "local-bm25:b796eab8-8412-598c-bb45-725e1d3af175",
+        "provider_score": 0.6123214285714286
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "abb4896a-54a5-566c-8060-ee6353417eb2",
+        "memory_version_id": "b796eab8-8412-598c-bb45-725e1d3af175",
+        "source_refs": [
+          "eval://cbe12171476e072d092aba6b8d26f1168a8919750ea40ed819578e49dacc97b0"
+        ],
+        "text": "我住在成都",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000333,
+    "context_ms": 23.780875,
+    "reader_ms": 0.214125,
+    "retrieval_ms": 14.69125,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa1",
+    "method": "hybrid_rerank",
+    "query": "我的职业是什么？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa1",
+      "query": "我的职业是什么？",
+      "answers": [
+        "我是后端工程师。"
+      ],
+      "qrels": {
+        "job": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 127,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "eval-tfidf:editor.0",
+        "provider_score": 0.48750960061443926
+      },
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "eval-tfidf:pet.0",
+        "provider_score": 0.4772142857142857
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "eval-tfidf:meeting.0",
+        "provider_score": 0.4541865079365079
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "eval-tfidf:editor.0",
+        "provider_score": 0.48750960061443926
+      },
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "eval-tfidf:pet.0",
+        "provider_score": 0.4772142857142857
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "eval-tfidf:meeting.0",
+        "provider_score": 0.4541865079365079
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "source_refs": [
+          "eval://a2ed4c5a52c78b0974aa2c8737ef15b5e589a3de13f973487a44b086bfb7aac2"
+        ],
+        "text": "我的编辑器是 Neovim",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "source_refs": [
+          "eval://2e7253d253422381ff7cfe2f4913ee1db5697815970c6050159bdf290b1bc490"
+        ],
+        "text": "我的猫叫豆包",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "source_refs": [
+          "eval://ae076e4a6b45df344f61c438adc9a1aa3d33c23b00c781c263dabb7b17076fef"
+        ],
+        "text": "我的周会在星期二上午十点",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000125,
+    "context_ms": 17.084583,
+    "reader_ms": 0.032458,
+    "retrieval_ms": 19.03775,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa2",
+    "method": "hybrid_rerank",
+    "query": "我用什么语言开发服务？",
+    "prediction": {
+      "text": "我使用 Rust 开发服务",
+      "refused": false,
+      "citations": [
+        "708c31b1-25a1-58fe-a44f-d6d01dadc631"
+      ]
+    },
+    "labels": {
+      "id": "qa2",
+      "query": "我用什么语言开发服务？",
+      "answers": [
+        "我使用 Rust 开发服务。"
+      ],
+      "qrels": {
+        "language": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "language"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 45,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:ea92524671703e987c72d08dd4786a67e5b239ae599f31d0cdaa15b0f49f8e8a",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "127df0b8-d761-507b-9652-8e84ae396540",
+        "memory_version_id": "708c31b1-25a1-58fe-a44f-d6d01dadc631",
+        "provider_object_id": "local-bm25:708c31b1-25a1-58fe-a44f-d6d01dadc631",
+        "provider_score": 0.5861666666666667
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:ea92524671703e987c72d08dd4786a67e5b239ae599f31d0cdaa15b0f49f8e8a",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "127df0b8-d761-507b-9652-8e84ae396540",
+        "memory_version_id": "708c31b1-25a1-58fe-a44f-d6d01dadc631",
+        "provider_object_id": "local-bm25:708c31b1-25a1-58fe-a44f-d6d01dadc631",
+        "provider_score": 0.5861666666666667
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "127df0b8-d761-507b-9652-8e84ae396540",
+        "memory_version_id": "708c31b1-25a1-58fe-a44f-d6d01dadc631",
+        "source_refs": [
+          "eval://64f888e942297f8be762ea4c0b0d019c0b3cb7902ff34be3e74b4b314b9034ab"
+        ],
+        "text": "我使用 Rust 开发服务",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000125,
+    "context_ms": 15.21975,
+    "reader_ms": 0.024042,
+    "retrieval_ms": 14.707583,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa3",
+    "method": "hybrid_rerank",
+    "query": "我不喜欢吃什么？",
+    "prediction": {
+      "text": "我不喜欢香菜",
+      "refused": false,
+      "citations": [
+        "8aa34677-d320-57b9-9ea2-a2e1c9abd2af"
+      ]
+    },
+    "labels": {
+      "id": "qa3",
+      "query": "我不喜欢吃什么？",
+      "answers": [
+        "我不喜欢香菜。"
+      ],
+      "qrels": {
+        "food": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 3,
+    "context_estimated_tokens": 112,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:3455d763175756dfd9f4e1d9e683a9ce3bcaa39fcf3b2a978c8f90c52b4f37ca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_object_id": "local-bm25:8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_score": 0.6759285714285714
+      },
+      {
+        "content_hash": "sha256:5dfdfbb2fc843bf860450d9bbbe5b2548f9ee8f1277f5c7b4af8a449aed90127",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_object_id": "local-bm25:cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_score": 0.5147589650388787
+      },
+      {
+        "content_hash": "sha256:58b6db2d99e949d11f1133ca58ff2b2cac226df9cd3ac2fa4ee9b554b30e49d9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_object_id": "local-bm25:d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_score": 0.5143776197025447
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:3455d763175756dfd9f4e1d9e683a9ce3bcaa39fcf3b2a978c8f90c52b4f37ca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_object_id": "local-bm25:8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_score": 0.6759285714285714
+      },
+      {
+        "content_hash": "sha256:5dfdfbb2fc843bf860450d9bbbe5b2548f9ee8f1277f5c7b4af8a449aed90127",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_object_id": "local-bm25:cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_score": 0.5147589650388787
+      },
+      {
+        "content_hash": "sha256:58b6db2d99e949d11f1133ca58ff2b2cac226df9cd3ac2fa4ee9b554b30e49d9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_object_id": "local-bm25:d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_score": 0.5143776197025447
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "source_refs": [
+          "eval://8f124406503867eca4fa2af4333b68a06f85d33aef3940f48a07fef10a1da798"
+        ],
+        "text": "我不喜欢香菜",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "source_refs": [
+          "eval://f16eaddb4f908e4a8591ed335bcbc0b15dc85f10ae5e5cc1652a80524a3bd1bf"
+        ],
+        "text": "我喜欢游泳",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "source_refs": [
+          "eval://1709be23eda52b6d4674fd2e44ec64cc993419ad9037d762ab042940fd52ad4a"
+        ],
+        "text": "我喜欢拿铁",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000208,
+    "context_ms": 17.473792,
+    "reader_ms": 0.0295,
+    "retrieval_ms": 20.003583,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa4",
+    "method": "hybrid_rerank",
+    "query": "我喜欢什么咖啡？",
+    "prediction": {
+      "text": "我喜欢游泳",
+      "refused": false,
+      "citations": [
+        "cb075ad6-3e31-5350-abcb-8e3aa5312d0b"
+      ]
+    },
+    "labels": {
+      "id": "qa4",
+      "query": "我喜欢什么咖啡？",
+      "answers": [
+        "我喜欢拿铁。"
+      ],
+      "qrels": {
+        "drink": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 3,
+    "context_estimated_tokens": 112,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:5dfdfbb2fc843bf860450d9bbbe5b2548f9ee8f1277f5c7b4af8a449aed90127",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_object_id": "local-bm25:cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_score": 0.6096957721573251
+      },
+      {
+        "content_hash": "sha256:58b6db2d99e949d11f1133ca58ff2b2cac226df9cd3ac2fa4ee9b554b30e49d9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_object_id": "local-bm25:d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_score": 0.6063782761166482
+      },
+      {
+        "content_hash": "sha256:3455d763175756dfd9f4e1d9e683a9ce3bcaa39fcf3b2a978c8f90c52b4f37ca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_object_id": "local-bm25:8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_score": 0.49688396503887877
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:5dfdfbb2fc843bf860450d9bbbe5b2548f9ee8f1277f5c7b4af8a449aed90127",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_object_id": "local-bm25:cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_score": 0.6096957721573251
+      },
+      {
+        "content_hash": "sha256:58b6db2d99e949d11f1133ca58ff2b2cac226df9cd3ac2fa4ee9b554b30e49d9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_object_id": "local-bm25:d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_score": 0.6063782761166482
+      },
+      {
+        "content_hash": "sha256:3455d763175756dfd9f4e1d9e683a9ce3bcaa39fcf3b2a978c8f90c52b4f37ca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_object_id": "local-bm25:8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_score": 0.49688396503887877
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "source_refs": [
+          "eval://f16eaddb4f908e4a8591ed335bcbc0b15dc85f10ae5e5cc1652a80524a3bd1bf"
+        ],
+        "text": "我喜欢游泳",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "source_refs": [
+          "eval://1709be23eda52b6d4674fd2e44ec64cc993419ad9037d762ab042940fd52ad4a"
+        ],
+        "text": "我喜欢拿铁",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "source_refs": [
+          "eval://8f124406503867eca4fa2af4333b68a06f85d33aef3940f48a07fef10a1da798"
+        ],
+        "text": "我不喜欢香菜",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000208,
+    "context_ms": 16.437166,
+    "reader_ms": 0.028417,
+    "retrieval_ms": 19.560833,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa5",
+    "method": "hybrid_rerank",
+    "query": "我有什么运动爱好？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa5",
+      "query": "我有什么运动爱好？",
+      "answers": [
+        "我喜欢游泳。"
+      ],
+      "qrels": {
+        "sport": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "raw_hits": [],
+    "context_ranked_hits": [],
+    "context_items": [],
+    "omission_summary": {},
+    "relevance_ms": 0.00025,
+    "context_ms": 12.496208,
+    "reader_ms": 0.018667,
+    "retrieval_ms": 10.312042,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa6",
+    "method": "hybrid_rerank",
+    "query": "我的代码编辑器叫什么？",
+    "prediction": {
+      "text": "我的编辑器是 Neovim",
+      "refused": false,
+      "citations": [
+        "3fb21ca9-3211-585e-af81-30a0fbf45baa"
+      ]
+    },
+    "labels": {
+      "id": "qa6",
+      "query": "我的代码编辑器叫什么？",
+      "answers": [
+        "我的编辑器是 Neovim。"
+      ],
+      "qrels": {
+        "editor": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "editor"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 45,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "local-bm25:3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_score": 0.5666666666666667
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "local-bm25:3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_score": 0.5666666666666667
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "source_refs": [
+          "eval://a2ed4c5a52c78b0974aa2c8737ef15b5e589a3de13f973487a44b086bfb7aac2"
+        ],
+        "text": "我的编辑器是 Neovim",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000167,
+    "context_ms": 14.56675,
+    "reader_ms": 0.026167,
+    "retrieval_ms": 19.69975,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa7",
+    "method": "hybrid_rerank",
+    "query": "我的猫叫什么名字？",
+    "prediction": {
+      "text": "我的猫叫豆包",
+      "refused": false,
+      "citations": [
+        "d858140f-fc71-5c96-a217-5801b2a158a9"
+      ]
+    },
+    "labels": {
+      "id": "qa7",
+      "query": "我的猫叫什么名字？",
+      "answers": [
+        "我的猫叫豆包。"
+      ],
+      "qrels": {
+        "pet": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "pet"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 38,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "local-bm25:d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_score": 0.6619999999999999
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "local-bm25:d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_score": 0.6619999999999999
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "source_refs": [
+          "eval://2e7253d253422381ff7cfe2f4913ee1db5697815970c6050159bdf290b1bc490"
+        ],
+        "text": "我的猫叫豆包",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000208,
+    "context_ms": 14.754208,
+    "reader_ms": 0.02175,
+    "retrieval_ms": 19.330334,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa8",
+    "method": "hybrid_rerank",
+    "query": "我的周会是什么时间？",
+    "prediction": {
+      "text": "我的周会在星期二上午十点",
+      "refused": false,
+      "citations": [
+        "e6509436-c569-5a49-9cef-60661009139b"
+      ]
+    },
+    "labels": {
+      "id": "qa8",
+      "query": "我的周会是什么时间？",
+      "answers": [
+        "我的周会在星期二上午十点。"
+      ],
+      "qrels": {
+        "meeting": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "meeting"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 44,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "local-bm25:e6509436-c569-5a49-9cef-60661009139b",
+        "provider_score": 0.5707291666666666
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "local-bm25:e6509436-c569-5a49-9cef-60661009139b",
+        "provider_score": 0.5707291666666666
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "source_refs": [
+          "eval://ae076e4a6b45df344f61c438adc9a1aa3d33c23b00c781c263dabb7b17076fef"
+        ],
+        "text": "我的周会在星期二上午十点",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 8.3e-05,
+    "context_ms": 14.189666,
+    "reader_ms": 0.03475,
+    "retrieval_ms": 19.211292,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa9",
+    "method": "hybrid_rerank",
+    "query": "我星期三怎么去上班？",
+    "prediction": {
+      "text": "我在星期三乘地铁上班",
+      "refused": false,
+      "citations": [
+        "60785184-0375-57a5-993d-db9959aab411"
+      ]
+    },
+    "labels": {
+      "id": "qa9",
+      "query": "我星期三怎么去上班？",
+      "answers": [
+        "我在星期三乘地铁上班。"
+      ],
+      "qrels": {
+        "commute": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "commute",
+      "meeting"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 2,
+    "context_estimated_tokens": 86,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:2e522bd4aaccd7c8c563cce4efdb2e1f7d55571ddc111575b1e53296d53b995c",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "1665ae41-96be-5c2e-b0ca-f76a6485c3ea",
+        "memory_version_id": "60785184-0375-57a5-993d-db9959aab411",
+        "provider_object_id": "local-bm25:60785184-0375-57a5-993d-db9959aab411",
+        "provider_score": 0.6140625
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "local-bm25:e6509436-c569-5a49-9cef-60661009139b",
+        "provider_score": 0.47278535779778275
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:2e522bd4aaccd7c8c563cce4efdb2e1f7d55571ddc111575b1e53296d53b995c",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "1665ae41-96be-5c2e-b0ca-f76a6485c3ea",
+        "memory_version_id": "60785184-0375-57a5-993d-db9959aab411",
+        "provider_object_id": "local-bm25:60785184-0375-57a5-993d-db9959aab411",
+        "provider_score": 0.6140625
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "local-bm25:e6509436-c569-5a49-9cef-60661009139b",
+        "provider_score": 0.47278535779778275
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "1665ae41-96be-5c2e-b0ca-f76a6485c3ea",
+        "memory_version_id": "60785184-0375-57a5-993d-db9959aab411",
+        "source_refs": [
+          "eval://628e203e94c0eaf0f5ea5df353a109608dc7b530092c97b717486b4fdda9aa04"
+        ],
+        "text": "我在星期三乘地铁上班",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "source_refs": [
+          "eval://ae076e4a6b45df344f61c438adc9a1aa3d33c23b00c781c263dabb7b17076fef"
+        ],
+        "text": "我的周会在星期二上午十点",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000125,
+    "context_ms": 15.298167,
+    "reader_ms": 0.031,
+    "retrieval_ms": 19.419875,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa10",
+    "method": "hybrid_rerank",
+    "query": "我昨天到访了哪里？",
+    "prediction": {
+      "text": "我昨天去了重庆",
+      "refused": false,
+      "citations": [
+        "4d27f340-3bda-5e28-9eb5-891c0454bd21"
+      ]
+    },
+    "labels": {
+      "id": "qa10",
+      "query": "我昨天到访了哪里？",
+      "answers": [
+        "我昨天去了重庆。"
+      ],
+      "qrels": {
+        "trip": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "trip"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 39,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:269830d749f52b2bf6ff4f5139230ab39557c90e15b22119262fac938f6841c5",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "7b775309-4466-5458-a644-e33501719bcc",
+        "memory_version_id": "4d27f340-3bda-5e28-9eb5-891c0454bd21",
+        "provider_object_id": "local-bm25:4d27f340-3bda-5e28-9eb5-891c0454bd21",
+        "provider_score": 0.5666666666666667
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:269830d749f52b2bf6ff4f5139230ab39557c90e15b22119262fac938f6841c5",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "7b775309-4466-5458-a644-e33501719bcc",
+        "memory_version_id": "4d27f340-3bda-5e28-9eb5-891c0454bd21",
+        "provider_object_id": "local-bm25:4d27f340-3bda-5e28-9eb5-891c0454bd21",
+        "provider_score": 0.5666666666666667
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "7b775309-4466-5458-a644-e33501719bcc",
+        "memory_version_id": "4d27f340-3bda-5e28-9eb5-891c0454bd21",
+        "source_refs": [
+          "eval://efbe2d7aac3bf744413e881162acc20c7e9b66b315c29294c50e1bbe22d2602b"
+        ],
+        "text": "我昨天去了重庆",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000125,
+    "context_ms": 13.618375,
+    "reader_ms": 0.018625,
+    "retrieval_ms": 12.02875,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa11",
+    "method": "hybrid_rerank",
+    "query": "我通过了什么考试？",
+    "prediction": {
+      "text": "我已经通过数据库考试",
+      "refused": false,
+      "citations": [
+        "d5573300-1d2e-5354-a3d0-da1098b1716b"
+      ]
+    },
+    "labels": {
+      "id": "qa11",
+      "query": "我通过了什么考试？",
+      "answers": [
+        "我已经通过数据库考试。"
+      ],
+      "qrels": {
+        "exam": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "exam"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 42,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:1891aa452b14f6240f8c5f2d33781fbac0e3a3816d07117b42b7b48c4d8d7f7b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "14d159f7-ee50-5bbb-8333-27a81c2e00ea",
+        "memory_version_id": "d5573300-1d2e-5354-a3d0-da1098b1716b",
+        "provider_object_id": "local-bm25:d5573300-1d2e-5354-a3d0-da1098b1716b",
+        "provider_score": 0.5740178571428571
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:1891aa452b14f6240f8c5f2d33781fbac0e3a3816d07117b42b7b48c4d8d7f7b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "14d159f7-ee50-5bbb-8333-27a81c2e00ea",
+        "memory_version_id": "d5573300-1d2e-5354-a3d0-da1098b1716b",
+        "provider_object_id": "local-bm25:d5573300-1d2e-5354-a3d0-da1098b1716b",
+        "provider_score": 0.5740178571428571
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "14d159f7-ee50-5bbb-8333-27a81c2e00ea",
+        "memory_version_id": "d5573300-1d2e-5354-a3d0-da1098b1716b",
+        "source_refs": [
+          "eval://8a6c36978c436355f7bad01dcbb1f373c8c83b581f069b84b35abd3e5f14a021"
+        ],
+        "text": "我已经通过数据库考试",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000125,
+    "context_ms": 13.359625,
+    "reader_ms": 0.020792,
+    "retrieval_ms": 15.167083,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa_neg0",
+    "method": "hybrid_rerank",
+    "query": "我的银行卡号是什么？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa_neg0",
+      "query": "我的银行卡号是什么？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    "retrieved": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 127,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "eval-tfidf:pet.0",
+        "provider_score": 0.4648333333333333
+      },
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "eval-tfidf:editor.0",
+        "provider_score": 0.45404233870967736
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "eval-tfidf:meeting.0",
+        "provider_score": 0.42690972222222223
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "eval-tfidf:pet.0",
+        "provider_score": 0.4648333333333333
+      },
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "eval-tfidf:editor.0",
+        "provider_score": 0.45404233870967736
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "eval-tfidf:meeting.0",
+        "provider_score": 0.42690972222222223
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "source_refs": [
+          "eval://2e7253d253422381ff7cfe2f4913ee1db5697815970c6050159bdf290b1bc490"
+        ],
+        "text": "我的猫叫豆包",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "source_refs": [
+          "eval://a2ed4c5a52c78b0974aa2c8737ef15b5e589a3de13f973487a44b086bfb7aac2"
+        ],
+        "text": "我的编辑器是 Neovim",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "source_refs": [
+          "eval://ae076e4a6b45df344f61c438adc9a1aa3d33c23b00c781c263dabb7b17076fef"
+        ],
+        "text": "我的周会在星期二上午十点",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000208,
+    "context_ms": 15.504958,
+    "reader_ms": 0.0285,
+    "retrieval_ms": 20.104458,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa_neg1",
+    "method": "hybrid_rerank",
+    "query": "我最喜欢哪支足球队？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa_neg1",
+      "query": "我最喜欢哪支足球队？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    "retrieved": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 112,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:5dfdfbb2fc843bf860450d9bbbe5b2548f9ee8f1277f5c7b4af8a449aed90127",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_object_id": "local-bm25:cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_score": 0.5017493435858964
+      },
+      {
+        "content_hash": "sha256:58b6db2d99e949d11f1133ca58ff2b2cac226df9cd3ac2fa4ee9b554b30e49d9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_object_id": "local-bm25:d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_score": 0.4984318475452196
+      },
+      {
+        "content_hash": "sha256:3455d763175756dfd9f4e1d9e683a9ce3bcaa39fcf3b2a978c8f90c52b4f37ca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_object_id": "local-bm25:8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_score": 0.4783125364674502
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:5dfdfbb2fc843bf860450d9bbbe5b2548f9ee8f1277f5c7b4af8a449aed90127",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_object_id": "local-bm25:cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_score": 0.5017493435858964
+      },
+      {
+        "content_hash": "sha256:58b6db2d99e949d11f1133ca58ff2b2cac226df9cd3ac2fa4ee9b554b30e49d9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_object_id": "local-bm25:d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_score": 0.4984318475452196
+      },
+      {
+        "content_hash": "sha256:3455d763175756dfd9f4e1d9e683a9ce3bcaa39fcf3b2a978c8f90c52b4f37ca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_object_id": "local-bm25:8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_score": 0.4783125364674502
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "source_refs": [
+          "eval://f16eaddb4f908e4a8591ed335bcbc0b15dc85f10ae5e5cc1652a80524a3bd1bf"
+        ],
+        "text": "我喜欢游泳",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "source_refs": [
+          "eval://1709be23eda52b6d4674fd2e44ec64cc993419ad9037d762ab042940fd52ad4a"
+        ],
+        "text": "我喜欢拿铁",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "source_refs": [
+          "eval://8f124406503867eca4fa2af4333b68a06f85d33aef3940f48a07fef10a1da798"
+        ],
+        "text": "我不喜欢香菜",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000125,
+    "context_ms": 17.340334,
+    "reader_ms": 0.026708,
+    "retrieval_ms": 22.113375,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa_neg2",
+    "method": "hybrid_rerank",
+    "query": "我的生日在哪一天？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa_neg2",
+      "query": "我的生日在哪一天？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    "retrieved": [
+      "pet",
+      "meeting",
+      "editor"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 127,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "eval-tfidf:pet.0",
+        "provider_score": 0.47024999999999995
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "eval-tfidf:meeting.0",
+        "provider_score": 0.46308531746031745
+      },
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "eval-tfidf:editor.0",
+        "provider_score": 0.44417626728110593
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "eval-tfidf:pet.0",
+        "provider_score": 0.47024999999999995
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "eval-tfidf:meeting.0",
+        "provider_score": 0.46308531746031745
+      },
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "eval-tfidf:editor.0",
+        "provider_score": 0.44417626728110593
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "source_refs": [
+          "eval://2e7253d253422381ff7cfe2f4913ee1db5697815970c6050159bdf290b1bc490"
+        ],
+        "text": "我的猫叫豆包",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "source_refs": [
+          "eval://ae076e4a6b45df344f61c438adc9a1aa3d33c23b00c781c263dabb7b17076fef"
+        ],
+        "text": "我的周会在星期二上午十点",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "source_refs": [
+          "eval://a2ed4c5a52c78b0974aa2c8737ef15b5e589a3de13f973487a44b086bfb7aac2"
+        ],
+        "text": "我的编辑器是 Neovim",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000125,
+    "context_ms": 15.74125,
+    "reader_ms": 0.034708,
+    "retrieval_ms": 19.114709,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa_neg3",
+    "method": "hybrid_rerank",
+    "query": "我养的狗是什么品种？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa_neg3",
+      "query": "我养的狗是什么品种？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "raw_hits": [],
+    "context_ranked_hits": [],
+    "context_items": [],
+    "omission_summary": {},
+    "relevance_ms": 0.000125,
+    "context_ms": 11.786625,
+    "reader_ms": 0.0125,
+    "retrieval_ms": 11.253167,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false
+  },
+  {
+    "id": "updated-home",
+    "method": "hybrid_rerank",
+    "query": "我住在哪个城市？",
+    "prediction": {
+      "text": "我住在深圳。",
+      "refused": false,
+      "citations": [
+        "5fdcdc86-452c-5591-aee1-b950a7386885"
+      ]
+    },
+    "labels": {
+      "answers": [
+        "我住在深圳。"
+      ],
+      "unanswerable": false,
+      "qrels": {
+        "home": 1
+      },
+      "stale_facts": [
+        "我住在成都"
+      ]
+    },
+    "retrieved": [
+      "home"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 38,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:03efafa095e456496effea6072cc356b40f0f38f8dcd53163f3d835bb9a1e967",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 1,
+        "memory_record_id": "4a1024dd-072f-5790-8ad5-12982040ecdc",
+        "memory_version_id": "5fdcdc86-452c-5591-aee1-b950a7386885",
+        "provider_object_id": "local-bm25:5fdcdc86-452c-5591-aee1-b950a7386885",
+        "provider_score": 0.6123214285714286
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:03efafa095e456496effea6072cc356b40f0f38f8dcd53163f3d835bb9a1e967",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 1,
+        "memory_record_id": "4a1024dd-072f-5790-8ad5-12982040ecdc",
+        "memory_version_id": "5fdcdc86-452c-5591-aee1-b950a7386885",
+        "provider_object_id": "local-bm25:5fdcdc86-452c-5591-aee1-b950a7386885",
+        "provider_score": 0.6123214285714286
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": "2026-01-01T00:00:00Z",
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "4a1024dd-072f-5790-8ad5-12982040ecdc",
+        "memory_version_id": "5fdcdc86-452c-5591-aee1-b950a7386885",
+        "source_refs": [
+          "eval://eval-home-correction-v1"
+        ],
+        "text": "我住在深圳。",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000209,
+    "context_ms": 14.280792,
+    "reader_ms": 0.021958,
+    "retrieval_ms": 15.282041,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "self_governance_dynamic"
+  },
+  {
+    "id": "forgotten-home",
+    "method": "hybrid_rerank",
+    "query": "我住在哪个城市？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "answers": [],
+      "unanswerable": true,
+      "qrels": {},
+      "stale_facts": [
+        "我住在成都",
+        "我住在深圳",
+        "我住在北京"
+      ]
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "raw_hits": [],
+    "context_ranked_hits": [],
+    "context_items": [],
+    "omission_summary": {},
+    "relevance_ms": 0.000292,
+    "context_ms": 11.327625,
+    "reader_ms": 0.012375,
+    "retrieval_ms": 10.033375,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false,
+    "benchmark": "self_governance_dynamic"
+  }
+]

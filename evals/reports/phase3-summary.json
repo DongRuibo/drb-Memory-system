@@ -1,0 +1,270 @@
+{
+  "status": "offline_preparation_complete_waiting_for_paid_authorization",
+  "paid_api_calls": 0,
+  "actual_paid_cost_cny": 0,
+  "local_embedding_inference_requests": 32,
+  "local_embedding_input_texts": 220,
+  "public_test": {
+    "questions": 14,
+    "positive": 12,
+    "unanswerable": 2,
+    "predictions_run": 0,
+    "lock_seal": "c609995fec7af4e3615cdf8e1aa333b1651aad43d355dbe7fe49720b2bc0e876",
+    "session_overlap_with_dev": 0,
+    "real_reader_results": null,
+    "real_judge_results": null,
+    "official_full_benchmark_score": false
+  },
+  "engineering_holdout": {
+    "documents": 195,
+    "positive_queries": 20,
+    "negative_queries": 4,
+    "kind": "previously used self-constructed dataset",
+    "metrics": {
+      "bm25": {
+        "recall_at_1": 0.65,
+        "recall_at_5": 0.9,
+        "mrr_at_10": 0.8125,
+        "ndcg_at_10": 0.8306128427182248,
+        "positive_n": 20,
+        "negative_n": 4,
+        "errors": 0,
+        "retrieval_p50_ms_excluding_embedding": 53.42475,
+        "retrieval_p95_ms_excluding_embedding": 60.4610482,
+        "negative_any_hit_rate": 1.0,
+        "query_embedding_p50_ms_shared": 0.0
+      },
+      "tfidf": {
+        "recall_at_1": 0.65,
+        "recall_at_5": 0.95,
+        "mrr_at_10": 0.8416666666666666,
+        "ndcg_at_10": 0.8635002288026211,
+        "positive_n": 20,
+        "negative_n": 4,
+        "errors": 0,
+        "retrieval_p50_ms_excluding_embedding": 11.014396000000001,
+        "retrieval_p95_ms_excluding_embedding": 13.44992055,
+        "negative_any_hit_rate": 1.0,
+        "query_embedding_p50_ms_shared": 0.0
+      },
+      "semantic": {
+        "recall_at_1": 0.775,
+        "recall_at_5": 1.0,
+        "mrr_at_10": 0.925,
+        "ndcg_at_10": 0.9477642955380092,
+        "positive_n": 20,
+        "negative_n": 4,
+        "errors": 0,
+        "retrieval_p50_ms_excluding_embedding": 21.303041999999998,
+        "retrieval_p95_ms_excluding_embedding": 26.7452875,
+        "negative_any_hit_rate": 1.0,
+        "query_embedding_p50_ms_shared": 99.1095835
+      },
+      "hybrid_semantic": {
+        "recall_at_1": 0.7,
+        "recall_at_5": 0.95,
+        "mrr_at_10": 0.8738095238095237,
+        "ndcg_at_10": 0.9007456814812217,
+        "positive_n": 20,
+        "negative_n": 4,
+        "errors": 0,
+        "retrieval_p50_ms_excluding_embedding": 61.510125,
+        "retrieval_p95_ms_excluding_embedding": 70.9369143,
+        "negative_any_hit_rate": 1.0,
+        "query_embedding_p50_ms_shared": 99.1095835
+      }
+    }
+  },
+  "development_rescore": {
+    "bm25": {
+      "n": 12,
+      "answerable_n": 10,
+      "unanswerable_n": 2,
+      "session_recall_at_5": 0.85,
+      "evidence_chunk_recall_at_1": 0.35,
+      "evidence_chunk_recall_at_5": 0.6333333333333333,
+      "evidence_chunk_recall_at_10": 0.7166666666666667,
+      "context_evidence_char_coverage": 0.6401982892690513,
+      "strict_answerable_accuracy": 0.0,
+      "normalized_answerable_accuracy": 0.0,
+      "abstention_accuracy": 0.0,
+      "unsupported_answer_rate": null,
+      "reason_unsupported_null": "No calibrated semantic support judge; not counted as zero",
+      "unanswerable_nonabstention_rate": 1.0,
+      "posthoc_context_tokens_p50": 861.0
+    },
+    "vector_tfidf": {
+      "n": 12,
+      "answerable_n": 10,
+      "unanswerable_n": 2,
+      "session_recall_at_5": 0.85,
+      "evidence_chunk_recall_at_1": 0.4333333333333333,
+      "evidence_chunk_recall_at_5": 0.6666666666666667,
+      "evidence_chunk_recall_at_10": 0.7666666666666667,
+      "context_evidence_char_coverage": 0.6715871781579402,
+      "strict_answerable_accuracy": 0.0,
+      "normalized_answerable_accuracy": 0.0,
+      "abstention_accuracy": 0.0,
+      "unsupported_answer_rate": null,
+      "reason_unsupported_null": "No calibrated semantic support judge; not counted as zero",
+      "unanswerable_nonabstention_rate": 1.0,
+      "posthoc_context_tokens_p50": 850.5
+    },
+    "hybrid": {
+      "n": 12,
+      "answerable_n": 10,
+      "unanswerable_n": 2,
+      "session_recall_at_5": 0.85,
+      "evidence_chunk_recall_at_1": 0.35,
+      "evidence_chunk_recall_at_5": 0.6666666666666667,
+      "evidence_chunk_recall_at_10": 0.7166666666666667,
+      "context_evidence_char_coverage": 0.6715871781579402,
+      "strict_answerable_accuracy": 0.0,
+      "normalized_answerable_accuracy": 0.0,
+      "abstention_accuracy": 0.0,
+      "unsupported_answer_rate": null,
+      "reason_unsupported_null": "No calibrated semantic support judge; not counted as zero",
+      "unanswerable_nonabstention_rate": 1.0,
+      "posthoc_context_tokens_p50": 850.5
+    },
+    "hybrid_rerank": {
+      "n": 12,
+      "answerable_n": 10,
+      "unanswerable_n": 2,
+      "session_recall_at_5": 0.85,
+      "evidence_chunk_recall_at_1": 0.1,
+      "evidence_chunk_recall_at_5": 0.55,
+      "evidence_chunk_recall_at_10": 0.7166666666666667,
+      "context_evidence_char_coverage": 0.6715871781579402,
+      "strict_answerable_accuracy": 0.0,
+      "normalized_answerable_accuracy": 0.0,
+      "abstention_accuracy": 0.0,
+      "unsupported_answer_rate": null,
+      "reason_unsupported_null": "No calibrated semantic support judge; not counted as zero",
+      "unanswerable_nonabstention_rate": 1.0,
+      "posthoc_context_tokens_p50": 850.5
+    }
+  },
+  "performance": [
+    {
+      "length": 100,
+      "state": "warm",
+      "n": 40,
+      "timeouts": 0,
+      "p50_ms": 9.854292000000001,
+      "p95_ms": 12.365718750000001,
+      "min_ms": 7.640791,
+      "max_ms": 13.514041,
+      "sql_p50_ms": 2.646729,
+      "sql_p95_ms": 4.574513949999999,
+      "sql_calls": [
+        11
+      ]
+    },
+    {
+      "length": 100,
+      "state": "pg_restart_first",
+      "n": 6,
+      "timeouts": 0,
+      "p50_ms": 832.0879789999999,
+      "p95_ms": 872.7706565000001,
+      "min_ms": 827.931709,
+      "max_ms": 883.811667,
+      "sql_p50_ms": 7.403062499999999,
+      "sql_p95_ms": 8.65208325,
+      "sql_calls": [
+        11
+      ]
+    },
+    {
+      "length": 400,
+      "state": "warm",
+      "n": 40,
+      "timeouts": 0,
+      "p50_ms": 24.825937500000002,
+      "p95_ms": 27.893419399999996,
+      "min_ms": 21.929084,
+      "max_ms": 31.527958,
+      "sql_p50_ms": 7.6141875,
+      "sql_p95_ms": 9.339079199999999,
+      "sql_calls": [
+        11
+      ]
+    },
+    {
+      "length": 400,
+      "state": "pg_restart_first",
+      "n": 6,
+      "timeouts": 0,
+      "p50_ms": 867.139229,
+      "p95_ms": 892.77475025,
+      "min_ms": 854.585958,
+      "max_ms": 895.827792,
+      "sql_p50_ms": 20.9432915,
+      "sql_p95_ms": 24.35565625,
+      "sql_calls": [
+        11
+      ]
+    },
+    {
+      "length": 801,
+      "state": "warm",
+      "n": 40,
+      "timeouts": 0,
+      "p50_ms": 71.4754375,
+      "p95_ms": 83.3335545,
+      "min_ms": 63.839916,
+      "max_ms": 88.574958,
+      "sql_p50_ms": 40.015187999999995,
+      "sql_p95_ms": 47.806708949999994,
+      "sql_calls": [
+        11
+      ]
+    },
+    {
+      "length": 801,
+      "state": "pg_restart_first",
+      "n": 6,
+      "timeouts": 0,
+      "p50_ms": 949.691604,
+      "p95_ms": 973.51670825,
+      "min_ms": 924.410083,
+      "max_ms": 978.634875,
+      "sql_p50_ms": 86.005458,
+      "sql_p95_ms": 90.68871899999999,
+      "sql_calls": [
+        11
+      ]
+    }
+  ],
+  "startup_attribution": [
+    {
+      "state": "bridge_first",
+      "n": 6,
+      "request_p50_ms": 819.8732915,
+      "tokenize_p50_ms": 804.452271,
+      "sql_p50_ms": 3.5465
+    },
+    {
+      "state": "bridge_second",
+      "n": 6,
+      "request_p50_ms": 6.802583,
+      "tokenize_p50_ms": 0.0575415,
+      "sql_p50_ms": 1.2231665
+    }
+  ],
+  "future_budget": {
+    "requests": 130,
+    "list_price_worst_case_cny": "11.467264",
+    "hard_cap_cny": "12.00",
+    "plan": "phase3-handoff/plan.json",
+    "plan_seal": "b1d3f6c65b8a5ad98d716cfb5f804e725d809aec0c3cd60a3569de10ab800e76",
+    "human_calibration_reviewed": false
+  },
+  "tests": {
+    "python_passed": 41,
+    "python_skipped": 0,
+    "api_json_passed": 1,
+    "targeted_pg_integration_passed": 1
+  }
+}

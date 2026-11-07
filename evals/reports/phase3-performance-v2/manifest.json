@@ -1,0 +1,31 @@
+{
+  "status": "completed",
+  "kind": "local_performance_fixture_not_public_score",
+  "seed": 20261108,
+  "model_api_calls": 0,
+  "cold_definition": "first probe after PG/container and bridge restart; OS page cache uncontrolled; volume preserved",
+  "warm_per_length": 40,
+  "cold_per_length": 6,
+  "timeout_ms": 3000,
+  "git_head": "4a9e7632ef9f58c47f49fc6632c7dbd4bb38e147",
+  "source_sha256": {
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/performance3.py": "c4d577af3844134be58f465f922765a23fb13e7beb3ca535c9b426de69b7c296",
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/harness/src/main.rs": "7b341cde5d44826c2c1d0a0c30e697cd749ad502d34127a0d17c5d63e01779b5",
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/crates/memory-postgres/src/repository.rs": "3a008a0c518e5058b08a738959754037c574c403dc2d867144458d952550fbb1"
+  },
+  "postgres_image_id": "sha256:8dd950fd4ca6d59e4fc748361bfb059f44907cc99577ae227d196adb29ad8913",
+  "resources": [
+    {
+      "length": 100,
+      "memory_sample": "36.24MiB / 4.801GiB"
+    },
+    {
+      "length": 400,
+      "memory_sample": "42.87MiB / 4.801GiB"
+    },
+    {
+      "length": 801,
+      "memory_sample": "61.28MiB / 4.801GiB"
+    }
+  ]
+}

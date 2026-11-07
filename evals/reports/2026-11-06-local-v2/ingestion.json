@@ -1,0 +1,26 @@
+{
+  "self_constructed": {
+    "input_documents": 40,
+    "indexed_documents": 40,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "self_qa_formation": {
+    "input_documents": 14,
+    "indexed_documents": 14,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "19b5f2b3_abs": {
+    "input_documents": 827,
+    "indexed_documents": 827,
+    "redacted_documents": 1,
+    "rejected": []
+  },
+  "c6853660": {
+    "input_documents": 801,
+    "indexed_documents": 801,
+    "redacted_documents": 2,
+    "rejected": []
+  }
+}

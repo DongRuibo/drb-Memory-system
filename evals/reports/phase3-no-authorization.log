@@ -1,0 +1,5 @@
+usage: phase3.py [-h] --output OUTPUT [--assets ASSETS]
+                 [--longmemeval LONGMEMEVAL] [--plan PLAN]
+                 [--approval APPROVAL] [--semantic-url SEMANTIC_URL]
+                 {assets,prepare,models-run}
+phase3.py: error: explicit reviewed plan and approval required; no paid calls

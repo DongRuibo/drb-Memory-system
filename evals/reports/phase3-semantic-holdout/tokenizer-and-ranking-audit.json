@@ -1,0 +1,14 @@
+{
+  "cached_vector_rankings_reproduced": 24,
+  "document_vectors": 195,
+  "max_norm_error": 9.318950122683134e-08,
+  "gateway_add_special_tokens": true,
+  "eos_tokens_per_text": 1,
+  "exact_document_tokens_including_eos": 5388,
+  "exact_query_tokens_including_instruction_eos": 834,
+  "padded_document_batch_tokens": 5853,
+  "max_document_tokens": 31,
+  "max_query_tokens": 41,
+  "truncated_input_texts": 0,
+  "counter_fix": "Original offline counter omitted serialized EOS. Inference already included EOS. Counter/4096 boundary fixed before paid or public test; saved ranking results unchanged."
+}

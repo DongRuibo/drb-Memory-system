@@ -1,0 +1,30 @@
+{
+  "phase": 2,
+  "mode": "diagnosis",
+  "seed": 20261107,
+  "repeats": 3,
+  "status": "completed",
+  "git_head": "4a9e7632ef9f58c47f49fc6632c7dbd4bb38e147",
+  "git_status": "M Cargo.lock\n M Cargo.toml\n M README.md\n M crates/memory-postgres/src/repository.rs\n?? HANDOFF.md\n?? apps/demo-web/\n?? apps/extraction-eval/\n?? docs/\n?? evals/.gitignore\n?? evals/README.md\n?? evals/THIRD_PARTY_NOTICES.md\n?? evals/datasets/\n?? evals/evidence/\n?? evals/extraction-v1/\n?? evals/harness/\n?? evals/memory_eval/\n?? evals/reports/\n?? evals/tests/\n?? scripts/eval-extraction-v1.sh",
+  "statement_timeout_ms": 3000,
+  "model_api_calls": 0,
+  "model_api_usd": 0,
+  "source_sha256": {
+    "evals/memory_eval/metrics.py": "49cff512e6dfd95094f209ac0e9016f9790b4353f4f757018c92ffe74a95778d",
+    "evals/memory_eval/longmemeval.py": "f98af71901961106fc6a503ff79e681884b4a75b5ccd45fbbd85b12656137f23",
+    "evals/memory_eval/baselines.py": "00d80065148b7645faf498524c6bef7e7036831ca703b568f082547633bb0037",
+    "evals/memory_eval/runner.py": "ebc182bed77b440e7a3de2f91108a023a67f61071dc2f52d99bb3dcc2ba4b057",
+    "evals/memory_eval/__init__.py": "4d69cd4b62e802ba3d3a28668810d829ea9c95f8b88780935e0efe91f3f7f9a0",
+    "evals/memory_eval/phase2.py": "db2380ba4f9532ba84e6fc60a0ea1e87f7bcb53fa689f6ab92a735f898b0c93c",
+    "evals/memory_eval/__main__.py": "590efd4cf3b62cddd96aae8d7ffdcd08bff6c83be1adbc7e2cbbb472257a8148",
+    "evals/harness/src/main.rs": "e3531610bb04b260c0827dca1f35ef89bd04a673b449207d6a56206e4b113e69",
+    "crates/memory-postgres/src/repository.rs": "619eb0463b5169fe1784527f3cfcd8f71bb7570405b24b259d7ce2190d2b7ec4",
+    "evals/evidence/phase2/bm25-materialized.sql": "b897ca3cba2abe41549f71b58cd809c3c858f386182b3eef4d50224b0c69c90c",
+    "evals/evidence/phase2/bm25-before.sql": "db8cb3cc4f8904e98d4aff71b1837087c0c5ac72f273d73d007f0fc256ac642d",
+    "evals/datasets/holdout_v2.json": "96bbc1ef36262a8c233e62fbb7642526872a148cabaaea6b92faa676948049e1",
+    "evals/datasets/longmemeval_review_v1.json": "6d026e941a2e9ceb1edf45c641980ed6ee0e3e4110e2cc6ca4c2cb77216857dd",
+    "evals/datasets/memory_v1.json": "1de6c94c21c6c1640e3f9f621e82b69418040d43fb723799e24c66e9374619d8",
+    "evals/datasets/memory_v1_errata.json": "05b89ce61ed871b96a3910bf5ffb69e157bba38a908af54f2c2538a870054653"
+  },
+  "postgres_image_id": "sha256:8dd950fd4ca6d59e4fc748361bfb059f44907cc99577ae227d196adb29ad8913"
+}

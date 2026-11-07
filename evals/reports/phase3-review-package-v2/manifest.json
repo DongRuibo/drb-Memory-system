@@ -1,0 +1,29 @@
+{
+  "status": "prepared_waiting_for_authorization",
+  "git_head": "4a9e7632ef9f58c47f49fc6632c7dbd4bb38e147",
+  "source_sha256": {
+    "evals/memory_eval/metrics.py": "49cff512e6dfd95094f209ac0e9016f9790b4353f4f757018c92ffe74a95778d",
+    "evals/memory_eval/longmemeval.py": "f98af71901961106fc6a503ff79e681884b4a75b5ccd45fbbd85b12656137f23",
+    "evals/memory_eval/baselines.py": "00d80065148b7645faf498524c6bef7e7036831ca703b568f082547633bb0037",
+    "evals/memory_eval/runner.py": "ebc182bed77b440e7a3de2f91108a023a67f61071dc2f52d99bb3dcc2ba4b057",
+    "evals/memory_eval/protocol3.py": "a152c8ba8f78f675dca1da0eee5758a00081416647c2d9b3236c691bea508ef6",
+    "evals/memory_eval/models3.py": "d131902eac6b518c844d176f68cf24c5f8373faedd6565e4f5dbaa96bd935074",
+    "evals/memory_eval/rescore3.py": "1415b1b24f85e9217c942cac0042912a120ccfe44ca50a577e0e18f22be2de52",
+    "evals/memory_eval/semantic3.py": "64d27480fb2a15ab24ab62494164254070829d3502e2f81294739049260a0de8",
+    "evals/memory_eval/__init__.py": "4d69cd4b62e802ba3d3a28668810d829ea9c95f8b88780935e0efe91f3f7f9a0",
+    "evals/memory_eval/phase2_report.py": "644969c92aabc22f05f3adef223f378aa3ca207479606432f75402c860ecbb6f",
+    "evals/memory_eval/locked3.py": "ea8bd318fb8891adda32cfecb8dc3c9006b2a046fd260b7fa3b7370f2c0f40b3",
+    "evals/memory_eval/phase2.py": "6b517de7cc01a324c0772f24e88641b70f8c7288831ddda7e784b71113edeb82",
+    "evals/memory_eval/phase3.py": "584de4f735b2d5f5295b82ed57a3ddddc3fd4c73bf95eacf028952da5a9d40f9",
+    "evals/memory_eval/__main__.py": "590efd4cf3b62cddd96aae8d7ffdcd08bff6c83be1adbc7e2cbbb472257a8148",
+    "evals/memory_eval/performance3.py": "23e045b13be2fb13e6a5e2a0f75d3086f68dc4b9d07a2f2d006959cff51f7c53",
+    "evals/datasets/longmemeval_phase3_lock.json": "7c50ca5ed56dc660773e32352c163a9b7edd6d243bed35cd4855510a82c9d417",
+    "evals/configs/phase3_protocol.json": "f632dfdb277d03a0ce0ca4bd921009ece6f89c9f68ad97dd354474b03c0b11eb",
+    "evals/configs/phase3_models.json": "9f91c2fa9c6be9076d1046e38b567492e485b931f908181dca67ba70bb1e15d8",
+    "evals/configs/phase3_prices.json": "b5b2aaf841be441d89db0fbe5544ee7acc154f6204194df138768397fa36f1e4",
+    "evals/datasets/judge_calibration_v1.json": "04866fb44ab6e0cd1905bc005a39ada56b56d2857b2682b851a0af2c4f832bfa"
+  },
+  "plan_seal": "1639d34e054dcdf986644c4a12d9418bb346da1d6950151fbbd149fc3c08c058",
+  "api_calls": 0,
+  "cost_cny": "0"
+}

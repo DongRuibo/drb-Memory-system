@@ -1,0 +1,80 @@
+{
+  "kind": "manual_diagnostic_only",
+  "source": "LongMemEval official has_answer turns; not answer aliases",
+  "cases": {
+    "c6853660": {
+      "facts": [
+        "cut back to just one cup",
+        "changing my morning coffee limit to two cups"
+      ],
+      "note": "官方答案将计划中的两杯视作最新限制；保留该解释的不确定性。"
+    },
+    "37f165cf": {
+      "facts": [
+        "had 440 pages",
+        "416-page novel"
+      ],
+      "note": "需要跨会话相加440+416；856不必原文出现。"
+    },
+    "51b23612": {
+      "facts": [
+        "Nu, pogodi!"
+      ],
+      "note": "需要定位具体动画名称；原文使用弯引号。"
+    },
+    "1a1907b4": {
+      "facts": [
+        "mixology class",
+        "classic Pimm's Cup"
+      ],
+      "note": "偏好rubric，不是要求逐字复述参考段落。"
+    },
+    "1faac195": {
+      "facts": [
+        "my sister Emily in Denver"
+      ],
+      "note": "可直接抽取城市。"
+    },
+    "gpt4_2f584639": {
+      "facts": [
+        "photo album from Shutterfly two weeks ago",
+        "necklace from Tiffany's last weekend"
+      ],
+      "note": "需要依据不同会话日期解释相对时间，不可只比较表面词。"
+    },
+    "d7c942c3": {
+      "facts": [
+        "same grocery list app as me now"
+      ],
+      "note": "需要最新事实；旧paper list是干扰。"
+    },
+    "6cb6f249": {
+      "facts": [
+        "10-day break",
+        "week-long break"
+      ],
+      "note": "需将week换算7再与10相加。"
+    },
+    "1b9b7252": {
+      "facts": [
+        "Mindful.org: This website includes guided imagery exercises"
+      ],
+      "note": "旧预测已包含正确网站，但严格EM不接受整句；官方judge未运行。"
+    },
+    "35a27287": {
+      "facts": [
+        "cultural events",
+        "French and Spanish"
+      ],
+      "note": "多轮偏好rubric；准确性需语义判断。"
+    },
+    "19b5f2b3_abs": {
+      "facts": [],
+      "note": "Korea不在记录中；正确拒答不能由空上下文单独证明。"
+    },
+    "c8090214_abs": {
+      "facts": [],
+      "note": "iPad未给出；不能用iPhone时间冒充。"
+    }
+  }
+}

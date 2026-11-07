@@ -1,0 +1,27 @@
+{
+  "status": "prepared_waiting_for_authorization",
+  "git_head": "4a9e7632ef9f58c47f49fc6632c7dbd4bb38e147",
+  "source_sha256": {
+    "evals/memory_eval/metrics.py": "49cff512e6dfd95094f209ac0e9016f9790b4353f4f757018c92ffe74a95778d",
+    "evals/memory_eval/longmemeval.py": "f98af71901961106fc6a503ff79e681884b4a75b5ccd45fbbd85b12656137f23",
+    "evals/memory_eval/baselines.py": "00d80065148b7645faf498524c6bef7e7036831ca703b568f082547633bb0037",
+    "evals/memory_eval/runner.py": "ebc182bed77b440e7a3de2f91108a023a67f61071dc2f52d99bb3dcc2ba4b057",
+    "evals/memory_eval/protocol3.py": "60fc6146e599dd7d45cf7f787fa079778b721ce07c9e2bd48d2a3efff6024e29",
+    "evals/memory_eval/models3.py": "08be4434d0963e54c939a1da8dca12f33ba30bb2dc468c51c849bfeb0eb6d62c",
+    "evals/memory_eval/__init__.py": "4d69cd4b62e802ba3d3a28668810d829ea9c95f8b88780935e0efe91f3f7f9a0",
+    "evals/memory_eval/phase2_report.py": "644969c92aabc22f05f3adef223f378aa3ca207479606432f75402c860ecbb6f",
+    "evals/memory_eval/locked3.py": "ea8bd318fb8891adda32cfecb8dc3c9006b2a046fd260b7fa3b7370f2c0f40b3",
+    "evals/memory_eval/phase2.py": "6b517de7cc01a324c0772f24e88641b70f8c7288831ddda7e784b71113edeb82",
+    "evals/memory_eval/phase3.py": "a94644de4451e540b28b0a8a5517af9b5124ede4b57569398f34ea5f3c3ce553",
+    "evals/memory_eval/__main__.py": "590efd4cf3b62cddd96aae8d7ffdcd08bff6c83be1adbc7e2cbbb472257a8148",
+    "evals/memory_eval/performance3.py": "5f53795e118c9ef4f1a218d02c669e06d42bf5a6e07d124db6291f37481f1a3a",
+    "evals/datasets/longmemeval_phase3_lock.json": "7c50ca5ed56dc660773e32352c163a9b7edd6d243bed35cd4855510a82c9d417",
+    "evals/configs/phase3_protocol.json": "0905c5eca61738dc136998beca6833691756f4830c855729695576c69d122cae",
+    "evals/configs/phase3_models.json": "91b6f28b2186e9a220080424461687e046d1fb4f9d89f34bf43ea5bdf2ca9d14",
+    "evals/configs/phase3_prices.json": "b5b2aaf841be441d89db0fbe5544ee7acc154f6204194df138768397fa36f1e4",
+    "evals/datasets/judge_calibration_v1.json": "04866fb44ab6e0cd1905bc005a39ada56b56d2857b2682b851a0af2c4f832bfa"
+  },
+  "plan_seal": "5c6057321271d9cb32f6752ff565c2d43f6c120965182fa9445bb92e4b98b4d7",
+  "api_calls": 0,
+  "cost_cny": "0"
+}

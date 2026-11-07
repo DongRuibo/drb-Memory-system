@@ -1,0 +1,1772 @@
+[
+  {
+    "id": "19b5f2b3_abs",
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_5ff494b9_abs"
+      ],
+      "answers": [
+        "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+      ],
+      "unanswerable": true,
+      "question_type": "single-session-user"
+    },
+    "evidence_turns": [],
+    "oracle_prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "oracle_metrics": {
+      "answer_correct": true,
+      "refusal_correct": true,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "0f5d6bc9-61d0-4959-85df-887ecad8be8c",
+      "authority_snapshot_id": "authz-1fae4e1106cac85e5c4ac4cfa82d091342f0d9e203456a1d9dd9192887098698",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T17:55:59.023147Z",
+      "context_pack_id": "14b97640-0fb5-508d-96c1-04bcfb54f942",
+      "created_at": "2026-11-06T17:55:59.015451Z",
+      "estimated_tokens": 0,
+      "expires_at": "2026-11-06T18:00:59.015451Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T17:14:00Z",
+      "sections": [],
+      "task_id": "6a627345-8656-497d-a2fa-9c92e7bce3fe",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "identity_scorer_control": null,
+    "ingestion": {
+      "input_documents": 827,
+      "indexed_documents": 827,
+      "redacted_documents": 1,
+      "rejected": []
+    },
+    "review": {
+      "facts": [],
+      "note": "Korea不在记录中；正确拒答不能由空上下文单独证明。"
+    },
+    "previous_tfidf": {
+      "id": "19b5f2b3_abs",
+      "method": "vector_tfidf",
+      "query": "How long was I in Korea for?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {},
+        "reference_session_ids": [
+          "answer_5ff494b9_abs"
+        ],
+        "answers": [
+          "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+        ],
+        "unanswerable": true,
+        "question_type": "single-session-user"
+      },
+      "retrieved": [
+        "answer_5ff494b9_abs",
+        "sharegpt_G9RAbBH_0",
+        "d0b0dabe",
+        "e44a5733_1"
+      ],
+      "retrieval_hit": false,
+      "all_evidence_hit": false,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 56.118875,
+      "error": null,
+      "answer_correct": true,
+      "refusal_correct": true,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "c6853660",
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "evidence_turns": [
+      {
+        "text": "I'm trying to make my morning routine more efficient. Can you give me some tips on how to optimize my coffee brewing method? By the way, I've switched to a darker roast and cut back to just one cup in the morning, which has been really helping me feel more focused.",
+        "memory_version_id": "oracle:answer_626e93c4_1:0"
+      },
+      {
+        "text": "I'm trying to decide on a new coffee maker, can you recommend any good ones? I'm currently using a drip coffee maker, but I'm open to exploring other options. By the way, I'm thinking of changing my morning coffee limit to two cups, do you think that's a good idea?",
+        "memory_version_id": "oracle:answer_626e93c4_2:0"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "By the way, I'm thinking of changing my morning coffee limit to two cups, do you think that's a good idea?",
+      "refused": false,
+      "citations": [
+        "oracle:answer_626e93c4_2:0"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "5acccd3a-f1cc-4942-8b0d-1cfc2802eb92",
+      "authority_snapshot_id": "authz-af9bda72ae80092358bce5309404ced4284fdd297c405bdec69f42174d1235d8",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T17:57:20.772869Z",
+      "context_pack_id": "ebb6c5e2-a2dd-529f-8a83-6c643d5c04c9",
+      "created_at": "2026-11-06T17:57:20.764373Z",
+      "estimated_tokens": 656,
+      "expires_at": "2026-11-06T18:02:20.764373Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-06-11T21:37:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "e0bcae70-9d71-5bfd-92e7-61446afcbdd3",
+              "memory_version_id": "52d46c0e-34ad-5276-b5f0-95439d4f20fe",
+              "source_refs": [
+                "eval://b9c71c484691e663a56c55370e614f424cd601d49138462d5f528222bdec0f64"
+              ],
+              "text": "[2023/05/25 (Thu) 12:35] user: I'm trying to make my morning routine more efficient. Can you give me some tips on how to optimize my coffee brewing method? By the way, I've switched to a darker roast and cut back to just one cup in the morning, which has been really helping me feel more focused.",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "d54c2df0-72c9-5b5c-9917-0586551abcd6",
+              "memory_version_id": "58efc38d-2cfd-53cb-8d3f-345481246c52",
+              "source_refs": [
+                "eval://1d3e71ebb47fe30cfab745f4d1d945b9d776e5a51bce66c06c85de6be0ff72b3"
+              ],
+              "text": "[2023/05/26 (Fri) 19:25] user: I'm trying to decide on a new coffee maker, can you recommend any good ones? I'm currently using a drip coffee maker, but I'm open to exploring other options. By the way, I'm thinking of changing my morning coffee limit to two cups, do you think that's a good idea?",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "177afaaf-6a08-4023-96d9-24e58e65ba84",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "By the way, I'm thinking of changing my morning coffee limit to two cups, do you think that's a good idea?",
+      "refused": false,
+      "citations": [
+        "58efc38d-2cfd-53cb-8d3f-345481246c52"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 801,
+      "indexed_documents": 801,
+      "redacted_documents": 2,
+      "rejected": []
+    },
+    "review": {
+      "facts": [
+        "cut back to just one cup",
+        "changing my morning coffee limit to two cups"
+      ],
+      "note": "官方答案将计划中的两杯视作最新限制；保留该解释的不确定性。"
+    },
+    "previous_tfidf": {
+      "id": "c6853660",
+      "method": "vector_tfidf",
+      "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_626e93c4_1": 1,
+          "answer_626e93c4_2": 1
+        },
+        "reference_session_ids": [
+          "answer_626e93c4_1",
+          "answer_626e93c4_2"
+        ],
+        "answers": [
+          "You increased the limit (from one cup to two cups)"
+        ],
+        "unanswerable": false,
+        "question_type": "knowledge-update"
+      },
+      "retrieved": [
+        "answer_626e93c4_2",
+        "answer_626e93c4_1",
+        "33994682_3",
+        "6ed1c85e"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": true,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 62.559292,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "37f165cf",
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "evidence_turns": [
+      {
+        "text": "I'm looking for some book recommendations. I just finished a historical fiction novel, \"The Nightingale\" by Kristin Hannah, which had 440 pages and took me around 3 weeks to complete. Do you have any suggestions for similar books or authors?",
+        "memory_version_id": "oracle:answer_6b9b2b1e_2:0"
+      },
+      {
+        "text": "I'm looking for some book recommendations. I've been into fiction lately, especially novels that explore complex themes. I just finished a 416-page novel, but before that, I read \"The Power\" by Naomi Alderman in December, which had 341 pages and took me around 5 weeks to finish. I'm interested in books with similar page lengths and depth.",
+        "memory_version_id": "oracle:answer_6b9b2b1e_1:0"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "I just finished a 416-page novel, but before that, I read \"The Power\" by Naomi Alderman in December, which had 341 pages and took me around 5 weeks to finish.",
+      "refused": false,
+      "citations": [
+        "oracle:answer_6b9b2b1e_1:0"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "f93cf590-a7c7-4988-a054-21c77def287c",
+      "authority_snapshot_id": "authz-fc3159d24193aa04151886fefc5d947370297c12532db760504931b1400bc7d2",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T17:58:21.924696Z",
+      "context_pack_id": "b0ca82b6-a129-54a1-8226-e25fcac96af9",
+      "created_at": "2026-11-06T17:58:21.915624Z",
+      "estimated_tokens": 707,
+      "expires_at": "2026-11-06T18:03:21.915624Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T19:21:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "a8e3b282-3fbf-5bb2-b842-ca9f0e499093",
+              "memory_version_id": "e38d11fe-e250-55e7-b1a1-f9cf01bcc2d4",
+              "source_refs": [
+                "eval://e4cec000727a0b011b3aa909e58bd208c81b4839c74b88487ddb6479c407c1cd"
+              ],
+              "text": "[2023/05/22 (Mon) 13:27] user: I'm looking for some book recommendations. I just finished a historical fiction novel, \"The Nightingale\" by Kristin Hannah, which had 440 pages and took me around 3 weeks to complete. Do you have any suggestions for similar books or authors?",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "5b4db709-764b-58a8-a2a0-be3c8624de85",
+              "memory_version_id": "01300e35-be9b-5c39-8bcf-2e13399e6641",
+              "source_refs": [
+                "eval://2277acec6518c3e510272e6ba0877f3bc1541e79404a405e4857f303f080b3ca"
+              ],
+              "text": "[2023/05/27 (Sat) 17:40] user: I'm looking for some book recommendations. I've been into fiction lately, especially novels that explore complex themes. I just finished a 416-page novel, but before that, I read \"The Power\" by Naomi Alderman in December, which had 341 pages and took me around 5 weeks to finish. I'm interested in books with similar page lengths and depth.",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "d7ad7a46-e108-41c4-a092-e750a8829ba2",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "I just finished a 416-page novel, but before that, I read \"The Power\" by Naomi Alderman in December, which had 341 pages and took me around 5 weeks to finish.",
+      "refused": false,
+      "citations": [
+        "01300e35-be9b-5c39-8bcf-2e13399e6641"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 893,
+      "indexed_documents": 893,
+      "redacted_documents": 1,
+      "rejected": []
+    },
+    "review": {
+      "facts": [
+        "had 440 pages",
+        "416-page novel"
+      ],
+      "note": "需要跨会话相加440+416；856不必原文出现。"
+    },
+    "previous_tfidf": {
+      "id": "37f165cf",
+      "method": "vector_tfidf",
+      "query": "What was the page count of the two novels I finished in January and March?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_6b9b2b1e_2": 1,
+          "answer_6b9b2b1e_1": 1
+        },
+        "reference_session_ids": [
+          "answer_6b9b2b1e_2",
+          "answer_6b9b2b1e_1"
+        ],
+        "answers": [
+          "856"
+        ],
+        "unanswerable": false,
+        "question_type": "multi-session"
+      },
+      "retrieved": [
+        "answer_6b9b2b1e_1",
+        "answer_6b9b2b1e_2",
+        "c0f6571a_2",
+        "sharegpt_5m6qXKr_0",
+        "a41d46df",
+        "sharegpt_2yaKUmC_0"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": true,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 16.130458,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "51b23612",
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "evidence_turns": [
+      {
+        "text": "Yes, there are several examples of political propaganda that used humor or satire to make a point or influence public opinion. \n\n1. The Daily Show with Jon Stewart: The Daily Show was a popular late-night show that used humor and satire to criticize political leaders, policies, and the media. It was known for its cynical tone and sarcastic commentary, and it became a popular platform for young people to get their news and political analysis.\n\n2. The Colbert Report: The Colbert Report was another popular political satire show that aired on Comedy Central. Hosted by Stephen Colbert, the show used humor and satire to parody conservative talk shows and politicians. It was known for its “truthiness” segment, where Colbert would defend his own truth against facts.\n\n3. Nazi propaganda: Nazi propaganda also relied heavily on humor and satire, especially in their anti-Semitic propaganda. They used cartoons, jokes, and satire to dehumanize Jews and create a sense of superiority among Germans. Some of the most infamous examples of Nazi propaganda include images of Jews with exaggerated features or as vermin to be exterminated.\n\n4. Soviet propaganda: Soviet propaganda also used humor and satire to criticize Western powers and promote Communist ideology. One example is the popular Soviet cartoon, “Nu, pogodi!” which mocked Western culture and portrayed the Soviet Union as superior.\n\n5. Political cartoons: Political cartoons have long been used as a form of political propaganda that relies on humor and satire. Whether it be caricatures of political leaders or images that criticize certain policies or events, political cartoons often use humor to make a serious point. Some famous political cartoonists include Thomas Nast, who famously criticized the corrupt Tammany Hall political machine in New York City, and Herblock, who was an outspoken critic of President Richard Nixon during the Watergate scandal.",
+        "memory_version_id": "oracle:answer_ultrachat_427265:1"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "One example is the popular Soviet cartoon, “Nu, pogodi!” which mocked Western culture and portrayed the Soviet Union as superior.",
+      "refused": false,
+      "citations": [
+        "oracle:answer_ultrachat_427265:1"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "348142c1-bdc9-49ab-a6a5-87fc0f6f52a0",
+      "authority_snapshot_id": "authz-4afaa291e7b599496cc5e124b141d2b7395eee34f406270f0282689a3bb5189e",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T17:59:19.716577Z",
+      "context_pack_id": "c1024057-cca0-5769-adeb-fd869fa14bef",
+      "created_at": "2026-11-06T17:59:19.706696Z",
+      "estimated_tokens": 2050,
+      "expires_at": "2026-11-06T18:04:19.706696Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T20:38:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "f452b546-fb3a-5892-8ea7-c2b9dc91f500",
+              "memory_version_id": "71bc804b-7334-51a1-a4f0-1bc13b35926b",
+              "source_refs": [
+                "eval://01d9b4fe4ec8fb6ebf2f2c048467ac7cd40924d18ab81290a3765a07ec3976a1"
+              ],
+              "text": "[2023/05/29 (Mon) 06:16] assistant: Yes, there are several examples of political propaganda that used humor or satire to make a point or influence public opinion. 1. The Daily Show with Jon Stewart: The Daily Show was a popular late-night show that used humor and satire to criticize political leaders, policies, and the media. It was known for its cynical tone and sarcastic commentary, and it became a popular platform for young people to get their news and political analysis. 2. The Colbert Report: The Colbert Report was another popular political satire show that aired on Comedy Central. Hosted by Stephen Colbert, the show used humor and satire to parody conservative talk shows and politicians. It was known for its “truthiness” segment, where Colbert would defend his own truth against facts. 3. Nazi propaganda: Nazi propaganda also relied heavily on humor and satire, especially in their anti-Semitic propaganda. They used cartoons, jokes, and satire to dehumanize Jews and create a sense of superiority among Germans. Some o",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "b4b603e1-4ce8-565d-b62b-6d2d05680c24",
+              "memory_version_id": "05c850c9-0649-5161-9b84-5c36534fb560",
+              "source_refs": [
+                "eval://4ffb9185eaf933f28adbcdfa020e049f68014fde56883f7040d07c843f217f15"
+              ],
+              "text": "[2023/05/29 (Mon) 06:16] assistant: f the most infamous examples of Nazi propaganda include images of Jews with exaggerated features or as vermin to be exterminated. 4. Soviet propaganda: Soviet propaganda also used humor and satire to criticize Western powers and promote Communist ideology. One example is the popular Soviet cartoon, “Nu, pogodi!” which mocked Western culture and portrayed the Soviet Union as superior. 5. Political cartoons: Political cartoons have long been used as a form of political propaganda that relies on humor and satire. Whether it be caricatures of political leaders or images that criticize certain policies or events, political cartoons often use humor to make a serious point. Some famous political cartoonists include Thomas Nast, who famously criticized the corrupt Tammany Hall political machine in New York City, and Herblock, who was an outspoken critic of President Richard Nixon during the Watergate scandal.",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "76b9e409-8259-4b32-bde6-09a0f36adb6a",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "One example is the popular Soviet cartoon, “Nu, pogodi!” which mocked Western culture and portrayed the Soviet Union as superior.",
+      "refused": false,
+      "citations": [
+        "05c850c9-0649-5161-9b84-5c36534fb560"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 795,
+      "indexed_documents": 795,
+      "redacted_documents": 0,
+      "rejected": []
+    },
+    "review": {
+      "facts": [
+        "Nu, pogodi!"
+      ],
+      "note": "需要定位具体动画名称；原文使用弯引号。"
+    },
+    "previous_tfidf": {
+      "id": "51b23612",
+      "method": "vector_tfidf",
+      "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_ultrachat_427265": 1
+        },
+        "reference_session_ids": [
+          "answer_ultrachat_427265"
+        ],
+        "answers": [
+          "Nu, pogodi!"
+        ],
+        "unanswerable": false,
+        "question_type": "single-session-assistant"
+      },
+      "retrieved": [
+        "answer_ultrachat_427265",
+        "ultrachat_343",
+        "99b061c5_2"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": true,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 69.972542,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "1a1907b4",
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "evidence_turns": [
+      {
+        "text": "I like the idea of the Pimm's Cup with a Twist, but I've already made a classic Pimm's Cup and classic cocktails recently from a mixology class that I attended. By the way, what's the difference between cucumber juice and muddling cucumber slices in a drink?",
+        "memory_version_id": "oracle:answer_719502eb:2"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "c21cfa14-f1a3-4681-8bec-0e1dc0a895cb",
+      "authority_snapshot_id": "authz-aeed36fcc351afabd1c4d1d38f822470e1facf03c5e2b92c0fb5cd41005954cb",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T18:00:19.275714Z",
+      "context_pack_id": "854665e7-be0d-568b-b801-0709f8dabb34",
+      "created_at": "2026-11-06T18:00:19.268348Z",
+      "estimated_tokens": 321,
+      "expires_at": "2026-11-06T18:05:19.268348Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T22:31:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "85cfd7ed-771e-533f-b710-cf4e5dc43c17",
+              "memory_version_id": "4f575d9f-543b-5cbc-b471-083b9a4f8289",
+              "source_refs": [
+                "eval://dca22d946c770a505490f264b2d2a64ba5db6442580a3c2f1d87a75224405deb"
+              ],
+              "text": "[2023/05/21 (Sun) 00:41] user: I like the idea of the Pimm's Cup with a Twist, but I've already made a classic Pimm's Cup and classic cocktails recently from a mixology class that I attended. By the way, what's the difference between cucumber juice and muddling cucumber slices in a drink?",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "8109ad2a-c940-41ce-9199-c5d0a3f83a6d",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 842,
+      "indexed_documents": 842,
+      "redacted_documents": 1,
+      "rejected": []
+    },
+    "review": {
+      "facts": [
+        "mixology class",
+        "classic Pimm's Cup"
+      ],
+      "note": "偏好rubric，不是要求逐字复述参考段落。"
+    },
+    "previous_tfidf": {
+      "id": "1a1907b4",
+      "method": "vector_tfidf",
+      "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_719502eb": 1
+        },
+        "reference_session_ids": [
+          "answer_719502eb"
+        ],
+        "answers": [
+          "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+        ],
+        "unanswerable": false,
+        "question_type": "single-session-preference"
+      },
+      "retrieved": [
+        "ultrachat_183428",
+        "9585e0c6_1",
+        "78dbd237",
+        "4f3b36d4_5",
+        "e622a1bd",
+        "ae77c245",
+        "e42e7876_5",
+        "83a4f14d_1"
+      ],
+      "retrieval_hit": false,
+      "all_evidence_hit": false,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 16.75225,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "1faac195",
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "evidence_turns": [
+      {
+        "text": "I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+        "memory_version_id": "oracle:answer_d01949bf:2"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "oracle:answer_d01949bf:2"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "d34be82b-285c-48f3-a18e-dd3b67e7f36e",
+      "authority_snapshot_id": "authz-61904db427c47776543a5b6c6dd539dc94532efb13fd1efe0473accd69139be9",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T18:01:18.287158Z",
+      "context_pack_id": "c895e128-85a6-560b-9871-dfab8fb3c12b",
+      "created_at": "2026-11-06T18:01:18.279772Z",
+      "estimated_tokens": 187,
+      "expires_at": "2026-11-06T18:06:18.279772Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T19:50:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "9600a076-2d88-5ad6-91b5-6d89147ddff1",
+              "memory_version_id": "40f10bf8-fde7-51ff-b29e-785c79e33bdd",
+              "source_refs": [
+                "eval://bb938a26f61195355619c08d7fefb82e1e428df3926590b9b1eb1049b04527f5"
+              ],
+              "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "0e25c98c-1de5-4ce8-94c8-811714802d26",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "40f10bf8-fde7-51ff-b29e-785c79e33bdd"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 792,
+      "indexed_documents": 792,
+      "redacted_documents": 0,
+      "rejected": []
+    },
+    "review": {
+      "facts": [
+        "my sister Emily in Denver"
+      ],
+      "note": "可直接抽取城市。"
+    },
+    "previous_tfidf": {
+      "id": "1faac195",
+      "method": "vector_tfidf",
+      "query": "Where does my sister Emily live?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_d01949bf": 1
+        },
+        "reference_session_ids": [
+          "answer_d01949bf"
+        ],
+        "answers": [
+          "Denver"
+        ],
+        "unanswerable": false,
+        "question_type": "single-session-user"
+      },
+      "retrieved": [
+        "answer_d01949bf",
+        "8064b6ca",
+        "d2905eb6_2",
+        "f2ccf83b",
+        "b2543a58_3",
+        "2def525b_2",
+        "8badd477_3",
+        "9d3d54f7"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": true,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 77.781792,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "gpt4_2f584639",
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "evidence_turns": [
+      {
+        "text": "That's a great list! I think I'll try making the Tiffany Blue Velvet Cake. By the way, I've been doing a lot of online shopping lately. I ordered a customized photo album from Shutterfly two weeks ago for my mom's anniversary, which turned out really well. It cost around $50 and arrived on Wednesday. Do you have any tips on how to package the cake nicely to make it look like a gift?",
+        "memory_version_id": "oracle:answer_11a8f823_2:2"
+      },
+      {
+        "text": "I'm planning a birthday dinner for my sister this weekend and I want to make sure I get everything right. Can you help me with some gift ideas or ways to make the dinner special? By the way, I already got her a beautiful necklace from Tiffany's last weekend, which cost around $200, and I'm planning to give her a gift card to her favorite restaurant too.",
+        "memory_version_id": "oracle:answer_11a8f823_1:0"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "I ordered a customized photo album from Shutterfly two weeks ago for my mom's anniversary, which turned out really well.",
+      "refused": false,
+      "citations": [
+        "oracle:answer_11a8f823_2:2"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "db623481-96ed-467a-85b4-a7f17e15839a",
+      "authority_snapshot_id": "authz-101ea6115afc1632b2b826db9af4c68890f6625b530bd595525ea1a5757181a1",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T18:02:18.465810Z",
+      "context_pack_id": "a062a24a-da84-5fba-8f51-f72335b3ea84",
+      "created_at": "2026-11-06T18:02:18.456750Z",
+      "estimated_tokens": 866,
+      "expires_at": "2026-11-06T18:07:18.456750Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T07:03:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "affe7518-fe29-547e-a879-a4a50a55ca71",
+              "memory_version_id": "61ea8332-2d17-54d6-9a03-e59db8b85f26",
+              "source_refs": [
+                "eval://8a46d8332e08afe72d190b780ec61f17d4ff2dc15fed148822b111da0cd1f2d2"
+              ],
+              "text": "[2023/05/30 (Tue) 03:18] user: That's a great list! I think I'll try making the Tiffany Blue Velvet Cake. By the way, I've been doing a lot of online shopping lately. I ordered a customized photo album from Shutterfly two weeks ago for my mom's anniversary, which turned out really well. It cost around $50 and arrived on Wednesday. Do you have any tips on how to package the cake nicely to make it look like a gift?",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "4741f7e5-5f5d-5ce0-b137-8ab7b63eba8d",
+              "memory_version_id": "efa436da-be2a-54d5-b31d-521c491c7bee",
+              "source_refs": [
+                "eval://965da74c32a245e01072a70967acaecaff5652851fe48fe6b8ab194523109972"
+              ],
+              "text": "[2023/05/30 (Tue) 09:00] user: I'm planning a birthday dinner for my sister this weekend and I want to make sure I get everything right. Can you help me with some gift ideas or ways to make the dinner special? By the way, I already got her a beautiful necklace from Tiffany's last weekend, which cost around $200, and I'm planning to give her a gift card to her favorite restaurant too.",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "2e06744e-6f7b-4411-be01-78582e91d46b",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "I ordered a customized photo album from Shutterfly two weeks ago for my mom's anniversary, which turned out really well.",
+      "refused": false,
+      "citations": [
+        "61ea8332-2d17-54d6-9a03-e59db8b85f26"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 781,
+      "indexed_documents": 779,
+      "redacted_documents": 0,
+      "rejected": [
+        {
+          "id": "sharegpt_kS6twK0_14:0:4",
+          "error": "validation failed: credential or secret-like content cannot enter the canonical ledger"
+        },
+        {
+          "id": "sharegpt_kS6twK0_14:0:5",
+          "error": "validation failed: credential or secret-like content cannot enter the canonical ledger"
+        }
+      ]
+    },
+    "review": {
+      "facts": [
+        "photo album from Shutterfly two weeks ago",
+        "necklace from Tiffany's last weekend"
+      ],
+      "note": "需要依据不同会话日期解释相对时间，不可只比较表面词。"
+    },
+    "previous_tfidf": {
+      "id": "gpt4_2f584639",
+      "method": "vector_tfidf",
+      "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_11a8f823_2": 1,
+          "answer_11a8f823_1": 1
+        },
+        "reference_session_ids": [
+          "answer_11a8f823_2",
+          "answer_11a8f823_1"
+        ],
+        "answers": [
+          "the photo album for my mom"
+        ],
+        "unanswerable": false,
+        "question_type": "temporal-reasoning"
+      },
+      "retrieved": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": true,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 93.81225,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "c8090214_abs",
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_70dc7d08_abs_1",
+        "answer_70dc7d08_abs_2"
+      ],
+      "answers": [
+        "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+      ],
+      "unanswerable": true,
+      "question_type": "temporal-reasoning"
+    },
+    "evidence_turns": [
+      {
+        "text": "I'm looking for some gift ideas for my sister's birthday, which is coming up soon. I'd like to get her something nice, but I'm on a budget. Do you have any suggestions? By the way, I attended the annual Holiday Market at the local mall a week before Black Friday, and I saw some unique handmade jewelry there, but I'm not sure if that's her style.",
+        "memory_version_id": "oracle:answer_70dc7d08_abs_1:0"
+      },
+      {
+        "text": "I think I'll keep it simple and add her name in a elegant font, and maybe a small message like \"Sis\" or \"Birthday Girl\" to make it more personal. I don't want to overwhelm the design, but still make it special. By the way, speaking of birthdays, I attended the annual Holiday Market at the local mall a week before Black Friday, and I saw some unique handmade jewelry there that I think she might like. Do you think I should consider getting her a piece of jewelry to go along with the phone case?",
+        "memory_version_id": "oracle:answer_70dc7d08_abs_1:8"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "By the way, I attended the annual Holiday Market at the local mall a week before Black Friday, and I saw some unique handmade jewelry there, but I'm not sure if that's her style.",
+      "refused": false,
+      "citations": [
+        "oracle:answer_70dc7d08_abs_1:0"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": false,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "596ecdd7-7916-4d28-a7e6-1c9593bf55fc",
+      "authority_snapshot_id": "authz-75faae9cbf8ad831c6a0600a7a9b3c7aaeb7dd0b29a7d85ce2e2819ffbf44cca",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T18:03:19.183237Z",
+      "context_pack_id": "9602e584-88a3-564c-ac68-ac7cafc01df8",
+      "created_at": "2026-11-06T18:03:19.174354Z",
+      "estimated_tokens": 970,
+      "expires_at": "2026-11-06T18:08:19.174354Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T05:17:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "15647b64-fcf4-566e-b44b-4730f3264ba1",
+              "memory_version_id": "e1c40726-d13c-5da8-b49a-e701b47509e6",
+              "source_refs": [
+                "eval://3fd94bd50a63d40c2ab4e4aebfbd6e3dc8116adc8e53e6879d0094a66fb3c013"
+              ],
+              "text": "[2023/05/30 (Tue) 00:50] user: I'm looking for some gift ideas for my sister's birthday, which is coming up soon. I'd like to get her something nice, but I'm on a budget. Do you have any suggestions? By the way, I attended the annual Holiday Market at the local mall a week before Black Friday, and I saw some unique handmade jewelry there, but I'm not sure if that's her style.",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "549da42b-7a8a-57e8-b84e-4a5ce5f4f72e",
+              "memory_version_id": "c0e31fa6-7bbc-57d6-b68c-45f5a6e60c6c",
+              "source_refs": [
+                "eval://f59e967ba70629e510720c1e5817764421c4c9a5db6b0afc688c40e16b3d9412"
+              ],
+              "text": "[2023/05/30 (Tue) 00:50] user: I think I'll keep it simple and add her name in a elegant font, and maybe a small message like \"Sis\" or \"Birthday Girl\" to make it more personal. I don't want to overwhelm the design, but still make it special. By the way, speaking of birthdays, I attended the annual Holiday Market at the local mall a week before Black Friday, and I saw some unique handmade jewelry there that I think she might like. Do you think I should consider getting her a piece of jewelry to go along with the phone case?",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "aac3e8d8-85ce-4f07-a7f9-4745b5054a22",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "By the way, I attended the annual Holiday Market at the local mall a week before Black Friday, and I saw some unique handmade jewelry there, but I'm not sure if that's her style.",
+      "refused": false,
+      "citations": [
+        "e1c40726-d13c-5da8-b49a-e701b47509e6"
+      ]
+    },
+    "identity_scorer_control": null,
+    "ingestion": {
+      "input_documents": 817,
+      "indexed_documents": 816,
+      "redacted_documents": 3,
+      "rejected": [
+        {
+          "id": "2cfd748e_5:3:0",
+          "error": "validation failed: prompt-injection content cannot enter the canonical ledger"
+        }
+      ]
+    },
+    "review": {
+      "facts": [],
+      "note": "iPad未给出；不能用iPhone时间冒充。"
+    },
+    "previous_tfidf": {
+      "id": "c8090214_abs",
+      "method": "vector_tfidf",
+      "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {},
+        "reference_session_ids": [
+          "answer_70dc7d08_abs_1",
+          "answer_70dc7d08_abs_2"
+        ],
+        "answers": [
+          "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+        ],
+        "unanswerable": true,
+        "question_type": "temporal-reasoning"
+      },
+      "retrieved": [
+        "answer_70dc7d08_abs_1",
+        "ultrachat_129606",
+        "d4f02577_2",
+        "ca3aa07f_1",
+        "64c71782",
+        "f10be626"
+      ],
+      "retrieval_hit": false,
+      "all_evidence_hit": false,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 84.205125,
+      "error": null,
+      "answer_correct": true,
+      "refusal_correct": true,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "d7c942c3",
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "evidence_turns": [
+      {
+        "text": "That sounds like a great recipe! I'm definitely going to give it a try. By the way, I'm glad I'm not the only one who's a fan of that new grocery list app. I've been trying to get my mom to use it too, but she's still stuck on her old paper list. Anyway, back to the recipe - do you have any suggestions for a simple sauce to go with the cauliflower gnocchi?",
+        "memory_version_id": "oracle:answer_eecb10d9_1:8"
+      },
+      {
+        "text": "By the way, I was just thinking, my mom is actually using the same grocery list app as me now, so we can easily share lists and keep track of what we need. Anyway, thanks for the fajita tips, I think I'm all set for tonight's dinner!",
+        "memory_version_id": "oracle:answer_eecb10d9_2:4"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "By the way, I was just thinking, my mom is actually using the same grocery list app as me now, so we can easily share lists and keep track of what we need.",
+      "refused": false,
+      "citations": [
+        "oracle:answer_eecb10d9_2:4"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "6da54e53-f394-40ec-86c3-23ac1a421cd1",
+      "authority_snapshot_id": "authz-e5eec19c17e3d3c59d593b6514d36043df15b025821f6901683025021ed7de55",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T18:04:19.716732Z",
+      "context_pack_id": "42e90cd8-717a-5183-969f-97f8ad1d78d9",
+      "created_at": "2026-11-06T18:04:19.707896Z",
+      "estimated_tokens": 717,
+      "expires_at": "2026-11-06T18:09:19.707896Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-14T09:58:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "ccc29baf-a7e9-5e04-800b-57776907fd02",
+              "memory_version_id": "df93dc8e-1cc1-5bda-bbfc-c752814f249a",
+              "source_refs": [
+                "eval://19758ac88076e02e4431c37e8cad4cf060b840a77368cce8b8eea18880e7a5e5"
+              ],
+              "text": "[2023/03/11 (Sat) 12:42] user: That sounds like a great recipe! I'm definitely going to give it a try. By the way, I'm glad I'm not the only one who's a fan of that new grocery list app. I've been trying to get my mom to use it too, but she's still stuck on her old paper list. Anyway, back to the recipe - do you have any suggestions for a simple sauce to go with the cauliflower gnocchi?",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "987bc36e-f8c4-52ad-a451-7c7301d28201",
+              "memory_version_id": "34dc5de1-c3f1-53d6-9668-4fd5d3af0930",
+              "source_refs": [
+                "eval://df948ba88ae26c8e90f294f73374b0fbd4150ccf7f77c5e67ead58ba20d217b1"
+              ],
+              "text": "[2023/04/30 (Sun) 20:09] user: By the way, I was just thinking, my mom is actually using the same grocery list app as me now, so we can easily share lists and keep track of what we need. Anyway, thanks for the fajita tips, I think I'm all set for tonight's dinner!",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "8b7b70d1-ab0a-47bf-a6a4-65d52ee5a0c2",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "[2023/04/30 (Sun) 20:09] user: By the way, I was just thinking, my mom is actually using the same grocery list app as me now, so we can easily share lists and keep track of what we need.",
+      "refused": false,
+      "citations": [
+        "34dc5de1-c3f1-53d6-9668-4fd5d3af0930"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 822,
+      "indexed_documents": 822,
+      "redacted_documents": 0,
+      "rejected": []
+    },
+    "review": {
+      "facts": [
+        "same grocery list app as me now"
+      ],
+      "note": "需要最新事实；旧paper list是干扰。"
+    },
+    "previous_tfidf": {
+      "id": "d7c942c3",
+      "method": "vector_tfidf",
+      "query": "Is my mom using the same grocery list method as me?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_eecb10d9_1": 1,
+          "answer_eecb10d9_2": 1
+        },
+        "reference_session_ids": [
+          "answer_eecb10d9_1",
+          "answer_eecb10d9_2"
+        ],
+        "answers": [
+          "Yes."
+        ],
+        "unanswerable": false,
+        "question_type": "knowledge-update"
+      },
+      "retrieved": [
+        "answer_eecb10d9_2",
+        "answer_eecb10d9_1",
+        "b2243528_1",
+        "sharegpt_LOF3smB_25",
+        "sharegpt_1MKqbAt_0"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": true,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 25.398083,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "6cb6f249",
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "evidence_turns": [
+      {
+        "text": "I'm trying to get back into journaling and reading more. Can you recommend some books on mindfulness and self-improvement? By the way, I've been making an effort to cut down on social media lately - I actually just got back from a 10-day break in mid-February.",
+        "memory_version_id": "oracle:answer_a4204937_2:0"
+      },
+      {
+        "text": "I'm trying to track my screen time and social media usage. Can you suggest some apps or tools that can help me monitor and manage my online activities? By the way, I've been making an effort to cut down on social media lately - I even took a week-long break from it in mid-January, and it was really refreshing.",
+        "memory_version_id": "oracle:answer_a4204937_1:0"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "By the way, I've been making an effort to cut down on social media lately - I actually just got back from a 10-day break in mid-February.",
+      "refused": false,
+      "citations": [
+        "oracle:answer_a4204937_2:0"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "1a58cab1-9e62-400c-ae0b-5d647ddf95a9",
+      "authority_snapshot_id": "authz-749ff1f986dd82566ac5bd9ed53a4a2199c5b9d25c9fad7c53de7b78be354d68",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T18:05:19.277895Z",
+      "context_pack_id": "68805606-236d-5e4f-b06f-6ae0a9d9dbab",
+      "created_at": "2026-11-06T18:05:19.269771Z",
+      "estimated_tokens": 697,
+      "expires_at": "2026-11-06T18:10:19.269771Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-03-14T23:56:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "380f328a-645a-50c6-9d41-6fe201909d0e",
+              "memory_version_id": "0daae94e-3817-5b42-9ad6-ac111f6cec0d",
+              "source_refs": [
+                "eval://6c4fe11e6cf6af6f77ab22dba5eede6ff0cff4ea3cd800fd7e0ae8d8bd24e289"
+              ],
+              "text": "[2023/03/14 (Tue) 14:59] user: I'm trying to get back into journaling and reading more. Can you recommend some books on mindfulness and self-improvement? By the way, I've been making an effort to cut down on social media lately - I actually just got back from a 10-day break in mid-February.",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "6d314467-8f96-5893-a208-13dcc85050f7",
+              "memory_version_id": "f613565f-8195-5234-a9fe-7d945cdb5880",
+              "source_refs": [
+                "eval://011aaffb29a436327b2790d116ce1595b3f30aeb87e5f017c642044e2006c5c6"
+              ],
+              "text": "[2023/03/14 (Tue) 15:01] user: I'm trying to track my screen time and social media usage. Can you suggest some apps or tools that can help me monitor and manage my online activities? By the way, I've been making an effort to cut down on social media lately - I even took a week-long break from it in mid-January, and it was really refreshing.",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "1df4b4f9-730d-4d86-8a7e-39a2cfb98538",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "By the way, I've been making an effort to cut down on social media lately - I actually just got back from a 10-day break in mid-February.",
+      "refused": false,
+      "citations": [
+        "0daae94e-3817-5b42-9ad6-ac111f6cec0d"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 786,
+      "indexed_documents": 784,
+      "redacted_documents": 2,
+      "rejected": [
+        {
+          "id": "cbe70f21:9:1",
+          "error": "validation failed: prompt-injection content cannot enter the canonical ledger"
+        },
+        {
+          "id": "sharegpt_h0un5Rm_167:0:0",
+          "error": "validation failed: credential or secret-like content cannot enter the canonical ledger"
+        }
+      ]
+    },
+    "review": {
+      "facts": [
+        "10-day break",
+        "week-long break"
+      ],
+      "note": "需将week换算7再与10相加。"
+    },
+    "previous_tfidf": {
+      "id": "6cb6f249",
+      "method": "vector_tfidf",
+      "query": "How many days did I take social media breaks in total?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_a4204937_2": 1,
+          "answer_a4204937_1": 1
+        },
+        "reference_session_ids": [
+          "answer_a4204937_2",
+          "answer_a4204937_1"
+        ],
+        "answers": [
+          "17 days"
+        ],
+        "unanswerable": false,
+        "question_type": "multi-session"
+      },
+      "retrieved": [
+        "ultrachat_404221",
+        "answer_a4204937_1"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": false,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 15.323,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "1b9b7252",
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "evidence_turns": [
+      {
+        "text": "Yes, here are some guided imagery exercises and resources:\n\n1. Headspace app: This app provides guided meditations and visualization exercises that can help you relieve stress and anxiety.\n\n2. Mindful.org: This website includes guided imagery exercises that you can use for free, such as \"The Mountain Meditation\" and \"The Body Scan Meditation.\"\n\n3. UCLA Mindful Awareness Research Center: This website includes a variety of free guided meditations that can help with stress reduction, relaxation, and building resilience.\n\n4. Mindfulness Exercises: This website provides a range of mindfulness exercises including visualization exercises that you can use for free.\n\n5. YouTube: There are a variety of guided imagery exercises available on YouTube that can help you relax and relieve stress.\n\nRemember, everyone responds differently to guided imagery exercises, so it's important to experiment and find what works best for you.",
+        "memory_version_id": "oracle:answer_ultrachat_115151:3"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "Mindful.org: This website includes guided imagery exercises that you can use for free, such as \"The Mountain Meditation\" and \"The Body Scan Meditation.\"",
+      "refused": false,
+      "citations": [
+        "oracle:answer_ultrachat_115151:3"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "d79088d1-f89a-4cea-a00e-15d251addbb0",
+      "authority_snapshot_id": "authz-8ad255ff62dd49c36752a5d6d2625e8dd77ce3310eb12e2e3b2a027b5968d175",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T18:06:19.626232Z",
+      "context_pack_id": "0c2cef13-1f1d-53be-8595-1aa861f16061",
+      "created_at": "2026-11-06T18:06:19.617544Z",
+      "estimated_tokens": 989,
+      "expires_at": "2026-11-06T18:11:19.617544Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T18:29:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "510b8baa-fdcf-5d8e-a2e5-ad8e29d9d58e",
+              "memory_version_id": "3b5a5922-7f8e-5a70-b02a-019daad14d7f",
+              "source_refs": [
+                "eval://e529669798becc174972f0efa616e6d4f955af5f765b615be20218b9ecfed444"
+              ],
+              "text": "[2023/05/25 (Thu) 16:50] assistant: Yes, here are some guided imagery exercises and resources: 1. Headspace app: This app provides guided meditations and visualization exercises that can help you relieve stress and anxiety. 2. Mindful.org: This website includes guided imagery exercises that you can use for free, such as \"The Mountain Meditation\" and \"The Body Scan Meditation.\" 3. UCLA Mindful Awareness Research Center: This website includes a variety of free guided meditations that can help with stress reduction, relaxation, and building resilience. 4. Mindfulness Exercises: This website provides a range of mindfulness exercises including visualization exercises that you can use for free. 5. YouTube: There are a variety of guided imagery exercises available on YouTube that can help you relax and relieve stress. Remember, everyone responds differently to guided imagery exercises, so it's important to experiment and find what works best for you.",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "a7293a4e-a914-4c0c-bfa7-b9e69cd596d1",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "Mindful.org: This website includes guided imagery exercises that you can use for free, such as \"The Mountain Meditation\" and \"The Body Scan Meditation.\" 3.",
+      "refused": false,
+      "citations": [
+        "3b5a5922-7f8e-5a70-b02a-019daad14d7f"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 784,
+      "indexed_documents": 777,
+      "redacted_documents": 4,
+      "rejected": [
+        {
+          "id": "0e726047:3:0",
+          "error": "validation failed: prompt-injection content cannot enter the canonical ledger"
+        },
+        {
+          "id": "b5263ca4_1:3:1",
+          "error": "validation failed: prompt-injection content cannot enter the canonical ledger"
+        },
+        {
+          "id": "sharegpt_qdSOdaF_8:0:3",
+          "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+        },
+        {
+          "id": "sharegpt_qdSOdaF_8:0:4",
+          "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+        },
+        {
+          "id": "sharegpt_qdSOdaF_8:0:5",
+          "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+        },
+        {
+          "id": "sharegpt_qdSOdaF_8:0:6",
+          "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+        },
+        {
+          "id": "sharegpt_qdSOdaF_8:0:7",
+          "error": "conflict: source_content must be trimmed, non-empty, bounded, and contain no control characters"
+        }
+      ]
+    },
+    "review": {
+      "facts": [
+        "Mindful.org: This website includes guided imagery exercises"
+      ],
+      "note": "旧预测已包含正确网站，但严格EM不接受整句；官方judge未运行。"
+    },
+    "previous_tfidf": {
+      "id": "1b9b7252",
+      "method": "vector_tfidf",
+      "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+      "prediction": {
+        "text": "Mindful.org: This website includes guided imagery exercises that you can use for free, such as \"The Mountain Meditation\" and \"The Body Scan Meditation.\" 3.",
+        "refused": false,
+        "citations": [
+          "d2b70924-ee3b-5c12-b6e8-12858d5c5b58"
+        ]
+      },
+      "labels": {
+        "qrels": {
+          "answer_ultrachat_115151": 1
+        },
+        "reference_session_ids": [
+          "answer_ultrachat_115151"
+        ],
+        "answers": [
+          "Mindful.org."
+        ],
+        "unanswerable": false,
+        "question_type": "single-session-assistant"
+      },
+      "retrieved": [
+        "answer_ultrachat_115151",
+        "f7796d96_1",
+        "330c05e7_1",
+        "3829d412_2",
+        "sharegpt_1AhFMpw_5"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": true,
+      "context_item_count": 1,
+      "context_estimated_tokens": 989,
+      "retrieval_ms": 72.681917,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  },
+  {
+    "id": "35a27287",
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "evidence_turns": [
+      {
+        "text": "What are some cultural events or festivals in my area that celebrate language diversity and cultural exchange? I'd love to attend something like the cultural festival I volunteered at last month.",
+        "memory_version_id": "oracle:answer_9b182436:2"
+      },
+      {
+        "text": "Can you recommend any language learning apps or websites that focus on idiomatic expressions and colloquialisms in French and Spanish? I've been trying to improve my conversational skills and want to learn more informal language.",
+        "memory_version_id": "oracle:answer_9b182436:4"
+      },
+      {
+        "text": "I'd like to explore more language exchange opportunities and cultural events in my area. Can you suggest some ways to find language exchange partners or events that focus on French and Spanish languages?",
+        "memory_version_id": "oracle:answer_9b182436:12"
+      }
+    ],
+    "oracle_prediction": {
+      "text": "What are some cultural events or festivals in my area that celebrate language diversity and cultural exchange?",
+      "refused": false,
+      "citations": [
+        "oracle:answer_9b182436:2"
+      ]
+    },
+    "oracle_metrics": {
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false
+    },
+    "oracle_context": {
+      "attempt_id": "8155e328-26d4-4f63-8be7-3e0f2eee957c",
+      "authority_snapshot_id": "authz-c4b42537fb5368043f22d23c23bf5d98f4ff469da437232a370d799793b3bbf1",
+      "compiler_version": "demo-context-compiler-v2",
+      "consumed_at": "2026-11-06T18:07:20.714347Z",
+      "context_pack_id": "f36bd84b-c2db-55bb-a9ca-fa290faef318",
+      "created_at": "2026-11-06T18:07:20.705618Z",
+      "estimated_tokens": 816,
+      "expires_at": "2026-11-06T18:12:20.705618Z",
+      "omission_summary": {},
+      "policy_version": "demo-policy-v1",
+      "projection_generation": "demo-v0-generation-1",
+      "purpose": "answer_user",
+      "ranking_version": "eval-v1",
+      "reference_time": "2023-05-30T22:15:00Z",
+      "sections": [
+        {
+          "items": [
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "609e16f7-a361-5f91-99ed-69039bcbeea8",
+              "memory_version_id": "42e0c607-63d6-549b-ad7c-f60de5f49f17",
+              "source_refs": [
+                "eval://7ce06017a87937b327c34ed3cf5557d45263cd80c317cb67f45db84ef730fb9c"
+              ],
+              "text": "[2023/05/29 (Mon) 12:32] user: What are some cultural events or festivals in my area that celebrate language diversity and cultural exchange? I'd love to attend something like the cultural festival I volunteered at last month.",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "2488193a-33d9-578f-bee2-39fb624ba077",
+              "memory_version_id": "3b128644-1968-5d82-96b0-e8a084a7a658",
+              "source_refs": [
+                "eval://a40a918ac090ef255ab0f10748d89cdb790a1d6d41f82c723e2a4d86cd461499"
+              ],
+              "text": "[2023/05/29 (Mon) 12:32] user: Can you recommend any language learning apps or websites that focus on idiomatic expressions and colloquialisms in French and Spanish? I've been trying to improve my conversational skills and want to learn more informal language.",
+              "trust": "untrusted_memory_data"
+            },
+            {
+              "effective_from": null,
+              "event_time": null,
+              "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+              "memory_record_id": "17003b47-9418-5489-866d-7e7d7d535532",
+              "memory_version_id": "af6dc21b-afb7-5997-9cfd-5809fd47539e",
+              "source_refs": [
+                "eval://f4e2fadb167c5f2805b3340453d75200f9553676b3d392a1498c056c3107a6d6"
+              ],
+              "text": "[2023/05/29 (Mon) 12:32] user: I'd like to explore more language exchange opportunities and cultural events in my area. Can you suggest some ways to find language exchange partners or events that focus on French and Spanish languages?",
+              "trust": "untrusted_memory_data"
+            }
+          ],
+          "kind": "relevant_experience"
+        }
+      ],
+      "task_id": "0070a508-6fda-4996-affd-023f76b10369",
+      "timezone": "UTC",
+      "token_budget": 4096,
+      "tokenizer_id": "demo-conservative-char-v1"
+    },
+    "oracle_context_prediction": {
+      "text": "[2023/05/29 (Mon) 12:32] user: What are some cultural events or festivals in my area that celebrate language diversity and cultural exchange?",
+      "refused": false,
+      "citations": [
+        "42e0c607-63d6-549b-ad7c-f60de5f49f17"
+      ]
+    },
+    "identity_scorer_control": true,
+    "ingestion": {
+      "input_documents": 827,
+      "indexed_documents": 827,
+      "redacted_documents": 0,
+      "rejected": []
+    },
+    "review": {
+      "facts": [
+        "cultural events",
+        "French and Spanish"
+      ],
+      "note": "多轮偏好rubric；准确性需语义判断。"
+    },
+    "previous_tfidf": {
+      "id": "35a27287",
+      "method": "vector_tfidf",
+      "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+      "prediction": {
+        "text": "信息不足，无法回答。",
+        "refused": true,
+        "citations": []
+      },
+      "labels": {
+        "qrels": {
+          "answer_9b182436": 1
+        },
+        "reference_session_ids": [
+          "answer_9b182436"
+        ],
+        "answers": [
+          "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+        ],
+        "unanswerable": false,
+        "question_type": "single-session-preference"
+      },
+      "retrieved": [
+        "answer_9b182436",
+        "ultrachat_39307"
+      ],
+      "retrieval_hit": true,
+      "all_evidence_hit": true,
+      "context_item_count": 0,
+      "context_estimated_tokens": 0,
+      "retrieval_ms": 73.5685,
+      "error": null,
+      "answer_correct": false,
+      "refusal_correct": null,
+      "stale_fact_error": false,
+      "benchmark": "LongMemEval-s public subset"
+    }
+  }
+]

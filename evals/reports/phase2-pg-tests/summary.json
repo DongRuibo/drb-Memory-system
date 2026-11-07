@@ -1,0 +1,5 @@
+{
+  "exit_code": 101,
+  "test_log": "cargo-tests.log",
+  "role": "NOSUPERUSER NOBYPASSRLS"
+}

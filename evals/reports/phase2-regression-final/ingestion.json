@@ -1,0 +1,14 @@
+{
+  "self_constructed": {
+    "input_documents": 40,
+    "indexed_documents": 40,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "self_qa_formation": {
+    "input_documents": 14,
+    "indexed_documents": 14,
+    "redacted_documents": 0,
+    "rejected": []
+  }
+}

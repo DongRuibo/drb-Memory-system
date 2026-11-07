@@ -1,0 +1,62 @@
+{
+  "version": "phase3-v3-calibration",
+  "seed": 20261108,
+  "test_per_stratum": 2,
+  "candidate_budget": 20,
+  "output_chunks": 10,
+  "rrf": {
+    "bm25_weight": 1.15,
+    "vector_weight": 1.0,
+    "k": 60
+  },
+  "retrieval_methods": [
+    "bm25",
+    "tfidf",
+    "semantic",
+    "hybrid_semantic"
+  ],
+  "reader_methods": [
+    "oracle",
+    "bm25",
+    "semantic",
+    "hybrid_semantic"
+  ],
+  "optional_semantic_rerank": "not scheduled until local model is verified; must be separately preregistered",
+  "chunk_chars": 1000,
+  "context": {
+    "policy": "eval rank-only after canonical authorization; not production relevance-gated Context Pack",
+    "max_tokens": 4096,
+    "max_utf8_bytes": 12000,
+    "truncation": "whole ranked chunks then at most one prefix; omit rest",
+    "score_threshold": null
+  },
+  "reader_input_cap": 16384,
+  "judge_input_cap": 24576,
+  "reader_output_cap": 768,
+  "judge_output_cap": 512,
+  "reasoning_reserve": 128,
+  "calibration_cases": 16,
+  "smoke_requests": 2,
+  "timeout_seconds": 45,
+  "retries": 0,
+  "max_requests": 130,
+  "max_input_tokens_total": 2719744,
+  "max_output_tokens_total": 98048,
+  "max_cost_cny": "12.00",
+  "price_cny_per_million_input": "4.00",
+  "price_cny_per_million_output": "6.00",
+  "official_benchmark_score": false,
+  "real_model_run_authorized": false,
+  "method_order": "SHA256(seed,question_id,method) per case; common query embedding precomputed once",
+  "role_request_limits": {
+    "reader": 56,
+    "judge": 56,
+    "calibration": 16,
+    "smoke": 2
+  },
+  "calibration_dataset": {
+    "path": "evals/datasets/judge_calibration_v3.json",
+    "version": "judge-calibration-v3",
+    "sha256": "0c3ca2749d095bacf8a44af97c0802b15280b2fbbbf5646c9914b6d634b410c4"
+  }
+}

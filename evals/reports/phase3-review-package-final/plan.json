@@ -1,0 +1,371 @@
+{
+  "kind": "offline_preparation_not_model_results",
+  "protocol": {
+    "version": "phase3-v1",
+    "seed": 20261108,
+    "test_per_stratum": 2,
+    "candidate_budget": 20,
+    "output_chunks": 10,
+    "rrf": {
+      "bm25_weight": 1.15,
+      "vector_weight": 1.0,
+      "k": 60
+    },
+    "retrieval_methods": [
+      "bm25",
+      "tfidf",
+      "semantic",
+      "hybrid_semantic"
+    ],
+    "reader_methods": [
+      "oracle",
+      "bm25",
+      "semantic",
+      "hybrid_semantic"
+    ],
+    "optional_semantic_rerank": "not scheduled until local model is verified; must be separately preregistered",
+    "chunk_chars": 1000,
+    "context": {
+      "policy": "eval rank-only after canonical authorization; not production relevance-gated Context Pack",
+      "max_tokens": 4096,
+      "max_utf8_bytes": 12000,
+      "truncation": "whole ranked chunks then at most one prefix; omit rest",
+      "score_threshold": null
+    },
+    "reader_input_cap": 16384,
+    "judge_input_cap": 24576,
+    "reader_output_cap": 768,
+    "judge_output_cap": 512,
+    "reasoning_reserve": 128,
+    "calibration_cases": 16,
+    "smoke_requests": 2,
+    "timeout_seconds": 45,
+    "retries": 0,
+    "max_requests": 130,
+    "max_input_tokens_total": 2719744,
+    "max_output_tokens_total": 98048,
+    "max_cost_cny": "12.00",
+    "price_cny_per_million_input": "4.00",
+    "price_cny_per_million_output": "6.00",
+    "official_benchmark_score": false,
+    "real_model_run_authorized": false,
+    "method_order": "SHA256(seed,question_id,method) per case; common query embedding precomputed once"
+  },
+  "models": {
+    "embedding": {
+      "model": "Qwen/Qwen3-Embedding-0.6B",
+      "requested_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "files": {
+        "tokenizer.json": {
+          "bytes": 11423705,
+          "sha256": "def76fb086971c7867b829c23a26261e38d9d74e02139253b38aeb9df8b4b50a",
+          "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/tokenizer.json"
+        },
+        "tokenizer_config.json": {
+          "bytes": 9706,
+          "sha256": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+          "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/tokenizer_config.json"
+        }
+      }
+    },
+    "reranker": {
+      "model": "Qwen/Qwen3-Reranker-0.6B",
+      "requested_revision": "e61197e",
+      "revision": "e61197ed45024b0ed8a2d74b80b4d909f1255473",
+      "files": {
+        "tokenizer.json": {
+          "bytes": 11422654,
+          "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4",
+          "url": "https://huggingface.co/Qwen/Qwen3-Reranker-0.6B/resolve/e61197ed45024b0ed8a2d74b80b4d909f1255473/tokenizer.json"
+        },
+        "tokenizer_config.json": {
+          "bytes": 9706,
+          "sha256": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+          "url": "https://huggingface.co/Qwen/Qwen3-Reranker-0.6B/resolve/e61197ed45024b0ed8a2d74b80b4d909f1255473/tokenizer_config.json"
+        }
+      }
+    },
+    "reader_tokenizer": {
+      "model": "deepseek-ai/DeepSeek-V3.2",
+      "requested_revision": "main",
+      "revision": "a7e62ac04ecb2c0a54d736dc46601c5606cf10a6",
+      "files": {
+        "tokenizer.json": {
+          "bytes": 7847502,
+          "sha256": "cd050be35cae877f8f0aa847f45aa87e23835a56ca32b29b28545597852784e5",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/resolve/a7e62ac04ecb2c0a54d736dc46601c5606cf10a6/tokenizer.json"
+        },
+        "tokenizer_config.json": {
+          "bytes": 795,
+          "sha256": "b5de6cc1c6758d02c0d3cec0efa062f1161654475458003f6f293f6ef28acdaa",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2/resolve/a7e62ac04ecb2c0a54d736dc46601c5606cf10a6/tokenizer_config.json"
+        }
+      }
+    },
+    "reader": {
+      "provider": "SiliconFlow CN",
+      "model": "deepseek-ai/DeepSeek-V3.2",
+      "revision": "provider-managed alias; immutable serving revision unavailable",
+      "base_url": "https://api.siliconflow.cn/v1",
+      "availability": "publicly listed; account access not probed",
+      "temperature": 0,
+      "enable_thinking": false,
+      "thinking_budget": 128,
+      "max_tokens": 768
+    },
+    "embedding_parameters": {
+      "dimensions": 1024,
+      "normalization": "l2",
+      "input_type": [
+        "document",
+        "query"
+      ],
+      "instruction": "Given an agent memory query, retrieve user memories that are relevant to completing the current task",
+      "max_length": 4096,
+      "batch_size": 32,
+      "backend": "eval exact cosine; production pgvector/ANN not claimed",
+      "device": "mps",
+      "dtype": "torch.float32",
+      "torch_version": "2.9.1",
+      "transformers_version": "4.57.1",
+      "tokenizers_version": "0.22.1",
+      "pooling": "last_token_with_left_padding",
+      "add_special_tokens": true
+    }
+  },
+  "lock_seal": "c609995fec7af4e3615cdf8e1aa333b1651aad43d355dbe7fe49720b2bc0e876",
+  "lock_sha256": "7c50ca5ed56dc660773e32352c163a9b7edd6d243bed35cd4855510a82c9d417",
+  "calibration_sha256": "93ab2e268dfa40a86a4fc38dee1f2c84789b34bed51b14b61bce598e97d560a1",
+  "reader_prompt_sha256": "8607f3437b00718b55c0665179e3cacee4e028921286b8f83674f622933ae7e1",
+  "judge_prompt_sha256": "21830100108600a3f9ce13b61106eb743fd8132cc4cb56db4c5f39fba19ffd11",
+  "runtime_sha256": {
+    "evals/memory_eval/phase3.py": "26a22a24f1c25c792fcfd7618459a116fbfef1de0b58253bcec29d714cee5408",
+    "evals/memory_eval/models3.py": "d131902eac6b518c844d176f68cf24c5f8373faedd6565e4f5dbaa96bd935074",
+    "evals/memory_eval/protocol3.py": "64b3add5ba272660714f3948262832c7114c3a40ac4bd1d3691768786f993225",
+    "evals/memory_eval/locked3.py": "ea8bd318fb8891adda32cfecb8dc3c9006b2a046fd260b7fa3b7370f2c0f40b3",
+    "evals/memory_eval/runner.py": "ebc182bed77b440e7a3de2f91108a023a67f61071dc2f52d99bb3dcc2ba4b057",
+    "evals/memory_eval/baselines.py": "00d80065148b7645faf498524c6bef7e7036831ca703b568f082547633bb0037",
+    "evals/memory_eval/metrics.py": "49cff512e6dfd95094f209ac0e9016f9790b4353f4f757018c92ffe74a95778d",
+    "evals/memory_eval/longmemeval.py": "f98af71901961106fc6a503ff79e681884b4a75b5ccd45fbbd85b12656137f23",
+    "evals/harness/src/main.rs": "c7b0de80497849d6e506c6160c8bce5a28f3a100ed437f74ce857f0a3e00453f",
+    "crates/memory-postgres/src/repository.rs": "3a008a0c518e5058b08a738959754037c574c403dc2d867144458d952550fbb1",
+    "evals/harness/Cargo.lock": "3fecb0cc31c56bfd57e9814b63a41914051c519ea5b7690c295b76cb29437d88",
+    "tools/retrieval_models_server.py": "d83ae82e759d9deb2c7231e5084a82bbd328adc5c036b1cafbf89bc91d8f0672",
+    "evals/requirements-phase3-models.lock": "8a58c92f49286a9de87030fcc265929caeb46a2fc762ab7e6ba736144de3fd54",
+    "crates/memory-application/src/extractor.rs": "961d56e76de0cb62130c0934db1c76e651bed068dbf4fc3a0418ff5c3513556b",
+    "crates/memory-application/src/security.rs": "5e2277a0fbd21ad272edebf4b9818d758c157769ef52467c703782422e1f9126",
+    "crates/memory-application/src/lib.rs": "18a1c6a818a6844a309c711218f22e70c95dc9fc1c3e9880fd2e12cb0a31d5cb",
+    "crates/memory-application/src/provider.rs": "bcc3d3b49af5ca705bf5a71c958a7a5ea57cd796811706435953a7b16a653d1c",
+    "crates/memory-application/src/reranker.rs": "6a46499347a4eb46d2d92819af386f85cde2ca6f147397e605a1844e926f2288",
+    "crates/memory-application/src/temporal.rs": "1e84cba5302873745033e8eb5359ca72939f91021b3b39d6a85228efe389254d",
+    "crates/memory-application/src/text.rs": "008d71c18302195bfcfdaedc7434b5aa599ee2002ea4c5894dec6999b3a54162",
+    "crates/memory-application/src/ranking.rs": "adc8aef7373ca2fc62dfb6dac5319555f0ffcd1b2e629b43a3778dcb8740ea95"
+  },
+  "price_evidence": {
+    "checked_at": "2026-11-07",
+    "provider": "SiliconFlow CN",
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "currency": "CNY",
+    "input_per_million": "4.00",
+    "output_per_million": "6.00",
+    "cache_discount_assumed": false,
+    "pricing_url": "https://www.siliconflow.cn/pricing",
+    "release_note_url": "https://api-docs.siliconflow.cn/docs/release-notes/overview",
+    "api_contract_url": "https://docs.siliconflow.cn/docs/api/chat-completions-post",
+    "notes": [
+      "June 30 adjustment confirmed by official release note and current pricing page.",
+      "max_tokens excludes chain-of-thought; disable thinking and also reserve thinking_budget=128.",
+      "Hosted weights cannot be pinned by Hugging Face tokenizer revision.",
+      "Recheck prices and non-thinking availability before approved execution."
+    ]
+  },
+  "inventory": [
+    {
+      "id": "a96c20ee_abs",
+      "stratum": "abstention",
+      "document_chunks": 862,
+      "embedding_document_tokens": 126330,
+      "max_document_tokens": 320,
+      "embedding_query_tokens": 39,
+      "evidence_chunks": 0,
+      "reader_question_tokens": 16
+    },
+    {
+      "id": "29f2956b_abs",
+      "stratum": "abstention",
+      "document_chunks": 826,
+      "embedding_document_tokens": 125437,
+      "max_document_tokens": 355,
+      "embedding_query_tokens": 36,
+      "evidence_chunks": 0,
+      "reader_question_tokens": 12
+    },
+    {
+      "id": "f9e8c073",
+      "stratum": "knowledge-update",
+      "document_chunks": 818,
+      "embedding_document_tokens": 125528,
+      "max_document_tokens": 486,
+      "embedding_query_tokens": 38,
+      "evidence_chunks": 2,
+      "reader_question_tokens": 14
+    },
+    {
+      "id": "3ba21379",
+      "stratum": "knowledge-update",
+      "document_chunks": 760,
+      "embedding_document_tokens": 122055,
+      "max_document_tokens": 338,
+      "embedding_query_tokens": 35,
+      "evidence_chunks": 2,
+      "reader_question_tokens": 11
+    },
+    {
+      "id": "gpt4_194be4b3",
+      "stratum": "multi-session",
+      "document_chunks": 783,
+      "embedding_document_tokens": 123621,
+      "max_document_tokens": 444,
+      "embedding_query_tokens": 33,
+      "evidence_chunks": 4,
+      "reader_question_tokens": 9
+    },
+    {
+      "id": "gpt4_15e38248",
+      "stratum": "multi-session",
+      "document_chunks": 797,
+      "embedding_document_tokens": 123961,
+      "max_document_tokens": 428,
+      "embedding_query_tokens": 45,
+      "evidence_chunks": 5,
+      "reader_question_tokens": 21
+    },
+    {
+      "id": "e9327a54",
+      "stratum": "single-session-assistant",
+      "document_chunks": 833,
+      "embedding_document_tokens": 123984,
+      "max_document_tokens": 422,
+      "embedding_query_tokens": 55,
+      "evidence_chunks": 2,
+      "reader_question_tokens": 33
+    },
+    {
+      "id": "6222b6eb",
+      "stratum": "single-session-assistant",
+      "document_chunks": 822,
+      "embedding_document_tokens": 125720,
+      "max_document_tokens": 380,
+      "embedding_query_tokens": 82,
+      "evidence_chunks": 2,
+      "reader_question_tokens": 59
+    },
+    {
+      "id": "6b7dfb22",
+      "stratum": "single-session-preference",
+      "document_chunks": 799,
+      "embedding_document_tokens": 125220,
+      "max_document_tokens": 401,
+      "embedding_query_tokens": 48,
+      "evidence_chunks": 1,
+      "reader_question_tokens": 25
+    },
+    {
+      "id": "1da05512",
+      "stratum": "single-session-preference",
+      "document_chunks": 799,
+      "embedding_document_tokens": 125478,
+      "max_document_tokens": 414,
+      "embedding_query_tokens": 43,
+      "evidence_chunks": 2,
+      "reader_question_tokens": 20
+    },
+    {
+      "id": "c960da58",
+      "stratum": "single-session-user",
+      "document_chunks": 819,
+      "embedding_document_tokens": 125524,
+      "max_document_tokens": 357,
+      "embedding_query_tokens": 33,
+      "evidence_chunks": 1,
+      "reader_question_tokens": 10
+    },
+    {
+      "id": "95bcc1c8",
+      "stratum": "single-session-user",
+      "document_chunks": 808,
+      "embedding_document_tokens": 125192,
+      "max_document_tokens": 445,
+      "embedding_query_tokens": 39,
+      "evidence_chunks": 1,
+      "reader_question_tokens": 15
+    },
+    {
+      "id": "gpt4_4929293b",
+      "stratum": "temporal-reasoning",
+      "document_chunks": 797,
+      "embedding_document_tokens": 124705,
+      "max_document_tokens": 439,
+      "embedding_query_tokens": 43,
+      "evidence_chunks": 1,
+      "reader_question_tokens": 19
+    },
+    {
+      "id": "993da5e2",
+      "stratum": "temporal-reasoning",
+      "document_chunks": 792,
+      "embedding_document_tokens": 122430,
+      "max_document_tokens": 379,
+      "embedding_query_tokens": 43,
+      "evidence_chunks": 2,
+      "reader_question_tokens": 19
+    }
+  ],
+  "strata": {
+    "abstention": 2,
+    "knowledge-update": 2,
+    "multi-session": 2,
+    "single-session-assistant": 2,
+    "single-session-preference": 2,
+    "single-session-user": 2,
+    "temporal-reasoning": 2
+  },
+  "total_chunks": 11315,
+  "total_embedding_tokens": 1745797,
+  "max_embedding_http_requests": 372,
+  "quote": [
+    {
+      "role": "reader",
+      "requests": 56,
+      "input_cap": 16384,
+      "output_cap": 896,
+      "cost_ceiling_cny": "3.971072"
+    },
+    {
+      "role": "judge",
+      "requests": 72,
+      "input_cap": 24576,
+      "output_cap": 640,
+      "cost_ceiling_cny": "7.354368"
+    },
+    {
+      "role": "smoke",
+      "requests": 2,
+      "input_cap": 16384,
+      "output_cap": 896,
+      "cost_ceiling_cny": "0.141824"
+    }
+  ],
+  "total_cost_ceiling_cny": "11.467264",
+  "api_requests_executed": 0,
+  "actual_cost_cny": "0",
+  "gates": [
+    "explicit user approval",
+    "account model/non-thinking JSON availability smoke",
+    "human review of calibration labels",
+    "local semantic model readiness; no silent BM25-only fallback"
+  ],
+  "official_benchmark_score": false,
+  "seal": "70f07023f8d8af9804dfa59d6d05060084c6f84901e74700913b1578f69cc5c4"
+}

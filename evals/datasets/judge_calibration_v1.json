@@ -1,0 +1,371 @@
+{
+  "kind": "synthetic_scoring_contract_cases",
+  "human_review_status": "pending",
+  "official_benchmark_score": false,
+  "cases": [
+    {
+      "id": "preference_rubric_positive",
+      "question": "What could Ada do this evening?",
+      "answers": [
+        "Recommend a quiet indoor activity reflecting an interest in chess; avoid traffic and crowds."
+      ],
+      "context": "Ada enjoys chess and wants to avoid traffic noise and crowds.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Try a quiet indoor chess evening.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-preference"
+    },
+    {
+      "id": "full_sentence",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada lives in Paris.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Ada lives in Paris.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "synonym",
+      "question": "What does Ada ride?",
+      "answers": [
+        "bicycle"
+      ],
+      "context": "Ada rides a bike.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "a bike",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "number_format",
+      "question": "How many files?",
+      "answers": [
+        "1000"
+      ],
+      "context": "There are 1000 files.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "1,000",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "date_format",
+      "question": "When did it start?",
+      "answers": [
+        "2024-02-01"
+      ],
+      "context": "It started on 2024-02-01.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "February 1, 2024",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "supported_explanation",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada has lived in Paris since 2020.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Paris, her home since 2020.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "invented_explanation",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada moved to Paris in 2020.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Paris, her home since 2019.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "decimal_error",
+      "question": "What is the dose in mg?",
+      "answers": [
+        "1.5"
+      ],
+      "context": "The dose is 1.5 mg.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "15",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "entity_swap",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada lives in Paris. Bea lives in Lyon.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Lyon",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "correct_abstention",
+      "question": "Where does Ada live?",
+      "answers": [
+        "unknown"
+      ],
+      "context": "Ada likes chess.",
+      "unanswerable": true,
+      "prediction": {
+        "answer": "Insufficient evidence.",
+        "abstained": true,
+        "citations": []
+      },
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": null
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "unsupported_guess",
+      "question": "Where does Ada live?",
+      "answers": [
+        "unknown"
+      ],
+      "context": "Ada likes chess.",
+      "unanswerable": true,
+      "prediction": {
+        "answer": "Paris",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "lucky_guess",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada likes chess.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Paris",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": false
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "arithmetic",
+      "question": "How many days in total?",
+      "answers": [
+        "17 days"
+      ],
+      "context": "Two breaks lasted 10 days and 7 days.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "17 days",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "partial_answer",
+      "question": "Which two cities did Ada visit?",
+      "answers": [
+        "Paris and Lyon"
+      ],
+      "context": "Ada visited Paris and Lyon.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Paris",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": true
+      },
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "preference_rubric_negative",
+      "question": "What could Ada do this evening?",
+      "answers": [
+        "Recommend a quiet indoor activity reflecting an interest in chess; avoid traffic and crowds."
+      ],
+      "context": "Ada enjoys chess and wants to avoid traffic noise and crowds.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Attend the busy Red Square parade tonight.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "question_type": "single-session-preference"
+    },
+    {
+      "id": "unnecessary_abstention",
+      "question": "Where does Ada live?",
+      "answers": [
+        "Paris"
+      ],
+      "context": "Ada lives in Paris.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Insufficient evidence.",
+        "abstained": true,
+        "citations": []
+      },
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": null
+      },
+      "question_type": "single-session-user"
+    }
+  ]
+}

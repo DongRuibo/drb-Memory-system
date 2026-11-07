@@ -1,0 +1,4002 @@
+[
+  {
+    "id": "c6853660",
+    "repeat": 0,
+    "variant": "materialized",
+    "request_ms": 672.973334,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 26.968542000000003,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 0,
+    "variant": "materialized_uncached",
+    "request_ms": 78.165375,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 19.7035,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 1,
+    "variant": "materialized",
+    "request_ms": 72.258625,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 18.084958,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 1,
+    "variant": "materialized_uncached",
+    "request_ms": 74.135209,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 19.529792,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 2,
+    "variant": "materialized",
+    "request_ms": 72.43975,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 18.200999999999997,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 2,
+    "variant": "materialized_uncached",
+    "request_ms": 73.823958,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 19.09075,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 3,
+    "variant": "materialized",
+    "request_ms": 74.548125,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 18.973791,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 3,
+    "variant": "materialized_uncached",
+    "request_ms": 75.974875,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 19.725541999999997,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 4,
+    "variant": "materialized",
+    "request_ms": 73.828333,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 18.631875,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 4,
+    "variant": "materialized_uncached",
+    "request_ms": 74.523125,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 19.355207999999998,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 5,
+    "variant": "materialized",
+    "request_ms": 143.882417,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953276,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.40091016989231,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485296,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635456,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.113957080646568,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.96621834068711,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.95127452155606,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 89.112208,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 5,
+    "variant": "materialized_uncached",
+    "request_ms": 73.081666,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 18.067,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 6,
+    "variant": "materialized",
+    "request_ms": 142.116291,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953276,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.40091016989231,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485296,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635456,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.113957080646568,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.96621834068711,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.95127452155606,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 87.772917,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 6,
+    "variant": "materialized_uncached",
+    "request_ms": 75.641458,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 19.643417,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 7,
+    "variant": "materialized",
+    "request_ms": 144.093375,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953276,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.40091016989231,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485296,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635456,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.113957080646568,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.96621834068711,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.95127452155606,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 86.958375,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "c6853660",
+    "repeat": 7,
+    "variant": "materialized_uncached",
+    "request_ms": 74.336916,
+    "rows": [
+      {
+        "bm25_score": 24.62804562561231,
+        "memory_record_id": "9b994614-f172-5385-be85-4ccd609d9b84",
+        "memory_version_id": "cd94959b-5d29-556d-952f-994708eb978b"
+      },
+      {
+        "bm25_score": 24.168109254953272,
+        "memory_record_id": "6acfb8ac-b60c-5cd2-bd3c-e9793a75ec4c",
+        "memory_version_id": "de3a78a4-92c6-5600-8b54-5c91586e74c7"
+      },
+      {
+        "bm25_score": 23.400910169892306,
+        "memory_record_id": "d5f641b7-1014-5397-8efc-0a08becf2fd8",
+        "memory_version_id": "38590cb1-911b-59f8-b2ce-63d9677b0248"
+      },
+      {
+        "bm25_score": 17.780608683764815,
+        "memory_record_id": "1df33cf5-7284-5437-8225-b4e29b5a1aad",
+        "memory_version_id": "989b8f9f-1d07-5d92-a506-635bf7effa58"
+      },
+      {
+        "bm25_score": 16.844094036948647,
+        "memory_record_id": "3a593508-98ad-550e-84b6-d5f5302ad695",
+        "memory_version_id": "0579a6fa-0d28-5af4-a729-ac58d276098c"
+      },
+      {
+        "bm25_score": 16.621776937528008,
+        "memory_record_id": "87d554f7-a018-5ce5-bd2e-fc61e6b12018",
+        "memory_version_id": "3cb8f9ac-3653-50b5-912e-929dbeaef1ec"
+      },
+      {
+        "bm25_score": 15.65117174137697,
+        "memory_record_id": "0be200aa-50c3-58a3-b57a-cba0aff0bb3d",
+        "memory_version_id": "4c829a43-fcfb-5f1b-afaf-030f5dd44b1e"
+      },
+      {
+        "bm25_score": 12.945838201809908,
+        "memory_record_id": "719dbea2-b368-5910-906a-a93424bf52ae",
+        "memory_version_id": "b9d66684-da07-55db-a4f9-15177f5a127b"
+      },
+      {
+        "bm25_score": 12.862086926319078,
+        "memory_record_id": "a4ec8d23-15d7-5556-9ac8-aa49a5e84ac5",
+        "memory_version_id": "8400b640-4b2f-5b2a-8aae-9372d3b88064"
+      },
+      {
+        "bm25_score": 12.635544033530056,
+        "memory_record_id": "505971b7-8e70-5963-a42a-5d403f628b98",
+        "memory_version_id": "6b7f7d16-3c26-56fc-a8c2-e5b44e56dbc1"
+      },
+      {
+        "bm25_score": 12.491567649485294,
+        "memory_record_id": "b049cb15-d7fc-571d-b14d-5005089ce11e",
+        "memory_version_id": "ab2a5d46-fc69-5c31-88f6-4e617ef1c377"
+      },
+      {
+        "bm25_score": 11.070792894322864,
+        "memory_record_id": "e929e6ea-bb2a-5427-b482-37bb93be3ab7",
+        "memory_version_id": "400c8ce0-613b-56b6-bcbc-39cfeb21e7f1"
+      },
+      {
+        "bm25_score": 10.802122762131216,
+        "memory_record_id": "d90c8ee6-8984-5fba-9342-9d7598be94be",
+        "memory_version_id": "7b16a40b-73e9-5860-bb0d-e11e5ac3ad80"
+      },
+      {
+        "bm25_score": 10.765079368635455,
+        "memory_record_id": "25a86d80-c71d-5f4c-b43e-1757bb381f9e",
+        "memory_version_id": "9f15ac9a-cc6f-560f-a3d6-a8549373922d"
+      },
+      {
+        "bm25_score": 10.11395708064657,
+        "memory_record_id": "d2d40984-460d-5bea-bd33-88251720c0c5",
+        "memory_version_id": "aeaa906d-1b13-500b-9f8a-b862f12f1d33"
+      },
+      {
+        "bm25_score": 9.825281923327436,
+        "memory_record_id": "a782f35c-ab77-503e-b83b-df208534b030",
+        "memory_version_id": "a78184ca-d796-570f-971b-419aa6ce609b"
+      },
+      {
+        "bm25_score": 9.785701787706921,
+        "memory_record_id": "187a97ea-9fd8-5372-8c3a-b279a40d89f7",
+        "memory_version_id": "a6a723bb-bc7a-5d99-b730-07adb4eb6555"
+      },
+      {
+        "bm25_score": 9.435858273566485,
+        "memory_record_id": "96662d99-ea6c-53b7-95c9-bc90661ca913",
+        "memory_version_id": "9d18ff2b-a2ad-53f4-b742-cedee2c4f133"
+      },
+      {
+        "bm25_score": 8.966218340687112,
+        "memory_record_id": "4715656f-f2a0-5e2b-8bd5-e7d1e0fe4626",
+        "memory_version_id": "dfc2a29c-a42c-5d74-9fba-491683cf95fe"
+      },
+      {
+        "bm25_score": 8.951274521556059,
+        "memory_record_id": "05de246e-550f-57eb-991e-f6de4a8d73a1",
+        "memory_version_id": "be3068fd-6f9a-5e62-aeba-2e48e41661b5"
+      }
+    ],
+    "sql_ms": 19.123958,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 0,
+    "variant": "materialized",
+    "request_ms": 149.7895,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753306,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.314013001852652,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585263,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369003,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 93.747167,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 0,
+    "variant": "materialized_uncached",
+    "request_ms": 74.257917,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153134,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.747201588345899,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757843,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 24.389584,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 1,
+    "variant": "materialized",
+    "request_ms": 137.194208,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753306,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.314013001852652,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585263,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369003,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 88.429167,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 1,
+    "variant": "materialized_uncached",
+    "request_ms": 68.288458,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153134,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.747201588345899,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757843,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 19.363875,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 2,
+    "variant": "materialized",
+    "request_ms": 137.011542,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753306,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.314013001852652,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585263,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369003,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 89.24525,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 2,
+    "variant": "materialized_uncached",
+    "request_ms": 66.496,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153134,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.747201588345899,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757843,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 18.534625,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 3,
+    "variant": "materialized",
+    "request_ms": 136.74475,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753306,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.314013001852652,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585263,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369003,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 88.55987499999999,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 3,
+    "variant": "materialized_uncached",
+    "request_ms": 67.608708,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153134,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.747201588345899,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757843,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 18.906459,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 4,
+    "variant": "materialized",
+    "request_ms": 137.382208,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753306,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.314013001852652,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585263,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369003,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 88.56491700000001,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 4,
+    "variant": "materialized_uncached",
+    "request_ms": 68.369042,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153134,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.747201588345899,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757843,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 19.493667,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 5,
+    "variant": "materialized",
+    "request_ms": 140.70725,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753306,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.314013001852652,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585263,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369003,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 88.217375,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 5,
+    "variant": "materialized_uncached",
+    "request_ms": 67.887917,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153134,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.747201588345899,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757843,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 18.691083,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 6,
+    "variant": "materialized",
+    "request_ms": 137.132958,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753306,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.314013001852652,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585263,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369003,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 87.94075,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 6,
+    "variant": "materialized_uncached",
+    "request_ms": 67.059292,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153134,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.747201588345899,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757843,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 18.925250000000002,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 7,
+    "variant": "materialized",
+    "request_ms": 136.396833,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753306,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.314013001852652,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585263,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369003,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 87.637209,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "id": "35a27287",
+    "repeat": 7,
+    "variant": "materialized_uncached",
+    "request_ms": 66.455084,
+    "rows": [
+      {
+        "bm25_score": 13.759900556628386,
+        "memory_record_id": "97f82ce3-28b0-5ea5-b1b1-a614f3adf273",
+        "memory_version_id": "66fdc581-c1ac-5434-b73a-f9016486806e"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "09a2e58a-2bf6-5138-8752-0d336bda083e",
+        "memory_version_id": "7119fbfd-c827-5b12-994a-dfdfe6ca5930"
+      },
+      {
+        "bm25_score": 13.716406265153134,
+        "memory_record_id": "d5fe8ce1-4983-507c-aca5-7b3d62ffa82d",
+        "memory_version_id": "5ae45c97-f710-5e8a-8f5b-54fc951609d8"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "2c577fb1-3c5e-59cf-a21d-d19e4bef71d6",
+        "memory_version_id": "147a29a5-1090-5646-af0f-f4e53dcfa27d"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "e022af0a-dc6e-59e6-8d36-7c5b1f85f0a4",
+        "memory_version_id": "0a49f077-4e7b-54ec-a4e7-16f6cad3dbf3"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "19c51ae1-08d9-5bd0-83bb-c3e0d0792b5f",
+        "memory_version_id": "11f61991-435c-5f44-940c-59e93cc9f681"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "48b170b8-12d8-5742-b759-51d70dbb0078",
+        "memory_version_id": "8d098876-7788-5979-bf76-142c1929abd5"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "595ce446-5e45-5e7d-ae76-06aaaf43dd2c",
+        "memory_version_id": "b940f53a-6411-5034-b6a7-7efe896bc870"
+      },
+      {
+        "bm25_score": 11.747201588345899,
+        "memory_record_id": "782d42e9-5c29-54dd-ba36-a15b1243ec00",
+        "memory_version_id": "0036ba20-504c-549d-ba19-b1a67ed1e549"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "f76aa92f-bc30-5d01-bf22-20af24a43b4e",
+        "memory_version_id": "c3d17277-e5e1-5996-868c-ca4347a1378a"
+      },
+      {
+        "bm25_score": 11.487018865829242,
+        "memory_record_id": "46511afe-9c54-5c22-952b-101fbeb311cf",
+        "memory_version_id": "96c17100-29ad-52f7-9fb7-5ea10b485068"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "e75e91f2-3433-523e-8d8c-90a02367127c",
+        "memory_version_id": "865c8190-8b35-5639-b262-8e93eb5080c0"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "0b85c64b-1875-500a-80f4-50371c532edb",
+        "memory_version_id": "aa51a73d-b82f-59c1-8fa0-b025eabb38fa"
+      },
+      {
+        "bm25_score": 10.310297027757843,
+        "memory_record_id": "f70338bc-ed26-5b0c-86e0-7a06a2ca520c",
+        "memory_version_id": "3c145961-47a5-52af-aff5-871cf6e3df9d"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "0d7466b3-089a-596a-93ec-ef3de75decd0",
+        "memory_version_id": "fbe9cdfa-3bad-5686-880f-bbfb8f8daf87"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "4acfcf55-ef45-53fd-84f2-4d0d762c7f8a",
+        "memory_version_id": "2b0c51ca-b7c1-50a8-b962-f6c6afc5ffb8"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "09503a6e-d37f-5b35-b2d5-30bc045f94fa",
+        "memory_version_id": "7e3f5940-642c-5040-b9e5-d1fa64c73447"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "cddaa5c1-0ba6-565d-af6d-cc68e8bd1c80",
+        "memory_version_id": "b1cb4206-e1c3-5860-bb65-89c9b628e290"
+      },
+      {
+        "bm25_score": 9.279427263259352,
+        "memory_record_id": "9917104d-7e40-533e-8701-3c077b1eeba3",
+        "memory_version_id": "f7c87327-df8d-5e2f-8280-72286f961a1c"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "34b770bd-6c76-51e3-8147-7a76507bf71b",
+        "memory_version_id": "1dbdfbdd-70be-5cd8-bf63-b70a54515bca"
+      }
+    ],
+    "sql_ms": 18.468792,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  }
+]

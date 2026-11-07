@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "repository_conflict_rollback_test_passed": 1,
+  "api_error_json_test_passed": 1,
+  "api_test_boundary": "ApiError IntoResponse serialization, not a live authenticated HTTP route",
+  "model_api_calls": 0,
+  "production_database_used": false
+}

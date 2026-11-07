@@ -1,0 +1,18 @@
+{
+  "status": "failed",
+  "kind": "local_performance_fixture_not_public_score",
+  "seed": 20261108,
+  "model_api_calls": 0,
+  "cold_definition": "first probe after PG/container and bridge restart; OS page cache uncontrolled; volume preserved",
+  "warm_per_length": 40,
+  "cold_per_length": 6,
+  "timeout_ms": 3000,
+  "git_head": "4a9e7632ef9f58c47f49fc6632c7dbd4bb38e147",
+  "source_sha256": {
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/performance3.py": "5f53795e118c9ef4f1a218d02c669e06d42bf5a6e07d124db6291f37481f1a3a",
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/harness/src/main.rs": "7b341cde5d44826c2c1d0a0c30e697cd749ad502d34127a0d17c5d63e01779b5",
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/crates/memory-postgres/src/repository.rs": "3a008a0c518e5058b08a738959754037c574c403dc2d867144458d952550fbb1"
+  },
+  "postgres_image_id": "sha256:8dd950fd4ca6d59e4fc748361bfb059f44907cc99577ae227d196adb29ad8913",
+  "error_type": "RuntimeError"
+}

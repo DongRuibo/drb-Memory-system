@@ -1,0 +1,3262 @@
+[
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 0,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.889833,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774004,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209398,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116818,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459792,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.8330138970481435,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 3.479541,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 1,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 11.0315,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774004,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209398,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116818,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459792,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.8330138970481435,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 3.023625,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 2,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 9.633166,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774004,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209398,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116818,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459792,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.8330138970481435,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 3.0037499999999997,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 3,
+    "query": "coffee",
+    "request_ms": 8.840291,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 2.342875,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 4,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.799167,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.202624999999999,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 5,
+    "query": "coffee",
+    "request_ms": 7.975541,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.673791,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 6,
+    "query": "coffee",
+    "request_ms": 8.420791,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.780666,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 7,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.526875,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.206542,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 8,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.248541,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.237916,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 9,
+    "query": "coffee",
+    "request_ms": 8.243833,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.651916,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 10,
+    "query": "coffee",
+    "request_ms": 8.053208,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.6800000000000002,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 11,
+    "query": "coffee",
+    "request_ms": 8.304166,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.804125,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 12,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.771875,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.187125,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 13,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 11.260292,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.311,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 14,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.331209,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.365667,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 15,
+    "query": "coffee",
+    "request_ms": 7.598542,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.834375,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 16,
+    "query": "coffee",
+    "request_ms": 8.623041,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.702542,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 17,
+    "query": "coffee",
+    "request_ms": 8.710041,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.740375,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 18,
+    "query": "coffee",
+    "request_ms": 7.84575,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.6416250000000001,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 19,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 11.208209,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.410791,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 20,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.85975,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.193083000000001,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 21,
+    "query": "coffee",
+    "request_ms": 8.478084,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.7377079999999998,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 22,
+    "query": "coffee",
+    "request_ms": 7.769459,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.70425,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 23,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.954958,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.25825,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 24,
+    "query": "coffee",
+    "request_ms": 8.64175,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.666916,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 25,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 11.557375,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.593666,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 26,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.8105,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.473125,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 27,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 11.712916,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.475417,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 28,
+    "query": "coffee",
+    "request_ms": 8.849459,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.8085,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 29,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 11.443208,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.373374999999999,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 30,
+    "query": "coffee",
+    "request_ms": 8.215,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.680416,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 31,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 11.401334,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.465375,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 32,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 11.638875,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.388541999999999,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 33,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.639,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.165667,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 34,
+    "query": "coffee",
+    "request_ms": 8.126458,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.808834,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 35,
+    "query": "coffee",
+    "request_ms": 8.603458,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.880292,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 36,
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "request_ms": 10.853,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 11.724010077370652,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 11.420020786689301,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      },
+      {
+        "bm25_score": 9.894439639398144,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 8.878744892037632,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 6.835319900774003,
+        "memory_record_id": "fa9c177d-1db2-52e0-a809-0f4d29ea39b2",
+        "memory_version_id": "527520b4-006c-509c-9d52-f96cdc1a22be"
+      },
+      {
+        "bm25_score": 5.3772202075898665,
+        "memory_record_id": "8bdfed9e-54ed-5651-98a3-a15710d52908",
+        "memory_version_id": "b7bb61fb-dc28-5dc8-a55d-a6c2b1f143ca"
+      },
+      {
+        "bm25_score": 5.103395563875342,
+        "memory_record_id": "b8c312ee-b76f-5626-b0da-0a3af772fd58",
+        "memory_version_id": "913e338f-db4f-5743-a384-abfa6d172011"
+      },
+      {
+        "bm25_score": 4.954916962209397,
+        "memory_record_id": "0b6c71a0-2f57-578c-a4a8-867122098c78",
+        "memory_version_id": "fece3a3b-e1f4-5514-84fc-f691e1d8ad81"
+      },
+      {
+        "bm25_score": 4.940006906116819,
+        "memory_record_id": "c26fdbbf-391f-57ed-a0b8-785050534fa0",
+        "memory_version_id": "2a7db4fb-2c0b-5d49-93df-254fb880a3d1"
+      },
+      {
+        "bm25_score": 4.738016495078736,
+        "memory_record_id": "6474dc52-5cdd-5cee-ad76-4fc9aedd105e",
+        "memory_version_id": "9862faba-349e-53b5-95e0-75be5477280b"
+      },
+      {
+        "bm25_score": 4.41275798809844,
+        "memory_record_id": "44ea26d1-d337-5f0f-af04-2c5de97a5106",
+        "memory_version_id": "5bc3a6c2-29f0-5971-a89a-e9b69af23d73"
+      },
+      {
+        "bm25_score": 4.378496868375789,
+        "memory_record_id": "bebc1c0c-bfe0-5a72-a7b2-508afdd677fe",
+        "memory_version_id": "6a6976ba-750a-59f8-a218-8c92a93273a4"
+      },
+      {
+        "bm25_score": 4.214619142459791,
+        "memory_record_id": "d1634c6b-86a6-5250-a2d4-8351bb555b2c",
+        "memory_version_id": "ff85fc5d-fc0c-5204-81d2-be2f591f3926"
+      },
+      {
+        "bm25_score": 4.165975770018694,
+        "memory_record_id": "e9d0f082-b61b-5ec9-93f1-5d1437728b2a",
+        "memory_version_id": "cd00bef7-715e-5198-8869-d2774e14d801"
+      },
+      {
+        "bm25_score": 4.148463248854259,
+        "memory_record_id": "cbeb32a6-8c1a-5369-bb69-61a5fba6f704",
+        "memory_version_id": "5d9698db-dd11-55c4-b7ca-282b4f82f906"
+      },
+      {
+        "bm25_score": 4.110445184446771,
+        "memory_record_id": "6a2e0686-822c-5f0b-8323-f5731d15d9b7",
+        "memory_version_id": "8ab476d7-3cde-5f19-9748-427f6064fded"
+      },
+      {
+        "bm25_score": 4.066304378163602,
+        "memory_record_id": "6a14d08c-91a2-5871-9978-04a13d8bca23",
+        "memory_version_id": "cdeb4f1c-1c51-5d6d-a4da-e4b172ce25c0"
+      },
+      {
+        "bm25_score": 3.998713665275589,
+        "memory_record_id": "1cb607bf-52ec-5d75-beba-b79423ae140b",
+        "memory_version_id": "64536a8e-f97d-5ca5-970a-323301768a2d"
+      },
+      {
+        "bm25_score": 3.8522479342248186,
+        "memory_record_id": "53cda100-d56d-5f4c-bddf-647aefd1748a",
+        "memory_version_id": "a39dfb01-db25-5407-874c-9b2ff22706ea"
+      },
+      {
+        "bm25_score": 3.833013897048143,
+        "memory_record_id": "564900ec-a8a3-52c8-9b72-c70fb6800ef7",
+        "memory_version_id": "6d2d4c1c-cbea-5eb6-871d-b47ab585bd04"
+      }
+    ],
+    "sql_ms": 4.287375000000001,
+    "terms": [
+      "coffee",
+      "cups",
+      "decrease",
+      "did",
+      "i",
+      "in",
+      "increase",
+      "limit",
+      "morning",
+      "mostly",
+      "number",
+      "of",
+      "on",
+      "or",
+      "recently",
+      "the"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 37,
+    "query": "coffee",
+    "request_ms": 8.01525,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.705542,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 38,
+    "query": "coffee",
+    "request_ms": 8.56575,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 1.9665839999999999,
+    "terms": [
+      "coffee"
+    ]
+  },
+  {
+    "length": 100,
+    "state": "warm",
+    "repeat": 39,
+    "query": "coffee",
+    "request_ms": 9.072666,
+    "sql_calls": 11,
+    "rows": [
+      {
+        "bm25_score": 5.406781411910432,
+        "memory_record_id": "6aeae13c-fcff-514a-b902-f3c8d6bd50fb",
+        "memory_version_id": "d9d5dd23-209e-596b-aff8-2ee695670f1a"
+      },
+      {
+        "bm25_score": 5.235800331679493,
+        "memory_record_id": "1d4074b7-db74-504f-84e4-87bb66b6937c",
+        "memory_version_id": "64b9635b-4355-529d-88ef-4eb18dc6cc49"
+      },
+      {
+        "bm25_score": 5.015441053780054,
+        "memory_record_id": "ad6d838d-093a-5040-a93b-78ab0f9359bf",
+        "memory_version_id": "0f3aa35c-bc59-5316-a8e3-5a9d3ca245a7"
+      },
+      {
+        "bm25_score": 3.7293805194693377,
+        "memory_record_id": "da952043-a728-532e-9ecd-4fc67c376dc4",
+        "memory_version_id": "1be3ace8-34dc-5945-a747-ae5085f4db15"
+      }
+    ],
+    "sql_ms": 2.048667,
+    "terms": [
+      "coffee"
+    ]
+  }
+]

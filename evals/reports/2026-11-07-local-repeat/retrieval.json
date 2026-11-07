@@ -1,0 +1,8897 @@
+[
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 14.535792,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 7.810083,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 13.880584,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 16.821042,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 14.701583,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 7.6635,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 19.31625,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 15.555375,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 18.222083,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 6.859083,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 14.123333,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 15.189291,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 13.805291,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 18.795,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 14.372875,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 7.146375,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "index",
+      "distractor9",
+      "editor"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 15.628375,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "index",
+      "editor",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 7.285542,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "index",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 15.310083,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "index",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 24.623917,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 15.64525,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 15.234417,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 22.839167,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 7.114959,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 12.06025,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 14.870958,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 13.427917,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 6.628125,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 6.868416,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "pet"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 19.604875,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 13.14725,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "pet"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 13.028625,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 10.36675,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 12.138292,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 19.421333,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 7.57975,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "work_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 19.356417,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "work_en",
+      "hobby_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 14.576834,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "work_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 6.693791,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "work_en",
+      "hobby_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 16.0675,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 21.445166,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 20.884541,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 21.350167,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 7.109792,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 7.671291,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 14.865708,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 14.868583,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 22.063083,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "db",
+      "exam",
+      "history",
+      "distractor8",
+      "backup"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 44.618416,
+    "source_candidates": 16,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.3333333333333333,
+    "ndcg_at_10": 0.5
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "exam",
+      "distractor8",
+      "history",
+      "backup",
+      "db",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 28.082875,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.3333333333333333,
+    "ndcg_at_10": 0.5
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup",
+      "index",
+      "distractor4",
+      "language"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 7.933084,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.25,
+    "ndcg_at_10": 0.43067655807339306
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "exam",
+      "distractor8",
+      "db",
+      "history",
+      "backup",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 22.18825,
+    "source_candidates": 16,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.25,
+    "ndcg_at_10": 0.43067655807339306
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "hobby_en",
+      "work_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 15.925959,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "hobby_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 20.40225,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "hobby_en",
+      "work_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 15.001959,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "hobby_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 6.750417,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 14.161125,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 14.883042,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 20.171166,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 6.887916,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 16.390917,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 7.381125,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 15.788542,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 23.15275,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "commute",
+      "trip",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 15.181209,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "commute",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 6.96975,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "commute",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 22.139667,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "commute",
+      "meeting",
+      "trip"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 15.189084,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "search",
+      "language",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 21.630167,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.9197207891481876
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 14.574958,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 7.005667,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 14.041666,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 14.298208,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 13.687167,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "drink",
+      "sport",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 7.359666,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 21.029667,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 16.922417,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 6.713,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 13.609791,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 13.210708,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "editor"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 13.281041,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 7.23875,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "editor"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 20.012833,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 13.131083,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 15.619459,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 7.1745,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 21.343208,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 14.508667,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 15.902834,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 7.1835,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 13.200917,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 12.949666,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 17.212584,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "timeout",
+      "retry",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 7.409708,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 15.733083,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 25.839708,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 25.360833,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "timeout",
+      "retry",
+      "distractor5",
+      "budget"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 7.1875,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 16.346292,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 16.239291,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 15.479292,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 14.5295,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 20.033166,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 6.810167,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "distractor10",
+      "language"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 32.507167,
+    "source_candidates": 11,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "distractor10",
+      "language",
+      "editor",
+      "index",
+      "db",
+      "distractor4"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 8.129834,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "distractor10",
+      "language",
+      "db",
+      "index",
+      "distractor4",
+      "editor"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 18.211166,
+    "source_candidates": 11,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "distractor10",
+      "db",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 17.726625,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8772153153380493
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 20.824625,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 33.292875,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 7.693042,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 21.831375,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 13.530042,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 7.355625,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 12.768708,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 12.943,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 13.907292,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 6.677541,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 14.438917,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 19.484208,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 7.528,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 22.520209,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 23.001208,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 25.721292,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 16.01125,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 12.909083,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 13.260792,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 7.109167,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 12.68675,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 7.130292,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 13.343042,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 16.334459,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "meeting",
+      "pet",
+      "editor"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 13.005375,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "meeting",
+      "pet",
+      "editor"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 7.45975,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "meeting"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 12.761875,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "meeting"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 20.472333,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.595959,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.593459,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.415,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 5.570958,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "food",
+      "drink",
+      "sport"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 6.916,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 23.645959,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 14.384208,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 18.893208,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 23.92,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 23.032375,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 34.39425,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 7.192292,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 14.229042,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 20.077708,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 14.743208,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 6.902875,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "work_en",
+      "hobby_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 13.897042,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "work_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 19.678417,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "work_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 7.160167,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "work_en",
+      "hobby_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 21.143416,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 16.163875,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 16.352542,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 7.278917,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.675458,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 25.670833,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "timeout",
+      "retry",
+      "distractor5",
+      "budget"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 7.880667,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 15.466042,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 15.608708,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 14.023708,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 19.941417,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 7.034166,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 14.13925,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 7.387541,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 20.959584,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 21.197708,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 20.561417,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 7.241084,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 15.384167,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 22.548584,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 14.832709,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "meeting"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 19.856667,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "meeting",
+      "pet",
+      "editor"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 12.714625,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "meeting"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 12.51025,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "meeting",
+      "pet",
+      "editor"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 7.39225,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "index",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 16.120167,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "index",
+      "distractor9",
+      "editor"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 17.449834,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "index",
+      "editor",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 7.11025,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "index",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 22.77825,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "editor"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 20.9285,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 13.156708,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "editor"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 13.310458,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 7.050833,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "hobby_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 6.697542,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "hobby_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 20.144375,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "hobby_en",
+      "work_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 16.93225,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "hobby_en",
+      "work_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 14.815416,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 23.583958,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 7.076666,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 16.335417,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 16.741167,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "pet"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 20.275083,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 13.012083,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 6.944625,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "pet"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 12.442542,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 7.272584,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 23.715375,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 16.651791,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 16.82425,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 15.941875,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 6.988458,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 13.391125,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 13.40225,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 7.166167,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 12.135042,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 12.029416,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 15.153625,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "exam",
+      "distractor8",
+      "db",
+      "history",
+      "backup",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 23.628375,
+    "source_candidates": 16,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.25,
+    "ndcg_at_10": 0.43067655807339306
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "exam",
+      "distractor8",
+      "history",
+      "backup",
+      "db",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 22.7015,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.3333333333333333,
+    "ndcg_at_10": 0.5
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "db",
+      "exam",
+      "history",
+      "distractor8",
+      "backup"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 44.651875,
+    "source_candidates": 16,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.3333333333333333,
+    "ndcg_at_10": 0.5
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup",
+      "index",
+      "distractor4",
+      "language"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 7.803167,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.25,
+    "ndcg_at_10": 0.43067655807339306
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 21.210083,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 15.965667,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 14.291667,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "drink",
+      "sport",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 7.024958,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 13.974459,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 7.000916,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 19.140792,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 14.939208,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "commute",
+      "trip",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 14.959458,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "commute",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 22.291875,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "commute",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 7.142916,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "commute",
+      "meeting",
+      "trip"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 15.768458,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 14.396375,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 14.899042,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 19.4195,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 7.325458,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 13.855084,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 7.487042,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 12.4875,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 14.727042,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 13.747083,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 14.603625,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 19.990541,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 7.223958,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 7.149791,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 13.357041,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 19.235,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 13.990833,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 13.668792,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 13.575792,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 15.787458,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 6.838333,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 14.7435,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 23.471667,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 7.311458,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 14.707125,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "distractor10",
+      "language",
+      "db",
+      "index",
+      "distractor4",
+      "editor"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 18.345625,
+    "source_candidates": 11,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "distractor10",
+      "db",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 18.016292,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8772153153380493
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "distractor10",
+      "language",
+      "editor",
+      "index",
+      "db",
+      "distractor4"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 7.637,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "distractor10",
+      "language"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 31.603208,
+    "source_candidates": 11,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 13.321584,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 6.368208,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 19.68375,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 16.277292,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 13.21625,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 21.284959,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 10.973083,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 7.304166,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 24.8825,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 13.837917,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "food",
+      "drink",
+      "sport"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 6.047209,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 13.523,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 6.58525,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 12.543584,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 13.017584,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 12.451083,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 15.396625,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "timeout",
+      "retry",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 6.682,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 15.182833,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 25.358,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 22.568875,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 14.338792,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 6.932958,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 14.657541,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 14.492542,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 6.849625,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "search",
+      "language",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 21.339166,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.9197207891481876
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 14.461333,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 15.031833,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 12.816459,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 12.018917,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 6.595834,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 13.360166,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 6.954375,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 15.597959,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q3",
+    "query": "我用什么语言开发服务？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "language"
+    ],
+    "qrels": {
+      "language": 1
+    },
+    "latency_ms": 13.839084,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 12.971834,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 15.531417,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 6.5745,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q25",
+    "query": "订单用什么币种结算？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "order"
+    ],
+    "qrels": {
+      "order": 1
+    },
+    "latency_ms": 13.181416,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "hobby_en",
+      "work_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 14.647375,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "hobby_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 22.630958,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "hobby_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 6.816292,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q29",
+    "query": "What do I enjoy doing in the mountains?",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "hobby_en",
+      "work_en"
+    ],
+    "qrels": {
+      "hobby_en": 1
+    },
+    "latency_ms": 14.557458,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 15.426916,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 6.597167,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 14.170125,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q27",
+    "query": "主库和只读副本各在哪里？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "read"
+    ],
+    "qrels": {
+      "read": 1
+    },
+    "latency_ms": 14.474125,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 13.819,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 6.852625,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 13.789667,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q28",
+    "query": "删除请求留下什么记录？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "audit",
+      "retry"
+    ],
+    "qrels": {
+      "audit": 1
+    },
+    "latency_ms": 19.038958,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 15.103708,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 12.129833,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 6.513459,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q1",
+    "query": "我住在哪个城市？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "residence"
+    ],
+    "qrels": {
+      "residence": 1
+    },
+    "latency_ms": 11.900917,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 12.379208,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "pet"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 19.608417,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "pet"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 12.863041,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q8",
+    "query": "我的猫叫什么名字？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "pet": 1
+    },
+    "latency_ms": 7.145875,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 6.879542,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 18.855167,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 14.70375,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q18",
+    "query": "单次任务模型花费上限是多少？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "budget",
+      "timeout"
+    ],
+    "qrels": {
+      "budget": 1
+    },
+    "latency_ms": 15.241708,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 14.333791,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 7.214375,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 15.161542,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q24",
+    "query": "向量有多少维？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "vector"
+    ],
+    "qrels": {
+      "vector": 1
+    },
+    "latency_ms": 13.641167,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 28.375,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 15.668375,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "timeout",
+      "retry",
+      "distractor5",
+      "budget"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 6.992,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q32",
+    "query": "API 的超时和重试上限是什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "timeout",
+      "retry",
+      "budget",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1,
+      "retry": 1
+    },
+    "latency_ms": 15.136625,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 20.96075,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 33.925958,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 21.261958,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q13",
+    "query": "权威数据库和缓存分别是什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup"
+    ],
+    "qrels": {
+      "db": 1
+    },
+    "latency_ms": 7.662834,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 7.042292,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 22.347,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 20.267416,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q31",
+    "query": "列出当前主存储和过去已弃用的数据库。",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "history",
+      "exam",
+      "distractor8",
+      "backup",
+      "db"
+    ],
+    "qrels": {
+      "db": 1,
+      "history": 1
+    },
+    "latency_ms": 24.906625,
+    "source_candidates": 10,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8503449055347546
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 18.005875,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "search",
+      "language",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 27.649125,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.9197207891481876
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 7.246292,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q35",
+    "query": "主库所在城市和搜索服务所在城市是什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "language",
+      "search",
+      "read"
+    ],
+    "qrels": {
+      "read": 1,
+      "search": 1
+    },
+    "latency_ms": 13.87325,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6934264036172708
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 25.74625,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "timeout",
+      "retry",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 7.498541,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 16.074416,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q21",
+    "query": "API 请求多久算超时？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "retry",
+      "timeout",
+      "audit",
+      "distractor5"
+    ],
+    "qrels": {
+      "timeout": 1
+    },
+    "latency_ms": 15.645334,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 14.768209,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 6.638625,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 15.164042,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q26",
+    "query": "搜索服务部署在哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "search",
+      "language",
+      "deploy"
+    ],
+    "qrels": {
+      "search": 1
+    },
+    "latency_ms": 22.076125,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 23.846459,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 15.798167,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 7.754667,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "incident",
+      "deploy",
+      "distractor5"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 14.478667,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "meeting"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 12.508167,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "meeting",
+      "pet",
+      "editor"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 12.401542,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "meeting",
+      "pet",
+      "editor"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 7.064667,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q9",
+    "query": "我的周会是什么时间？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "meeting"
+    ],
+    "qrels": {
+      "meeting": 1
+    },
+    "latency_ms": 19.929709,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "index",
+      "editor",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 7.346,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "index",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 22.840834,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "index",
+      "distractor9"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 15.636875,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q14",
+    "query": "全文索引的算法和分词器是什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "index",
+      "distractor9",
+      "editor"
+    ],
+    "qrels": {
+      "index": 1
+    },
+    "latency_ms": 16.260917,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 10.994125,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 11.713167,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 18.76825,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 7.323875,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 6.983375,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 15.588416,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 16.955833,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q19",
+    "query": "Alpha 项目谁负责？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1
+    },
+    "latency_ms": 23.985875,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 6.916667,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 13.173667,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 16.205875,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q16",
+    "query": "P0 故障如何通知？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "incident": 1
+    },
+    "latency_ms": 14.024083,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 13.766042,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 21.6705,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "drink",
+      "sport",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 7.503959,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q5",
+    "query": "我喜欢什么咖啡？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "qrels": {
+      "drink": 1
+    },
+    "latency_ms": 13.783625,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 15.110417,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 21.49325,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 14.753834,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q4",
+    "query": "我不喜欢吃什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "food",
+      "drink",
+      "sport"
+    ],
+    "qrels": {
+      "food": 1
+    },
+    "latency_ms": 7.071125,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 7.054041,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 14.383375,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 19.544292,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q15",
+    "query": "部署要经过哪两个环境？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "deploy",
+      "search"
+    ],
+    "qrels": {
+      "deploy": 1
+    },
+    "latency_ms": 13.86075,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 7.089167,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 13.688,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 18.734291,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q17",
+    "query": "备份几点执行并保留多久？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "backup",
+      "audit"
+    ],
+    "qrels": {
+      "backup": 1
+    },
+    "latency_ms": 13.370333,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "editor"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 21.585083,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "editor"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 13.562042,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 13.219042,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q7",
+    "query": "我的代码编辑器叫什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "editor": 1
+    },
+    "latency_ms": 7.322083,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 13.21775,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 12.238334,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 6.909708,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q11",
+    "query": "我昨天到访了哪里？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "trip"
+    ],
+    "qrels": {
+      "trip": 1
+    },
+    "latency_ms": 12.298042,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 7.036791,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 15.8245,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 23.243083,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q20",
+    "query": "Beta 项目谁负责？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope2": 1
+    },
+    "latency_ms": 16.501833,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 13.737,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 7.360083,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 14.064917,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q12",
+    "query": "我通过了什么考试？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "exam",
+      "incident"
+    ],
+    "qrels": {
+      "exam": 1
+    },
+    "latency_ms": 23.209875,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "distractor10",
+      "language"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 32.637208,
+    "source_candidates": 11,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "distractor10",
+      "language",
+      "editor",
+      "index",
+      "db",
+      "distractor4"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 7.538958,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "distractor10",
+      "language",
+      "db",
+      "index",
+      "distractor4",
+      "editor"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 18.212625,
+    "source_candidates": 11,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q34",
+    "query": "我使用的编程语言及其生命周期由谁检查？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "distractor10",
+      "db",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "language": 1,
+      "distractor10": 1
+    },
+    "latency_ms": 18.2915,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8772153153380493
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 5.963958,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.442042,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.528208,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.499292,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "work_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 19.767083,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "work_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 7.144166,
+    "source_candidates": 1,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "work_en",
+      "hobby_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 14.340041,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q30",
+    "query": "Which day do I work remotely?",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "work_en",
+      "hobby_en"
+    ],
+    "qrels": {
+      "work_en": 1
+    },
+    "latency_ms": 14.256875,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "commute",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 6.715125,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "commute",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 22.424916,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "commute",
+      "trip",
+      "meeting"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 15.912292,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q10",
+    "query": "我星期三怎么去上班？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "commute",
+      "meeting",
+      "trip"
+    ],
+    "qrels": {
+      "commute": 1
+    },
+    "latency_ms": 15.511166,
+    "source_candidates": 5,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 14.558041,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 6.503209,
+    "source_candidates": 2,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 17.390958,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q22",
+    "query": "API 最多重试几次？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "retry",
+      "timeout"
+    ],
+    "qrels": {
+      "retry": 1
+    },
+    "latency_ms": 20.797041,
+    "source_candidates": 4,
+    "error": null,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 22.676542,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 15.922167,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "scope",
+      "scope2",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 6.981083,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q33",
+    "query": "谁分别负责 Alpha 和 Beta？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "scope2",
+      "scope",
+      "distractor7"
+    ],
+    "qrels": {
+      "scope": 1,
+      "scope2": 1
+    },
+    "latency_ms": 15.445208,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [
+      "exam",
+      "distractor8",
+      "history",
+      "backup",
+      "db",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 22.961375,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.3333333333333333,
+    "ndcg_at_10": 0.5
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "exam",
+      "distractor8",
+      "db",
+      "history",
+      "backup",
+      "index",
+      "language",
+      "distractor4"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 25.745417,
+    "source_candidates": 16,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.25,
+    "ndcg_at_10": 0.43067655807339306
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "db",
+      "exam",
+      "distractor8",
+      "history",
+      "backup",
+      "index",
+      "distractor4",
+      "language"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 12.045,
+    "source_candidates": 8,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.25,
+    "ndcg_at_10": 0.43067655807339306
+  },
+  {
+    "id": "q23",
+    "query": "旧数据库为什么不再使用？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "db",
+      "exam",
+      "history",
+      "distractor8",
+      "backup"
+    ],
+    "qrels": {
+      "history": 1
+    },
+    "latency_ms": 52.085333,
+    "source_candidates": 16,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.3333333333333333,
+    "ndcg_at_10": 0.5
+  }
+]

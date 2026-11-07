@@ -1,0 +1,12 @@
+{
+  "question_overlap": 0,
+  "answer_session_overlap": 0,
+  "all_history_session_overlap": 0,
+  "questions": 14,
+  "answerable": 12,
+  "unanswerable": 2,
+  "positive_and_negative_counts_are_not_statistically_sufficient_for_generalization": true,
+  "prompts_models_rrf_context_and_scoring_unchanged": true,
+  "saved_new_test_predictions_found": 0,
+  "calibration_source_unchanged": true
+}

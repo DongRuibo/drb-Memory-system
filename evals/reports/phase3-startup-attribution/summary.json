@@ -1,0 +1,16 @@
+[
+  {
+    "state": "bridge_first",
+    "n": 6,
+    "request_p50_ms": 819.8732915,
+    "tokenize_p50_ms": 804.452271,
+    "sql_p50_ms": 3.5465
+  },
+  {
+    "state": "bridge_second",
+    "n": 6,
+    "request_p50_ms": 6.802583,
+    "tokenize_p50_ms": 0.0575415,
+    "sql_p50_ms": 1.2231665
+  }
+]

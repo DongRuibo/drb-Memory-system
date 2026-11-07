@@ -1,0 +1,150 @@
+{
+  "id": "h04",
+  "query": "为不想听到车流的人预订客房应参考什么习惯？",
+  "qrels": {
+    "syn": 1
+  },
+  "ranked": {
+    "semantic": [
+      "syn2",
+      "syn",
+      "hearing",
+      "refuse",
+      "amount_b",
+      "hearing2",
+      "tea_new",
+      "port_new",
+      "conflict_a",
+      "port_old"
+    ],
+    "tfidf": [
+      "syn2"
+    ],
+    "hybrid_semantic": [
+      "syn2",
+      "amount_b",
+      "d5",
+      "owner",
+      "amount_a",
+      "early",
+      "syn",
+      "hearing",
+      "refuse",
+      "hearing2"
+    ],
+    "bm25": [
+      "syn2",
+      "d5",
+      "owner",
+      "amount_a",
+      "amount_b",
+      "early"
+    ]
+  },
+  "rrf_scores": {
+    "port_old": {
+      "raw_rrf": 0.014285714285714285,
+      "contributions": {
+        "semantic": 0.014285714285714285
+      }
+    },
+    "d5": {
+      "raw_rrf": 0.018548387096774192,
+      "contributions": {
+        "bm25": 0.018548387096774192
+      }
+    },
+    "amount_b": {
+      "raw_rrf": 0.03307692307692307,
+      "contributions": {
+        "bm25": 0.01769230769230769,
+        "semantic": 0.015384615384615385
+      }
+    },
+    "syn": {
+      "raw_rrf": 0.016129032258064516,
+      "contributions": {
+        "semantic": 0.016129032258064516
+      }
+    },
+    "refuse": {
+      "raw_rrf": 0.015625,
+      "contributions": {
+        "semantic": 0.015625
+      }
+    },
+    "hearing2": {
+      "raw_rrf": 0.015151515151515152,
+      "contributions": {
+        "semantic": 0.015151515151515152
+      }
+    },
+    "port_new": {
+      "raw_rrf": 0.014705882352941176,
+      "contributions": {
+        "semantic": 0.014705882352941176
+      }
+    },
+    "hearing": {
+      "raw_rrf": 0.015873015873015872,
+      "contributions": {
+        "semantic": 0.015873015873015872
+      }
+    },
+    "tea_new": {
+      "raw_rrf": 0.014925373134328358,
+      "contributions": {
+        "semantic": 0.014925373134328358
+      }
+    },
+    "early": {
+      "raw_rrf": 0.017424242424242422,
+      "contributions": {
+        "bm25": 0.017424242424242422
+      }
+    },
+    "amount_a": {
+      "raw_rrf": 0.01796875,
+      "contributions": {
+        "bm25": 0.01796875
+      }
+    },
+    "syn2": {
+      "raw_rrf": 0.03524590163934426,
+      "contributions": {
+        "bm25": 0.01885245901639344,
+        "semantic": 0.01639344262295082
+      }
+    },
+    "conflict_a": {
+      "raw_rrf": 0.014492753623188406,
+      "contributions": {
+        "semantic": 0.014492753623188406
+      }
+    },
+    "owner": {
+      "raw_rrf": 0.01825396825396825,
+      "contributions": {
+        "bm25": 0.01825396825396825
+      }
+    }
+  },
+  "hybrid_rrf_rank_reproduced": true,
+  "conclusion": "Relevant syn remains in semantic top-10 but is demoted from rank2 to rank7 by weighted lexical competition. Retrieval ranking regression, not proven QA regression; Reader not run.",
+  "documents": {
+    "early": "2022年入职时，苏晴的工位在白塔楼七层，紧急联系人为唐朔。",
+    "hearing": "听力障碍用户希望所有通知带字幕，不依赖提示音。",
+    "hearing2": "视障用户依赖屏幕朗读器，不依赖图片中的文字。",
+    "syn": "许舟偏好安静的住处，通常选远离主干道的内庭房间。",
+    "syn2": "许洲希望交通方便，通常预订临街客房。",
+    "owner": "灯塔计划由顾禾牵头，代号为LT42。",
+    "tea_new": "2025年1月：周宁因咖啡因不耐受，工作日改喝无咖啡因麦茶。",
+    "port_old": "2023年接入文档：青杉服务监听端口7443，记录已过时。",
+    "port_new": "2025年迁移记录：青杉服务监听端口8443。",
+    "conflict_a": "甲方声称橙湾会议在星期一，尚未经共同确认。",
+    "amount_a": "三月报销餐费额度为八百元。",
+    "amount_b": "三月差旅住宿额度为一千二百元。",
+    "refuse": "安全守则：不得根据同名联系人推断住址或生日。",
+    "d5": "青杉监控采样端口为9443。"
+  }
+}

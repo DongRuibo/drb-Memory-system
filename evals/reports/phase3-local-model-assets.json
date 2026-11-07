@@ -1,0 +1,10 @@
+{
+  "weight_file": "/private/tmp/drb-phase3-hf/hub/models--Qwen--Qwen3-Embedding-0.6B/blobs/0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
+  "weight_bytes": 1191586416,
+  "sha256": "0437e45c94563b09e13cb7a64478fc406947a93cb34a7e05870fc8dcd48e23fd",
+  "sha_matches_hf_lfs_object": true,
+  "download_attempts": 2,
+  "first_attempt": "network incomplete read, resumed once",
+  "model_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+  "inference_paid_api_cost_cny": 0
+}

@@ -1,0 +1,1091 @@
+[
+  {
+    "repeat": 0,
+    "variant": "before",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 178.227375,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "repeat": 0,
+    "variant": "materialized",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 49.497958000000004,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "repeat": 0,
+    "variant": "materialized_uncached",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 47.473124999999996,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "repeat": 1,
+    "variant": "before",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 174.470167,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "repeat": 1,
+    "variant": "materialized",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 48.108208,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "repeat": 1,
+    "variant": "materialized_uncached",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 47.049125,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "repeat": 2,
+    "variant": "before",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 167.925209,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "repeat": 2,
+    "variant": "materialized",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 49.0395,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  },
+  {
+    "repeat": 2,
+    "variant": "materialized_uncached",
+    "rows": [
+      {
+        "bm25_score": 13.759900556628388,
+        "memory_record_id": "cf8f213a-8cba-512f-8cb2-6288dc0772a1",
+        "memory_version_id": "ac3a3874-c2b4-5337-b704-fc7197561f16"
+      },
+      {
+        "bm25_score": 13.728004011135472,
+        "memory_record_id": "183f402a-25fd-5291-9b93-72b4e75cb902",
+        "memory_version_id": "25c74d10-3470-51f9-8482-2aaec3c6563d"
+      },
+      {
+        "bm25_score": 13.716406265153132,
+        "memory_record_id": "9828ec13-cab2-525d-bd3e-8676c1268f4e",
+        "memory_version_id": "101fe608-e067-54eb-b29f-cfd428c41535"
+      },
+      {
+        "bm25_score": 13.064743910077022,
+        "memory_record_id": "c0b78bd4-94dd-56a4-b5a3-1ff7566048fa",
+        "memory_version_id": "dc60f595-a172-563d-8774-6d918273a617"
+      },
+      {
+        "bm25_score": 12.832680116968406,
+        "memory_record_id": "d7ac41c0-978f-5e21-b638-b629b5010c43",
+        "memory_version_id": "14d235b1-9bfc-50b9-b1a6-ca1e6adfaee9"
+      },
+      {
+        "bm25_score": 12.685248442503273,
+        "memory_record_id": "0f72ad26-d40c-59e2-8246-9b560660318c",
+        "memory_version_id": "6407b108-48be-5d51-9021-72536bb6444a"
+      },
+      {
+        "bm25_score": 12.2556234650398,
+        "memory_record_id": "34d87d3e-baf0-5b6e-90ae-757ce648d13d",
+        "memory_version_id": "386e0adc-2f3d-5c69-908a-3d8d90e7ab4a"
+      },
+      {
+        "bm25_score": 12.202642119549083,
+        "memory_record_id": "9316ef91-3649-5b67-ba35-5c14546c8c11",
+        "memory_version_id": "ca66ea62-2bb9-5090-9cab-f207b8fb11eb"
+      },
+      {
+        "bm25_score": 11.7472015883459,
+        "memory_record_id": "d882c2e8-5c6c-5a36-8600-8f8aa242703e",
+        "memory_version_id": "90c90e5b-f786-5296-92ba-e787296ffe2e"
+      },
+      {
+        "bm25_score": 11.680643224753304,
+        "memory_record_id": "be8a2ca6-ab73-5f28-8c2d-b430d5601952",
+        "memory_version_id": "b50eff69-8b0c-52bd-a904-ad0f46159fbe"
+      },
+      {
+        "bm25_score": 11.48701886582924,
+        "memory_record_id": "5a1c4dab-2562-592b-b142-85b2859d6342",
+        "memory_version_id": "cd4edd08-3bd0-5992-af29-5599ca1abd3b"
+      },
+      {
+        "bm25_score": 11.31401300185265,
+        "memory_record_id": "233ed6c9-5370-5fc9-ab3f-16eb990867da",
+        "memory_version_id": "9e5396da-71f8-5dfe-b6b4-9ebe0ca8fc5f"
+      },
+      {
+        "bm25_score": 11.170642432355814,
+        "memory_record_id": "48abab06-89e1-5a6b-adff-631e08376237",
+        "memory_version_id": "1c6e5e1a-4c0d-58e0-9463-a6b70cdc07f5"
+      },
+      {
+        "bm25_score": 10.310297027757844,
+        "memory_record_id": "53073b5c-302b-5f5d-8b77-190faa69803b",
+        "memory_version_id": "97ab04d7-69e0-5236-9a09-901e18a73587"
+      },
+      {
+        "bm25_score": 10.0383802877737,
+        "memory_record_id": "4aafa3cf-a0bc-5b4d-90e0-742b3315a9e0",
+        "memory_version_id": "954327b9-4a06-5d1b-a02f-78306d7f891c"
+      },
+      {
+        "bm25_score": 9.785273428585262,
+        "memory_record_id": "9dd3ff02-c584-5008-a877-40c9a941e661",
+        "memory_version_id": "a8982a42-bfaa-54b5-bfa1-fcd7308b7e15"
+      },
+      {
+        "bm25_score": 9.701346106369005,
+        "memory_record_id": "36eb8854-5203-5cc6-9355-91c779370647",
+        "memory_version_id": "848506aa-a7c7-5626-9a8b-a9208724c19f"
+      },
+      {
+        "bm25_score": 9.451891537067903,
+        "memory_record_id": "b6b404b8-17fe-59a9-8ecb-244546f105ee",
+        "memory_version_id": "f5259f0f-cc39-5116-916d-bf44fb909140"
+      },
+      {
+        "bm25_score": 9.27942726325935,
+        "memory_record_id": "41b7d3e7-ec56-586f-9ea9-623a975b18c2",
+        "memory_version_id": "0b93b325-e6be-5242-bc65-3d4a8fa0850a"
+      },
+      {
+        "bm25_score": 8.772119655068868,
+        "memory_record_id": "65930953-eb9f-501e-9146-472b6c51180c",
+        "memory_version_id": "0d64df0a-417f-57a4-9544-20fadd00c3db"
+      }
+    ],
+    "sql_ms": 52.173375,
+    "terms": [
+      "around",
+      "can",
+      "cultural",
+      "events",
+      "happening",
+      "interesting",
+      "me",
+      "recommend",
+      "some",
+      "this",
+      "weekend",
+      "you"
+    ]
+  }
+]

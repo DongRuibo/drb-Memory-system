@@ -1,0 +1,46 @@
+test_adapter_chunk_boundary_is_valid_for_repository (test_metrics.MetricTests.test_adapter_chunk_boundary_is_valid_for_repository) ... ok
+test_adapter_never_imports_gold_or_filters_evidence (test_metrics.MetricTests.test_adapter_never_imports_gold_or_filters_evidence) ... ok
+test_context_receives_relevance_score_without_changing_raw_retrieval (test_metrics.MetricTests.test_context_receives_relevance_score_without_changing_raw_retrieval) ... ok
+test_cutoffs_duplicates_and_empty (test_metrics.MetricTests.test_cutoffs_duplicates_and_empty) ... ok
+test_dataset_rejects_bad_labels (test_metrics.MetricTests.test_dataset_rejects_bad_labels) ... ok
+test_existing_report_is_never_overwritten (test_metrics.MetricTests.test_existing_report_is_never_overwritten) ... ok
+test_fact_matching_is_one_to_one_and_maximum (test_metrics.MetricTests.test_fact_matching_is_one_to_one_and_maximum) ... ok
+test_graded_ndcg_uses_all_relevant_and_normalizes (test_metrics.MetricTests.test_graded_ndcg_uses_all_relevant_and_normalizes) ... ok
+test_math_reference_tolerates_only_numerically_tied_order (test_metrics.MetricTests.test_math_reference_tolerates_only_numerically_tied_order) ... ok
+test_percentiles_interpolate (test_metrics.MetricTests.test_percentiles_interpolate) ... ok
+test_retrieval_hit_does_not_make_answer_correct (test_metrics.MetricTests.test_retrieval_hit_does_not_make_answer_correct) ... ok
+test_tfidf_only_fits_corpus (test_metrics.MetricTests.test_tfidf_only_fits_corpus) ... ok
+test_timeout_is_not_a_correct_abstention (test_metrics.MetricTests.test_timeout_is_not_a_correct_abstention) ... ok
+test_actual_tokenizer_and_cache_manifest (test_phase3.Phase3Tests.test_actual_tokenizer_and_cache_manifest) ... ok
+test_all_calibration_strict_and_normalized_contracts (test_phase3.Phase3Tests.test_all_calibration_strict_and_normalized_contracts) ... ok
+test_approval_binds_actual_runtime_and_human_review (test_phase3.Phase3Tests.test_approval_binds_actual_runtime_and_human_review) ... ok
+test_claiming_abstention_does_not_make_a_guess_correct (test_phase3.Phase3Tests.test_claiming_abstention_does_not_make_a_guess_correct) ... ok
+test_context_counts_partial_delivery_and_redaction (test_phase3.Phase3Tests.test_context_counts_partial_delivery_and_redaction) ... ok
+test_context_unicode_budget_prefix_and_no_answer_access (test_phase3.Phase3Tests.test_context_unicode_budget_prefix_and_no_answer_access) ... ok
+test_cost_limit_reserves_worst_before_transport (test_phase3.Phase3Tests.test_cost_limit_reserves_worst_before_transport) ... ok
+test_embedding_counter_includes_real_eos (test_phase3.Phase3Tests.test_embedding_counter_includes_real_eos) ... ok
+test_failures_stay_in_accuracy_denominator_and_no_judge_is_null (test_phase3.Phase3Tests.test_failures_stay_in_accuracy_denominator_and_no_judge_is_null) ... ok
+test_input_cap_no_silent_truncation (test_phase3.Phase3Tests.test_input_cap_no_silent_truncation) ... ok
+test_ledger_cannot_be_reset_on_restart (test_phase3.Phase3Tests.test_ledger_cannot_be_reset_on_restart) ... ok
+test_lock_has_no_dev_ids_or_any_history_overlap_and_is_sealed (test_phase3.Phase3Tests.test_lock_has_no_dev_ids_or_any_history_overlap_and_is_sealed) ... ok
+test_missing_usage_halts_and_retains_reservation (test_phase3.Phase3Tests.test_missing_usage_halts_and_retains_reservation) ... ok
+test_no_approval_or_changed_plan_rejected (test_phase3.Phase3Tests.test_no_approval_or_changed_plan_rejected) ... ok
+test_nonthinking_and_output_budget_sent_to_provider (test_phase3.Phase3Tests.test_nonthinking_and_output_budget_sent_to_provider) ... ok
+test_normalization_never_merges_wrong_decimal_or_dates (test_phase3.Phase3Tests.test_normalization_never_merges_wrong_decimal_or_dates) ... ok
+test_provider_usage_over_reservation_halts (test_phase3.Phase3Tests.test_provider_usage_over_reservation_halts) ... ok
+test_reference_and_has_answer_never_enter_prediction_input (test_phase3.Phase3Tests.test_reference_and_has_answer_never_enter_prediction_input) ... ok
+test_request_limit_stops_before_next_transport (test_phase3.Phase3Tests.test_request_limit_stops_before_next_transport) ... ok
+test_semantic_vectors_are_not_tfidf_and_cache_reused (test_phase3.Phase3Tests.test_semantic_vectors_are_not_tfidf_and_cache_reused) ... ok
+test_session_hit_does_not_imply_evidence_recall (test_phase3.Phase3Tests.test_session_hit_does_not_imply_evidence_recall) ... ok
+test_timeout_failure_retains_reservation_and_retry_zero (test_phase3.Phase3Tests.test_timeout_failure_retains_reservation_and_retry_zero) ... ok
+test_total_token_limits_stop_without_request (test_phase3.Phase3Tests.test_total_token_limits_stop_without_request) ... ok
+test_unapproved_reads_no_key_and_sends_no_request (test_phase3.Phase3Tests.test_unapproved_reads_no_key_and_sends_no_request) ... ok
+test_unexpected_thinking_or_truncation_stops_campaign (test_phase3.Phase3Tests.test_unexpected_thinking_or_truncation_stops_campaign) ... ok
+test_unknown_citations_recorded_not_hidden (test_phase3.Phase3Tests.test_unknown_citations_recorded_not_hidden) ... ok
+test_unsupported_correct_guess_separate_from_accuracy (test_phase3.Phase3Tests.test_unsupported_correct_guess_separate_from_accuracy) ... ok
+test_visible_output_usage_exceeding_cap_stops_within_reservation (test_phase3.Phase3Tests.test_visible_output_usage_exceeding_cap_stops_within_reservation) ... ok
+
+----------------------------------------------------------------------
+Ran 41 tests in 0.655s
+
+OK

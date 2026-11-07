@@ -1,0 +1,24 @@
+   Compiling memory-postgres v0.1.0 (/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/crates/memory-postgres)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.27s
+     Running unittests src/lib.rs (/tmp/drb-memory-eval-target/debug/deps/memory_postgres-0d732d40d0f31eeb)
+
+running 16 tests
+test repository::tests::chinese_bm25_prefers_exact_identifier_and_is_generation_bound ... ok
+test repository::tests::context_pack_consume_is_atomic_bound_and_idempotent ... ok
+test repository::tests::context_pack_retains_authorized_preference_below_topical_threshold ... ok
+test repository::tests::correction_appends_version_invalidates_pack_and_has_single_revision_winner ... ok
+test repository::tests::erasure_scrubs_canonical_content_and_completes_after_projection_receipt ... ok
+test repository::tests::exact_semantic_dedupe_reuses_record_and_attaches_sources_under_concurrency ... ok
+test repository::tests::export_is_authorized_and_expiry_is_fail_closed_and_projection_safe ... ok
+test repository::tests::extracted_semantic_fact_is_project_scoped_authorized_and_conflict_safe ... ok
+test repository::tests::extraction_snapshot_freezes_first_result_and_persists_zero_candidates ... ok
+test repository::tests::ingest_redacts_pii_before_ledger_and_version_storage ... ok
+test repository::tests::pinned_current_version_is_authorized_without_waiting_for_projection ... ok
+test repository::tests::projection_generation_rebuild_switch_rollback_and_finalize_are_safe ... ok
+test repository::tests::retrieval_explain_receipt_is_tenant_isolated_and_content_minimized ... ok
+test repository::tests::semantic_conflict_is_fail_closed_until_review_accept_or_reject ... ok
+test repository::tests::temporal_candidates_use_event_time_and_still_require_canonical_authorization ... ok
+test repository::tests::typed_scopes_intersect_authority_and_project_erasure_is_tracked ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 15 filtered out; finished in 3.90s
+

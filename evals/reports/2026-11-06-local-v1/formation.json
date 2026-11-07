@@ -1,0 +1,305 @@
+[
+  {
+    "id": "single",
+    "text": "我住在成都。",
+    "predictions": [
+      "我住在成都"
+    ],
+    "gold": [
+      [
+        "我住在成都"
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "multi",
+    "text": "我是后端工程师。我的猫叫豆包。",
+    "predictions": [
+      "我是后端工程师",
+      "我的猫叫豆包"
+    ],
+    "gold": [
+      [
+        "我是后端工程师"
+      ],
+      [
+        "我的猫叫豆包"
+      ]
+    ],
+    "tp": 2,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "duplicate",
+    "text": "我喜欢游泳。我喜欢游泳。",
+    "predictions": [
+      "我喜欢游泳"
+    ],
+    "gold": [
+      [
+        "我喜欢游泳"
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "greeting",
+    "text": "你好，谢谢。",
+    "predictions": [],
+    "gold": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "question",
+    "text": "我喜欢游泳吗？",
+    "predictions": [],
+    "gold": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "hypothetical",
+    "text": "如果我住在上海，就坐地铁。",
+    "predictions": [],
+    "gold": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "quoted",
+    "text": "他说我喜欢咖啡。",
+    "predictions": [],
+    "gold": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "uncertain",
+    "text": "我可能喜欢冲浪。",
+    "predictions": [],
+    "gold": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "no_write",
+    "text": "不要记住我住在成都。",
+    "predictions": [],
+    "gold": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "negation",
+    "text": "我不喜欢香菜。",
+    "predictions": [
+      "我不喜欢香菜"
+    ],
+    "gold": [
+      [
+        "我不喜欢香菜"
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "past",
+    "text": "我昨天去了重庆。",
+    "predictions": [
+      "我昨天去了重庆"
+    ],
+    "gold": [
+      [
+        "我昨天去了重庆"
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "completed",
+    "text": "我已经通过考试。",
+    "predictions": [
+      "我已经通过考试"
+    ],
+    "gold": [
+      [
+        "我已经通过考试"
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "english",
+    "text": "I live in Chengdu.",
+    "predictions": [
+      "I live in Chengdu"
+    ],
+    "gold": [
+      [
+        "I live in Chengdu"
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "english_pref",
+    "text": "I prefer tea.",
+    "predictions": [
+      "I prefer tea"
+    ],
+    "gold": [
+      [
+        "I prefer tea"
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "plan",
+    "text": "我明年计划去北京。",
+    "predictions": [],
+    "gold": [
+      [
+        "我明年计划去北京"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "id": "implicit",
+    "text": "平时用 Python 写脚本。",
+    "predictions": [],
+    "gold": [
+      [
+        "平时用 Python 写脚本"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "id": "compound",
+    "text": "我住在成都，喜欢游泳。",
+    "predictions": [
+      "我住在成都，喜欢游泳"
+    ],
+    "gold": [
+      [
+        "我住在成都"
+      ],
+      [
+        "我喜欢游泳"
+      ]
+    ],
+    "tp": 0,
+    "fp": 1,
+    "fn": 2
+  },
+  {
+    "id": "other_person",
+    "text": "我的朋友住在北京。",
+    "predictions": [
+      "我的朋友住在北京"
+    ],
+    "gold": [],
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+  },
+  {
+    "id": "request",
+    "text": "我的简历帮我修改一下。",
+    "predictions": [
+      "我的简历帮我修改一下"
+    ],
+    "gold": [],
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+  },
+  {
+    "id": "task",
+    "text": "我在思考这个问题，你能帮忙吗？",
+    "predictions": [],
+    "gold": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "change",
+    "text": "我现在住在深圳，不住成都了。",
+    "predictions": [],
+    "gold": [
+      [
+        "我现在住在深圳"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "id": "future",
+    "text": "我会在下周出差。",
+    "predictions": [],
+    "gold": [
+      [
+        "我会在下周出差"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "id": "forget",
+    "text": "请忘记我的住址。",
+    "predictions": [],
+    "gold": [],
+    "tp": 0,
+    "fp": 0,
+    "fn": 0
+  },
+  {
+    "id": "repeat_case",
+    "text": "我使用 Rust。我使用 Rust。",
+    "predictions": [
+      "我使用 Rust"
+    ],
+    "gold": [
+      [
+        "我使用 Rust"
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  }
+]

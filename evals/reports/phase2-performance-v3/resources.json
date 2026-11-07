@@ -1,0 +1,38 @@
+[
+  {
+    "length": 100,
+    "ingestion": {
+      "input_documents": 100,
+      "indexed_documents": 100,
+      "redacted_documents": 0,
+      "rejected": []
+    },
+    "docker_sample": "132.1MiB / 4.801GiB",
+    "work_mem": "4MB",
+    "term_rows": 6665
+  },
+  {
+    "length": 400,
+    "ingestion": {
+      "input_documents": 400,
+      "indexed_documents": 400,
+      "redacted_documents": 1,
+      "rejected": []
+    },
+    "docker_sample": "179.4MiB / 4.801GiB",
+    "work_mem": "4MB",
+    "term_rows": 28833
+  },
+  {
+    "length": 801,
+    "ingestion": {
+      "input_documents": 801,
+      "indexed_documents": 801,
+      "redacted_documents": 2,
+      "rejected": []
+    },
+    "docker_sample": "294.6MiB / 4.801GiB",
+    "work_mem": "4MB",
+    "term_rows": 57893
+  }
+]

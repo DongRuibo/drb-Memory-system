@@ -50,6 +50,8 @@ class RetrievalModels:
             ) from error
 
         self.torch = torch
+        self.transformers_version = __import__("transformers").__version__
+        self.tokenizers_version = __import__("tokenizers").__version__
         self.functional = functional
         self.max_length = args.max_length
         self.embedding_model_id = args.embedding_model
@@ -128,6 +130,13 @@ class RetrievalModels:
             "status": "ok",
             "semantic": True,
             "device": self.device,
+            # 评测客户端据此核对截断上限和查询指令，避免健康检查通过但参数不一致。
+            "max_length": self.max_length,
+            "instruction": self.instruction,
+            "torch_version": str(self.torch.__version__),
+            "transformers_version": self.transformers_version,
+            "tokenizers_version": self.tokenizers_version,
+            "embedding_dtype": None if self.embedding_model is None else str(next(self.embedding_model.parameters()).dtype),
             "embedding": None
             if self.embedding_model is None
             else {

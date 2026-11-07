@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "kind": "development_trace_rescore_not_new_test_or_real_model_results",
+  "source": "evals/reports/phase2-longmemeval-final-v3/questions.json",
+  "tokenizer_sha256": "cd050be35cae877f8f0aa847f45aa87e23835a56ca32b29b28545597852784e5",
+  "api_calls": 0,
+  "cost_cny": 0
+}

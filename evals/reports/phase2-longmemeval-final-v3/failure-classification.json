@@ -1,0 +1,335 @@
+[
+  {
+    "id": "19b5f2b3_abs",
+    "query": "How long was I in Korea for?",
+    "session_hit": false,
+    "has_answer_turn_hit": false,
+    "facts_retrieved": [],
+    "facts_after_relevance": [],
+    "facts_in_context": [],
+    "categories": [
+      "Answer Generation Failure (abstention)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "**Dora Observatory**: From here, you can see North Korea with your own eyes.",
+      "refused": false,
+      "citations": [
+        "50146f5c-0d51-59e1-8a96-c94da62a0eea"
+      ]
+    },
+    "review_note": "Korea不在记录中；正确拒答不能由空上下文单独证明。"
+  },
+  {
+    "id": "c6853660",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "session_hit": true,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [
+      true,
+      true
+    ],
+    "facts_after_relevance": [
+      true,
+      true
+    ],
+    "facts_in_context": [
+      false,
+      true
+    ],
+    "categories": [
+      "Context Construction Failure",
+      "Evaluator / Adapter Failure (full fact statement vs short reference)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "Speaking of my morning coffee, I have increased the limit to two cups, and I'm thinking of experimenting with different sweeteners, like stevia or honey.",
+      "refused": false,
+      "citations": [
+        "64e2b4c7-9d71-5ec8-976b-28b3b1cd9015"
+      ]
+    },
+    "review_note": "官方答案将计划中的两杯视作最新限制；保留该解释的不确定性。"
+  },
+  {
+    "id": "37f165cf",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "session_hit": true,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [
+      true,
+      true
+    ],
+    "facts_after_relevance": [
+      true,
+      true
+    ],
+    "facts_in_context": [
+      false,
+      true
+    ],
+    "categories": [
+      "Context Construction Failure"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "**Page Count**: \"The Women in the Castle\" has 352 pages, which is slightly shorter than \"The Nightingale\".",
+      "refused": false,
+      "citations": [
+        "5af8506a-4609-5011-aec0-52d14736245e"
+      ]
+    },
+    "review_note": "需要跨会话相加440+416；856不必原文出现。"
+  },
+  {
+    "id": "51b23612",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "session_hit": true,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [
+      true
+    ],
+    "facts_after_relevance": [
+      true
+    ],
+    "facts_in_context": [
+      true
+    ],
+    "categories": [
+      "Evaluator / Adapter Failure (EM contract)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "One example is the popular Soviet cartoon, “Nu, pogodi!” which mocked Western culture and portrayed the Soviet Union as superior.",
+      "refused": false,
+      "citations": [
+        "05c850c9-0649-5161-9b84-5c36534fb560"
+      ]
+    },
+    "review_note": "需要定位具体动画名称；原文使用弯引号。"
+  },
+  {
+    "id": "1a1907b4",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "session_hit": false,
+    "has_answer_turn_hit": false,
+    "facts_retrieved": [
+      false,
+      false
+    ],
+    "facts_after_relevance": [
+      false,
+      false
+    ],
+    "facts_in_context": [
+      false,
+      false
+    ],
+    "categories": [
+      "Retrieval Failure",
+      "Evaluator / Adapter Failure (rubric vs EM)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "I've been thinking about pricing, but I'm not entirely sure how to approach it.",
+      "refused": false,
+      "citations": [
+        "7a4ec779-e380-513c-9236-d8e75ed2d659"
+      ]
+    },
+    "review_note": "偏好rubric，不是要求逐字复述参考段落。"
+  },
+  {
+    "id": "1faac195",
+    "query": "Where does my sister Emily live?",
+    "session_hit": true,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [
+      true
+    ],
+    "facts_after_relevance": [
+      true
+    ],
+    "facts_in_context": [
+      true
+    ],
+    "categories": [
+      "Evaluator / Adapter Failure (EM contract)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "40f10bf8-fde7-51ff-b29e-785c79e33bdd"
+      ]
+    },
+    "review_note": "可直接抽取城市。"
+  },
+  {
+    "id": "gpt4_2f584639",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "session_hit": true,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [
+      true,
+      true
+    ],
+    "facts_after_relevance": [
+      true,
+      true
+    ],
+    "facts_in_context": [
+      true,
+      true
+    ],
+    "categories": [
+      "Answer Generation Failure"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "A customized photo album is a thoughtful and personalized gift that your mom will surely treasure.",
+      "refused": false,
+      "citations": [
+        "ec3d5727-b9e3-50c2-8c07-e0e3ece6bba7"
+      ]
+    },
+    "review_note": "需要依据不同会话日期解释相对时间，不可只比较表面词。"
+  },
+  {
+    "id": "c8090214_abs",
+    "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+    "session_hit": false,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [],
+    "facts_after_relevance": [],
+    "facts_in_context": [],
+    "categories": [
+      "Answer Generation Failure (abstention)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "By the way, I attended the annual Holiday Market at the local mall a week before Black Friday, and I saw some unique handmade jewelry there, but I'm not sure if that's her style.",
+      "refused": false,
+      "citations": [
+        "e1c40726-d13c-5da8-b49a-e701b47509e6"
+      ]
+    },
+    "review_note": "iPad未给出；不能用iPhone时间冒充。"
+  },
+  {
+    "id": "d7c942c3",
+    "query": "Is my mom using the same grocery list method as me?",
+    "session_hit": true,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [
+      true
+    ],
+    "facts_after_relevance": [
+      true
+    ],
+    "facts_in_context": [
+      true
+    ],
+    "categories": [
+      "Evaluator / Adapter Failure (full fact statement vs short reference)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "[2023/04/30 (Sun) 20:09] user: By the way, I was just thinking, my mom is actually using the same grocery list app as me now, so we can easily share lists and keep track of what we need.",
+      "refused": false,
+      "citations": [
+        "34dc5de1-c3f1-53d6-9668-4fd5d3af0930"
+      ]
+    },
+    "review_note": "需要最新事实；旧paper list是干扰。"
+  },
+  {
+    "id": "6cb6f249",
+    "query": "How many days did I take social media breaks in total?",
+    "session_hit": true,
+    "has_answer_turn_hit": false,
+    "facts_retrieved": [
+      false,
+      false
+    ],
+    "facts_after_relevance": [
+      false,
+      false
+    ],
+    "facts_in_context": [
+      false,
+      false
+    ],
+    "categories": [
+      "Retrieval Failure"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "this may include taking breaks from social media or avoiding it altogether on certain days of the week.",
+      "refused": false,
+      "citations": [
+        "cbc5be6d-8d4f-5ea4-821c-3af859bd8e22"
+      ]
+    },
+    "review_note": "需将week换算7再与10相加。"
+  },
+  {
+    "id": "1b9b7252",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "session_hit": true,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [
+      true
+    ],
+    "facts_after_relevance": [
+      true
+    ],
+    "facts_in_context": [
+      true
+    ],
+    "categories": [
+      "Evaluator / Adapter Failure (EM contract)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "Mindful.org: This website includes guided imagery exercises that you can use for free, such as \"The Mountain Meditation\" and \"The Body Scan Meditation.\" 3.",
+      "refused": false,
+      "citations": [
+        "3b5a5922-7f8e-5a70-b02a-019daad14d7f"
+      ]
+    },
+    "review_note": "旧预测已包含正确网站，但严格EM不接受整句；官方judge未运行。"
+  },
+  {
+    "id": "35a27287",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "session_hit": true,
+    "has_answer_turn_hit": true,
+    "facts_retrieved": [
+      true,
+      true
+    ],
+    "facts_after_relevance": [
+      true,
+      true
+    ],
+    "facts_in_context": [
+      true,
+      true
+    ],
+    "categories": [
+      "Answer Generation Failure",
+      "Evaluator / Adapter Failure (rubric vs EM)"
+    ],
+    "strict_answer_correct": false,
+    "prediction": {
+      "text": "[2023/05/29 (Mon) 12:32] user: What are some cultural events or festivals in my area that celebrate language diversity and cultural exchange?",
+      "refused": false,
+      "citations": [
+        "42e0c607-63d6-549b-ad7c-f60de5f49f17"
+      ]
+    },
+    "review_note": "多轮偏好rubric；准确性需语义判断。"
+  }
+]

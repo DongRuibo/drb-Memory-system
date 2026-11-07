@@ -1,0 +1,14 @@
+{
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "python": "3.12.14",
+  "memory_bytes": 17179869184,
+  "logical_cpus": 8,
+  "cpu": "Apple M1 Pro",
+  "docker": {
+    "NCPU": 8,
+    "MemTotal": 5155180544,
+    "ServerVersion": "29.9.2",
+    "Architecture": "aarch64",
+    "OperatingSystem": "Docker Desktop"
+  }
+}

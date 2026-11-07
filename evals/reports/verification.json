@@ -1,0 +1,19 @@
+{
+  "new_scoring_tests_passed": 11,
+  "existing_rust_unit_tests_passed": 64,
+  "existing_pg_tests_ignored": 16,
+  "governance_probes_matching_expected_state": 11,
+  "known_limitation_probes": 1,
+  "local_ranking_and_quality_replay_identical": true,
+  "preexisting_files_preserved_byte_for_byte": 32,
+  "retrieval_rows": 480,
+  "qa_rows": 66,
+  "formation_rows": 24,
+  "public_question_count": 12,
+  "public_chunk_count": 9767,
+  "public_rejected_chunks": 12,
+  "public_redacted_chunks": 14,
+  "completed_run": "2026-11-06-local-v3",
+  "repeat_run": "2026-11-07-local-repeat",
+  "launch_source_note": "During the public run only __main__.py gained an output-exists preflight guard; scoring/runner/bridge sources did not change. The preserved local repeat used the final CLI and produced identical ranks and quality."
+}

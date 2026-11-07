@@ -1,0 +1,16 @@
+[
+  {
+    "variant": "materialized",
+    "n": 16,
+    "timeouts": 0,
+    "p50_ms": 87.8568335,
+    "p95_ms": 90.37072925
+  },
+  {
+    "variant": "materialized_uncached",
+    "n": 16,
+    "timeouts": 0,
+    "p50_ms": 19.239582999999996,
+    "p95_ms": 20.891552499999996
+  }
+]

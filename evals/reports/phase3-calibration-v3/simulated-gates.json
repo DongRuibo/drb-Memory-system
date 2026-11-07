@@ -1,0 +1,307 @@
+{
+  "kind": "offline_simulated_outputs_not_model_results",
+  "n": 20,
+  "all_blocked": true,
+  "simulations": [
+    {
+      "case_id": "decimal_error",
+      "changed_field": "accurate",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "decimal_error",
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "decimal_error_marked_accurate"
+        }
+      ]
+    },
+    {
+      "case_id": "decimal_error",
+      "changed_field": "supported",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "decimal_error",
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "decimal_error_marked_supported"
+        }
+      ]
+    },
+    {
+      "case_id": "unsupported_guess",
+      "changed_field": "accurate",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "unsupported_guess",
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "unsupported_guess_marked_accurate"
+        }
+      ]
+    },
+    {
+      "case_id": "unsupported_guess",
+      "changed_field": "supported",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "unsupported_guess",
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "unsupported_guess_marked_supported"
+        }
+      ]
+    },
+    {
+      "case_id": "lucky_guess",
+      "changed_field": "accurate",
+      "simulated_value": false,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "lucky_guess",
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "lucky_guess_marked_inaccurate"
+        }
+      ]
+    },
+    {
+      "case_id": "lucky_guess",
+      "changed_field": "supported",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "lucky_guess",
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "lucky_guess_marked_supported"
+        }
+      ]
+    },
+    {
+      "case_id": "entity_swap",
+      "changed_field": "accurate",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "entity_swap",
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "wrong_entity_marked_accurate"
+        }
+      ]
+    },
+    {
+      "case_id": "entity_swap",
+      "changed_field": "supported",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "entity_swap",
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "wrong_entity_marked_supported"
+        }
+      ]
+    },
+    {
+      "case_id": "partial_answer",
+      "changed_field": "accurate",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "partial_answer",
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "partial_answer_marked_accurate"
+        }
+      ]
+    },
+    {
+      "case_id": "partial_answer",
+      "changed_field": "supported",
+      "simulated_value": false,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "partial_answer",
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "partial_answer_marked_unsupported"
+        }
+      ]
+    },
+    {
+      "case_id": "invented_explanation",
+      "changed_field": "accurate",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "invented_explanation",
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "material_false_addition_marked_accurate"
+        }
+      ]
+    },
+    {
+      "case_id": "invented_explanation",
+      "changed_field": "supported",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "invented_explanation",
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "material_false_addition_marked_supported"
+        }
+      ]
+    },
+    {
+      "case_id": "correct_abstention",
+      "changed_field": "accurate",
+      "simulated_value": false,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "correct_abstention",
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "correct_abstention_marked_incorrect"
+        }
+      ]
+    },
+    {
+      "case_id": "correct_abstention",
+      "changed_field": "supported",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "correct_abstention",
+          "field": "supported",
+          "operator": "not_null",
+          "code": "correct_abstention_support_not_null"
+        }
+      ]
+    },
+    {
+      "case_id": "correct_abstention",
+      "changed_field": "supported",
+      "simulated_value": false,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "correct_abstention",
+          "field": "supported",
+          "operator": "not_null",
+          "code": "correct_abstention_support_not_null"
+        }
+      ]
+    },
+    {
+      "case_id": "unnecessary_abstention",
+      "changed_field": "accurate",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "unnecessary_abstention",
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "unnecessary_abstention_marked_correct"
+        }
+      ]
+    },
+    {
+      "case_id": "unnecessary_abstention",
+      "changed_field": "supported",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "unnecessary_abstention",
+          "field": "supported",
+          "operator": "not_null",
+          "code": "unnecessary_abstention_support_not_null"
+        }
+      ]
+    },
+    {
+      "case_id": "unnecessary_abstention",
+      "changed_field": "supported",
+      "simulated_value": false,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "unnecessary_abstention",
+          "field": "supported",
+          "operator": "not_null",
+          "code": "unnecessary_abstention_support_not_null"
+        }
+      ]
+    },
+    {
+      "case_id": "preference_rubric_negative",
+      "changed_field": "accurate",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "preference_rubric_negative",
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "constraint_violation_marked_accurate"
+        }
+      ]
+    },
+    {
+      "case_id": "preference_rubric_negative",
+      "changed_field": "supported",
+      "simulated_value": true,
+      "complete_case_matches": 15,
+      "gate_passed": false,
+      "critical_errors": [
+        {
+          "case_id": "preference_rubric_negative",
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "constraint_violation_marked_supported"
+        }
+      ]
+    }
+  ]
+}

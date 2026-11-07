@@ -1,0 +1,16 @@
+{
+  "status": "completed",
+  "kind": "bridge_tokenizer_startup_attribution",
+  "seed": 20261108,
+  "model_api_calls": 0,
+  "cold_definition": "bridge only restarted; same warm database",
+  "warm_per_length": 40,
+  "cold_per_length": 6,
+  "timeout_ms": 3000,
+  "git_head": "4a9e7632ef9f58c47f49fc6632c7dbd4bb38e147",
+  "source_sha256": {
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/performance3.py": "23e045b13be2fb13e6a5e2a0f75d3086f68dc4b9d07a2f2d006959cff51f7c53",
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/harness/src/main.rs": "c7b0de80497849d6e506c6160c8bce5a28f3a100ed437f74ce857f0a3e00453f",
+    "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/crates/memory-postgres/src/repository.rs": "3a008a0c518e5058b08a738959754037c574c403dc2d867144458d952550fbb1"
+  }
+}

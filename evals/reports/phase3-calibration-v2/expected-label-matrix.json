@@ -1,0 +1,218 @@
+{
+  "kind": "expected_labels_not_model_results",
+  "version": "judge-calibration-v2",
+  "cases": [
+    {
+      "id": "preference_rubric_positive",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "critical_checks": [],
+      "review_note": "保留正确、有据；支持性指建议符合用户偏好及已有约束，不是证明某个活动真实存在。"
+    },
+    {
+      "id": "full_sentence",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "critical_checks": [],
+      "review_note": "保留正确、有据；完整句与短答案语义等价。"
+    },
+    {
+      "id": "synonym",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "critical_checks": [],
+      "review_note": "用sparkling water/carbonated water替换有歧义的bike/bicycle；标签不变。"
+    },
+    {
+      "id": "number_format",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "critical_checks": [],
+      "review_note": "保留正确、有据；英文千位分隔不改变数值。"
+    },
+    {
+      "id": "date_format",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "critical_checks": [],
+      "review_note": "保留正确、有据；两种格式表示同一日期。"
+    },
+    {
+      "id": "supported_explanation",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "critical_checks": [],
+      "review_note": "保留正确、有据；附加2020年事实也得到证据支持。"
+    },
+    {
+      "id": "invented_explanation",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "material_false_addition_marked_accurate"
+        }
+      ],
+      "review_note": "保留错误、无据；明确2020年才开始且此前未居住，使附加2019年事实与证据直接矛盾，测试核心答案正确但完整回答错误。"
+    },
+    {
+      "id": "decimal_error",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "critical_checks": [],
+      "review_note": "保留错误、无据；1.5与15相差十倍。"
+    },
+    {
+      "id": "entity_swap",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "wrong_entity_marked_accurate"
+        }
+      ],
+      "review_note": "保留错误、无据；Lyon属于Bea，不能移到Ada。"
+    },
+    {
+      "id": "correct_abstention",
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": null
+      },
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "correct_abstention_marked_incorrect"
+        }
+      ],
+      "review_note": "保留正确拒答、supported=null；null为不适用，不代表无幻觉。"
+    },
+    {
+      "id": "unsupported_guess",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "critical_checks": [
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "unsupported_guess_marked_supported"
+        }
+      ],
+      "review_note": "保留错误、无据；无答案题不能凭空猜测城市。"
+    },
+    {
+      "id": "lucky_guess",
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": false
+      },
+      "critical_checks": [
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "lucky_guess_marked_supported"
+        }
+      ],
+      "review_note": "保留正确、无据；准确性与证据支持分离。"
+    },
+    {
+      "id": "arithmetic",
+      "expected": {
+        "strict_match": true,
+        "normalized_match": true,
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "critical_checks": [],
+      "review_note": "明确两段时间不重叠，排除重复计算歧义；保留正确、有据。"
+    },
+    {
+      "id": "partial_answer",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": true
+      },
+      "critical_checks": [],
+      "review_note": "保留错误、有据；已陈述Paris属实，但遗漏必须回答的Lyon。"
+    },
+    {
+      "id": "preference_rubric_negative",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "critical_checks": [],
+      "review_note": "保留错误、无据；违背避开人群的偏好并暗示未提供依据的具体地点与今晚活动。"
+    },
+    {
+      "id": "unnecessary_abstention",
+      "expected": {
+        "strict_match": false,
+        "normalized_match": false,
+        "semantic_accuracy": false,
+        "supported": null
+      },
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "unnecessary_abstention_marked_correct"
+        }
+      ],
+      "review_note": "保留错误拒答、supported=null；证据明确却拒答属于未完成问题。"
+    }
+  ]
+}

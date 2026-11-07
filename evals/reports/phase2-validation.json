@@ -1,0 +1,119 @@
+{
+  "branch": "codex/memory-evaluation-system",
+  "git_head": "4a9e7632ef9f58c47f49fc6632c7dbd4bb38e147",
+  "original_32_files_preserved": true,
+  "phase1_report_files_unchanged": true,
+  "scorer_reader_original_dataset_unchanged": true,
+  "phase2_modified_preexisting_files": [
+    "docs/EVAL_INTERVIEW.md",
+    "docs/EVAL_PERFORMANCE.md",
+    "evals/README.md",
+    "evals/harness/src/main.rs",
+    "evals/memory_eval/runner.py",
+    "evals/tests/test_metrics.py",
+    "README.md",
+    "crates/memory-postgres/src/repository.rs"
+  ],
+  "public_selection": {
+    "kind": "public_subset",
+    "benchmark": "LongMemEval",
+    "variant": "s",
+    "source_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+    "source_rows": 500,
+    "selected_ids": [
+      "19b5f2b3_abs",
+      "c6853660",
+      "37f165cf",
+      "51b23612",
+      "1a1907b4",
+      "1faac195",
+      "gpt4_2f584639",
+      "c8090214_abs",
+      "d7c942c3",
+      "6cb6f249",
+      "1b9b7252",
+      "35a27287"
+    ],
+    "seed": 20261106,
+    "selection": "seeded question-type round-robin including abstention",
+    "official_score": false,
+    "chunk_chars": 1000,
+    "timezone_assumption": "naive upstream timestamps interpreted as UTC"
+  },
+  "public_labels_unchanged": true,
+  "tfidf_all_12_original_session_rankings_unchanged": true,
+  "local_regression_rankings_and_quality_identical": 432,
+  "holdout_old_new_rankings_identical": 24,
+  "sql_independent_reference_checks": {
+    "all_completed": 102,
+    "total_including_timeouts": 108,
+    "final_passed": 36,
+    "final_total": 36
+  },
+  "original_and_final_frozen_sql_match_production_sources": true,
+  "longmemeval_rows": 48,
+  "longmemeval_timeouts": 0,
+  "tests": {
+    "python_unit_passed": 13,
+    "rust_unit_passed": 64,
+    "pg_integration_passed": 16,
+    "pg_integration_skipped_in_explicit_run": 0
+  },
+  "run_directories": [
+    "phase2-performance-final",
+    "phase2-cardinality-lengths",
+    "phase2-longmemeval-final-v3",
+    "phase2-holdout-final",
+    "phase2-pg-tests-lengths-final",
+    "phase2-regression-final"
+  ],
+  "current_source_sha256": {
+    "evals/memory_eval/metrics.py": "49cff512e6dfd95094f209ac0e9016f9790b4353f4f757018c92ffe74a95778d",
+    "evals/memory_eval/longmemeval.py": "f98af71901961106fc6a503ff79e681884b4a75b5ccd45fbbd85b12656137f23",
+    "evals/memory_eval/baselines.py": "00d80065148b7645faf498524c6bef7e7036831ca703b568f082547633bb0037",
+    "evals/memory_eval/runner.py": "ebc182bed77b440e7a3de2f91108a023a67f61071dc2f52d99bb3dcc2ba4b057",
+    "evals/memory_eval/__init__.py": "4d69cd4b62e802ba3d3a28668810d829ea9c95f8b88780935e0efe91f3f7f9a0",
+    "evals/memory_eval/phase2_report.py": "644969c92aabc22f05f3adef223f378aa3ca207479606432f75402c860ecbb6f",
+    "evals/memory_eval/phase2.py": "6b517de7cc01a324c0772f24e88641b70f8c7288831ddda7e784b71113edeb82",
+    "evals/memory_eval/__main__.py": "590efd4cf3b62cddd96aae8d7ffdcd08bff6c83be1adbc7e2cbbb472257a8148",
+    "evals/harness/src/main.rs": "7b341cde5d44826c2c1d0a0c30e697cd749ad502d34127a0d17c5d63e01779b5",
+    "crates/memory-postgres/src/repository.rs": "3a008a0c518e5058b08a738959754037c574c403dc2d867144458d952550fbb1",
+    "evals/evidence/phase2/bm25-lateral.sql": "290b89a4c8c7928453dab28d73403df0126c8bfebbb96c7fe6514d9d8c33c34c",
+    "evals/evidence/phase2/bm25-version-lengths.sql": "fcb8bf082b30cf1ea0658163b1e7953d1d500fcf8a4946b93573a18dc4d91907",
+    "evals/evidence/phase2/bm25-materialized.sql": "b897ca3cba2abe41549f71b58cd809c3c858f386182b3eef4d50224b0c69c90c",
+    "evals/evidence/phase2/bm25-before.sql": "db8cb3cc4f8904e98d4aff71b1837087c0c5ac72f273d73d007f0fc256ac642d",
+    "evals/datasets/holdout_v2.json": "96bbc1ef36262a8c233e62fbb7642526872a148cabaaea6b92faa676948049e1",
+    "evals/datasets/longmemeval_review_v1.json": "6d026e941a2e9ceb1edf45c641980ed6ee0e3e4110e2cc6ca4c2cb77216857dd",
+    "evals/datasets/memory_v1.json": "1de6c94c21c6c1640e3f9f621e82b69418040d43fb723799e24c66e9374619d8",
+    "evals/datasets/memory_v1_errata.json": "05b89ce61ed871b96a3910bf5ffb69e157bba38a908af54f2c2538a870054653",
+    "Cargo.lock": "eaaa383e3ace29f7325f1a5b01c153cbf62f3bf872cf2e6ab68572c229c7c591",
+    "Cargo.toml": "69b096f6a039073a48e2664841e90b5b98a8041d3074d5ab51e45508d67d71ed",
+    "evals/harness/Cargo.lock": "3fecb0cc31c56bfd57e9814b63a41914051c519ea5b7690c295b76cb29437d88",
+    "evals/harness/Cargo.toml": "b7684368c07d32514a1cb23035f23ecde6ad0712336078db83cb640fc94575d1",
+    "evals/tests/test_metrics.py": "d4032cfea4baee95cdca916edd742ef29613431ee530dad011d156ac8eaf71e6",
+    "README.md": "b914632e9849cae4bf4e9c75371ade110ecd3742c3715dab4c2246b0885c6950",
+    "evals/README.md": "ff85c03ab068446f2959bcdb6287a11b9eba46d177f1a43102910bd5186e3824",
+    "docs/EVAL_PHASE2.md": "07b4423c4490dff274886b14c52ff7ed31b0a9fc251561715ae89fda7e06222a",
+    "docs/EVAL_REAL_MODELS_PLAN.md": "99e08de3ea47ba84d341e1be1869bc78e37dc987e3bbec11102326af0f0f1284",
+    "docs/EVAL_INTERVIEW.md": "b01972c5799b3f7f9f75b0758c51c34cb56eecd939bf837b325c69bff1869a64"
+  },
+  "post_run_non_prediction_changes": {
+    "paths": [
+      "evals/memory_eval/phase2_report.py",
+      "evals/memory_eval/phase2.py",
+      "evals/harness/src/main.rs"
+    ],
+    "note": "Added provenance output, updated report generator, and one Chinese comment after final experiments. Prediction, SQL, Reader and scorer unchanged. Original manifests preserve run-time source hashes."
+  },
+  "versions": {
+    "python": "3.12.14",
+    "platform": "macOS-27.2-arm64-arm-64bit",
+    "rustc": "rustc 1.97.1 (8bab26f4f 2026-07-14)",
+    "cargo": "cargo 1.97.1 (c980f4866 2026-06-30)",
+    "postgres_image_id": "sha256:8dd950fd4ca6d59e4fc748361bfb059f44907cc99577ae227d196adb29ad8913"
+  },
+  "model_api_calls": 0,
+  "model_api_cost_cny": 0,
+  "production_data_changed": false,
+  "committed_pushed_merged": false
+}

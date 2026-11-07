@@ -1,0 +1,12 @@
+{
+  "dataset": "memory-eval-v1",
+  "preserve_original_dataset_and_scores": true,
+  "cases": [
+    {
+      "id": "q23",
+      "query": "旧数据库为什么不再使用？",
+      "issue": "标注文档只说明过去使用MySQL、现在已弃用，没有提供弃用原因。相关主题不等于能回答因果问题。",
+      "action": "原题、标签、历史成绩保持不变；把这一题作为标注可信度问题公开披露，不删除失败题来抬高指标。"
+    }
+  ]
+}

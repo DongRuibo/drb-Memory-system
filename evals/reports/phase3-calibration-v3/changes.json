@@ -1,0 +1,289 @@
+{
+  "derived_from": {
+    "path": "evals/datasets/judge_calibration_v2.json",
+    "sha256": "e6ba50bd599e149c2258c7aeb5055ab60607e6b598c1d71f23959d237aa03e0d"
+  },
+  "changes": [
+    {
+      "case_id": "preference_rubric_positive",
+      "changed_fields": {
+        "context": {
+          "before": "Ada enjoys chess and wants to avoid traffic noise and crowds.",
+          "after": "Ada enjoys chess, prefers quiet indoor activities, and wants to avoid traffic noise and crowds."
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "仅补充用户指定的室内偏好事实；标签不变。"
+    },
+    {
+      "case_id": "full_sentence",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "synonym",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "number_format",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "date_format",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "supported_explanation",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "invented_explanation",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "material_false_addition_marked_accurate"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "material_false_addition_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "material_false_addition_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "decimal_error",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "decimal_error_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "decimal_error_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "entity_swap",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "wrong_entity_marked_accurate"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "wrong_entity_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "wrong_entity_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "correct_abstention",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": false,
+              "code": "correct_abstention_marked_incorrect"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": false,
+              "code": "correct_abstention_marked_incorrect"
+            },
+            {
+              "field": "supported",
+              "operator": "not_null",
+              "code": "correct_abstention_support_not_null"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "unsupported_guess",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "unsupported_guess_marked_supported"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "unsupported_guess_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "unsupported_guess_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "lucky_guess",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "lucky_guess_marked_supported"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": false,
+              "code": "lucky_guess_marked_inaccurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "lucky_guess_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "arithmetic",
+      "changed_fields": {},
+      "expected_labels_changed": false,
+      "reason": "保留原案例内容与标签。"
+    },
+    {
+      "case_id": "partial_answer",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "partial_answer_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": false,
+              "code": "partial_answer_marked_unsupported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "preference_rubric_negative",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "constraint_violation_marked_accurate"
+            },
+            {
+              "field": "supported",
+              "forbidden_value": true,
+              "code": "constraint_violation_marked_supported"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    },
+    {
+      "case_id": "unnecessary_abstention",
+      "changed_fields": {
+        "critical_checks": {
+          "before": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "unnecessary_abstention_marked_correct"
+            }
+          ],
+          "after": [
+            {
+              "field": "semantic_accuracy",
+              "forbidden_value": true,
+              "code": "unnecessary_abstention_marked_correct"
+            },
+            {
+              "field": "supported",
+              "operator": "not_null",
+              "code": "unnecessary_abstention_support_not_null"
+            }
+          ]
+        }
+      },
+      "expected_labels_changed": false,
+      "reason": "按用户指定方向补齐关键错误检查；案例内容、参考与标签不变。"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+SET
+SET
+SET
+PREPARE
+Limit  (cost=2560.26..2560.26 rows=1 width=128)
+  CTE corpus_docs
+    ->  Result  (cost=0.01..270.46 rows=67 width=133)
+          One-Time Filter: (NULLIF(current_setting('app.tenant_id'::text, true), ''::text) = $1)
+          ->  Seq Scan on retrieval_documents  (cost=0.01..270.46 rows=67 width=133)
+                Filter: ((tenant_id = $1) AND (namespace_key = $2) AND (generation = $3))
+  ->  Sort  (cost=2289.80..2289.80 rows=1 width=128)
+        Sort Key: (sum((ln(('1'::double precision + (((((count(*))::double precision) - ((count(DISTINCT rt_1.memory_version_id))::double precision)) + '0.5'::double precision) / (((count(DISTINCT rt_1.memory_version_id))::double precision) + '0.5'::double precision)))) * (((rt.term_frequency)::double precision * '2.2'::double precision) / ((rt.term_frequency)::double precision + ('1.2'::double precision * ('0.25'::double precision + (('0.75'::double precision * (rt.document_length)::double precision) / NULLIF((COALESCE(avg(((max(rt_2.document_length))::double precision)), '1'::double precision)), '0'::double precision))))))))) DESC, cd.memory_record_id, cd.memory_version_id
+        ->  GroupAggregate  (cost=2289.71..2289.79 rows=1 width=128)
+              Group Key: cd.memory_record_id, cd.memory_version_id, cd.head_revision, cd.generation, cd.content_hash, ((count(*))::double precision), (COALESCE(avg(((max(rt_2.document_length))::double precision)), '1'::double precision))
+              ->  Sort  (cost=2289.71..2289.71 rows=1 width=136)
+                    Sort Key: cd.memory_record_id, cd.memory_version_id, cd.head_revision, cd.generation, cd.content_hash, ((count(*))::double precision), (COALESCE(avg(((max(rt_2.document_length))::double precision)), '1'::double precision))
+                    ->  Result  (cost=2191.15..2289.70 rows=1 width=136)
+                          One-Time Filter: (NULLIF(current_setting('app.tenant_id'::text, true), ''::text) = $1)
+                          ->  Nested Loop  (cost=2191.15..2289.70 rows=1 width=136)
+                                ->  Nested Loop  (cost=53.41..151.94 rows=1 width=128)
+                                      ->  Nested Loop  (cost=51.90..150.41 rows=1 width=120)
+                                            Join Filter: (rt.memory_version_id = cd.memory_version_id)
+                                            ->  Nested Loop  (cost=51.90..148.23 rows=1 width=32)
+                                                  ->  GroupAggregate  (cost=51.48..51.52 rows=2 width=14)
+                                                        Group Key: rt_1.term
+                                                        ->  Sort  (cost=51.48..51.49 rows=2 width=22)
+                                                              Sort Key: rt_1.term, rt_1.memory_version_id
+                                                              ->  Result  (cost=2.60..51.47 rows=2 width=22)
+                                                                    One-Time Filter: (NULLIF(current_setting('app.tenant_id'::text, true), ''::text) = $1)
+                                                                    ->  Hash Join  (cost=2.60..51.47 rows=2 width=22)
+                                                                          Hash Cond: (rt_1.memory_version_id = cd_1.memory_version_id)
+                                                                          ->  Index Only Scan using idx_retrieval_terms_lookup on retrieval_terms rt_1  (cost=0.42..49.10 rows=43 width=22)
+                                                                                Index Cond: ((tenant_id = $1) AND (generation = $3) AND (term = ANY ($4)))
+                                                                          ->  Hash  (cost=1.34..1.34 rows=67 width=16)
+                                                                                ->  CTE Scan on corpus_docs cd_1  (cost=0.00..1.34 rows=67 width=16)
+                                                  ->  Index Scan using idx_retrieval_terms_lookup on retrieval_terms rt  (cost=0.42..48.33 rows=1 width=30)
+                                                        Index Cond: ((tenant_id = $1) AND (generation = $3) AND (term = rt_1.term) AND (term = ANY ($4)))
+                                            ->  CTE Scan on corpus_docs cd  (cost=0.00..1.34 rows=67 width=104)
+                                      ->  Aggregate  (cost=1.51..1.52 rows=1 width=8)
+                                            ->  CTE Scan on corpus_docs  (cost=0.00..1.34 rows=67 width=0)
+                                ->  Aggregate  (cost=2137.73..2137.74 rows=1 width=8)
+                                      ->  HashAggregate  (cost=2108.83..2123.28 rows=1156 width=24)
+                                            Group Key: rt_2.memory_version_id
+                                            ->  Result  (cost=0.42..2103.05 rows=1156 width=20)
+                                                  One-Time Filter: (NULLIF(current_setting('app.tenant_id'::text, true), ''::text) = $1)
+                                                  ->  Nested Loop  (cost=0.42..2103.05 rows=1156 width=20)
+                                                        ->  CTE Scan on corpus_docs cd_2  (cost=0.00..1.34 rows=67 width=16)
+                                                        ->  Index Scan using retrieval_terms_pkey on retrieval_terms rt_2  (cost=0.42..31.20 rows=17 width=20)
+                                                              Index Cond: ((tenant_id = $1) AND (memory_version_id = cd_2.memory_version_id) AND (generation = $3))

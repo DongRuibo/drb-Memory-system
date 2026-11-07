@@ -1,0 +1,3125 @@
+[
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 10.271167,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 11.725833,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 18.944333,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 6.9525,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 21.406333,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 9.794084,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.332166,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 11.055459,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 5.627334,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.069291,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.402833,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 5.530583,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.050625,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 21.161,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 11.968,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 19.065,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 10.1185,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 6.865417,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 21.260167,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 11.208917,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 11.902292,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 19.079208,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 6.892875,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 5.75275,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 9.802542,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.185291,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 10.164208,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "c6853660",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "knowledge-update",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_626e93c4_1": 1,
+      "answer_626e93c4_2": 1
+    },
+    "latency_ms": 3060.055666,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "c6853660",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "knowledge-update",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_626e93c4_1": 1,
+      "answer_626e93c4_2": 1
+    },
+    "latency_ms": 3046.233584,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "37f165cf",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "multi-session",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_6b9b2b1e_2": 1,
+      "answer_6b9b2b1e_1": 1
+    },
+    "latency_ms": 3007.169625,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "37f165cf",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "multi-session",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_6b9b2b1e_2": 1,
+      "answer_6b9b2b1e_1": 1
+    },
+    "latency_ms": 3005.50725,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "37f165cf",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "multi-session",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_6b9b2b1e_2": 1,
+      "answer_6b9b2b1e_1": 1
+    },
+    "latency_ms": 3007.347584,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "51b23612",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-assistant",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_ultrachat_427265": 1
+    },
+    "latency_ms": 3063.582,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "51b23612",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-assistant",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_ultrachat_427265": 1
+    },
+    "latency_ms": 3055.034958,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "1a1907b4",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-preference",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_719502eb": 1
+    },
+    "latency_ms": 3009.567,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "1a1907b4",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-preference",
+    "unanswerable": false,
+    "ranked": [
+      "ultrachat_183428",
+      "9585e0c6_1",
+      "78dbd237",
+      "4f3b36d4_5",
+      "e622a1bd",
+      "ae77c245",
+      "e42e7876_5",
+      "83a4f14d_1"
+    ],
+    "qrels": {
+      "answer_719502eb": 1
+    },
+    "latency_ms": 16.75225,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "1a1907b4",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-preference",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_719502eb": 1
+    },
+    "latency_ms": 3005.326875,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "1a1907b4",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-preference",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_719502eb": 1
+    },
+    "latency_ms": 3008.4735,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "gpt4_2f584639",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "temporal-reasoning",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_11a8f823_2": 1,
+      "answer_11a8f823_1": 1
+    },
+    "latency_ms": 3085.806667,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "gpt4_2f584639",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "temporal-reasoning",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_11a8f823_2": 1,
+      "answer_11a8f823_1": 1
+    },
+    "latency_ms": 3069.864584,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "gpt4_2f584639",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "temporal-reasoning",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_11a8f823_2": 1,
+      "answer_11a8f823_1": 1
+    },
+    "latency_ms": 3071.141625,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "c8090214_abs",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "temporal-reasoning",
+    "unanswerable": true,
+    "ranked": [],
+    "qrels": {},
+    "latency_ms": 3072.154459,
+    "error": "db_statement_timeout",
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "category": "retrieval",
+    "id": "c8090214_abs",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "temporal-reasoning",
+    "unanswerable": true,
+    "ranked": [],
+    "qrels": {},
+    "latency_ms": 3062.603917,
+    "error": "db_statement_timeout",
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "category": "retrieval",
+    "id": "c8090214_abs",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "temporal-reasoning",
+    "unanswerable": true,
+    "ranked": [],
+    "qrels": {},
+    "latency_ms": 3070.418584,
+    "error": "db_statement_timeout",
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "category": "retrieval",
+    "id": "d7c942c3",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "knowledge-update",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_eecb10d9_1": 1,
+      "answer_eecb10d9_2": 1
+    },
+    "latency_ms": 3015.765542,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "d7c942c3",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "knowledge-update",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_eecb10d9_1": 1,
+      "answer_eecb10d9_2": 1
+    },
+    "latency_ms": 3014.001542,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "d7c942c3",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "knowledge-update",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_eecb10d9_1": 1,
+      "answer_eecb10d9_2": 1
+    },
+    "latency_ms": 3015.242583,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "6cb6f249",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "multi-session",
+    "unanswerable": false,
+    "ranked": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "qrels": {
+      "answer_a4204937_2": 1,
+      "answer_a4204937_1": 1
+    },
+    "latency_ms": 2571.036709,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.38685280723454163
+  },
+  {
+    "category": "retrieval",
+    "id": "6cb6f249",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "multi-session",
+    "unanswerable": false,
+    "ranked": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "qrels": {
+      "answer_a4204937_2": 1,
+      "answer_a4204937_1": 1
+    },
+    "latency_ms": 15.323,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.38685280723454163
+  },
+  {
+    "category": "retrieval",
+    "id": "6cb6f249",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "multi-session",
+    "unanswerable": false,
+    "ranked": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "qrels": {
+      "answer_a4204937_2": 1,
+      "answer_a4204937_1": 1
+    },
+    "latency_ms": 2496.078167,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.38685280723454163
+  },
+  {
+    "category": "retrieval",
+    "id": "6cb6f249",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "multi-session",
+    "unanswerable": false,
+    "ranked": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "qrels": {
+      "answer_a4204937_2": 1,
+      "answer_a4204937_1": 1
+    },
+    "latency_ms": 2541.631292,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.38685280723454163
+  },
+  {
+    "category": "retrieval",
+    "id": "1b9b7252",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-assistant",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_ultrachat_115151": 1
+    },
+    "latency_ms": 3070.685291,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "1b9b7252",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-assistant",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_ultrachat_115151": 1
+    },
+    "latency_ms": 3053.735333,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "1b9b7252",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-assistant",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_ultrachat_115151": 1
+    },
+    "latency_ms": 3056.639875,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "35a27287",
+    "method": "bm25",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-preference",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_9b182436": 1
+    },
+    "latency_ms": 3068.877,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "35a27287",
+    "method": "hybrid",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-preference",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_9b182436": 1
+    },
+    "latency_ms": 3058.689625,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "35a27287",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "benchmark": "LongMemEval-s public subset",
+    "question_type": "single-session-preference",
+    "unanswerable": false,
+    "ranked": [],
+    "qrels": {
+      "answer_9b182436": 1
+    },
+    "latency_ms": 3061.127,
+    "error": "db_statement_timeout",
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "formation",
+    "id": "plan",
+    "text": "我明年计划去北京。",
+    "predictions": [],
+    "gold": [
+      [
+        "我明年计划去北京"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "category": "formation",
+    "id": "implicit",
+    "text": "平时用 Python 写脚本。",
+    "predictions": [],
+    "gold": [
+      [
+        "平时用 Python 写脚本"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "category": "formation",
+    "id": "compound",
+    "text": "我住在成都，喜欢游泳。",
+    "predictions": [
+      "我住在成都，喜欢游泳"
+    ],
+    "gold": [
+      [
+        "我住在成都"
+      ],
+      [
+        "我喜欢游泳"
+      ]
+    ],
+    "tp": 0,
+    "fp": 1,
+    "fn": 2
+  },
+  {
+    "category": "formation",
+    "id": "other_person",
+    "text": "我的朋友住在北京。",
+    "predictions": [
+      "我的朋友住在北京"
+    ],
+    "gold": [],
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+  },
+  {
+    "category": "formation",
+    "id": "request",
+    "text": "我的简历帮我修改一下。",
+    "predictions": [
+      "我的简历帮我修改一下"
+    ],
+    "gold": [],
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+  },
+  {
+    "category": "formation",
+    "id": "change",
+    "text": "我现在住在深圳，不住成都了。",
+    "predictions": [],
+    "gold": [
+      [
+        "我现在住在深圳"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "category": "formation",
+    "id": "future",
+    "text": "我会在下周出差。",
+    "predictions": [],
+    "gold": [
+      [
+        "我会在下周出差"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "category": "qa",
+    "id": "qa1",
+    "method": "hybrid_rerank",
+    "query": "我的职业是什么？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa1",
+      "query": "我的职业是什么？",
+      "answers": [
+        "我是后端工程师。"
+      ],
+      "qrels": {
+        "job": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 127,
+    "retrieval_ms": 20.19075,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "category": "qa",
+    "id": "qa4",
+    "method": "hybrid_rerank",
+    "query": "我喜欢什么咖啡？",
+    "prediction": {
+      "text": "我喜欢游泳",
+      "refused": false,
+      "citations": [
+        "cb075ad6-3e31-5350-abcb-8e3aa5312d0b"
+      ]
+    },
+    "labels": {
+      "id": "qa4",
+      "query": "我喜欢什么咖啡？",
+      "answers": [
+        "我喜欢拿铁。"
+      ],
+      "qrels": {
+        "drink": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 3,
+    "context_estimated_tokens": 112,
+    "retrieval_ms": 18.533042,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "category": "qa",
+    "id": "qa5",
+    "method": "hybrid_rerank",
+    "query": "我有什么运动爱好？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa5",
+      "query": "我有什么运动爱好？",
+      "answers": [
+        "我喜欢游泳。"
+      ],
+      "qrels": {
+        "sport": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 10.425875,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "category": "qa",
+    "id": "19b5f2b3_abs",
+    "method": "bm25",
+    "query": "How long was I in Korea for?",
+    "prediction": {
+      "text": "[2023/05/25 (Thu) 04:11] user: I'm actually thinking of visiting South Korea.",
+      "refused": false,
+      "citations": [
+        "b3f179a1-cc96-5d00-bec6-fd2f5631ea4f"
+      ]
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_5ff494b9_abs"
+      ],
+      "answers": [
+        "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+      ],
+      "unanswerable": true,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "3e59ee68_1",
+      "answer_5ff494b9_abs",
+      "9f8fa5e4_2",
+      "e44a5733_1",
+      "66c0b73d_1",
+      "66138e8d_1",
+      "61e0ba9b_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 10,
+    "context_estimated_tokens": 3849,
+    "retrieval_ms": 130.9245,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "19b5f2b3_abs",
+    "method": "hybrid",
+    "query": "How long was I in Korea for?",
+    "prediction": {
+      "text": "[2023/05/25 (Thu) 04:11] user: I'm actually thinking of visiting South Korea.",
+      "refused": false,
+      "citations": [
+        "b3f179a1-cc96-5d00-bec6-fd2f5631ea4f"
+      ]
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_5ff494b9_abs"
+      ],
+      "answers": [
+        "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+      ],
+      "unanswerable": true,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_5ff494b9_abs",
+      "3e59ee68_1",
+      "9f8fa5e4_2",
+      "e44a5733_1",
+      "66c0b73d_1",
+      "66138e8d_1",
+      "61e0ba9b_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 10,
+    "context_estimated_tokens": 3849,
+    "retrieval_ms": 114.439917,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "19b5f2b3_abs",
+    "method": "hybrid_rerank",
+    "query": "How long was I in Korea for?",
+    "prediction": {
+      "text": "**Ha Long Bay, Vietnam**: Cruise through emerald waters and limestone karsts in this stunning bay.",
+      "refused": false,
+      "citations": [
+        "d3a9038a-c566-52a1-875c-963e5791ec6f"
+      ]
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_5ff494b9_abs"
+      ],
+      "answers": [
+        "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+      ],
+      "unanswerable": true,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_5ff494b9_abs",
+      "9f8fa5e4_2",
+      "3e59ee68_1",
+      "61e0ba9b_1",
+      "d0b0dabe",
+      "66c0b73d_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 7,
+    "context_estimated_tokens": 3679,
+    "retrieval_ms": 177.622625,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "c6853660",
+    "method": "bm25",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3060.055666,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "c6853660",
+    "method": "vector_tfidf",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [
+      "answer_626e93c4_2",
+      "answer_626e93c4_1",
+      "33994682_3",
+      "6ed1c85e"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 62.559292,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "c6853660",
+    "method": "hybrid",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3046.233584,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "c6853660",
+    "method": "hybrid_rerank",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "prediction": {
+      "text": "Speaking of my morning coffee, I have increased the limit to two cups, and I'm thinking of experimenting with different sweeteners, like stevia or honey.",
+      "refused": false,
+      "citations": [
+        "5ac4716c-68c3-544c-8f60-a13f484a38a2"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [
+      "answer_626e93c4_2",
+      "33994682_3",
+      "answer_626e93c4_1",
+      "a4863bcb_2"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 6,
+    "context_estimated_tokens": 3796,
+    "retrieval_ms": 164.785292,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "37f165cf",
+    "method": "bm25",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3007.169625,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "37f165cf",
+    "method": "vector_tfidf",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "answer_6b9b2b1e_1",
+      "answer_6b9b2b1e_2",
+      "c0f6571a_2",
+      "sharegpt_5m6qXKr_0",
+      "a41d46df",
+      "sharegpt_2yaKUmC_0"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 16.130458,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "37f165cf",
+    "method": "hybrid",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3005.50725,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "37f165cf",
+    "method": "hybrid_rerank",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3007.347584,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "51b23612",
+    "method": "bm25",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3063.582,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "51b23612",
+    "method": "vector_tfidf",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [
+      "answer_ultrachat_427265",
+      "ultrachat_343",
+      "99b061c5_2"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 69.972542,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "51b23612",
+    "method": "hybrid",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3055.034958,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "51b23612",
+    "method": "hybrid_rerank",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "prediction": {
+      "text": "One example is the popular Soviet cartoon, “Nu, pogodi!” which mocked Western culture and portrayed the Soviet Union as superior.",
+      "refused": false,
+      "citations": [
+        "9dc0be07-c7ad-51d0-8bc6-f40715e62400"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [
+      "answer_ultrachat_427265",
+      "ultrachat_343",
+      "99b061c5_2",
+      "255c753b_1",
+      "409015ef_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 4,
+    "context_estimated_tokens": 3943,
+    "retrieval_ms": 194.620917,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1a1907b4",
+    "method": "bm25",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3009.567,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1a1907b4",
+    "method": "vector_tfidf",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [
+      "ultrachat_183428",
+      "9585e0c6_1",
+      "78dbd237",
+      "4f3b36d4_5",
+      "e622a1bd",
+      "ae77c245",
+      "e42e7876_5",
+      "83a4f14d_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 16.75225,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1a1907b4",
+    "method": "hybrid",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3005.326875,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1a1907b4",
+    "method": "hybrid_rerank",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3008.4735,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1faac195",
+    "method": "bm25",
+    "query": "Where does my sister Emily live?",
+    "prediction": {
+      "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "f7de8dfa-edf9-5c88-a2ab-5ed5c200a302"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_d01949bf",
+      "8064b6ca",
+      "f2ccf83b",
+      "ultrachat_403684",
+      "d2905eb6_2",
+      "ultrachat_390439",
+      "9d3d54f7"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 6,
+    "context_estimated_tokens": 2320,
+    "retrieval_ms": 1807.6025,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1faac195",
+    "method": "vector_tfidf",
+    "query": "Where does my sister Emily live?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_d01949bf",
+      "8064b6ca",
+      "d2905eb6_2",
+      "f2ccf83b",
+      "b2543a58_3",
+      "2def525b_2",
+      "8badd477_3",
+      "9d3d54f7"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 77.781792,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1faac195",
+    "method": "hybrid",
+    "query": "Where does my sister Emily live?",
+    "prediction": {
+      "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "f7de8dfa-edf9-5c88-a2ab-5ed5c200a302"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_d01949bf",
+      "8064b6ca",
+      "f2ccf83b",
+      "d2905eb6_2",
+      "ultrachat_403684",
+      "ultrachat_390439",
+      "9d3d54f7"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 10,
+    "context_estimated_tokens": 3483,
+    "retrieval_ms": 1795.16125,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1faac195",
+    "method": "hybrid_rerank",
+    "query": "Where does my sister Emily live?",
+    "prediction": {
+      "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "f7de8dfa-edf9-5c88-a2ab-5ed5c200a302"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "d2905eb6_2",
+      "answer_d01949bf",
+      "f2ccf83b",
+      "8064b6ca",
+      "9d3d54f7",
+      "b2543a58_3",
+      "8badd477_3"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 8,
+    "context_estimated_tokens": 3949,
+    "retrieval_ms": 1834.334916,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "gpt4_2f584639",
+    "method": "bm25",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3085.806667,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "gpt4_2f584639",
+    "method": "vector_tfidf",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [
+      "answer_11a8f823_2",
+      "answer_11a8f823_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 93.81225,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "gpt4_2f584639",
+    "method": "hybrid",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3069.864584,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "gpt4_2f584639",
+    "method": "hybrid_rerank",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3071.141625,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "c8090214_abs",
+    "method": "bm25",
+    "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_70dc7d08_abs_1",
+        "answer_70dc7d08_abs_2"
+      ],
+      "answers": [
+        "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+      ],
+      "unanswerable": true,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3072.154459,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "c8090214_abs",
+    "method": "hybrid",
+    "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_70dc7d08_abs_1",
+        "answer_70dc7d08_abs_2"
+      ],
+      "answers": [
+        "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+      ],
+      "unanswerable": true,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3062.603917,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "c8090214_abs",
+    "method": "hybrid_rerank",
+    "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_70dc7d08_abs_1",
+        "answer_70dc7d08_abs_2"
+      ],
+      "answers": [
+        "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+      ],
+      "unanswerable": true,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3070.418584,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "d7c942c3",
+    "method": "bm25",
+    "query": "Is my mom using the same grocery list method as me?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3015.765542,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "d7c942c3",
+    "method": "vector_tfidf",
+    "query": "Is my mom using the same grocery list method as me?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [
+      "answer_eecb10d9_2",
+      "answer_eecb10d9_1",
+      "b2243528_1",
+      "sharegpt_LOF3smB_25",
+      "sharegpt_1MKqbAt_0"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 25.398083,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "d7c942c3",
+    "method": "hybrid",
+    "query": "Is my mom using the same grocery list method as me?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3014.001542,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "d7c942c3",
+    "method": "hybrid_rerank",
+    "query": "Is my mom using the same grocery list method as me?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3015.242583,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "6cb6f249",
+    "method": "bm25",
+    "query": "How many days did I take social media breaks in total?",
+    "prediction": {
+      "text": "this may include taking breaks from social media or avoiding it altogether on certain days of the week.",
+      "refused": false,
+      "citations": [
+        "d033d706-5f0a-550c-a314-b2586ff5f1b3"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": false,
+    "context_item_count": 5,
+    "context_estimated_tokens": 4072,
+    "retrieval_ms": 2571.036709,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "6cb6f249",
+    "method": "vector_tfidf",
+    "query": "How many days did I take social media breaks in total?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 15.323,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "6cb6f249",
+    "method": "hybrid",
+    "query": "How many days did I take social media breaks in total?",
+    "prediction": {
+      "text": "this may include taking breaks from social media or avoiding it altogether on certain days of the week.",
+      "refused": false,
+      "citations": [
+        "d033d706-5f0a-550c-a314-b2586ff5f1b3"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": false,
+    "context_item_count": 5,
+    "context_estimated_tokens": 4072,
+    "retrieval_ms": 2496.078167,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "6cb6f249",
+    "method": "hybrid_rerank",
+    "query": "How many days did I take social media breaks in total?",
+    "prediction": {
+      "text": "this may include taking breaks from social media or avoiding it altogether on certain days of the week.",
+      "refused": false,
+      "citations": [
+        "d033d706-5f0a-550c-a314-b2586ff5f1b3"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": false,
+    "context_item_count": 5,
+    "context_estimated_tokens": 4072,
+    "retrieval_ms": 2541.631292,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1b9b7252",
+    "method": "bm25",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3070.685291,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1b9b7252",
+    "method": "vector_tfidf",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "prediction": {
+      "text": "Mindful.org: This website includes guided imagery exercises that you can use for free, such as \"The Mountain Meditation\" and \"The Body Scan Meditation.\" 3.",
+      "refused": false,
+      "citations": [
+        "d2b70924-ee3b-5c12-b6e8-12858d5c5b58"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [
+      "answer_ultrachat_115151",
+      "f7796d96_1",
+      "330c05e7_1",
+      "3829d412_2",
+      "sharegpt_1AhFMpw_5"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 989,
+    "retrieval_ms": 72.681917,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1b9b7252",
+    "method": "hybrid",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3053.735333,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "1b9b7252",
+    "method": "hybrid_rerank",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3056.639875,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "35a27287",
+    "method": "bm25",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3068.877,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "35a27287",
+    "method": "vector_tfidf",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [
+      "answer_9b182436",
+      "ultrachat_39307"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 73.5685,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "35a27287",
+    "method": "hybrid",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3058.689625,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "category": "qa",
+    "id": "35a27287",
+    "method": "hybrid_rerank",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3061.127,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  }
+]

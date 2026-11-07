@@ -1,0 +1,52 @@
+SET
+SET
+SET
+PREPARE
+Limit  (cost=4693.81..4693.81 rows=1 width=128)
+  CTE corpus_docs
+    ->  Result  (cost=0.01..270.46 rows=381 width=133)
+          One-Time Filter: (NULLIF(current_setting('app.tenant_id'::text, true), ''::text) = 'eval-longmemeval-1'::text)
+          ->  Seq Scan on retrieval_documents  (cost=0.01..270.46 rows=381 width=133)
+                Filter: ((tenant_id = 'eval-longmemeval-1'::text) AND (namespace_key = 'ns-ad84c6aefdb033ea73a3a423d6ab1bbd6fb687ff3c8161fb0ca903b7bb85bc0b'::text) AND (generation = 'demo-v0-generation-1'::text))
+  ->  Sort  (cost=4423.35..4423.35 rows=1 width=128)
+        Sort Key: (sum((ln(('1'::double precision + (((((count(*))::double precision) - ((count(DISTINCT rt_1.memory_version_id))::double precision)) + '0.5'::double precision) / (((count(DISTINCT rt_1.memory_version_id))::double precision) + '0.5'::double precision)))) * (((rt.term_frequency)::double precision * '2.2'::double precision) / ((rt.term_frequency)::double precision + ('1.2'::double precision * ('0.25'::double precision + (('0.75'::double precision * (rt.document_length)::double precision) / NULLIF((COALESCE(avg(((max(rt_2.document_length))::double precision)), '1'::double precision)), '0'::double precision))))))))) DESC, cd.memory_record_id, cd.memory_version_id
+        ->  GroupAggregate  (cost=4423.26..4423.34 rows=1 width=128)
+              Group Key: cd.memory_record_id, cd.memory_version_id, cd.head_revision, cd.generation, cd.content_hash, ((count(*))::double precision), (COALESCE(avg(((max(rt_2.document_length))::double precision)), '1'::double precision))
+              ->  Sort  (cost=4423.26..4423.26 rows=1 width=136)
+                    Sort Key: cd.memory_record_id, cd.memory_version_id, cd.head_revision, cd.generation, cd.content_hash, ((count(*))::double precision), (COALESCE(avg(((max(rt_2.document_length))::double precision)), '1'::double precision))
+                    ->  Result  (cost=4321.30..4423.25 rows=1 width=136)
+                          One-Time Filter: (NULLIF(current_setting('app.tenant_id'::text, true), ''::text) = 'eval-longmemeval-1'::text)
+                          ->  Nested Loop  (cost=4321.30..4423.25 rows=1 width=136)
+                                ->  Nested Loop  (cost=52.99..154.92 rows=1 width=128)
+                                      ->  Nested Loop  (cost=44.42..146.33 rows=1 width=120)
+                                            Join Filter: (rt.memory_version_id = cd.memory_version_id)
+                                            ->  Merge Join  (cost=44.42..133.94 rows=1 width=32)
+                                                  Merge Cond: (rt.term = rt_1.term)
+                                                  ->  Index Scan using idx_retrieval_terms_lookup on retrieval_terms rt  (cost=0.42..89.59 rows=33 width=30)
+                                                        Index Cond: ((tenant_id = 'eval-longmemeval-1'::text) AND (generation = 'demo-v0-generation-1'::text) AND (term = ANY ('{coffee,limit,cups,morning,increase,decrease}'::text[])))
+                                                  ->  GroupAggregate  (cost=44.00..44.16 rows=8 width=14)
+                                                        Group Key: rt_1.term
+                                                        ->  Sort  (cost=44.00..44.02 rows=8 width=22)
+                                                              Sort Key: rt_1.term, rt_1.memory_version_id
+                                                              ->  Result  (cost=12.81..43.88 rows=8 width=22)
+                                                                    One-Time Filter: (NULLIF(current_setting('app.tenant_id'::text, true), ''::text) = 'eval-longmemeval-1'::text)
+                                                                    ->  Hash Join  (cost=12.81..43.88 rows=8 width=22)
+                                                                          Hash Cond: (rt_1.memory_version_id = cd_1.memory_version_id)
+                                                                          ->  Index Only Scan using idx_retrieval_terms_lookup on retrieval_terms rt_1  (cost=0.42..31.28 rows=33 width=22)
+                                                                                Index Cond: ((tenant_id = 'eval-longmemeval-1'::text) AND (generation = 'demo-v0-generation-1'::text) AND (term = ANY ('{coffee,limit,cups,morning,increase,decrease}'::text[])))
+                                                                          ->  Hash  (cost=7.62..7.62 rows=381 width=16)
+                                                                                ->  CTE Scan on corpus_docs cd_1  (cost=0.00..7.62 rows=381 width=16)
+                                            ->  CTE Scan on corpus_docs cd  (cost=0.00..7.62 rows=381 width=104)
+                                      ->  Aggregate  (cost=8.57..8.58 rows=1 width=8)
+                                            ->  CTE Scan on corpus_docs  (cost=0.00..7.62 rows=381 width=0)
+                                ->  Aggregate  (cost=4268.30..4268.31 rows=1 width=8)
+                                      ->  HashAggregate  (cost=4226.57..4247.43 rows=1669 width=24)
+                                            Group Key: rt_2.memory_version_id
+                                            ->  Result  (cost=12.39..4160.23 rows=13268 width=20)
+                                                  One-Time Filter: (NULLIF(current_setting('app.tenant_id'::text, true), ''::text) = 'eval-longmemeval-1'::text)
+                                                  ->  Hash Join  (cost=12.39..4160.23 rows=13268 width=20)
+                                                        Hash Cond: (rt_2.memory_version_id = cd_2.memory_version_id)
+                                                        ->  Seq Scan on retrieval_terms rt_2  (cost=0.00..3797.20 rows=58122 width=20)
+                                                              Filter: ((tenant_id = 'eval-longmemeval-1'::text) AND (generation = 'demo-v0-generation-1'::text))
+                                                        ->  Hash  (cost=7.62..7.62 rows=381 width=16)
+                                                              ->  CTE Scan on corpus_docs cd_2  (cost=0.00..7.62 rows=381 width=16)

@@ -1,0 +1,945 @@
+[
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 11.522916,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 13.183792,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 20.448416,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 7.194125,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 21.47325,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 13.070458,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 12.501041,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 12.566833,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 0,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 6.184625,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 12.078708,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 12.346959,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 6.497125,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 12.576708,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 22.357834,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 1,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 13.998083,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 1,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 20.859708,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 1,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 12.633708,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 1,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 7.955084,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q36",
+    "query": "发布步骤和生产故障告警是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "incident"
+    ],
+    "qrels": {
+      "deploy": 1,
+      "incident": 1
+    },
+    "latency_ms": 22.605916,
+    "source_candidates": 6,
+    "error": null,
+    "recall_at_1": 0.5,
+    "recall_at_5": 0.5,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.6131471927654584
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 12.136875,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 13.891625,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 21.4835,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q2",
+    "query": "我的职业是什么？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "qrels": {
+      "job": 1
+    },
+    "latency_ms": 7.506917,
+    "source_candidates": 3,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "vector_tfidf",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 5.977417,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 12.362,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "bm25",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 12.902667,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "retrieval",
+    "id": "q6",
+    "query": "我有什么运动爱好？",
+    "method": "hybrid_rerank",
+    "repeat": 2,
+    "ranked": [],
+    "qrels": {
+      "sport": 1
+    },
+    "latency_ms": 12.456666,
+    "source_candidates": 0,
+    "error": null,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "category": "formation",
+    "id": "plan",
+    "text": "我明年计划去北京。",
+    "predictions": [],
+    "gold": [
+      [
+        "我明年计划去北京"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "category": "formation",
+    "id": "implicit",
+    "text": "平时用 Python 写脚本。",
+    "predictions": [],
+    "gold": [
+      [
+        "平时用 Python 写脚本"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "category": "formation",
+    "id": "compound",
+    "text": "我住在成都，喜欢游泳。",
+    "predictions": [
+      "我住在成都，喜欢游泳"
+    ],
+    "gold": [
+      [
+        "我住在成都"
+      ],
+      [
+        "我喜欢游泳"
+      ]
+    ],
+    "tp": 0,
+    "fp": 1,
+    "fn": 2
+  },
+  {
+    "category": "formation",
+    "id": "other_person",
+    "text": "我的朋友住在北京。",
+    "predictions": [
+      "我的朋友住在北京"
+    ],
+    "gold": [],
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+  },
+  {
+    "category": "formation",
+    "id": "request",
+    "text": "我的简历帮我修改一下。",
+    "predictions": [
+      "我的简历帮我修改一下"
+    ],
+    "gold": [],
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+  },
+  {
+    "category": "formation",
+    "id": "change",
+    "text": "我现在住在深圳，不住成都了。",
+    "predictions": [],
+    "gold": [
+      [
+        "我现在住在深圳"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "category": "formation",
+    "id": "future",
+    "text": "我会在下周出差。",
+    "predictions": [],
+    "gold": [
+      [
+        "我会在下周出差"
+      ]
+    ],
+    "tp": 0,
+    "fp": 0,
+    "fn": 1
+  },
+  {
+    "category": "qa",
+    "id": "qa1",
+    "method": "hybrid_rerank",
+    "query": "我的职业是什么？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa1",
+      "query": "我的职业是什么？",
+      "answers": [
+        "我是后端工程师。"
+      ],
+      "qrels": {
+        "job": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 127,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "eval-tfidf:editor.0",
+        "provider_score": 0.48750960061443926
+      },
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "eval-tfidf:pet.0",
+        "provider_score": 0.4772142857142857
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "eval-tfidf:meeting.0",
+        "provider_score": 0.4541865079365079
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:f65d731fc719150b5e2bab5cba7dd385acb6eb4d7cf1cc8217e7be7f92e4a0a6",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "provider_object_id": "eval-tfidf:editor.0",
+        "provider_score": 0.48750960061443926
+      },
+      {
+        "content_hash": "sha256:bf921eef5041f7d961f605240a8a968e5aefc89b875a89ce3836adad83f974c0",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "provider_object_id": "eval-tfidf:pet.0",
+        "provider_score": 0.4772142857142857
+      },
+      {
+        "content_hash": "sha256:f1ce6299ba0ddb48dd09677a6d3fa5d73647c667a1842cbff569f21f3c9f970b",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "provider_object_id": "eval-tfidf:meeting.0",
+        "provider_score": 0.4541865079365079
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "4cabbb79-96e6-5cea-a307-083cd5551089",
+        "memory_version_id": "3fb21ca9-3211-585e-af81-30a0fbf45baa",
+        "source_refs": [
+          "eval://a2ed4c5a52c78b0974aa2c8737ef15b5e589a3de13f973487a44b086bfb7aac2"
+        ],
+        "text": "我的编辑器是 Neovim",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "23d4cbc6-6711-5820-806a-af561ce8a8f8",
+        "memory_version_id": "d858140f-fc71-5c96-a217-5801b2a158a9",
+        "source_refs": [
+          "eval://2e7253d253422381ff7cfe2f4913ee1db5697815970c6050159bdf290b1bc490"
+        ],
+        "text": "我的猫叫豆包",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "dc50086f-624d-50a5-b131-ffc40bbcce0a",
+        "memory_version_id": "e6509436-c569-5a49-9cef-60661009139b",
+        "source_refs": [
+          "eval://ae076e4a6b45df344f61c438adc9a1aa3d33c23b00c781c263dabb7b17076fef"
+        ],
+        "text": "我的周会在星期二上午十点",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000292,
+    "context_ms": 20.469125,
+    "reader_ms": 0.031542,
+    "retrieval_ms": 21.730584,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "category": "qa",
+    "id": "qa4",
+    "method": "hybrid_rerank",
+    "query": "我喜欢什么咖啡？",
+    "prediction": {
+      "text": "我喜欢游泳",
+      "refused": false,
+      "citations": [
+        "cb075ad6-3e31-5350-abcb-8e3aa5312d0b"
+      ]
+    },
+    "labels": {
+      "id": "qa4",
+      "query": "我喜欢什么咖啡？",
+      "answers": [
+        "我喜欢拿铁。"
+      ],
+      "qrels": {
+        "drink": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 3,
+    "context_estimated_tokens": 112,
+    "raw_hits": [
+      {
+        "content_hash": "sha256:5dfdfbb2fc843bf860450d9bbbe5b2548f9ee8f1277f5c7b4af8a449aed90127",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_object_id": "local-bm25:cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_score": 0.6096957721573251
+      },
+      {
+        "content_hash": "sha256:58b6db2d99e949d11f1133ca58ff2b2cac226df9cd3ac2fa4ee9b554b30e49d9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_object_id": "local-bm25:d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_score": 0.6063782761166482
+      },
+      {
+        "content_hash": "sha256:3455d763175756dfd9f4e1d9e683a9ce3bcaa39fcf3b2a978c8f90c52b4f37ca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_object_id": "local-bm25:8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_score": 0.49688396503887877
+      }
+    ],
+    "context_ranked_hits": [
+      {
+        "content_hash": "sha256:5dfdfbb2fc843bf860450d9bbbe5b2548f9ee8f1277f5c7b4af8a449aed90127",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_object_id": "local-bm25:cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "provider_score": 0.6096957721573251
+      },
+      {
+        "content_hash": "sha256:58b6db2d99e949d11f1133ca58ff2b2cac226df9cd3ac2fa4ee9b554b30e49d9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_object_id": "local-bm25:d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "provider_score": 0.6063782761166482
+      },
+      {
+        "content_hash": "sha256:3455d763175756dfd9f4e1d9e683a9ce3bcaa39fcf3b2a978c8f90c52b4f37ca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_object_id": "local-bm25:8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "provider_score": 0.49688396503887877
+      }
+    ],
+    "context_items": [
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "160d2235-4df4-5bbd-a2c7-6472a6673548",
+        "memory_version_id": "cb075ad6-3e31-5350-abcb-8e3aa5312d0b",
+        "source_refs": [
+          "eval://f16eaddb4f908e4a8591ed335bcbc0b15dc85f10ae5e5cc1652a80524a3bd1bf"
+        ],
+        "text": "我喜欢游泳",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "b3768b7d-4571-5fe6-b98e-eaa55008d489",
+        "memory_version_id": "d13f44f5-7b91-5daa-a79d-ce852dadc461",
+        "source_refs": [
+          "eval://1709be23eda52b6d4674fd2e44ec64cc993419ad9037d762ab042940fd52ad4a"
+        ],
+        "text": "我喜欢拿铁",
+        "trust": "untrusted_memory_data"
+      },
+      {
+        "effective_from": null,
+        "event_time": null,
+        "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+        "memory_record_id": "96ec524b-7bf4-590b-b236-609a7fbe93c6",
+        "memory_version_id": "8aa34677-d320-57b9-9ea2-a2e1c9abd2af",
+        "source_refs": [
+          "eval://8f124406503867eca4fa2af4333b68a06f85d33aef3940f48a07fef10a1da798"
+        ],
+        "text": "我不喜欢香菜",
+        "trust": "untrusted_memory_data"
+      }
+    ],
+    "omission_summary": {},
+    "relevance_ms": 0.000208,
+    "context_ms": 17.066917,
+    "reader_ms": 0.023666,
+    "retrieval_ms": 21.607833,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "category": "qa",
+    "id": "qa5",
+    "method": "hybrid_rerank",
+    "query": "我有什么运动爱好？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa5",
+      "query": "我有什么运动爱好？",
+      "answers": [
+        "我喜欢游泳。"
+      ],
+      "qrels": {
+        "sport": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "raw_hits": [],
+    "context_ranked_hits": [],
+    "context_items": [],
+    "omission_summary": {},
+    "relevance_ms": 0.000166,
+    "context_ms": 13.242084,
+    "reader_ms": 0.010166,
+    "retrieval_ms": 12.215666,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  }
+]

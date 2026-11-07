@@ -1058,59 +1058,10 @@ impl MemoryRepository {
                     .as_deref()
                     == event_time_precision;
             if existing_state == "contested" {
-                sqlx::query(
-                    "UPDATE memory_core.memory_candidates \
-                     SET state='needs_review',target_memory_record_id=$3 \
-                     WHERE tenant_id=$1 AND id=$2",
-                )
-                .bind(&authority.tenant_id)
-                .bind(candidate_id)
-                .bind(existing_record_id)
-                .execute(&mut *tx)
-                .await?;
-                sqlx::query(
-                    "UPDATE memory_core.memory_decisions \
-                     SET outcome='needs_review',reason_code='SEMANTIC_CONFLICT_REQUIRES_REVIEW' \
-                     WHERE tenant_id=$1 AND id=$2",
-                )
-                .bind(&authority.tenant_id)
-                .bind(decision_id)
-                .execute(&mut *tx)
-                .await?;
-                let existing_revision: i64 = existing.try_get("revision")?;
-                let contest_operation_id = sqlx::query_scalar::<_, Uuid>(
-                    "SELECT id FROM memory_core.projection_operations \
-                     WHERE tenant_id=$1 AND memory_record_id=$2 AND memory_version_id=$3 \
-                       AND head_revision=$4 AND operation_type='delete' \
-                     ORDER BY created_at DESC,id DESC LIMIT 1",
-                )
-                .bind(&authority.tenant_id)
-                .bind(existing_record_id)
-                .bind(existing_version_id)
-                .bind(existing_revision)
-                .fetch_optional(&mut *tx)
-                .await?
-                .ok_or_else(|| {
-                    RepositoryError::Invariant(
-                        "contested semantic memory has no current projection delete operation"
-                            .into(),
-                    )
-                })?;
-                insert_ingest_result_tx(
-                    &mut tx,
-                    &authority.tenant_id,
-                    source_id,
-                    candidate_id,
-                    existing_record_id,
-                    existing_version_id,
-                    contest_operation_id,
-                    "needs_review",
-                )
-                .await?;
-                let view =
-                    load_operation_tx(&mut tx, &authority.tenant_id, contest_operation_id).await?;
-                tx.commit().await?;
-                return Ok(view);
+                // 当前唯一索引和审核流程仅支持一个待审候选；返回业务冲突，事务整体回滚。
+                return Err(RepositoryError::Conflict(
+                    "semantic memory already has an open review; resolve it before ingesting another candidate".into(),
+                ));
             }
             if existing_state != "active" {
                 return Err(RepositoryError::Conflict(format!(
@@ -4161,22 +4112,25 @@ impl MemoryRepository {
             .map_err(|_| RepositoryError::Invariant("BM25 search limit overflowed".into()))?;
         let mut tx = self.pool.begin().await?;
         set_tenant(&mut tx, &authority.tenant_id).await?;
+        // 全局统计只计算一次；长度按版本走现有索引，避免新租户基数低估时全词项与文档交叉遍历。
         let rows = sqlx::query(
             "WITH corpus_docs AS (\
                  SELECT memory_record_id,memory_version_id,head_revision,generation,content_hash \
                  FROM memory_search.retrieval_documents \
                  WHERE tenant_id=$1 AND namespace_key=$2 AND generation=$3\
-             ), corpus AS (\
+             ), corpus AS MATERIALIZED (\
                  SELECT count(*)::float8 AS n FROM corpus_docs\
              ), doc_lengths AS (\
-                 SELECT rt.memory_version_id,max(rt.document_length)::float8 AS dl \
-                 FROM memory_search.retrieval_terms rt \
-                 JOIN corpus_docs cd ON cd.memory_version_id=rt.memory_version_id \
-                 WHERE rt.tenant_id=$1 AND rt.generation=$3 \
-                 GROUP BY rt.memory_version_id\
-             ), average AS (\
+                 SELECT cd.memory_version_id,lengths.dl FROM corpus_docs cd \
+                 CROSS JOIN LATERAL (\
+                     SELECT max(rt.document_length)::float8 AS dl \
+                     FROM memory_search.retrieval_terms rt \
+                     WHERE rt.tenant_id=$1 AND rt.generation=$3 \
+                       AND rt.memory_version_id=cd.memory_version_id\
+                 ) lengths \
+             ), average AS MATERIALIZED (\
                  SELECT COALESCE(avg(dl),1.0)::float8 AS avgdl FROM doc_lengths\
-             ), dfs AS (\
+             ), dfs AS MATERIALIZED (\
                  SELECT rt.term,count(DISTINCT rt.memory_version_id)::float8 AS df \
                  FROM memory_search.retrieval_terms rt \
                  JOIN corpus_docs cd ON cd.memory_version_id=rt.memory_version_id \
@@ -8934,18 +8888,14 @@ mod tests {
             format!("conversation:project-extraction:{test_id}:additional-conflict");
         additional_conflict.source_content = "当前项目又提出使用另一套数据库作为权威数据库".into();
         additional_conflict.memory_content = "当前项目计划再次变更权威数据库。".into();
-        let accepted_for_review = repository
-            .ingest_extracted(&authority, additional_conflict)
-            .await
-            .unwrap();
-        assert_eq!(
-            accepted_for_review.canonical_status,
-            CanonicalStatus::NeedsReview
-        );
-        assert_eq!(
-            accepted_for_review.memory_record_id,
-            accepted.memory_record_id
-        );
+        let rejected_key = additional_conflict.idempotency_key.clone();
+        assert!(matches!(
+            repository.ingest_extracted(&authority, additional_conflict).await,
+            Err(RepositoryError::Conflict(message)) if message.contains("already has an open review")
+        ));
+
+        let mut verify_tx = repository.pool.begin().await.unwrap();
+        set_tenant(&mut verify_tx, &authority.tenant_id).await.unwrap();
 
         let review_candidates = sqlx::query_scalar::<_, i64>(
             "SELECT count(*) FROM memory_core.memory_candidates \
@@ -8953,20 +8903,30 @@ mod tests {
         )
         .bind(&authority.tenant_id)
         .bind(accepted.memory_record_id)
-        .fetch_one(&repository.pool)
+        .fetch_one(&mut *verify_tx)
         .await
         .unwrap();
-        assert_eq!(review_candidates, 2);
+        assert_eq!(review_candidates, 1);
         let contest_deletes = sqlx::query_scalar::<_, i64>(
             "SELECT count(*) FROM memory_core.projection_operations \
              WHERE tenant_id=$1 AND memory_record_id=$2 AND operation_type='delete'",
         )
         .bind(&authority.tenant_id)
         .bind(accepted.memory_record_id)
-        .fetch_one(&repository.pool)
+        .fetch_one(&mut *verify_tx)
         .await
         .unwrap();
         assert_eq!(contest_deletes, 1);
+        let rejected_sources = sqlx::query_scalar::<_, i64>(
+            "SELECT count(*) FROM memory_core.source_events WHERE tenant_id=$1 AND idempotency_key=$2",
+        )
+        .bind(&authority.tenant_id)
+        .bind(rejected_key)
+        .fetch_one(&mut *verify_tx)
+        .await
+        .unwrap();
+        assert_eq!(rejected_sources, 0);
+        verify_tx.commit().await.unwrap();
     }
 
     #[tokio::test]

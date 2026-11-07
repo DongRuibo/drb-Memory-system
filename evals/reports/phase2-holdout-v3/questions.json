@@ -1,0 +1,2015 @@
+[
+  {
+    "id": "h01",
+    "tag": "早期事实",
+    "query": "苏晴最初入职时在哪一层办公？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "d1",
+      "early",
+      "contact",
+      "d4"
+    ],
+    "error": null,
+    "latency_ms": 70.268417,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h01",
+    "tag": "早期事实",
+    "query": "苏晴最初入职时在哪一层办公？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "early",
+      "d1",
+      "contact",
+      "d4"
+    ],
+    "error": null,
+    "latency_ms": 11.453041,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h01",
+    "tag": "早期事实",
+    "query": "苏晴最初入职时在哪一层办公？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "d1",
+      "early",
+      "contact",
+      "d4"
+    ],
+    "error": null,
+    "latency_ms": 77.589541,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h01",
+    "tag": "早期事实",
+    "query": "苏晴最初入职时在哪一层办公？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "early",
+      "d1",
+      "d4",
+      "contact"
+    ],
+    "error": null,
+    "latency_ms": 84.026,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h02",
+    "tag": "早期事实",
+    "query": "苏晴刚来公司时遇到紧急情况应联系谁？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "early",
+      "plant",
+      "refuse"
+    ],
+    "error": null,
+    "latency_ms": 77.288333,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h02",
+    "tag": "早期事实",
+    "query": "苏晴刚来公司时遇到紧急情况应联系谁？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "early",
+      "refuse"
+    ],
+    "error": null,
+    "latency_ms": 13.674584,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h02",
+    "tag": "早期事实",
+    "query": "苏晴刚来公司时遇到紧急情况应联系谁？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "early",
+      "refuse",
+      "plant"
+    ],
+    "error": null,
+    "latency_ms": 73.805458,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h02",
+    "tag": "早期事实",
+    "query": "苏晴刚来公司时遇到紧急情况应联系谁？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "early"
+    ],
+    "error": null,
+    "latency_ms": 79.97425,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h03",
+    "tag": "同义表达",
+    "query": "哪个用户不能只靠声音收到提醒？",
+    "qrels": {
+      "hearing": 1
+    },
+    "method": "bm25",
+    "ranked": [],
+    "error": null,
+    "latency_ms": 20.402375,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "h03",
+    "tag": "同义表达",
+    "query": "哪个用户不能只靠声音收到提醒？",
+    "qrels": {
+      "hearing": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "hearing2",
+      "hearing"
+    ],
+    "error": null,
+    "latency_ms": 11.40175,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h03",
+    "tag": "同义表达",
+    "query": "哪个用户不能只靠声音收到提醒？",
+    "qrels": {
+      "hearing": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "hearing2",
+      "hearing"
+    ],
+    "error": null,
+    "latency_ms": 27.777042,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h03",
+    "tag": "同义表达",
+    "query": "哪个用户不能只靠声音收到提醒？",
+    "qrels": {
+      "hearing": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "hearing",
+      "hearing2"
+    ],
+    "error": null,
+    "latency_ms": 36.752666,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h04",
+    "tag": "同义表达",
+    "query": "为不想听到车流的人预订客房应参考什么习惯？",
+    "qrels": {
+      "syn": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "syn2",
+      "d5",
+      "amount_a",
+      "owner",
+      "amount_b",
+      "early"
+    ],
+    "error": null,
+    "latency_ms": 74.900167,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "h04",
+    "tag": "同义表达",
+    "query": "为不想听到车流的人预订客房应参考什么习惯？",
+    "qrels": {
+      "syn": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "syn2"
+    ],
+    "error": null,
+    "latency_ms": 12.116625,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "h04",
+    "tag": "同义表达",
+    "query": "为不想听到车流的人预订客房应参考什么习惯？",
+    "qrels": {
+      "syn": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "syn2",
+      "d5",
+      "amount_a",
+      "owner",
+      "amount_b",
+      "early"
+    ],
+    "error": null,
+    "latency_ms": 76.88275,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "h04",
+    "tag": "同义表达",
+    "query": "为不想听到车流的人预订客房应参考什么习惯？",
+    "qrels": {
+      "syn": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "syn2"
+    ],
+    "error": null,
+    "latency_ms": 88.420375,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 0.0,
+    "mrr_at_10": 0.0,
+    "ndcg_at_10": 0.0
+  },
+  {
+    "id": "h05",
+    "tag": "近义干扰",
+    "query": "林越能否吃杏仁，不能把林悦的记录当作她的偏好。",
+    "qrels": {
+      "plant": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "plant",
+      "plant2",
+      "syn",
+      "number_b",
+      "port_new",
+      "port_old",
+      "tea_old",
+      "noise-002",
+      "noise-128",
+      "noise-090"
+    ],
+    "error": null,
+    "latency_ms": 82.989084,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h05",
+    "tag": "近义干扰",
+    "query": "林越能否吃杏仁，不能把林悦的记录当作她的偏好。",
+    "qrels": {
+      "plant": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "plant",
+      "plant2",
+      "syn",
+      "noise-000",
+      "noise-002",
+      "noise-016",
+      "noise-027",
+      "noise-134",
+      "noise-152",
+      "noise-001"
+    ],
+    "error": null,
+    "latency_ms": 17.256042,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h05",
+    "tag": "近义干扰",
+    "query": "林越能否吃杏仁，不能把林悦的记录当作她的偏好。",
+    "qrels": {
+      "plant": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "plant",
+      "plant2",
+      "syn",
+      "noise-002",
+      "number_b",
+      "port_new",
+      "port_old",
+      "tea_old",
+      "noise-128",
+      "noise-090"
+    ],
+    "error": null,
+    "latency_ms": 80.218583,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h05",
+    "tag": "近义干扰",
+    "query": "林越能否吃杏仁，不能把林悦的记录当作她的偏好。",
+    "qrels": {
+      "plant": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "plant",
+      "plant2"
+    ],
+    "error": null,
+    "latency_ms": 125.947291,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h06",
+    "tag": "近义干扰",
+    "query": "谁虽然不吃肉但可以吃花生？",
+    "qrels": {
+      "plant2": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "plant2",
+      "plant"
+    ],
+    "error": null,
+    "latency_ms": 69.425459,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h06",
+    "tag": "近义干扰",
+    "query": "谁虽然不吃肉但可以吃花生？",
+    "qrels": {
+      "plant2": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "plant2",
+      "plant"
+    ],
+    "error": null,
+    "latency_ms": 12.373625,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h06",
+    "tag": "近义干扰",
+    "query": "谁虽然不吃肉但可以吃花生？",
+    "qrels": {
+      "plant2": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "plant2",
+      "plant"
+    ],
+    "error": null,
+    "latency_ms": 71.452625,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h06",
+    "tag": "近义干扰",
+    "query": "谁虽然不吃肉但可以吃花生？",
+    "qrels": {
+      "plant2": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "plant2",
+      "plant"
+    ],
+    "error": null,
+    "latency_ms": 76.120125,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h07",
+    "tag": "多跳",
+    "query": "LT42负责人的办公电话分机是什么？",
+    "qrels": {
+      "owner": 1,
+      "contact": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "contact",
+      "d4",
+      "owner",
+      "other",
+      "d1"
+    ],
+    "error": null,
+    "latency_ms": 72.088333,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.9197207891481876
+  },
+  {
+    "id": "h07",
+    "tag": "多跳",
+    "query": "LT42负责人的办公电话分机是什么？",
+    "qrels": {
+      "owner": 1,
+      "contact": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "contact",
+      "other",
+      "d4",
+      "owner",
+      "d1"
+    ],
+    "error": null,
+    "latency_ms": 13.383709,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8772153153380493
+  },
+  {
+    "id": "h07",
+    "tag": "多跳",
+    "query": "LT42负责人的办公电话分机是什么？",
+    "qrels": {
+      "owner": 1,
+      "contact": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "contact",
+      "d4",
+      "other",
+      "owner",
+      "d1"
+    ],
+    "error": null,
+    "latency_ms": 78.105583,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 0.8772153153380493
+  },
+  {
+    "id": "h07",
+    "tag": "多跳",
+    "query": "LT42负责人的办公电话分机是什么？",
+    "qrels": {
+      "owner": 1,
+      "contact": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "contact",
+      "owner",
+      "d4",
+      "other",
+      "d1"
+    ],
+    "error": null,
+    "latency_ms": 85.475041,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h08",
+    "tag": "多跳",
+    "query": "蒲公英制品所在节点哪一天停机维护？",
+    "qrels": {
+      "route": 1,
+      "node": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "route",
+      "node",
+      "d3"
+    ],
+    "error": null,
+    "latency_ms": 72.780083,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h08",
+    "tag": "多跳",
+    "query": "蒲公英制品所在节点哪一天停机维护？",
+    "qrels": {
+      "route": 1,
+      "node": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "route",
+      "node",
+      "d3"
+    ],
+    "error": null,
+    "latency_ms": 14.3925,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h08",
+    "tag": "多跳",
+    "query": "蒲公英制品所在节点哪一天停机维护？",
+    "qrels": {
+      "route": 1,
+      "node": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "route",
+      "node",
+      "d3"
+    ],
+    "error": null,
+    "latency_ms": 74.437083,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h08",
+    "tag": "多跳",
+    "query": "蒲公英制品所在节点哪一天停机维护？",
+    "qrels": {
+      "route": 1,
+      "node": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "route",
+      "node",
+      "d3"
+    ],
+    "error": null,
+    "latency_ms": 81.752333,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h09",
+    "tag": "时间变化",
+    "query": "周宁现在工作日喝什么，旧红茶偏好是否仍适用？",
+    "qrels": {
+      "tea_new": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "tea_old",
+      "tea_new",
+      "syn"
+    ],
+    "error": null,
+    "latency_ms": 74.279542,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h09",
+    "tag": "时间变化",
+    "query": "周宁现在工作日喝什么，旧红茶偏好是否仍适用？",
+    "qrels": {
+      "tea_new": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "tea_old",
+      "tea_new",
+      "syn"
+    ],
+    "error": null,
+    "latency_ms": 15.658459,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h09",
+    "tag": "时间变化",
+    "query": "周宁现在工作日喝什么，旧红茶偏好是否仍适用？",
+    "qrels": {
+      "tea_new": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "tea_old",
+      "tea_new",
+      "syn"
+    ],
+    "error": null,
+    "latency_ms": 75.757208,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h09",
+    "tag": "时间变化",
+    "query": "周宁现在工作日喝什么，旧红茶偏好是否仍适用？",
+    "qrels": {
+      "tea_new": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "tea_old",
+      "tea_new"
+    ],
+    "error": null,
+    "latency_ms": 80.796542,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h10",
+    "tag": "时间变化",
+    "query": "青杉迁移后的业务端口是多少？",
+    "qrels": {
+      "port_new": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "port_new",
+      "d5",
+      "port_old"
+    ],
+    "error": null,
+    "latency_ms": 69.41775,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h10",
+    "tag": "时间变化",
+    "query": "青杉迁移后的业务端口是多少？",
+    "qrels": {
+      "port_new": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "port_new",
+      "d5",
+      "port_old"
+    ],
+    "error": null,
+    "latency_ms": 13.76475,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h10",
+    "tag": "时间变化",
+    "query": "青杉迁移后的业务端口是多少？",
+    "qrels": {
+      "port_new": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "port_new",
+      "d5",
+      "port_old"
+    ],
+    "error": null,
+    "latency_ms": 71.963209,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h10",
+    "tag": "时间变化",
+    "query": "青杉迁移后的业务端口是多少？",
+    "qrels": {
+      "port_new": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "port_new",
+      "port_old",
+      "d5"
+    ],
+    "error": null,
+    "latency_ms": 79.660334,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h11",
+    "tag": "事实冲突",
+    "query": "橙湾会议的两方分别声称哪一天，是否已统一？",
+    "qrels": {
+      "conflict_a": 1,
+      "conflict_b": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "conflict_a",
+      "conflict_b",
+      "port_old",
+      "d6"
+    ],
+    "error": null,
+    "latency_ms": 73.618917,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h11",
+    "tag": "事实冲突",
+    "query": "橙湾会议的两方分别声称哪一天，是否已统一？",
+    "qrels": {
+      "conflict_a": 1,
+      "conflict_b": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "conflict_a",
+      "conflict_b",
+      "d6"
+    ],
+    "error": null,
+    "latency_ms": 12.3505,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h11",
+    "tag": "事实冲突",
+    "query": "橙湾会议的两方分别声称哪一天，是否已统一？",
+    "qrels": {
+      "conflict_a": 1,
+      "conflict_b": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "conflict_a",
+      "conflict_b",
+      "d6",
+      "port_old"
+    ],
+    "error": null,
+    "latency_ms": 75.398833,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h11",
+    "tag": "事实冲突",
+    "query": "橙湾会议的两方分别声称哪一天，是否已统一？",
+    "qrels": {
+      "conflict_a": 1,
+      "conflict_b": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "conflict_a",
+      "conflict_b",
+      "d6"
+    ],
+    "error": null,
+    "latency_ms": 81.43775,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h12",
+    "tag": "近义干扰",
+    "query": "棱镜经过核验的数据样本有多少，不是日志数量。",
+    "qrels": {
+      "number_a": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "number_a",
+      "number_b"
+    ],
+    "error": null,
+    "latency_ms": 70.524542,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h12",
+    "tag": "近义干扰",
+    "query": "棱镜经过核验的数据样本有多少，不是日志数量。",
+    "qrels": {
+      "number_a": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "number_a",
+      "number_b"
+    ],
+    "error": null,
+    "latency_ms": 11.57075,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h12",
+    "tag": "近义干扰",
+    "query": "棱镜经过核验的数据样本有多少，不是日志数量。",
+    "qrels": {
+      "number_a": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "number_a",
+      "number_b"
+    ],
+    "error": null,
+    "latency_ms": 72.742208,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h12",
+    "tag": "近义干扰",
+    "query": "棱镜经过核验的数据样本有多少，不是日志数量。",
+    "qrels": {
+      "number_a": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "number_a",
+      "number_b"
+    ],
+    "error": null,
+    "latency_ms": 78.257167,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h13",
+    "tag": "近义干扰",
+    "query": "三月可以报销的餐费上限是多少？",
+    "qrels": {
+      "amount_a": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "amount_a",
+      "amount_b"
+    ],
+    "error": null,
+    "latency_ms": 71.368209,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h13",
+    "tag": "近义干扰",
+    "query": "三月可以报销的餐费上限是多少？",
+    "qrels": {
+      "amount_a": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "amount_a",
+      "amount_b"
+    ],
+    "error": null,
+    "latency_ms": 12.694209,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h13",
+    "tag": "近义干扰",
+    "query": "三月可以报销的餐费上限是多少？",
+    "qrels": {
+      "amount_a": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "amount_a",
+      "amount_b"
+    ],
+    "error": null,
+    "latency_ms": 70.293042,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h13",
+    "tag": "近义干扰",
+    "query": "三月可以报销的餐费上限是多少？",
+    "qrels": {
+      "amount_a": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "amount_a"
+    ],
+    "error": null,
+    "latency_ms": 76.470542,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h14",
+    "tag": "近义干扰",
+    "query": "三月住宿支出的额度是多少？",
+    "qrels": {
+      "amount_b": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "amount_b",
+      "amount_a"
+    ],
+    "error": null,
+    "latency_ms": 70.3715,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h14",
+    "tag": "近义干扰",
+    "query": "三月住宿支出的额度是多少？",
+    "qrels": {
+      "amount_b": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "amount_b",
+      "amount_a"
+    ],
+    "error": null,
+    "latency_ms": 13.961583,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h14",
+    "tag": "近义干扰",
+    "query": "三月住宿支出的额度是多少？",
+    "qrels": {
+      "amount_b": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "amount_b",
+      "amount_a"
+    ],
+    "error": null,
+    "latency_ms": 70.662667,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h14",
+    "tag": "近义干扰",
+    "query": "三月住宿支出的额度是多少？",
+    "qrels": {
+      "amount_b": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "amount_b",
+      "amount_a"
+    ],
+    "error": null,
+    "latency_ms": 77.63675,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h15",
+    "tag": "近义干扰",
+    "query": "Who lent Mira a cobalt suitcase?",
+    "qrels": {
+      "name_a": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "name_a",
+      "name_b"
+    ],
+    "error": null,
+    "latency_ms": 67.771542,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h15",
+    "tag": "近义干扰",
+    "query": "Who lent Mira a cobalt suitcase?",
+    "qrels": {
+      "name_a": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "name_a",
+      "name_b"
+    ],
+    "error": null,
+    "latency_ms": 14.140667,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h15",
+    "tag": "近义干扰",
+    "query": "Who lent Mira a cobalt suitcase?",
+    "qrels": {
+      "name_a": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "name_a",
+      "name_b"
+    ],
+    "error": null,
+    "latency_ms": 67.843417,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h15",
+    "tag": "近义干扰",
+    "query": "Who lent Mira a cobalt suitcase?",
+    "qrels": {
+      "name_a": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "name_a",
+      "name_b"
+    ],
+    "error": null,
+    "latency_ms": 77.384625,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h16",
+    "tag": "近义干扰",
+    "query": "What color suitcase did Niko borrow?",
+    "qrels": {
+      "name_b": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "name_b",
+      "name_a"
+    ],
+    "error": null,
+    "latency_ms": 67.860292,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h16",
+    "tag": "近义干扰",
+    "query": "What color suitcase did Niko borrow?",
+    "qrels": {
+      "name_b": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "name_a",
+      "name_b"
+    ],
+    "error": null,
+    "latency_ms": 11.820166,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h16",
+    "tag": "近义干扰",
+    "query": "What color suitcase did Niko borrow?",
+    "qrels": {
+      "name_b": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "name_b",
+      "name_a"
+    ],
+    "error": null,
+    "latency_ms": 68.258583,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h16",
+    "tag": "近义干扰",
+    "query": "What color suitcase did Niko borrow?",
+    "qrels": {
+      "name_b": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "name_b",
+      "name_a"
+    ],
+    "error": null,
+    "latency_ms": 74.964334,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h17",
+    "tag": "多跳",
+    "query": "How many minutes did both outages last in total?",
+    "qrels": {
+      "duration_a": 1,
+      "duration_b": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "duration_b",
+      "duration_a"
+    ],
+    "error": null,
+    "latency_ms": 69.736875,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h17",
+    "tag": "多跳",
+    "query": "How many minutes did both outages last in total?",
+    "qrels": {
+      "duration_a": 1,
+      "duration_b": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "duration_a",
+      "duration_b"
+    ],
+    "error": null,
+    "latency_ms": 12.69575,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h17",
+    "tag": "多跳",
+    "query": "How many minutes did both outages last in total?",
+    "qrels": {
+      "duration_a": 1,
+      "duration_b": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "duration_b",
+      "duration_a"
+    ],
+    "error": null,
+    "latency_ms": 70.902541,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h17",
+    "tag": "多跳",
+    "query": "How many minutes did both outages last in total?",
+    "qrels": {
+      "duration_a": 1,
+      "duration_b": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "duration_a",
+      "duration_b"
+    ],
+    "error": null,
+    "latency_ms": 75.455875,
+    "false_positive": false,
+    "recall_at_1": 0.5,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h18",
+    "tag": "时间变化",
+    "query": "纸鹤实验是不是每周四都开复盘？",
+    "qrels": {
+      "period": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "period"
+    ],
+    "error": null,
+    "latency_ms": 69.7675,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h18",
+    "tag": "时间变化",
+    "query": "纸鹤实验是不是每周四都开复盘？",
+    "qrels": {
+      "period": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "period"
+    ],
+    "error": null,
+    "latency_ms": 17.139208,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h18",
+    "tag": "时间变化",
+    "query": "纸鹤实验是不是每周四都开复盘？",
+    "qrels": {
+      "period": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "period"
+    ],
+    "error": null,
+    "latency_ms": 73.322125,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h18",
+    "tag": "时间变化",
+    "query": "纸鹤实验是不是每周四都开复盘？",
+    "qrels": {
+      "period": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "period"
+    ],
+    "error": null,
+    "latency_ms": 78.685375,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h19",
+    "tag": "同义表达",
+    "query": "谁在饮食上需要躲开坚果，而不只是拒绝肉类？",
+    "qrels": {
+      "plant": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "plant",
+      "plant2",
+      "hearing2",
+      "period",
+      "hearing",
+      "tea_new"
+    ],
+    "error": null,
+    "latency_ms": 72.971583,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h19",
+    "tag": "同义表达",
+    "query": "谁在饮食上需要躲开坚果，而不只是拒绝肉类？",
+    "qrels": {
+      "plant": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "plant"
+    ],
+    "error": null,
+    "latency_ms": 13.284625,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h19",
+    "tag": "同义表达",
+    "query": "谁在饮食上需要躲开坚果，而不只是拒绝肉类？",
+    "qrels": {
+      "plant": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "plant",
+      "plant2",
+      "hearing2",
+      "period",
+      "hearing",
+      "tea_new"
+    ],
+    "error": null,
+    "latency_ms": 75.382833,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h19",
+    "tag": "同义表达",
+    "query": "谁在饮食上需要躲开坚果，而不只是拒绝肉类？",
+    "qrels": {
+      "plant": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "plant"
+    ],
+    "error": null,
+    "latency_ms": 89.745583,
+    "false_positive": false,
+    "recall_at_1": 1.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 1.0,
+    "ndcg_at_10": 1.0
+  },
+  {
+    "id": "h20",
+    "tag": "早期事实",
+    "query": "白塔改为展览馆之前苏晴的办公记录是什么？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "bm25",
+    "ranked": [
+      "early2",
+      "d1",
+      "contact",
+      "early",
+      "d4",
+      "number_b",
+      "port_new",
+      "port_old",
+      "tea_old",
+      "noise-002"
+    ],
+    "error": null,
+    "latency_ms": 75.642958,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.25,
+    "ndcg_at_10": 0.43067655807339306
+  },
+  {
+    "id": "h20",
+    "tag": "早期事实",
+    "query": "白塔改为展览馆之前苏晴的办公记录是什么？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "vector_tfidf",
+    "ranked": [
+      "early2",
+      "contact",
+      "early",
+      "d1",
+      "d4",
+      "noise-000",
+      "noise-002",
+      "noise-016",
+      "noise-027",
+      "noise-134"
+    ],
+    "error": null,
+    "latency_ms": 18.245791,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.3333333333333333,
+    "ndcg_at_10": 0.5
+  },
+  {
+    "id": "h20",
+    "tag": "早期事实",
+    "query": "白塔改为展览馆之前苏晴的办公记录是什么？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "hybrid",
+    "ranked": [
+      "early2",
+      "contact",
+      "d1",
+      "early",
+      "d4",
+      "noise-002",
+      "number_b",
+      "port_new",
+      "port_old",
+      "tea_old"
+    ],
+    "error": null,
+    "latency_ms": 77.317459,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.25,
+    "ndcg_at_10": 0.43067655807339306
+  },
+  {
+    "id": "h20",
+    "tag": "早期事实",
+    "query": "白塔改为展览馆之前苏晴的办公记录是什么？",
+    "qrels": {
+      "early": 1
+    },
+    "method": "hybrid_rerank",
+    "ranked": [
+      "early2",
+      "early",
+      "d1",
+      "contact"
+    ],
+    "error": null,
+    "latency_ms": 110.752958,
+    "false_positive": false,
+    "recall_at_1": 0.0,
+    "recall_at_5": 1.0,
+    "mrr_at_10": 0.5,
+    "ndcg_at_10": 0.6309297535714575
+  },
+  {
+    "id": "h21",
+    "tag": "无答案",
+    "query": "苏晴的出生日期是什么？",
+    "qrels": {},
+    "method": "bm25",
+    "ranked": [
+      "refuse",
+      "early"
+    ],
+    "error": null,
+    "latency_ms": 70.721833,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h21",
+    "tag": "无答案",
+    "query": "苏晴的出生日期是什么？",
+    "qrels": {},
+    "method": "vector_tfidf",
+    "ranked": [
+      "early",
+      "refuse"
+    ],
+    "error": null,
+    "latency_ms": 13.044833,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h21",
+    "tag": "无答案",
+    "query": "苏晴的出生日期是什么？",
+    "qrels": {},
+    "method": "hybrid",
+    "ranked": [
+      "refuse",
+      "early"
+    ],
+    "error": null,
+    "latency_ms": 74.635166,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h21",
+    "tag": "无答案",
+    "query": "苏晴的出生日期是什么？",
+    "qrels": {},
+    "method": "hybrid_rerank",
+    "ranked": [
+      "early",
+      "refuse"
+    ],
+    "error": null,
+    "latency_ms": 83.347875,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h22",
+    "tag": "无答案",
+    "query": "顾禾家住哪个小区？",
+    "qrels": {},
+    "method": "bm25",
+    "ranked": [
+      "contact",
+      "d4"
+    ],
+    "error": null,
+    "latency_ms": 70.641958,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h22",
+    "tag": "无答案",
+    "query": "顾禾家住哪个小区？",
+    "qrels": {},
+    "method": "vector_tfidf",
+    "ranked": [
+      "contact",
+      "owner",
+      "d4"
+    ],
+    "error": null,
+    "latency_ms": 13.715416,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h22",
+    "tag": "无答案",
+    "query": "顾禾家住哪个小区？",
+    "qrels": {},
+    "method": "hybrid",
+    "ranked": [
+      "contact",
+      "d4",
+      "owner"
+    ],
+    "error": null,
+    "latency_ms": 69.42375,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h22",
+    "tag": "无答案",
+    "query": "顾禾家住哪个小区？",
+    "qrels": {},
+    "method": "hybrid_rerank",
+    "ranked": [
+      "contact",
+      "d4"
+    ],
+    "error": null,
+    "latency_ms": 75.982875,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h23",
+    "tag": "无答案",
+    "query": "灯塔计划的生产数据库密码是什么？",
+    "qrels": {},
+    "method": "bm25",
+    "ranked": [
+      "d4",
+      "owner",
+      "number_a",
+      "other",
+      "node"
+    ],
+    "error": null,
+    "latency_ms": 72.899334,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h23",
+    "tag": "无答案",
+    "query": "灯塔计划的生产数据库密码是什么？",
+    "qrels": {},
+    "method": "vector_tfidf",
+    "ranked": [
+      "owner",
+      "d4",
+      "number_a",
+      "other",
+      "node"
+    ],
+    "error": null,
+    "latency_ms": 13.266416,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h23",
+    "tag": "无答案",
+    "query": "灯塔计划的生产数据库密码是什么？",
+    "qrels": {},
+    "method": "hybrid",
+    "ranked": [
+      "d4",
+      "owner",
+      "number_a",
+      "other",
+      "node"
+    ],
+    "error": null,
+    "latency_ms": 76.218125,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h23",
+    "tag": "无答案",
+    "query": "灯塔计划的生产数据库密码是什么？",
+    "qrels": {},
+    "method": "hybrid_rerank",
+    "ranked": [
+      "d4",
+      "owner"
+    ],
+    "error": null,
+    "latency_ms": 94.444666,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h24",
+    "tag": "无答案",
+    "query": "The third outage lasted how long?",
+    "qrels": {},
+    "method": "bm25",
+    "ranked": [
+      "duration_a",
+      "duration_b",
+      "name_b",
+      "name_a"
+    ],
+    "error": null,
+    "latency_ms": 69.515458,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h24",
+    "tag": "无答案",
+    "query": "The third outage lasted how long?",
+    "qrels": {},
+    "method": "vector_tfidf",
+    "ranked": [
+      "duration_a",
+      "duration_b"
+    ],
+    "error": null,
+    "latency_ms": 12.607292,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h24",
+    "tag": "无答案",
+    "query": "The third outage lasted how long?",
+    "qrels": {},
+    "method": "hybrid",
+    "ranked": [
+      "duration_a",
+      "duration_b",
+      "name_b",
+      "name_a"
+    ],
+    "error": null,
+    "latency_ms": 67.750583,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  },
+  {
+    "id": "h24",
+    "tag": "无答案",
+    "query": "The third outage lasted how long?",
+    "qrels": {},
+    "method": "hybrid_rerank",
+    "ranked": [
+      "duration_a",
+      "duration_b",
+      "name_b",
+      "name_a"
+    ],
+    "error": null,
+    "latency_ms": 76.854667,
+    "false_positive": true,
+    "recall_at_1": null,
+    "recall_at_5": null,
+    "mrr_at_10": null,
+    "ndcg_at_10": null
+  }
+]

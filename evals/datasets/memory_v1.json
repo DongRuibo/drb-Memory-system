@@ -1,0 +1,772 @@
+{
+  "version": "memory-eval-v1",
+  "kind": "self_constructed",
+  "documents": [
+    {
+      "id": "residence",
+      "content": "我住在成都。"
+    },
+    {
+      "id": "job",
+      "content": "我是后端工程师。"
+    },
+    {
+      "id": "language",
+      "content": "我使用 Rust 开发服务。"
+    },
+    {
+      "id": "food",
+      "content": "我不喜欢香菜。"
+    },
+    {
+      "id": "drink",
+      "content": "我喜欢拿铁。"
+    },
+    {
+      "id": "sport",
+      "content": "我喜欢游泳。"
+    },
+    {
+      "id": "editor",
+      "content": "我的编辑器是 Neovim。"
+    },
+    {
+      "id": "pet",
+      "content": "我的猫叫豆包。"
+    },
+    {
+      "id": "meeting",
+      "content": "我的周会在星期二上午十点。"
+    },
+    {
+      "id": "commute",
+      "content": "我在星期三乘地铁上班。"
+    },
+    {
+      "id": "trip",
+      "content": "我昨天去了重庆。"
+    },
+    {
+      "id": "exam",
+      "content": "我已经通过数据库考试。"
+    },
+    {
+      "id": "db",
+      "content": "仓库权威数据使用 PostgreSQL，缓存使用 Redis。"
+    },
+    {
+      "id": "index",
+      "content": "全文索引使用 BM25，分词器使用 Jieba。"
+    },
+    {
+      "id": "deploy",
+      "content": "发布先经过 staging，再部署 production。"
+    },
+    {
+      "id": "incident",
+      "content": "P0 故障通过电话告警，P2 故障发邮件。"
+    },
+    {
+      "id": "backup",
+      "content": "数据库每天凌晨两点备份，保留七天。"
+    },
+    {
+      "id": "budget",
+      "content": "每次任务的模型预算上限为五元。"
+    },
+    {
+      "id": "scope",
+      "content": "项目 Alpha 的负责人是林月。"
+    },
+    {
+      "id": "scope2",
+      "content": "项目 Beta 的负责人是陈明。"
+    },
+    {
+      "id": "timeout",
+      "content": "API 超时上限为三十秒。"
+    },
+    {
+      "id": "retry",
+      "content": "API 请求最多重试两次。"
+    },
+    {
+      "id": "history",
+      "content": "过去的数据库是 MySQL，现在已经弃用。"
+    },
+    {
+      "id": "vector",
+      "content": "本地向量维度是三百八十四。"
+    },
+    {
+      "id": "order",
+      "content": "订单系统以人民币 CNY 结算。"
+    },
+    {
+      "id": "search",
+      "content": "搜索系统的部署区域是上海。"
+    },
+    {
+      "id": "read",
+      "content": "只读副本放在北京，主库放在上海。"
+    },
+    {
+      "id": "audit",
+      "content": "所有删除请求保留审计事件。"
+    },
+    {
+      "id": "hobby_en",
+      "content": "I like hiking in the mountains."
+    },
+    {
+      "id": "work_en",
+      "content": "I work remotely on Fridays."
+    },
+    {
+      "id": "distractor1",
+      "content": "成都今天预计有雨。"
+    },
+    {
+      "id": "distractor2",
+      "content": "重庆的火锅很有名。"
+    },
+    {
+      "id": "distractor3",
+      "content": "Redis 可以用作消息队列。"
+    },
+    {
+      "id": "distractor4",
+      "content": "Neovim 插件使用 Lua 编写。"
+    },
+    {
+      "id": "distractor5",
+      "content": "生产超时监控每分钟采样一次。"
+    },
+    {
+      "id": "distractor6",
+      "content": "豆包是一款食物的名称。"
+    },
+    {
+      "id": "distractor7",
+      "content": "项目 Gamma 的负责人暂未确定。"
+    },
+    {
+      "id": "distractor8",
+      "content": "每周四有数据库读书会。"
+    },
+    {
+      "id": "distractor9",
+      "content": "PostgreSQL 支持全文检索。"
+    },
+    {
+      "id": "distractor10",
+      "content": "Rust 的生命周期由编译器检查。"
+    }
+  ],
+  "queries": [
+    {
+      "id": "q1",
+      "query": "我住在哪个城市？",
+      "qrels": {
+        "residence": 1
+      }
+    },
+    {
+      "id": "q2",
+      "query": "我的职业是什么？",
+      "qrels": {
+        "job": 1
+      }
+    },
+    {
+      "id": "q3",
+      "query": "我用什么语言开发服务？",
+      "qrels": {
+        "language": 1
+      }
+    },
+    {
+      "id": "q4",
+      "query": "我不喜欢吃什么？",
+      "qrels": {
+        "food": 1
+      }
+    },
+    {
+      "id": "q5",
+      "query": "我喜欢什么咖啡？",
+      "qrels": {
+        "drink": 1
+      }
+    },
+    {
+      "id": "q6",
+      "query": "我有什么运动爱好？",
+      "qrels": {
+        "sport": 1
+      }
+    },
+    {
+      "id": "q7",
+      "query": "我的代码编辑器叫什么？",
+      "qrels": {
+        "editor": 1
+      }
+    },
+    {
+      "id": "q8",
+      "query": "我的猫叫什么名字？",
+      "qrels": {
+        "pet": 1
+      }
+    },
+    {
+      "id": "q9",
+      "query": "我的周会是什么时间？",
+      "qrels": {
+        "meeting": 1
+      }
+    },
+    {
+      "id": "q10",
+      "query": "我星期三怎么去上班？",
+      "qrels": {
+        "commute": 1
+      }
+    },
+    {
+      "id": "q11",
+      "query": "我昨天到访了哪里？",
+      "qrels": {
+        "trip": 1
+      }
+    },
+    {
+      "id": "q12",
+      "query": "我通过了什么考试？",
+      "qrels": {
+        "exam": 1
+      }
+    },
+    {
+      "id": "q13",
+      "query": "权威数据库和缓存分别是什么？",
+      "qrels": {
+        "db": 1
+      }
+    },
+    {
+      "id": "q14",
+      "query": "全文索引的算法和分词器是什么？",
+      "qrels": {
+        "index": 1
+      }
+    },
+    {
+      "id": "q15",
+      "query": "部署要经过哪两个环境？",
+      "qrels": {
+        "deploy": 1
+      }
+    },
+    {
+      "id": "q16",
+      "query": "P0 故障如何通知？",
+      "qrels": {
+        "incident": 1
+      }
+    },
+    {
+      "id": "q17",
+      "query": "备份几点执行并保留多久？",
+      "qrels": {
+        "backup": 1
+      }
+    },
+    {
+      "id": "q18",
+      "query": "单次任务模型花费上限是多少？",
+      "qrels": {
+        "budget": 1
+      }
+    },
+    {
+      "id": "q19",
+      "query": "Alpha 项目谁负责？",
+      "qrels": {
+        "scope": 1
+      }
+    },
+    {
+      "id": "q20",
+      "query": "Beta 项目谁负责？",
+      "qrels": {
+        "scope2": 1
+      }
+    },
+    {
+      "id": "q21",
+      "query": "API 请求多久算超时？",
+      "qrels": {
+        "timeout": 1
+      }
+    },
+    {
+      "id": "q22",
+      "query": "API 最多重试几次？",
+      "qrels": {
+        "retry": 1
+      }
+    },
+    {
+      "id": "q23",
+      "query": "旧数据库为什么不再使用？",
+      "qrels": {
+        "history": 1
+      }
+    },
+    {
+      "id": "q24",
+      "query": "向量有多少维？",
+      "qrels": {
+        "vector": 1
+      }
+    },
+    {
+      "id": "q25",
+      "query": "订单用什么币种结算？",
+      "qrels": {
+        "order": 1
+      }
+    },
+    {
+      "id": "q26",
+      "query": "搜索服务部署在哪里？",
+      "qrels": {
+        "search": 1
+      }
+    },
+    {
+      "id": "q27",
+      "query": "主库和只读副本各在哪里？",
+      "qrels": {
+        "read": 1
+      }
+    },
+    {
+      "id": "q28",
+      "query": "删除请求留下什么记录？",
+      "qrels": {
+        "audit": 1
+      }
+    },
+    {
+      "id": "q29",
+      "query": "What do I enjoy doing in the mountains?",
+      "qrels": {
+        "hobby_en": 1
+      }
+    },
+    {
+      "id": "q30",
+      "query": "Which day do I work remotely?",
+      "qrels": {
+        "work_en": 1
+      }
+    },
+    {
+      "id": "q31",
+      "query": "列出当前主存储和过去已弃用的数据库。",
+      "qrels": {
+        "db": 1,
+        "history": 1
+      }
+    },
+    {
+      "id": "q32",
+      "query": "API 的超时和重试上限是什么？",
+      "qrels": {
+        "timeout": 1,
+        "retry": 1
+      }
+    },
+    {
+      "id": "q33",
+      "query": "谁分别负责 Alpha 和 Beta？",
+      "qrels": {
+        "scope": 1,
+        "scope2": 1
+      }
+    },
+    {
+      "id": "q34",
+      "query": "我使用的编程语言及其生命周期由谁检查？",
+      "qrels": {
+        "language": 1,
+        "distractor10": 1
+      }
+    },
+    {
+      "id": "q35",
+      "query": "主库所在城市和搜索服务所在城市是什么？",
+      "qrels": {
+        "read": 1,
+        "search": 1
+      }
+    },
+    {
+      "id": "q36",
+      "query": "发布步骤和生产故障告警是什么？",
+      "qrels": {
+        "deploy": 1,
+        "incident": 1
+      }
+    }
+  ],
+  "formation": [
+    {
+      "id": "single",
+      "text": "我住在成都。",
+      "facts": [
+        [
+          "我住在成都"
+        ]
+      ]
+    },
+    {
+      "id": "multi",
+      "text": "我是后端工程师。我的猫叫豆包。",
+      "facts": [
+        [
+          "我是后端工程师"
+        ],
+        [
+          "我的猫叫豆包"
+        ]
+      ]
+    },
+    {
+      "id": "duplicate",
+      "text": "我喜欢游泳。我喜欢游泳。",
+      "facts": [
+        [
+          "我喜欢游泳"
+        ]
+      ]
+    },
+    {
+      "id": "greeting",
+      "text": "你好，谢谢。",
+      "facts": []
+    },
+    {
+      "id": "question",
+      "text": "我喜欢游泳吗？",
+      "facts": []
+    },
+    {
+      "id": "hypothetical",
+      "text": "如果我住在上海，就坐地铁。",
+      "facts": []
+    },
+    {
+      "id": "quoted",
+      "text": "他说我喜欢咖啡。",
+      "facts": []
+    },
+    {
+      "id": "uncertain",
+      "text": "我可能喜欢冲浪。",
+      "facts": []
+    },
+    {
+      "id": "no_write",
+      "text": "不要记住我住在成都。",
+      "facts": []
+    },
+    {
+      "id": "negation",
+      "text": "我不喜欢香菜。",
+      "facts": [
+        [
+          "我不喜欢香菜"
+        ]
+      ]
+    },
+    {
+      "id": "past",
+      "text": "我昨天去了重庆。",
+      "facts": [
+        [
+          "我昨天去了重庆"
+        ]
+      ]
+    },
+    {
+      "id": "completed",
+      "text": "我已经通过考试。",
+      "facts": [
+        [
+          "我已经通过考试"
+        ]
+      ]
+    },
+    {
+      "id": "english",
+      "text": "I live in Chengdu.",
+      "facts": [
+        [
+          "I live in Chengdu"
+        ]
+      ]
+    },
+    {
+      "id": "english_pref",
+      "text": "I prefer tea.",
+      "facts": [
+        [
+          "I prefer tea"
+        ]
+      ]
+    },
+    {
+      "id": "plan",
+      "text": "我明年计划去北京。",
+      "facts": [
+        [
+          "我明年计划去北京"
+        ]
+      ]
+    },
+    {
+      "id": "implicit",
+      "text": "平时用 Python 写脚本。",
+      "facts": [
+        [
+          "平时用 Python 写脚本"
+        ]
+      ]
+    },
+    {
+      "id": "compound",
+      "text": "我住在成都，喜欢游泳。",
+      "facts": [
+        [
+          "我住在成都"
+        ],
+        [
+          "我喜欢游泳"
+        ]
+      ]
+    },
+    {
+      "id": "other_person",
+      "text": "我的朋友住在北京。",
+      "facts": []
+    },
+    {
+      "id": "request",
+      "text": "我的简历帮我修改一下。",
+      "facts": []
+    },
+    {
+      "id": "task",
+      "text": "我在思考这个问题，你能帮忙吗？",
+      "facts": []
+    },
+    {
+      "id": "change",
+      "text": "我现在住在深圳，不住成都了。",
+      "facts": [
+        [
+          "我现在住在深圳"
+        ]
+      ]
+    },
+    {
+      "id": "future",
+      "text": "我会在下周出差。",
+      "facts": [
+        [
+          "我会在下周出差"
+        ]
+      ]
+    },
+    {
+      "id": "forget",
+      "text": "请忘记我的住址。",
+      "facts": []
+    },
+    {
+      "id": "repeat_case",
+      "text": "我使用 Rust。我使用 Rust。",
+      "facts": [
+        [
+          "我使用 Rust"
+        ]
+      ]
+    }
+  ],
+  "qa": [
+    {
+      "id": "qa0",
+      "query": "我住在哪个城市？",
+      "answers": [
+        "我住在成都。"
+      ],
+      "qrels": {
+        "residence": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa1",
+      "query": "我的职业是什么？",
+      "answers": [
+        "我是后端工程师。"
+      ],
+      "qrels": {
+        "job": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa2",
+      "query": "我用什么语言开发服务？",
+      "answers": [
+        "我使用 Rust 开发服务。"
+      ],
+      "qrels": {
+        "language": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa3",
+      "query": "我不喜欢吃什么？",
+      "answers": [
+        "我不喜欢香菜。"
+      ],
+      "qrels": {
+        "food": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa4",
+      "query": "我喜欢什么咖啡？",
+      "answers": [
+        "我喜欢拿铁。"
+      ],
+      "qrels": {
+        "drink": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa5",
+      "query": "我有什么运动爱好？",
+      "answers": [
+        "我喜欢游泳。"
+      ],
+      "qrels": {
+        "sport": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa6",
+      "query": "我的代码编辑器叫什么？",
+      "answers": [
+        "我的编辑器是 Neovim。"
+      ],
+      "qrels": {
+        "editor": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa7",
+      "query": "我的猫叫什么名字？",
+      "answers": [
+        "我的猫叫豆包。"
+      ],
+      "qrels": {
+        "pet": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa8",
+      "query": "我的周会是什么时间？",
+      "answers": [
+        "我的周会在星期二上午十点。"
+      ],
+      "qrels": {
+        "meeting": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa9",
+      "query": "我星期三怎么去上班？",
+      "answers": [
+        "我在星期三乘地铁上班。"
+      ],
+      "qrels": {
+        "commute": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa10",
+      "query": "我昨天到访了哪里？",
+      "answers": [
+        "我昨天去了重庆。"
+      ],
+      "qrels": {
+        "trip": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa11",
+      "query": "我通过了什么考试？",
+      "answers": [
+        "我已经通过数据库考试。"
+      ],
+      "qrels": {
+        "exam": 1
+      },
+      "unanswerable": false
+    },
+    {
+      "id": "qa_neg0",
+      "query": "我的银行卡号是什么？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    {
+      "id": "qa_neg1",
+      "query": "我最喜欢哪支足球队？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    {
+      "id": "qa_neg2",
+      "query": "我的生日在哪一天？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    {
+      "id": "qa_neg3",
+      "query": "我养的狗是什么品种？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    }
+  ]
+}

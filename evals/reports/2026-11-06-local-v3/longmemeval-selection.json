@@ -1,0 +1,26 @@
+{
+  "kind": "public_subset",
+  "benchmark": "LongMemEval",
+  "variant": "s",
+  "source_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "source_rows": 500,
+  "selected_ids": [
+    "19b5f2b3_abs",
+    "c6853660",
+    "37f165cf",
+    "51b23612",
+    "1a1907b4",
+    "1faac195",
+    "gpt4_2f584639",
+    "c8090214_abs",
+    "d7c942c3",
+    "6cb6f249",
+    "1b9b7252",
+    "35a27287"
+  ],
+  "seed": 20261106,
+  "selection": "seeded question-type round-robin including abstention",
+  "official_score": false,
+  "chunk_chars": 1000,
+  "timezone_assumption": "naive upstream timestamps interpreted as UTC"
+}

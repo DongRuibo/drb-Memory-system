@@ -1,0 +1,74 @@
+{
+  "status": "completed",
+  "kind": "self_constructed_engineering_holdout_real_embedding_not_public_benchmark",
+  "dataset_sha256": "96bbc1ef36262a8c233e62fbb7642526872a148cabaaea6b92faa676948049e1",
+  "paid_api_calls": 0,
+  "actual_cost_cny": 0,
+  "reader": "not run",
+  "semantic_model": {
+    "model": "Qwen/Qwen3-Embedding-0.6B",
+    "requested_revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "files": {
+      "tokenizer.json": {
+        "bytes": 11423705,
+        "sha256": "def76fb086971c7867b829c23a26261e38d9d74e02139253b38aeb9df8b4b50a",
+        "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/tokenizer.json"
+      },
+      "tokenizer_config.json": {
+        "bytes": 9706,
+        "sha256": "253153d0738ceb4c668d2eff957714dd2bea0b56de772a9fdccd96cbf517e6a0",
+        "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B/resolve/97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3/tokenizer_config.json"
+      }
+    }
+  },
+  "parameters": {
+    "dimensions": 1024,
+    "normalization": "l2",
+    "input_type": [
+      "document",
+      "query"
+    ],
+    "instruction": "Given an agent memory query, retrieve user memories that are relevant to completing the current task",
+    "max_length": 4096,
+    "batch_size": 32,
+    "backend": "eval exact cosine; production pgvector/ANN not claimed",
+    "device": "mps",
+    "dtype": "torch.float32",
+    "torch_version": "2.9.1",
+    "transformers_version": "4.57.1",
+    "tokenizers_version": "0.22.1",
+    "pooling": "last_token_with_left_padding"
+  },
+  "health": {
+    "status": "ok",
+    "semantic": true,
+    "device": "mps",
+    "max_length": 4096,
+    "instruction": "Given an agent memory query, retrieve user memories that are relevant to completing the current task",
+    "torch_version": "2.9.1",
+    "transformers_version": "4.57.1",
+    "tokenizers_version": "0.22.1",
+    "embedding_dtype": "torch.float32",
+    "embedding": {
+      "model": "Qwen/Qwen3-Embedding-0.6B",
+      "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+      "dimensions": 1024,
+      "normalization": "l2",
+      "aliases": [
+        "text-embedding-3-small"
+      ]
+    },
+    "reranker": null
+  },
+  "semantic_index_ms": 6541.966584,
+  "ingestion": {
+    "input_documents": 195,
+    "indexed_documents": 195,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "local_embedding_http_requests": 31,
+  "input_texts_encoded": 219,
+  "postgres_image_id": "sha256:8dd950fd4ca6d59e4fc748361bfb059f44907cc99577ae227d196adb29ad8913"
+}

@@ -1,0 +1,218 @@
+[
+  {
+    "repeat": 0,
+    "state": "bridge_first",
+    "bridge_connect_migrate_ms": 29.573708,
+    "request_ms": 818.880083,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 3.6389579999999997,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 805.573
+  },
+  {
+    "repeat": 0,
+    "state": "bridge_second",
+    "bridge_connect_migrate_ms": 29.573708,
+    "request_ms": 6.637916,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 1.2760829999999999,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 0.064875
+  },
+  {
+    "repeat": 1,
+    "state": "bridge_first",
+    "bridge_connect_migrate_ms": 29.063875,
+    "request_ms": 816.818,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 3.454042,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 801.7322919999999
+  },
+  {
+    "repeat": 1,
+    "state": "bridge_second",
+    "bridge_connect_migrate_ms": 29.063875,
+    "request_ms": 6.96725,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 1.312791,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 0.056167
+  },
+  {
+    "repeat": 2,
+    "state": "bridge_first",
+    "bridge_connect_migrate_ms": 29.582291,
+    "request_ms": 820.8665,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 3.182458,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 804.5405420000001
+  },
+  {
+    "repeat": 2,
+    "state": "bridge_second",
+    "bridge_connect_migrate_ms": 29.582291,
+    "request_ms": 6.98375,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 1.3154169999999998,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 0.058916
+  },
+  {
+    "repeat": 3,
+    "state": "bridge_first",
+    "bridge_connect_migrate_ms": 29.484875,
+    "request_ms": 817.548042,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 3.712584,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 803.991125
+  },
+  {
+    "repeat": 3,
+    "state": "bridge_second",
+    "bridge_connect_migrate_ms": 29.484875,
+    "request_ms": 7.054,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 1.17025,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 0.050459
+  },
+  {
+    "repeat": 4,
+    "state": "bridge_first",
+    "bridge_connect_migrate_ms": 34.13375,
+    "request_ms": 821.8105,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 4.211374999999999,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 804.3639999999999
+  },
+  {
+    "repeat": 4,
+    "state": "bridge_second",
+    "bridge_connect_migrate_ms": 34.13375,
+    "request_ms": 6.3395,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 1.0792499999999998,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 0.044625
+  },
+  {
+    "repeat": 5,
+    "state": "bridge_first",
+    "bridge_connect_migrate_ms": 29.187292,
+    "request_ms": 821.070708,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 3.2287079999999997,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 805.048541
+  },
+  {
+    "repeat": 5,
+    "state": "bridge_second",
+    "bridge_connect_migrate_ms": 29.187292,
+    "request_ms": 6.445375,
+    "rows": [
+      {
+        "bm25_score": 0.28768207245178085,
+        "memory_record_id": "7a472206-5ca0-5be7-b375-78e00cf26b6b",
+        "memory_version_id": "e7b9bac5-b849-54c4-bf2a-68df1f31da34"
+      }
+    ],
+    "sql_ms": 1.0966660000000001,
+    "terms": [
+      "coffee"
+    ],
+    "tokenize_ms": 0.066584
+  }
+]

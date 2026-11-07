@@ -1,0 +1,40 @@
+[
+  {
+    "variant": "before",
+    "rows": [
+      {
+        "bm25_score": 0.6462549902128865,
+        "memory_record_id": "de63db3e-2b65-591a-9092-5240a75ab375",
+        "memory_version_id": "7d4199b6-fc13-5041-a96b-3ea0cbbd14af"
+      },
+      {
+        "bm25_score": 0.47000362924573563,
+        "memory_record_id": "4949d7bc-ff50-5f26-b08d-59bfa1d97aa4",
+        "memory_version_id": "1e2bcedb-6abd-5e30-ab99-dfa415415faa"
+      }
+    ],
+    "sql_ms": 0.5713339999999999,
+    "terms": [
+      "lighthouse"
+    ]
+  },
+  {
+    "variant": "version_lengths",
+    "rows": [
+      {
+        "bm25_score": 0.6462549902128865,
+        "memory_record_id": "de63db3e-2b65-591a-9092-5240a75ab375",
+        "memory_version_id": "7d4199b6-fc13-5041-a96b-3ea0cbbd14af"
+      },
+      {
+        "bm25_score": 0.47000362924573563,
+        "memory_record_id": "4949d7bc-ff50-5f26-b08d-59bfa1d97aa4",
+        "memory_version_id": "1e2bcedb-6abd-5e30-ab99-dfa415415faa"
+      }
+    ],
+    "sql_ms": 0.601208,
+    "terms": [
+      "lighthouse"
+    ]
+  }
+]

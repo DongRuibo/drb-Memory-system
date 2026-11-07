@@ -1,0 +1,5 @@
+__pycache__/
+harness/target/
+downloads/
+runs/
+reports/**/embedding-cache/

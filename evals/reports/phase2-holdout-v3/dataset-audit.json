@@ -1,0 +1,25 @@
+{
+  "exact_document_overlap": 0,
+  "exact_query_overlap": 0,
+  "holdout_tags": {
+    "早期事实": 3,
+    "同义表达": 3,
+    "近义干扰": 7,
+    "多跳": 3,
+    "时间变化": 3,
+    "事实冲突": 1,
+    "无答案": 4
+  },
+  "old": {
+    "documents": 40,
+    "queries": 36,
+    "mean_relevant_token_jaccard": 0.1798098920820206,
+    "max_relevant_token_jaccard": 0.5
+  },
+  "holdout": {
+    "documents": 195,
+    "queries": 24,
+    "mean_relevant_token_jaccard": 0.12042850158986285,
+    "max_relevant_token_jaccard": 0.375
+  }
+}

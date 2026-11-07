@@ -3050,6 +3050,25 @@ impl IntoResponse for ApiError {
 
 #[cfg(test)]
 mod tests {
+    #[tokio::test]
+    async fn pending_review_conflict_remains_non_retryable_http_409() {
+        // 已有待审冲突应要求先处理审核，不让调用方按服务器故障无限重试。
+        let error = super::ApiError::from(memory_postgres::RepositoryError::Conflict(
+            "semantic memory already has an open review; resolve it before ingesting another candidate".into(),
+        ));
+        assert_eq!(error.status, axum::http::StatusCode::CONFLICT);
+        assert_eq!(error.code, "CONFLICT");
+        assert!(!error.retryable);
+        assert!(error.detail.contains("resolve it before ingesting"));
+        let response = error.into_response();
+        assert_eq!(response.status(), axum::http::StatusCode::CONFLICT);
+        let bytes = axum::body::to_bytes(response.into_body(), 4096).await.unwrap();
+        let body: serde_json::Value = serde_json::from_slice(&bytes).unwrap();
+        assert_eq!(body["status"], 409);
+        assert_eq!(body["code"], "CONFLICT");
+        assert_eq!(body["retryable"], false);
+    }
+
     use std::sync::atomic::{AtomicUsize, Ordering};
 
     use async_trait::async_trait;

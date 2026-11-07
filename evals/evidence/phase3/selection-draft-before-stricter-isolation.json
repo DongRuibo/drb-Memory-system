@@ -1,0 +1,101 @@
+{
+  "version": "longmemeval-s-heldout-phase3-v1",
+  "kind": "public_subset_not_official_full_benchmark",
+  "source_sha256": "d6f21ea9d60a0d56f34a05b609c79c88a451d2ae03597821ea3d5a9678c3a442",
+  "source_url": "https://huggingface.co/datasets/xiaowu0162/longmemeval-cleaned/resolve/main/longmemeval_s_cleaned.json",
+  "seed": 20261108,
+  "per_stratum": 2,
+  "dev_ids": [
+    "19b5f2b3_abs",
+    "1a1907b4",
+    "1b9b7252",
+    "1faac195",
+    "35a27287",
+    "37f165cf",
+    "51b23612",
+    "6cb6f249",
+    "c6853660",
+    "c8090214_abs",
+    "d7c942c3",
+    "gpt4_2f584639"
+  ],
+  "cases": [
+    {
+      "id": "60bf93ed_abs",
+      "stratum": "abstention",
+      "question_type": "multi-session"
+    },
+    {
+      "id": "a96c20ee_abs",
+      "stratum": "abstention",
+      "question_type": "multi-session"
+    },
+    {
+      "id": "f9e8c073",
+      "stratum": "knowledge-update",
+      "question_type": "knowledge-update"
+    },
+    {
+      "id": "3ba21379",
+      "stratum": "knowledge-update",
+      "question_type": "knowledge-update"
+    },
+    {
+      "id": "gpt4_194be4b3",
+      "stratum": "multi-session",
+      "question_type": "multi-session"
+    },
+    {
+      "id": "gpt4_15e38248",
+      "stratum": "multi-session",
+      "question_type": "multi-session"
+    },
+    {
+      "id": "7a8d0b71",
+      "stratum": "single-session-assistant",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "id": "e9327a54",
+      "stratum": "single-session-assistant",
+      "question_type": "single-session-assistant"
+    },
+    {
+      "id": "6b7dfb22",
+      "stratum": "single-session-preference",
+      "question_type": "single-session-preference"
+    },
+    {
+      "id": "75832dbd",
+      "stratum": "single-session-preference",
+      "question_type": "single-session-preference"
+    },
+    {
+      "id": "8ebdbe50",
+      "stratum": "single-session-user",
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "311778f1",
+      "stratum": "single-session-user",
+      "question_type": "single-session-user"
+    },
+    {
+      "id": "gpt4_b5700ca0",
+      "stratum": "temporal-reasoning",
+      "question_type": "temporal-reasoning"
+    },
+    {
+      "id": "gpt4_4929293b",
+      "stratum": "temporal-reasoning",
+      "question_type": "temporal-reasoning"
+    }
+  ],
+  "id_overlap": 0,
+  "answer_session_overlap": 0,
+  "all_history_session_overlap": 8,
+  "selection": "SHA256(seed,question_id) within strata; exclude dev IDs and dev evidence sessions; no answer/success filtering",
+  "preprocessing": "all roles, chronological; whitespace collapse, 1000-char no-overlap chunks; UTC assumption",
+  "evidence_annotation": "upstream has_answer; chunk-level proxy; manual fact review pending",
+  "seal": "0cd24304c1c26b65dc95ab836a9b07524d28cbb9430e6f6817b550f54506fa92"
+}

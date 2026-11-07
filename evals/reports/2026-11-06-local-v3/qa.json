@@ -1,0 +1,2429 @@
+[
+  {
+    "id": "qa0",
+    "method": "hybrid_rerank",
+    "query": "我住在哪个城市？",
+    "prediction": {
+      "text": "我住在成都",
+      "refused": false,
+      "citations": [
+        "b796eab8-8412-598c-bb45-725e1d3af175"
+      ]
+    },
+    "labels": {
+      "id": "qa0",
+      "query": "我住在哪个城市？",
+      "answers": [
+        "我住在成都。"
+      ],
+      "qrels": {
+        "residence": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "residence"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 37,
+    "retrieval_ms": 13.879167,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa1",
+    "method": "hybrid_rerank",
+    "query": "我的职业是什么？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa1",
+      "query": "我的职业是什么？",
+      "answers": [
+        "我是后端工程师。"
+      ],
+      "qrels": {
+        "job": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "editor",
+      "pet",
+      "meeting"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 127,
+    "retrieval_ms": 20.19075,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa2",
+    "method": "hybrid_rerank",
+    "query": "我用什么语言开发服务？",
+    "prediction": {
+      "text": "我使用 Rust 开发服务",
+      "refused": false,
+      "citations": [
+        "708c31b1-25a1-58fe-a44f-d6d01dadc631"
+      ]
+    },
+    "labels": {
+      "id": "qa2",
+      "query": "我用什么语言开发服务？",
+      "answers": [
+        "我使用 Rust 开发服务。"
+      ],
+      "qrels": {
+        "language": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "language"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 45,
+    "retrieval_ms": 14.754625,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa3",
+    "method": "hybrid_rerank",
+    "query": "我不喜欢吃什么？",
+    "prediction": {
+      "text": "我不喜欢香菜",
+      "refused": false,
+      "citations": [
+        "8aa34677-d320-57b9-9ea2-a2e1c9abd2af"
+      ]
+    },
+    "labels": {
+      "id": "qa3",
+      "query": "我不喜欢吃什么？",
+      "answers": [
+        "我不喜欢香菜。"
+      ],
+      "qrels": {
+        "food": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "food",
+      "sport",
+      "drink"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 3,
+    "context_estimated_tokens": 112,
+    "retrieval_ms": 19.543875,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa4",
+    "method": "hybrid_rerank",
+    "query": "我喜欢什么咖啡？",
+    "prediction": {
+      "text": "我喜欢游泳",
+      "refused": false,
+      "citations": [
+        "cb075ad6-3e31-5350-abcb-8e3aa5312d0b"
+      ]
+    },
+    "labels": {
+      "id": "qa4",
+      "query": "我喜欢什么咖啡？",
+      "answers": [
+        "我喜欢拿铁。"
+      ],
+      "qrels": {
+        "drink": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 3,
+    "context_estimated_tokens": 112,
+    "retrieval_ms": 18.533042,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa5",
+    "method": "hybrid_rerank",
+    "query": "我有什么运动爱好？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa5",
+      "query": "我有什么运动爱好？",
+      "answers": [
+        "我喜欢游泳。"
+      ],
+      "qrels": {
+        "sport": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 10.425875,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa6",
+    "method": "hybrid_rerank",
+    "query": "我的代码编辑器叫什么？",
+    "prediction": {
+      "text": "我的编辑器是 Neovim",
+      "refused": false,
+      "citations": [
+        "3fb21ca9-3211-585e-af81-30a0fbf45baa"
+      ]
+    },
+    "labels": {
+      "id": "qa6",
+      "query": "我的代码编辑器叫什么？",
+      "answers": [
+        "我的编辑器是 Neovim。"
+      ],
+      "qrels": {
+        "editor": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "editor"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 45,
+    "retrieval_ms": 18.75025,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa7",
+    "method": "hybrid_rerank",
+    "query": "我的猫叫什么名字？",
+    "prediction": {
+      "text": "我的猫叫豆包",
+      "refused": false,
+      "citations": [
+        "d858140f-fc71-5c96-a217-5801b2a158a9"
+      ]
+    },
+    "labels": {
+      "id": "qa7",
+      "query": "我的猫叫什么名字？",
+      "answers": [
+        "我的猫叫豆包。"
+      ],
+      "qrels": {
+        "pet": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "pet"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 38,
+    "retrieval_ms": 18.4295,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa8",
+    "method": "hybrid_rerank",
+    "query": "我的周会是什么时间？",
+    "prediction": {
+      "text": "我的周会在星期二上午十点",
+      "refused": false,
+      "citations": [
+        "e6509436-c569-5a49-9cef-60661009139b"
+      ]
+    },
+    "labels": {
+      "id": "qa8",
+      "query": "我的周会是什么时间？",
+      "answers": [
+        "我的周会在星期二上午十点。"
+      ],
+      "qrels": {
+        "meeting": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "meeting"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 44,
+    "retrieval_ms": 18.667458,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa9",
+    "method": "hybrid_rerank",
+    "query": "我星期三怎么去上班？",
+    "prediction": {
+      "text": "我在星期三乘地铁上班",
+      "refused": false,
+      "citations": [
+        "60785184-0375-57a5-993d-db9959aab411"
+      ]
+    },
+    "labels": {
+      "id": "qa9",
+      "query": "我星期三怎么去上班？",
+      "answers": [
+        "我在星期三乘地铁上班。"
+      ],
+      "qrels": {
+        "commute": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "commute",
+      "meeting"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 2,
+    "context_estimated_tokens": 86,
+    "retrieval_ms": 18.751625,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa10",
+    "method": "hybrid_rerank",
+    "query": "我昨天到访了哪里？",
+    "prediction": {
+      "text": "我昨天去了重庆",
+      "refused": false,
+      "citations": [
+        "4d27f340-3bda-5e28-9eb5-891c0454bd21"
+      ]
+    },
+    "labels": {
+      "id": "qa10",
+      "query": "我昨天到访了哪里？",
+      "answers": [
+        "我昨天去了重庆。"
+      ],
+      "qrels": {
+        "trip": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "trip"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 39,
+    "retrieval_ms": 11.265084,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa11",
+    "method": "hybrid_rerank",
+    "query": "我通过了什么考试？",
+    "prediction": {
+      "text": "我已经通过数据库考试",
+      "refused": false,
+      "citations": [
+        "d5573300-1d2e-5354-a3d0-da1098b1716b"
+      ]
+    },
+    "labels": {
+      "id": "qa11",
+      "query": "我通过了什么考试？",
+      "answers": [
+        "我已经通过数据库考试。"
+      ],
+      "qrels": {
+        "exam": 1
+      },
+      "unanswerable": false
+    },
+    "retrieved": [
+      "exam"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 42,
+    "retrieval_ms": 13.674459,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa_neg0",
+    "method": "hybrid_rerank",
+    "query": "我的银行卡号是什么？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa_neg0",
+      "query": "我的银行卡号是什么？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    "retrieved": [
+      "pet",
+      "editor",
+      "meeting"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 127,
+    "retrieval_ms": 18.632,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa_neg1",
+    "method": "hybrid_rerank",
+    "query": "我最喜欢哪支足球队？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa_neg1",
+      "query": "我最喜欢哪支足球队？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    "retrieved": [
+      "sport",
+      "drink",
+      "food"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 112,
+    "retrieval_ms": 18.828958,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa_neg2",
+    "method": "hybrid_rerank",
+    "query": "我的生日在哪一天？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa_neg2",
+      "query": "我的生日在哪一天？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    "retrieved": [
+      "pet",
+      "meeting",
+      "editor"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 3,
+    "context_estimated_tokens": 127,
+    "retrieval_ms": 18.424625,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false
+  },
+  {
+    "id": "qa_neg3",
+    "method": "hybrid_rerank",
+    "query": "我养的狗是什么品种？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "id": "qa_neg3",
+      "query": "我养的狗是什么品种？",
+      "answers": [],
+      "qrels": {},
+      "unanswerable": true
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 10.168458,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false
+  },
+  {
+    "id": "updated-home",
+    "method": "hybrid_rerank",
+    "query": "我住在哪个城市？",
+    "prediction": {
+      "text": "我住在深圳。",
+      "refused": false,
+      "citations": [
+        "5fdcdc86-452c-5591-aee1-b950a7386885"
+      ]
+    },
+    "labels": {
+      "answers": [
+        "我住在深圳。"
+      ],
+      "unanswerable": false,
+      "qrels": {
+        "home": 1
+      },
+      "stale_facts": [
+        "我住在成都"
+      ]
+    },
+    "retrieved": [
+      "home"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 38,
+    "retrieval_ms": 13.542541,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "self_governance_dynamic"
+  },
+  {
+    "id": "forgotten-home",
+    "method": "hybrid_rerank",
+    "query": "我住在哪个城市？",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "answers": [],
+      "unanswerable": true,
+      "qrels": {},
+      "stale_facts": [
+        "我住在成都",
+        "我住在深圳",
+        "我住在北京"
+      ]
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 11.751292,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false,
+    "benchmark": "self_governance_dynamic"
+  },
+  {
+    "id": "19b5f2b3_abs",
+    "method": "bm25",
+    "query": "How long was I in Korea for?",
+    "prediction": {
+      "text": "[2023/05/25 (Thu) 04:11] user: I'm actually thinking of visiting South Korea.",
+      "refused": false,
+      "citations": [
+        "b3f179a1-cc96-5d00-bec6-fd2f5631ea4f"
+      ]
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_5ff494b9_abs"
+      ],
+      "answers": [
+        "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+      ],
+      "unanswerable": true,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "3e59ee68_1",
+      "answer_5ff494b9_abs",
+      "9f8fa5e4_2",
+      "e44a5733_1",
+      "66c0b73d_1",
+      "66138e8d_1",
+      "61e0ba9b_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 10,
+    "context_estimated_tokens": 3849,
+    "retrieval_ms": 130.9245,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "19b5f2b3_abs",
+    "method": "vector_tfidf",
+    "query": "How long was I in Korea for?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_5ff494b9_abs"
+      ],
+      "answers": [
+        "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+      ],
+      "unanswerable": true,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_5ff494b9_abs",
+      "sharegpt_G9RAbBH_0",
+      "d0b0dabe",
+      "e44a5733_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 56.118875,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "19b5f2b3_abs",
+    "method": "hybrid",
+    "query": "How long was I in Korea for?",
+    "prediction": {
+      "text": "[2023/05/25 (Thu) 04:11] user: I'm actually thinking of visiting South Korea.",
+      "refused": false,
+      "citations": [
+        "b3f179a1-cc96-5d00-bec6-fd2f5631ea4f"
+      ]
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_5ff494b9_abs"
+      ],
+      "answers": [
+        "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+      ],
+      "unanswerable": true,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_5ff494b9_abs",
+      "3e59ee68_1",
+      "9f8fa5e4_2",
+      "e44a5733_1",
+      "66c0b73d_1",
+      "66138e8d_1",
+      "61e0ba9b_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 10,
+    "context_estimated_tokens": 3849,
+    "retrieval_ms": 114.439917,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "19b5f2b3_abs",
+    "method": "hybrid_rerank",
+    "query": "How long was I in Korea for?",
+    "prediction": {
+      "text": "**Ha Long Bay, Vietnam**: Cruise through emerald waters and limestone karsts in this stunning bay.",
+      "refused": false,
+      "citations": [
+        "d3a9038a-c566-52a1-875c-963e5791ec6f"
+      ]
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_5ff494b9_abs"
+      ],
+      "answers": [
+        "You did not mention this information. You mentioned staying in Japan, but not in Korea."
+      ],
+      "unanswerable": true,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_5ff494b9_abs",
+      "9f8fa5e4_2",
+      "3e59ee68_1",
+      "61e0ba9b_1",
+      "d0b0dabe",
+      "66c0b73d_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 7,
+    "context_estimated_tokens": 3679,
+    "retrieval_ms": 177.622625,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "c6853660",
+    "method": "bm25",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3060.055666,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "c6853660",
+    "method": "vector_tfidf",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [
+      "answer_626e93c4_2",
+      "answer_626e93c4_1",
+      "33994682_3",
+      "6ed1c85e"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 62.559292,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "c6853660",
+    "method": "hybrid",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3046.233584,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "c6853660",
+    "method": "hybrid_rerank",
+    "query": "Did I mostly recently increase or decrease the limit on the number of cups of coffee in the morning?",
+    "prediction": {
+      "text": "Speaking of my morning coffee, I have increased the limit to two cups, and I'm thinking of experimenting with different sweeteners, like stevia or honey.",
+      "refused": false,
+      "citations": [
+        "5ac4716c-68c3-544c-8f60-a13f484a38a2"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_626e93c4_1": 1,
+        "answer_626e93c4_2": 1
+      },
+      "reference_session_ids": [
+        "answer_626e93c4_1",
+        "answer_626e93c4_2"
+      ],
+      "answers": [
+        "You increased the limit (from one cup to two cups)"
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [
+      "answer_626e93c4_2",
+      "33994682_3",
+      "answer_626e93c4_1",
+      "a4863bcb_2"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 6,
+    "context_estimated_tokens": 3796,
+    "retrieval_ms": 164.785292,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "37f165cf",
+    "method": "bm25",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3007.169625,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "37f165cf",
+    "method": "vector_tfidf",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "answer_6b9b2b1e_1",
+      "answer_6b9b2b1e_2",
+      "c0f6571a_2",
+      "sharegpt_5m6qXKr_0",
+      "a41d46df",
+      "sharegpt_2yaKUmC_0"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 16.130458,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "37f165cf",
+    "method": "hybrid",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3005.50725,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "37f165cf",
+    "method": "hybrid_rerank",
+    "query": "What was the page count of the two novels I finished in January and March?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_6b9b2b1e_2": 1,
+        "answer_6b9b2b1e_1": 1
+      },
+      "reference_session_ids": [
+        "answer_6b9b2b1e_2",
+        "answer_6b9b2b1e_1"
+      ],
+      "answers": [
+        "856"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3007.347584,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "51b23612",
+    "method": "bm25",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3063.582,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "51b23612",
+    "method": "vector_tfidf",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [
+      "answer_ultrachat_427265",
+      "ultrachat_343",
+      "99b061c5_2"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 69.972542,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "51b23612",
+    "method": "hybrid",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3055.034958,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "51b23612",
+    "method": "hybrid_rerank",
+    "query": "I was going through our previous conversation about political propaganda and humor, and I was wondering if you could remind me of that Soviet cartoon you mentioned that mocked Western culture?",
+    "prediction": {
+      "text": "One example is the popular Soviet cartoon, “Nu, pogodi!” which mocked Western culture and portrayed the Soviet Union as superior.",
+      "refused": false,
+      "citations": [
+        "9dc0be07-c7ad-51d0-8bc6-f40715e62400"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_427265": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_427265"
+      ],
+      "answers": [
+        "Nu, pogodi!"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [
+      "answer_ultrachat_427265",
+      "ultrachat_343",
+      "99b061c5_2",
+      "255c753b_1",
+      "409015ef_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 4,
+    "context_estimated_tokens": 3943,
+    "retrieval_ms": 194.620917,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1a1907b4",
+    "method": "bm25",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3009.567,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1a1907b4",
+    "method": "vector_tfidf",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [
+      "ultrachat_183428",
+      "9585e0c6_1",
+      "78dbd237",
+      "4f3b36d4_5",
+      "e622a1bd",
+      "ae77c245",
+      "e42e7876_5",
+      "83a4f14d_1"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 16.75225,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1a1907b4",
+    "method": "hybrid",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3005.326875,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1a1907b4",
+    "method": "hybrid_rerank",
+    "query": "I've been thinking about making a cocktail for an upcoming get-together, but I'm not sure which one to choose. Any suggestions?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_719502eb": 1
+      },
+      "reference_session_ids": [
+        "answer_719502eb"
+      ],
+      "answers": [
+        "Considering their mixology class background, the user would prefer cocktail suggestions that build upon their existing skills and interests, such as creative variations of classic cocktails or innovative twists on familiar flavors. They might appreciate recommendations that incorporate their experience with refreshing summer drinks like Pimm's Cup. The user would not prefer overly simplistic or basic cocktail recipes, and may not be interested in suggestions that don't take into account their mixology class background."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3008.4735,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1faac195",
+    "method": "bm25",
+    "query": "Where does my sister Emily live?",
+    "prediction": {
+      "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "f7de8dfa-edf9-5c88-a2ab-5ed5c200a302"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_d01949bf",
+      "8064b6ca",
+      "f2ccf83b",
+      "ultrachat_403684",
+      "d2905eb6_2",
+      "ultrachat_390439",
+      "9d3d54f7"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 6,
+    "context_estimated_tokens": 2320,
+    "retrieval_ms": 1807.6025,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1faac195",
+    "method": "vector_tfidf",
+    "query": "Where does my sister Emily live?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_d01949bf",
+      "8064b6ca",
+      "d2905eb6_2",
+      "f2ccf83b",
+      "b2543a58_3",
+      "2def525b_2",
+      "8badd477_3",
+      "9d3d54f7"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 77.781792,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1faac195",
+    "method": "hybrid",
+    "query": "Where does my sister Emily live?",
+    "prediction": {
+      "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "f7de8dfa-edf9-5c88-a2ab-5ed5c200a302"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "answer_d01949bf",
+      "8064b6ca",
+      "f2ccf83b",
+      "d2905eb6_2",
+      "ultrachat_403684",
+      "ultrachat_390439",
+      "9d3d54f7"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 10,
+    "context_estimated_tokens": 3483,
+    "retrieval_ms": 1795.16125,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1faac195",
+    "method": "hybrid_rerank",
+    "query": "Where does my sister Emily live?",
+    "prediction": {
+      "text": "[2023/05/20 (Sat) 21:14] user: I'm thinking of visiting my sister Emily in Denver soon, and I was wondering if you knew any kid-friendly attractions there?",
+      "refused": false,
+      "citations": [
+        "f7de8dfa-edf9-5c88-a2ab-5ed5c200a302"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_d01949bf": 1
+      },
+      "reference_session_ids": [
+        "answer_d01949bf"
+      ],
+      "answers": [
+        "Denver"
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-user"
+    },
+    "retrieved": [
+      "d2905eb6_2",
+      "answer_d01949bf",
+      "f2ccf83b",
+      "8064b6ca",
+      "9d3d54f7",
+      "b2543a58_3",
+      "8badd477_3"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 8,
+    "context_estimated_tokens": 3949,
+    "retrieval_ms": 1834.334916,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "gpt4_2f584639",
+    "method": "bm25",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3085.806667,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "gpt4_2f584639",
+    "method": "vector_tfidf",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [
+      "answer_11a8f823_2",
+      "answer_11a8f823_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 93.81225,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "gpt4_2f584639",
+    "method": "hybrid",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3069.864584,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "gpt4_2f584639",
+    "method": "hybrid_rerank",
+    "query": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_11a8f823_2": 1,
+        "answer_11a8f823_1": 1
+      },
+      "reference_session_ids": [
+        "answer_11a8f823_2",
+        "answer_11a8f823_1"
+      ],
+      "answers": [
+        "the photo album for my mom"
+      ],
+      "unanswerable": false,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3071.141625,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "c8090214_abs",
+    "method": "bm25",
+    "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_70dc7d08_abs_1",
+        "answer_70dc7d08_abs_2"
+      ],
+      "answers": [
+        "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+      ],
+      "unanswerable": true,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3072.154459,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "c8090214_abs",
+    "method": "vector_tfidf",
+    "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_70dc7d08_abs_1",
+        "answer_70dc7d08_abs_2"
+      ],
+      "answers": [
+        "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+      ],
+      "unanswerable": true,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [
+      "answer_70dc7d08_abs_1",
+      "ultrachat_129606",
+      "d4f02577_2",
+      "ca3aa07f_1",
+      "64c71782",
+      "f10be626"
+    ],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 84.205125,
+    "error": null,
+    "answer_correct": true,
+    "refusal_correct": true,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "c8090214_abs",
+    "method": "hybrid",
+    "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_70dc7d08_abs_1",
+        "answer_70dc7d08_abs_2"
+      ],
+      "answers": [
+        "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+      ],
+      "unanswerable": true,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3062.603917,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "c8090214_abs",
+    "method": "hybrid_rerank",
+    "query": "How many days before I bought my iPad did I attend the Holiday Market?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {},
+      "reference_session_ids": [
+        "answer_70dc7d08_abs_1",
+        "answer_70dc7d08_abs_2"
+      ],
+      "answers": [
+        "The information provided is not enough. You mentioned getting the iPhone 13 Pro and attending the market, but you did not mention buying an iPad."
+      ],
+      "unanswerable": true,
+      "question_type": "temporal-reasoning"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3070.418584,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": false,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "d7c942c3",
+    "method": "bm25",
+    "query": "Is my mom using the same grocery list method as me?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3015.765542,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "d7c942c3",
+    "method": "vector_tfidf",
+    "query": "Is my mom using the same grocery list method as me?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [
+      "answer_eecb10d9_2",
+      "answer_eecb10d9_1",
+      "b2243528_1",
+      "sharegpt_LOF3smB_25",
+      "sharegpt_1MKqbAt_0"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 25.398083,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "d7c942c3",
+    "method": "hybrid",
+    "query": "Is my mom using the same grocery list method as me?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3014.001542,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "d7c942c3",
+    "method": "hybrid_rerank",
+    "query": "Is my mom using the same grocery list method as me?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_eecb10d9_1": 1,
+        "answer_eecb10d9_2": 1
+      },
+      "reference_session_ids": [
+        "answer_eecb10d9_1",
+        "answer_eecb10d9_2"
+      ],
+      "answers": [
+        "Yes."
+      ],
+      "unanswerable": false,
+      "question_type": "knowledge-update"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3015.242583,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "6cb6f249",
+    "method": "bm25",
+    "query": "How many days did I take social media breaks in total?",
+    "prediction": {
+      "text": "this may include taking breaks from social media or avoiding it altogether on certain days of the week.",
+      "refused": false,
+      "citations": [
+        "d033d706-5f0a-550c-a314-b2586ff5f1b3"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": false,
+    "context_item_count": 5,
+    "context_estimated_tokens": 4072,
+    "retrieval_ms": 2571.036709,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "6cb6f249",
+    "method": "vector_tfidf",
+    "query": "How many days did I take social media breaks in total?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 15.323,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "6cb6f249",
+    "method": "hybrid",
+    "query": "How many days did I take social media breaks in total?",
+    "prediction": {
+      "text": "this may include taking breaks from social media or avoiding it altogether on certain days of the week.",
+      "refused": false,
+      "citations": [
+        "d033d706-5f0a-550c-a314-b2586ff5f1b3"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": false,
+    "context_item_count": 5,
+    "context_estimated_tokens": 4072,
+    "retrieval_ms": 2496.078167,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "6cb6f249",
+    "method": "hybrid_rerank",
+    "query": "How many days did I take social media breaks in total?",
+    "prediction": {
+      "text": "this may include taking breaks from social media or avoiding it altogether on certain days of the week.",
+      "refused": false,
+      "citations": [
+        "d033d706-5f0a-550c-a314-b2586ff5f1b3"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_a4204937_2": 1,
+        "answer_a4204937_1": 1
+      },
+      "reference_session_ids": [
+        "answer_a4204937_2",
+        "answer_a4204937_1"
+      ],
+      "answers": [
+        "17 days"
+      ],
+      "unanswerable": false,
+      "question_type": "multi-session"
+    },
+    "retrieved": [
+      "ultrachat_404221",
+      "answer_a4204937_1"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": false,
+    "context_item_count": 5,
+    "context_estimated_tokens": 4072,
+    "retrieval_ms": 2541.631292,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1b9b7252",
+    "method": "bm25",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3070.685291,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1b9b7252",
+    "method": "vector_tfidf",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "prediction": {
+      "text": "Mindful.org: This website includes guided imagery exercises that you can use for free, such as \"The Mountain Meditation\" and \"The Body Scan Meditation.\" 3.",
+      "refused": false,
+      "citations": [
+        "d2b70924-ee3b-5c12-b6e8-12858d5c5b58"
+      ]
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [
+      "answer_ultrachat_115151",
+      "f7796d96_1",
+      "330c05e7_1",
+      "3829d412_2",
+      "sharegpt_1AhFMpw_5"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 1,
+    "context_estimated_tokens": 989,
+    "retrieval_ms": 72.681917,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1b9b7252",
+    "method": "hybrid",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3053.735333,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "1b9b7252",
+    "method": "hybrid_rerank",
+    "query": "I wanted to follow up on our previous conversation about mindfulness techniques. You mentioned some great resources for guided imagery exercises, can you remind me of the website that had free exercises like 'The Mountain Meditation' and 'The Body Scan Meditation'?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_ultrachat_115151": 1
+      },
+      "reference_session_ids": [
+        "answer_ultrachat_115151"
+      ],
+      "answers": [
+        "Mindful.org."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-assistant"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3056.639875,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "35a27287",
+    "method": "bm25",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3068.877,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "35a27287",
+    "method": "vector_tfidf",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [
+      "answer_9b182436",
+      "ultrachat_39307"
+    ],
+    "retrieval_hit": true,
+    "all_evidence_hit": true,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 73.5685,
+    "error": null,
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "35a27287",
+    "method": "hybrid",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3058.689625,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  },
+  {
+    "id": "35a27287",
+    "method": "hybrid_rerank",
+    "query": "Can you recommend some interesting cultural events happening around me this weekend?",
+    "prediction": {
+      "text": "信息不足，无法回答。",
+      "refused": true,
+      "citations": []
+    },
+    "labels": {
+      "qrels": {
+        "answer_9b182436": 1
+      },
+      "reference_session_ids": [
+        "answer_9b182436"
+      ],
+      "answers": [
+        "The user would prefer responses that suggest cultural events where they can practice their language skills, particularly Spanish and French. They would also appreciate if the event has a focus on language learning resources. They would not prefer events that do not provide opportunities for language practice or cultural exchange."
+      ],
+      "unanswerable": false,
+      "question_type": "single-session-preference"
+    },
+    "retrieved": [],
+    "retrieval_hit": false,
+    "all_evidence_hit": false,
+    "context_item_count": 0,
+    "context_estimated_tokens": 0,
+    "retrieval_ms": 3061.127,
+    "error": "db_statement_timeout",
+    "answer_correct": false,
+    "refusal_correct": null,
+    "stale_fact_error": false,
+    "benchmark": "LongMemEval-s public subset"
+  }
+]

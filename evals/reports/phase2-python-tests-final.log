@@ -1,0 +1,18 @@
+test_adapter_chunk_boundary_is_valid_for_repository (test_metrics.MetricTests.test_adapter_chunk_boundary_is_valid_for_repository) ... ok
+test_adapter_never_imports_gold_or_filters_evidence (test_metrics.MetricTests.test_adapter_never_imports_gold_or_filters_evidence) ... ok
+test_context_receives_relevance_score_without_changing_raw_retrieval (test_metrics.MetricTests.test_context_receives_relevance_score_without_changing_raw_retrieval) ... ok
+test_cutoffs_duplicates_and_empty (test_metrics.MetricTests.test_cutoffs_duplicates_and_empty) ... ok
+test_dataset_rejects_bad_labels (test_metrics.MetricTests.test_dataset_rejects_bad_labels) ... ok
+test_existing_report_is_never_overwritten (test_metrics.MetricTests.test_existing_report_is_never_overwritten) ... ok
+test_fact_matching_is_one_to_one_and_maximum (test_metrics.MetricTests.test_fact_matching_is_one_to_one_and_maximum) ... ok
+test_graded_ndcg_uses_all_relevant_and_normalizes (test_metrics.MetricTests.test_graded_ndcg_uses_all_relevant_and_normalizes) ... ok
+test_math_reference_tolerates_only_numerically_tied_order (test_metrics.MetricTests.test_math_reference_tolerates_only_numerically_tied_order) ... ok
+test_percentiles_interpolate (test_metrics.MetricTests.test_percentiles_interpolate) ... ok
+test_retrieval_hit_does_not_make_answer_correct (test_metrics.MetricTests.test_retrieval_hit_does_not_make_answer_correct) ... ok
+test_tfidf_only_fits_corpus (test_metrics.MetricTests.test_tfidf_only_fits_corpus) ... ok
+test_timeout_is_not_a_correct_abstention (test_metrics.MetricTests.test_timeout_is_not_a_correct_abstention) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.048s
+
+OK
