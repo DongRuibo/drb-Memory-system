@@ -1,0 +1,15 @@
+{
+  "checked_date": "2026-11-07",
+  "provider": "SiliconFlow CN",
+  "model": "deepseek-ai/DeepSeek-V3.2",
+  "input_cny_per_million": "4.00",
+  "output_cny_per_million": "6.00",
+  "cache_discount_assumed": false,
+  "official_pricing_page_rechecked": true,
+  "official_units_verified": true,
+  "urls": [
+    "https://www.siliconflow.cn/pricing",
+    "https://api-docs.siliconflow.cn/docs/release-notes/overview"
+  ],
+  "paid_model_requests": 0
+}

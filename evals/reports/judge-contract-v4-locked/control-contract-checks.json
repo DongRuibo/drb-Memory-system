@@ -1,0 +1,146 @@
+{
+  "kind": "offline_structure_checks_not_model_scoring",
+  "cases": [
+    {
+      "id": "c01",
+      "family": "incomplete_supported",
+      "schema_checked": true,
+      "input_bound": 4227,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c02",
+      "family": "incomplete_supported",
+      "schema_checked": true,
+      "input_bound": 4227,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c03",
+      "family": "incomplete_unsupported",
+      "schema_checked": true,
+      "input_bound": 4251,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c04",
+      "family": "incomplete_unsupported",
+      "schema_checked": true,
+      "input_bound": 4246,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c05",
+      "family": "complete_supported",
+      "schema_checked": true,
+      "input_bound": 4229,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c06",
+      "family": "complete_supported",
+      "schema_checked": true,
+      "input_bound": 4251,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c07",
+      "family": "complete_partly_false",
+      "schema_checked": true,
+      "input_bound": 4219,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c08",
+      "family": "complete_partly_false",
+      "schema_checked": true,
+      "input_bound": 4253,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c09",
+      "family": "entity_binding",
+      "schema_checked": true,
+      "input_bound": 4219,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c10",
+      "family": "entity_binding",
+      "schema_checked": true,
+      "input_bound": 4251,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c11",
+      "family": "temporal_update",
+      "schema_checked": true,
+      "input_bound": 4303,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c12",
+      "family": "temporal_update",
+      "schema_checked": true,
+      "input_bound": 4413,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c13",
+      "family": "abstention",
+      "schema_checked": true,
+      "input_bound": 4202,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    },
+    {
+      "id": "c14",
+      "family": "abstention",
+      "schema_checked": true,
+      "input_bound": 4212,
+      "annotation_keys_hidden": true,
+      "question_not_in_prompt_examples": true,
+      "real_semantic_judgment": null,
+      "human_review": "pending"
+    }
+  ],
+  "real_v4_model_results": null
+}

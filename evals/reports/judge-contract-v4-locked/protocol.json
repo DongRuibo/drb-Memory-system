@@ -1,0 +1,176 @@
+{
+  "version": "judge-evaluation-contract-v4",
+  "mode": "offline_preparation_only",
+  "authorized": false,
+  "judge_model": {
+    "provider": "SiliconFlow CN",
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "revision": "provider-managed alias; immutable serving revision unavailable",
+    "base_url": "https://api.siliconflow.cn/v1",
+    "availability": "publicly listed; account access not probed",
+    "temperature": 0,
+    "enable_thinking": false,
+    "thinking_budget": 128,
+    "max_tokens": 512
+  },
+  "reader_model": {
+    "provider": "SiliconFlow CN",
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "revision": "provider-managed alias; immutable serving revision unavailable",
+    "base_url": "https://api.siliconflow.cn/v1",
+    "availability": "publicly listed; account access not probed",
+    "temperature": 0,
+    "enable_thinking": false,
+    "thinking_budget": 128,
+    "max_tokens": 768
+  },
+  "output_schema": "accurate:boolean,supported:boolean|null,reason:string",
+  "judge_prompt_sha256": "ba7ab1acc3aec7b379313b7b20ca61a2226c05feb40418c6fd43022f4eed6d05",
+  "v3_judge_prompt_sha256": "29fc76587f5566cd1ae1c6e5d53695f2897ba7041467041082388d0835b28fd3",
+  "reader_prompt_sha256": "8607f3437b00718b55c0665179e3cacee4e028921286b8f83674f622933ae7e1",
+  "calibration": {
+    "path": "evals/datasets/judge_calibration_v3.json",
+    "sha256": "0c3ca2749d095bacf8a44af97c0802b15280b2fbbbf5646c9914b6d634b410c4",
+    "gate": {
+      "expected_cases": 16,
+      "minimum_complete_case_matches": 15,
+      "match_fields": [
+        "semantic_accuracy",
+        "supported"
+      ],
+      "null_support_is_required_for_abstentions": true,
+      "critical_error_tolerance": 0
+    }
+  },
+  "controls": {
+    "path": "evals/datasets/judge_contract_v4_controls.json",
+    "sha256": "82c3e51a279ccdacb41abc1dbdbcbe66b5a3af4cc568ad9b5c1cb1f9e9800f7c",
+    "gate": {
+      "expected_cases": 14,
+      "minimum_complete_case_matches": 14,
+      "match_fields": [
+        "semantic_accuracy",
+        "supported"
+      ],
+      "critical_error_tolerance": 0
+    },
+    "human_review_required": true,
+    "additional_gate_is_proposed_not_authorized": true
+  },
+  "formal_protocol_preserved": {
+    "seed": 20261108,
+    "candidate_budget": 20,
+    "output_chunks": 10,
+    "rrf": {
+      "bm25_weight": 1.15,
+      "vector_weight": 1.0,
+      "k": 60
+    },
+    "reader_methods": [
+      "oracle",
+      "bm25",
+      "semantic",
+      "hybrid_semantic"
+    ],
+    "retrieval_methods": [
+      "bm25",
+      "tfidf",
+      "semantic",
+      "hybrid_semantic"
+    ],
+    "context": {
+      "policy": "eval rank-only after canonical authorization; not production relevance-gated Context Pack",
+      "max_tokens": 4096,
+      "max_utf8_bytes": 12000,
+      "truncation": "whole ranked chunks then at most one prefix; omit rest",
+      "score_threshold": null
+    }
+  },
+  "formal_lock_sha256": "7c50ca5ed56dc660773e32352c163a9b7edd6d243bed35cd4855510a82c9d417",
+  "trial_id": "judge-contract-v4-trial-01",
+  "previous_budget_key": "75cf9507780fa669528495783f6b5880bd62dc59a13075e3382c2ce18dd67679",
+  "proposed_budget_key": "3493e61d9affacf8ad854e87372b8225cbcc5a79204c40b706f0ae347b40c8cd",
+  "proposed_stage_claim_keys": {
+    "calibration_and_controls": "dd7ea2a8e7898a628c1f07aca435e32b075c56c51d2bbea5b5d3b48bfd8da0db",
+    "formal": "b220eb5ac063d22c106682c9ca9e8ddf51438ac19bd80082c4d24d6241c8bd9e"
+  },
+  "previous_receipt_sha256": "9a8b61ad5ed1c7ec87e85b1cd445ae3cf54b59670721d79291f826b3bb00e09b",
+  "previous_cost_cny": "0.035568",
+  "previous_cost_basis": "settled usage at public list prices; invoice not reconciled",
+  "prices_cny_per_million": {
+    "input": "4.00",
+    "output": "6.00",
+    "cache_discount_assumed": false,
+    "pricing_url": "https://www.siliconflow.cn/pricing"
+  },
+  "global_cumulative_cap_cny": "12.00",
+  "proposed_new_round_hard_cap_cny": "10.931200",
+  "cumulative_worst_cost_cny": "10.966768",
+  "role_budgets": [
+    {
+      "role": "smoke",
+      "requests": 2,
+      "input_cap": 16384,
+      "visible_output_cap": 768,
+      "billable_output_cap": 896,
+      "cost_ceiling_cny": "0.141824"
+    },
+    {
+      "role": "calibration",
+      "requests": 16,
+      "input_cap": 8192,
+      "visible_output_cap": 512,
+      "billable_output_cap": 640,
+      "cost_ceiling_cny": "0.585728"
+    },
+    {
+      "role": "controls",
+      "requests": 14,
+      "input_cap": 8192,
+      "visible_output_cap": 512,
+      "billable_output_cap": 640,
+      "cost_ceiling_cny": "0.512512"
+    },
+    {
+      "role": "reader",
+      "requests": 56,
+      "input_cap": 16384,
+      "visible_output_cap": 768,
+      "billable_output_cap": 896,
+      "cost_ceiling_cny": "3.971072"
+    },
+    {
+      "role": "judge",
+      "requests": 56,
+      "input_cap": 24576,
+      "visible_output_cap": 512,
+      "billable_output_cap": 640,
+      "cost_ceiling_cny": "5.720064"
+    }
+  ],
+  "proposed_max_requests": 144,
+  "proposed_calibration_stage_requests": 32,
+  "proposed_calibration_stage_ceiling_cny": "1.240064",
+  "formal_stage_requests": 112,
+  "formal_stage_ceiling_cny": "9.691136",
+  "max_input_tokens": 2572288,
+  "max_billable_output_tokens": 107008,
+  "timeout_seconds": 45,
+  "retries": 0,
+  "restart_policy": "stable one-shot stage claims; no automatic resume or new output-directory budget",
+  "stage_authorization_policy": "calibration/controls and formal require explicit scope; a 32-call grant never authorizes the 112-call formal stage",
+  "cross_round_policy": "verify previous receipt hash and settled cost before reserving; cumulative previous+new spent/reserved <=12; preserve old claim",
+  "runtime_sha256": {
+    "evals/memory_eval/judge4.py": "b80d18e5362db135352779b706d45918ec7829bc56c534706ca0576a34440152",
+    "evals/memory_eval/models3.py": "aa8f0b0790eb08d88699166de8db5f163bf6a805d23a11f7cbea7dd02cc90a8d",
+    "evals/memory_eval/protocol3.py": "35109a5bc89d6cff7c3722efee29095e4ba4f93273815ac36b2a35cb42c522d8",
+    "evals/memory_eval/phase3.py": "4757b329013d23c808e96eab7cd2be261312046cf0b95efe2de420ffac51d0bc"
+  },
+  "execution_gates": [
+    "new explicit authorization; previous unused allowance does not authorize V4",
+    "recheck real-time prices and model availability",
+    "16 calibration results, >=15 full matches, zero critical errors",
+    "proposed additional control gate: 14 full matches, zero critical errors; requires user confirmation",
+    "formal execution requires a separately sealed integration with this V4 adapter and existing budget client"
+  ]
+}

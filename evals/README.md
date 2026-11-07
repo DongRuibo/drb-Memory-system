@@ -224,3 +224,14 @@ PYTHONPATH=/tmp/drb-phase3-deps python3 -m evals.memory_eval.phase3 prepare \
 原模型、Prompt、V3 SHA、RRF和锁定集均不改；已存在的paid-budget claim与原账本保留。不要删除claim、更换输出目录或修改评分来续跑。可离线读取报告中的calibration-v3.json和judge-calibration.json，使用calibration_summary重算门禁；所有18次输入SHA均已与实际账本核对，Trace包含完整输入、原始输出、usage与费用。
 
 正式质量指标为null。历史工程集或开发子集结果不替代未执行的公开锁定集；真实Reader效果、Oracle、拒答和幻觉均未验证。下一轮实验安排须另行确认。
+
+
+## Judge Evaluation Contract V4（免费离线，待确认）
+
+首次真实校准的完整性/支持性混淆已形成独立V4 Prompt及适配器，未改V3或Reader/检索。见 [根因、最小差异及预算](../docs/EVAL_JUDGE_CONTRACT_V4.md) 和 [14例新对照复核表](../docs/JUDGE_V4_CONTROLS_REVIEW.md)。原16例标签及15/16、关键错误0门禁不变；旧真实结果回放仍失败，V4真实效果保持null。
+
+```bash
+python3 -m evals.memory_eval.judge4 prepare --output evals/runs/judge-v4-offline-001
+```
+
+该入口只准备输入和费用提案，没有models-run，不读Key或发模型请求。当前封存为reports/judge-contract-v4-locked；同轮judge-contract-v4及judge-contract-v4-final为较早的离线草案。收费集成与新授权尚待完成；不得复用旧授权/清零旧账本。提案新增14次独立对照，总144次；含首次0.035568元的累计最坏10.966768元。建议先确认32次校准及对照阶段（最坏1.240064元），不得默认为已授权正式112次。

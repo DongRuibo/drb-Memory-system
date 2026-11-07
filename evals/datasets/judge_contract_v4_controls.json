@@ -1,0 +1,574 @@
+{
+  "kind": "self_constructed_judge_contract_controls",
+  "version": "judge-contract-v4-controls-v1",
+  "human_review_status": "pending",
+  "not_used_as_prompt_examples": true,
+  "real_model_results": false,
+  "annotation_note": "同一开发者编写的预期标签与事实原子，待用户复核；不是自动语义判定、独立盲测或模型稳定性证据。",
+  "gate": {
+    "expected_cases": 14,
+    "minimum_complete_case_matches": 14,
+    "match_fields": [
+      "semantic_accuracy",
+      "supported"
+    ],
+    "critical_error_tolerance": 0
+  },
+  "cases": [
+    {
+      "id": "c01",
+      "family": "incomplete_supported",
+      "question": "Which two languages does Nora speak?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "Japanese and Spanish"
+      ],
+      "context": "Nora speaks Japanese and Spanish.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Japanese",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": true
+      },
+      "annotated_asserted_claims": [
+        "Nora speaks Japanese."
+      ],
+      "omitted_required_items": [
+        "Spanish"
+      ],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c01_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "c01_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c02",
+      "family": "incomplete_supported",
+      "question": "Which two tools did Orion approve?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "hammer and wrench"
+      ],
+      "context": "Orion approved a hammer and a wrench.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "A wrench.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": true
+      },
+      "annotated_asserted_claims": [
+        "Orion approved a wrench."
+      ],
+      "omitted_required_items": [
+        "hammer"
+      ],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c02_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "c02_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c03",
+      "family": "incomplete_unsupported",
+      "question": "Which three checkpoints did Tess visit?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "Harbor, Meadow, and Ridge"
+      ],
+      "context": "Tess visited Harbor, Meadow, and Ridge.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Harbor and Desert.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "annotated_asserted_claims": [
+        "Tess visited Harbor.",
+        "Tess visited Desert."
+      ],
+      "omitted_required_items": [
+        "Meadow",
+        "Ridge"
+      ],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c03_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "c03_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c04",
+      "family": "incomplete_unsupported",
+      "question": "Which three programming languages does Milo use?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "Rust, Julia, and Ruby"
+      ],
+      "context": "Milo uses Rust, Julia, and Ruby.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Rust and Swift.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "annotated_asserted_claims": [
+        "Milo uses Rust.",
+        "Milo uses Swift."
+      ],
+      "omitted_required_items": [
+        "Julia",
+        "Ruby"
+      ],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c04_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "c04_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c05",
+      "family": "complete_supported",
+      "question": "Which two materials did Kei select?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "oak and cork"
+      ],
+      "context": "Kei selected oak and cork.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Kei selected oak and cork.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "annotated_asserted_claims": [
+        "Kei selected oak.",
+        "Kei selected cork."
+      ],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "c05_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "c05_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c06",
+      "family": "complete_supported",
+      "question": "Which two rooms did Imani reserve?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "North and East"
+      ],
+      "context": "Imani reserved the North room and the East room.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "The East and North rooms.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "annotated_asserted_claims": [
+        "Imani reserved the East room.",
+        "Imani reserved the North room."
+      ],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "c06_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "c06_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c07",
+      "family": "complete_partly_false",
+      "question": "Which two plants did Jules buy?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "basil and mint"
+      ],
+      "context": "Jules bought basil and mint.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Basil and thyme.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "annotated_asserted_claims": [
+        "Jules bought basil.",
+        "Jules bought thyme."
+      ],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c07_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "c07_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c08",
+      "family": "complete_partly_false",
+      "question": "What is the build label?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "Nebula"
+      ],
+      "context": "The build label is Nebula. The build was created on 2025-03-11.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Nebula, created on 2025-03-09.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "annotated_asserted_claims": [
+        "The build label is Nebula.",
+        "The build was created on 2025-03-09."
+      ],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c08_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "c08_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c09",
+      "family": "entity_binding",
+      "question": "Which instrument does Uma play?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "cello"
+      ],
+      "context": "Uma plays the cello. Vik plays the violin.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "The violin.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "annotated_asserted_claims": [
+        "Uma plays the violin."
+      ],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c09_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "c09_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c10",
+      "family": "entity_binding",
+      "question": "Which workspace belongs to Kiran?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "Cobalt"
+      ],
+      "context": "The Cobalt workspace belongs to Kiran. The Amber workspace belongs to Leena.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Amber.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "annotated_asserted_claims": [
+        "The Amber workspace belongs to Kiran."
+      ],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c10_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "c10_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c11",
+      "family": "temporal_update",
+      "question": "What is Ivo's current office?",
+      "question_date": "2025-08-01",
+      "question_type": "knowledge-update",
+      "answers": [
+        "Birch"
+      ],
+      "context": "On 2025-01-01 Ivo worked in the Aspen office. Effective 2025-06-01, Ivo moved to the Birch office and no longer worked in Aspen.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Aspen.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": false
+      },
+      "annotated_asserted_claims": [
+        "As of 2025-08-01, Ivo currently works in Aspen."
+      ],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c11_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": true,
+          "code": "c11_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c12",
+      "family": "temporal_update",
+      "question": "What is Ivo's current office, and where did he work in January?",
+      "question_date": "2025-08-01",
+      "question_type": "knowledge-update",
+      "answers": [
+        "Currently Birch; Aspen in January"
+      ],
+      "context": "On 2025-01-01 Ivo worked in the Aspen office. Effective 2025-06-01, Ivo moved to the Birch office and no longer worked in Aspen.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Ivo worked in Aspen in January; he now works in Birch.",
+        "abstained": false,
+        "citations": [
+          "s"
+        ]
+      },
+      "expected": {
+        "semantic_accuracy": true,
+        "supported": true
+      },
+      "annotated_asserted_claims": [
+        "Ivo worked in Aspen in January 2025.",
+        "As of 2025-08-01, Ivo currently works in Birch."
+      ],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "c12_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "c12_support_mismatch"
+        }
+      ]
+    },
+    {
+      "id": "c13",
+      "family": "abstention",
+      "question": "Which team does Sora support?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "unknown"
+      ],
+      "context": "Sora reads fiction.",
+      "unanswerable": true,
+      "prediction": {
+        "answer": "Insufficient evidence.",
+        "abstained": true,
+        "citations": []
+      },
+      "expected": {
+        "semantic_accuracy": true,
+        "supported": null
+      },
+      "annotated_asserted_claims": [],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": false,
+          "code": "c13_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "operator": "not_null",
+          "code": "c13_support_not_null"
+        }
+      ]
+    },
+    {
+      "id": "c14",
+      "family": "abstention",
+      "question": "Which team does Talia support?",
+      "question_date": null,
+      "question_type": "single-session-user",
+      "answers": [
+        "Falcons"
+      ],
+      "context": "Talia supports the Falcons.",
+      "unanswerable": false,
+      "prediction": {
+        "answer": "Insufficient evidence.",
+        "abstained": true,
+        "citations": []
+      },
+      "expected": {
+        "semantic_accuracy": false,
+        "supported": null
+      },
+      "annotated_asserted_claims": [],
+      "omitted_required_items": [],
+      "critical_checks": [
+        {
+          "field": "semantic_accuracy",
+          "forbidden_value": true,
+          "code": "c14_accuracy_mismatch"
+        },
+        {
+          "field": "supported",
+          "operator": "not_null",
+          "code": "c14_support_not_null"
+        }
+      ]
+    }
+  ]
+}

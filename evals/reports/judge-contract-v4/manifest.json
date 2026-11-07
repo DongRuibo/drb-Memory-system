@@ -1,0 +1,12 @@
+{
+  "status": "offline_prepared_waiting_for_confirmation",
+  "contract_sha256": "14ab1e6f1d52c800c0f7d8e515e5b4fd55e326b4285fbf89b57c15b8e4fb67cb",
+  "config_file_sha256": "011c6b1086819cdb76e3393dcb3832c6b50cbfc8c7658b873b1bfd9bb11c106e",
+  "paid_calls_this_round": 0,
+  "v4_real_model_results": null,
+  "calibration_cases": 16,
+  "control_cases": 14,
+  "max_short_input_bound": 4330,
+  "old_failure_still_blocked": true,
+  "new_control_annotations_human_review": "pending"
+}

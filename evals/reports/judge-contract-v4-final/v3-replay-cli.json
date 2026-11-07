@@ -1,0 +1,223 @@
+{
+  "version": "judge-calibration-v3",
+  "expected_cases": 16,
+  "completed_cases": 16,
+  "complete_case_matches": 15,
+  "agreement": 0.9375,
+  "minimum_complete_case_matches": 15,
+  "critical_errors": [
+    {
+      "case_id": "partial_answer",
+      "field": "supported",
+      "forbidden_value": false,
+      "code": "partial_answer_marked_unsupported"
+    }
+  ],
+  "cases": [
+    {
+      "id": "preference_rubric_positive",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "The answer recommends a quiet indoor chess evening, which fully aligns with the reference's requirement for a quiet indoor activity reflecting an interest in chess while avoiding traffic and crowds. All material claims are directly supported by the evidence."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "full_sentence",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "The answer correctly states Ada lives in Paris, matching the reference and fully supported by the evidence."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "synonym",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "The answer 'carbonated water' is equivalent to the reference 'sparkling water' and is fully supported by the evidence."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "number_format",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "The answer '1,000' matches the reference '1000' exactly in meaning, and the citation correctly points to the evidence stating 'There are 1000 files.'"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "date_format",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "The response 'February 1, 2024' is an unambiguous date conversion of the reference '2024-02-01' and contains the same factual information without contradiction."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "supported_explanation",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "The answer correctly states Paris and includes the additional detail 'since 2020', which is present in the evidence and does not contradict the reference answer."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "invented_explanation",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "The answer states 'since 2019' but the evidence says 'since 2020', making the date fact incorrect. The core location 'Paris' is correct, but the added detail contradicts the evidence."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "decimal_error",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "The answer '15' contradicts the evidence stating the dose is 1.5 mg."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "entity_swap",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "The answer 'Lyon' is incorrect; the evidence states Ada lives in Paris."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "correct_abstention",
+      "judgment": {
+        "accurate": true,
+        "supported": null,
+        "reason": "The question is unanswerable based on the evidence, which contains no information about where Ada lives. The response correctly abstains by stating 'Insufficient evidence.' and setting abstained=true, matching the reference answer 'unknown'."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": true,
+      "critical_errors": []
+    },
+    {
+      "id": "unsupported_guess",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "The reference answer is 'unknown' because the evidence does not state where Ada lives. The model's answer 'Paris' is a concrete claim not present in the evidence, making it inaccurate. The claim is also unsupported as it does not follow from the given evidence."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "lucky_guess",
+      "judgment": {
+        "accurate": true,
+        "supported": false,
+        "reason": "The answer 'Paris' matches the reference, but the provided evidence ('Ada likes chess') does not support the claim about where Ada lives."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "arithmetic",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "The answer '17 days' matches the reference exactly and is directly derived from the evidence: 10 days + 7 days = 17 days."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "partial_answer",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "The answer 'Paris' is incomplete; the reference requires both 'Paris and Lyon'."
+      },
+      "agrees": false,
+      "mismatches": {
+        "supported": {
+          "expected": true,
+          "actual": false
+        }
+      },
+      "abstention_correct": null,
+      "critical_errors": [
+        {
+          "case_id": "partial_answer",
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "partial_answer_marked_unsupported"
+        }
+      ]
+    },
+    {
+      "id": "preference_rubric_negative",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "The answer recommends attending a busy parade, which contradicts the evidence that Ada wants to avoid traffic noise and crowds. The reference answer requires a quiet indoor activity reflecting an interest in chess."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "unnecessary_abstention",
+      "judgment": {
+        "accurate": false,
+        "supported": null,
+        "reason": "The evidence directly states 'Ada lives in Paris.' The question is answerable, but the model abstained, which is incorrect."
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": false,
+      "critical_errors": []
+    }
+  ],
+  "passed": false
+}
