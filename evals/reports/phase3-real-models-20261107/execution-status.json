@@ -1,0 +1,137 @@
+{
+  "status": "stopped_calibration_critical_error",
+  "git_commit": "63847f2bda73e97108444e8e0febc977634c6561",
+  "plan_seal": "c176fb91445566fe688bf7a284c3b2f54e55b289d0015f5abf355ec5e9346e2f",
+  "calibration_version": "judge-calibration-v3",
+  "calibration_sha256": "0c3ca2749d095bacf8a44af97c0802b15280b2fbbbf5646c9914b6d634b410c4",
+  "model": {
+    "provider": "SiliconFlow CN",
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "revision": "provider-managed alias; immutable serving revision unavailable",
+    "base_url": "https://api.siliconflow.cn/v1",
+    "availability": "publicly listed; account access not probed",
+    "temperature": 0,
+    "enable_thinking": false,
+    "thinking_budget": 128,
+    "max_tokens": 768
+  },
+  "returned_models": [
+    "deepseek-ai/DeepSeek-V3.2"
+  ],
+  "returned_fingerprints": [
+    ""
+  ],
+  "calibration": {
+    "completed": 16,
+    "complete_case_matches": 15,
+    "agreement": 0.9375,
+    "semantic_accuracy_label_agreements": 16,
+    "supported_label_agreements": 15,
+    "critical_errors": [
+      {
+        "case_id": "partial_answer",
+        "field": "supported",
+        "forbidden_value": false,
+        "code": "partial_answer_marked_unsupported"
+      }
+    ],
+    "passed": false,
+    "not_reader_qa_accuracy": true
+  },
+  "roles": {
+    "smoke": {
+      "requests": 2,
+      "input_tokens": 32,
+      "output_tokens": 16,
+      "reasoning_tokens": 0,
+      "cached_input_tokens": 0,
+      "estimated_cost_cny": "0.000224",
+      "p50_ms": 1815.9693750000001,
+      "p95_ms": 2003.1470253,
+      "min_ms": 1607.994208,
+      "max_ms": 2023.944542
+    },
+    "calibration": {
+      "requests": 16,
+      "input_tokens": 7627,
+      "output_tokens": 806,
+      "reasoning_tokens": 0,
+      "cached_input_tokens": 0,
+      "estimated_cost_cny": "0.035344",
+      "p50_ms": 3799.1085835,
+      "p95_ms": 18586.2575315,
+      "min_ms": 2799.167916,
+      "max_ms": 40099.104875
+    },
+    "reader": {
+      "requests": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cached_input_tokens": 0,
+      "estimated_cost_cny": "0",
+      "p50_ms": null,
+      "p95_ms": null,
+      "min_ms": null,
+      "max_ms": null
+    },
+    "judge": {
+      "requests": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "cached_input_tokens": 0,
+      "estimated_cost_cny": "0",
+      "p50_ms": null,
+      "p95_ms": null,
+      "min_ms": null,
+      "max_ms": null
+    }
+  },
+  "total_requests": 18,
+  "total_input_tokens": 7659,
+  "total_output_tokens": 822,
+  "estimated_total_cost_cny": "0.035568",
+  "hard_budget_cny": "12.00",
+  "unsettled_requests": 0,
+  "client_retries": 0,
+  "transport_timeouts": 0,
+  "formal_test": {
+    "planned_questions": 14,
+    "planned_answerable": 12,
+    "planned_unanswerable": 2,
+    "questions_executed": 0,
+    "reader_calls": 0,
+    "formal_judge_calls": 0,
+    "quality_metrics": null,
+    "methods": {
+      "oracle": {
+        "status": "not_run_calibration_gate_failed",
+        "metrics": null
+      },
+      "bm25": {
+        "status": "not_run_calibration_gate_failed",
+        "metrics": null
+      },
+      "tfidf": {
+        "status": "not_run_calibration_gate_failed",
+        "metrics": null
+      },
+      "semantic": {
+        "status": "not_run_calibration_gate_failed",
+        "metrics": null
+      },
+      "hybrid_semantic": {
+        "status": "not_run_calibration_gate_failed",
+        "metrics": null
+      }
+    }
+  },
+  "local_embedding_inference_calls": 0,
+  "official_benchmark_score": false,
+  "start_utc": "2026-11-07T08:57:40.521254+00:00",
+  "end_utc": "2026-11-07T08:59:42.390474+00:00",
+  "scope": "Synthetic Judge calibration only; no final public-subset retrieval or QA predictions.",
+  "trace_count": 18,
+  "all_input_digests_match_actual_ledger": true
+}

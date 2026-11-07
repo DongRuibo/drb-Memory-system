@@ -1,0 +1,24 @@
+{
+  "branch": "codex/memory-evaluation-system",
+  "git_head": "63847f2bda73e97108444e8e0febc977634c6561",
+  "calibration_sha256": "0c3ca2749d095bacf8a44af97c0802b15280b2fbbbf5646c9914b6d634b410c4",
+  "calibration_matches_user_approved_hash": true,
+  "runtime_matches": true,
+  "protocol_matches": true,
+  "models_match": true,
+  "reader_prompt_matches": true,
+  "judge_prompt_matches": true,
+  "lock_matches": true,
+  "plan_seal_valid": true,
+  "budget_key_matches": true,
+  "existing_paid_claim": false,
+  "credential_available": {
+    "MEMORY_EVAL_API_KEY": false,
+    "SILICONFLOW_API_KEY": false
+  },
+  "assets_present": true,
+  "source_present": true,
+  "local_model_python_present": false,
+  "local_model_cache_present": true,
+  "protected_32_unchanged": true
+}

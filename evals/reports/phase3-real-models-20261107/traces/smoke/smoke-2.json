@@ -1,0 +1,58 @@
+{
+  "request": 2,
+  "role": "smoke",
+  "case_id": "smoke-2",
+  "input_provenance": "Reconstructed from frozen functions and pre-execution snapshot; verified against actual ledger input_sha256.",
+  "payload": {
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "temperature": 0,
+    "stream": false,
+    "max_tokens": 768,
+    "enable_thinking": false,
+    "thinking_budget": 128,
+    "response_format": {
+      "type": "json_object"
+    },
+    "messages": [
+      {
+        "role": "system",
+        "content": "Return a JSON object only."
+      },
+      {
+        "role": "user",
+        "content": "Return {\"ok\": true}."
+      }
+    ]
+  },
+  "input_sha256": "adfa5f096f0dc00be3b20e4109f1fa1ffc9d884a15ee439f205c81e95ef2439e",
+  "raw_choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "{\n  \"ok\": true\n}"
+      },
+      "finish_reason": "stop",
+      "logprobs": null
+    }
+  ],
+  "response_id": "01a1b53a33a17e8a2b05223e016cdfa4",
+  "response_model": "deepseek-ai/DeepSeek-V3.2",
+  "system_fingerprint": "",
+  "usage": {
+    "prompt_tokens": 16,
+    "completion_tokens": 8,
+    "total_tokens": 24,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    },
+    "prompt_tokens_details": {
+      "cached_tokens": 0
+    },
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 16
+  },
+  "latency_ms": 1607.994208,
+  "estimated_list_price_cost_cny": "0.000112",
+  "cumulative_spent_or_reserved_cny": "0.000224"
+}

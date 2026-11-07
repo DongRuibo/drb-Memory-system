@@ -1,0 +1,7 @@
+{
+  "status": "stopped",
+  "completed_rows": 0,
+  "expected_questions": 14,
+  "quality_metrics": null,
+  "reason": "incomplete experiment; inspect traces and ledger"
+}

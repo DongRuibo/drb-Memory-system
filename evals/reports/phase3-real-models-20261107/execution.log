@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "<stdin>", line 14, in <module>
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/phase3.py", line 332, in main
+    {'assets':assets,'prepare':prepare,'models-run':run_models}[args.mode](args,out)
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/phase3.py", line 222, in run_models
+    if not cal_summary['passed']:raise BudgetStop('judge calibration requires 15/16 complete matches and zero critical errors; stop before locked test')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+evals.memory_eval.models3.BudgetStop: judge calibration requires 15/16 complete matches and zero critical errors; stop before locked test

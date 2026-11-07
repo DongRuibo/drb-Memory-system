@@ -89,3 +89,5 @@ Vector 对照为 TF-IDF，Formation/Reader 为本地规则；未冒充语义模�
 第三阶段的 [离线准备与锁定协议](docs/EVAL_PHASE3_PREPARATION.md) 已提供独立测试集、
 真实语义模型Adapter、Reader/Judge预算账本和冷/热性能复核。收费执行使用独立入口，
 必须在明确授权后启动；未运行的真实LLM成绩保持空缺。复现命令见 [evals/README](evals/README.md#第三阶段离线准备与待授权的真实模型实验)。
+
+首次获授权的真实执行已完成 Judge 校准，但因关键评分错误按门禁停止：15/16 整例一致，Reader 与正式 14 题均未运行。见 [真实执行报告](docs/EVAL_PHASE3_REAL_MODELS.md) 与 [最终简历材料](docs/EVAL_RESUME_FINAL.md)。

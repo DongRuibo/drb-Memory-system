@@ -215,3 +215,12 @@ PYTHONPATH=/tmp/drb-phase3-deps python3 -m evals.memory_eval.phase3 prepare \
 ## 校准集v3最后修正
 
 当前使用 `datasets/judge_calibration_v3.json`，只补充正例室内偏好事实和用户指定的18条关键门禁，参考答案与标签不改；v1/v2文件及锁定14题均保留。协议钉住v3 SHA，预算标识不变。全部相关离线测试、20组模拟关键错误及新计划见 `reports/phase3-calibration-v3/`。等待最终授权，不调用收费API。
+
+
+## 首次获授权的真实执行：校准门禁失败后停止
+
+当前真实记录见 [完整报告](reports/phase3-real-models-20261107/report.md)。2次可用性检查及16次真实Judge校准已完成；15/16整例匹配，但partial_answer的supported误判属于关键错误，所以没有执行正式LongMemEval14题、Reader或正式Judge。usage公示价估算0.035568元，实际调用18次，未重试。
+
+原模型、Prompt、V3 SHA、RRF和锁定集均不改；已存在的paid-budget claim与原账本保留。不要删除claim、更换输出目录或修改评分来续跑。可离线读取报告中的calibration-v3.json和judge-calibration.json，使用calibration_summary重算门禁；所有18次输入SHA均已与实际账本核对，Trace包含完整输入、原始输出、usage与费用。
+
+正式质量指标为null。历史工程集或开发子集结果不替代未执行的公开锁定集；真实Reader效果、Oracle、拒答和幻觉均未验证。下一轮实验安排须另行确认。

@@ -1,0 +1,19 @@
+{
+  "approved": true,
+  "calibration_labels_human_reviewed": true,
+  "reviewer": "用户（本轮明确审核并授权）",
+  "plan_seal": "c176fb91445566fe688bf7a284c3b2f54e55b289d0015f5abf355ec5e9346e2f",
+  "approved_calibration_sha256": "0c3ca2749d095bacf8a44af97c0802b15280b2fbbbf5646c9914b6d634b410c4",
+  "authorized_at_utc": "2026-11-07T08:57:40.521254+00:00",
+  "role_request_limits": {
+    "reader": 56,
+    "judge": 56,
+    "calibration": 16,
+    "smoke": 2
+  },
+  "max_requests": 130,
+  "max_cost_cny": "12.00",
+  "stop_on_calibration_failure": true,
+  "allow_prompt_or_dataset_changes": false,
+  "authorization_source": "本轮用户明确授权第三阶段真实模型评测，限定130次及人民币12元。"
+}
