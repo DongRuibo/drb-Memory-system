@@ -1,0 +1,43 @@
+{
+  "version": "judge-contract-v4-controls-v1",
+  "expected_cases": 14,
+  "completed_cases": 1,
+  "complete_case_matches": 0,
+  "agreement": 0.0,
+  "minimum_complete_case_matches": 14,
+  "critical_errors": [
+    {
+      "case_id": "c01",
+      "field": "supported",
+      "forbidden_value": false,
+      "code": "c01_support_mismatch"
+    }
+  ],
+  "cases": [
+    {
+      "id": "c01",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": false,
+      "mismatches": {
+        "supported": {
+          "expected": true,
+          "actual": false
+        }
+      },
+      "abstention_correct": null,
+      "critical_errors": [
+        {
+          "case_id": "c01",
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "c01_support_mismatch"
+        }
+      ]
+    }
+  ],
+  "passed": false
+}

@@ -1,0 +1,128 @@
+[
+  {
+    "id": "preference_rubric_positive",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 3
+  },
+  {
+    "id": "full_sentence",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 4
+  },
+  {
+    "id": "synonym",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 5
+  },
+  {
+    "id": "number_format",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 6
+  },
+  {
+    "id": "date_format",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 7
+  },
+  {
+    "id": "supported_explanation",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 8
+  },
+  {
+    "id": "invented_explanation",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 9
+  },
+  {
+    "id": "decimal_error",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 10
+  },
+  {
+    "id": "entity_swap",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 11
+  },
+  {
+    "id": "correct_abstention",
+    "judgment": {
+      "accurate": true,
+      "supported": null,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 12
+  },
+  {
+    "id": "unsupported_guess",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 13
+  },
+  {
+    "id": "lucky_guess",
+    "judgment": {
+      "accurate": true,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 14
+  },
+  {
+    "id": "arithmetic",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 15
+  },
+  {
+    "id": "partial_answer",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 16
+  }
+]

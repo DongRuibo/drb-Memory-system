@@ -1,0 +1,85 @@
+{
+  "request": 1,
+  "case_id": "smoke-1",
+  "role": "smoke",
+  "payload": {
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Return a JSON object only."
+      },
+      {
+        "role": "user",
+        "content": "Return {\"ok\": true}."
+      }
+    ],
+    "temperature": 0,
+    "stream": false,
+    "max_tokens": 768,
+    "enable_thinking": false,
+    "thinking_budget": 128,
+    "response_format": {
+      "type": "json_object"
+    }
+  },
+  "input_sha256": "adfa5f096f0dc00be3b20e4109f1fa1ffc9d884a15ee439f205c81e95ef2439e",
+  "status": "settled",
+  "raw_response": {
+    "id": "mock-response-1",
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "system_fingerprint": "mock-only",
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "{\"ok\": true}"
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 20,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    }
+  },
+  "response_id": "mock-response-1",
+  "usage": {
+    "prompt_tokens": 100,
+    "completion_tokens": 20,
+    "completion_tokens_details": {
+      "reasoning_tokens": 0
+    }
+  },
+  "latency_ms": 0.013416,
+  "settlement": {
+    "event": "settled",
+    "request": 1,
+    "usage": {
+      "prompt_tokens": 100,
+      "completion_tokens": 20,
+      "completion_tokens_details": {
+        "reasoning_tokens": 0
+      }
+    },
+    "usage_list_price_cost_cny": "0.00052",
+    "cumulative_reserved_or_spent_cny": "0.000520",
+    "latency_ms": 0.013416,
+    "response_id": "mock-response-1",
+    "response_model": "deepseek-ai/DeepSeek-V3.2",
+    "system_fingerprint": "mock-only",
+    "input_sha256": "adfa5f096f0dc00be3b20e4109f1fa1ffc9d884a15ee439f205c81e95ef2439e"
+  },
+  "reservation": {
+    "event": "reserved",
+    "request": 1,
+    "role": "smoke",
+    "input_reserved": 16384,
+    "output_reserved": 896,
+    "cost_reserved_cny": "0.070912",
+    "cumulative_reserved_or_spent_cny": "0.070912"
+  }
+}

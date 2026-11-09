@@ -1,0 +1,40 @@
+{
+  "protected_original_paths": 32,
+  "protected_missing": [],
+  "protected_changed": [],
+  "preexisting_paths_checked": 551,
+  "changed_preexisting_paths": [
+    "evals/README.md",
+    "evals/memory_eval/models3.py",
+    "evals/tests/test_judge_contract_v4.py"
+  ],
+  "previous_report_files_checked": 306,
+  "previous_report_files_changed": [],
+  "canonical_paid_claims_unchanged": true,
+  "old_claim_sha256": "e03744500d3a37bab7deaa05b51c76b7fe7b9baf93225ad0e18e1af4e98ba61e",
+  "old_ledger_sha256": "9a8b61ad5ed1c7ec87e85b1cd445ae3cf54b59670721d79291f826b3bb00e09b",
+  "old_reserved_requests": 18,
+  "old_settled_requests": 18,
+  "new_canonical_claims": [],
+  "paid_calls_this_turn": 0,
+  "api_key_read_this_turn": false,
+  "production_database_used": false,
+  "v3_prompt_and_reader_prompt_unchanged": true,
+  "v4_prompt_digest": "ba7ab1acc3aec7b379313b7b20ca61a2226c05feb40418c6fd43022f4eed6d05",
+  "formal_lock_hash_preserved_by_preexisting_snapshot": true,
+  "runtime_and_plan_seal_match": true,
+  "git_branch": "codex/memory-evaluation-system",
+  "git_head": "9a5a438452502f71a207118ab104da5da5aa2071",
+  "staged_paths": [],
+  "formal_lock_path": "evals/datasets/longmemeval_phase3_lock.json",
+  "formal_lock_sha256": "7c50ca5ed56dc660773e32352c163a9b7edd6d243bed35cd4855510a82c9d417",
+  "calibration_sha256": "0c3ca2749d095bacf8a44af97c0802b15280b2fbbbf5646c9914b6d634b410c4",
+  "controls_sha256": "82c3e51a279ccdacb41abc1dbdbcbe66b5a3af4cc568ad9b5c1cb1f9e9800f7c",
+  "syntax_compile_passed": true,
+  "git_diff_check_passed": true,
+  "offline_test_result": {
+    "passed": 119,
+    "skipped": 0,
+    "new_test_methods": 25
+  }
+}

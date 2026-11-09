@@ -1,0 +1,9 @@
+{
+  "status": "prepared_waiting_for_32_call_authorization",
+  "plan_seal": "6d0380d443587a0cf34de8a2b2fc73e601385b3a745189d4f9e0755561064ded",
+  "config_sha256": "ec4327b6962444e59fd49c7d3456277cfb36d2132f0ec52ea8c18825e6b3b232",
+  "paid_calls": 0,
+  "claim_created": false,
+  "api_key_read": false,
+  "formal_authorized": false
+}

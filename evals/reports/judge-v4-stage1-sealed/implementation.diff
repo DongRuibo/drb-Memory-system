@@ -1,0 +1,810 @@
+--- a/evals/memory_eval/models3.py
++++ b/evals/memory_eval/models3.py
+@@ -82,7 +82,7 @@
+         return None
+ 
+ 
+-def json_http(url,payload,timeout,key=None):
++def json_http(url,payload,timeout,key=None,capture_http_errors=False):
+     # 顺序POSIX CLI用总时限中断慢速响应；urllib的socket timeout本身只限制单次阻塞。
+     if threading.current_thread() is not threading.main_thread() or not hasattr(signal,'setitimer'):
+         raise BudgetStop('real model HTTP requires the main POSIX thread; no request sent')
+@@ -94,9 +94,17 @@
+     request=urllib.request.Request(url,data=json.dumps(payload).encode() if payload is not None else None,headers=headers)
+     previous=signal.signal(signal.SIGALRM,expired);signal.setitimer(signal.ITIMER_REAL,timeout)
+     try:
+-        with urllib.request.build_opener(NoRedirect).open(request,timeout=timeout) as response:
++        try:response=urllib.request.build_opener(NoRedirect).open(request,timeout=timeout)
++        except urllib.error.HTTPError as error:
++            if not capture_http_errors:raise
++            response=error
++        with response:
+             body=response.read(32000001)
+         if len(body)>32000000:raise ValueError('model response too large')
++        if capture_http_errors and response.code>=300:
++            # 在同一个总时限内收集错误正文和供应商追踪ID，不记录任何认证请求头。
++            return {'http_status':response.code,'http_error_body':body.decode('utf-8',errors='replace'),
++                    'id':response.headers.get('x-siliconcloud-trace-id')}
+         return json.loads(body)
+     finally:
+         signal.setitimer(signal.ITIMER_REAL,0);signal.signal(signal.SIGALRM,previous)
+@@ -107,7 +115,7 @@
+         self.model=model;self.protocol=protocol;self.ledger=ledger;self.approved=approved
+         self.transport=transport
+ 
+-    def call(self,messages,role):
++    def call(self,messages,role,validator=None):
+         self.ledger.check_owner()
+         if not self.approved and self.transport is None:
+             raise BudgetStop('paid execution requires explicit user approval; no credentials read')
+@@ -124,11 +132,13 @@
+         r=self.ledger.reserve(role,cap,output+self.protocol['reasoning_reserve'])
+         payload={'model':self.model['model'],'messages':messages,'temperature':0,'stream':False,'max_tokens':output,
+                  'enable_thinking':False,'thinking_budget':128,'response_format':{'type':'json_object'}}
++        # 完整正文先落盘，不保存Authorization；即使解析或传输失败也能追溯实际输入。
++        self.ledger.log({'event':'model_input','request':r['request'],'payload':payload,'input_sha256':digest(messages)})
+         start=time.perf_counter_ns()
+         try:
+             if self.transport is None:
+                 self.ledger.dispatches+=1
+-                response=json_http(self.model['base_url']+'/chat/completions',payload,self.protocol['timeout_seconds'],key)
++                response=json_http(self.model['base_url']+'/chat/completions',payload,self.protocol['timeout_seconds'],key,capture_http_errors=True)
+             else:
+                 self.ledger.dispatches+=1;response=self.transport(payload,self.protocol['timeout_seconds'])
+         except Exception as error:
+@@ -136,18 +146,29 @@
+             self.ledger.halted=True;self.ledger.log({'event':'transport_failed_stop','request':r['request'],'error_type':type(error).__name__})
+             raise BudgetStop('transport failed; reservation retained; retry=0') from None
+         elapsed=(time.perf_counter_ns()-start)/1e6
+-        self.ledger.log({'event':'model_output','request':r['request'],'choices':response.get('choices',[])})
+-        cost=self.ledger.settle(r,response.get('usage',{}),{'latency_ms':elapsed,'response_id':response.get('id'),
+-                           'response_model':response.get('model'),'system_fingerprint':response.get('system_fingerprint'),
++        raw=response if isinstance(response,dict) else {}
++        self.ledger.log({'event':'model_output','request':r['request'],'raw_response':response,'choices':raw.get('choices',[]),
++                         'usage':raw.get('usage',{}),'latency_ms':elapsed,'response_id':raw.get('id'),
++                         'response_model':raw.get('model'),'system_fingerprint':raw.get('system_fingerprint')})
++        try:
++            choice=raw['choices'][0];message=choice['message'];usage=raw.get('usage',{})
++            if (raw.get('model')!=self.model['model'] or choice.get('finish_reason')!='stop' or message.get('reasoning_content')
++                or usage.get('completion_tokens_details',{}).get('reasoning_tokens',0)!=0
++                or (type(usage.get('completion_tokens')) is int and usage['completion_tokens']>output)):
++                raise ValueError('model, truncation or non-thinking contract failed')
++            value=json.loads(message['content'])
++            if validator is not None:value=validator(value)
++        except Exception as error:
++            # 先校验再结算：无效输出或schema不释放预留，也不重试修答案。
++            self.ledger.halted=True
++            self.ledger.log({'event':'invalid_output_stop','request':r['request'],'error_type':type(error).__name__})
++            raise BudgetStop('model response/JSON/schema contract failed; reservation retained; retry=0') from None
++        cost=self.ledger.settle(r,usage,{'latency_ms':elapsed,'response_id':raw.get('id'),
++                           'response_model':raw.get('model'),'system_fingerprint':raw.get('system_fingerprint'),
+                            'input_sha256':digest(messages)})
+-        choice=response['choices'][0];message=choice['message']
+-        if (response.get('model')!=self.model['model'] or choice.get('finish_reason')!='stop' or message.get('reasoning_content')
+-            or response['usage'].get('completion_tokens_details',{}).get('reasoning_tokens',0)!=0
+-            or response['usage']['completion_tokens']>output):
+-            self.ledger.halted=True
+-            raise BudgetStop('model, output truncation or non-thinking contract failed; stop')
+-        return {'json':json.loads(message['content']),'usage':response['usage'],'latency_ms':elapsed,'input_byte_token_bound':bound,
+-                'request':r['request'],'response_id':response.get('id'),'cost_cny':str(cost)}
++        return {'json':value,'usage':usage,'latency_ms':elapsed,'input_byte_token_bound':bound,
++                'request':r['request'],'response_id':raw.get('id'),'cost_cny':str(cost),'raw_response':response,
++                'response_model':raw.get('model'),'system_fingerprint':raw.get('system_fingerprint')}
+ 
+ 
+ class TextTokenizer:
+--- /dev/null
++++ b/evals/memory_eval/judge4_stage1.py
+@@ -0,0 +1,224 @@
++"""V4第一阶段：封存及受授权的32次校准执行；不含正式Reader/检索入口。"""
++import argparse
++from datetime import datetime,timezone
++from decimal import Decimal
++import hashlib
++import json
++import os
++from pathlib import Path
++
++from . import judge4
++from .models3 import BudgetStop,ChatClient,Ledger
++from .phase3 import claim_execution
++from .protocol3 import digest,parse_judge
++from .runner import ROOT,write_json
++
++
++CONFIG=ROOT/'evals/configs/judge_v4_stage1.json'
++CLAIMS=ROOT/'evals/runs/paid-budget'
++STAGE='judge-v4-stage1-calibration-and-controls'
++
++
++def build_protocol():
++    parent=json.loads(judge4.CONFIG.read_text());previous,receipt_sha=judge4.previous_cost()
++    calibration=json.loads(judge4.CALIBRATION.read_text());controls=judge4.load_controls()
++    if (digest(judge4.JUDGE_SYSTEM_V4)!=parent['judge_prompt_sha256']
++        or hashlib.sha256(judge4.CALIBRATION.read_bytes()).hexdigest()!=parent['calibration']['sha256']
++        or hashlib.sha256(judge4.CONTROLS.read_bytes()).hexdigest()!=parent['controls']['sha256']
++        or receipt_sha!=parent['previous_receipt_sha256'] or str(previous)!=parent['previous_cost_cny']):
++        raise BudgetStop('approved prompt, datasets or previous receipt changed')
++    roles={r['role']:r for r in parent['role_budgets']};rows=[roles[k] for k in ['smoke','calibration','controls']]
++    counts={r['role']:r['requests'] for r in rows};cost=sum(Decimal(r['cost_ceiling_cny']) for r in rows)
++    if counts!={'smoke':2,'calibration':16,'controls':14} or cost!=Decimal('1.240064') or previous+cost>12:
++        raise BudgetStop('stage scope or cumulative budget differs from reviewed limits')
++    limits={'max_requests':32,'role_request_limits':counts,'max_cost_cny':str(cost),
++            'max_input_tokens_total':sum(r['requests']*r['input_cap'] for r in rows),
++            'max_output_tokens_total':sum(r['requests']*r['billable_output_cap'] for r in rows),
++            'reader_input_cap':16384,'reader_output_cap':768,'judge_input_cap':8192,'judge_output_cap':512,
++            'reasoning_reserve':128,'timeout_seconds':45,'retries':0,
++            'price_cny_per_million_input':parent['prices_cny_per_million']['input'],
++            'price_cny_per_million_output':parent['prices_cny_per_million']['output']}
++    source_paths=[Path(__file__),ROOT/'evals/memory_eval/models3.py',ROOT/'evals/memory_eval/judge4.py',
++                  ROOT/'evals/memory_eval/protocol3.py',ROOT/'evals/memory_eval/phase3.py',ROOT/'evals/memory_eval/runner.py']
++    return {'version':'judge-v4-stage1-executor-v1','stage_id':STAGE,'paid_execution_authorized':False,
++            'scope':'calibration_and_controls_only','parent_contract_sha256':hashlib.sha256(judge4.CONFIG.read_bytes()).hexdigest(),
++            'budget_key':parent['proposed_stage_claim_keys']['calibration_and_controls'],'model':parent['judge_model'],
++            'judge_prompt_sha256':parent['judge_prompt_sha256'],'calibration':parent['calibration'],
++            'controls':{'path':parent['controls']['path'],'sha256':parent['controls']['sha256'],'gate':controls['gate']},
++            'role_budgets':rows,'limits':limits,'global_cap_cny':'12.00','previous_cost_cny':str(previous),
++            'previous_receipt_sha256':receipt_sha,'previous_budget_key':parent['previous_budget_key'],
++            'previous_plan_seal':json.loads((judge4.PREVIOUS/'approved-plan.json').read_text())['seal'],
++            'cumulative_stage1_worst_cny':str(previous+cost),
++            'formal_stage':{'authorized':False,'requests':112,'separate_plan_required':True,
++                            'separate_budget_key':parent['proposed_stage_claim_keys']['formal'],'ceiling_cny':parent['formal_stage_ceiling_cny']},
++            'joint_judge_sees_reference_and_evidence':True,'support_only_view_used_for_calls':False,
++            'gate_order':['calibration','controls'],'stop_when_gate_cannot_pass':True,
++            'failure_reservation_policy':'transport, output, schema or usage failure retains maximum reservation; valid semantic disagreement is settled then stops gate',
++            'restart_policy':'one canonical stage claim; no auto-resume, no output-directory reset; reconcile before any new authorization',
++            'runtime_sha256':{str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in source_paths}}
++
++
++def input_plan(protocol):
++    records=[];smoke=[{'role':'system','content':'Return a JSON object only.'},{'role':'user','content':'Return {"ok": true}.'}]
++    for i in range(2):records.append({'role':'smoke','id':'smoke-'+str(i+1),'messages':smoke,'abstained':None})
++    for role,path in [('calibration',judge4.CALIBRATION),('controls',judge4.CONTROLS)]:
++        data=json.loads(path.read_text())
++        for c in data['cases']:
++            value=judge4.messages({'query':c['question'],'question_date':c.get('question_date')},c,c['prediction'],{'text':'\nSOURCE s\n'+c['context']})
++            records.append({'role':role,'id':c['id'],'messages':value,'abstained':c['prediction']['abstained']})
++    for r in records:
++        smoke_role=r['role']=='smoke';limits=protocol['limits']
++        r['input_byte_token_bound']=sum(len(m['content'].encode())+128 for m in r['messages'])+128
++        if r['input_byte_token_bound']>(limits['reader_input_cap'] if smoke_role else limits['judge_input_cap']):
++            raise BudgetStop('full request exceeds reviewed input limit; no truncation')
++        r['payload']={'model':protocol['model']['model'],'messages':r['messages'],'temperature':0,'stream':False,
++                      'max_tokens':768 if smoke_role else 512,'enable_thinking':False,'thinking_budget':128,
++                      'response_format':{'type':'json_object'}}
++        r['input_sha256']=digest(r['messages'])
++    return records
++
++
++def make_plan():
++    protocol=build_protocol()
++    if json.loads(CONFIG.read_text())!=protocol:raise BudgetStop('stage config/runtime changed; reseal required')
++    records=input_plan(protocol)
++    plan={'kind':'stage1_execution_plan_not_authorization','stage':protocol,'inputs':records,
++          'config_sha256':hashlib.sha256(CONFIG.read_bytes()).hexdigest(),'budget_key':protocol['budget_key']}
++    plan['seal']=digest(plan)
++    return plan
++
++
++def prepare(output):
++    plan=make_plan();out=Path(output);out.mkdir(parents=True,exist_ok=False)
++    write_json(out/'plan.json',plan);write_json(out/'protocol.json',plan['stage'])
++    for role in ['smoke','calibration','controls']:write_json(out/(role+'-inputs.json'),[r for r in plan['inputs'] if r['role']==role])
++    (out/'prompt-v4.txt').write_text(judge4.JUDGE_SYSTEM_V4+'\n')
++    write_json(out/'manifest.json',{'status':'prepared_waiting_for_32_call_authorization','plan_seal':plan['seal'],
++                                   'config_sha256':plan['config_sha256'],'paid_calls':0,'claim_created':False,
++                                   'api_key_read':False,'formal_authorized':False})
++    return plan
++
++
++def check_approval(path,plan):
++    approval=json.loads(Path(path).read_text());stage=plan['stage']
++    if (plan!=make_plan() or approval.get('approved') is not True or approval.get('plan_seal')!=plan['seal']
++        or approval.get('stage_id')!=STAGE or approval.get('scope')!='calibration_and_controls_only'
++        or approval.get('calibration_labels_human_reviewed') is not True or approval.get('control_labels_human_reviewed') is not True
++        or approval.get('formal_authorized') is not False or approval.get('max_requests')!=32
++        or approval.get('role_request_limits')!=stage['limits']['role_request_limits']
++        or approval.get('max_cost_cny')!=stage['limits']['max_cost_cny'] or approval.get('global_cap_cny')!='12.00'
++        or approval.get('prices_rechecked') is not True or not isinstance(approval.get('reviewer'),str) or not approval['reviewer'].strip()):
++        raise BudgetStop('new stage1 authorization/plan/labels/prices required; no key read or claim created')
++    return approval
++
++
++def verify_previous(stage,claim_root):
++    path=Path(claim_root)/(stage['previous_budget_key']+'.json')
++    if not path.is_file():raise BudgetStop('previous canonical claim missing; reconcile, do not reset')
++    previous=json.loads(path.read_text());ledger=Path(previous['ledger_path'])
++    if (previous.get('budget_key')!=stage['previous_budget_key'] or previous.get('plan_seal')!=stage['previous_plan_seal']
++        or not ledger.is_file() or hashlib.sha256(ledger.read_bytes()).hexdigest()!=stage['previous_receipt_sha256']):
++        raise BudgetStop('previous canonical ledger differs or is unsettled; stop for reconciliation')
++    if Decimal(stage['previous_cost_cny'])+Decimal(stage['limits']['max_cost_cny'])>Decimal(stage['global_cap_cny']):
++        raise BudgetStop('cumulative budget exceeds cap')
++
++
++def _smoke_schema(value):
++    if not isinstance(value,dict) or value.get('ok') is not True:raise ValueError('availability JSON contract failed')
++    return value
++
++
++def run_stage(plan_path,approval_path,output,*,transport=None,claim_root=None,previous_claim_root=None):
++    # 测试注入仅用于隔离模拟；真实CLI不能换claim目录或运输层来重开预算。
++    simulated=transport is not None
++    if simulated:
++        if claim_root is None or previous_claim_root is None or Path(claim_root).resolve()==CLAIMS.resolve():
++            raise BudgetStop('simulation requires isolated claim directories')
++    elif claim_root is not None or previous_claim_root is not None:
++        raise BudgetStop('real execution cannot override canonical claim directories')
++    plan=json.loads(Path(plan_path).read_text());approval=check_approval(approval_path,plan);stage=plan['stage']
++    verify_previous(stage,previous_claim_root if simulated else CLAIMS)
++    claims=Path(claim_root) if simulated else CLAIMS
++    if (claims/(stage['formal_stage']['separate_budget_key']+'.json')).exists():
++        raise BudgetStop('another V4 stage already claimed; reconcile cumulative budget first')
++    out=Path(output)
++    if out.exists():raise BudgetStop('output already exists; no overwrite or automatic resume')
++    if not simulated and not os.environ.get('MEMORY_EVAL_API_KEY'):
++        raise BudgetStop('MEMORY_EVAL_API_KEY required after authorization; no claim created')
++    claim=claim_execution(plan,out,budget_root=claims)
++    out.mkdir(parents=True);write_json(out/'plan.json',plan)
++    write_json(out/'approval-record.json',{k:approval[k] for k in ['stage_id','plan_seal','scope','reviewer','max_requests','max_cost_cny','global_cap_cny']})
++    ledger=Ledger(out/'calls.jsonl',stage['limits'])
++    client=ChatClient(stage['model'],stage['limits'],ledger,approved=True,transport=transport)
++    datasets={'calibration':json.loads(judge4.CALIBRATION.read_text()),'controls':judge4.load_controls()}
++    cohort_rows={k:[] for k in datasets};attempted=[];current=None
++    summary={'status':'running','mode':'simulation' if simulated else 'real','stage_id':STAGE,'formal_authorized':False,
++             'formal_calls':0,'gates':{k:{'status':'not_run','result':None} for k in datasets},'quality_metrics':None}
++    try:
++        for record in plan['inputs']:
++            current=record;request=ledger.requests+1;attempted.append((request,record))
++            folder=out/'traces'/record['role'];folder.mkdir(parents=True,exist_ok=True)
++            write_json(folder/(record['id']+'.json'),{'request':request,'case_id':record['id'],'role':record['role'],
++                       'status':'prepared','payload':record['payload'],'input_sha256':record['input_sha256']})
++            validator=_smoke_schema if record['role']=='smoke' else lambda value:parse_judge(value,record['abstained'])
++            result=client.call(record['messages'],record['role'],validator=validator)
++            if record['role']!='smoke':
++                role=record['role'];cohort_rows[role].append({'id':record['id'],'judgment':result['json'],'request':result['request']})
++                gate=judge4.evaluate(datasets[role],cohort_rows[role]);summary['gates'][role]={'status':'running','result':gate}
++                write_json(out/(role+'-results.json'),cohort_rows[role]);write_json(out/(role+'-summary.json'),gate)
++                possible=gate['complete_case_matches']+gate['expected_cases']-gate['completed_cases']
++                if gate['critical_errors'] or possible<gate['minimum_complete_case_matches']:
++                    raise BudgetStop(role+' gate cannot pass; stop immediately')
++                if gate['completed_cases']==gate['expected_cases']:
++                    if not gate['passed']:raise BudgetStop(role+' gate failed')
++                    summary['gates'][role]['status']='passed'
++            write_json(out/'summary.json',summary)
++        summary['status']='completed_stage1'
++    except Exception as error:
++        summary.update(status='stopped',error_type=type(error).__name__,failed_role=current['role'] if current else None,
++                       failed_case_id=current['id'] if current else None)
++        if current and current['role'] in summary['gates']:summary['gates'][current['role']]['status']='stopped'
++        write_json(out/'failure.json',{'error_type':type(error).__name__,'role':summary.get('failed_role'),
++                                     'case_id':summary.get('failed_case_id'),'last_request':ledger.requests,'retry':0})
++    finally:
++        # 账本是崩溃后的权威记录；在正常/失败退出时按请求号导出完整Trace。
++        ledger.file.close();events=[json.loads(s) for s in (out/'calls.jsonl').read_text().splitlines()]
++        outputs={e['request']:e for e in events if e['event']=='model_output'}
++        settled={e['request']:e for e in events if e['event']=='settled'}
++        reserved={e['request']:e for e in events if e['event']=='reserved'}
++        for request,record in attempted:
++            wire=outputs.get(request);receipt=settled.get(request)
++            trace={'request':request,'case_id':record['id'],'role':record['role'],'payload':record['payload'],
++                   'input_sha256':record['input_sha256'],'status':'settled' if receipt else 'stopped',
++                   'raw_response':wire.get('raw_response') if wire else None,'response_id':wire.get('response_id') if wire else None,
++                   'usage':wire.get('usage') if wire else None,'latency_ms':wire.get('latency_ms') if wire else None,
++                   'settlement':receipt,'reservation':reserved.get(request)}
++            write_json(out/'traces'/record['role']/(record['id']+'.json'),trace)
++        summary.update(requests_reserved=ledger.requests,api_dispatch_attempts=ledger.dispatches,
++                       role_counts=ledger.role_counts,estimated_or_reserved_cost_cny=str(ledger.cost),
++                       previous_cost_cny=stage['previous_cost_cny'],cumulative_spent_or_reserved_cny=str(Decimal(stage['previous_cost_cny'])+ledger.cost),
++                       unsettled_reservations=len(reserved)-len(settled),budget_claim=str(claim))
++        write_json(out/'summary.json',summary)
++        if summary['status']=='completed_stage1':
++            write_json(out/'handoff-receipt.json',{'kind':'stage1_evidence_not_formal_authorization','stage1_plan_seal':plan['seal'],
++                       'stage1_budget_key':stage['budget_key'],'ledger_sha256':hashlib.sha256((out/'calls.jsonl').read_bytes()).hexdigest(),
++                       'stage1_cost_cny':str(ledger.cost),'previous_cost_cny':stage['previous_cost_cny'],
++                       'cumulative_cost_cny':summary['cumulative_spent_or_reserved_cny'],'gates_passed':['calibration','controls'],
++                       'formal_authorized':False,'formal_requests_allowed':0,'formal_separate_budget_key':stage['formal_stage']['separate_budget_key']})
++        (out/'report.md').write_text('# V4第一阶段执行\n\n模式：'+summary['mode']+'；状态：'+summary['status']+'。两个数据集独立汇总，见calibration-summary.json和controls-summary.json（未运行时见summary.json）。\n\n正式Reader/Judge调用0，交接凭据不构成112次授权。\n')
++    return summary
++
++
++def main():
++    parser=argparse.ArgumentParser(description=__doc__);sub=parser.add_subparsers(dest='mode',required=True)
++    prep=sub.add_parser('prepare');prep.add_argument('--output',required=True)
++    run=sub.add_parser('run');run.add_argument('--plan',required=True);run.add_argument('--approval',required=True);run.add_argument('--output',required=True)
++    args=parser.parse_args()
++    if args.mode=='prepare':print(json.dumps({'plan_seal':prepare(args.output)['seal'],'paid_calls':0},ensure_ascii=False))
++    else:
++        result=run_stage(args.plan,args.approval,args.output)
++        print(json.dumps(result,ensure_ascii=False))
++        if result['status']!='completed_stage1':raise SystemExit(1)
++
++
++if __name__=='__main__':main()
+--- /dev/null
++++ b/evals/configs/judge_v4_stage1.json
+@@ -0,0 +1,123 @@
++{
++  "version": "judge-v4-stage1-executor-v1",
++  "stage_id": "judge-v4-stage1-calibration-and-controls",
++  "paid_execution_authorized": false,
++  "scope": "calibration_and_controls_only",
++  "parent_contract_sha256": "671ce34a2c1ca6aa7beb8235bc5852dd651238d96bdaa5d3da886ab95ca29179",
++  "budget_key": "dd7ea2a8e7898a628c1f07aca435e32b075c56c51d2bbea5b5d3b48bfd8da0db",
++  "model": {
++    "provider": "SiliconFlow CN",
++    "model": "deepseek-ai/DeepSeek-V3.2",
++    "revision": "provider-managed alias; immutable serving revision unavailable",
++    "base_url": "https://api.siliconflow.cn/v1",
++    "availability": "publicly listed; account access not probed",
++    "temperature": 0,
++    "enable_thinking": false,
++    "thinking_budget": 128,
++    "max_tokens": 512
++  },
++  "judge_prompt_sha256": "ba7ab1acc3aec7b379313b7b20ca61a2226c05feb40418c6fd43022f4eed6d05",
++  "calibration": {
++    "path": "evals/datasets/judge_calibration_v3.json",
++    "sha256": "0c3ca2749d095bacf8a44af97c0802b15280b2fbbbf5646c9914b6d634b410c4",
++    "gate": {
++      "expected_cases": 16,
++      "minimum_complete_case_matches": 15,
++      "match_fields": [
++        "semantic_accuracy",
++        "supported"
++      ],
++      "null_support_is_required_for_abstentions": true,
++      "critical_error_tolerance": 0
++    }
++  },
++  "controls": {
++    "path": "evals/datasets/judge_contract_v4_controls.json",
++    "sha256": "82c3e51a279ccdacb41abc1dbdbcbe66b5a3af4cc568ad9b5c1cb1f9e9800f7c",
++    "gate": {
++      "expected_cases": 14,
++      "minimum_complete_case_matches": 14,
++      "match_fields": [
++        "semantic_accuracy",
++        "supported"
++      ],
++      "critical_error_tolerance": 0
++    }
++  },
++  "role_budgets": [
++    {
++      "role": "smoke",
++      "requests": 2,
++      "input_cap": 16384,
++      "visible_output_cap": 768,
++      "billable_output_cap": 896,
++      "cost_ceiling_cny": "0.141824"
++    },
++    {
++      "role": "calibration",
++      "requests": 16,
++      "input_cap": 8192,
++      "visible_output_cap": 512,
++      "billable_output_cap": 640,
++      "cost_ceiling_cny": "0.585728"
++    },
++    {
++      "role": "controls",
++      "requests": 14,
++      "input_cap": 8192,
++      "visible_output_cap": 512,
++      "billable_output_cap": 640,
++      "cost_ceiling_cny": "0.512512"
++    }
++  ],
++  "limits": {
++    "max_requests": 32,
++    "role_request_limits": {
++      "smoke": 2,
++      "calibration": 16,
++      "controls": 14
++    },
++    "max_cost_cny": "1.240064",
++    "max_input_tokens_total": 278528,
++    "max_output_tokens_total": 20992,
++    "reader_input_cap": 16384,
++    "reader_output_cap": 768,
++    "judge_input_cap": 8192,
++    "judge_output_cap": 512,
++    "reasoning_reserve": 128,
++    "timeout_seconds": 45,
++    "retries": 0,
++    "price_cny_per_million_input": "4.00",
++    "price_cny_per_million_output": "6.00"
++  },
++  "global_cap_cny": "12.00",
++  "previous_cost_cny": "0.035568",
++  "previous_receipt_sha256": "9a8b61ad5ed1c7ec87e85b1cd445ae3cf54b59670721d79291f826b3bb00e09b",
++  "previous_budget_key": "75cf9507780fa669528495783f6b5880bd62dc59a13075e3382c2ce18dd67679",
++  "previous_plan_seal": "c176fb91445566fe688bf7a284c3b2f54e55b289d0015f5abf355ec5e9346e2f",
++  "cumulative_stage1_worst_cny": "1.275632",
++  "formal_stage": {
++    "authorized": false,
++    "requests": 112,
++    "separate_plan_required": true,
++    "separate_budget_key": "b220eb5ac063d22c106682c9ca9e8ddf51438ac19bd80082c4d24d6241c8bd9e",
++    "ceiling_cny": "9.691136"
++  },
++  "joint_judge_sees_reference_and_evidence": true,
++  "support_only_view_used_for_calls": false,
++  "gate_order": [
++    "calibration",
++    "controls"
++  ],
++  "stop_when_gate_cannot_pass": true,
++  "failure_reservation_policy": "transport, output, schema or usage failure retains maximum reservation; valid semantic disagreement is settled then stops gate",
++  "restart_policy": "one canonical stage claim; no auto-resume, no output-directory reset; reconcile before any new authorization",
++  "runtime_sha256": {
++    "evals/memory_eval/judge4_stage1.py": "37f3e53bc5fe07c2c42d73d1328d747f9f773e0955b9ba69ec9f99575d59a658",
++    "evals/memory_eval/models3.py": "7c6c59956112662d3ad494d7d6ed550270baca9768bc18fc00d5ec47d6912ad6",
++    "evals/memory_eval/judge4.py": "b80d18e5362db135352779b706d45918ec7829bc56c534706ca0576a34440152",
++    "evals/memory_eval/protocol3.py": "35109a5bc89d6cff7c3722efee29095e4ba4f93273815ac36b2a35cb42c522d8",
++    "evals/memory_eval/phase3.py": "4757b329013d23c808e96eab7cd2be261312046cf0b95efe2de420ffac51d0bc",
++    "evals/memory_eval/runner.py": "ebc182bed77b440e7a3de2f91108a023a67f61071dc2f52d99bb3dcc2ba4b057"
++  }
++}
+--- /dev/null
++++ b/evals/tests/test_judge4_stage1.py
+@@ -0,0 +1,305 @@
++"""V4第一阶段完整模拟、失败停止与预算回归；永不调用真实模型或读取Key。"""
++from copy import deepcopy
++from decimal import Decimal
++from http.server import BaseHTTPRequestHandler,ThreadingHTTPServer
++import hashlib
++import json
++import os
++from pathlib import Path
++import subprocess
++import sys
++import tempfile
++import threading
++import unittest
++from unittest.mock import patch
++
++from evals.memory_eval import judge4,judge4_stage1 as stage
++from evals.memory_eval.models3 import BudgetStop,ChatClient,Ledger,json_http
++from evals.memory_eval.protocol3 import digest,JUDGE_SYSTEM,READER_SYSTEM
++
++
++def approval_fixture(plan):
++    return {'approved':True,'stage_id':stage.STAGE,'plan_seal':plan['seal'],'scope':'calibration_and_controls_only',
++            'calibration_labels_human_reviewed':True,'control_labels_human_reviewed':True,'formal_authorized':False,
++            'max_requests':32,'role_request_limits':{'smoke':2,'calibration':16,'controls':14},
++            'max_cost_cny':'1.240064','global_cap_cny':'12.00','reviewer':'offline-test-fixture','prices_rechecked':True}
++
++
++def prior_fixture(folder,plan):
++    folder.mkdir();ledger=folder/'previous.jsonl';ledger.write_bytes((judge4.PREVIOUS/'calls.jsonl').read_bytes())
++    old=plan['stage'];claim=folder/(old['previous_budget_key']+'.json')
++    claim.write_text(json.dumps({'budget_key':old['previous_budget_key'],'plan_seal':old['previous_plan_seal'],'ledger_path':str(ledger)}))
++    return ledger
++
++
++class ScriptedAPI:
++    """按预定用例顺序返回手工标签夹具；不根据文本关键词预测语义。"""
++    def __init__(self,plan,mutations=None,failure=None,usage_at_cap=False):
++        self.plan=plan;self.calls=[];self.mutations=mutations or {};self.failure=failure;self.usage_at_cap=usage_at_cap
++        data=[json.loads(judge4.CALIBRATION.read_text()),judge4.load_controls()]
++        self.expected={c['id']:c['expected'] for d in data for c in d['cases']}
++
++    def __call__(self,payload,timeout):
++        index=len(self.calls);record=self.plan['inputs'][index];self.calls.append(payload)
++        if timeout!=45:raise AssertionError('total request timeout changed')
++        if self.failure and record['id']==self.failure[0] and self.failure[1]=='timeout':raise TimeoutError('mock timeout')
++        if record['role']=='smoke':value={'ok':True}
++        else:
++            expected=self.expected[record['id']];value={'accurate':expected['semantic_accuracy'],'supported':expected['supported'],
++                                                      'reason':'scripted fixture; not real Judge inference'}
++            value.update(self.mutations.get(record['id'],{}))
++        usage={'prompt_tokens':(16384 if record['role']=='smoke' else 8192) if self.usage_at_cap else 100,
++               'completion_tokens':payload['max_tokens'] if self.usage_at_cap else 20,
++               'completion_tokens_details':{'reasoning_tokens':0}}
++        response={'id':'mock-response-'+str(index+1),'model':payload['model'],'system_fingerprint':'mock-only',
++                  'choices':[{'finish_reason':'stop','message':{'role':'assistant','content':json.dumps(value)}}],'usage':usage}
++        if self.failure and record['id']==self.failure[0]:
++            mode=self.failure[1]
++            if mode=='invalid_json':response['choices'][0]['message']['content']='not json'
++            elif mode=='missing_usage':response.pop('usage')
++            elif mode=='reasoning':response['usage']['completion_tokens_details']['reasoning_tokens']=1
++            elif mode=='truncated':response['choices'][0]['finish_reason']='length'
++            elif mode=='http_error':return {'http_status':429,'http_error_body':'mock rate limit','id':'mock-http-trace'}
++            elif mode=='over_usage':response['usage']['prompt_tokens']=999999
++        return response
++
++
++class JudgeStage1Tests(unittest.TestCase):
++    def setUp(self):
++        self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup);self.root=Path(self.temp.name)
++        self.plan=stage.prepare(self.root/'sealed');self.plan_path=self.root/'sealed/plan.json'
++        self.approval=self.root/'approval.json';self.approval.write_text(json.dumps(approval_fixture(self.plan)))
++        self.prior=self.root/'prior';self.old_ledger=prior_fixture(self.prior,self.plan);self.claims=self.root/'simulation-claims'
++
++    def run_mock(self,api=None,out='result'):
++        api=api or ScriptedAPI(self.plan)
++        with patch('evals.memory_eval.models3.os.environ.get',side_effect=AssertionError('must not read API Key in simulation')):
++            result=stage.run_stage(self.plan_path,self.approval,self.root/out,transport=api,claim_root=self.claims,previous_claim_root=self.prior)
++        return result,api
++
++    def test_prepare_creates_no_claim_or_authorization_and_has_32_inputs(self):
++        self.assertFalse(self.claims.exists());self.assertEqual(len(self.plan['inputs']),32)
++        self.assertEqual(self.plan['stage']['limits']['role_request_limits'],{'smoke':2,'calibration':16,'controls':14})
++        self.assertFalse(self.plan['stage']['paid_execution_authorized'])
++        self.assertEqual(self.plan['stage']['limits']['max_cost_cny'],'1.240064')
++        self.assertEqual(self.plan['stage']['cumulative_stage1_worst_cny'],'1.275632')
++
++    def test_complete_32_call_simulation_keeps_gates_separate_and_never_starts_formal(self):
++        with patch('evals.memory_eval.phase3.run_models',side_effect=AssertionError('formal runner forbidden')):
++            result,api=self.run_mock()
++        self.assertEqual(len(api.calls),32);self.assertEqual(result['status'],'completed_stage1')
++        self.assertEqual(result['role_counts'],{'smoke':2,'calibration':16,'controls':14})
++        self.assertEqual(result['gates']['calibration']['result']['complete_case_matches'],16)
++        self.assertEqual(result['gates']['controls']['result']['complete_case_matches'],14)
++        self.assertFalse(result['formal_authorized']);self.assertEqual(result['formal_calls'],0)
++        handoff=json.loads((self.root/'result/handoff-receipt.json').read_text())
++        self.assertFalse(handoff['formal_authorized']);self.assertEqual(handoff['formal_requests_allowed'],0)
++        self.assertEqual(Decimal(result['estimated_or_reserved_cost_cny']),Decimal('0.01664'))
++
++    def test_wire_payloads_use_v4_reference_and_evidence_but_no_private_annotations(self):
++        result,api=self.run_mock()
++        for record,payload in zip(self.plan['inputs'],api.calls):
++            self.assertEqual(payload,record['payload'])
++            if record['role']=='smoke':continue
++            self.assertEqual(digest(payload['messages'][0]['content']),self.plan['stage']['judge_prompt_sha256'])
++            value=json.loads(payload['messages'][1]['content'])
++            self.assertIn('reference_answers',value);self.assertIn('evidence',value)
++            for key in ['expected','annotated_asserted_claims','critical_checks','omitted_required_items']:
++                self.assertNotIn(key,value)
++        self.assertEqual(result['formal_calls'],0)
++
++    def test_all_trace_ids_raw_outputs_usage_and_input_hashes_are_preserved(self):
++        self.run_mock();out=self.root/'result';paths=list((out/'traces').rglob('*.json'));self.assertEqual(len(paths),32)
++        events=[json.loads(s) for s in (out/'calls.jsonl').read_text().splitlines()]
++        inputs={e['request']:e for e in events if e['event']=='model_input'}
++        for path in paths:
++            trace=json.loads(path.read_text());request=trace['request']
++            self.assertEqual(trace['response_id'],'mock-response-'+str(request))
++            self.assertEqual(trace['usage']['prompt_tokens'],100)
++            self.assertEqual(digest(trace['payload']['messages']),trace['input_sha256'])
++            self.assertEqual(inputs[request]['payload'],trace['payload'])
++            self.assertIsNotNone(trace['raw_response']);self.assertIsNotNone(trace['settlement'])
++
++    def test_first_gate_critical_error_stops_before_any_controls(self):
++        result,api=self.run_mock(ScriptedAPI(self.plan,{'partial_answer':{'supported':False}}))
++        self.assertEqual(result['status'],'stopped');self.assertEqual(result['failed_case_id'],'partial_answer')
++        self.assertEqual(result['role_counts']['controls'],0);self.assertEqual(result['gates']['controls']['status'],'not_run')
++        self.assertEqual(result['gates']['calibration']['result']['critical_errors'][0]['code'],'partial_answer_marked_unsupported')
++        self.assertEqual(len(api.calls),16);self.assertFalse((self.root/'result/handoff-receipt.json').exists())
++
++    def test_first_gate_one_noncritical_mismatch_still_allows_15_of_16(self):
++        result,api=self.run_mock(ScriptedAPI(self.plan,{'number_format':{'accurate':False}}))
++        self.assertEqual(result['status'],'completed_stage1');self.assertEqual(len(api.calls),32)
++        self.assertEqual(result['gates']['calibration']['result']['complete_case_matches'],15)
++
++    def test_first_gate_two_noncritical_mismatches_stop_when_threshold_impossible(self):
++        result,api=self.run_mock(ScriptedAPI(self.plan,{'full_sentence':{'accurate':False},'number_format':{'accurate':False}}))
++        self.assertEqual(result['status'],'stopped');self.assertLess(len(api.calls),18)
++        self.assertEqual(result['role_counts']['controls'],0)
++
++    def test_second_gate_c01_failure_stops_at_first_new_control(self):
++        result,api=self.run_mock(ScriptedAPI(self.plan,{'c01':{'supported':False}}))
++        self.assertEqual(len(api.calls),19);self.assertEqual(result['status'],'stopped')
++        self.assertEqual(result['gates']['calibration']['status'],'passed')
++        self.assertEqual(result['gates']['controls']['result']['expected_cases'],14)
++        self.assertEqual(result['gates']['controls']['result']['completed_cases'],1)
++        self.assertFalse((self.root/'result/handoff-receipt.json').exists())
++
++    def test_second_gate_c02_failure_does_not_change_prompt_or_continue(self):
++        result,api=self.run_mock(ScriptedAPI(self.plan,{'c02':{'supported':False}}))
++        self.assertEqual(len(api.calls),20);self.assertEqual(result['failed_case_id'],'c02')
++        self.assertEqual(result['role_counts']['controls'],2);self.assertEqual(result['formal_calls'],0)
++
++    def test_transport_failure_keeps_reservation_and_does_not_retry(self):
++        result,api=self.run_mock(ScriptedAPI(self.plan,failure=('preference_rubric_positive','timeout')))
++        self.assertEqual(len(api.calls),3);self.assertEqual(result['unsettled_reservations'],1)
++        self.assertEqual(Decimal(result['estimated_or_reserved_cost_cny']),Decimal('0.00052')*2+Decimal('0.036608'))
++        trace=json.loads((self.root/'result/traces/calibration/preference_rubric_positive.json').read_text())
++        self.assertIsNone(trace['raw_response']);self.assertIsNotNone(trace['reservation']);self.assertIsNone(trace['settlement'])
++
++    def test_invalid_output_usage_or_http_response_never_releases_reservation(self):
++        for index,mode in enumerate(['invalid_json','missing_usage','reasoning','truncated','http_error','over_usage']):
++            with self.subTest(mode):
++                claims=self.root/('claims-'+str(index));api=ScriptedAPI(self.plan,failure=('preference_rubric_positive',mode))
++                result=stage.run_stage(self.plan_path,self.approval,self.root/('bad-'+str(index)),transport=api,claim_root=claims,previous_claim_root=self.prior)
++                self.assertEqual(len(api.calls),3);self.assertEqual(result['unsettled_reservations'],1)
++                self.assertEqual(Decimal(result['estimated_or_reserved_cost_cny']),Decimal('0.037648'))
++                trace=json.loads((self.root/('bad-'+str(index))/'traces/calibration/preference_rubric_positive.json').read_text())
++                self.assertIsNotNone(trace['raw_response']);self.assertIsNone(trace['settlement'])
++
++    def test_invalid_judge_schema_including_refusal_nonnull_is_not_settled(self):
++        result,api=self.run_mock(ScriptedAPI(self.plan,{'correct_abstention':{'supported':False}}))
++        self.assertEqual(result['status'],'stopped');self.assertEqual(result['unsettled_reservations'],1)
++        self.assertEqual(result['role_counts']['controls'],0)
++        trace=json.loads((self.root/'result/traces/calibration/correct_abstention.json').read_text())
++        self.assertFalse(json.loads(trace['raw_response']['choices'][0]['message']['content'])['supported'])
++
++    def test_maximum_valid_usage_stays_below_stage_and_cumulative_caps(self):
++        result,api=self.run_mock(ScriptedAPI(self.plan,usage_at_cap=True))
++        self.assertEqual(len(api.calls),32);self.assertEqual(result['status'],'completed_stage1')
++        self.assertLessEqual(Decimal(result['estimated_or_reserved_cost_cny']),Decimal('1.240064'))
++        self.assertLessEqual(Decimal(result['cumulative_spent_or_reserved_cny']),Decimal('12'))
++
++    def test_role_request_token_and_cost_caps_reject_extra_reservations(self):
++        limits=self.plan['stage']['limits']
++        for role,n in limits['role_request_limits'].items():
++            with self.subTest(role):
++                ledger=Ledger(self.root/(role+'.jsonl'),limits)
++                try:
++                    for _ in range(n):
++                        r=ledger.reserve(role,100,10);ledger.settle(r,{'prompt_tokens':0,'completion_tokens':0},{})
++                    with self.assertRaises(BudgetStop):ledger.reserve(role,100,10)
++                finally:ledger.file.close()
++        for key,value in [('max_input_tokens_total',1),('max_output_tokens_total',1),('max_cost_cny','0.000001')]:
++            ledger=Ledger(self.root/(key+'.jsonl'),{**limits,key:value})
++            try:
++                with self.assertRaises(BudgetStop):ledger.reserve('calibration',8192,640)
++                self.assertEqual(ledger.requests,0)
++            finally:ledger.file.close()
++        ledger=Ledger(self.root/'forbidden.jsonl',limits)
++        try:
++            with self.assertRaises(BudgetStop):ledger.reserve('reader',100,10)
++        finally:ledger.file.close()
++
++    def test_no_approval_or_broadened_scope_never_reads_key_or_creates_claim(self):
++        original=approval_fixture(self.plan)
++        for key,value in [('approved',False),('approved','yes'),('control_labels_human_reviewed',False),
++                          ('formal_authorized',True),('max_requests',144),('max_cost_cny','12'),('prices_rechecked',False),('stage_id','formal')]:
++            with self.subTest(key=key,value=value):
++                changed={**original,key:value};self.approval.write_text(json.dumps(changed))
++                with patch('evals.memory_eval.judge4_stage1.os.environ.get',side_effect=AssertionError('key read before approval')):
++                    with self.assertRaises(BudgetStop):stage.run_stage(self.plan_path,self.approval,self.root/'unauthorized')
++        self.assertFalse((self.root/'unauthorized').exists())
++
++    def test_changed_plan_data_scope_rejected_even_if_new_seal_is_supplied(self):
++        plan=deepcopy(self.plan);plan['stage']['limits']['role_request_limits']['reader']=56
++        plan.pop('seal');plan['seal']=digest(plan)
++        p=self.root/'tampered.json';p.write_text(json.dumps(plan));approval=approval_fixture(plan);approval['role_request_limits']=plan['stage']['limits']['role_request_limits']
++        self.approval.write_text(json.dumps(approval))
++        with self.assertRaises(BudgetStop):stage.run_stage(p,self.approval,self.root/'broadened',transport=ScriptedAPI(plan),claim_root=self.claims,previous_claim_root=self.prior)
++        self.assertFalse(self.claims.exists())
++
++    def test_previous_unsettled_history_stops_before_new_claim(self):
++        self.old_ledger.write_text(self.old_ledger.read_text()+'{"event":"reserved","request":19}\n')
++        api=ScriptedAPI(self.plan)
++        with self.assertRaises(BudgetStop):self.run_mock(api)
++        self.assertEqual(api.calls,[]);self.assertFalse(self.claims.exists())
++
++    def test_new_output_or_copied_approval_cannot_restart_completed_stage(self):
++        self.run_mock();old_claim=(self.claims/(self.plan['budget_key']+'.json')).read_bytes()
++        copied=self.root/'copied.json';copied.write_bytes(self.approval.read_bytes());api=ScriptedAPI(self.plan)
++        with self.assertRaises(BudgetStop):stage.run_stage(self.plan_path,copied,self.root/'new-output',transport=api,claim_root=self.claims,previous_claim_root=self.prior)
++        self.assertEqual(api.calls,[]);self.assertFalse((self.root/'new-output').exists())
++        self.assertEqual((self.claims/(self.plan['budget_key']+'.json')).read_bytes(),old_claim)
++
++    def test_partial_claim_is_not_automatically_deleted(self):
++        self.claims.mkdir();(self.claims/(self.plan['budget_key']+'.json')).touch()
++        api=ScriptedAPI(self.plan)
++        with self.assertRaises(BudgetStop):self.run_mock(api)
++        self.assertEqual(api.calls,[]);self.assertEqual((self.claims/(self.plan['budget_key']+'.json')).read_bytes(),b'')
++
++    def test_formal_claim_or_real_directory_override_is_rejected(self):
++        self.claims.mkdir();(self.claims/(self.plan['stage']['formal_stage']['separate_budget_key']+'.json')).touch()
++        with self.assertRaises(BudgetStop):self.run_mock()
++        with self.assertRaises(BudgetStop):stage.run_stage(self.plan_path,self.approval,self.root/'override',claim_root=self.claims)
++
++    def test_two_processes_different_outputs_have_one_simulation_winner(self):
++        script="""import sys,time
++from pathlib import Path
++from evals.memory_eval import judge4_stage1 as stage
++from evals.memory_eval.models3 import BudgetStop
++from evals.tests.test_judge4_stage1 import ScriptedAPI
++import json
++base=Path(sys.argv[1]);plan=json.loads((base/'sealed/plan.json').read_text())
++while not (base/'start').exists():time.sleep(.01)
++try:
++    result=stage.run_stage(base/'sealed/plan.json',base/'approval.json',base/sys.argv[2],transport=ScriptedAPI(plan),claim_root=base/'simulation-claims',previous_claim_root=base/'prior')
++except BudgetStop:sys.exit(4)
++sys.exit(0 if result['status']=='completed_stage1' else 8)
++"""
++        children=[subprocess.Popen([sys.executable,'-c',script,str(self.root),out],stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True) for out in ['one','two']]
++        (self.root/'start').touch();results=[p.communicate(timeout=30) for p in children]
++        self.assertEqual(sorted(p.returncode for p in children),[0,4],results)
++        self.assertEqual(sum((self.root/p).exists() for p in ['one','two']),1)
++
++    def test_process_crash_after_reservation_cannot_open_a_fresh_budget(self):
++        script="""import json,os,sys
++from pathlib import Path
++from evals.memory_eval import judge4_stage1 as stage
++base=Path(sys.argv[1])
++def crash(*args):os._exit(9)
++stage.run_stage(base/'sealed/plan.json',base/'approval.json',base/'crashed',transport=crash,claim_root=base/'simulation-claims',previous_claim_root=base/'prior')
++"""
++        child=subprocess.run([sys.executable,'-c',script,str(self.root)],capture_output=True,text=True,timeout=15)
++        self.assertEqual(child.returncode,9,child.stderr)
++        path=self.root/'crashed/calls.jsonl';events=[json.loads(s) for s in path.read_text().splitlines()]
++        self.assertEqual(events[-1]['event'],'model_input');self.assertTrue(any(e['event']=='reserved' for e in events))
++        old=path.read_bytes()
++        with self.assertRaises(BudgetStop):self.run_mock(out='restart')
++        self.assertEqual(path.read_bytes(),old)
++
++    def test_simulation_cannot_write_canonical_paid_claim_directory(self):
++        with self.assertRaises(BudgetStop):stage.run_stage(self.plan_path,self.approval,self.root/'bad',transport=ScriptedAPI(self.plan),claim_root=stage.CLAIMS,previous_claim_root=self.prior)
++
++    def test_prompts_datasets_and_two_stage_design_are_preserved(self):
++        old=json.loads((judge4.PREVIOUS/'approved-plan.json').read_text())
++        self.assertEqual(digest(JUDGE_SYSTEM),old['judge_prompt_sha256']);self.assertEqual(digest(READER_SYSTEM),old['reader_prompt_sha256'])
++        self.assertEqual(digest(judge4.JUDGE_SYSTEM_V4),'ba7ab1acc3aec7b379313b7b20ca61a2226c05feb40418c6fd43022f4eed6d05')
++        self.assertTrue(self.plan['stage']['joint_judge_sees_reference_and_evidence'])
++        self.assertFalse(self.plan['stage']['support_only_view_used_for_calls'])
++
++    def test_http_error_body_and_supplier_trace_preserved_under_same_deadline(self):
++        class Handler(BaseHTTPRequestHandler):
++            def do_POST(self):
++                body=b'{"error":"mock quota"}';self.send_response(429);self.send_header('Content-Length',str(len(body)))
++                self.send_header('x-siliconcloud-trace-id','mock-429');self.end_headers();self.wfile.write(body)
++            def log_message(self,*args):pass
++        server=ThreadingHTTPServer(('127.0.0.1',0),Handler);thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
++        try:
++            response=json_http('http://127.0.0.1:'+str(server.server_port)+'/mock',{},1,capture_http_errors=True)
++            self.assertEqual(response['http_status'],429);self.assertEqual(response['id'],'mock-429')
++            self.assertEqual(json.loads(response['http_error_body']),{'error':'mock quota'})
++        finally:server.shutdown();server.server_close();thread.join(timeout=3)
++
++
++if __name__=='__main__':unittest.main()
+--- a/evals/tests/test_judge_contract_v4.py
++++ b/evals/tests/test_judge_contract_v4.py
+@@ -140,14 +140,12 @@
+         self.assertEqual(len(set(contract['proposed_stage_claim_keys'].values())),2)
+         self.assertIn('no automatic resume',contract['restart_policy'])
+ 
+-    def test_prepare_is_offline_and_all_30_inputs_fit_8k_without_truncation(self):
++    def test_archived_offline_contract_rejects_shared_client_runtime_drift(self):
+         with tempfile.TemporaryDirectory() as temp,patch('urllib.request.OpenerDirector.open',side_effect=AssertionError('network forbidden')):
+-            out=Path(temp)/'prepared';manifest=judge4.prepare(out)
+-            self.assertEqual(manifest['paid_calls_this_round'],0);self.assertIsNone(manifest['v4_real_model_results'])
+-            self.assertLessEqual(manifest['max_short_input_bound'],8192)
+-            self.assertEqual(len(json.loads((out/'calibration-inputs.json').read_text())),16)
+-            self.assertEqual(len(json.loads((out/'controls-inputs.json').read_text())),14)
+-            self.assertTrue(manifest['old_failure_still_blocked'])
++            # 旧提案不覆盖、不偷偷更新runtime hash；新执行器使用独立stage1封存。
++            out=Path(temp)/'prepared'
++            with self.assertRaises(ValueError):judge4.prepare(out)
++            self.assertFalse(out.exists())
+ 
+     def test_cli_has_no_paid_execution_mode(self):
+         p=subprocess.run([sys.executable,'-m','evals.memory_eval.judge4','models-run'],cwd=ROOT,capture_output=True,text=True)
+--- a/evals/README.md
++++ b/evals/README.md
+@@ -235,3 +235,29 @@
+ ```
+ 
+ 该入口只准备输入和费用提案，没有models-run，不读Key或发模型请求。当前封存为reports/judge-contract-v4-locked；同轮judge-contract-v4及judge-contract-v4-final为较早的离线草案。收费集成与新授权尚待完成；不得复用旧授权/清零旧账本。提案新增14次独立对照，总144次；含首次0.035568元的累计最坏10.966768元。建议先确认32次校准及对照阶段（最坏1.240064元），不得默认为已授权正式112次。
++
++## 当前：V4 第一阶段执行器已集成，等待 32 次明确授权
++
++以上 V3/旧 V4 入口与计划作为历史保留。当前使用独立的 `judge4_stage1` 和 `configs/judge_v4_stage1.json`，详见 [执行器、门禁与预算报告](../docs/EVAL_JUDGE_V4_STAGE1.md) 及 [封存证据](reports/judge-v4-stage1-sealed/report.md)。本轮收费调用 0，不读取 Key，不创建真实收费 Claim。共享客户端校验顺序修正后，旧 `judge4 prepare` 的源码 hash 会拒绝漂移；不修改旧封存配置来继续执行。
++
++```bash
++# 免费封存；目录须全新，不读取凭据或调用模型。
++python3 -m evals.memory_eval.judge4_stage1 prepare --output /tmp/judge-v4-stage1-review-new
++PYTHONPATH=/tmp/drb-phase3-deps python3 -m unittest discover -s evals/tests -v
++python3 -m compileall -q evals/memory_eval evals/tests
++git diff --check
++```
++
++仅准备 2 次 smoke、16 次原校准、14 次新对照，总 32 次，费用上界 ¥1.240064；含历史费用累计 ¥1.275632。原 16 例要求至少15/16完整匹配、关键错误0，新14例要求14/14、关键错误0，分别报告。关键错误或门禁已不可能通过时立即停止；两道通过也只产生证据交接，不会自动调用正式112次。
++
++未来获得绑定当前 plan seal 的明确授权并复核价格后，才可创建有效批准文件和提供 `MEMORY_EVAL_API_KEY`：
++
++```bash
++# 本轮禁止执行；--approval 不能复用旧授权。
++python3 -m evals.memory_eval.judge4_stage1 run \
++  --plan evals/reports/judge-v4-stage1-sealed/plan.json \
++  --approval <明确授权后创建的第一阶段批准记录.json> \
++  --output evals/runs/judge-v4-stage1-real-001
++```
++
++真实执行固定 Claim 目录及阶段键，不允许更换输出目录/复制批准/重启重开预算；旧账本不一致时停止核账。每次先预留、持久化输入/原始输出、校验后结算，网络/schema/usage失败保留最坏预留，45秒总时限、重试0。完整模拟32次、两道失败停止、并发与崩溃回归均有封存日志；模拟标签不代表真实V4质量。联合Judge仍看到参考答案和证据，`support_only_view`未实现调用级隔离。

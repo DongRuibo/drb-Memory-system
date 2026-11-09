@@ -1,0 +1,9 @@
+{
+  "stage_id": "judge-v4-stage1-calibration-and-controls",
+  "plan_seal": "6d0380d443587a0cf34de8a2b2fc73e601385b3a745189d4f9e0755561064ded",
+  "scope": "calibration_and_controls_only",
+  "reviewer": "offline-test-fixture",
+  "max_requests": 32,
+  "max_cost_cny": "1.240064",
+  "global_cap_cny": "12.00"
+}

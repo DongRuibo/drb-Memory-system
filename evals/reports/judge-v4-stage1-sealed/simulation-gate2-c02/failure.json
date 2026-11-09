@@ -1,0 +1,7 @@
+{
+  "error_type": "BudgetStop",
+  "role": "controls",
+  "case_id": "c02",
+  "last_request": 20,
+  "retry": 0
+}

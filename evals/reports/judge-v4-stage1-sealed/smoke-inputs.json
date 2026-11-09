@@ -1,0 +1,78 @@
+[
+  {
+    "role": "smoke",
+    "id": "smoke-1",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Return a JSON object only."
+      },
+      {
+        "role": "user",
+        "content": "Return {\"ok\": true}."
+      }
+    ],
+    "abstained": null,
+    "input_byte_token_bound": 430,
+    "payload": {
+      "model": "deepseek-ai/DeepSeek-V3.2",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Return a JSON object only."
+        },
+        {
+          "role": "user",
+          "content": "Return {\"ok\": true}."
+        }
+      ],
+      "temperature": 0,
+      "stream": false,
+      "max_tokens": 768,
+      "enable_thinking": false,
+      "thinking_budget": 128,
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "input_sha256": "adfa5f096f0dc00be3b20e4109f1fa1ffc9d884a15ee439f205c81e95ef2439e"
+  },
+  {
+    "role": "smoke",
+    "id": "smoke-2",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Return a JSON object only."
+      },
+      {
+        "role": "user",
+        "content": "Return {\"ok\": true}."
+      }
+    ],
+    "abstained": null,
+    "input_byte_token_bound": 430,
+    "payload": {
+      "model": "deepseek-ai/DeepSeek-V3.2",
+      "messages": [
+        {
+          "role": "system",
+          "content": "Return a JSON object only."
+        },
+        {
+          "role": "user",
+          "content": "Return {\"ok\": true}."
+        }
+      ],
+      "temperature": 0,
+      "stream": false,
+      "max_tokens": 768,
+      "enable_thinking": false,
+      "thinking_budget": 128,
+      "response_format": {
+        "type": "json_object"
+      }
+    },
+    "input_sha256": "adfa5f096f0dc00be3b20e4109f1fa1ffc9d884a15ee439f205c81e95ef2439e"
+  }
+]

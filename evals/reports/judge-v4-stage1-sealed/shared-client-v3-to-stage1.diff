@@ -1,0 +1,95 @@
+--- a/evals/memory_eval/models3.py
++++ b/evals/memory_eval/models3.py
+@@ -82,7 +82,7 @@
+         return None
+ 
+ 
+-def json_http(url,payload,timeout,key=None):
++def json_http(url,payload,timeout,key=None,capture_http_errors=False):
+     # 顺序POSIX CLI用总时限中断慢速响应；urllib的socket timeout本身只限制单次阻塞。
+     if threading.current_thread() is not threading.main_thread() or not hasattr(signal,'setitimer'):
+         raise BudgetStop('real model HTTP requires the main POSIX thread; no request sent')
+@@ -94,9 +94,17 @@
+     request=urllib.request.Request(url,data=json.dumps(payload).encode() if payload is not None else None,headers=headers)
+     previous=signal.signal(signal.SIGALRM,expired);signal.setitimer(signal.ITIMER_REAL,timeout)
+     try:
+-        with urllib.request.build_opener(NoRedirect).open(request,timeout=timeout) as response:
++        try:response=urllib.request.build_opener(NoRedirect).open(request,timeout=timeout)
++        except urllib.error.HTTPError as error:
++            if not capture_http_errors:raise
++            response=error
++        with response:
+             body=response.read(32000001)
+         if len(body)>32000000:raise ValueError('model response too large')
++        if capture_http_errors and response.code>=300:
++            # 在同一个总时限内收集错误正文和供应商追踪ID，不记录任何认证请求头。
++            return {'http_status':response.code,'http_error_body':body.decode('utf-8',errors='replace'),
++                    'id':response.headers.get('x-siliconcloud-trace-id')}
+         return json.loads(body)
+     finally:
+         signal.setitimer(signal.ITIMER_REAL,0);signal.signal(signal.SIGALRM,previous)
+@@ -107,7 +115,7 @@
+         self.model=model;self.protocol=protocol;self.ledger=ledger;self.approved=approved
+         self.transport=transport
+ 
+-    def call(self,messages,role):
++    def call(self,messages,role,validator=None):
+         self.ledger.check_owner()
+         if not self.approved and self.transport is None:
+             raise BudgetStop('paid execution requires explicit user approval; no credentials read')
+@@ -124,11 +132,13 @@
+         r=self.ledger.reserve(role,cap,output+self.protocol['reasoning_reserve'])
+         payload={'model':self.model['model'],'messages':messages,'temperature':0,'stream':False,'max_tokens':output,
+                  'enable_thinking':False,'thinking_budget':128,'response_format':{'type':'json_object'}}
++        # 完整正文先落盘，不保存Authorization；即使解析或传输失败也能追溯实际输入。
++        self.ledger.log({'event':'model_input','request':r['request'],'payload':payload,'input_sha256':digest(messages)})
+         start=time.perf_counter_ns()
+         try:
+             if self.transport is None:
+                 self.ledger.dispatches+=1
+-                response=json_http(self.model['base_url']+'/chat/completions',payload,self.protocol['timeout_seconds'],key)
++                response=json_http(self.model['base_url']+'/chat/completions',payload,self.protocol['timeout_seconds'],key,capture_http_errors=True)
+             else:
+                 self.ledger.dispatches+=1;response=self.transport(payload,self.protocol['timeout_seconds'])
+         except Exception as error:
+@@ -136,18 +146,29 @@
+             self.ledger.halted=True;self.ledger.log({'event':'transport_failed_stop','request':r['request'],'error_type':type(error).__name__})
+             raise BudgetStop('transport failed; reservation retained; retry=0') from None
+         elapsed=(time.perf_counter_ns()-start)/1e6
+-        self.ledger.log({'event':'model_output','request':r['request'],'choices':response.get('choices',[])})
+-        cost=self.ledger.settle(r,response.get('usage',{}),{'latency_ms':elapsed,'response_id':response.get('id'),
+-                           'response_model':response.get('model'),'system_fingerprint':response.get('system_fingerprint'),
++        raw=response if isinstance(response,dict) else {}
++        self.ledger.log({'event':'model_output','request':r['request'],'raw_response':response,'choices':raw.get('choices',[]),
++                         'usage':raw.get('usage',{}),'latency_ms':elapsed,'response_id':raw.get('id'),
++                         'response_model':raw.get('model'),'system_fingerprint':raw.get('system_fingerprint')})
++        try:
++            choice=raw['choices'][0];message=choice['message'];usage=raw.get('usage',{})
++            if (raw.get('model')!=self.model['model'] or choice.get('finish_reason')!='stop' or message.get('reasoning_content')
++                or usage.get('completion_tokens_details',{}).get('reasoning_tokens',0)!=0
++                or (type(usage.get('completion_tokens')) is int and usage['completion_tokens']>output)):
++                raise ValueError('model, truncation or non-thinking contract failed')
++            value=json.loads(message['content'])
++            if validator is not None:value=validator(value)
++        except Exception as error:
++            # 先校验再结算：无效输出或schema不释放预留，也不重试修答案。
++            self.ledger.halted=True
++            self.ledger.log({'event':'invalid_output_stop','request':r['request'],'error_type':type(error).__name__})
++            raise BudgetStop('model response/JSON/schema contract failed; reservation retained; retry=0') from None
++        cost=self.ledger.settle(r,usage,{'latency_ms':elapsed,'response_id':raw.get('id'),
++                           'response_model':raw.get('model'),'system_fingerprint':raw.get('system_fingerprint'),
+                            'input_sha256':digest(messages)})
+-        choice=response['choices'][0];message=choice['message']
+-        if (response.get('model')!=self.model['model'] or choice.get('finish_reason')!='stop' or message.get('reasoning_content')
+-            or response['usage'].get('completion_tokens_details',{}).get('reasoning_tokens',0)!=0
+-            or response['usage']['completion_tokens']>output):
+-            self.ledger.halted=True
+-            raise BudgetStop('model, output truncation or non-thinking contract failed; stop')
+-        return {'json':json.loads(message['content']),'usage':response['usage'],'latency_ms':elapsed,'input_byte_token_bound':bound,
+-                'request':r['request'],'response_id':response.get('id'),'cost_cny':str(cost)}
++        return {'json':value,'usage':usage,'latency_ms':elapsed,'input_byte_token_bound':bound,
++                'request':r['request'],'response_id':raw.get('id'),'cost_cny':str(cost),'raw_response':response,
++                'response_model':raw.get('model'),'system_fingerprint':raw.get('system_fingerprint')}
+ 
+ 
+ class TextTokenizer:

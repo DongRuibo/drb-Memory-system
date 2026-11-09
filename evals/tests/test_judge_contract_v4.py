@@ -140,14 +140,12 @@ class JudgeContractV4Tests(unittest.TestCase):
         self.assertEqual(len(set(contract['proposed_stage_claim_keys'].values())),2)
         self.assertIn('no automatic resume',contract['restart_policy'])
 
-    def test_prepare_is_offline_and_all_30_inputs_fit_8k_without_truncation(self):
+    def test_archived_offline_contract_rejects_shared_client_runtime_drift(self):
         with tempfile.TemporaryDirectory() as temp,patch('urllib.request.OpenerDirector.open',side_effect=AssertionError('network forbidden')):
-            out=Path(temp)/'prepared';manifest=judge4.prepare(out)
-            self.assertEqual(manifest['paid_calls_this_round'],0);self.assertIsNone(manifest['v4_real_model_results'])
-            self.assertLessEqual(manifest['max_short_input_bound'],8192)
-            self.assertEqual(len(json.loads((out/'calibration-inputs.json').read_text())),16)
-            self.assertEqual(len(json.loads((out/'controls-inputs.json').read_text())),14)
-            self.assertTrue(manifest['old_failure_still_blocked'])
+            # 旧提案不覆盖、不偷偷更新runtime hash；新执行器使用独立stage1封存。
+            out=Path(temp)/'prepared'
+            with self.assertRaises(ValueError):judge4.prepare(out)
+            self.assertFalse(out.exists())
 
     def test_cli_has_no_paid_execution_mode(self):
         p=subprocess.run([sys.executable,'-m','evals.memory_eval.judge4','models-run'],cwd=ROOT,capture_output=True,text=True)

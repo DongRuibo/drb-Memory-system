@@ -1,0 +1,7 @@
+{
+  "stage_protocol_file_sha256": "ec4327b6962444e59fd49c7d3456277cfb36d2132f0ec52ea8c18825e6b3b232",
+  "plan_seal": "6d0380d443587a0cf34de8a2b2fc73e601385b3a745189d4f9e0755561064ded",
+  "judge_prompt_canonical_digest": "ba7ab1acc3aec7b379313b7b20ca61a2226c05feb40418c6fd43022f4eed6d05",
+  "calibration_sha256": "0c3ca2749d095bacf8a44af97c0802b15280b2fbbbf5646c9914b6d634b410c4",
+  "controls_sha256": "82c3e51a279ccdacb41abc1dbdbcbe66b5a3af4cc568ad9b5c1cb1f9e9800f7c"
+}

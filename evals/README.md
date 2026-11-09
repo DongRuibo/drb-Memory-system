@@ -235,3 +235,29 @@ python3 -m evals.memory_eval.judge4 prepare --output evals/runs/judge-v4-offline
 ```
 
 该入口只准备输入和费用提案，没有models-run，不读Key或发模型请求。当前封存为reports/judge-contract-v4-locked；同轮judge-contract-v4及judge-contract-v4-final为较早的离线草案。收费集成与新授权尚待完成；不得复用旧授权/清零旧账本。提案新增14次独立对照，总144次；含首次0.035568元的累计最坏10.966768元。建议先确认32次校准及对照阶段（最坏1.240064元），不得默认为已授权正式112次。
+
+## 当前：V4 第一阶段执行器已集成，等待 32 次明确授权
+
+以上 V3/旧 V4 入口与计划作为历史保留。当前使用独立的 `judge4_stage1` 和 `configs/judge_v4_stage1.json`，详见 [执行器、门禁与预算报告](../docs/EVAL_JUDGE_V4_STAGE1.md) 及 [封存证据](reports/judge-v4-stage1-sealed/report.md)。本轮收费调用 0，不读取 Key，不创建真实收费 Claim。共享客户端校验顺序修正后，旧 `judge4 prepare` 的源码 hash 会拒绝漂移；不修改旧封存配置来继续执行。
+
+```bash
+# 免费封存；目录须全新，不读取凭据或调用模型。
+python3 -m evals.memory_eval.judge4_stage1 prepare --output /tmp/judge-v4-stage1-review-new
+PYTHONPATH=/tmp/drb-phase3-deps python3 -m unittest discover -s evals/tests -v
+python3 -m compileall -q evals/memory_eval evals/tests
+git diff --check
+```
+
+仅准备 2 次 smoke、16 次原校准、14 次新对照，总 32 次，费用上界 ¥1.240064；含历史费用累计 ¥1.275632。原 16 例要求至少15/16完整匹配、关键错误0，新14例要求14/14、关键错误0，分别报告。关键错误或门禁已不可能通过时立即停止；两道通过也只产生证据交接，不会自动调用正式112次。
+
+未来获得绑定当前 plan seal 的明确授权并复核价格后，才可创建有效批准文件和提供 `MEMORY_EVAL_API_KEY`：
+
+```bash
+# 本轮禁止执行；--approval 不能复用旧授权。
+python3 -m evals.memory_eval.judge4_stage1 run \
+  --plan evals/reports/judge-v4-stage1-sealed/plan.json \
+  --approval <明确授权后创建的第一阶段批准记录.json> \
+  --output evals/runs/judge-v4-stage1-real-001
+```
+
+真实执行固定 Claim 目录及阶段键，不允许更换输出目录/复制批准/重启重开预算；旧账本不一致时停止核账。每次先预留、持久化输入/原始输出、校验后结算，网络/schema/usage失败保留最坏预留，45秒总时限、重试0。完整模拟32次、两道失败停止、并发与崩溃回归均有封存日志；模拟标签不代表真实V4质量。联合Judge仍看到参考答案和证据，`support_only_view`未实现调用级隔离。

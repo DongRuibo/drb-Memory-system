@@ -1,0 +1,128 @@
+[
+  {
+    "id": "c01",
+    "judgment": {
+      "accurate": false,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 19
+  },
+  {
+    "id": "c02",
+    "judgment": {
+      "accurate": false,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 20
+  },
+  {
+    "id": "c03",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 21
+  },
+  {
+    "id": "c04",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 22
+  },
+  {
+    "id": "c05",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 23
+  },
+  {
+    "id": "c06",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 24
+  },
+  {
+    "id": "c07",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 25
+  },
+  {
+    "id": "c08",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 26
+  },
+  {
+    "id": "c09",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 27
+  },
+  {
+    "id": "c10",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 28
+  },
+  {
+    "id": "c11",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 29
+  },
+  {
+    "id": "c12",
+    "judgment": {
+      "accurate": true,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 30
+  },
+  {
+    "id": "c13",
+    "judgment": {
+      "accurate": true,
+      "supported": null,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 31
+  },
+  {
+    "id": "c14",
+    "judgment": {
+      "accurate": false,
+      "supported": null,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 32
+  }
+]

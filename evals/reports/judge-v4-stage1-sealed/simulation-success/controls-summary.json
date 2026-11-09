@@ -1,0 +1,180 @@
+{
+  "version": "judge-contract-v4-controls-v1",
+  "expected_cases": 14,
+  "completed_cases": 14,
+  "complete_case_matches": 14,
+  "agreement": 1.0,
+  "minimum_complete_case_matches": 14,
+  "critical_errors": [],
+  "cases": [
+    {
+      "id": "c01",
+      "judgment": {
+        "accurate": false,
+        "supported": true,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c02",
+      "judgment": {
+        "accurate": false,
+        "supported": true,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c03",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c04",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c05",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c06",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c07",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c08",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c09",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c10",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c11",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c12",
+      "judgment": {
+        "accurate": true,
+        "supported": true,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c13",
+      "judgment": {
+        "accurate": true,
+        "supported": null,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": true,
+      "critical_errors": []
+    },
+    {
+      "id": "c14",
+      "judgment": {
+        "accurate": false,
+        "supported": null,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": false,
+      "critical_errors": []
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,7 @@
+{
+  "error_type": "BudgetStop",
+  "role": "calibration",
+  "case_id": "partial_answer",
+  "last_request": 16,
+  "retry": 0
+}

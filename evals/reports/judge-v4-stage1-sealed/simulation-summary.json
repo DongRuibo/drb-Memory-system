@@ -1,0 +1,103 @@
+{
+  "kind": "offline_simulation_evidence",
+  "paid_calls": 0,
+  "real_v4_judgments": null,
+  "scenarios": [
+    {
+      "scenario": "success",
+      "mode": "scripted_mock_not_real_judge",
+      "status": "completed_stage1",
+      "mock_dispatches": 32,
+      "paid_requests": 0,
+      "failed_case_id": null,
+      "roles": {
+        "smoke": 2,
+        "calibration": 16,
+        "controls": 14
+      },
+      "unsettled_reservations": 0,
+      "mock_cost_spent_or_reserved_cny": "0.016640",
+      "formal_calls": 0
+    },
+    {
+      "scenario": "gate1-partial-answer",
+      "mode": "scripted_mock_not_real_judge",
+      "status": "stopped",
+      "mock_dispatches": 16,
+      "paid_requests": 0,
+      "failed_case_id": "partial_answer",
+      "roles": {
+        "smoke": 2,
+        "calibration": 14,
+        "controls": 0
+      },
+      "unsettled_reservations": 0,
+      "mock_cost_spent_or_reserved_cny": "0.008320",
+      "formal_calls": 0
+    },
+    {
+      "scenario": "gate2-c01",
+      "mode": "scripted_mock_not_real_judge",
+      "status": "stopped",
+      "mock_dispatches": 19,
+      "paid_requests": 0,
+      "failed_case_id": "c01",
+      "roles": {
+        "smoke": 2,
+        "calibration": 16,
+        "controls": 1
+      },
+      "unsettled_reservations": 0,
+      "mock_cost_spent_or_reserved_cny": "0.009880",
+      "formal_calls": 0
+    },
+    {
+      "scenario": "gate2-c02",
+      "mode": "scripted_mock_not_real_judge",
+      "status": "stopped",
+      "mock_dispatches": 20,
+      "paid_requests": 0,
+      "failed_case_id": "c02",
+      "roles": {
+        "smoke": 2,
+        "calibration": 16,
+        "controls": 2
+      },
+      "unsettled_reservations": 0,
+      "mock_cost_spent_or_reserved_cny": "0.010400",
+      "formal_calls": 0
+    },
+    {
+      "scenario": "transport-failure",
+      "mode": "scripted_mock_not_real_judge",
+      "status": "stopped",
+      "mock_dispatches": 3,
+      "paid_requests": 0,
+      "failed_case_id": "preference_rubric_positive",
+      "roles": {
+        "smoke": 2,
+        "calibration": 1,
+        "controls": 0
+      },
+      "unsettled_reservations": 1,
+      "mock_cost_spent_or_reserved_cny": "0.037648",
+      "formal_calls": 0
+    },
+    {
+      "scenario": "invalid-json",
+      "mode": "scripted_mock_not_real_judge",
+      "status": "stopped",
+      "mock_dispatches": 3,
+      "paid_requests": 0,
+      "failed_case_id": "preference_rubric_positive",
+      "roles": {
+        "smoke": 2,
+        "calibration": 1,
+        "controls": 0
+      },
+      "unsettled_reservations": 1,
+      "mock_cost_spent_or_reserved_cny": "0.037648",
+      "formal_calls": 0
+    }
+  ]
+}

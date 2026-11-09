@@ -1,0 +1,20 @@
+[
+  {
+    "id": "c01",
+    "judgment": {
+      "accurate": false,
+      "supported": true,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 19
+  },
+  {
+    "id": "c02",
+    "judgment": {
+      "accurate": false,
+      "supported": false,
+      "reason": "scripted fixture; not real Judge inference"
+    },
+    "request": 20
+  }
+]

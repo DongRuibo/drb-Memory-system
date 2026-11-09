@@ -1,0 +1,45 @@
+test_all_trace_ids_raw_outputs_usage_and_input_hashes_are_preserved (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_all_trace_ids_raw_outputs_usage_and_input_hashes_are_preserved) ... ok
+test_changed_plan_data_scope_rejected_even_if_new_seal_is_supplied (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_changed_plan_data_scope_rejected_even_if_new_seal_is_supplied) ... ok
+test_complete_32_call_simulation_keeps_gates_separate_and_never_starts_formal (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_complete_32_call_simulation_keeps_gates_separate_and_never_starts_formal) ... ok
+test_first_gate_critical_error_stops_before_any_controls (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_first_gate_critical_error_stops_before_any_controls) ... ok
+test_first_gate_one_noncritical_mismatch_still_allows_15_of_16 (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_first_gate_one_noncritical_mismatch_still_allows_15_of_16) ... ok
+test_first_gate_two_noncritical_mismatches_stop_when_threshold_impossible (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_first_gate_two_noncritical_mismatches_stop_when_threshold_impossible) ... ok
+test_formal_claim_or_real_directory_override_is_rejected (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_formal_claim_or_real_directory_override_is_rejected) ... ok
+test_http_error_body_and_supplier_trace_preserved_under_same_deadline (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_http_error_body_and_supplier_trace_preserved_under_same_deadline) ... ERROR
+test_invalid_judge_schema_including_refusal_nonnull_is_not_settled (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_invalid_judge_schema_including_refusal_nonnull_is_not_settled) ... ok
+test_invalid_output_usage_or_http_response_never_releases_reservation (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_invalid_output_usage_or_http_response_never_releases_reservation) ... ok
+test_maximum_valid_usage_stays_below_stage_and_cumulative_caps (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_maximum_valid_usage_stays_below_stage_and_cumulative_caps) ... ok
+test_new_output_or_copied_approval_cannot_restart_completed_stage (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_new_output_or_copied_approval_cannot_restart_completed_stage) ... ok
+test_no_approval_or_broadened_scope_never_reads_key_or_creates_claim (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_no_approval_or_broadened_scope_never_reads_key_or_creates_claim) ... ok
+test_partial_claim_is_not_automatically_deleted (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_partial_claim_is_not_automatically_deleted) ... ok
+test_prepare_creates_no_claim_or_authorization_and_has_32_inputs (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_prepare_creates_no_claim_or_authorization_and_has_32_inputs) ... ok
+test_previous_unsettled_history_stops_before_new_claim (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_previous_unsettled_history_stops_before_new_claim) ... ok
+test_process_crash_after_reservation_cannot_open_a_fresh_budget (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_process_crash_after_reservation_cannot_open_a_fresh_budget) ... ok
+test_prompts_datasets_and_two_stage_design_are_preserved (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_prompts_datasets_and_two_stage_design_are_preserved) ... ok
+test_role_request_token_and_cost_caps_reject_extra_reservations (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_role_request_token_and_cost_caps_reject_extra_reservations) ... ok
+test_second_gate_c01_failure_stops_at_first_new_control (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_second_gate_c01_failure_stops_at_first_new_control) ... ok
+test_second_gate_c02_failure_does_not_change_prompt_or_continue (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_second_gate_c02_failure_does_not_change_prompt_or_continue) ... ok
+test_simulation_cannot_write_canonical_paid_claim_directory (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_simulation_cannot_write_canonical_paid_claim_directory) ... ok
+test_transport_failure_keeps_reservation_and_does_not_retry (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_transport_failure_keeps_reservation_and_does_not_retry) ... ok
+test_two_processes_different_outputs_have_one_simulation_winner (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_two_processes_different_outputs_have_one_simulation_winner) ... ok
+test_wire_payloads_use_v4_reference_and_evidence_but_no_private_annotations (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_wire_payloads_use_v4_reference_and_evidence_but_no_private_annotations) ... ok
+
+======================================================================
+ERROR: test_http_error_body_and_supplier_trace_preserved_under_same_deadline (evals.tests.test_judge4_stage1.JudgeStage1Tests.test_http_error_body_and_supplier_trace_preserved_under_same_deadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/tests/test_judge4_stage1.py", line 297, in test_http_error_body_and_supplier_trace_preserved_under_same_deadline
+    server=ThreadingHTTPServer(('127.0.0.1',0),Handler);thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/onruio/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 457, in __init__
+    self.server_bind()
+  File "/Users/onruio/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 140, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/Users/onruio/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 478, in server_bind
+    self.socket.bind(self.server_address)
+PermissionError: [Errno 1] Operation not permitted
+
+----------------------------------------------------------------------
+Ran 25 tests in 0.953s
+
+FAILED (errors=1)

@@ -1,0 +1,16 @@
+{
+  "kind": "stage1_evidence_not_formal_authorization",
+  "stage1_plan_seal": "6d0380d443587a0cf34de8a2b2fc73e601385b3a745189d4f9e0755561064ded",
+  "stage1_budget_key": "dd7ea2a8e7898a628c1f07aca435e32b075c56c51d2bbea5b5d3b48bfd8da0db",
+  "ledger_sha256": "2eceb560b1f29f338680393fddd22006f0ff36fa2338674d1c26a1b5b1414d99",
+  "stage1_cost_cny": "0.016640",
+  "previous_cost_cny": "0.035568",
+  "cumulative_cost_cny": "0.052208",
+  "gates_passed": [
+    "calibration",
+    "controls"
+  ],
+  "formal_authorized": false,
+  "formal_requests_allowed": 0,
+  "formal_separate_budget_key": "b220eb5ac063d22c106682c9ca9e8ddf51438ac19bd80082c4d24d6241c8bd9e"
+}

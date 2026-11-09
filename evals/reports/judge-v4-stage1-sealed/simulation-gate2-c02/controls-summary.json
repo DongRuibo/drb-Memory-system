@@ -1,0 +1,55 @@
+{
+  "version": "judge-contract-v4-controls-v1",
+  "expected_cases": 14,
+  "completed_cases": 2,
+  "complete_case_matches": 1,
+  "agreement": 0.07142857142857142,
+  "minimum_complete_case_matches": 14,
+  "critical_errors": [
+    {
+      "case_id": "c02",
+      "field": "supported",
+      "forbidden_value": false,
+      "code": "c02_support_mismatch"
+    }
+  ],
+  "cases": [
+    {
+      "id": "c01",
+      "judgment": {
+        "accurate": false,
+        "supported": true,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": true,
+      "mismatches": {},
+      "abstention_correct": null,
+      "critical_errors": []
+    },
+    {
+      "id": "c02",
+      "judgment": {
+        "accurate": false,
+        "supported": false,
+        "reason": "scripted fixture; not real Judge inference"
+      },
+      "agrees": false,
+      "mismatches": {
+        "supported": {
+          "expected": true,
+          "actual": false
+        }
+      },
+      "abstention_correct": null,
+      "critical_errors": [
+        {
+          "case_id": "c02",
+          "field": "supported",
+          "forbidden_value": false,
+          "code": "c02_support_mismatch"
+        }
+      ]
+    }
+  ],
+  "passed": false
+}

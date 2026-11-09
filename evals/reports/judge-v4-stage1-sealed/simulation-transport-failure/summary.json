@@ -1,0 +1,33 @@
+{
+  "status": "stopped",
+  "mode": "simulation",
+  "stage_id": "judge-v4-stage1-calibration-and-controls",
+  "formal_authorized": false,
+  "formal_calls": 0,
+  "gates": {
+    "calibration": {
+      "status": "stopped",
+      "result": null
+    },
+    "controls": {
+      "status": "not_run",
+      "result": null
+    }
+  },
+  "quality_metrics": null,
+  "error_type": "BudgetStop",
+  "failed_role": "calibration",
+  "failed_case_id": "preference_rubric_positive",
+  "requests_reserved": 3,
+  "api_dispatch_attempts": 3,
+  "role_counts": {
+    "smoke": 2,
+    "calibration": 1,
+    "controls": 0
+  },
+  "estimated_or_reserved_cost_cny": "0.037648",
+  "previous_cost_cny": "0.035568",
+  "cumulative_spent_or_reserved_cny": "0.073216",
+  "unsettled_reservations": 1,
+  "budget_claim": "/var/folders/gs/9r40zqvx4rj4jbcl9p4vpdm80000gn/T/judge-v4-simulation-zczxu577/claims/dd7ea2a8e7898a628c1f07aca435e32b075c56c51d2bbea5b5d3b48bfd8da0db.json"
+}

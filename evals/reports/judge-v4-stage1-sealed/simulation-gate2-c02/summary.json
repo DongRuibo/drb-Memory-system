@@ -1,0 +1,290 @@
+{
+  "status": "stopped",
+  "mode": "simulation",
+  "stage_id": "judge-v4-stage1-calibration-and-controls",
+  "formal_authorized": false,
+  "formal_calls": 0,
+  "gates": {
+    "calibration": {
+      "status": "passed",
+      "result": {
+        "version": "judge-calibration-v3",
+        "expected_cases": 16,
+        "completed_cases": 16,
+        "complete_case_matches": 16,
+        "agreement": 1.0,
+        "minimum_complete_case_matches": 15,
+        "critical_errors": [],
+        "cases": [
+          {
+            "id": "preference_rubric_positive",
+            "judgment": {
+              "accurate": true,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "full_sentence",
+            "judgment": {
+              "accurate": true,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "synonym",
+            "judgment": {
+              "accurate": true,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "number_format",
+            "judgment": {
+              "accurate": true,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "date_format",
+            "judgment": {
+              "accurate": true,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "supported_explanation",
+            "judgment": {
+              "accurate": true,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "invented_explanation",
+            "judgment": {
+              "accurate": false,
+              "supported": false,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "decimal_error",
+            "judgment": {
+              "accurate": false,
+              "supported": false,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "entity_swap",
+            "judgment": {
+              "accurate": false,
+              "supported": false,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "correct_abstention",
+            "judgment": {
+              "accurate": true,
+              "supported": null,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": true,
+            "critical_errors": []
+          },
+          {
+            "id": "unsupported_guess",
+            "judgment": {
+              "accurate": false,
+              "supported": false,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "lucky_guess",
+            "judgment": {
+              "accurate": true,
+              "supported": false,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "arithmetic",
+            "judgment": {
+              "accurate": true,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "partial_answer",
+            "judgment": {
+              "accurate": false,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "preference_rubric_negative",
+            "judgment": {
+              "accurate": false,
+              "supported": false,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "unnecessary_abstention",
+            "judgment": {
+              "accurate": false,
+              "supported": null,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": false,
+            "critical_errors": []
+          }
+        ],
+        "passed": true
+      }
+    },
+    "controls": {
+      "status": "stopped",
+      "result": {
+        "version": "judge-contract-v4-controls-v1",
+        "expected_cases": 14,
+        "completed_cases": 2,
+        "complete_case_matches": 1,
+        "agreement": 0.07142857142857142,
+        "minimum_complete_case_matches": 14,
+        "critical_errors": [
+          {
+            "case_id": "c02",
+            "field": "supported",
+            "forbidden_value": false,
+            "code": "c02_support_mismatch"
+          }
+        ],
+        "cases": [
+          {
+            "id": "c01",
+            "judgment": {
+              "accurate": false,
+              "supported": true,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": true,
+            "mismatches": {},
+            "abstention_correct": null,
+            "critical_errors": []
+          },
+          {
+            "id": "c02",
+            "judgment": {
+              "accurate": false,
+              "supported": false,
+              "reason": "scripted fixture; not real Judge inference"
+            },
+            "agrees": false,
+            "mismatches": {
+              "supported": {
+                "expected": true,
+                "actual": false
+              }
+            },
+            "abstention_correct": null,
+            "critical_errors": [
+              {
+                "case_id": "c02",
+                "field": "supported",
+                "forbidden_value": false,
+                "code": "c02_support_mismatch"
+              }
+            ]
+          }
+        ],
+        "passed": false
+      }
+    }
+  },
+  "quality_metrics": null,
+  "error_type": "BudgetStop",
+  "failed_role": "controls",
+  "failed_case_id": "c02",
+  "requests_reserved": 20,
+  "api_dispatch_attempts": 20,
+  "role_counts": {
+    "smoke": 2,
+    "calibration": 16,
+    "controls": 2
+  },
+  "estimated_or_reserved_cost_cny": "0.010400",
+  "previous_cost_cny": "0.035568",
+  "cumulative_spent_or_reserved_cny": "0.045968",
+  "unsettled_reservations": 0,
+  "budget_claim": "/var/folders/gs/9r40zqvx4rj4jbcl9p4vpdm80000gn/T/judge-v4-simulation-dqzrfen3/claims/dd7ea2a8e7898a628c1f07aca435e32b075c56c51d2bbea5b5d3b48bfd8da0db.json"
+}
