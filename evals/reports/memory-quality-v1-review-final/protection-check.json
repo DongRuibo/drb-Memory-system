@@ -1,0 +1,27 @@
+{
+  "existing_paths_checked": 710,
+  "only_changed_preexisting_paths": [
+    "evals/README.md",
+    "evals/harness/src/main.rs"
+  ],
+  "protected_original_paths": 32,
+  "protected_changed": [],
+  "history_datasets_reports_judge_assets_unchanged": true,
+  "production_sources_and_migrations_unchanged": true,
+  "old_budget_ledger_unchanged": true,
+  "judge_v4_stage1_seal_still_matches": true,
+  "head": "9a5a438452502f71a207118ab104da5da5aa2071",
+  "branch": "codex/memory-evaluation-system",
+  "staged_paths": [],
+  "paid_api_calls": 0,
+  "model_api_key_read": false,
+  "new_paid_claims": 0,
+  "formal_new_dataset_scores": null,
+  "tests": {
+    "passed": 143,
+    "failed": 0,
+    "skipped": 0,
+    "new": 24
+  },
+  "database": "new disposable Docker tmpfs PostgreSQL; NOSUPERUSER NOBYPASSRLS; no production URL"
+}

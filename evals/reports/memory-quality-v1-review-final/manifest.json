@@ -1,0 +1,21 @@
+{
+  "status": "prepared_for_human_review",
+  "query_count": 48,
+  "governance_count": 24,
+  "documents": 240,
+  "human_review": "pending",
+  "paid_api_calls": 0,
+  "dataset_sha256": {
+    "evals/datasets/context_quality_v1.json": "fa5362ace3d7d9a3ebdff3a30fe13fc844c2640dae192b0cc4c408673665cab0",
+    "evals/datasets/governance_quality_v1.json": "31a71a1ad8a7db408ba20f9087b4e643810c1f7b632c1d9bc936b094b59b39e3",
+    "evals/datasets/holdout_v2.json": "96bbc1ef36262a8c233e62fbb7642526872a148cabaaea6b92faa676948049e1"
+  },
+  "protocol_sha256": "91e6cf46b6ad3722f1d74d986073064c527c6a3255b7016fb8d102702b4ece11",
+  "formal_dataset_scores": null,
+  "offline_tests": {
+    "passed": 143,
+    "failed": 0,
+    "skipped": 0,
+    "new": 24
+  }
+}

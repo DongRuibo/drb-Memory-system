@@ -1,0 +1,299 @@
+{
+  "id": "g23",
+  "family": "旧版本注入",
+  "human_review": "pending",
+  "passed": true,
+  "checks": {
+    "version_count": true,
+    "record_count": true,
+    "head_state": true,
+    "current_text": true,
+    "stale_candidate": true,
+    "stale_pack": true
+  },
+  "expected_labels": {},
+  "expected_state": {
+    "versions": 1,
+    "head_state": "contested",
+    "current_text": "我住在厦门。",
+    "stale_allowed": false,
+    "stale_pack_allowed": false
+  },
+  "observed_duplicate": false,
+  "observed_conflict": true,
+  "state": {
+    "candidate_sources": [
+      {
+        "candidate_id": "9dc81eab-0878-553e-a474-310977e42b08",
+        "source_event_id": "f627fc73-f24e-50fa-840d-775c3f4bf0aa",
+        "tenant_id": "quality-g23"
+      },
+      {
+        "candidate_id": "3d2d4b45-8785-563b-929e-5d38fe2afd2d",
+        "source_event_id": "12316570-2df7-5257-a358-bcd787cc90ec",
+        "tenant_id": "quality-g23"
+      }
+    ],
+    "memory_candidates": [
+      {
+        "confidence": 0.99,
+        "content": "我住在青岛。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:32.038851+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "3d2d4b45-8785-563b-929e-5d38fe2afd2d",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.home",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "needs_review",
+        "structured_content": null,
+        "target_memory_record_id": "5c859398-798a-50d0-b9a3-816d909b34c3",
+        "tenant_id": "quality-g23"
+      },
+      {
+        "confidence": 0.99,
+        "content": "我住在厦门。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:31.793695+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "9dc81eab-0878-553e-a474-310977e42b08",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.home",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "accepted",
+        "structured_content": null,
+        "target_memory_record_id": "5c859398-798a-50d0-b9a3-816d909b34c3",
+        "tenant_id": "quality-g23"
+      }
+    ],
+    "memory_decisions": [
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "9dc81eab-0878-553e-a474-310977e42b08",
+        "decided_at": "2026-11-08T17:46:31.793695+00:00",
+        "id": "07c3ad8c-1d5c-5401-8e05-c9a892e21f85",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "EXPLICIT_LOW_RISK_PREFERENCE",
+        "tenant_id": "quality-g23"
+      },
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "3d2d4b45-8785-563b-929e-5d38fe2afd2d",
+        "decided_at": "2026-11-08T17:46:32.038851+00:00",
+        "id": "0a31b813-c471-55ed-b34f-4481f87c6721",
+        "outcome": "needs_review",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+        "tenant_id": "quality-g23"
+      }
+    ],
+    "memory_heads": [
+      {
+        "current_version_id": "c9fef183-38cf-57c6-b126-638bde8d41cd",
+        "memory_record_id": "5c859398-798a-50d0-b9a3-816d909b34c3",
+        "revision": 1,
+        "state": "contested",
+        "tenant_id": "quality-g23",
+        "updated_at": "2026-11-08T17:46:32.038851+00:00"
+      }
+    ],
+    "memory_records": [
+      {
+        "created_at": "2026-11-08T17:46:31.793695+00:00",
+        "id": "5c859398-798a-50d0-b9a3-816d909b34c3",
+        "identity_retired_at": null,
+        "memory_type": "episodic_summary",
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "semantic_key": "quality.home",
+        "tenant_id": "quality-g23"
+      }
+    ],
+    "memory_version_sources": [
+      {
+        "memory_version_id": "c9fef183-38cf-57c6-b126-638bde8d41cd",
+        "source_event_id": "f627fc73-f24e-50fa-840d-775c3f4bf0aa",
+        "tenant_id": "quality-g23"
+      }
+    ],
+    "memory_versions": [
+      {
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "classification": "personal",
+        "confidence": 0.99,
+        "consent_ref": null,
+        "content": "我住在厦门。",
+        "content_erased_at": null,
+        "content_hash": "sha256:534550406270b420be483f1019ebc080b209e7ef3974cef8fc7c31c810ebca68",
+        "created_at": "2026-11-08T17:46:31.793695+00:00",
+        "decision_id": "07c3ad8c-1d5c-5401-8e05-c9a892e21f85",
+        "effective_from": null,
+        "effective_to": null,
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "id": "c9fef183-38cf-57c6-b126-638bde8d41cd",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_record_id": "5c859398-798a-50d0-b9a3-816d909b34c3",
+        "normalized_key": "quality.home",
+        "retain_until": null,
+        "retention_policy_id": "demo-user-episodic_summary-v1",
+        "structured_content": null,
+        "tenant_id": "quality-g23",
+        "version_no": 1
+      }
+    ],
+    "retrieval_documents": [],
+    "source_events": [
+      {
+        "classification": "personal",
+        "client_event_id": "33f3266a7515f45dfb3f56b3737c7c7bf306b9f42e928af15531775769a7e250",
+        "consent_ref": null,
+        "content_hash": "sha256:5c237571d41fdee9e2b91851f1cef8fbb2e2184f1c501a5acf197072baa2ec77",
+        "id": "12316570-2df7-5257-a358-bcd787cc90ec",
+        "idempotency_key": "33f3266a7515f45dfb3f56b3737c7c7bf306b9f42e928af15531775769a7e250",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:32.038851+00:00",
+        "redacted_excerpt": "我住在青岛。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://33f3266a7515f45dfb3f56b3737c7c7bf306b9f42e928af15531775769a7e250",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g23"
+      },
+      {
+        "classification": "personal",
+        "client_event_id": "0b0b26a0e69acda3ff4a44e03dffbd35798faa0613b5565c87c15d021568b4e1",
+        "consent_ref": null,
+        "content_hash": "sha256:534550406270b420be483f1019ebc080b209e7ef3974cef8fc7c31c810ebca68",
+        "id": "f627fc73-f24e-50fa-840d-775c3f4bf0aa",
+        "idempotency_key": "0b0b26a0e69acda3ff4a44e03dffbd35798faa0613b5565c87c15d021568b4e1",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:31.793695+00:00",
+        "redacted_excerpt": "我住在厦门。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://0b0b26a0e69acda3ff4a44e03dffbd35798faa0613b5565c87c15d021568b4e1",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g23"
+      }
+    ],
+    "tombstones": []
+  },
+  "steps": [
+    {
+      "input": {
+        "op": "ingest",
+        "as": "a",
+        "text": "我住在厦门。",
+        "semantic_key": "home"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "9dc81eab-0878-553e-a474-310977e42b08",
+        "canonical_status": "memory_accepted",
+        "head_revision": 0,
+        "memory_record_id": "5c859398-798a-50d0-b9a3-816d909b34c3",
+        "memory_version_id": "c9fef183-38cf-57c6-b126-638bde8d41cd",
+        "operation_id": "22030477-a724-525b-882a-b62e6646af5c",
+        "projection_status": "pending",
+        "provider_object_id": null,
+        "reason_code": null
+      }
+    },
+    {
+      "input": {
+        "op": "cache",
+        "target": "a"
+      },
+      "output": {
+        "attempt_id": "28a018be-3160-4dbb-831a-67f3cad3aa81",
+        "authority_snapshot_id": "authz-cc06b3e47bca42423ae38c2a2d49ba7dee5bdf34acb5e386e574a4431b8be736",
+        "compiler_version": "demo-context-compiler-v2",
+        "consumed_at": null,
+        "context_pack_id": "7212e048-d63c-5ba6-96f0-c3a20dbb9786",
+        "created_at": "2026-11-08T17:46:31.962590Z",
+        "delivery_status": "compiled",
+        "estimated_tokens": 38,
+        "expires_at": "2026-11-08T17:51:31.962590Z",
+        "item_count": 1,
+        "omission_summary": {},
+        "policy_version": "demo-policy-v1",
+        "projection_generation": "demo-v0-generation-1",
+        "purpose": "answer_user",
+        "ranking_version": "eval-v1",
+        "reference_time": "2026-01-01T00:00:00Z",
+        "task_id": "2b10018f-71fd-4af2-b28e-9cfea049b3e9",
+        "timezone": "UTC",
+        "token_budget": 4096,
+        "tokenizer_id": "demo-conservative-char-v1"
+      }
+    },
+    {
+      "input": {
+        "op": "ingest",
+        "as": "b",
+        "text": "我住在青岛。",
+        "semantic_key": "home"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "3d2d4b45-8785-563b-929e-5d38fe2afd2d",
+        "canonical_status": "needs_review",
+        "head_revision": 1,
+        "memory_record_id": "5c859398-798a-50d0-b9a3-816d909b34c3",
+        "memory_version_id": "c9fef183-38cf-57c6-b126-638bde8d41cd",
+        "operation_id": "ccf0f96b-3e74-5e09-913c-728e7e7cd4c8",
+        "projection_status": "pending",
+        "provider_object_id": "eval-local:22030477-a724-525b-882a-b62e6646af5c",
+        "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW"
+      }
+    }
+  ],
+  "cached_hits": [
+    {
+      "memory_record_id": "5c859398-798a-50d0-b9a3-816d909b34c3",
+      "memory_version_id": "c9fef183-38cf-57c6-b126-638bde8d41cd",
+      "head_revision": 0,
+      "generation": "demo-v0-generation-1",
+      "content_hash": "sha256:534550406270b420be483f1019ebc080b209e7ef3974cef8fc7c31c810ebca68",
+      "provider_object_id": "quality-cached",
+      "provider_score": 1.0
+    }
+  ],
+  "cached_authorized": [],
+  "old_pack_consume": {
+    "error": "conflict: consume Idempotency-Key must contain 16 to 128 characters"
+  },
+  "visible": [],
+  "scope_allowed": null,
+  "owner_visible": null,
+  "current_pack": null
+}

@@ -1,0 +1,42 @@
+test_added_trace_preserves_default_rank_and_full_authorization_not_top10 (evals.tests.test_quality.QualityPGTests.test_added_trace_preserves_default_rank_and_full_authorization_not_top10) ... ok
+test_dedup_and_conflict_known_gaps_are_not_silently_relabelled (evals.tests.test_quality.QualityPGTests.test_dedup_and_conflict_known_gaps_are_not_silently_relabelled) ... ok
+test_existing_governance_runner_remains_compatible (evals.tests.test_quality.QualityPGTests.test_existing_governance_runner_remains_compatible) ... ok
+test_old_candidate_and_precompiled_pack_are_both_denied (evals.tests.test_quality.QualityPGTests.test_old_candidate_and_precompiled_pack_are_both_denied) ... ok
+test_review_reject_and_selective_forget_use_existing_rules (evals.tests.test_quality.QualityPGTests.test_review_reject_and_selective_forget_use_existing_rules) ... 
+  test_review_reject_and_selective_forget_use_existing_rules (evals.tests.test_quality.QualityPGTests.test_review_reject_and_selective_forget_use_existing_rules) (qid='g11') ... ERROR
+test_scope_denials_require_owner_positive_control (evals.tests.test_quality.QualityPGTests.test_scope_denials_require_owner_positive_control) ... ok
+test_source_event_candidate_version_export_has_real_links (evals.tests.test_quality.QualityPGTests.test_source_event_candidate_version_export_has_real_links) ... 
+  test_source_event_candidate_version_export_has_real_links (evals.tests.test_quality.QualityPGTests.test_source_event_candidate_version_export_has_real_links) (qid='g15') ... ERROR
+
+======================================================================
+ERROR: test_review_reject_and_selective_forget_use_existing_rules (evals.tests.test_quality.QualityPGTests.test_review_reject_and_selective_forget_use_existing_rules) (qid='g11')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/tests/test_quality.py", line 196, in test_review_reject_and_selective_forget_use_existing_rules
+    r=quality.governance_case(self.sb,self.cases[qid]);self.assertTrue(r['passed'],r['checks'])
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/quality.py", line 139, in governance_case
+    value=sb.call('review',tenant,{'candidate':refs[s['target']]['candidate_id'],'key':'quality-'+c['id']+'-'+str(n),'outcome':s['outcome']},projects=projects)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/runner.py", line 118, in call
+    raise RuntimeError(response["error"])
+RuntimeError: database error: error returned from database: new row for relation "memory_review_results" violates check constraint "memory_review_results_idempotency_key_check"
+
+======================================================================
+ERROR: test_source_event_candidate_version_export_has_real_links (evals.tests.test_quality.QualityPGTests.test_source_event_candidate_version_export_has_real_links) (qid='g15')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/tests/test_quality.py", line 173, in test_source_event_candidate_version_export_has_real_links
+    r=quality.governance_case(self.sb,self.cases[qid]);self.assertTrue(r['passed'],r['checks'])
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/quality.py", line 139, in governance_case
+    value=sb.call('review',tenant,{'candidate':refs[s['target']]['candidate_id'],'key':'quality-'+c['id']+'-'+str(n),'outcome':s['outcome']},projects=projects)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/onruio/Documents/Codex/Projects/lazytt-memory-system/evals/memory_eval/runner.py", line 118, in call
+    raise RuntimeError(response["error"])
+RuntimeError: database error: error returned from database: new row for relation "memory_review_results" violates check constraint "memory_review_results_idempotency_key_check"
+
+----------------------------------------------------------------------
+Ran 7 tests in 5.327s
+
+FAILED (errors=2)

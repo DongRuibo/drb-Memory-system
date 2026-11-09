@@ -185,6 +185,8 @@ async fn execute(repo: &MemoryRepository, pool: &PgPool, a: &DemoAuthority,
                     &[(1.15, bm25.as_slice()), (1.0, vector.as_slice())], budget),
                 _ => return Err("unknown method".into()),
             };
+            // 仅增加评测阶段快照，不改变排序、授权、阈值或候选预算。
+            let fused = hits.clone();
             let authorized = repo.authorized_hits(a, &hits).await?;
             if method == "hybrid_rerank" || d["rerank_for_context"].as_bool().unwrap_or(false) {
                 let ranks = TransparentReranker.rerank(RerankRequest {
@@ -201,11 +203,22 @@ async fn execute(repo: &MemoryRepository, pool: &PgPool, a: &DemoAuthority,
             } else {
                 hits.retain(|h| authorized.iter().any(|m| m.memory_version_id==h.memory_version_id));
             }
+            let reranked = hits.clone();
             hits.truncate(10);
             let memories = repo.authorized_hits(a, &hits).await?;
-            Ok(json!({"hits":hits,"memories":memories}))
+            if d["trace"].as_bool().unwrap_or(false) {
+                Ok(json!({"hits":hits,"memories":memories,"trace":{
+                    "fused":fused,"preauthorized":authorized,"reranked":reranked,
+                    "postauthorized":memories}}))
+            } else {
+                Ok(json!({"hits":hits,"memories":memories}))
+            }
         }
-        "context" => {
+        "authorize" => {
+            let hits: Vec<ProjectionHit> = serde_json::from_value(d["hits"].clone())?;
+            Ok(serde_json::to_value(repo.authorized_hits(a, &hits).await?)?)
+        }
+        "context" | "context_compile" => {
             let hits: Vec<ProjectionHit> = serde_json::from_value(d["hits"].clone())?;
             let attempt = Uuid::new_v4();
             let task = Uuid::new_v4();
@@ -221,12 +234,18 @@ async fn execute(repo: &MemoryRepository, pool: &PgPool, a: &DemoAuthority,
                 }).collect::<Result<Vec<_>>>()).transpose()?.unwrap_or_default(),temporal_window_hash:None,
                 reference_time:d["reference_time"].as_str().map(str::parse).transpose()?.unwrap_or(now),timezone:"UTC".into(),
             }, &hits).await?;
+            if action == "context_compile" {
+                return Ok(serde_json::to_value(pack)?);
+            }
             let mut value=serde_json::to_value(repo.consume_context_pack(a,pack.context_pack_id,
                 &ConsumeContextPackCommand {idempotency_key:format!("eval-consume-{attempt}"),
                     task_id:task,attempt_id:attempt,purpose:"answer_user".into()}).await?)?;
             value["omission_summary"]=serde_json::to_value(pack.omission_summary)?;
             Ok(value)
         }
+        "context_consume" => Ok(serde_json::to_value(repo.consume_context_pack(a,id(d,"context_pack_id")?,
+            &ConsumeContextPackCommand {idempotency_key:string(d,"key")?.into(),
+                task_id:id(d,"task_id")?,attempt_id:id(d,"attempt_id")?,purpose:"answer_user".into()}).await?)?),
         "correct" => Ok(serde_json::to_value(repo.correct(a,CorrectionCommand {
             idempotency_key:string(d,"key")?.into(), memory_record_id:id(d,"record")?,
             expected_revision:d["revision"].as_i64().ok_or("missing revision")?,
@@ -240,7 +259,9 @@ async fn execute(repo: &MemoryRepository, pool: &PgPool, a: &DemoAuthority,
         }).await?)?),
         "review" => Ok(serde_json::to_value(repo.decide_candidate(a,ReviewDecisionCommand {
             idempotency_key:string(d,"key")?.into(),candidate_id:id(d,"candidate")?,
-            expected_candidate_revision:0,outcome:ReviewOutcome::Accept,reason:"隔离评测人工确认".into(),
+            expected_candidate_revision:0,outcome:if d["outcome"].as_str()==Some("reject") {
+                ReviewOutcome::Reject
+            } else { ReviewOutcome::Accept },reason:"隔离评测审核操作夹具，非人工标注已确认".into(),
         }).await?)?),
         "erase" => Ok(serde_json::to_value(repo.create_erasure_request(a,ErasureCommand {
             idempotency_key:string(d,"key")?.into(),target_kind:ErasureTargetKind::MemoryRecord,
@@ -251,7 +272,8 @@ async fn execute(repo: &MemoryRepository, pool: &PgPool, a: &DemoAuthority,
             let mut tx=pool.begin().await?;
             sqlx::query("SELECT set_config('app.tenant_id',$1,true)").bind(&a.tenant_id).execute(&mut *tx).await?;
             let mut state=serde_json::Map::new();
-            for table in ["memory_records","memory_versions","memory_heads","source_events","memory_candidates","memory_version_sources"] {
+            for table in ["memory_records","memory_versions","memory_heads","source_events","memory_candidates","memory_version_sources",
+                          "candidate_sources","memory_decisions","tombstones"] {
                 let value: Value=sqlx::query_scalar(&format!(
                     "SELECT COALESCE(jsonb_agg(to_jsonb(t)),'[]'::jsonb) FROM memory_core.{table} t"))
                     .fetch_one(&mut *tx).await?;

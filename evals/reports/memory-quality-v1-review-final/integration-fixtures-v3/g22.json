@@ -1,0 +1,368 @@
+{
+  "id": "g22",
+  "family": "旧版本注入",
+  "human_review": "pending",
+  "passed": true,
+  "checks": {
+    "version_count": true,
+    "record_count": true,
+    "head_state": true,
+    "current_text": true,
+    "stale_candidate": true,
+    "stale_pack": true,
+    "current_context": true
+  },
+  "expected_labels": {},
+  "expected_state": {
+    "versions": 2,
+    "head_state": "active",
+    "current_text": "我住在青岛。",
+    "stale_allowed": false,
+    "stale_pack_allowed": false
+  },
+  "observed_duplicate": false,
+  "observed_conflict": false,
+  "state": {
+    "candidate_sources": [
+      {
+        "candidate_id": "99862a1a-3b91-5266-9e42-66e3c7270937",
+        "source_event_id": "9951519c-2ac3-59a3-94a5-16b295b89d37",
+        "tenant_id": "quality-g22"
+      }
+    ],
+    "memory_candidates": [
+      {
+        "confidence": 0.99,
+        "content": "我住在厦门。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:31.211839+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "99862a1a-3b91-5266-9e42-66e3c7270937",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.home",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "accepted",
+        "structured_content": null,
+        "target_memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+        "tenant_id": "quality-g22"
+      }
+    ],
+    "memory_decisions": [
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "99862a1a-3b91-5266-9e42-66e3c7270937",
+        "decided_at": "2026-11-08T17:46:31.211839+00:00",
+        "id": "dca84afd-054b-588d-a1b9-a7ba5e3d55e1",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "EXPLICIT_LOW_RISK_PREFERENCE",
+        "tenant_id": "quality-g22"
+      },
+      {
+        "actor_id": "evaluator",
+        "actor_type": "user",
+        "candidate_id": null,
+        "decided_at": "2026-11-08T17:46:31.451417+00:00",
+        "id": "e39f4f90-6405-5111-ae14-382b824f1469",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "USER_EXPLICIT_CORRECTION",
+        "tenant_id": "quality-g22"
+      }
+    ],
+    "memory_heads": [
+      {
+        "current_version_id": "fb1ad572-49d0-5aa4-b8ad-2a9e73213a58",
+        "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+        "revision": 1,
+        "state": "active",
+        "tenant_id": "quality-g22",
+        "updated_at": "2026-11-08T17:46:31.451417+00:00"
+      }
+    ],
+    "memory_records": [
+      {
+        "created_at": "2026-11-08T17:46:31.211839+00:00",
+        "id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+        "identity_retired_at": null,
+        "memory_type": "episodic_summary",
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "semantic_key": "quality.home",
+        "tenant_id": "quality-g22"
+      }
+    ],
+    "memory_version_sources": [
+      {
+        "memory_version_id": "edb09f7f-68ee-5730-b03f-75566ffb20bb",
+        "source_event_id": "9951519c-2ac3-59a3-94a5-16b295b89d37",
+        "tenant_id": "quality-g22"
+      },
+      {
+        "memory_version_id": "fb1ad572-49d0-5aa4-b8ad-2a9e73213a58",
+        "source_event_id": "9d0e74d9-2693-59ea-955e-9e23d89c22e3",
+        "tenant_id": "quality-g22"
+      }
+    ],
+    "memory_versions": [
+      {
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "classification": "personal",
+        "confidence": 0.99,
+        "consent_ref": null,
+        "content": "我住在厦门。",
+        "content_erased_at": null,
+        "content_hash": "sha256:534550406270b420be483f1019ebc080b209e7ef3974cef8fc7c31c810ebca68",
+        "created_at": "2026-11-08T17:46:31.211839+00:00",
+        "decision_id": "dca84afd-054b-588d-a1b9-a7ba5e3d55e1",
+        "effective_from": null,
+        "effective_to": null,
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "id": "edb09f7f-68ee-5730-b03f-75566ffb20bb",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+        "normalized_key": "quality.home",
+        "retain_until": null,
+        "retention_policy_id": "demo-user-episodic_summary-v1",
+        "structured_content": null,
+        "tenant_id": "quality-g22",
+        "version_no": 1
+      },
+      {
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "classification": "personal",
+        "confidence": 0.99,
+        "consent_ref": null,
+        "content": "我住在青岛。",
+        "content_erased_at": null,
+        "content_hash": "sha256:5c237571d41fdee9e2b91851f1cef8fbb2e2184f1c501a5acf197072baa2ec77",
+        "created_at": "2026-11-08T17:46:31.451417+00:00",
+        "decision_id": "e39f4f90-6405-5111-ae14-382b824f1469",
+        "effective_from": "2026-01-01T00:00:00+00:00",
+        "effective_to": null,
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "id": "fb1ad572-49d0-5aa4-b8ad-2a9e73213a58",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+        "normalized_key": "quality.home",
+        "retain_until": null,
+        "retention_policy_id": "demo-user-episodic_summary-v1",
+        "structured_content": null,
+        "tenant_id": "quality-g22",
+        "version_no": 2
+      }
+    ],
+    "retrieval_documents": [
+      {
+        "content": "我住在青岛。",
+        "content_hash": "sha256:5c237571d41fdee9e2b91851f1cef8fbb2e2184f1c501a5acf197072baa2ec77",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 1,
+        "indexed_at": "2026-11-08T17:46:31.519002+00:00",
+        "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+        "memory_version_id": "fb1ad572-49d0-5aa4-b8ad-2a9e73213a58",
+        "namespace_key": "ns-2c42d246ec3497a0a0e2ef4db2ca8adf37e55cf89c08468eb58bcdf4e045f766",
+        "search_vector": "'我住在青岛':1",
+        "tenant_id": "quality-g22"
+      }
+    ],
+    "source_events": [
+      {
+        "classification": "personal",
+        "client_event_id": "c5d329dc66f5c2c51dbbf0658f243a91bb0b7b05d9d42369217e0840207ede4b",
+        "consent_ref": null,
+        "content_hash": "sha256:534550406270b420be483f1019ebc080b209e7ef3974cef8fc7c31c810ebca68",
+        "id": "9951519c-2ac3-59a3-94a5-16b295b89d37",
+        "idempotency_key": "c5d329dc66f5c2c51dbbf0658f243a91bb0b7b05d9d42369217e0840207ede4b",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:31.211839+00:00",
+        "redacted_excerpt": "我住在厦门。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://c5d329dc66f5c2c51dbbf0658f243a91bb0b7b05d9d42369217e0840207ede4b",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g22"
+      },
+      {
+        "classification": "personal",
+        "client_event_id": "correction-quality-g22-2",
+        "consent_ref": null,
+        "content_hash": "sha256:81061d0297b939a472c25d87ee681bb89ba951d2eb1ce63ca3bfea81f3d1a3e6",
+        "id": "9d0e74d9-2693-59ea-955e-9e23d89c22e3",
+        "idempotency_key": "quality-g22-2",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:31.451417+00:00",
+        "redacted_excerpt": "我住在青岛。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://quality-g22-2",
+        "source_type": "user_correction",
+        "tenant_id": "quality-g22"
+      }
+    ],
+    "tombstones": []
+  },
+  "steps": [
+    {
+      "input": {
+        "op": "ingest",
+        "as": "a",
+        "text": "我住在厦门。",
+        "semantic_key": "home"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "99862a1a-3b91-5266-9e42-66e3c7270937",
+        "canonical_status": "memory_accepted",
+        "head_revision": 0,
+        "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+        "memory_version_id": "edb09f7f-68ee-5730-b03f-75566ffb20bb",
+        "operation_id": "ec84491d-befd-55c3-b130-12291b37bec5",
+        "projection_status": "pending",
+        "provider_object_id": null,
+        "reason_code": null
+      }
+    },
+    {
+      "input": {
+        "op": "cache",
+        "target": "a"
+      },
+      "output": {
+        "attempt_id": "6be6d936-0f45-4632-bbf5-886556ed1804",
+        "authority_snapshot_id": "authz-cb3cb9fd53857a535e641a57467ef6e10a34ee8ca328a35d1190864070fc958c",
+        "compiler_version": "demo-context-compiler-v2",
+        "consumed_at": null,
+        "context_pack_id": "b732680a-8321-5491-8a70-c3a5ea4439dd",
+        "created_at": "2026-11-08T17:46:31.340266Z",
+        "delivery_status": "compiled",
+        "estimated_tokens": 38,
+        "expires_at": "2026-11-08T17:51:31.340266Z",
+        "item_count": 1,
+        "omission_summary": {},
+        "policy_version": "demo-policy-v1",
+        "projection_generation": "demo-v0-generation-1",
+        "purpose": "answer_user",
+        "ranking_version": "eval-v1",
+        "reference_time": "2026-01-01T00:00:00Z",
+        "task_id": "e9a3253f-bf1e-4eb9-a091-7340610c6d09",
+        "timezone": "UTC",
+        "token_budget": 4096,
+        "tokenizer_id": "demo-conservative-char-v1"
+      }
+    },
+    {
+      "input": {
+        "op": "correct",
+        "target": "a",
+        "as": "updated",
+        "text": "我住在青岛。"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": null,
+        "canonical_status": "memory_corrected",
+        "head_revision": 1,
+        "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+        "memory_version_id": "fb1ad572-49d0-5aa4-b8ad-2a9e73213a58",
+        "operation_id": "79897fed-ba76-5d5c-a0da-f9c220b67e2a",
+        "projection_status": "pending",
+        "provider_object_id": null,
+        "reason_code": null
+      }
+    }
+  ],
+  "cached_hits": [
+    {
+      "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+      "memory_version_id": "edb09f7f-68ee-5730-b03f-75566ffb20bb",
+      "head_revision": 0,
+      "generation": "demo-v0-generation-1",
+      "content_hash": "sha256:534550406270b420be483f1019ebc080b209e7ef3974cef8fc7c31c810ebca68",
+      "provider_object_id": "quality-cached",
+      "provider_score": 1.0
+    }
+  ],
+  "cached_authorized": [],
+  "old_pack_consume": {
+    "error": "conflict: consume Idempotency-Key must contain 16 to 128 characters"
+  },
+  "visible": [
+    {
+      "content": "我住在青岛。",
+      "effective_from": "2026-01-01T00:00:00Z",
+      "event_time": null,
+      "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+      "memory_type": "episodic_summary",
+      "memory_version_id": "fb1ad572-49d0-5aa4-b8ad-2a9e73213a58",
+      "score": 1.0,
+      "source_refs": [
+        "eval://quality-g22-2"
+      ]
+    }
+  ],
+  "scope_allowed": null,
+  "owner_visible": null,
+  "current_pack": {
+    "attempt_id": "864dba5e-92cb-473a-87d3-b867cabc6d3b",
+    "authority_snapshot_id": "authz-cb3cb9fd53857a535e641a57467ef6e10a34ee8ca328a35d1190864070fc958c",
+    "compiler_version": "demo-context-compiler-v2",
+    "consumed_at": "2026-11-08T17:46:31.719023Z",
+    "context_pack_id": "8c8f0585-8d6d-5f06-8377-282989073b2e",
+    "created_at": "2026-11-08T17:46:31.699537Z",
+    "estimated_tokens": 38,
+    "expires_at": "2026-11-08T17:51:31.699537Z",
+    "omission_summary": {},
+    "policy_version": "demo-policy-v1",
+    "projection_generation": "demo-v0-generation-1",
+    "purpose": "answer_user",
+    "ranking_version": "eval-v1",
+    "reference_time": "2026-01-01T00:00:00Z",
+    "sections": [
+      {
+        "items": [
+          {
+            "effective_from": "2026-01-01T00:00:00Z",
+            "event_time": null,
+            "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+            "memory_record_id": "a6212f6b-caf2-5a63-9ed8-37fb793ece47",
+            "memory_version_id": "fb1ad572-49d0-5aa4-b8ad-2a9e73213a58",
+            "source_refs": [
+              "eval://quality-g22-2"
+            ],
+            "text": "我住在青岛。",
+            "trust": "untrusted_memory_data"
+          }
+        ],
+        "kind": "relevant_experience"
+      }
+    ],
+    "task_id": "88566a33-12d9-46d4-ace6-9b07c9c50c97",
+    "timezone": "UTC",
+    "token_budget": 4096,
+    "tokenizer_id": "demo-conservative-char-v1"
+  }
+}

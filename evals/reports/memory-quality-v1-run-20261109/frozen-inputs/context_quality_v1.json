@@ -1,0 +1,1211 @@
+{
+  "version": "context-quality-v1-20261109",
+  "kind": "self_constructed_extension_not_public_benchmark",
+  "human_review": "pending",
+  "annotation_origin": "由评测开发者根据显式合成事实编写；待用户逐项复核，不是模型生成答案的唯一评判",
+  "base_dataset": {
+    "path": "evals/datasets/holdout_v2.json",
+    "sha256": "96bbc1ef36262a8c233e62fbb7642526872a148cabaaea6b92faa676948049e1"
+  },
+  "limitations": [
+    "相同作者合成；不代表生产查询分布",
+    "多轮使用固定历史拼接，不宣称原生指代消解",
+    "时间更新文档为raw-history检索对照，不代表Version治理"
+  ],
+  "documents": [
+    {
+      "id": "entity-a",
+      "content": "沈砚负责星槎项目，项目代号是XC-73，代码仓库名为orion-ledger。"
+    },
+    {
+      "id": "entity-b",
+      "content": "沈彦负责星叉项目，项目代号是XC-37，代码仓库名为orion-metrics。"
+    },
+    {
+      "id": "entity-c",
+      "content": "霁蓝服务业务端口为8621，监控端口为9261。"
+    },
+    {
+      "id": "entity-d",
+      "content": "纪蓝服务业务端口为8612，监控端口为9216。"
+    },
+    {
+      "id": "entity-e",
+      "content": "许芮负责维护AsterQueue组件，它采用PostgreSQL作为权威存储。"
+    },
+    {
+      "id": "entity-f",
+      "content": "许睿负责维护AsterCache组件，它采用Redis保存缓存。"
+    },
+    {
+      "id": "date-a",
+      "content": "山雀项目上线日期是2025年11月18日；验收日期是2025年11月21日。"
+    },
+    {
+      "id": "date-b",
+      "content": "2025年12月9日，云堤服务在UTC 08:30开始维护，维护持续45分钟。"
+    },
+    {
+      "id": "date-c",
+      "content": "叶澄提交预算的截止时间是2025年10月3日17:00，时区为Asia/Shanghai。"
+    },
+    {
+      "id": "date-d",
+      "content": "蓝桉复盘安排在每月第二个周二，临时加开的会议另行通知。"
+    },
+    {
+      "id": "date-e",
+      "content": "罗笙的培训报名于2025年6月2日开放，6月16日关闭。"
+    },
+    {
+      "id": "date-f",
+      "content": "石鲸证书有效期截至2025年9月30日，换证预约在9月12日。"
+    },
+    {
+      "id": "para-a",
+      "content": "余栀不能摄入乳糖，点饮料时选择无乳糖版本。"
+    },
+    {
+      "id": "para-b",
+      "content": "魏知希望接收文字通知，因为在工作场所不便播放声音。"
+    },
+    {
+      "id": "para-c",
+      "content": "姜屿对强光敏感，办公座位应避开直射阳光。"
+    },
+    {
+      "id": "para-d",
+      "content": "陆苒习惯先查看流程图，再阅读实现细节。"
+    },
+    {
+      "id": "para-e",
+      "content": "向禾出差时只携带登机箱，不办理托运行李。"
+    },
+    {
+      "id": "para-f",
+      "content": "秦岚偏好安静且人少的就餐环境，不选有现场扩音表演的餐厅。"
+    },
+    {
+      "id": "multi-a",
+      "content": "雾松项目部署在东辰节点，负责人是贺青。"
+    },
+    {
+      "id": "multi-b",
+      "content": "东辰节点的维护窗口为周日02:00至03:00，时区为UTC。"
+    },
+    {
+      "id": "multi-c",
+      "content": "贺青的办公分机是7316。"
+    },
+    {
+      "id": "multi-d",
+      "content": "小岑周二只能参加线上会议，且可用时间是北京时间14:00至16:00。"
+    },
+    {
+      "id": "multi-e",
+      "content": "小岑周四可以到现场，上午09:00至11:00有空。"
+    },
+    {
+      "id": "multi-f",
+      "content": "林棠需要无坚果餐，且每人餐费不能超过90元。"
+    },
+    {
+      "id": "multi-g",
+      "content": "北岚小组使用Python处理批任务，使用Rust实现实时网关。"
+    },
+    {
+      "id": "exclude-a",
+      "content": "松鹤酒店内庭房远离马路；临街房交通噪声明显。"
+    },
+    {
+      "id": "exclude-b",
+      "content": "许宁不吃辣，但可以吃海鲜；许凝不吃海鲜，但能吃辣。"
+    },
+    {
+      "id": "exclude-c",
+      "content": "微帆测试环境使用端口7810，生产环境使用端口8710。"
+    },
+    {
+      "id": "exclude-d",
+      "content": "景岚项目的已验收样本数为248，原始日志数为824。"
+    },
+    {
+      "id": "exclude-e",
+      "content": "南枝的任务截止于星期三，南栀的任务截止于星期四。"
+    },
+    {
+      "id": "exclude-f",
+      "content": "澄石服务的写入接口是/v2/commit，只读接口是/v2/inspect。"
+    },
+    {
+      "id": "update-a-old",
+      "content": "截至2024年5月，顾遥在南京办公。此记录随后被迁址通知替代。"
+    },
+    {
+      "id": "update-a-new",
+      "content": "2025年2月的迁址通知确认：顾遥当前在杭州办公。"
+    },
+    {
+      "id": "update-b-old",
+      "content": "2024年版澄海接入文档规定业务端口为7560，现已失效。"
+    },
+    {
+      "id": "update-b-new",
+      "content": "2025年版澄海接入文档规定当前业务端口为7650，替代2024年版本。"
+    },
+    {
+      "id": "update-c-old",
+      "content": "2024年，裴宁通常饮用拿铁；该偏好已被更新。"
+    },
+    {
+      "id": "update-c-new",
+      "content": "2025年，裴宁因乳糖不耐受改喝无乳糖美式，这是当前偏好。"
+    },
+    {
+      "id": "update-d-a",
+      "content": "甲方认为雁池交付日期应为8月7日，双方尚未达成一致。"
+    },
+    {
+      "id": "update-d-b",
+      "content": "乙方认为雁池交付日期应为8月9日，双方尚未达成一致。"
+    },
+    {
+      "id": "turn-a",
+      "content": "洛帆当前负责水镜项目，水镜项目使用CockroachDB。"
+    },
+    {
+      "id": "turn-b",
+      "content": "祁月参加的木棉培训在2025年7月14日开始，持续3天。"
+    },
+    {
+      "id": "turn-c",
+      "content": "白露仓库的制品保留期是21天，访问日志保留期是90天。"
+    },
+    {
+      "id": "turn-d",
+      "content": "程澈的办公城市是珠海，常用办公分机是4172。"
+    },
+    {
+      "id": "turn-e",
+      "content": "枫桥服务的业务端口是8093，健康检查路径为/ready。"
+    },
+    {
+      "id": "turn-f",
+      "content": "第一轮演练耗时14分钟，第二轮演练耗时26分钟，两轮不重叠。"
+    }
+  ],
+  "queries": [
+    {
+      "id": "q01",
+      "category": "实体和专有名词",
+      "query": "星槎的仓库叫什么？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "entity-a": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "entity-a",
+          "spans": [
+            "代码仓库名为orion-ledger"
+          ]
+        }
+      ],
+      "reference_fact": "orion-ledger",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q02",
+      "category": "实体和专有名词",
+      "query": "XC-37由哪位同事负责？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "entity-b": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "entity-b",
+          "spans": [
+            "沈彦负责星叉项目，项目代号是XC-37"
+          ]
+        }
+      ],
+      "reference_fact": "沈彦",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q03",
+      "category": "实体和专有名词",
+      "query": "霁蓝接收业务流量用哪个端口？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "entity-c": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "entity-c",
+          "spans": [
+            "业务端口为8621"
+          ]
+        }
+      ],
+      "reference_fact": "8621",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q04",
+      "category": "实体和专有名词",
+      "query": "纪蓝的监控监听端口是多少？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "entity-d": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "entity-d",
+          "spans": [
+            "监控端口为9216"
+          ]
+        }
+      ],
+      "reference_fact": "9216",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q05",
+      "category": "实体和专有名词",
+      "query": "AsterQueue把权威数据保存在什么数据库？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "entity-e": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "entity-e",
+          "spans": [
+            "采用PostgreSQL作为权威存储"
+          ]
+        }
+      ],
+      "reference_fact": "PostgreSQL",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q06",
+      "category": "实体和专有名词",
+      "query": "维护AsterCache的人是许芮还是许睿？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "entity-f": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "entity-f",
+          "spans": [
+            "许睿负责维护AsterCache"
+          ]
+        }
+      ],
+      "reference_fact": "许睿",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q07",
+      "category": "日期和时间",
+      "query": "山雀在什么年月日正式上线？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "date-a": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "date-a",
+          "spans": [
+            "上线日期是2025年11月18日"
+          ]
+        }
+      ],
+      "reference_fact": "2025-11-18",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q08",
+      "category": "日期和时间",
+      "query": "云堤12月9日的维护按UTC几点开始？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "date-b": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "date-b",
+          "spans": [
+            "UTC 08:30开始维护"
+          ]
+        }
+      ],
+      "reference_fact": "08:30 UTC",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q09",
+      "category": "日期和时间",
+      "query": "叶澄最晚应在什么本地时间交预算？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "date-c": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "date-c",
+          "spans": [
+            "2025年10月3日17:00",
+            "Asia/Shanghai"
+          ]
+        }
+      ],
+      "reference_fact": "2025-10-03 17:00 Asia/Shanghai",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q10",
+      "category": "日期和时间",
+      "query": "蓝桉每个月在哪个周二复盘？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "date-d": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "date-d",
+          "spans": [
+            "每月第二个周二"
+          ]
+        }
+      ],
+      "reference_fact": "第二个周二",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q11",
+      "category": "日期和时间",
+      "query": "罗笙的培训从哪天到哪天接受报名？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "date-e": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "date-e",
+          "spans": [
+            "2025年6月2日开放，6月16日关闭"
+          ]
+        }
+      ],
+      "reference_fact": "2025-06-02至2025-06-16",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q12",
+      "category": "日期和时间",
+      "query": "石鲸证书9月12日就失效了吗，实际有效截止日是什么？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "date-f": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "date-f",
+          "spans": [
+            "有效期截至2025年9月30日"
+          ]
+        }
+      ],
+      "reference_fact": "2025-09-30",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q13",
+      "category": "中文自然语言改写",
+      "query": "给余栀买奶类饮品时有什么饮食限制？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "para-a": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "para-a",
+          "spans": [
+            "不能摄入乳糖"
+          ]
+        }
+      ],
+      "reference_fact": "无乳糖",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q14",
+      "category": "中文自然语言改写",
+      "query": "谁上班时不方便听提示音，需要用字来通知？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "para-b": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "para-b",
+          "spans": [
+            "魏知希望接收文字通知"
+          ]
+        }
+      ],
+      "reference_fact": "魏知",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q15",
+      "category": "中文自然语言改写",
+      "query": "给姜屿安排工位时应该避开什么光照？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "para-c": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "para-c",
+          "spans": [
+            "应避开直射阳光"
+          ]
+        }
+      ],
+      "reference_fact": "直射阳光",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q16",
+      "category": "中文自然语言改写",
+      "query": "陆苒理解新系统时更愿意先看什么，再看代码细节？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "para-d": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "para-d",
+          "spans": [
+            "先查看流程图，再阅读实现细节"
+          ]
+        }
+      ],
+      "reference_fact": "先流程图后实现细节",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q17",
+      "category": "中文自然语言改写",
+      "query": "哪位同事出差不把箱子交给航空公司托运？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "para-e": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "para-e",
+          "spans": [
+            "向禾出差时只携带登机箱，不办理托运行李"
+          ]
+        }
+      ],
+      "reference_fact": "向禾",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q18",
+      "category": "中文自然语言改写",
+      "query": "秦岚聚餐需要避开哪种表演和客流环境？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "para-f": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "para-f",
+          "spans": [
+            "安静且人少的就餐环境，不选有现场扩音表演"
+          ]
+        }
+      ],
+      "reference_fact": "少人且无扩音表演",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q19",
+      "category": "多条件查询",
+      "query": "雾松所在节点周日何时维护？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "multi-a": 1,
+        "multi-b": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "multi-a",
+          "spans": [
+            "雾松项目部署在东辰节点"
+          ]
+        },
+        {
+          "document_id": "multi-b",
+          "spans": [
+            "周日02:00至03:00，时区为UTC"
+          ]
+        }
+      ],
+      "reference_fact": "周日02:00—03:00 UTC",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q20",
+      "category": "多条件查询",
+      "query": "雾松负责人的办公分机是多少？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "multi-a": 1,
+        "multi-c": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "multi-a",
+          "spans": [
+            "负责人是贺青"
+          ]
+        },
+        {
+          "document_id": "multi-c",
+          "spans": [
+            "办公分机是7316"
+          ]
+        }
+      ],
+      "reference_fact": "7316",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q21",
+      "category": "多条件查询",
+      "query": "小岑周二能参加哪种形式的会议，时间范围是什么？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "multi-d": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "multi-d",
+          "spans": [
+            "只能参加线上会议",
+            "北京时间14:00至16:00"
+          ]
+        }
+      ],
+      "reference_fact": "线上，14:00—16:00北京时间",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q22",
+      "category": "多条件查询",
+      "query": "给林棠订餐需要同时满足过敏和预算的哪些条件？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "multi-f": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "multi-f",
+          "spans": [
+            "需要无坚果餐",
+            "每人餐费不能超过90元"
+          ]
+        }
+      ],
+      "reference_fact": "无坚果且≤90元/人",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q23",
+      "category": "多条件查询",
+      "query": "北岚处理批任务和实时网关分别用什么语言？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "multi-g": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "multi-g",
+          "spans": [
+            "Python处理批任务",
+            "Rust实现实时网关"
+          ]
+        }
+      ],
+      "reference_fact": "Python / Rust",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q24",
+      "category": "多条件查询",
+      "query": "小岑哪天可现场开会，那个上午的空闲时段是多少？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "multi-e": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "multi-e",
+          "spans": [
+            "周四可以到现场",
+            "上午09:00至11:00"
+          ]
+        }
+      ],
+      "reference_fact": "周四09:00—11:00",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q25",
+      "category": "排除条件",
+      "query": "松鹤订房要躲开马路噪声，应选哪种房而非临街房？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "exclude-a": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "exclude-a",
+          "spans": [
+            "内庭房远离马路"
+          ]
+        }
+      ],
+      "reference_fact": "内庭房",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q26",
+      "category": "排除条件",
+      "query": "许宁能吃海鲜吗？请不要拿许凝的禁忌代替她。",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "exclude-b": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "exclude-b",
+          "spans": [
+            "许宁不吃辣，但可以吃海鲜"
+          ]
+        }
+      ],
+      "reference_fact": "可以",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q27",
+      "category": "排除条件",
+      "query": "微帆正式生产接入应排除测试端口，正确端口是多少？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "exclude-c": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "exclude-c",
+          "spans": [
+            "生产环境使用端口8710"
+          ]
+        }
+      ],
+      "reference_fact": "8710",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q28",
+      "category": "排除条件",
+      "query": "景岚已经验收的样本有多少？不问原始日志数量。",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "exclude-d": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "exclude-d",
+          "spans": [
+            "已验收样本数为248"
+          ]
+        }
+      ],
+      "reference_fact": "248",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q29",
+      "category": "排除条件",
+      "query": "南枝的截止日是哪天？不是名字相近的南栀。",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "exclude-e": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "exclude-e",
+          "spans": [
+            "南枝的任务截止于星期三"
+          ]
+        }
+      ],
+      "reference_fact": "星期三",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q30",
+      "category": "排除条件",
+      "query": "只查看澄石状态且不能执行写入，应调用哪个接口？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "exclude-f": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "exclude-f",
+          "spans": [
+            "只读接口是/v2/inspect"
+          ]
+        }
+      ],
+      "reference_fact": "/v2/inspect",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q31",
+      "category": "新旧事实冲突",
+      "query": "顾遥现在在哪座城市办公？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "update-a-new": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "update-a-new",
+          "spans": [
+            "当前在杭州办公"
+          ]
+        }
+      ],
+      "reference_fact": "杭州",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q32",
+      "category": "新旧事实冲突",
+      "query": "顾遥截至2024年5月在哪办公？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "update-a-old": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "update-a-old",
+          "spans": [
+            "顾遥在南京办公"
+          ]
+        }
+      ],
+      "reference_fact": "南京",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q33",
+      "category": "新旧事实冲突",
+      "query": "澄海目前应使用7560还是7650业务端口？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "update-b-new": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "update-b-new",
+          "spans": [
+            "当前业务端口为7650"
+          ]
+        }
+      ],
+      "reference_fact": "7650",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q34",
+      "category": "新旧事实冲突",
+      "query": "裴宁当前应买哪种咖啡，不能沿用旧拿铁偏好？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "update-c-new": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "update-c-new",
+          "spans": [
+            "改喝无乳糖美式"
+          ]
+        }
+      ],
+      "reference_fact": "无乳糖美式",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q35",
+      "category": "新旧事实冲突",
+      "query": "雁池双方交付日期有哪些不同说法，统一了吗？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "update-d-a": 1,
+        "update-d-b": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "update-d-a",
+          "spans": [
+            "8月7日",
+            "尚未达成一致"
+          ]
+        },
+        {
+          "document_id": "update-d-b",
+          "spans": [
+            "8月9日",
+            "尚未达成一致"
+          ]
+        }
+      ],
+      "reference_fact": "甲方8月7日、乙方8月9日，未统一",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q36",
+      "category": "新旧事实冲突",
+      "query": "按已经失效的2024年澄海文档，当年的端口是多少？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {
+        "update-b-old": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "update-b-old",
+          "spans": [
+            "业务端口为7560"
+          ]
+        }
+      ],
+      "reference_fact": "7560（明确历史查询）",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q37",
+      "category": "无答案查询",
+      "query": "沈砚的出生日期是哪一天？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {},
+      "required_evidence": [],
+      "reference_fact": "现有语料未提供答案，应说明信息不足",
+      "unanswerable": true,
+      "human_review": "pending"
+    },
+    {
+      "id": "q38",
+      "category": "无答案查询",
+      "query": "霁蓝服务的月度云资源支出是多少元？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {},
+      "required_evidence": [],
+      "reference_fact": "现有语料未提供答案，应说明信息不足",
+      "unanswerable": true,
+      "human_review": "pending"
+    },
+    {
+      "id": "q39",
+      "category": "无答案查询",
+      "query": "余栀住在哪个小区？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {},
+      "required_evidence": [],
+      "reference_fact": "现有语料未提供答案，应说明信息不足",
+      "unanswerable": true,
+      "human_review": "pending"
+    },
+    {
+      "id": "q40",
+      "category": "无答案查询",
+      "query": "云堤下一次维护是哪一天？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {},
+      "required_evidence": [],
+      "reference_fact": "现有语料未提供答案，应说明信息不足",
+      "unanswerable": true,
+      "human_review": "pending"
+    },
+    {
+      "id": "q41",
+      "category": "无答案查询",
+      "query": "水镜项目有多少名全职成员？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {},
+      "required_evidence": [],
+      "reference_fact": "现有语料未提供答案，应说明信息不足",
+      "unanswerable": true,
+      "human_review": "pending"
+    },
+    {
+      "id": "q42",
+      "category": "无答案查询",
+      "query": "第三轮演练持续多少分钟？",
+      "history": [],
+      "input_policy": "query_only",
+      "qrels": {},
+      "required_evidence": [],
+      "reference_fact": "现有语料未提供答案，应说明信息不足",
+      "unanswerable": true,
+      "human_review": "pending"
+    },
+    {
+      "id": "q43",
+      "category": "多轮上下文查询",
+      "query": "它使用哪种数据库？",
+      "history": [
+        {
+          "role": "user",
+          "content": "刚才讨论的是洛帆负责的水镜项目。"
+        }
+      ],
+      "input_policy": "explicit_history_concat",
+      "qrels": {
+        "turn-a": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "turn-a",
+          "spans": [
+            "水镜项目使用CockroachDB"
+          ]
+        }
+      ],
+      "reference_fact": "CockroachDB",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q44",
+      "category": "多轮上下文查询",
+      "query": "培训是哪天开始的？",
+      "history": [
+        {
+          "role": "user",
+          "content": "我们正在核对祁月参加的木棉培训。"
+        }
+      ],
+      "input_policy": "explicit_history_concat",
+      "qrels": {
+        "turn-b": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "turn-b",
+          "spans": [
+            "2025年7月14日开始"
+          ]
+        }
+      ],
+      "reference_fact": "2025-07-14",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q45",
+      "category": "多轮上下文查询",
+      "query": "那制品和日志分别保留多久？",
+      "history": [
+        {
+          "role": "user",
+          "content": "上一轮确定要查看白露仓库的保留策略。"
+        }
+      ],
+      "input_policy": "explicit_history_concat",
+      "qrels": {
+        "turn-c": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "turn-c",
+          "spans": [
+            "制品保留期是21天，访问日志保留期是90天"
+          ]
+        }
+      ],
+      "reference_fact": "21天/90天",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q46",
+      "category": "多轮上下文查询",
+      "query": "他的办公分机是多少？",
+      "history": [
+        {
+          "role": "user",
+          "content": "当前谈到的人是程澈。"
+        }
+      ],
+      "input_policy": "explicit_history_concat",
+      "qrels": {
+        "turn-d": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "turn-d",
+          "spans": [
+            "办公分机是4172"
+          ]
+        }
+      ],
+      "reference_fact": "4172",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q47",
+      "category": "多轮上下文查询",
+      "query": "它的业务端口和健康路径分别是什么？",
+      "history": [
+        {
+          "role": "user",
+          "content": "我们正在排查枫桥服务。"
+        }
+      ],
+      "input_policy": "explicit_history_concat",
+      "qrels": {
+        "turn-e": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "turn-e",
+          "spans": [
+            "业务端口是8093，健康检查路径为/ready"
+          ]
+        }
+      ],
+      "reference_fact": "8093 /ready",
+      "unanswerable": false,
+      "human_review": "pending"
+    },
+    {
+      "id": "q48",
+      "category": "多轮上下文查询",
+      "query": "两轮一共耗时多久？",
+      "history": [
+        {
+          "role": "user",
+          "content": "上一轮讨论了第一轮和第二轮演练，确认它们不重叠。"
+        }
+      ],
+      "input_policy": "explicit_history_concat",
+      "qrels": {
+        "turn-f": 1
+      },
+      "required_evidence": [
+        {
+          "document_id": "turn-f",
+          "spans": [
+            "第一轮演练耗时14分钟，第二轮演练耗时26分钟，两轮不重叠"
+          ]
+        }
+      ],
+      "reference_fact": "40分钟",
+      "unanswerable": false,
+      "human_review": "pending"
+    }
+  ]
+}

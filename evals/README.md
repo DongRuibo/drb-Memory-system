@@ -261,3 +261,20 @@ python3 -m evals.memory_eval.judge4_stage1 run \
 ```
 
 真实执行固定 Claim 目录及阶段键，不允许更换输出目录/复制批准/重启重开预算；旧账本不一致时停止核账。每次先预留、持久化输入/原始输出、校验后结算，网络/schema/usage失败保留最坏预留，45秒总时限、重试0。完整模拟32次、两道失败停止、并发与崩溃回归均有封存日志；模拟标签不代表真实V4质量。联合Judge仍看到参考答案和证据，`support_only_view`未实现调用级隔离。
+
+## 长期记忆质量增强：48题与24治理场景
+
+新增数据及代码独立于Judge V4和锁定LongMemEval测试。见 [实现与统计合同](../docs/EVAL_MEMORY_QUALITY.md)、[48题清单](reports/memory-quality-v1-review-final/retrieval-review.md)、[24场景清单](reports/memory-quality-v1-review-final/governance-review.md)。2026-11-09已获授权执行当前固定标注：240条记忆、192条检索记录及24个治理场景，请求错误和收费API调用均为0。原始pending字段保留，不捏造逐项人工复核记录；完整结果、局限和简历表述见 [实测报告](../docs/EVAL_MEMORY_QUALITY_RESULTS.md)。
+
+```bash
+# 只生成Markdown/CSV复核表，不需要数据库。
+scripts/eval-memory-quality.sh prepare /tmp/memory-quality-review-new
+# 包含真实一次性PG及本机HTTP夹具，模型API调用0。
+scripts/eval-memory-quality.sh test
+# 待标注复核后使用全新目录执行。未确认时结果仍明确标pending。
+scripts/eval-memory-quality.sh run evals/runs/memory-quality-v1-001
+```
+
+默认Tokenizer资产 `/tmp/drb-phase3-assets/DeepSeek-V3.2/tokenizer.json` 必须匹配固定SHA，依赖tokenizers==0.22.1；可通过QUALITY_TOKENIZER_ASSETS指定本地资产根目录。脚本不自动下载或加载.env，不读取模型Key。A为所有canonical授权有效记忆，B为真实Context Pack；渲染格式相同，Token是本地精确计数而非提供方usage。生产2048保守字符预算不改。报告同时保留证据覆盖，避免将空包解释为高效压缩。
+
+新48题为8类各6道，42正例+6负例；45条新记忆与原195条组合，旧集不变。多轮为显式历史拼接；时间变化检索样例为raw-history，真正版本替代另在24治理场景测量。四组为BM25、TF-IDF、Hybrid（TF-IDF）和透明重排，真实语义新集成绩未运行，不能沿用旧Qwen3成绩。输出独立Token/空上下文/治理/分类检索的JSON及Markdown，逐题JSON/CSV保留失败和版本。

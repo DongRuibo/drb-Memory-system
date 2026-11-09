@@ -1,0 +1,249 @@
+{
+  "id": "g21",
+  "family": "Scope隔离",
+  "human_review": "pending",
+  "passed": true,
+  "checks": {
+    "version_count": true,
+    "record_count": true,
+    "head_state": true,
+    "current_text": true,
+    "scope_isolation": true,
+    "current_context": true
+  },
+  "expected_labels": {
+    "probe": {
+      "other_tenant": true
+    }
+  },
+  "expected_state": {
+    "versions": 1,
+    "head_state": "active",
+    "current_text": "我的办公城市是厦门。",
+    "scope_allowed": false
+  },
+  "observed_duplicate": false,
+  "observed_conflict": false,
+  "state": {
+    "candidate_sources": [
+      {
+        "candidate_id": "c12106e9-71c4-5286-977b-b8c880f79d9b",
+        "source_event_id": "4ec108c7-4176-54e6-9e6b-71eef0bd5e07",
+        "tenant_id": "quality-g21"
+      }
+    ],
+    "memory_candidates": [
+      {
+        "confidence": 0.99,
+        "content": "我的办公城市是厦门。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:33.718313+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "c12106e9-71c4-5286-977b-b8c880f79d9b",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.home",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "accepted",
+        "structured_content": null,
+        "target_memory_record_id": "4d413982-a8bd-5f7f-bc31-3b628222b51b",
+        "tenant_id": "quality-g21"
+      }
+    ],
+    "memory_decisions": [
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "c12106e9-71c4-5286-977b-b8c880f79d9b",
+        "decided_at": "2026-11-08T17:46:33.718313+00:00",
+        "id": "a5887696-1efb-5e2b-95d5-a0be1e6fd7f0",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "EXPLICIT_LOW_RISK_PREFERENCE",
+        "tenant_id": "quality-g21"
+      }
+    ],
+    "memory_heads": [
+      {
+        "current_version_id": "29edf2fb-178f-5cf7-bb48-52636f1db888",
+        "memory_record_id": "4d413982-a8bd-5f7f-bc31-3b628222b51b",
+        "revision": 0,
+        "state": "active",
+        "tenant_id": "quality-g21",
+        "updated_at": "2026-11-08T17:46:33.718313+00:00"
+      }
+    ],
+    "memory_records": [
+      {
+        "created_at": "2026-11-08T17:46:33.718313+00:00",
+        "id": "4d413982-a8bd-5f7f-bc31-3b628222b51b",
+        "identity_retired_at": null,
+        "memory_type": "episodic_summary",
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "semantic_key": "quality.home",
+        "tenant_id": "quality-g21"
+      }
+    ],
+    "memory_version_sources": [
+      {
+        "memory_version_id": "29edf2fb-178f-5cf7-bb48-52636f1db888",
+        "source_event_id": "4ec108c7-4176-54e6-9e6b-71eef0bd5e07",
+        "tenant_id": "quality-g21"
+      }
+    ],
+    "memory_versions": [
+      {
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "classification": "personal",
+        "confidence": 0.99,
+        "consent_ref": null,
+        "content": "我的办公城市是厦门。",
+        "content_erased_at": null,
+        "content_hash": "sha256:ad882419e7df291fbb82ce1d865ce66ee581e9239b31582f6643197de178e30d",
+        "created_at": "2026-11-08T17:46:33.718313+00:00",
+        "decision_id": "a5887696-1efb-5e2b-95d5-a0be1e6fd7f0",
+        "effective_from": null,
+        "effective_to": null,
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "id": "29edf2fb-178f-5cf7-bb48-52636f1db888",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_record_id": "4d413982-a8bd-5f7f-bc31-3b628222b51b",
+        "normalized_key": "quality.home",
+        "retain_until": null,
+        "retention_policy_id": "demo-user-episodic_summary-v1",
+        "structured_content": null,
+        "tenant_id": "quality-g21",
+        "version_no": 1
+      }
+    ],
+    "retrieval_documents": [
+      {
+        "content": "我的办公城市是厦门。",
+        "content_hash": "sha256:ad882419e7df291fbb82ce1d865ce66ee581e9239b31582f6643197de178e30d",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "indexed_at": "2026-11-08T17:46:33.746849+00:00",
+        "memory_record_id": "4d413982-a8bd-5f7f-bc31-3b628222b51b",
+        "memory_version_id": "29edf2fb-178f-5cf7-bb48-52636f1db888",
+        "namespace_key": "ns-f072786bf3ab0955ca4b305629e039756c7d774394ce30aea910f0fab2e65fa7",
+        "search_vector": "'我的办公城市是厦门':1",
+        "tenant_id": "quality-g21"
+      }
+    ],
+    "source_events": [
+      {
+        "classification": "personal",
+        "client_event_id": "d700e4c3e37fe0aaa818b3e549a2e15343f020b99d14fb4b40b78110ba3301db",
+        "consent_ref": null,
+        "content_hash": "sha256:ad882419e7df291fbb82ce1d865ce66ee581e9239b31582f6643197de178e30d",
+        "id": "4ec108c7-4176-54e6-9e6b-71eef0bd5e07",
+        "idempotency_key": "d700e4c3e37fe0aaa818b3e549a2e15343f020b99d14fb4b40b78110ba3301db",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:33.718313+00:00",
+        "redacted_excerpt": "我的办公城市是厦门。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://d700e4c3e37fe0aaa818b3e549a2e15343f020b99d14fb4b40b78110ba3301db",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g21"
+      }
+    ],
+    "tombstones": []
+  },
+  "steps": [
+    {
+      "input": {
+        "op": "ingest",
+        "as": "a",
+        "text": "我的办公城市是厦门。",
+        "semantic_key": "home"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "c12106e9-71c4-5286-977b-b8c880f79d9b",
+        "canonical_status": "memory_accepted",
+        "head_revision": 0,
+        "memory_record_id": "4d413982-a8bd-5f7f-bc31-3b628222b51b",
+        "memory_version_id": "29edf2fb-178f-5cf7-bb48-52636f1db888",
+        "operation_id": "b4c92678-4220-50d1-bbf7-dcf3e24bb51b",
+        "projection_status": "pending",
+        "provider_object_id": null,
+        "reason_code": null
+      }
+    }
+  ],
+  "cached_hits": [],
+  "cached_authorized": [],
+  "old_pack_consume": null,
+  "visible": [
+    {
+      "content": "我的办公城市是厦门。",
+      "effective_from": null,
+      "event_time": null,
+      "memory_record_id": "4d413982-a8bd-5f7f-bc31-3b628222b51b",
+      "memory_type": "episodic_summary",
+      "memory_version_id": "29edf2fb-178f-5cf7-bb48-52636f1db888",
+      "score": 1.0,
+      "source_refs": [
+        "eval://d700e4c3e37fe0aaa818b3e549a2e15343f020b99d14fb4b40b78110ba3301db"
+      ]
+    }
+  ],
+  "scope_allowed": false,
+  "owner_visible": true,
+  "current_pack": {
+    "attempt_id": "4da6ac4a-fc5f-40fb-9f91-7baedcda42fd",
+    "authority_snapshot_id": "authz-5d036d9f4eb4f347a33a48d6f6bbb8d414490b475363d4a6fb0e2a77e6709f9d",
+    "compiler_version": "demo-context-compiler-v2",
+    "consumed_at": "2026-11-08T17:46:33.791612Z",
+    "context_pack_id": "8f4dd02d-80b9-5642-8b2e-43b84376f33b",
+    "created_at": "2026-11-08T17:46:33.785948Z",
+    "estimated_tokens": 42,
+    "expires_at": "2026-11-08T17:51:33.785948Z",
+    "omission_summary": {},
+    "policy_version": "demo-policy-v1",
+    "projection_generation": "demo-v0-generation-1",
+    "purpose": "answer_user",
+    "ranking_version": "eval-v1",
+    "reference_time": "2026-01-01T00:00:00Z",
+    "sections": [
+      {
+        "items": [
+          {
+            "effective_from": null,
+            "event_time": null,
+            "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+            "memory_record_id": "4d413982-a8bd-5f7f-bc31-3b628222b51b",
+            "memory_version_id": "29edf2fb-178f-5cf7-bb48-52636f1db888",
+            "source_refs": [
+              "eval://d700e4c3e37fe0aaa818b3e549a2e15343f020b99d14fb4b40b78110ba3301db"
+            ],
+            "text": "我的办公城市是厦门。",
+            "trust": "untrusted_memory_data"
+          }
+        ],
+        "kind": "relevant_experience"
+      }
+    ],
+    "task_id": "55e1b947-fd69-4bfc-a2b9-076f5b88e807",
+    "timezone": "UTC",
+    "token_budget": 4096,
+    "tokenizer_id": "demo-conservative-char-v1"
+  }
+}

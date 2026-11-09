@@ -1,0 +1,29 @@
+{
+  "preexisting_files_checked": 771,
+  "changed_preexisting_files": [],
+  "original_32_unchanged": true,
+  "datasets_and_protocol_unchanged": true,
+  "production_sources_migrations_unchanged": true,
+  "judge_v4_locked14_and_old_claim_ledger_unchanged": true,
+  "new_paid_claims": 0,
+  "paid_api_calls": 0,
+  "model_key_read": false,
+  "production_database_used": false,
+  "git_head": "9a5a438452502f71a207118ab104da5da5aa2071",
+  "branch": "codex/memory-evaluation-system",
+  "staged_files": [],
+  "raw_csv_counts": {
+    "retrieval.csv": 192,
+    "governance.csv": 24,
+    "category-metrics.csv": 32,
+    "token-cohorts.csv": 8,
+    "diagnostic-failures.csv": 28
+  },
+  "independent_validation": "validation.json",
+  "prior_offline_regression": {
+    "passed": 143,
+    "skipped": 0,
+    "source_unchanged": true
+  },
+  "all_outputs_new_paths": true
+}

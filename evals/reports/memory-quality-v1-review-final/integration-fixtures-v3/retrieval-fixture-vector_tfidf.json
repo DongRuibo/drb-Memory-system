@@ -1,0 +1,248 @@
+{
+  "id": "fixture",
+  "category": "测试夹具",
+  "method": "vector_tfidf",
+  "unanswerable": false,
+  "input_query": "我住在海口。",
+  "input_policy": "query_only",
+  "qrels": {
+    "home": 1
+  },
+  "ranked": [
+    "home"
+  ],
+  "database_relevant_exists": true,
+  "retrieval_ms": 23.702708,
+  "context_ms": 201.551667,
+  "error": null,
+  "source_bm25": [],
+  "source_vector": [
+    {
+      "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+      "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+      "head_revision": 0,
+      "generation": "demo-v0-generation-1",
+      "content_hash": "sha256:c00fc6dd4e4f8187a5e0df4851580caaa70a454224196db93eb8ed672fbf2aca",
+      "provider_object_id": "eval-tfidf:home",
+      "provider_score": 1.0
+    }
+  ],
+  "retrieval_trace": {
+    "fused": [
+      {
+        "content_hash": "sha256:c00fc6dd4e4f8187a5e0df4851580caaa70a454224196db93eb8ed672fbf2aca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+        "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+        "provider_object_id": "eval-tfidf:home",
+        "provider_score": 1.0
+      }
+    ],
+    "postauthorized": [
+      {
+        "content": "我住在海口。",
+        "effective_from": null,
+        "event_time": null,
+        "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+        "memory_type": "episodic_summary",
+        "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+        "score": 1.0,
+        "source_refs": [
+          "eval://4f7c3cf1c33c2dbd977affae8007e40f20d7c2ee19ff23089dd7e67a585df3c1"
+        ]
+      }
+    ],
+    "preauthorized": [
+      {
+        "content": "我住在海口。",
+        "effective_from": null,
+        "event_time": null,
+        "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+        "memory_type": "episodic_summary",
+        "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+        "score": 1.0,
+        "source_refs": [
+          "eval://4f7c3cf1c33c2dbd977affae8007e40f20d7c2ee19ff23089dd7e67a585df3c1"
+        ]
+      }
+    ],
+    "reranked": [
+      {
+        "content_hash": "sha256:c00fc6dd4e4f8187a5e0df4851580caaa70a454224196db93eb8ed672fbf2aca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+        "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+        "provider_object_id": "eval-tfidf:home",
+        "provider_score": 1.0
+      }
+    ]
+  },
+  "context_rank_trace": {
+    "fused": [
+      {
+        "content_hash": "sha256:c00fc6dd4e4f8187a5e0df4851580caaa70a454224196db93eb8ed672fbf2aca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+        "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+        "provider_object_id": "eval-tfidf:home",
+        "provider_score": 1.0
+      }
+    ],
+    "postauthorized": [
+      {
+        "content": "我住在海口。",
+        "effective_from": null,
+        "event_time": null,
+        "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+        "memory_type": "episodic_summary",
+        "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+        "score": 1.0,
+        "source_refs": [
+          "eval://4f7c3cf1c33c2dbd977affae8007e40f20d7c2ee19ff23089dd7e67a585df3c1"
+        ]
+      }
+    ],
+    "preauthorized": [
+      {
+        "content": "我住在海口。",
+        "effective_from": null,
+        "event_time": null,
+        "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+        "memory_type": "episodic_summary",
+        "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+        "score": 1.0,
+        "source_refs": [
+          "eval://4f7c3cf1c33c2dbd977affae8007e40f20d7c2ee19ff23089dd7e67a585df3c1"
+        ]
+      }
+    ],
+    "reranked": [
+      {
+        "content_hash": "sha256:c00fc6dd4e4f8187a5e0df4851580caaa70a454224196db93eb8ed672fbf2aca",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+        "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+        "provider_object_id": "eval-tfidf:home",
+        "provider_score": 1.0
+      }
+    ]
+  },
+  "stages": {
+    "source_union": [
+      "home"
+    ],
+    "rrf": [
+      "home"
+    ],
+    "preauthorization": [
+      "home"
+    ],
+    "rerank": [
+      "home"
+    ],
+    "output_limit": [
+      "home"
+    ],
+    "postauthorization": [
+      "home"
+    ],
+    "context_relevance": [
+      "home"
+    ],
+    "context_pack": [
+      "home"
+    ]
+  },
+  "first_loss": null,
+  "stage_hits": {
+    "source_union": true,
+    "rrf": true,
+    "preauthorization": true,
+    "rerank": true,
+    "output_limit": true,
+    "postauthorization": true,
+    "context_relevance": true,
+    "context_pack": true
+  },
+  "stage_complete": {
+    "source_union": true,
+    "rrf": true,
+    "preauthorization": true,
+    "rerank": true,
+    "output_limit": true,
+    "postauthorization": true,
+    "context_relevance": true,
+    "context_pack": true
+  },
+  "recall_at_1": 1.0,
+  "recall_at_5": 1.0,
+  "mrr_at_10": 1.0,
+  "ndcg_at_10": 1.0,
+  "literal_context_empty": false,
+  "evidence_units": 1,
+  "evidence_units_delivered": 1,
+  "evidence_recall": 1.0,
+  "all_evidence_delivered": true,
+  "effective_context_empty": false,
+  "context_pack": {
+    "attempt_id": "e532661e-6376-48aa-81a1-89531ca73520",
+    "authority_snapshot_id": "authz-74cdb5d1b2bc92fdd744251164e7506ba3a92c61e783a59b2e123565e110d329",
+    "compiler_version": "demo-context-compiler-v2",
+    "consumed_at": "2026-11-08T17:46:28.452132Z",
+    "context_pack_id": "b9ea0101-6e92-5fd2-b3a9-c65fc8db0aae",
+    "created_at": "2026-11-08T17:46:28.396192Z",
+    "estimated_tokens": 38,
+    "expires_at": "2026-11-08T17:51:28.396192Z",
+    "omission_summary": {},
+    "policy_version": "demo-policy-v1",
+    "projection_generation": "demo-v0-generation-1",
+    "purpose": "answer_user",
+    "ranking_version": "eval-v1",
+    "reference_time": "2026-01-01T00:00:00Z",
+    "sections": [
+      {
+        "items": [
+          {
+            "effective_from": null,
+            "event_time": null,
+            "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+            "memory_record_id": "27a96ceb-0925-585b-9b5a-43941f84ef02",
+            "memory_version_id": "e93c90c9-ab19-501e-af3f-718fa6c201c7",
+            "source_refs": [
+              "eval://4f7c3cf1c33c2dbd977affae8007e40f20d7c2ee19ff23089dd7e67a585df3c1"
+            ],
+            "text": "我住在海口。",
+            "trust": "untrusted_memory_data"
+          }
+        ],
+        "kind": "relevant_experience"
+      }
+    ],
+    "task_id": "8bef3271-f086-423a-bc1f-74aa2cfb9331",
+    "timezone": "UTC",
+    "token_budget": 2048,
+    "tokenizer_id": "demo-conservative-char-v1"
+  },
+  "full_evidence_retention": {
+    "evidence_units": 1,
+    "evidence_units_delivered": 1,
+    "evidence_recall": 1.0,
+    "all_evidence_delivered": true,
+    "effective_context_empty": false
+  },
+  "token_metrics": {
+    "full_memory_count": 2,
+    "pack_memory_count": 1,
+    "full_tokens": 71,
+    "pack_tokens": 35,
+    "token_saving_ratio": 0.5070422535211268,
+    "full_rendered": "<memory version=\"e93c90c9-ab19-501e-af3f-718fa6c201c7\">\n我住在海口。\n</memory>\n<memory version=\"52fe33d4-c9f4-5adf-87fc-a5deaf9d80aa\">\n我偏好散步。\n</memory>",
+    "pack_rendered": "<memory version=\"e93c90c9-ab19-501e-af3f-718fa6c201c7\">\n我住在海口。\n</memory>",
+    "measurement": "exact_local_tokenizer_on_rendered_memory_payload_not_provider_usage"
+  },
+  "negative_any_hit": null
+}

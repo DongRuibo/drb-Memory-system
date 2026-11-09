@@ -1,0 +1,260 @@
+{
+  "id": "g03",
+  "family": "重复识别",
+  "human_review": "pending",
+  "passed": false,
+  "checks": {
+    "version_count": true,
+    "record_count": true,
+    "head_state": false,
+    "current_text": true,
+    "duplicate": false,
+    "source_count": false
+  },
+  "expected_labels": {
+    "duplicate": true
+  },
+  "expected_state": {
+    "versions": 1,
+    "head_state": "active",
+    "current_text": "我喜欢骑自行车。",
+    "sources": 2
+  },
+  "observed_duplicate": false,
+  "observed_conflict": true,
+  "state": {
+    "candidate_sources": [
+      {
+        "candidate_id": "d5330fb7-690b-51e9-af9c-abed86d1bb46",
+        "source_event_id": "7befce8d-cef1-5522-8518-757ddbbf167a",
+        "tenant_id": "quality-g03"
+      },
+      {
+        "candidate_id": "f4c1c278-445f-5390-a2f6-cef611798df0",
+        "source_event_id": "20571c46-e568-5594-9ad7-00f8c8b35b8a",
+        "tenant_id": "quality-g03"
+      }
+    ],
+    "memory_candidates": [
+      {
+        "confidence": 0.99,
+        "content": "我喜欢骑自行车。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:26.805467+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "d5330fb7-690b-51e9-af9c-abed86d1bb46",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.hobby",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "accepted",
+        "structured_content": null,
+        "target_memory_record_id": "353cb54d-59c4-5809-887a-f71c0c85b739",
+        "tenant_id": "quality-g03"
+      },
+      {
+        "confidence": 0.99,
+        "content": "骑自行车是我的爱好。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:27.084715+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "f4c1c278-445f-5390-a2f6-cef611798df0",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.hobby",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "needs_review",
+        "structured_content": null,
+        "target_memory_record_id": "353cb54d-59c4-5809-887a-f71c0c85b739",
+        "tenant_id": "quality-g03"
+      }
+    ],
+    "memory_decisions": [
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "d5330fb7-690b-51e9-af9c-abed86d1bb46",
+        "decided_at": "2026-11-08T17:46:26.805467+00:00",
+        "id": "fb088948-8f7e-5493-a3ce-825f75f6e79c",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "EXPLICIT_LOW_RISK_PREFERENCE",
+        "tenant_id": "quality-g03"
+      },
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "f4c1c278-445f-5390-a2f6-cef611798df0",
+        "decided_at": "2026-11-08T17:46:27.084715+00:00",
+        "id": "41dc6844-76dd-5096-852e-e0a2e5fadfd0",
+        "outcome": "needs_review",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+        "tenant_id": "quality-g03"
+      }
+    ],
+    "memory_heads": [
+      {
+        "current_version_id": "8a15b056-70c7-54c6-a6a3-021af2d0357e",
+        "memory_record_id": "353cb54d-59c4-5809-887a-f71c0c85b739",
+        "revision": 1,
+        "state": "contested",
+        "tenant_id": "quality-g03",
+        "updated_at": "2026-11-08T17:46:27.084715+00:00"
+      }
+    ],
+    "memory_records": [
+      {
+        "created_at": "2026-11-08T17:46:26.805467+00:00",
+        "id": "353cb54d-59c4-5809-887a-f71c0c85b739",
+        "identity_retired_at": null,
+        "memory_type": "episodic_summary",
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "semantic_key": "quality.hobby",
+        "tenant_id": "quality-g03"
+      }
+    ],
+    "memory_version_sources": [
+      {
+        "memory_version_id": "8a15b056-70c7-54c6-a6a3-021af2d0357e",
+        "source_event_id": "7befce8d-cef1-5522-8518-757ddbbf167a",
+        "tenant_id": "quality-g03"
+      }
+    ],
+    "memory_versions": [
+      {
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "classification": "personal",
+        "confidence": 0.99,
+        "consent_ref": null,
+        "content": "我喜欢骑自行车。",
+        "content_erased_at": null,
+        "content_hash": "sha256:bc0f0d1af212d7cd499aeb5da7a094960fcbc1363b92759426af27b75302a457",
+        "created_at": "2026-11-08T17:46:26.805467+00:00",
+        "decision_id": "fb088948-8f7e-5493-a3ce-825f75f6e79c",
+        "effective_from": null,
+        "effective_to": null,
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "id": "8a15b056-70c7-54c6-a6a3-021af2d0357e",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_record_id": "353cb54d-59c4-5809-887a-f71c0c85b739",
+        "normalized_key": "quality.hobby",
+        "retain_until": null,
+        "retention_policy_id": "demo-user-episodic_summary-v1",
+        "structured_content": null,
+        "tenant_id": "quality-g03",
+        "version_no": 1
+      }
+    ],
+    "retrieval_documents": [],
+    "source_events": [
+      {
+        "classification": "personal",
+        "client_event_id": "000aeeaad003e5fe3db96e425f27630a50928ddb68e629db74cecfa4edc55a8b",
+        "consent_ref": null,
+        "content_hash": "sha256:dbf7dffeaec81431aca3678b2a64d8d2d76971ec7c47dc6c2177db6c29a08c0c",
+        "id": "20571c46-e568-5594-9ad7-00f8c8b35b8a",
+        "idempotency_key": "000aeeaad003e5fe3db96e425f27630a50928ddb68e629db74cecfa4edc55a8b",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:27.084715+00:00",
+        "redacted_excerpt": "骑自行车是我的爱好。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://000aeeaad003e5fe3db96e425f27630a50928ddb68e629db74cecfa4edc55a8b",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g03"
+      },
+      {
+        "classification": "personal",
+        "client_event_id": "d064c853426dcb6c4ab8bcaf4dca9a6a10f1c94d83d1505a32a846f508a133ee",
+        "consent_ref": null,
+        "content_hash": "sha256:bc0f0d1af212d7cd499aeb5da7a094960fcbc1363b92759426af27b75302a457",
+        "id": "7befce8d-cef1-5522-8518-757ddbbf167a",
+        "idempotency_key": "d064c853426dcb6c4ab8bcaf4dca9a6a10f1c94d83d1505a32a846f508a133ee",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:26.805467+00:00",
+        "redacted_excerpt": "我喜欢骑自行车。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://d064c853426dcb6c4ab8bcaf4dca9a6a10f1c94d83d1505a32a846f508a133ee",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g03"
+      }
+    ],
+    "tombstones": []
+  },
+  "steps": [
+    {
+      "input": {
+        "op": "ingest",
+        "as": "a",
+        "text": "我喜欢骑自行车。",
+        "semantic_key": "hobby"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "d5330fb7-690b-51e9-af9c-abed86d1bb46",
+        "canonical_status": "memory_accepted",
+        "head_revision": 0,
+        "memory_record_id": "353cb54d-59c4-5809-887a-f71c0c85b739",
+        "memory_version_id": "8a15b056-70c7-54c6-a6a3-021af2d0357e",
+        "operation_id": "a7301a8c-c4f9-5cef-b242-c78bbde8d3af",
+        "projection_status": "pending",
+        "provider_object_id": null,
+        "reason_code": null
+      }
+    },
+    {
+      "input": {
+        "op": "ingest",
+        "as": "b",
+        "text": "骑自行车是我的爱好。",
+        "semantic_key": "hobby"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "f4c1c278-445f-5390-a2f6-cef611798df0",
+        "canonical_status": "needs_review",
+        "head_revision": 1,
+        "memory_record_id": "353cb54d-59c4-5809-887a-f71c0c85b739",
+        "memory_version_id": "8a15b056-70c7-54c6-a6a3-021af2d0357e",
+        "operation_id": "e91c75a3-9dcc-5746-bb65-a78f332846d9",
+        "projection_status": "pending",
+        "provider_object_id": "eval-local:a7301a8c-c4f9-5cef-b242-c78bbde8d3af",
+        "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW"
+      }
+    }
+  ],
+  "cached_hits": [],
+  "cached_authorized": [],
+  "old_pack_consume": null,
+  "visible": [],
+  "scope_allowed": null,
+  "owner_visible": null,
+  "current_pack": null
+}

@@ -1,0 +1,2882 @@
+[
+  {
+    "content": "2022年入职时，苏晴的工位在白塔楼七层，紧急联系人为唐朔。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9526fc7f-7209-5891-b854-0764b9405fa2",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "151818dc-436e-54cd-a3f4-643f2569b9bd",
+    "score": 0.0,
+    "source_refs": [
+      "eval://93121a6c08efb6a6450f95d5f0d70e6a759c28e951b3d75cf1b1d01f2b3adba2"
+    ]
+  },
+  {
+    "content": "白塔楼现已改为展览馆，七层对外开放。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ba3f1d38-4632-5498-95e2-fae127085a30",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6769ee05-64b3-555e-b37d-b4f62080e2b3",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6c72a83451c9b327b861fc31c7cc2b484bc1b4f88378d8abcac3fa46983d30de"
+    ]
+  },
+  {
+    "content": "听力障碍用户希望所有通知带字幕，不依赖提示音。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c463a8a8-4908-5160-a02f-a65b82fd3654",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6e55f8a9-9d9c-5d63-9cb1-14358e050c1f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0e87c55e397d4e7e249ecbacf0c50823e8d7d8786d61621aba40644d5fb3db82"
+    ]
+  },
+  {
+    "content": "视障用户依赖屏幕朗读器，不依赖图片中的文字。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "dfba2468-cce6-585d-9c46-530efb44f31f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "856b5db2-ba08-5320-abcf-2303c8b36328",
+    "score": 0.0,
+    "source_refs": [
+      "eval://705d7a46acebc5b57ca3f5a435672d224374e519775a4dfdf476656a8cd5bbcc"
+    ]
+  },
+  {
+    "content": "林越对坚果过敏，聚餐时需要避开花生和杏仁。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "fb905a97-c07e-5c41-9833-543dcb7b1fd8",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d471aa8d-a3c2-5bc4-a162-8219232ebecc",
+    "score": 0.0,
+    "source_refs": [
+      "eval://47a1ed352a9deb87f947782a4f04508f0b12588aba0e802102412953de725895"
+    ]
+  },
+  {
+    "content": "林悦吃素，但不对花生过敏。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b24b974b-f997-55b9-b5ce-19d44591749a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "c14db119-2965-571c-b337-f6b3bf056bf9",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ad86fe58f6d4c0eb15f65a76a7740f7e7bba3218f70bc7457b4362792640dfc3"
+    ]
+  },
+  {
+    "content": "许舟偏好安静的住处，通常选远离主干道的内庭房间。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "952d91b3-78c5-51c7-b859-fd5aae704aba",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "28772ff4-c6e5-54aa-8eda-b26a022e5e5d",
+    "score": 0.0,
+    "source_refs": [
+      "eval://26d753d8b62119443c3fa0ba02790651b129b07eb1925e6a7b5719ecaadd1c58"
+    ]
+  },
+  {
+    "content": "许洲希望交通方便，通常预订临街客房。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "66edfb27-8961-50d9-aa6d-fdfa6d50f792",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "2cf5e59d-1b74-5879-9389-f302ac6ec4e6",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2d5697c269799038361c5c8b0ad362223692bf50c7b1982a132e07f3f569a4fe"
+    ]
+  },
+  {
+    "content": "灯塔计划由顾禾牵头，代号为LT42。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "fb55d49d-05b7-5fe6-8dfb-4ac9e2ab994a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "50924860-c92c-5f50-8398-00499379eb7d",
+    "score": 0.0,
+    "source_refs": [
+      "eval://4e230ed1a72c4a1697e42ba7ee001a83e69122ed22b12e83829b34111bef26f2"
+    ]
+  },
+  {
+    "content": "顾禾的办公分机是6281。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "2f9e7e6b-6926-5654-8351-a7db32d87d07",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "99ea123c-8142-53cd-8f93-63f321d0b7cd",
+    "score": 0.0,
+    "source_refs": [
+      "eval://140e2eb3bcbadc05d83a6b8306fecdcd42ee8fa75adfeaf7abdf64220384c73b"
+    ]
+  },
+  {
+    "content": "灯塔二期由罗临牵头，分机是6218。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7728e7d8-649f-5161-85de-1b8f52ac0c8c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "23a691ae-af8d-55d1-9ed5-65a830676f0c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://7906cfec22b344404d2ac74a21d8b7abd0e107b1b76da986904367964a7053b0"
+    ]
+  },
+  {
+    "content": "蒲公英仓库把制品存入苔原桶，桶位于北方节点。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "f7186e8a-9068-5b87-83af-acdcbbd6337a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0ee245f0-1ca1-5d6b-8d3d-f0cadeba4bfd",
+    "score": 0.0,
+    "source_refs": [
+      "eval://33ca7c1f6b708e32e2ead81615859b6bd36d9255be76a36f14dd8eb4afaed286"
+    ]
+  },
+  {
+    "content": "北方节点计划于六月二十日维护。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "df84f312-6b30-534b-913b-5b60bcaeba08",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ae4ae568-4348-5c13-a2dc-332c6db7b289",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d5012c419004549022a91a26769be1e2f256529b4150405ef77781cb1cacf15d"
+    ]
+  },
+  {
+    "content": "2024年3月：周宁工作日喝红茶，此记录已过期。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "1a0e3248-c70e-5625-9bb3-a8b5cf062238",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d28c8278-d7d0-512e-b2a1-59e25d847b2a",
+    "score": 0.0,
+    "source_refs": [
+      "eval://fc154de90c5f53519c5feae44c0a72d7992ea5e36a0b883346a829cb13074136"
+    ]
+  },
+  {
+    "content": "2025年1月：周宁因咖啡因不耐受，工作日改喝无咖啡因麦茶。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3174ba89-b5cf-5af9-9c18-bde9667ea0c3",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5e0517d7-7f1e-5c0c-8217-522a9bb6d760",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d9729a9f28976cec0a4ef78be249132593679fd5982572e60792b84c7def8e51"
+    ]
+  },
+  {
+    "content": "2023年接入文档：青杉服务监听端口7443，记录已过时。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "5568db18-1065-503a-8f9d-6d2453733451",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "27456aea-5c01-5184-890b-4df07e597c40",
+    "score": 0.0,
+    "source_refs": [
+      "eval://dcbbbc6573d61f6c23598dc0f3d61210366ec6fe21bedb870673c6d589e70c24"
+    ]
+  },
+  {
+    "content": "2025年迁移记录：青杉服务监听端口8443。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8e5886b8-eeb0-50b1-aeb5-500487658046",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a56406bb-986c-57d3-9525-0962579739a8",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9c2c5c7751678751a1b007de2f7fbb53421d640e8fb719e3c92c8dbf156ffbe2"
+    ]
+  },
+  {
+    "content": "甲方声称橙湾会议在星期一，尚未经共同确认。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "4b044be1-636d-5214-b7a0-b97caba58126",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "cbb4ec96-7b5c-5b81-943f-d41931249402",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6f1bdcd2293f0c313dc2a1cacbe7e9adc84271c8a45db5a2e8b884c0d816c834"
+    ]
+  },
+  {
+    "content": "乙方声称橙湾会议在星期五，双方尚未解决分歧。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "f7a2ce50-4a45-5d89-af04-f91cef978a4c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "4c5b97da-dbed-5272-8d73-1f4237313f02",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a73ad16d1b1ee5677721b1808309a170a64d5b748abf9d76ab8662ff928c3d94"
+    ]
+  },
+  {
+    "content": "三月报销餐费额度为八百元。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "865dbb3e-69be-5439-9c3a-e43d0ab14f63",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "70a540f6-6f95-5c24-9ec2-b5e7ae4c7555",
+    "score": 0.0,
+    "source_refs": [
+      "eval://eff44ae3fedb53462292ce6a2ae45b9617643ceff2dadcc3e44c11fabe3dd848"
+    ]
+  },
+  {
+    "content": "三月差旅住宿额度为一千二百元。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ae8ebb62-ea8e-50a6-b828-c497dce1d78f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "180592d1-21b7-59b5-9b89-61edc9d72dae",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d1b43c658bec616b4036b465bc4e757846f058381167f43a289627f1528bf893"
+    ]
+  },
+  {
+    "content": "棱镜数据集含153条经核对样本。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "caf67221-b0f9-5cac-b234-23f6cc5fd291",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "af87d4b3-ee79-574e-8bf3-64d586dbda67",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0b5114c471cf198b83e6816598ac4d02fc6580db2f97f46a1b9562de4e5c9a70"
+    ]
+  },
+  {
+    "content": "棱镜日志集含135条未核对记录。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "967107cc-a186-5972-bbda-7d931a69492e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d8e7d837-0b48-53fb-9a2f-2be46625a512",
+    "score": 0.0,
+    "source_refs": [
+      "eval://cf8d5b13144ea1a65658e64b04f4ab5c1adac3c3d8bde8a8b5318330c9ccbae3"
+    ]
+  },
+  {
+    "content": "Mira borrowed the cobalt suitcase from Niko.",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "938dbc46-ebab-52e6-b34f-7c4a36d35235",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "7efc0801-44dc-5192-b915-12cb689d00d1",
+    "score": 0.0,
+    "source_refs": [
+      "eval://01c8efc32eed42e84e10d0d9516b18b2d19899b9f8788c89d00612d30e853fa5"
+    ]
+  },
+  {
+    "content": "Niko borrowed the silver suitcase from Mira.",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "debe26d6-91dd-5607-b5ac-b88f9b03261a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "203f28b8-f2dd-5e90-b271-6b6d76218675",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5146bdd40dcbc523edfa97bc9c01034e2dd190fb1ba7df0896e9fa259c9f032d"
+    ]
+  },
+  {
+    "content": "The first outage lasted 17 minutes.",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "6bbe708e-4d12-56cb-8065-1825beac9b42",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5bec62fc-bb26-5e24-83b1-c4575c289739",
+    "score": 0.0,
+    "source_refs": [
+      "eval://e12a107ba5b68af7e3da7711ca5799fb2f5e52ff8827c3494096c1ecf3fb823e"
+    ]
+  },
+  {
+    "content": "The second outage lasted 28 minutes.",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "54707e42-ae53-54dc-b7bd-0617534f5d88",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ce74dba0-8f06-55b7-b92f-f1a5f020e678",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0e7a6282646f12f78d17949c36a79ceacd14d3a399a9bc95d892c22e3e57e2fb"
+    ]
+  },
+  {
+    "content": "纸鹤实验每两周周四复盘，单周不召开例会。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b6c3aac7-b848-5546-a3cc-f587e7a0f89e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "294c613a-0d46-55c3-aead-3a9655a6ab8f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c864b5ec85ea840aff31bed4db540e00edbab4e208844c4e3df68eab1f40ce63"
+    ]
+  },
+  {
+    "content": "安全守则：不得根据同名联系人推断住址或生日。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "4e2d3ed4-127d-5dc2-a8b7-77ad56828964",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "c0c40f38-8d2e-553b-b25b-d95c8331a48d",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c60f5d2b0bd1278f94c83a08d619fe282b6c971e078f19b102683038ce67f116"
+    ]
+  },
+  {
+    "content": "白塔办公区的打印机在一层。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c1cd283e-49c2-5458-ab45-6b78834a9587",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "50a1d492-a04c-5547-88c2-bcc016c2903c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0f8d359b2790cc398d6058433957ceff6f64b973f668ccb805b54a477968cb39"
+    ]
+  },
+  {
+    "content": "苔原是一个基础设施组件的代号。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "14453b7f-d664-53f4-a75c-252fcbad883c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "2d08211b-ab93-56a6-8224-64e686ede4fb",
+    "score": 0.0,
+    "source_refs": [
+      "eval://812fe416da6f680ca45707bef72d2ab30ece950ade22672e0530a8b35270ac78"
+    ]
+  },
+  {
+    "content": "北方团队使用蒲公英作为图标。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "65e88f54-c5d7-557c-b192-8caef47f5505",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "28bf2a97-4024-5bb4-863a-e35cdc54bff5",
+    "score": 0.0,
+    "source_refs": [
+      "eval://e060e148a36f9c3dbfba8a0f02a94864846cff668c141957112d8b435a6472df"
+    ]
+  },
+  {
+    "content": "顾禾负责灯塔计划，办公楼有六层。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "62222de0-978a-58e3-a975-e6c52bb2ee4e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "27f0c092-4c3e-586b-bf08-a7a4ee0b562e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://970ddd90e656817b70a83600876b87e25505e91a9fe29ffdfb5970c30cbe60cf"
+    ]
+  },
+  {
+    "content": "青杉监控采样端口为9443。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "051a55c7-62df-54db-b3eb-43931a53caa8",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d9b2be3b-e309-506a-bb1c-abf8a5fdb414",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a8d11fe003b811ae4794673a6407a18d7d87989b14fee928aad0297e4675ef63"
+    ]
+  },
+  {
+    "content": "橙湾会场可在星期一至星期五租赁。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "969cd737-d35d-5a3a-939a-40106960b060",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "be0c8354-8629-588e-a94a-63dfa8516637",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c5b70da4a3a0025ded28e80c6f573e8f40c99e0fc009978248a41c59eb7cd784"
+    ]
+  },
+  {
+    "content": "第1周的公共运维记录：值班团队完成例行巡检，检查编号R000，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7fb02b0d-1b7a-5cab-9780-9d11e7504718",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "80273e93-5a7f-5b2a-829b-c4c362b3c676",
+    "score": 0.0,
+    "source_refs": [
+      "eval://bc5f6e3e5102549c562806631056f21cb63ec538c4c226964fdd490d7dd3c703"
+    ]
+  },
+  {
+    "content": "第2周的公共运维记录：值班团队完成例行巡检，检查编号R001，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "a21455ff-560c-5f69-a67f-d4cbc7aafd57",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "39ee5bc4-cb41-5cfb-bb97-3d10ee738c1b",
+    "score": 0.0,
+    "source_refs": [
+      "eval://db8848ccf38835fd97506de0300cca4e46c6a4f57b2663a2ac56162f7e0599e2"
+    ]
+  },
+  {
+    "content": "第3周的公共运维记录：值班团队完成例行巡检，检查编号R002，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "01747d57-7777-50e7-b4e2-19780cfda702",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "742cde16-dc66-5178-be1a-0c5965be2f92",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a6ed372a962f62030b37657656c784d7df260303cad923b69acbc9c5780c9a5e"
+    ]
+  },
+  {
+    "content": "第4周的公共运维记录：值班团队完成例行巡检，检查编号R003，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "df2c8d86-8507-5949-8b21-1f1307c6e037",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "31275f5f-249e-5bcd-8dfe-7916ba5d9a8e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://15276dc42aea2b76eec598fdd2ba0389d941b0d79ede6a56d7d07697714498db"
+    ]
+  },
+  {
+    "content": "第5周的公共运维记录：值班团队完成例行巡检，检查编号R004，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "487e8be1-b909-5f1b-9bcd-44d03bf2a950",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "19a1c27b-d689-50d7-b3ed-80d87e7a98d4",
+    "score": 0.0,
+    "source_refs": [
+      "eval://db4ed3433ff82e62c534148f0800c805e540cf9417fa4bf41b79d20af0e988f2"
+    ]
+  },
+  {
+    "content": "第6周的公共运维记录：值班团队完成例行巡检，检查编号R005，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "44a26c0d-13f8-5461-bb85-b8a94bb4aa3d",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "867e3dcd-02b3-5176-9525-3507b6cad995",
+    "score": 0.0,
+    "source_refs": [
+      "eval://847fd7c08d28da468fba9682d2b7b882dc508a1d3c9c041c0bb704e210866ce7"
+    ]
+  },
+  {
+    "content": "第7周的公共运维记录：值班团队完成例行巡检，检查编号R006，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "e1caea6b-0ede-5c76-8b8b-cc228fa40884",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "cb774d33-06d2-59f0-a917-8ad5cc5e6f3a",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0d60b727b62c266ba88f44cc6c25fb723ab09d879f08cd655dea2794b321fe55"
+    ]
+  },
+  {
+    "content": "第8周的公共运维记录：值班团队完成例行巡检，检查编号R007，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b35e5743-c838-5383-9bce-3b9cbb31c130",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0f7edfbd-9f07-5570-9174-cb3af43026c4",
+    "score": 0.0,
+    "source_refs": [
+      "eval://abad0f545b7cc5ce1efee90377e7569ba88f058c6eeeee7203a97d6ecf23105c"
+    ]
+  },
+  {
+    "content": "第9周的公共运维记录：值班团队完成例行巡检，检查编号R008，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b2fbd51f-48eb-5408-8fe5-1865140a4739",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "1159a3f0-217f-56e7-8ee8-d09655039336",
+    "score": 0.0,
+    "source_refs": [
+      "eval://77b5112314bf6fea945a041b8498c98e7da41508bf8fc704b79731ee858b1782"
+    ]
+  },
+  {
+    "content": "第10周的公共运维记录：值班团队完成例行巡检，检查编号R009，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3d997e09-f26c-5c4b-8cb3-89cfc35bcf4b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9e403135-7a89-5a8a-96e3-ff541967c6eb",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6a72cd25a2391a63f0d7023dfb439da88fb2ad33b570cb0e5220a84f4eb1a9d4"
+    ]
+  },
+  {
+    "content": "第11周的公共运维记录：值班团队完成例行巡检，检查编号R010，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "0f8139c2-d096-5b62-a573-fe04d01be8ce",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "61c53318-d1be-52ed-be9a-3635040467e7",
+    "score": 0.0,
+    "source_refs": [
+      "eval://b34656dda12e9b586e169b7e6850ed663102f84c75bce9517f09fa57ea49f1a7"
+    ]
+  },
+  {
+    "content": "第12周的公共运维记录：值班团队完成例行巡检，检查编号R011，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "54284561-4078-5909-9319-16fd2e7fa85f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "adb4991d-69c5-55e5-8a69-58080967e28d",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2e663e00300515ee8ea6f57496a47d32a195b1d61c4446966c2f1b2aea661090"
+    ]
+  },
+  {
+    "content": "第13周的公共运维记录：值班团队完成例行巡检，检查编号R012，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "662cf975-20e3-57e2-93b3-0f0557b03665",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "90cbef0e-b466-5507-a98e-2e109eca43ab",
+    "score": 0.0,
+    "source_refs": [
+      "eval://50139290dfbf78bd72b2b4cd4e5e716f02cd7bb62da8e090fef6ac0b110b2225"
+    ]
+  },
+  {
+    "content": "第14周的公共运维记录：值班团队完成例行巡检，检查编号R013，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "1b9fef9c-4b8e-5f48-ba16-cd33ae43c5a8",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "3d686ca8-08cd-51ae-b406-9e21c572b467",
+    "score": 0.0,
+    "source_refs": [
+      "eval://3609cd97a1cee0efb6f16acfe0d4b8061d0623518151c577c7c3fc8d5e4ef3e7"
+    ]
+  },
+  {
+    "content": "第15周的公共运维记录：值班团队完成例行巡检，检查编号R014，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "0af432e8-c479-5e5e-950d-d6ddbaa5a026",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "c457b8ae-2b30-5b0f-9d89-84be137a8048",
+    "score": 0.0,
+    "source_refs": [
+      "eval://1ed3f764f1b73dcd7f72267deedf66d3508758299bf0f4ae3c94bb08dde9e53d"
+    ]
+  },
+  {
+    "content": "第16周的公共运维记录：值班团队完成例行巡检，检查编号R015，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "cbd2a60f-2201-5a0e-9908-68138e44b156",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "daf7c366-67ec-56a2-b32e-6a158de43ed7",
+    "score": 0.0,
+    "source_refs": [
+      "eval://780489742d1fe63089c838cb7df56595d727dc0ae1219fc583bc7beb951d026c"
+    ]
+  },
+  {
+    "content": "第17周的公共运维记录：值班团队完成例行巡检，检查编号R016，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c90f75a5-2f86-5d46-a94c-d4fd3802b3f9",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "c3fea8dd-f5fb-5c66-b15d-da671df8b499",
+    "score": 0.0,
+    "source_refs": [
+      "eval://38336071aaa10f00971f8f2552f8ef72894ecefd9b26eaebfa53153042ed6a74"
+    ]
+  },
+  {
+    "content": "第18周的公共运维记录：值班团队完成例行巡检，检查编号R017，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9b942716-5d0b-5afc-a320-731805c3c9d4",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "09156e28-fc48-57ef-a040-e9666b2eb74f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://42b7c9d0fc67c5ef98112b05b891c937a333e1ac93f3cc72f6e78707bbb12771"
+    ]
+  },
+  {
+    "content": "第19周的公共运维记录：值班团队完成例行巡检，检查编号R018，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "6fb99672-a2ba-50c0-9012-0dc3d78309e2",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "831a2373-89a7-5f69-bc69-23de0c47e232",
+    "score": 0.0,
+    "source_refs": [
+      "eval://07566e5f75308cbd31c5dd98dde0418c90ede67ee344b5e282c87b3f0d2f03e8"
+    ]
+  },
+  {
+    "content": "第20周的公共运维记录：值班团队完成例行巡检，检查编号R019，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "df14c10f-c4bf-5169-8705-0df6f9c96127",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "167a8c2f-eb90-5f3c-9b43-3adc7daf9334",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9d88107bdc48996d0825a41c7ddc70f813b9234f9609b7d003956555b3b96379"
+    ]
+  },
+  {
+    "content": "第21周的公共运维记录：值班团队完成例行巡检，检查编号R020，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "dff004b1-e972-5f68-9970-e22e97b82a05",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "bec838f6-8fc8-5608-a96e-b3ff986ac13d",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d09ffca0a013f525cabbfd5e2a0b89460453a848fcad22397e76d969329c46b9"
+    ]
+  },
+  {
+    "content": "第22周的公共运维记录：值班团队完成例行巡检，检查编号R021，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "dba52624-39c4-50e3-83ac-e41ea1f0ebda",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "63d7c81d-94b8-5b98-b067-f085595019d7",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a947e98a505786774c26c5f11f411ede9f6b33c1c90adc3aeb7fed87a8c16370"
+    ]
+  },
+  {
+    "content": "第23周的公共运维记录：值班团队完成例行巡检，检查编号R022，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ad9edbd9-8a2e-5ba5-a84d-15abd6605914",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "85517813-b3fc-5856-a593-7d069667297e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://8fe3005af85dee3eab79b745c1d6d5a358c06baabe3838fc2e73d98b76e82208"
+    ]
+  },
+  {
+    "content": "第24周的公共运维记录：值班团队完成例行巡检，检查编号R023，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d54dd4cf-04eb-5ff1-9032-7130fbe2d0b3",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "bf9eeda6-cfa5-5e62-869e-33b92c764a3c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://71f484febc2b5458768f1188c10ebd2734f796d97740f81171e0f0b3b5ce94b3"
+    ]
+  },
+  {
+    "content": "第25周的公共运维记录：值班团队完成例行巡检，检查编号R024，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b0224466-0ab0-5887-aeb9-e46832701ec2",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "3ddaa88f-9c53-51a2-abb1-6d771ac29178",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0fa7b697b6c923dd13689fc79486feff8da8eb967015574cb9a1f27bf881014c"
+    ]
+  },
+  {
+    "content": "第26周的公共运维记录：值班团队完成例行巡检，检查编号R025，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8de96964-2c49-5657-8fab-33bb401a8081",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a12c7c13-99d8-5e28-965e-eeaad175b3cb",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ae9ca7cc44b4091693609e17f280e86a879cff513f4419b95f5efb1da90e6d86"
+    ]
+  },
+  {
+    "content": "第27周的公共运维记录：值班团队完成例行巡检，检查编号R026，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "4eae022e-daf3-5b68-9373-9f9de9bb34c6",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "726389bf-197a-5d00-bd39-b63cb5a362ae",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ad8979575c1c24ade9e97bdfa7e320bfb0f0fa295dd87a71d182f8d50f2ef567"
+    ]
+  },
+  {
+    "content": "第28周的公共运维记录：值班团队完成例行巡检，检查编号R027，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7381520b-5aa5-53d7-9b7a-3dc9979aa6b3",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d93d6e1c-470c-55bb-a376-92785b2d3315",
+    "score": 0.0,
+    "source_refs": [
+      "eval://dca6ac216414f4b7e3657392d205b8e7879e045a55508dab2d39302eb2f15c37"
+    ]
+  },
+  {
+    "content": "第29周的公共运维记录：值班团队完成例行巡检，检查编号R028，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "63d58b15-a847-5494-82bc-f0d73cf8714a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "7c9753f4-eb14-5351-96c2-f03938767b36",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0951c94f5a63a6c50ad086b7b3334b743c0a6b22873c90d6a69316cd7b15c254"
+    ]
+  },
+  {
+    "content": "第30周的公共运维记录：值班团队完成例行巡检，检查编号R029，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "42d947d7-5559-5ad3-868f-8553434785fd",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "1bad35cf-925c-5501-b260-381df7e42ad0",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a97781b7718767bfed76522a32726f5aed0160ffec591bda45224c810d56dd49"
+    ]
+  },
+  {
+    "content": "第31周的公共运维记录：值班团队完成例行巡检，检查编号R030，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "a781514f-8cc0-5b3b-8a5d-0e1ffeb6956b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ff0b2fcd-3ca7-5c05-be0c-ca82f3eb096e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://093ebf58c0ec0d849107f294f939bc84d2cb86f21050260348d7c14022283c09"
+    ]
+  },
+  {
+    "content": "第32周的公共运维记录：值班团队完成例行巡检，检查编号R031，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "f21884fc-894a-5217-bdab-8704c78dea40",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "afd30031-373e-5694-9326-ef454af87ef8",
+    "score": 0.0,
+    "source_refs": [
+      "eval://1084257a8ffb883a94ae9f0acd0128c4138b7b818c9149076e76b29f5f84ed6f"
+    ]
+  },
+  {
+    "content": "第33周的公共运维记录：值班团队完成例行巡检，检查编号R032，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "0e68a4f6-b233-5298-bd1f-4a4ee06ca40a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "75cc5855-02ae-5e86-a54d-758555875531",
+    "score": 0.0,
+    "source_refs": [
+      "eval://7587efb4c623174e9e410fb79ad519cd430f2fb20eeb106664990d16debf4309"
+    ]
+  },
+  {
+    "content": "第34周的公共运维记录：值班团队完成例行巡检，检查编号R033，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9e0e079d-da08-5ecf-814c-4f607a149951",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "1b1ce4df-1f96-528f-8efa-229767b81e24",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6357990a895b8f38a4134bd9fe3ba32ca1a13e044703179564619529b3304189"
+    ]
+  },
+  {
+    "content": "第35周的公共运维记录：值班团队完成例行巡检，检查编号R034，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "71dc0227-f7e5-5481-adde-e6a0c3680510",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "2e8d8bdd-5f23-5f9c-b18f-fbcb357f091c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://03ee6a011efdc113109a67eca7efef127614370963654a15a3de809aa8445066"
+    ]
+  },
+  {
+    "content": "第36周的公共运维记录：值班团队完成例行巡检，检查编号R035，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b82efc7f-fd86-5701-848f-ba676172fd2e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d6c7cfb3-53fc-5d4c-87ef-1e4a746c5aca",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d696c00545009fe1c82aaf4e59b52b6e3d1495ffde9163d8b0d3dc50534b1f88"
+    ]
+  },
+  {
+    "content": "第37周的公共运维记录：值班团队完成例行巡检，检查编号R036，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "2c2f9473-0c53-5627-91c1-7bd0f5b1271e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "af71c8f2-0419-5928-8bfe-022f2a8b8959",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ad6c9e45cb32f7a7cb7e5016f9629e7b4f797c07bd2e9b978318270bba924fc6"
+    ]
+  },
+  {
+    "content": "第38周的公共运维记录：值班团队完成例行巡检，检查编号R037，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "cbbba04e-21ad-5601-bb3d-da9178ae9057",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0e5e7cdc-b162-5789-87e5-ae417b0f260d",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5dda01af70c19254aa6b2f31d5def3a9f4dcce984ca3de03d9556210ce24f5e2"
+    ]
+  },
+  {
+    "content": "第39周的公共运维记录：值班团队完成例行巡检，检查编号R038，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c6be997b-2ff9-50ec-8391-7f372ff61432",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "108a09fc-1226-5979-9107-ec5ae50a640d",
+    "score": 0.0,
+    "source_refs": [
+      "eval://3dbbc048b33773a09b5d10c92af33ebe94f74478a91f963e2ac09eab71b7d831"
+    ]
+  },
+  {
+    "content": "第40周的公共运维记录：值班团队完成例行巡检，检查编号R039，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "00c684a6-5ce6-5969-a23d-68ac3a8f518e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d631de93-2e78-5ccc-bee1-84eb8f7c7da0",
+    "score": 0.0,
+    "source_refs": [
+      "eval://df5183110ae02a43b583774a0f5e60922f9216d00fff0fd7c9b8652e70547f90"
+    ]
+  },
+  {
+    "content": "第41周的公共运维记录：值班团队完成例行巡检，检查编号R040，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "e61b0248-2269-5e8a-b471-ccb78ec529b6",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "cdf638dc-d4eb-5a89-a0df-6ab4f1878492",
+    "score": 0.0,
+    "source_refs": [
+      "eval://8d1faba05540e3430c1100ad16ce297dc3f392c1253ef6b671e9cddacf50a768"
+    ]
+  },
+  {
+    "content": "第42周的公共运维记录：值班团队完成例行巡检，检查编号R041，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3e801c96-06ae-5d4b-a23c-ee5710a828cf",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a3053c47-1930-5590-a71d-d7de84cbd808",
+    "score": 0.0,
+    "source_refs": [
+      "eval://de7a2ecc4fcf57671f926fa8b6ffa08b05fa270af6f12a309911b20dcfd1627f"
+    ]
+  },
+  {
+    "content": "第43周的公共运维记录：值班团队完成例行巡检，检查编号R042，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3d241052-fc95-5119-a1ee-cf3825130c62",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "02ac0bd1-a876-59bf-9851-9fc1a545babf",
+    "score": 0.0,
+    "source_refs": [
+      "eval://070677e731cf0cfb9ece64e67678ab8f96859716bca95370b65979c79f46b2fb"
+    ]
+  },
+  {
+    "content": "第44周的公共运维记录：值班团队完成例行巡检，检查编号R043，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ca22a3a5-fd6a-5703-a3a4-a954b9e9d1ba",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0fcc4a8a-b454-5184-8af8-0a231cbd0a28",
+    "score": 0.0,
+    "source_refs": [
+      "eval://f649bd6c6b2e1ddada08c3f8a624ddf637bcfd9d584c509122ec6a321230a4a1"
+    ]
+  },
+  {
+    "content": "第45周的公共运维记录：值班团队完成例行巡检，检查编号R044，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "de7a5f8e-57a1-5622-9580-5d07d3d3390d",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a6f77041-d78e-5d5e-b9ce-1c84e8c9484b",
+    "score": 0.0,
+    "source_refs": [
+      "eval://4936c224711a3a166c0861413b5a4e9dd28092dd69e7f70522eedc56e155c5cd"
+    ]
+  },
+  {
+    "content": "第46周的公共运维记录：值班团队完成例行巡检，检查编号R045，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "db2aea47-af74-5c58-8d8a-a1228d153d5f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f3c46bff-8b89-5d77-a289-a5d73300c762",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c1f0e31055d479045a79cea022d0196f199cfccf8ce38c28098f2b82398a9190"
+    ]
+  },
+  {
+    "content": "第47周的公共运维记录：值班团队完成例行巡检，检查编号R046，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "946953d5-0de6-5be0-9270-ff061ce485e3",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "78c7c99d-d2ba-5182-a7f9-2efcbb19b15e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9330e1ae0edc2e4d4ef6e6a319c8194babd4054638152c9aa6454b1a1219ddbb"
+    ]
+  },
+  {
+    "content": "第48周的公共运维记录：值班团队完成例行巡检，检查编号R047，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "e9b3f9f6-5d15-5973-8680-b620a4bba6b6",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "af082305-2647-590d-aae0-73acae068a8f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9a3bd7b729635fccc9b9f07407f23ebd80c35cfddd9d0d9df395a275377df7ea"
+    ]
+  },
+  {
+    "content": "第49周的公共运维记录：值班团队完成例行巡检，检查编号R048，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "74d3c0b3-f48f-5c7c-9d32-72a34abd0e78",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9d9e1e0a-8629-51e5-becd-29389bc3d6f7",
+    "score": 0.0,
+    "source_refs": [
+      "eval://89f4e9de75d2e97f33465cadd0d5a63c2764b4cc0b0b0bc1af6fda8f797a0290"
+    ]
+  },
+  {
+    "content": "第50周的公共运维记录：值班团队完成例行巡检，检查编号R049，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "52f29d8c-96ad-5905-bdb9-c9058a3a99ec",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0494f1db-63f0-5b64-bcda-8dfb35fc76e9",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a79a5e4ee82929ed3eba7c466c341f23042ce1f55387f1e8bf64d9143badecd9"
+    ]
+  },
+  {
+    "content": "第51周的公共运维记录：值班团队完成例行巡检，检查编号R050，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8c397e6d-e444-518b-8644-086b60e695eb",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "66f9d870-deaf-5b89-8ace-7ccb196b71ec",
+    "score": 0.0,
+    "source_refs": [
+      "eval://3423dcdb2fff17374313b5d041fa96a2869a8363bb4687d397a8b321c58a1af1"
+    ]
+  },
+  {
+    "content": "第52周的公共运维记录：值班团队完成例行巡检，检查编号R051，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "32c1cba9-31a8-5c87-8555-7feb471ab2a7",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f05e421a-af26-5f6c-a084-467f4d0521f1",
+    "score": 0.0,
+    "source_refs": [
+      "eval://789da8ed870a2d30c93bef961317f742149d3b0df010931ac9aef8b4ee21335a"
+    ]
+  },
+  {
+    "content": "第53周的公共运维记录：值班团队完成例行巡检，检查编号R052，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "895ed008-e084-5693-b71c-65631cf084fa",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9c8714b6-39aa-5285-a490-e50b4119daf3",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9638e4c9f53808201a03fbf79033b67603b57b0e0caa7b9b4e2e66cdb15024d8"
+    ]
+  },
+  {
+    "content": "第54周的公共运维记录：值班团队完成例行巡检，检查编号R053，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "67efdfb5-49ca-59a6-9286-4837eb66a78a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "027950c0-2bf7-52f3-b39a-13d7e1ba779c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://446cbc88fe2a3e3cf781e8999342358bd811fd58264c8f633f381b22131a7b2e"
+    ]
+  },
+  {
+    "content": "第55周的公共运维记录：值班团队完成例行巡检，检查编号R054，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ca415a50-ebb2-555c-9862-83d7db912603",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "65aabfaf-7fa2-5584-92d3-a30a7dbecdda",
+    "score": 0.0,
+    "source_refs": [
+      "eval://b1143560a44b30d14f48eca89564b6e5527afc198e3dcb4078bb5d640fc24908"
+    ]
+  },
+  {
+    "content": "第56周的公共运维记录：值班团队完成例行巡检，检查编号R055，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "173ae2d4-832d-5e21-b3db-95d0b188bbc9",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "74fb5aa7-7c39-5058-8b28-70ff338eff61",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9bdcc6bf02a2ffd5b761228f0ce5a7e15f5d41017d4f6ed117219a366a11d9f4"
+    ]
+  },
+  {
+    "content": "第57周的公共运维记录：值班团队完成例行巡检，检查编号R056，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3ed589ac-7713-5b13-a241-366a526aae1e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0a98a2c2-abfc-552e-8397-ae9cbcf79975",
+    "score": 0.0,
+    "source_refs": [
+      "eval://f64d4b62eaca8ac468c581245d146432f0523e85bacd20f83c2387c947c8ea52"
+    ]
+  },
+  {
+    "content": "第58周的公共运维记录：值班团队完成例行巡检，检查编号R057，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "fd294f23-a353-54cb-b7f9-4443c1a08877",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a7958053-994e-54b4-aeba-9d25176e771e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://123121fdb1a228584bd1b63268f9c81ff01277780d92e53abe8021b2e7ae674b"
+    ]
+  },
+  {
+    "content": "第59周的公共运维记录：值班团队完成例行巡检，检查编号R058，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "cce4a25b-c0b5-5b86-9366-31de16313869",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9a40d41c-2d10-5b9b-870e-1f6fb5201efa",
+    "score": 0.0,
+    "source_refs": [
+      "eval://1a45b1671db852c0fb32b3e4f13acb206bbb833e3609c55f76aca7c5b72ed024"
+    ]
+  },
+  {
+    "content": "第60周的公共运维记录：值班团队完成例行巡检，检查编号R059，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "fd9c3bb5-a0fd-5497-8c4c-8839dada1807",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "4846b893-1e57-5c23-90ea-5fdb41350d3b",
+    "score": 0.0,
+    "source_refs": [
+      "eval://59c7e764c4d98efaa184543205adc899a62760d57bc3cd36da92700a51379cbe"
+    ]
+  },
+  {
+    "content": "第61周的公共运维记录：值班团队完成例行巡检，检查编号R060，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "2ff1f0d5-5020-55c7-a9e8-e66e8c134a9f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "fa7624ab-c95f-5b81-9c2d-da195d56c36c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://449da2f56c1816d6343174b4b36999aff532551058ff0267bf98cf3e43f56e2d"
+    ]
+  },
+  {
+    "content": "第62周的公共运维记录：值班团队完成例行巡检，检查编号R061，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "38ea6d60-9ff0-5aa1-a594-e5f506bb3306",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "39447a1d-9e28-5544-af0a-baec3c358cc8",
+    "score": 0.0,
+    "source_refs": [
+      "eval://91b8c4f4f0abd9330093203d26fb21f94f98941f1301f3abd0d8ab17ade49284"
+    ]
+  },
+  {
+    "content": "第63周的公共运维记录：值班团队完成例行巡检，检查编号R062，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c5fa744b-c9c8-50e1-9a3f-b7901206d75d",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6b2574a2-01c0-5869-a346-11b2bdbe007e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://b9c483ea7003d6bba2b96f6cd40bf1e48bb498c5863891f287aa0bcee71eafe1"
+    ]
+  },
+  {
+    "content": "第64周的公共运维记录：值班团队完成例行巡检，检查编号R063，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c29dd356-1353-5e0e-a36a-d47b7d9b8ae0",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d87115a5-1be6-59e0-a69d-7f13b9d33da7",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0dd3e51603bea94498cba7fc104fa5665d43695ff9fcd5eac5ff8a4169074aea"
+    ]
+  },
+  {
+    "content": "第65周的公共运维记录：值班团队完成例行巡检，检查编号R064，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d7e7f716-7eb5-5eef-8989-9d326063486e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6b471730-b41a-53a5-980a-491f3d6494d8",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2610668be3efa724a39d1bd5a03722fc9f1fbc579877ddebe1293d3eb66eb7ab"
+    ]
+  },
+  {
+    "content": "第66周的公共运维记录：值班团队完成例行巡检，检查编号R065，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8836ea3b-0172-5479-84ab-506eacc849cf",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a222f4c3-c035-573e-b8b7-5d185ebe443f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://7d4b5e4c500756eaa94687d35aabfb8005f67a224954ca8a5649f40bb603b956"
+    ]
+  },
+  {
+    "content": "第67周的公共运维记录：值班团队完成例行巡检，检查编号R066，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "6d1b7a40-151b-50a9-9c0c-24883d96011b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "cebcfaea-480e-5bc3-81e3-cf987c2f70fc",
+    "score": 0.0,
+    "source_refs": [
+      "eval://aaf1a232bb6d9ea8f42fb74bcaef291f93854aa076cab8421cda0d6e6b94094e"
+    ]
+  },
+  {
+    "content": "第68周的公共运维记录：值班团队完成例行巡检，检查编号R067，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8d504547-5a99-5f10-9387-689ee38a93f4",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "fb2d69e6-9e58-560f-83f2-70dd79323c44",
+    "score": 0.0,
+    "source_refs": [
+      "eval://fd76463b130bae8753c96105e83003d5f17cebf76d517154d9c68f500ee76def"
+    ]
+  },
+  {
+    "content": "第69周的公共运维记录：值班团队完成例行巡检，检查编号R068，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3d468c6e-c6f1-58d7-b8b3-4bf7f1c86700",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d1ffcbb2-ccf3-532a-96e2-66e566027acb",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5dbe9937daf3b67eb542483bfd33c268a8592f662191ccf68cbe546366678a9e"
+    ]
+  },
+  {
+    "content": "第70周的公共运维记录：值班团队完成例行巡检，检查编号R069，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d07ca296-bf34-5faa-961d-305b5ba1875d",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "1b38c904-0483-5410-ba5d-bea9e22c9d59",
+    "score": 0.0,
+    "source_refs": [
+      "eval://3899892ac047243ffab0ee2ac77a1993c155ebc94a5b629a0aadf88ecf97797a"
+    ]
+  },
+  {
+    "content": "第71周的公共运维记录：值班团队完成例行巡检，检查编号R070，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "cc1763df-e53f-5844-9132-51a6f429f4e2",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ae8849bf-2159-55e6-819f-6a098f324b47",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6562a1171a10d1c2bde17e5374b9bab25b82f11a66f2ae9c8b995e392698be2b"
+    ]
+  },
+  {
+    "content": "第72周的公共运维记录：值班团队完成例行巡检，检查编号R071，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "589547e2-b19f-5347-90f4-69f684168f54",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f1b1dee5-5047-5f4c-b5a4-030298df8093",
+    "score": 0.0,
+    "source_refs": [
+      "eval://55a060003e55797c290cdd6154dff2cc419a34fcb61b7445fbd2e286a8df3118"
+    ]
+  },
+  {
+    "content": "第73周的公共运维记录：值班团队完成例行巡检，检查编号R072，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "960cc306-e754-510d-856a-6573b5e0a01f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5d6585b1-0600-5164-84e2-4dbde2856d1c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://552405563d9e117cd2ff641eecbff1565d3deee72f430db6ab7348168aad7fe8"
+    ]
+  },
+  {
+    "content": "第74周的公共运维记录：值班团队完成例行巡检，检查编号R073，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "1f8f8a85-cac8-5b7c-8985-a045abbe2401",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "42adb5ac-3cc5-554d-8359-ff8ea5dc2ebe",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0b702a53d2913a4c5bd2b7c56127837f36505e3fe9d16c59ccc8aca0c9e659b9"
+    ]
+  },
+  {
+    "content": "第75周的公共运维记录：值班团队完成例行巡检，检查编号R074，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "0b8ec958-6021-5d81-8f2a-48cfef40c95f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "45913604-c3b0-5dd5-8271-f2542f5a2770",
+    "score": 0.0,
+    "source_refs": [
+      "eval://56ae1d7c488fc0965d3c09728a67fe07b12686f5bba6a8edc0af319c4a6cfc52"
+    ]
+  },
+  {
+    "content": "第76周的公共运维记录：值班团队完成例行巡检，检查编号R075，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d69f8140-18e8-5692-a65e-97e942f12e47",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "42a8740c-9e67-5605-bfb6-f09f629ac78e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c61e7b019c52b1fa22b71c293194c176321fcaade98ad1d773c22b775fb59940"
+    ]
+  },
+  {
+    "content": "第77周的公共运维记录：值班团队完成例行巡检，检查编号R076，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7fa2b7c1-83af-5430-b992-552f8e78c446",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "3a0016ba-acf3-5470-b3de-7b12da3438ef",
+    "score": 0.0,
+    "source_refs": [
+      "eval://f362424428b40dbd1a63e05f5a0ddb7add1e86b404227dbb655d24b46b5a3125"
+    ]
+  },
+  {
+    "content": "第78周的公共运维记录：值班团队完成例行巡检，检查编号R077，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b3678097-c9ea-56b5-989c-999bcda7c76e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "12c05fd9-6a25-571a-8e13-fd43f3362b43",
+    "score": 0.0,
+    "source_refs": [
+      "eval://b72bf5c193df8f985e01246acdfe6d617f19e751e9f63ff2ee1a5ad22398d8ca"
+    ]
+  },
+  {
+    "content": "第79周的公共运维记录：值班团队完成例行巡检，检查编号R078，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "fac4dea3-a511-5cee-9cb5-73a0260c3644",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "7481cc36-a525-5984-a9d2-6d46459718aa",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0de2d42ba10d93c7316d43567f89fe7ba06bb4311e2a8ad73a21ac2fc071e24b"
+    ]
+  },
+  {
+    "content": "第80周的公共运维记录：值班团队完成例行巡检，检查编号R079，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "73fc3b79-4fc0-5a76-b4fb-68e3670dcb4f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "050343c6-3fcc-598d-a86a-2ee376f7af9c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://425757a99b415525d97cbe00849595130bad12b7b88c8bb6c41ff8c8cac2ce40"
+    ]
+  },
+  {
+    "content": "第81周的公共运维记录：值班团队完成例行巡检，检查编号R080，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "feabd942-3a18-5d3c-a1d6-807d2378d259",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6eb44958-d1e1-5df8-9eb7-3a66dba9c66f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9614e74983d8b14dca1de9d8ca94fdd538e136de398ad5e71a9cf8f0d505a055"
+    ]
+  },
+  {
+    "content": "第82周的公共运维记录：值班团队完成例行巡检，检查编号R081，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "fee69c43-9aec-5b5a-be8a-4604a7bc1e5a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ea415ef3-ecdf-5599-8234-9ff45f57f4d1",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2a8df82da8a5d0f518fa0db40ab28a185a1ad3f7528a9fb4cb39b332de9ef667"
+    ]
+  },
+  {
+    "content": "第83周的公共运维记录：值班团队完成例行巡检，检查编号R082，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "20c68283-80bf-50ff-9e54-3387ed255e5f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5b356003-abc7-5f6f-833c-a48d6b9f57ea",
+    "score": 0.0,
+    "source_refs": [
+      "eval://41ef57c311b1456bb6646a2ab9361b181114e1fe321e025a0e74ed3546f6a780"
+    ]
+  },
+  {
+    "content": "第84周的公共运维记录：值班团队完成例行巡检，检查编号R083，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "20fbded0-ef7e-51ef-a809-afea81adbf74",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "8b8980f6-29be-523c-ac79-230b199a00c8",
+    "score": 0.0,
+    "source_refs": [
+      "eval://90826aa21122f8f9eb06bbdce5492a40b255bd9ef2ee8351c4cf12d7db9be3e3"
+    ]
+  },
+  {
+    "content": "第85周的公共运维记录：值班团队完成例行巡检，检查编号R084，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ad83e88e-126f-5208-93b5-9a3f431882d6",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d046aaf3-b210-50c7-9abf-bcd387986dc9",
+    "score": 0.0,
+    "source_refs": [
+      "eval://00544c013f15fb9d0c3c7d3cb2700a5d556d3cb9e3917560e4dec852c04d9ce9"
+    ]
+  },
+  {
+    "content": "第86周的公共运维记录：值班团队完成例行巡检，检查编号R085，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3a3e2190-8e9b-501b-8cba-027886cf959a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "e35a29a6-83a6-5597-a2e3-7562546f4110",
+    "score": 0.0,
+    "source_refs": [
+      "eval://4ac7993fb3784abe899396ccba7b064116e048c50537333ff7c41ab00970f62a"
+    ]
+  },
+  {
+    "content": "第87周的公共运维记录：值班团队完成例行巡检，检查编号R086，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ad18661e-aa1e-51c2-9b5e-39119a306118",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "27634a01-9f63-51b2-954b-444a6018de65",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ed54fccddf69912081d18e48cf7205dfb9c09a95740e0f6341fbe7e296d97e86"
+    ]
+  },
+  {
+    "content": "第88周的公共运维记录：值班团队完成例行巡检，检查编号R087，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "4cb217a3-8076-5a3c-b5f3-1c8cbd8b10c0",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "687430ba-db62-5d52-899b-68f6a84fb9a9",
+    "score": 0.0,
+    "source_refs": [
+      "eval://4d774a64b287cd8a4d196ba983cbc15926aedc659cfaa8634eaf391de1ba8063"
+    ]
+  },
+  {
+    "content": "第89周的公共运维记录：值班团队完成例行巡检，检查编号R088，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "a459a214-0fb1-526c-bf98-b67a5bddc073",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "8583ef74-df67-52be-add0-5945636b8375",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ec68fa4c839b52fbcb6243dbe8bb02726df2035af4f2cc0032079cb983c927fc"
+    ]
+  },
+  {
+    "content": "第90周的公共运维记录：值班团队完成例行巡检，检查编号R089，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "a1805c84-e4a6-51e5-8833-26027474bff3",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5c7d0958-0927-52b6-9c1a-a619de149305",
+    "score": 0.0,
+    "source_refs": [
+      "eval://05dc9075cf632ffe79263db4800b6a70d4fa3b34f7a4aa526c7d5bea4753ced5"
+    ]
+  },
+  {
+    "content": "第91周的公共运维记录：值班团队完成例行巡检，检查编号R090，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "0888440a-825f-5c3e-997a-834381de5ec1",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "eaea2ea5-df85-5eb9-acc0-693af9cd303f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ba42a48b0f28d28ced9d27e98b31b9facee7d0867b83229b887fdad298a220bf"
+    ]
+  },
+  {
+    "content": "第92周的公共运维记录：值班团队完成例行巡检，检查编号R091，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "06a42684-1e2b-5d91-8921-70d04a97258c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "84c46d7a-32a9-5a19-8675-261c845103ee",
+    "score": 0.0,
+    "source_refs": [
+      "eval://7745e1ce6510a6d586aa3f7ea8d0fc896acde1a9095bd0287bff68b5adf370dd"
+    ]
+  },
+  {
+    "content": "第93周的公共运维记录：值班团队完成例行巡检，检查编号R092，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "49ebd854-e1c4-5158-8540-ff12f731ef6b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "b05b6565-fb9e-5c84-9bf0-cae3f9097f87",
+    "score": 0.0,
+    "source_refs": [
+      "eval://87cbfc37f33a0877e0ea295c1aff0ba43b753a599ff2f983838693c7df7db748"
+    ]
+  },
+  {
+    "content": "第94周的公共运维记录：值班团队完成例行巡检，检查编号R093，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "09167831-1b62-5e19-b14b-b312165b4235",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9299be93-c71c-5b7f-8d4f-edfa25ca844c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a1f1ee7d7235bc8035e7afa52ac049e862a36577823cfc80ea9cbbf5f700d105"
+    ]
+  },
+  {
+    "content": "第95周的公共运维记录：值班团队完成例行巡检，检查编号R094，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "48ee08e5-5106-50b9-93a3-ee03625f9550",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "bbdd9d8a-9fda-5462-8fa6-e19515b21046",
+    "score": 0.0,
+    "source_refs": [
+      "eval://14d40fb6fad1be8cb1fdacab21060ce6f8044bae59b7416d04b7994780a22aa5"
+    ]
+  },
+  {
+    "content": "第96周的公共运维记录：值班团队完成例行巡检，检查编号R095，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "26339494-2c17-5bb6-af5c-ac6ba54a9170",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "07689a31-66d0-5a07-8eb5-816fbcaf4043",
+    "score": 0.0,
+    "source_refs": [
+      "eval://53ef9d9c16078a704a31c5ea57bca6a2e4058bf0260d6b4c02cf9cf6dcddcfe4"
+    ]
+  },
+  {
+    "content": "第97周的公共运维记录：值班团队完成例行巡检，检查编号R096，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d560dac5-a676-5853-adbf-129acc38685d",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "113e0f6d-d164-5c62-9d43-d279e710f507",
+    "score": 0.0,
+    "source_refs": [
+      "eval://922556ea978dae05b7ea7d4798405808e1a77f36f4596df2c0b6d9cb6fe275ee"
+    ]
+  },
+  {
+    "content": "第98周的公共运维记录：值班团队完成例行巡检，检查编号R097，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b57eb139-4123-5ee3-b7bb-83073d9426c2",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a83a74a0-74e4-551c-a55b-c97b27be9cef",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d4e11f8244f43ff578c3ecabdcec46bf27a72e2a400f8f290b36e4425b5b4de5"
+    ]
+  },
+  {
+    "content": "第99周的公共运维记录：值班团队完成例行巡检，检查编号R098，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d2537a1a-ac48-5400-b3ec-046828f5bc61",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "59725c03-1abd-50a6-9bf9-d1861c190141",
+    "score": 0.0,
+    "source_refs": [
+      "eval://315e3ad4306e232ecb08d1cef58eddfb17c574b2f30e6a4632bcafb301d6df2b"
+    ]
+  },
+  {
+    "content": "第100周的公共运维记录：值班团队完成例行巡检，检查编号R099，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b47a2936-80c2-5224-b1ea-05778bf21f43",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "eca0008f-7e27-52c5-aa66-058c474b7ded",
+    "score": 0.0,
+    "source_refs": [
+      "eval://54808d3d533fca95af95fd3c00520b021462991f2a130bafa6b75700db442854"
+    ]
+  },
+  {
+    "content": "第101周的公共运维记录：值班团队完成例行巡检，检查编号R100，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "030142b2-6a2b-51e3-9af1-d43b1666f725",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "29b4b884-2615-5091-abd3-40054309fdd5",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d2965ce9fb6fd264c56b6dd26eec032b6cdac3fa185ed17b55c9a6fc014455d9"
+    ]
+  },
+  {
+    "content": "第102周的公共运维记录：值班团队完成例行巡检，检查编号R101，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "299b3fdb-e7af-5002-b6dd-ff3294aa499b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "7da28c3e-4c8b-514e-abd5-013688e5ab21",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a8fb486cbe29fab8059d553d1a30699bac6e9b5deba7589af6aa862745267c90"
+    ]
+  },
+  {
+    "content": "第103周的公共运维记录：值班团队完成例行巡检，检查编号R102，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "4f097cf9-74a1-56a5-8461-05fd22ef57fa",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5bce8e89-c72c-5ef6-bc6b-320dfa688d67",
+    "score": 0.0,
+    "source_refs": [
+      "eval://f8be6d67db2a0d5707e2c28f497cfa43a6ea7a37b7ad824ec96ab48aa7b90684"
+    ]
+  },
+  {
+    "content": "第104周的公共运维记录：值班团队完成例行巡检，检查编号R103，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c2562734-00cd-5cb0-8330-da9c62a44607",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "8f765847-246c-53a0-9c74-b4c2fc5414ff",
+    "score": 0.0,
+    "source_refs": [
+      "eval://094a29e3b6c7af7ac64a26334279dcf488f1fc593f3efa6c23070806ed11f571"
+    ]
+  },
+  {
+    "content": "第105周的公共运维记录：值班团队完成例行巡检，检查编号R104，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "878b8541-049c-5a4a-becf-10ae2211ef1b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "378519fb-0576-50dd-8bb3-c8f49a7b6227",
+    "score": 0.0,
+    "source_refs": [
+      "eval://27b61a93788cf2a54c7adf43fe6e72bf73c244817d7a237a98d3392cce44d1c4"
+    ]
+  },
+  {
+    "content": "第106周的公共运维记录：值班团队完成例行巡检，检查编号R105，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d4206aae-e441-50e8-abc4-b7186ce363d5",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6335e350-b127-5005-bb6e-3c3d9547bc13",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2001d065760c491a83e40269b8d8e43376f5e2387d1b0a8f5b065697bb2bab80"
+    ]
+  },
+  {
+    "content": "第107周的公共运维记录：值班团队完成例行巡检，检查编号R106，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "4d329fab-2839-5bfd-b7e1-ee331e998555",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6b79567a-6d07-593f-8230-8322c1d63d78",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a26a7fbb06d12841be23112e15043ca44d59a969fdf5ca5fda756eefe0232a9e"
+    ]
+  },
+  {
+    "content": "第108周的公共运维记录：值班团队完成例行巡检，检查编号R107，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b1360527-7070-5b4f-b8f0-26ff582a9658",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "31ce7425-18fe-5f58-99be-81b750f69734",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d3ee4cd47da8db2c06f098dac1c47cbe5bea8ba0f75c8ba07300ee46750e5ebb"
+    ]
+  },
+  {
+    "content": "第109周的公共运维记录：值班团队完成例行巡检，检查编号R108，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3188f02a-74b8-56e5-90d9-433e2c98433e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f18fda33-219d-5566-a709-9f9e303d0b88",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5a4a520c6eb346ba680263f558e771a82540f39d6b0f4035cf861005eda379e4"
+    ]
+  },
+  {
+    "content": "第110周的公共运维记录：值班团队完成例行巡检，检查编号R109，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "130d3f58-ff66-599d-bcba-70bde398cbfe",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "e6cbe3f3-719f-5e57-a0b0-bb25f112693f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://77aff5000b6f4d9b9eeb955e07ce81676770c00e18e424f4d9c5c5e1fc909bd3"
+    ]
+  },
+  {
+    "content": "第111周的公共运维记录：值班团队完成例行巡检，检查编号R110，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d0b615b7-e31f-5e11-a5c0-4336dac50fd7",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "70a46685-dbf6-5e7f-913f-587a7275b590",
+    "score": 0.0,
+    "source_refs": [
+      "eval://1b82468845a81dc2a2030e526dc8b7a7e7dcf4444dec0ea8f21bf401772d109f"
+    ]
+  },
+  {
+    "content": "第112周的公共运维记录：值班团队完成例行巡检，检查编号R111，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c06df92c-fa59-560b-a8e3-8dbb57a58f91",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a6faf349-acfd-5ef7-ad3b-b3210f8a7cf6",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9df0a8da9dbba6e49b30c43ece4bd9917b14bc0b18ff397a75cf207988846ebb"
+    ]
+  },
+  {
+    "content": "第113周的公共运维记录：值班团队完成例行巡检，检查编号R112，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9697ab66-41ec-54a6-a0f0-8068e87bad7c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "4594896a-0a41-5fe7-a6d5-c3fb83db35af",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ffa19b81b4423dad9618ab86f9cee1a23388ab8cdda699befc2f800a0d83b390"
+    ]
+  },
+  {
+    "content": "第114周的公共运维记录：值班团队完成例行巡检，检查编号R113，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "454b527b-770a-505a-bfe9-0e38a1b1deaf",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0e472ae2-0745-5670-8ef2-713ae1d79ba2",
+    "score": 0.0,
+    "source_refs": [
+      "eval://65d77d60067bfe491458e71d90753268cdd62f6ecca0cc07d554fb059a9ae028"
+    ]
+  },
+  {
+    "content": "第115周的公共运维记录：值班团队完成例行巡检，检查编号R114，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "6843b1c9-cd98-52d4-963a-98d86753c922",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "8b65227c-c1c4-595e-ac45-87688bdb663c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5ae6a76737ab4d912c0b7134242dd4a0de9f3d153d635d7f4608dda114c89328"
+    ]
+  },
+  {
+    "content": "第116周的公共运维记录：值班团队完成例行巡检，检查编号R115，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "641d67f1-c86d-50ea-9591-a00149dd3bf7",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a3d6213b-352b-5473-8501-f2c36431fb87",
+    "score": 0.0,
+    "source_refs": [
+      "eval://79f2ab4ae5d430013f7830de901bce5fb87dd47ccf7af941b93b26a419cb235c"
+    ]
+  },
+  {
+    "content": "第117周的公共运维记录：值班团队完成例行巡检，检查编号R116，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "5144e136-7cc9-52c6-bdb7-11c12fffd427",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5819be08-347a-5223-a939-885e35242ee0",
+    "score": 0.0,
+    "source_refs": [
+      "eval://164cbc63fc2a32a3cecb3fd4053943b340f522231eb3e93393e0e70f87223260"
+    ]
+  },
+  {
+    "content": "第118周的公共运维记录：值班团队完成例行巡检，检查编号R117，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "86cff2f0-6697-5453-9b8d-c5caadd61e44",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6397a04c-f1dd-54f4-9bae-20321b5117a5",
+    "score": 0.0,
+    "source_refs": [
+      "eval://bf3c95b37b287fe22ec06412734cbda3a75b94168a6fba96c30220e030beb980"
+    ]
+  },
+  {
+    "content": "第119周的公共运维记录：值班团队完成例行巡检，检查编号R118，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "dbc10921-2a14-56dc-a69f-c700a221088e",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "23140cf1-a366-5d7a-98e4-c8ff248c6634",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5f585f7b96736b44c2d49d9f5671dad1cf7f16dbf7898a00f9a91dabb43d0f44"
+    ]
+  },
+  {
+    "content": "第120周的公共运维记录：值班团队完成例行巡检，检查编号R119，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8b0ee070-5f03-54b9-9678-ac941a3c9960",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a120a947-7748-5ee7-b217-63dd9e36e9f7",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6279149180d483bfd6fb1975dc487cb16f98b262c5fd3c1455639bf237c0c8a7"
+    ]
+  },
+  {
+    "content": "第121周的公共运维记录：值班团队完成例行巡检，检查编号R120，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "a9873d08-f58a-5d79-9e8e-21577d273e0d",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "4a002e62-5202-5d24-8b68-86ba59c974af",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c96ecfb948ded23e97988c898a4e8bb388ef088487bf6380192c6702d5ce575c"
+    ]
+  },
+  {
+    "content": "第122周的公共运维记录：值班团队完成例行巡检，检查编号R121，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "eb772f72-a5c7-51c0-9519-2c45f0beff5b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9c05da11-b3c3-58be-9e89-5333902a47b3",
+    "score": 0.0,
+    "source_refs": [
+      "eval://14cdabb4e09a0ba4c9e624b166d870bcc6e179d3996772e801985a64c90bc12d"
+    ]
+  },
+  {
+    "content": "第123周的公共运维记录：值班团队完成例行巡检，检查编号R122，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "b47d4418-4417-5743-9db3-143c4d245696",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ad33a7a6-d85f-5740-bfc6-397a80369e9c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://1c83addb28c97dd4893e5b5ef089861ee1f03cadf7f4d4052a990f59b375cce8"
+    ]
+  },
+  {
+    "content": "第124周的公共运维记录：值班团队完成例行巡检，检查编号R123，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "4f1ef171-331b-52ce-9e3d-74506abcd00c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "c9a9eccd-6f59-58ab-8333-73e2f42a752c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://29a8368659c5c5036548544422e746a8e4bf9597a403efe9b9e2fe3f81d197c6"
+    ]
+  },
+  {
+    "content": "第125周的公共运维记录：值班团队完成例行巡检，检查编号R124，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "52edfe62-77d2-5994-8759-a1c8a1d76716",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a610149c-894a-5df0-a275-e2f055bedf29",
+    "score": 0.0,
+    "source_refs": [
+      "eval://29ba83fb73fcb438ed5b9a7bacdd47af5d59b62eb24c8b81cca37db26436257d"
+    ]
+  },
+  {
+    "content": "第126周的公共运维记录：值班团队完成例行巡检，检查编号R125，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9300a3ba-8bf5-5b4b-b33e-26c77af9e8bc",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "cd3767d9-3a6f-5a5c-8518-33ebb17c0d03",
+    "score": 0.0,
+    "source_refs": [
+      "eval://b766d88af49ff90c3065753f0f43f41d92127b375c42b1f9eee4ffb31e827736"
+    ]
+  },
+  {
+    "content": "第127周的公共运维记录：值班团队完成例行巡检，检查编号R126，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7241bcab-8dd5-566c-81a3-927183e4fdb5",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "2949c25a-2462-523d-899c-5b6aa01896a4",
+    "score": 0.0,
+    "source_refs": [
+      "eval://1b74ad1474ae7535c6a0ca9b469791903b435a739a20f7f7984943f04aaa509d"
+    ]
+  },
+  {
+    "content": "第128周的公共运维记录：值班团队完成例行巡检，检查编号R127，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7d7b052d-79b1-56a6-8f2b-cd65049e1e63",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "06ffa2fc-0311-5f2c-936c-66be68c84a7c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a5f9cb6e419aff3b08f61cf7356ff07b234575dfb3dd8d4b5d39871a72e531e6"
+    ]
+  },
+  {
+    "content": "第129周的公共运维记录：值班团队完成例行巡检，检查编号R128，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "e21da217-a356-5b0a-a766-47fb4c4045aa",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "026517ce-5334-5e0c-82e9-b9802ebfb96d",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d4f06818f139df2d23e0eb39a91e3fb7fe92fdb5eeb05806550d860599aab98c"
+    ]
+  },
+  {
+    "content": "第130周的公共运维记录：值班团队完成例行巡检，检查编号R129，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "2a23e8b2-e6f4-51d9-8866-0b43ab7f4711",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "168dbb91-c3d1-5295-9d47-a3bb05171e42",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d7a225a2c01225770ee9aac0c9388201b5442e036002057bd72655c2ceca595c"
+    ]
+  },
+  {
+    "content": "第131周的公共运维记录：值班团队完成例行巡检，检查编号R130，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "5c8a7a38-db3e-507f-98f7-1ae1342dde7c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "7409ff4d-9aa2-5efd-835c-44710ae0887f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://17e222d83eaf786f21472f3e6acf04f0aaee3174083d280ae8ca19ce3e8e223f"
+    ]
+  },
+  {
+    "content": "第132周的公共运维记录：值班团队完成例行巡检，检查编号R131，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "edb26aa3-a7c6-5020-853a-9df3d57bb5b4",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "bce3989b-5cc1-5490-a5dd-bb09de96202f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5da3889835f5e62591ef75caa21932d19af4d3561f0f27d50941be84e9aef32a"
+    ]
+  },
+  {
+    "content": "第133周的公共运维记录：值班团队完成例行巡检，检查编号R132，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3b1f0610-ffa1-53f4-8f80-83c648a99a72",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "16e5fffe-b52c-55dd-9100-629aa5bcb7a6",
+    "score": 0.0,
+    "source_refs": [
+      "eval://10ad57079d17f96bc0f3442e81b30d07719ff09c890ca74874405dfdf2c4a23a"
+    ]
+  },
+  {
+    "content": "第134周的公共运维记录：值班团队完成例行巡检，检查编号R133，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8481e050-f2ce-51e7-b22d-47a6f1c3d463",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "b3b958d0-d648-558b-823a-f7c2fd4a80bc",
+    "score": 0.0,
+    "source_refs": [
+      "eval://33eec68198229c317361deb55ec50c894df4631a0be6530d1927ccb579f60dc9"
+    ]
+  },
+  {
+    "content": "第135周的公共运维记录：值班团队完成例行巡检，检查编号R134，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "5bcea337-c96e-5cbf-b9eb-83af6d7cfc57",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "8281981f-816b-58d1-8880-0ff4f8ba3019",
+    "score": 0.0,
+    "source_refs": [
+      "eval://8cdb8d3782824abeed2ddc69d87d568524525bfd14492149aaccc37fabc3a530"
+    ]
+  },
+  {
+    "content": "第136周的公共运维记录：值班团队完成例行巡检，检查编号R135，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "84d28d12-948c-52ca-85df-d448f04d175b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "e1213f12-7ba7-5dfd-bde6-676d6ee23316",
+    "score": 0.0,
+    "source_refs": [
+      "eval://55d0aeda3c05c22f86c7f10acc2ca35fea61d895969cae75d91e8c903138a56c"
+    ]
+  },
+  {
+    "content": "第137周的公共运维记录：值班团队完成例行巡检，检查编号R136，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9593efb9-6f54-5fe4-baca-181587c99663",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "dd7e3a51-30c7-5104-81e1-44df50ca0bd4",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c083150324389a0adc7c7752ee0e3a39df355f6dea686a35047cc1ca0ec49338"
+    ]
+  },
+  {
+    "content": "第138周的公共运维记录：值班团队完成例行巡检，检查编号R137，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "32c53ed0-3d26-5bc8-981c-17992da581d2",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "254be90f-bd04-5f6e-bbc2-18b21459b181",
+    "score": 0.0,
+    "source_refs": [
+      "eval://e1869b29d97f54849b1cbfa24115f2e60461a29f28165175860d2c56b2dc7378"
+    ]
+  },
+  {
+    "content": "第139周的公共运维记录：值班团队完成例行巡检，检查编号R138，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9a43a584-a11e-5dc8-83a4-8fbd7ba9fb33",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d00655da-3b7c-5e3e-a235-7a95b29be32e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://22a4dc9089d74e7eb2c8ff57111870c44001ca87bd8c691c66b74f9b05d5c0a0"
+    ]
+  },
+  {
+    "content": "第140周的公共运维记录：值班团队完成例行巡检，检查编号R139，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c6bafb7e-b8e2-5f1d-b60b-e976c73c8ce5",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "855c49eb-3bae-56b5-9d9c-5cf58667fa29",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ecadc21c17cd3f2585d2065a03ba05af4c8b9c71dadfdab9021eef3af4c5aa73"
+    ]
+  },
+  {
+    "content": "第141周的公共运维记录：值班团队完成例行巡检，检查编号R140，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "07d9f5ca-f486-593a-8e98-2de845fdea07",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "e5ab2cf6-748f-5b80-ac17-0adac80ea272",
+    "score": 0.0,
+    "source_refs": [
+      "eval://89d8acb1532237ab26a45fe1fc82fd68528b878472bbcf4ccb615075ffcf1e93"
+    ]
+  },
+  {
+    "content": "第142周的公共运维记录：值班团队完成例行巡检，检查编号R141，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "245d9e65-40e1-5ece-a360-2263b7ef274c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "2a047de3-bc98-5021-9997-c5c186745bf3",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c41683235d8e87a9535b87266282412c05d7502953aeec608d5b7807b314a91a"
+    ]
+  },
+  {
+    "content": "第143周的公共运维记录：值班团队完成例行巡检，检查编号R142，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "29b0c427-c6f9-50d5-a8f0-36add53634e7",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "3bb169b6-9ca8-5452-a38e-28406d8854f3",
+    "score": 0.0,
+    "source_refs": [
+      "eval://e8c6219f94ea75ef8b94fc506aee4c4c916672c1afa8adf6d8c8b0148c58dce8"
+    ]
+  },
+  {
+    "content": "第144周的公共运维记录：值班团队完成例行巡检，检查编号R143，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "0c11ba15-b1ec-581d-973d-db361a428647",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "27e607e0-d17a-5037-a9ec-9f31e82a0044",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5cbd25248558186755cd0bfc194dfbf62fd8d09d614024c5cd92b9d6aa968435"
+    ]
+  },
+  {
+    "content": "第145周的公共运维记录：值班团队完成例行巡检，检查编号R144，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "835a0e75-b261-507a-a6d0-7acf2951520c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "c260f5a6-82c1-5891-b2a0-9b2445e661d1",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6bcc506818e21f1ff1c02cc63ef7ee302ce2d8a52f329ca15941a16341381ea1"
+    ]
+  },
+  {
+    "content": "第146周的公共运维记录：值班团队完成例行巡检，检查编号R145，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "bdf9f735-f7cd-5b34-86b5-e92aef4bb5c5",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "4e3c9fa2-a57c-5d18-bed0-9fb8e150673b",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0c560bbaed54e26b3f3a5a15b532100dcf5bccd6107a94e7ac464fd05ca5e9f1"
+    ]
+  },
+  {
+    "content": "第147周的公共运维记录：值班团队完成例行巡检，检查编号R146，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "14a1afaa-3ab3-5adb-8a20-09ab88c14d4f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "08671db3-b396-56bb-87e1-f55ae1dbecbe",
+    "score": 0.0,
+    "source_refs": [
+      "eval://3409d03314a5e0443f0da126778f1b31b3dde466644b1daeb0f286c07e3db738"
+    ]
+  },
+  {
+    "content": "第148周的公共运维记录：值班团队完成例行巡检，检查编号R147，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c92c8997-1387-5f7a-a43a-1e9dc0fc9544",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ba37a566-6d06-56cb-b414-990f3d39e465",
+    "score": 0.0,
+    "source_refs": [
+      "eval://e2d17815138021ee17b8ded1f33b0244c297380d38de304cabedcb89c6cb8343"
+    ]
+  },
+  {
+    "content": "第149周的公共运维记录：值班团队完成例行巡检，检查编号R148，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7505df83-d67a-59f3-b462-d9294a8cd043",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d1cbb5d6-90d0-5e22-ad1f-cc5d4936de41",
+    "score": 0.0,
+    "source_refs": [
+      "eval://50f19e1e489aee4e4c02ef9a5209edd7b1b153022276fdeac3605228b8751d4c"
+    ]
+  },
+  {
+    "content": "第150周的公共运维记录：值班团队完成例行巡检，检查编号R149，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8157d5ac-b32b-5de7-87fa-27ef513c536b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "3142dfa6-7f93-5a60-b95a-2e9082c1377a",
+    "score": 0.0,
+    "source_refs": [
+      "eval://1ec0a46fbfd46d73ebe03f16731dacba5c34799165dd3cf2b765c27a524b2384"
+    ]
+  },
+  {
+    "content": "第151周的公共运维记录：值班团队完成例行巡检，检查编号R150，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "34fc66ca-71ce-522a-a967-37ff08a51074",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f0f6e0c6-2bbb-56a5-9a40-3a043c135a75",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6c524110d54a02be8461e643ed970d1fdc89c23603f5a37d92652943bce52e81"
+    ]
+  },
+  {
+    "content": "第152周的公共运维记录：值班团队完成例行巡检，检查编号R151，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "99102290-3519-5d53-a5ac-3833c99502dd",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9abaf094-9afc-5ee6-9b21-2b6f5b4bda41",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d9a92efffea8ff3fe66dad49bda8642afbd9e4f9d4fcfbc0221c104dfbf48e82"
+    ]
+  },
+  {
+    "content": "第153周的公共运维记录：值班团队完成例行巡检，检查编号R152，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "f091dd35-de4a-580e-9534-bc9484bab8db",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "4b98dda2-035f-57a2-a3f9-744c00000715",
+    "score": 0.0,
+    "source_refs": [
+      "eval://4bb2aa8ef6c06893d8510fdcc7f97efae81a8426bc34620c08636bb4aa7533d8"
+    ]
+  },
+  {
+    "content": "第154周的公共运维记录：值班团队完成例行巡检，检查编号R153，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "3b65a7cb-d305-53a2-9328-42da6488adf1",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "93b25d2d-b512-5155-a1c4-efffd76318c0",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d8652d16c4df9faaa1e2dbce0e1f1f431338fe05cc819a97e887b9125cce378a"
+    ]
+  },
+  {
+    "content": "第155周的公共运维记录：值班团队完成例行巡检，检查编号R154，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d65dcfa5-fb80-5993-8b78-ae1973307339",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "e4d4640e-cbb5-5a98-9c0a-a6835a1e6f63",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a26f48cf96e8c1cdf27ac5ee9ed039b9d2530b3bea53f433c8ed7e8b1ae8257c"
+    ]
+  },
+  {
+    "content": "第156周的公共运维记录：值班团队完成例行巡检，检查编号R155，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "6f2456a2-cb65-5d28-8c5f-1a44b89b5fdf",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "517d78aa-72f1-5b24-9b7e-f6d6c6b174b9",
+    "score": 0.0,
+    "source_refs": [
+      "eval://e96a4e6ca73d0cbfce45ef3fcb630ce5645e63bf41d394c7438aeb81ac659f30"
+    ]
+  },
+  {
+    "content": "第157周的公共运维记录：值班团队完成例行巡检，检查编号R156，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "78f8c08d-fd1e-5623-b0fa-b119ed82a54d",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0cddf595-3922-5522-adaf-0a20afcb5d46",
+    "score": 0.0,
+    "source_refs": [
+      "eval://57b0f8d4f53374ccfb92e5509b21dcad614dab52be0f02a70a308d5b6c55fc0c"
+    ]
+  },
+  {
+    "content": "第158周的公共运维记录：值班团队完成例行巡检，检查编号R157，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "a9267279-630a-5d18-8048-40547a9f4b23",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "93e8c0a1-6e12-522e-b799-36c44dd3b756",
+    "score": 0.0,
+    "source_refs": [
+      "eval://674296a702213352888ef59da05676b99813694894c7ad27a99f7168f5e6efb8"
+    ]
+  },
+  {
+    "content": "第159周的公共运维记录：值班团队完成例行巡检，检查编号R158，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "044b599a-cb69-5244-a651-105675d578b1",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ab1a2307-fece-53b0-9625-5e70c170b277",
+    "score": 0.0,
+    "source_refs": [
+      "eval://8f765d76d6c54d3688c45eaa33058197c1a60f5fb4fa12e846dc44b882e0d957"
+    ]
+  },
+  {
+    "content": "第160周的公共运维记录：值班团队完成例行巡检，检查编号R159，没有登记上述个人事实。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "57888bee-c00a-5863-a6c2-66ef523eb239",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9976a755-e7ad-525d-a71c-4ce8a9d06321",
+    "score": 0.0,
+    "source_refs": [
+      "eval://062105721549f9c5f4fd32162a5671cf9605fb156ec0cb25603a503488a47122"
+    ]
+  },
+  {
+    "content": "沈砚负责星槎项目，项目代号是XC-73，代码仓库名为orion-ledger。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "e2a5968f-afb3-5c60-bbd9-4e6f5719cfcb",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "e6173a75-9a70-5aff-9860-e578652107fc",
+    "score": 0.0,
+    "source_refs": [
+      "eval://b82469e368b108c1d4de6c9be5fb657fbe2134c49a7f459bb6876a14133449b4"
+    ]
+  },
+  {
+    "content": "沈彦负责星叉项目，项目代号是XC-37，代码仓库名为orion-metrics。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8ec2d6eb-ff50-5bd5-9191-dc7a8d66c796",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "7b59d5b7-5001-5898-b0ec-fec8d5a300eb",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9011b2a0ab65128eca831177f22b9d7981fa10bfa9a314a3b9764eca2357b43a"
+    ]
+  },
+  {
+    "content": "霁蓝服务业务端口为8621，监控端口为9261。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "200bd6d9-4551-53c3-8056-164df6f9d906",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "b365fcfd-27a0-5305-b6b7-63ad370127c9",
+    "score": 0.0,
+    "source_refs": [
+      "eval://cc2f61658cf681f7a098adf1730d89fc6b71fef0fab0e5bab4611acbff7c0c2e"
+    ]
+  },
+  {
+    "content": "纪蓝服务业务端口为8612，监控端口为9216。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c86e0ff7-1288-5997-9372-faaebb1163f1",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "7a66f0af-61f1-5651-858c-73e6d3610738",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0428c6d9b1a97dcbcf7903796e2676dcd34d82b8c04f01de6280b5ec542e17d5"
+    ]
+  },
+  {
+    "content": "许芮负责维护AsterQueue组件，它采用PostgreSQL作为权威存储。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "2382279a-d50b-56ff-a222-9a7b876eaa7b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "620d8a5c-0d4e-5853-ac17-3aa53dbb9e6f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://7d66d272387f0ec5fd8a1d93693514406196df6ecc9212b65fa0d9dd6b9ffba4"
+    ]
+  },
+  {
+    "content": "许睿负责维护AsterCache组件，它采用Redis保存缓存。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "5f560127-51a2-5a05-9d0a-7a95747d2f48",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "83b97302-c46d-5ce9-9b31-a88a28318689",
+    "score": 0.0,
+    "source_refs": [
+      "eval://058f11b88631b84e624048e0d5b5534361d8d4448a2dc430ada0d30e6443c693"
+    ]
+  },
+  {
+    "content": "山雀项目上线日期是2025年11月18日；验收日期是2025年11月21日。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ff1766e2-759a-5719-86e8-f551713007b6",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "83190e9c-3afb-5b6f-b578-771a8961f2b0",
+    "score": 0.0,
+    "source_refs": [
+      "eval://73064292cd1c06a01a6402760d2ee04a79045735efbbfba586615ed2cac7a5da"
+    ]
+  },
+  {
+    "content": "2025年12月9日，云堤服务在UTC 08:30开始维护，维护持续45分钟。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c7fd3b2b-c40c-5815-8b4c-a07765da493b",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "cd6923b3-5b0d-5fda-bf14-9f6a6e2937ae",
+    "score": 0.0,
+    "source_refs": [
+      "eval://83bdb5d8a534d5ca2d5ec644b0612f70807b57e44db6767b7810988d0d5fd210"
+    ]
+  },
+  {
+    "content": "叶澄提交预算的截止时间是2025年10月3日17:00，时区为Asia/Shanghai。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "5011ac02-e074-50ce-aae0-d59b1820d05c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f4f30797-b5c0-5de1-980a-50ee18684118",
+    "score": 0.0,
+    "source_refs": [
+      "eval://8db79d0a85ae5c1f11281d793c9c5ce46388d7eed9bb73c71736c1ec9710e773"
+    ]
+  },
+  {
+    "content": "蓝桉复盘安排在每月第二个周二，临时加开的会议另行通知。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "c982e7d4-f330-5e91-8211-85cd52c94893",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ce4e1326-aa40-52fe-8035-cae78a388a85",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2960fcfc4b2fd4cb64b4fdce002faaa9b028f851de59ffcc57c9ecdf8da8112a"
+    ]
+  },
+  {
+    "content": "罗笙的培训报名于2025年6月2日开放，6月16日关闭。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "0bc9d7c1-2339-516d-8bb2-a9bb991090c4",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "664a1446-010a-5911-87b8-cfa1c4d0b31e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://00c0f638e001aa715c0616dfbe7f70340d1b6d579f31cb3e271784fc1806d4a0"
+    ]
+  },
+  {
+    "content": "石鲸证书有效期截至2025年9月30日，换证预约在9月12日。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "100e3b73-644e-5017-b022-67ed01d98ea2",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0708875a-c5c6-5ceb-9a3e-ab5926624f33",
+    "score": 0.0,
+    "source_refs": [
+      "eval://9f58f9f1e47a8fea65b3832d77918631b2fa6e62647d6bfda99bf9cb43b80142"
+    ]
+  },
+  {
+    "content": "余栀不能摄入乳糖，点饮料时选择无乳糖版本。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d96900be-a5e7-57db-b0e4-1a82e3b842d7",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d38bf53d-4fcb-51d9-98eb-2e5ea0da90fc",
+    "score": 0.0,
+    "source_refs": [
+      "eval://231e14dae2fb9c41b9ec08128167cf484638562c906d6e479bddb820fda8d8b2"
+    ]
+  },
+  {
+    "content": "魏知希望接收文字通知，因为在工作场所不便播放声音。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8aa366b5-4580-581b-b017-a723ef2f2897",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f9b629fa-003a-5221-9b4e-d3d60ed142e2",
+    "score": 0.0,
+    "source_refs": [
+      "eval://27cb319af9264950ab9c2964ccaf16a90de819d4e18af326d97400b71e5939d1"
+    ]
+  },
+  {
+    "content": "姜屿对强光敏感，办公座位应避开直射阳光。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "a4b45d9d-ff12-5092-a012-79f43917323c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "9625df13-973c-5c6e-bab8-acc98852c378",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ae22b3b4cc217782ec6ff783fcc0a77e67c3b8eb73c5cdb474f5a288b1e122f0"
+    ]
+  },
+  {
+    "content": "陆苒习惯先查看流程图，再阅读实现细节。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "58bd438e-de2f-587a-b8b9-0cc784c45e17",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "dfeb69ca-d5c6-5270-a26c-dad74a251007",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c76fbf42accee6f58b8f28455cf64a41bb2fd25dde590b055361a4b380f8c31b"
+    ]
+  },
+  {
+    "content": "向禾出差时只携带登机箱，不办理托运行李。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "4c47a3f1-b5ed-5c99-b659-b6587b098780",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "8465d838-932a-5908-975f-506c598801c1",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0c624b1ec59d60d254cea06a9c54b683400f4352c7146460d9c24eb5691f4421"
+    ]
+  },
+  {
+    "content": "秦岚偏好安静且人少的就餐环境，不选有现场扩音表演的餐厅。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "434b86bc-693b-5280-8229-e2e30b07e009",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "70be695f-aecd-53c5-be16-87386a016159",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2feb824108771279ba762ac4d4fdce8c84c9ec1dd1078e585ebfeaa5212935d8"
+    ]
+  },
+  {
+    "content": "雾松项目部署在东辰节点，负责人是贺青。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "6cf20dd7-76bb-5597-8c90-7888fc60fe06",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "1fe83548-5301-507c-a779-801244171151",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6f937fa6814ca17a576d502c935a9c408c87a0fbef74a77819d1dcec88f2ea07"
+    ]
+  },
+  {
+    "content": "东辰节点的维护窗口为周日02:00至03:00，时区为UTC。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "01e8beb7-35f0-5e39-a994-44ffe8e21c7c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "88bcfb19-d090-5021-87c3-22f8e0508c9b",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ffdc513f4cf1b9a5768432ba3b9e5408532b4ff502f29cf894067bc18d1dd96a"
+    ]
+  },
+  {
+    "content": "贺青的办公分机是7316。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ffba40d2-5dc1-5ca4-9304-76be9eff670f",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "290f1322-9075-50c9-85d6-c714084ce541",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a4a7dddf84b4a369722638bef7d3b6d85dc53ae78ae4f662b27493e745b062a8"
+    ]
+  },
+  {
+    "content": "小岑周二只能参加线上会议，且可用时间是北京时间14:00至16:00。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "08a68982-b3e1-5a0e-a172-a912d3d8a3d8",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "ccb0cb6e-e32f-5d81-bea1-5d24cc0fb0c5",
+    "score": 0.0,
+    "source_refs": [
+      "eval://d5358f94533abd9a40c0bf679b08b4db245620b1e5463c4f070e04309078280e"
+    ]
+  },
+  {
+    "content": "小岑周四可以到现场，上午09:00至11:00有空。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "f9278413-5a5a-5c34-b474-214f58a9b279",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "d510bdf6-b55c-5e73-b49f-13ad8a183b9f",
+    "score": 0.0,
+    "source_refs": [
+      "eval://747f33077f6537d4385c7f9b19b2407256ff0796d04b4fdd695edb1517633d50"
+    ]
+  },
+  {
+    "content": "林棠需要无坚果餐，且每人餐费不能超过90元。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8ada8441-fe03-5651-b780-1bed4c8b53ca",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "83e4c1d0-8759-5085-b48a-7cf8a9e787f4",
+    "score": 0.0,
+    "source_refs": [
+      "eval://5316e2ee2e86ded1ae96d2552c806f6876e710311d3e6c74fb51bec6362b2786"
+    ]
+  },
+  {
+    "content": "北岚小组使用Python处理批任务，使用Rust实现实时网关。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "5d9fc276-e8e2-5a18-a5cf-38ac30a1adb4",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "45488297-092c-56d8-8902-0c25bfe5be85",
+    "score": 0.0,
+    "source_refs": [
+      "eval://c9ba04921d6b12f6407fd9f64a6bfef9af307b345209cb5d4823efc0419d6e09"
+    ]
+  },
+  {
+    "content": "松鹤酒店内庭房远离马路；临街房交通噪声明显。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "de800f2c-711a-5d0a-ae1f-8b98b0ceeb3a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "0cb04452-7d46-5bd3-a625-2309e8bdf6cb",
+    "score": 0.0,
+    "source_refs": [
+      "eval://319317eb1a5029eaa7f1125881f69806a9031b1f3f1c552268495805d4108e7a"
+    ]
+  },
+  {
+    "content": "许宁不吃辣，但可以吃海鲜；许凝不吃海鲜，但能吃辣。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9dd050c6-1c64-5846-aed3-745d3ec98b63",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "3f404764-412e-5cf2-9019-ce67d1367f82",
+    "score": 0.0,
+    "source_refs": [
+      "eval://63024a25172d34092ed471ea96aa0168157a90013b274448fd301b5649e3ab89"
+    ]
+  },
+  {
+    "content": "微帆测试环境使用端口7810，生产环境使用端口8710。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "71919abe-5e62-501b-95dc-d3ede5bb9573",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "1e4863c2-8909-5201-a4cf-d0318cae04ae",
+    "score": 0.0,
+    "source_refs": [
+      "eval://b4eae1bdeafd45846fc797b25bedc54526a2c48926cd912c49c382478580d7bb"
+    ]
+  },
+  {
+    "content": "景岚项目的已验收样本数为248，原始日志数为824。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "8117888e-c359-5627-8138-c7d02782a9db",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5239bd13-7f65-5018-b7bd-c0528af52643",
+    "score": 0.0,
+    "source_refs": [
+      "eval://ae0fce0f13b9676880ae52df4befa7ff560251af3e9545f77f6f1fa622f05dfc"
+    ]
+  },
+  {
+    "content": "南枝的任务截止于星期三，南栀的任务截止于星期四。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7e261d2b-c9d8-5999-a36b-1948c0b84127",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "2ce1ed27-acfc-5591-bb8c-d24c62680b09",
+    "score": 0.0,
+    "source_refs": [
+      "eval://fc4f5e02ff184d489082c002be5f7e02a3c3c9941f2205d17b4390f04fb6ef07"
+    ]
+  },
+  {
+    "content": "澄石服务的写入接口是/v2/commit，只读接口是/v2/inspect。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "5dbd30cb-e8ba-5ccb-a5f7-aca1bca9126a",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "450cd23f-c651-5626-a073-ac5aeef2ab7b",
+    "score": 0.0,
+    "source_refs": [
+      "eval://bd0cd90e5523136a5c68d395318b87bc69da4dd86e222ffda8bb894734aecf8d"
+    ]
+  },
+  {
+    "content": "截至2024年5月，顾遥在南京办公。此记录随后被迁址通知替代。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "17d7542b-44ad-5f94-a4ce-e19d09056df3",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "6ce61c4b-2fed-5e92-b979-2e8c195c1a20",
+    "score": 0.0,
+    "source_refs": [
+      "eval://7687dfa189e3b6af00cc5c2714e7ad6e4f4c7f3e728b888803cef8b17681d973"
+    ]
+  },
+  {
+    "content": "2025年2月的迁址通知确认：顾遥当前在杭州办公。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "dac1006a-584d-5ee5-92bf-43d095ced6b4",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "c750bd52-6e7c-5378-afd1-e10d125b5c1a",
+    "score": 0.0,
+    "source_refs": [
+      "eval://76755ed7102fe2f48cb3e56f6617352b87b2df737adf047956447c234a69191c"
+    ]
+  },
+  {
+    "content": "2024年版澄海接入文档规定业务端口为7560，现已失效。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "41908d5c-e271-5a93-9967-283ee587afc5",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a58607d3-c220-5c7d-8bd8-f59e90514972",
+    "score": 0.0,
+    "source_refs": [
+      "eval://aeb82918fb4b1e5d36fb44f4412e3e5118140b44b0f89d7c03930b1a8589f944"
+    ]
+  },
+  {
+    "content": "2025年版澄海接入文档规定当前业务端口为7650，替代2024年版本。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d15f837d-51f5-5b4f-a2a5-ab2dcf3e7633",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "cbeb1366-2b24-527e-97ec-4364f2f4fb41",
+    "score": 0.0,
+    "source_refs": [
+      "eval://4e1ec427181107c5ad40cfa4b2eb2f7e1bf720377c67dd5ea9a69a6f7f5ad49c"
+    ]
+  },
+  {
+    "content": "2024年，裴宁通常饮用拿铁；该偏好已被更新。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "6c9b0a4a-0fef-532b-9a16-f1a92f3c3918",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "14c1a817-4886-55c7-b2bc-c6447613fd4e",
+    "score": 0.0,
+    "source_refs": [
+      "eval://25f1a70aa4a367b6770076df991dbe0ebb5d28b407792ecd397afe8115c93f3b"
+    ]
+  },
+  {
+    "content": "2025年，裴宁因乳糖不耐受改喝无乳糖美式，这是当前偏好。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "7491e9dd-315a-5163-bc99-53a3dd237bee",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f31df647-6723-5fbe-9a08-e46759045c8b",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2dcf36330c968766f47190a84670d34ac89bbce7e528716331b5f6c86f2d69e8"
+    ]
+  },
+  {
+    "content": "甲方认为雁池交付日期应为8月7日，双方尚未达成一致。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "6a18114e-0097-5268-a5c2-23de8eba9e9d",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "52ac63fb-5910-571e-8c77-5ca646af8955",
+    "score": 0.0,
+    "source_refs": [
+      "eval://bc768f1c8fa03b0ff86dfc628cda73224d676ce4b84e44db27e8d5bf3c3e29ef"
+    ]
+  },
+  {
+    "content": "乙方认为雁池交付日期应为8月9日，双方尚未达成一致。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "73ef74f5-01f0-51f5-8e88-f07ce62bae2c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "13020972-cec7-532e-bd6e-e06d83e5b457",
+    "score": 0.0,
+    "source_refs": [
+      "eval://68b6f07d895da5e6876e3eff50928675e70a49791180442f517c9ebaf77f2e17"
+    ]
+  },
+  {
+    "content": "洛帆当前负责水镜项目，水镜项目使用CockroachDB。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "98fff495-9c97-583c-a21b-aca872228cc2",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "839233ab-541d-526b-ba25-89f7d57b8f81",
+    "score": 0.0,
+    "source_refs": [
+      "eval://0ba06d12b9a576c395848603b4d1f046ea68581249b37674e6d546218c408ffd"
+    ]
+  },
+  {
+    "content": "祁月参加的木棉培训在2025年7月14日开始，持续3天。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "d4a017f4-46b7-56ba-98c1-48f42d167b2c",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "a0d656e9-91ce-568c-8bd6-13d3263beeba",
+    "score": 0.0,
+    "source_refs": [
+      "eval://a7fd3e3f7d689a2b4cc085658af1c6421dab306a722fa85947cf67916eb14bca"
+    ]
+  },
+  {
+    "content": "白露仓库的制品保留期是21天，访问日志保留期是90天。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "240d1ec4-f595-5283-8ed9-4fc27a428240",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "f224d50b-5d67-5735-97c6-f7478287fe8c",
+    "score": 0.0,
+    "source_refs": [
+      "eval://6ba00b076a61bf3161b64ce8268e3c972004b3ea4a163d7904f4edce5b97595e"
+    ]
+  },
+  {
+    "content": "程澈的办公城市是珠海，常用办公分机是4172。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "9dd08f9e-a3ec-58e8-a720-9c54b360a1a8",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "db957567-d6ea-58f0-95bc-84eaba2779ec",
+    "score": 0.0,
+    "source_refs": [
+      "eval://f52674c33d88214b8519fc66edfd8c101d61e0c848c0d0efef9363dcf1ac6429"
+    ]
+  },
+  {
+    "content": "枫桥服务的业务端口是8093，健康检查路径为/ready。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "ba984690-9803-5067-a744-bf9dc0f5b917",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "000b70cd-fa69-5428-a432-4269bbd93032",
+    "score": 0.0,
+    "source_refs": [
+      "eval://2f19e3e9c5e7664554c67da1789ee50a4b43a55e88c5a73e8d2f46016671e17f"
+    ]
+  },
+  {
+    "content": "第一轮演练耗时14分钟，第二轮演练耗时26分钟，两轮不重叠。",
+    "effective_from": null,
+    "event_time": null,
+    "memory_record_id": "431bc098-f821-54aa-952c-b2e7d488b702",
+    "memory_type": "episodic_summary",
+    "memory_version_id": "5d281996-395c-545a-8b91-d7dd83ff0fe2",
+    "score": 0.0,
+    "source_refs": [
+      "eval://90a833a5c126b89718d7c813efad13168a9d314b366dbe5c9692db9fa4746bb2"
+    ]
+  }
+]

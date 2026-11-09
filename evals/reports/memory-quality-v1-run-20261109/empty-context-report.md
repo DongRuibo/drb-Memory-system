@@ -1,0 +1,264 @@
+# empty-context（待人工确认的工程结果）
+
+非公开Benchmark、非生产HTTP成绩；收费API为0。分母、计数范围及方法见protocol.json。
+
+```json
+{
+  "bm25": {
+    "n": 48,
+    "positive_n": 42,
+    "negative_n": 6,
+    "errors": 0,
+    "literal_empty_measured_n": 42,
+    "literal_empty_positive_rate": 0.0,
+    "literal_or_request_failure_rate": 0.0,
+    "positive_request_failure_rate": 0.0,
+    "retrieval_miss_including_failure_rate": 0.0,
+    "authorization_stage_loss_rate": 0.0,
+    "effective_empty_positive_rate": 0.023809523809523808,
+    "all_evidence_delivery_rate": 0.9761904761904762,
+    "stage_losses": {
+      "source_union": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "rrf": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "preauthorization": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "rerank": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "output_limit": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "postauthorization": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "context_relevance": {
+        "lost_queries": 1,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.023809523809523808,
+        "first_loss_queries": 1
+      },
+      "context_pack": {
+        "lost_queries": 0,
+        "conditional_denominator": 41,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      }
+    }
+  },
+  "vector_tfidf": {
+    "n": 48,
+    "positive_n": 42,
+    "negative_n": 6,
+    "errors": 0,
+    "literal_empty_measured_n": 42,
+    "literal_empty_positive_rate": 0.6190476190476191,
+    "literal_or_request_failure_rate": 0.6190476190476191,
+    "positive_request_failure_rate": 0.0,
+    "retrieval_miss_including_failure_rate": 0.0,
+    "authorization_stage_loss_rate": 0.0,
+    "effective_empty_positive_rate": 0.6190476190476191,
+    "all_evidence_delivery_rate": 0.35714285714285715,
+    "stage_losses": {
+      "source_union": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "rrf": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "preauthorization": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "rerank": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "output_limit": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "postauthorization": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "context_relevance": {
+        "lost_queries": 26,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.6190476190476191,
+        "first_loss_queries": 26
+      },
+      "context_pack": {
+        "lost_queries": 0,
+        "conditional_denominator": 16,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      }
+    }
+  },
+  "hybrid": {
+    "n": 48,
+    "positive_n": 42,
+    "negative_n": 6,
+    "errors": 0,
+    "literal_empty_measured_n": 42,
+    "literal_empty_positive_rate": 0.0,
+    "literal_or_request_failure_rate": 0.0,
+    "positive_request_failure_rate": 0.0,
+    "retrieval_miss_including_failure_rate": 0.0,
+    "authorization_stage_loss_rate": 0.0,
+    "effective_empty_positive_rate": 0.0,
+    "all_evidence_delivery_rate": 1.0,
+    "stage_losses": {
+      "source_union": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "rrf": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "preauthorization": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "rerank": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "output_limit": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "postauthorization": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "context_relevance": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "context_pack": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      }
+    }
+  },
+  "hybrid_rerank": {
+    "n": 48,
+    "positive_n": 42,
+    "negative_n": 6,
+    "errors": 0,
+    "literal_empty_measured_n": 42,
+    "literal_empty_positive_rate": 0.0,
+    "literal_or_request_failure_rate": 0.0,
+    "positive_request_failure_rate": 0.0,
+    "retrieval_miss_including_failure_rate": 0.0,
+    "authorization_stage_loss_rate": 0.0,
+    "effective_empty_positive_rate": 0.0,
+    "all_evidence_delivery_rate": 1.0,
+    "stage_losses": {
+      "source_union": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "rrf": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "preauthorization": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "rerank": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "output_limit": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "postauthorization": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "context_relevance": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      },
+      "context_pack": {
+        "lost_queries": 0,
+        "conditional_denominator": 42,
+        "conditional_rate": 0.0,
+        "first_loss_queries": 0
+      }
+    }
+  }
+}
+```

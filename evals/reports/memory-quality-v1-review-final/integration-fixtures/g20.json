@@ -1,0 +1,255 @@
+{
+  "id": "g20",
+  "family": "Scope隔离",
+  "human_review": "pending",
+  "passed": true,
+  "checks": {
+    "version_count": true,
+    "record_count": true,
+    "head_state": true,
+    "current_text": true,
+    "scope_isolation": true,
+    "current_context": true
+  },
+  "expected_labels": {
+    "probe": {
+      "projects": []
+    }
+  },
+  "expected_state": {
+    "versions": 1,
+    "head_state": "active",
+    "current_text": "晨星项目使用PostgreSQL。",
+    "scope_allowed": false
+  },
+  "observed_duplicate": false,
+  "observed_conflict": false,
+  "state": {
+    "candidate_sources": [
+      {
+        "candidate_id": "77ae23fa-f203-5d43-a247-0c6866bf4751",
+        "source_event_id": "bd5ffc8a-e353-5a99-ab03-74a2e38eb4a1",
+        "tenant_id": "quality-g20"
+      }
+    ],
+    "memory_candidates": [
+      {
+        "confidence": 0.99,
+        "content": "晨星项目使用PostgreSQL。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:42:14.085791+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "77ae23fa-f203-5d43-a247-0c6866bf4751",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "semantic_fact",
+        "normalized_key": "quality.db",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "quality-alpha",
+        "scope_kind": "project",
+        "state": "accepted",
+        "structured_content": null,
+        "target_memory_record_id": "7932bcc8-d53f-5ccb-b9e8-69e2d5981296",
+        "tenant_id": "quality-g20"
+      }
+    ],
+    "memory_decisions": [
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "77ae23fa-f203-5d43-a247-0c6866bf4751",
+        "decided_at": "2026-11-08T17:42:14.085791+00:00",
+        "id": "ce1e95fe-63e2-5616-a121-74aa6c689275",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "EXPLICIT_LOW_RISK_PREFERENCE",
+        "tenant_id": "quality-g20"
+      }
+    ],
+    "memory_heads": [
+      {
+        "current_version_id": "68879b42-b047-5f77-9ece-d8455093cdf0",
+        "memory_record_id": "7932bcc8-d53f-5ccb-b9e8-69e2d5981296",
+        "revision": 0,
+        "state": "active",
+        "tenant_id": "quality-g20",
+        "updated_at": "2026-11-08T17:42:14.085791+00:00"
+      }
+    ],
+    "memory_records": [
+      {
+        "created_at": "2026-11-08T17:42:14.085791+00:00",
+        "id": "7932bcc8-d53f-5ccb-b9e8-69e2d5981296",
+        "identity_retired_at": null,
+        "memory_type": "semantic_fact",
+        "scope_id": "quality-alpha",
+        "scope_kind": "project",
+        "semantic_key": "quality.db",
+        "tenant_id": "quality-g20"
+      }
+    ],
+    "memory_version_sources": [
+      {
+        "memory_version_id": "68879b42-b047-5f77-9ece-d8455093cdf0",
+        "source_event_id": "bd5ffc8a-e353-5a99-ab03-74a2e38eb4a1",
+        "tenant_id": "quality-g20"
+      }
+    ],
+    "memory_versions": [
+      {
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "classification": "internal",
+        "confidence": 0.99,
+        "consent_ref": null,
+        "content": "晨星项目使用PostgreSQL。",
+        "content_erased_at": null,
+        "content_hash": "sha256:9bdf78e364d50bbbb6cf801e3ccb1619f9f890f2204c9e486f54460406904df9",
+        "created_at": "2026-11-08T17:42:14.085791+00:00",
+        "decision_id": "ce1e95fe-63e2-5616-a121-74aa6c689275",
+        "effective_from": null,
+        "effective_to": null,
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "id": "68879b42-b047-5f77-9ece-d8455093cdf0",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_record_id": "7932bcc8-d53f-5ccb-b9e8-69e2d5981296",
+        "normalized_key": "quality.db",
+        "retain_until": null,
+        "retention_policy_id": "demo-project-semantic_fact-v1",
+        "structured_content": null,
+        "tenant_id": "quality-g20",
+        "version_no": 1
+      }
+    ],
+    "retrieval_documents": [
+      {
+        "content": "晨星项目使用PostgreSQL。",
+        "content_hash": "sha256:9bdf78e364d50bbbb6cf801e3ccb1619f9f890f2204c9e486f54460406904df9",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "indexed_at": "2026-11-08T17:42:14.108351+00:00",
+        "memory_record_id": "7932bcc8-d53f-5ccb-b9e8-69e2d5981296",
+        "memory_version_id": "68879b42-b047-5f77-9ece-d8455093cdf0",
+        "namespace_key": "ns-4fe1aa5c86de7de8d199096f0428b2b4bc7f60925c4ceecdf546c59915673e97",
+        "search_vector": "'晨星项目使用postgresql':1",
+        "tenant_id": "quality-g20"
+      }
+    ],
+    "source_events": [
+      {
+        "classification": "internal",
+        "client_event_id": "100d77ac71c4ec68f0fffecff77e957a948509142df3ffa8dda6a647585cb203",
+        "consent_ref": null,
+        "content_hash": "sha256:9bdf78e364d50bbbb6cf801e3ccb1619f9f890f2204c9e486f54460406904df9",
+        "id": "bd5ffc8a-e353-5a99-ab03-74a2e38eb4a1",
+        "idempotency_key": "100d77ac71c4ec68f0fffecff77e957a948509142df3ffa8dda6a647585cb203",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:42:14.085791+00:00",
+        "redacted_excerpt": "晨星项目使用PostgreSQL。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://100d77ac71c4ec68f0fffecff77e957a948509142df3ffa8dda6a647585cb203",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g20"
+      }
+    ],
+    "tombstones": []
+  },
+  "steps": [
+    {
+      "input": {
+        "op": "ingest",
+        "as": "a",
+        "text": "晨星项目使用PostgreSQL。",
+        "semantic_key": "db",
+        "scope": "project",
+        "scope_id": "quality-alpha",
+        "projects": [
+          "quality-alpha"
+        ],
+        "memory_type": "semantic_fact"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "77ae23fa-f203-5d43-a247-0c6866bf4751",
+        "canonical_status": "memory_accepted",
+        "head_revision": 0,
+        "memory_record_id": "7932bcc8-d53f-5ccb-b9e8-69e2d5981296",
+        "memory_version_id": "68879b42-b047-5f77-9ece-d8455093cdf0",
+        "operation_id": "ae550b8d-148b-551f-b983-7282292a0344",
+        "projection_status": "pending",
+        "provider_object_id": null,
+        "reason_code": null
+      }
+    }
+  ],
+  "cached_hits": [],
+  "cached_authorized": [],
+  "old_pack_consume": null,
+  "visible": [
+    {
+      "content": "晨星项目使用PostgreSQL。",
+      "effective_from": null,
+      "event_time": null,
+      "memory_record_id": "7932bcc8-d53f-5ccb-b9e8-69e2d5981296",
+      "memory_type": "semantic_fact",
+      "memory_version_id": "68879b42-b047-5f77-9ece-d8455093cdf0",
+      "score": 1.0,
+      "source_refs": [
+        "eval://100d77ac71c4ec68f0fffecff77e957a948509142df3ffa8dda6a647585cb203"
+      ]
+    }
+  ],
+  "scope_allowed": false,
+  "owner_visible": true,
+  "current_pack": {
+    "attempt_id": "f4a0e51d-7871-44d6-a22a-06191e5fe4e4",
+    "authority_snapshot_id": "authz-24029bf303712dbd0b9811403406125144a6f9a015666bd1f201002fc775b609",
+    "compiler_version": "demo-context-compiler-v2",
+    "consumed_at": "2026-11-08T17:42:14.149693Z",
+    "context_pack_id": "ca6b396d-9a7d-5656-b34e-65cc41d31b0c",
+    "created_at": "2026-11-08T17:42:14.143717Z",
+    "estimated_tokens": 49,
+    "expires_at": "2026-11-08T17:47:14.143717Z",
+    "omission_summary": {},
+    "policy_version": "demo-policy-v1",
+    "projection_generation": "demo-v0-generation-1",
+    "purpose": "answer_user",
+    "ranking_version": "eval-v1",
+    "reference_time": "2026-01-01T00:00:00Z",
+    "sections": [
+      {
+        "items": [
+          {
+            "effective_from": null,
+            "event_time": null,
+            "inclusion_reason": "AUTHORIZED_CURRENT_FACT",
+            "memory_record_id": "7932bcc8-d53f-5ccb-b9e8-69e2d5981296",
+            "memory_version_id": "68879b42-b047-5f77-9ece-d8455093cdf0",
+            "source_refs": [
+              "eval://100d77ac71c4ec68f0fffecff77e957a948509142df3ffa8dda6a647585cb203"
+            ],
+            "text": "晨星项目使用PostgreSQL。",
+            "trust": "untrusted_memory_data"
+          }
+        ],
+        "kind": "current_fact"
+      }
+    ],
+    "task_id": "c6b2a8aa-316c-44fa-8752-d041b7a80dd7",
+    "timezone": "UTC",
+    "token_budget": 4096,
+    "tokenizer_id": "demo-conservative-char-v1"
+  }
+}

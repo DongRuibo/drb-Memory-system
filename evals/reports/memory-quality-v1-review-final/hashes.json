@@ -1,0 +1,9 @@
+{
+  "evals/configs/memory_quality_v1.json": "91e6cf46b6ad3722f1d74d986073064c527c6a3255b7016fb8d102702b4ece11",
+  "evals/datasets/context_quality_v1.json": "fa5362ace3d7d9a3ebdff3a30fe13fc844c2640dae192b0cc4c408673665cab0",
+  "evals/datasets/governance_quality_v1.json": "31a71a1ad8a7db408ba20f9087b4e643810c1f7b632c1d9bc936b094b59b39e3",
+  "evals/harness/src/main.rs": "cb6764fe2a522ab5650bdb90dc9f1f525dca1171059bbd6b250b45fb6fa6d351",
+  "evals/memory_eval/quality.py": "f3e9fda9cf76387e0455ef9d5263ee751b2d4c8f0b3bfd3538d31047ccb61f2c",
+  "evals/tests/test_quality.py": "a6dd19ce2480a49144c3b96431a2cf99e0da1570c60cc1f77d9d1f2af4ca7511",
+  "scripts/eval-memory-quality.sh": "1654575f452d6980e07b43bf6af2f1105183c230d9588553d1cbe48ed23c087f"
+}

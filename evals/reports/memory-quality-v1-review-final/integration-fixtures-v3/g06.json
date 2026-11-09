@@ -1,0 +1,258 @@
+{
+  "id": "g06",
+  "family": "冲突识别",
+  "human_review": "pending",
+  "passed": false,
+  "checks": {
+    "version_count": true,
+    "record_count": true,
+    "head_state": false,
+    "current_text": true,
+    "conflict": false
+  },
+  "expected_labels": {
+    "conflict": false
+  },
+  "expected_state": {
+    "versions": 1,
+    "head_state": "active",
+    "current_text": "我偏好文字通知。"
+  },
+  "observed_duplicate": false,
+  "observed_conflict": true,
+  "state": {
+    "candidate_sources": [
+      {
+        "candidate_id": "207c10f1-3585-57d8-bff6-3f1b64a904a2",
+        "source_event_id": "13fc02f0-0050-550e-a07f-55726ade3e7d",
+        "tenant_id": "quality-g06"
+      },
+      {
+        "candidate_id": "d5413cda-1846-5ca9-b57d-5ab93e8f1a2b",
+        "source_event_id": "6977159e-8932-5c73-a0c1-bc0b893b5b04",
+        "tenant_id": "quality-g06"
+      }
+    ],
+    "memory_candidates": [
+      {
+        "confidence": 0.99,
+        "content": "我偏好文字通知。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:27.281171+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "207c10f1-3585-57d8-bff6-3f1b64a904a2",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.notice",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "accepted",
+        "structured_content": null,
+        "target_memory_record_id": "601047b7-df2f-571f-a201-14ce2313181c",
+        "tenant_id": "quality-g06"
+      },
+      {
+        "confidence": 0.99,
+        "content": "通知请用文字形式。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:27.341512+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "d5413cda-1846-5ca9-b57d-5ab93e8f1a2b",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.notice",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "needs_review",
+        "structured_content": null,
+        "target_memory_record_id": "601047b7-df2f-571f-a201-14ce2313181c",
+        "tenant_id": "quality-g06"
+      }
+    ],
+    "memory_decisions": [
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "207c10f1-3585-57d8-bff6-3f1b64a904a2",
+        "decided_at": "2026-11-08T17:46:27.281171+00:00",
+        "id": "daafccdb-e515-5255-8bb3-7ea9e7f1f1f1",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "EXPLICIT_LOW_RISK_PREFERENCE",
+        "tenant_id": "quality-g06"
+      },
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "d5413cda-1846-5ca9-b57d-5ab93e8f1a2b",
+        "decided_at": "2026-11-08T17:46:27.341512+00:00",
+        "id": "52dd0791-6eba-535e-b053-0aac8a9261a7",
+        "outcome": "needs_review",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW",
+        "tenant_id": "quality-g06"
+      }
+    ],
+    "memory_heads": [
+      {
+        "current_version_id": "bda78217-16de-5cb7-8a18-d84a16c6fc28",
+        "memory_record_id": "601047b7-df2f-571f-a201-14ce2313181c",
+        "revision": 1,
+        "state": "contested",
+        "tenant_id": "quality-g06",
+        "updated_at": "2026-11-08T17:46:27.341512+00:00"
+      }
+    ],
+    "memory_records": [
+      {
+        "created_at": "2026-11-08T17:46:27.281171+00:00",
+        "id": "601047b7-df2f-571f-a201-14ce2313181c",
+        "identity_retired_at": null,
+        "memory_type": "episodic_summary",
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "semantic_key": "quality.notice",
+        "tenant_id": "quality-g06"
+      }
+    ],
+    "memory_version_sources": [
+      {
+        "memory_version_id": "bda78217-16de-5cb7-8a18-d84a16c6fc28",
+        "source_event_id": "13fc02f0-0050-550e-a07f-55726ade3e7d",
+        "tenant_id": "quality-g06"
+      }
+    ],
+    "memory_versions": [
+      {
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "classification": "personal",
+        "confidence": 0.99,
+        "consent_ref": null,
+        "content": "我偏好文字通知。",
+        "content_erased_at": null,
+        "content_hash": "sha256:d8971c099666e5915b7b1f5de6437dead936a7b962d2f4a787ce1a5c8824d154",
+        "created_at": "2026-11-08T17:46:27.281171+00:00",
+        "decision_id": "daafccdb-e515-5255-8bb3-7ea9e7f1f1f1",
+        "effective_from": null,
+        "effective_to": null,
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "id": "bda78217-16de-5cb7-8a18-d84a16c6fc28",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_record_id": "601047b7-df2f-571f-a201-14ce2313181c",
+        "normalized_key": "quality.notice",
+        "retain_until": null,
+        "retention_policy_id": "demo-user-episodic_summary-v1",
+        "structured_content": null,
+        "tenant_id": "quality-g06",
+        "version_no": 1
+      }
+    ],
+    "retrieval_documents": [],
+    "source_events": [
+      {
+        "classification": "personal",
+        "client_event_id": "e28a9e838e2a51a8b3117f868152535adbe800854585f15702feefd9ba853b43",
+        "consent_ref": null,
+        "content_hash": "sha256:d8971c099666e5915b7b1f5de6437dead936a7b962d2f4a787ce1a5c8824d154",
+        "id": "13fc02f0-0050-550e-a07f-55726ade3e7d",
+        "idempotency_key": "e28a9e838e2a51a8b3117f868152535adbe800854585f15702feefd9ba853b43",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:27.281171+00:00",
+        "redacted_excerpt": "我偏好文字通知。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://e28a9e838e2a51a8b3117f868152535adbe800854585f15702feefd9ba853b43",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g06"
+      },
+      {
+        "classification": "personal",
+        "client_event_id": "6c369aba5422ed580b4ed1c29025b118272dc195938317e9343622f320fbc879",
+        "consent_ref": null,
+        "content_hash": "sha256:6e64872e7da5a98c0bc11cca8872369d2c90ddedc9bfc3cbd4f55536058c4770",
+        "id": "6977159e-8932-5c73-a0c1-bc0b893b5b04",
+        "idempotency_key": "6c369aba5422ed580b4ed1c29025b118272dc195938317e9343622f320fbc879",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:27.341512+00:00",
+        "redacted_excerpt": "通知请用文字形式。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://6c369aba5422ed580b4ed1c29025b118272dc195938317e9343622f320fbc879",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g06"
+      }
+    ],
+    "tombstones": []
+  },
+  "steps": [
+    {
+      "input": {
+        "op": "ingest",
+        "as": "a",
+        "text": "我偏好文字通知。",
+        "semantic_key": "notice"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "207c10f1-3585-57d8-bff6-3f1b64a904a2",
+        "canonical_status": "memory_accepted",
+        "head_revision": 0,
+        "memory_record_id": "601047b7-df2f-571f-a201-14ce2313181c",
+        "memory_version_id": "bda78217-16de-5cb7-8a18-d84a16c6fc28",
+        "operation_id": "ffe14e25-778f-5762-ae21-bf02962153f7",
+        "projection_status": "pending",
+        "provider_object_id": null,
+        "reason_code": null
+      }
+    },
+    {
+      "input": {
+        "op": "ingest",
+        "as": "b",
+        "text": "通知请用文字形式。",
+        "semantic_key": "notice"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "d5413cda-1846-5ca9-b57d-5ab93e8f1a2b",
+        "canonical_status": "needs_review",
+        "head_revision": 1,
+        "memory_record_id": "601047b7-df2f-571f-a201-14ce2313181c",
+        "memory_version_id": "bda78217-16de-5cb7-8a18-d84a16c6fc28",
+        "operation_id": "84e4b5c2-123e-5c17-b542-b3eded27db6f",
+        "projection_status": "pending",
+        "provider_object_id": "eval-local:ffe14e25-778f-5762-ae21-bf02962153f7",
+        "reason_code": "SEMANTIC_CONFLICT_REQUIRES_REVIEW"
+      }
+    }
+  ],
+  "cached_hits": [],
+  "cached_authorized": [],
+  "old_pack_consume": null,
+  "visible": [],
+  "scope_allowed": null,
+  "owner_visible": null,
+  "current_pack": null
+}

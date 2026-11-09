@@ -1,0 +1,13 @@
+{
+  "status": "prepared_for_human_review",
+  "query_count": 48,
+  "governance_count": 24,
+  "documents": 240,
+  "human_review": "pending",
+  "paid_api_calls": 0,
+  "dataset_sha256": {
+    "evals/datasets/context_quality_v1.json": "fa5362ace3d7d9a3ebdff3a30fe13fc844c2640dae192b0cc4c408673665cab0",
+    "evals/datasets/governance_quality_v1.json": "f46036c56d980b1960d4d73aed5a18b29a4d97511a0aa4d881162e294111fa0b",
+    "evals/datasets/holdout_v2.json": "96bbc1ef36262a8c233e62fbb7642526872a148cabaaea6b92faa676948049e1"
+  }
+}

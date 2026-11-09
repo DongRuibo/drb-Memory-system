@@ -1,0 +1,33 @@
+{
+  "queries": 48,
+  "positive": 42,
+  "unanswerable": 6,
+  "governance": 24,
+  "base_documents": 195,
+  "new_documents": 45,
+  "combined_documents": 240,
+  "category_counts": {
+    "实体和专有名词": 6,
+    "日期和时间": 6,
+    "中文自然语言改写": 6,
+    "多条件查询": 6,
+    "排除条件": 6,
+    "新旧事实冲突": 6,
+    "无答案查询": 6,
+    "多轮上下文查询": 6
+  },
+  "governance_family_counts": {
+    "重复识别": 3,
+    "冲突识别": 3,
+    "明确纠正": 3,
+    "版本替代": 3,
+    "来源追溯": 3,
+    "逻辑遗忘": 3,
+    "Scope隔离": 3,
+    "旧版本注入": 3
+  },
+  "all_human_reviews_pending": true,
+  "query_id_overlap_with_base": [],
+  "paid_api_calls": 0,
+  "new_formal_evaluation_run": false
+}

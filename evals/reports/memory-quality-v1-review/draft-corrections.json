@@ -1,0 +1,67 @@
+{
+  "status": "draft_pre_human_review_corrections",
+  "changes": [
+    {
+      "id": "g16",
+      "before": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": "我住在厦门。",
+        "visible": false
+      },
+      "after": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": null,
+        "visible": false,
+        "retained_history_text": "我住在厦门。"
+      },
+      "reason": "遗忘按现有合同清空Head.current_version_id，历史Version保留；原草稿混淆当前指针与历史内容，能力标签不变。"
+    },
+    {
+      "id": "g17",
+      "before": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": "我住在厦门。",
+        "visible": false,
+        "stale_allowed": false
+      },
+      "after": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": null,
+        "visible": false,
+        "stale_allowed": false,
+        "retained_history_text": "我住在厦门。"
+      },
+      "reason": "遗忘按现有合同清空Head.current_version_id，历史Version保留；原草稿混淆当前指针与历史内容，能力标签不变。"
+    },
+    {
+      "id": "g20",
+      "reason": "项目事实输入补齐现有规则要求的semantic_fact类型；不改变Scope标签或授权规则。"
+    },
+    {
+      "id": "g24",
+      "before": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": "我住在厦门。",
+        "visible": false,
+        "stale_allowed": false,
+        "stale_pack_allowed": false
+      },
+      "after": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": null,
+        "visible": false,
+        "stale_allowed": false,
+        "stale_pack_allowed": false,
+        "retained_history_text": "我住在厦门。"
+      },
+      "reason": "遗忘按现有合同清空Head.current_version_id，历史Version保留；原草稿混淆当前指针与历史内容，能力标签不变。"
+    }
+  ],
+  "adapter_fix": "审核/操作幂等键加quality前缀满足已有约束，不改变人工标签"
+}

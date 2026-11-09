@@ -1,0 +1,31 @@
+method,id,query,first_loss,literal_empty,evidence_delivered,evidence_total,raw_row_index,category
+bm25,q14,谁上班时不方便听提示音，需要用字来通知？,context_relevance,False,0,1,140,中文自然语言改写
+vector_tfidf,q17,哪位同事出差不把箱子交给航空公司托运？,context_relevance,True,0,1,3,中文自然语言改写
+vector_tfidf,q02,XC-37由哪位同事负责？,context_relevance,True,0,1,15,实体和专有名词
+vector_tfidf,q31,顾遥现在在哪座城市办公？,context_relevance,True,0,1,21,新旧事实冲突
+vector_tfidf,q15,给姜屿安排工位时应该避开什么光照？,context_relevance,True,0,1,27,中文自然语言改写
+vector_tfidf,q16,陆苒理解新系统时更愿意先看什么，再看代码细节？,context_relevance,True,0,1,28,中文自然语言改写
+vector_tfidf,q18,秦岚聚餐需要避开哪种表演和客流环境？,context_relevance,True,0,1,50,中文自然语言改写
+vector_tfidf,q05,AsterQueue把权威数据保存在什么数据库？,context_relevance,True,0,1,55,实体和专有名词
+vector_tfidf,q25,松鹤订房要躲开马路噪声，应选哪种房而非临街房？,context_relevance,True,0,1,56,排除条件
+vector_tfidf,q29,南枝的截止日是哪天？不是名字相近的南栀。,context_relevance,True,0,1,62,排除条件
+vector_tfidf,q22,给林棠订餐需要同时满足过敏和预算的哪些条件？,context_relevance,True,0,1,64,多条件查询
+vector_tfidf,q03,霁蓝接收业务流量用哪个端口？,context_relevance,True,0,1,70,实体和专有名词
+vector_tfidf,q33,澄海目前应使用7560还是7650业务端口？,context_relevance,True,0,1,73,新旧事实冲突
+vector_tfidf,q20,雾松负责人的办公分机是多少？,,False,1,2,77,多条件查询
+vector_tfidf,q45,"user: 上一轮确定要查看白露仓库的保留策略。
+当前问题: 那制品和日志分别保留多久？",context_relevance,True,0,1,81,多轮上下文查询
+vector_tfidf,q13,给余栀买奶类饮品时有什么饮食限制？,context_relevance,True,0,1,89,中文自然语言改写
+vector_tfidf,q34,裴宁当前应买哪种咖啡，不能沿用旧拿铁偏好？,context_relevance,True,0,1,94,新旧事实冲突
+vector_tfidf,q27,微帆正式生产接入应排除测试端口，正确端口是多少？,context_relevance,True,0,1,114,排除条件
+vector_tfidf,q35,雁池双方交付日期有哪些不同说法，统一了吗？,context_relevance,True,0,2,123,新旧事实冲突
+vector_tfidf,q46,"user: 当前谈到的人是程澈。
+当前问题: 他的办公分机是多少？",context_relevance,True,0,1,138,多轮上下文查询
+vector_tfidf,q14,谁上班时不方便听提示音，需要用字来通知？,context_relevance,True,0,1,141,中文自然语言改写
+vector_tfidf,q07,山雀在什么年月日正式上线？,context_relevance,True,0,1,147,日期和时间
+vector_tfidf,q30,只查看澄石状态且不能执行写入，应调用哪个接口？,context_relevance,True,0,1,151,排除条件
+vector_tfidf,q01,星槎的仓库叫什么？,context_relevance,True,0,1,153,实体和专有名词
+vector_tfidf,q24,小岑哪天可现场开会，那个上午的空闲时段是多少？,context_relevance,True,0,1,161,多条件查询
+vector_tfidf,q09,叶澄最晚应在什么本地时间交预算？,context_relevance,True,0,1,170,日期和时间
+vector_tfidf,q19,雾松所在节点周日何时维护？,context_relevance,True,0,2,177,多条件查询
+vector_tfidf,q04,纪蓝的监控监听端口是多少？,context_relevance,True,0,1,186,实体和专有名词

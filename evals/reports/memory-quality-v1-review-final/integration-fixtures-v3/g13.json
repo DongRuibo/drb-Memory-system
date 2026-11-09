@@ -1,0 +1,331 @@
+{
+  "id": "g13",
+  "family": "来源追溯",
+  "human_review": "pending",
+  "passed": true,
+  "checks": {
+    "version_count": true,
+    "record_count": true,
+    "head_state": true,
+    "current_text": true,
+    "source_count": true,
+    "source_chain": true,
+    "current_context": true
+  },
+  "expected_labels": {},
+  "expected_state": {
+    "versions": 1,
+    "head_state": "active",
+    "current_text": "我偏好步行。",
+    "sources": 2,
+    "source_chain": true
+  },
+  "observed_duplicate": true,
+  "observed_conflict": false,
+  "state": {
+    "candidate_sources": [
+      {
+        "candidate_id": "c6cd18af-cd8d-50e7-b549-a31b0180f67a",
+        "source_event_id": "554f6738-1174-5c95-a8d7-baf1fe17fe64",
+        "tenant_id": "quality-g13"
+      },
+      {
+        "candidate_id": "ec3c5b8d-33e8-55cf-931a-28e546018f1a",
+        "source_event_id": "df7d7c71-1910-5a27-98c8-ed70dcb3211f",
+        "tenant_id": "quality-g13"
+      }
+    ],
+    "memory_candidates": [
+      {
+        "confidence": 0.99,
+        "content": "我偏好步行。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:33.805124+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "c6cd18af-cd8d-50e7-b549-a31b0180f67a",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.travel",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "accepted",
+        "structured_content": null,
+        "target_memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+        "tenant_id": "quality-g13"
+      },
+      {
+        "confidence": 0.99,
+        "content": "我偏好步行。",
+        "content_erased_at": null,
+        "created_at": "2026-11-08T17:46:33.866582+00:00",
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "extractor_name": "eval-adapter",
+        "extractor_version": "v1",
+        "id": "ec3c5b8d-33e8-55cf-931a-28e546018f1a",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_type": "episodic_summary",
+        "normalized_key": "quality.travel",
+        "policy_version": "demo-policy-v1",
+        "revision": 0,
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "state": "accepted",
+        "structured_content": null,
+        "target_memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+        "tenant_id": "quality-g13"
+      }
+    ],
+    "memory_decisions": [
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "c6cd18af-cd8d-50e7-b549-a31b0180f67a",
+        "decided_at": "2026-11-08T17:46:33.805124+00:00",
+        "id": "58cddc51-d4f8-5735-bf81-c1283a7b2713",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "EXPLICIT_LOW_RISK_PREFERENCE",
+        "tenant_id": "quality-g13"
+      },
+      {
+        "actor_id": "demo-policy",
+        "actor_type": "policy",
+        "candidate_id": "ec3c5b8d-33e8-55cf-931a-28e546018f1a",
+        "decided_at": "2026-11-08T17:46:33.866582+00:00",
+        "id": "8a141cfb-0aa3-5974-aaa6-753f19f46e36",
+        "outcome": "accept",
+        "policy_version": "demo-policy-v1",
+        "reason_code": "EXACT_DUPLICATE_SOURCE_ATTACHED",
+        "tenant_id": "quality-g13"
+      }
+    ],
+    "memory_heads": [
+      {
+        "current_version_id": "78922229-06cc-5dd1-9123-4453f31439cb",
+        "memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+        "revision": 0,
+        "state": "active",
+        "tenant_id": "quality-g13",
+        "updated_at": "2026-11-08T17:46:33.805124+00:00"
+      }
+    ],
+    "memory_records": [
+      {
+        "created_at": "2026-11-08T17:46:33.805124+00:00",
+        "id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+        "identity_retired_at": null,
+        "memory_type": "episodic_summary",
+        "scope_id": "evaluator",
+        "scope_kind": "user",
+        "semantic_key": "quality.travel",
+        "tenant_id": "quality-g13"
+      }
+    ],
+    "memory_version_sources": [
+      {
+        "memory_version_id": "78922229-06cc-5dd1-9123-4453f31439cb",
+        "source_event_id": "554f6738-1174-5c95-a8d7-baf1fe17fe64",
+        "tenant_id": "quality-g13"
+      },
+      {
+        "memory_version_id": "78922229-06cc-5dd1-9123-4453f31439cb",
+        "source_event_id": "df7d7c71-1910-5a27-98c8-ed70dcb3211f",
+        "tenant_id": "quality-g13"
+      }
+    ],
+    "memory_versions": [
+      {
+        "allowed_purposes": [
+          "answer_user"
+        ],
+        "classification": "personal",
+        "confidence": 0.99,
+        "consent_ref": null,
+        "content": "我偏好步行。",
+        "content_erased_at": null,
+        "content_hash": "sha256:3ff651390418de6cdcf2d15fb02e2b6c625402f16de7b4660fa365e459b12752",
+        "created_at": "2026-11-08T17:46:33.805124+00:00",
+        "decision_id": "58cddc51-d4f8-5735-bf81-c1283a7b2713",
+        "effective_from": null,
+        "effective_to": null,
+        "event_time_end": null,
+        "event_time_precision": null,
+        "event_time_start": null,
+        "event_timezone": null,
+        "id": "78922229-06cc-5dd1-9123-4453f31439cb",
+        "importance": 0.5,
+        "inference_kind": "explicit",
+        "memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+        "normalized_key": "quality.travel",
+        "retain_until": null,
+        "retention_policy_id": "demo-user-episodic_summary-v1",
+        "structured_content": null,
+        "tenant_id": "quality-g13",
+        "version_no": 1
+      }
+    ],
+    "retrieval_documents": [
+      {
+        "content": "我偏好步行。",
+        "content_hash": "sha256:3ff651390418de6cdcf2d15fb02e2b6c625402f16de7b4660fa365e459b12752",
+        "generation": "demo-v0-generation-1",
+        "head_revision": 0,
+        "indexed_at": "2026-11-08T17:46:33.843874+00:00",
+        "memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+        "memory_version_id": "78922229-06cc-5dd1-9123-4453f31439cb",
+        "namespace_key": "ns-a4907e8de82169d1aa3a52e5f12e649083b0e57f98a11d4f3b80e680eb6a77b7",
+        "search_vector": "'我偏好步行':1",
+        "tenant_id": "quality-g13"
+      }
+    ],
+    "source_events": [
+      {
+        "classification": "personal",
+        "client_event_id": "b20e927755f0c4015b0ca94673cc1be1a32e4e128ecf4fc407465d87f0a8bd22",
+        "consent_ref": null,
+        "content_hash": "sha256:3ff651390418de6cdcf2d15fb02e2b6c625402f16de7b4660fa365e459b12752",
+        "id": "554f6738-1174-5c95-a8d7-baf1fe17fe64",
+        "idempotency_key": "b20e927755f0c4015b0ca94673cc1be1a32e4e128ecf4fc407465d87f0a8bd22",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:33.805124+00:00",
+        "redacted_excerpt": "我偏好步行。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://b20e927755f0c4015b0ca94673cc1be1a32e4e128ecf4fc407465d87f0a8bd22",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g13"
+      },
+      {
+        "classification": "personal",
+        "client_event_id": "83c83a49eb6613e50869a6ab0d5cee4ffcd3a58d5db694c751aebf6f8811108e",
+        "consent_ref": null,
+        "content_hash": "sha256:3ff651390418de6cdcf2d15fb02e2b6c625402f16de7b4660fa365e459b12752",
+        "id": "df7d7c71-1910-5a27-98c8-ed70dcb3211f",
+        "idempotency_key": "83c83a49eb6613e50869a6ab0d5cee4ffcd3a58d5db694c751aebf6f8811108e",
+        "occurred_at": "2026-01-01T00:00:00+00:00",
+        "recorded_at": "2026-11-08T17:46:33.866582+00:00",
+        "redacted_excerpt": "我偏好步行。",
+        "redaction_policy_version": "lazytt-security-v1",
+        "security_flags": [],
+        "source_ref": "eval://83c83a49eb6613e50869a6ab0d5cee4ffcd3a58d5db694c751aebf6f8811108e",
+        "source_type": "conversation_message",
+        "tenant_id": "quality-g13"
+      }
+    ],
+    "tombstones": []
+  },
+  "steps": [
+    {
+      "input": {
+        "op": "ingest",
+        "as": "a",
+        "text": "我偏好步行。",
+        "semantic_key": "travel"
+      },
+      "output": {
+        "attempts": 0,
+        "candidate_id": "c6cd18af-cd8d-50e7-b549-a31b0180f67a",
+        "canonical_status": "memory_accepted",
+        "head_revision": 0,
+        "memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+        "memory_version_id": "78922229-06cc-5dd1-9123-4453f31439cb",
+        "operation_id": "fb644a2f-4d1f-56ed-9400-f12d7eb489d9",
+        "projection_status": "pending",
+        "provider_object_id": null,
+        "reason_code": null
+      }
+    },
+    {
+      "input": {
+        "op": "ingest",
+        "as": "b",
+        "text": "我偏好步行。",
+        "semantic_key": "travel"
+      },
+      "output": {
+        "attempts": 1,
+        "candidate_id": "c6cd18af-cd8d-50e7-b549-a31b0180f67a",
+        "canonical_status": "memory_accepted",
+        "head_revision": 0,
+        "memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+        "memory_version_id": "78922229-06cc-5dd1-9123-4453f31439cb",
+        "operation_id": "fb644a2f-4d1f-56ed-9400-f12d7eb489d9",
+        "projection_status": "ready",
+        "provider_object_id": "eval-local:fb644a2f-4d1f-56ed-9400-f12d7eb489d9",
+        "reason_code": null
+      }
+    }
+  ],
+  "cached_hits": [],
+  "cached_authorized": [],
+  "old_pack_consume": null,
+  "visible": [
+    {
+      "content": "我偏好步行。",
+      "effective_from": null,
+      "event_time": null,
+      "memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+      "memory_type": "episodic_summary",
+      "memory_version_id": "78922229-06cc-5dd1-9123-4453f31439cb",
+      "score": 1.0,
+      "source_refs": [
+        "eval://83c83a49eb6613e50869a6ab0d5cee4ffcd3a58d5db694c751aebf6f8811108e",
+        "eval://b20e927755f0c4015b0ca94673cc1be1a32e4e128ecf4fc407465d87f0a8bd22"
+      ]
+    }
+  ],
+  "scope_allowed": null,
+  "owner_visible": null,
+  "current_pack": {
+    "attempt_id": "494ff714-da79-4f58-b543-372a962f33cc",
+    "authority_snapshot_id": "authz-3e3a7cd5711b0c6b45510abed57948c6a8c8227cf4202c860e1c76584e50d9ee",
+    "compiler_version": "demo-context-compiler-v2",
+    "consumed_at": "2026-11-08T17:46:33.931894Z",
+    "context_pack_id": "4a8775fa-10ae-5638-8096-704426c8e1b5",
+    "created_at": "2026-11-08T17:46:33.923288Z",
+    "estimated_tokens": 38,
+    "expires_at": "2026-11-08T17:51:33.923288Z",
+    "omission_summary": {},
+    "policy_version": "demo-policy-v1",
+    "projection_generation": "demo-v0-generation-1",
+    "purpose": "answer_user",
+    "ranking_version": "eval-v1",
+    "reference_time": "2026-01-01T00:00:00Z",
+    "sections": [
+      {
+        "items": [
+          {
+            "effective_from": null,
+            "event_time": null,
+            "inclusion_reason": "AUTHORIZED_RELEVANT_EXPERIENCE",
+            "memory_record_id": "edeaf261-c4e3-5059-8c34-0ef754583dac",
+            "memory_version_id": "78922229-06cc-5dd1-9123-4453f31439cb",
+            "source_refs": [
+              "eval://83c83a49eb6613e50869a6ab0d5cee4ffcd3a58d5db694c751aebf6f8811108e",
+              "eval://b20e927755f0c4015b0ca94673cc1be1a32e4e128ecf4fc407465d87f0a8bd22"
+            ],
+            "text": "我偏好步行。",
+            "trust": "untrusted_memory_data"
+          }
+        ],
+        "kind": "relevant_experience"
+      }
+    ],
+    "task_id": "aee76cb7-03b1-4240-b8a2-a09095bc8a4f",
+    "timezone": "UTC",
+    "token_budget": 4096,
+    "tokenizer_id": "demo-conservative-char-v1"
+  }
+}

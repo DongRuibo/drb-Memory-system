@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "retrieval_records": 192,
+  "governance_records": 24,
+  "request_errors": 0,
+  "independent_retrieval_metric_recalculation": true,
+  "exact_token_recount_queries": 192,
+  "unique_payload_tokenizations": 89,
+  "full_baseline_all_evidence_verified": "42/42 for each method",
+  "reviewed_hashes_match": true,
+  "raw_human_review_metadata_preserved": "pending",
+  "paid_api_calls": 0
+}

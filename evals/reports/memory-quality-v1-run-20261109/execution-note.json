@@ -1,0 +1,9 @@
+{
+  "date": "2026-11-09",
+  "user_instruction": "执行",
+  "scope": "run current frozen 48-query four-method and 24-governance free evaluation",
+  "annotation_review": "execution authorized against current labels; pending source metadata retained; no invented item-by-item review record",
+  "paid_api_calls": 0,
+  "paid_claim_created": false,
+  "production_database_used": false
+}

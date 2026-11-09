@@ -1,0 +1,748 @@
+{
+  "version": "governance-quality-v1-20261109",
+  "kind": "self_constructed_governance",
+  "human_review": "pending",
+  "boundary": "直接提交人工编写Candidate/Correction，不验证LLM提取、自然语言纠错识别或外部索引同步",
+  "cases": [
+    {
+      "id": "g01",
+      "family": "重复识别",
+      "title": "相同事实、独立来源复用Version",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "active",
+        "current_text": "我住在厦门。",
+        "sources": 2
+      },
+      "labels": {
+        "duplicate": true
+      },
+      "reason": "同一身份和正文，两个来源应复用一个版本。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g02",
+      "family": "重复识别",
+      "title": "不同属性不能合并",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我喜欢散步。",
+          "semantic_key": "hobby"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": null,
+        "records": 2
+      },
+      "labels": {
+        "duplicate": false
+      },
+      "reason": "不同语义键为两个独立事实。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g03",
+      "family": "重复识别",
+      "title": "同义改写应视为重复",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我喜欢骑自行车。",
+          "semantic_key": "hobby"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "骑自行车是我的爱好。",
+          "semantic_key": "hobby"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "active",
+        "current_text": "我喜欢骑自行车。",
+        "sources": 2
+      },
+      "labels": {
+        "duplicate": true
+      },
+      "reason": "语义相同但正文不同；预期能力与当前已知缺口分开记录。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g04",
+      "family": "冲突识别",
+      "title": "同一住所的新陈述冲突",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我住在青岛。",
+          "semantic_key": "home"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "contested",
+        "current_text": "我住在厦门。"
+      },
+      "labels": {
+        "conflict": true
+      },
+      "reason": "没有明确更正操作时，新旧不相容陈述应隔离待审。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g05",
+      "family": "冲突识别",
+      "title": "不同身份的城市不冲突",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "甲组驻地在厦门。",
+          "semantic_key": "team-a"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "乙组驻地在青岛。",
+          "semantic_key": "team-b"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": null,
+        "records": 2
+      },
+      "labels": {
+        "conflict": false
+      },
+      "reason": "不同语义身份可以并存。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g06",
+      "family": "冲突识别",
+      "title": "等价偏好不应误报冲突",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我偏好文字通知。",
+          "semantic_key": "notice"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "通知请用文字形式。",
+          "semantic_key": "notice"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "active",
+        "current_text": "我偏好文字通知。"
+      },
+      "labels": {
+        "conflict": false
+      },
+      "reason": "改写不表示事实矛盾；当前可能误判，不能把复现缺口计为能力通过。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g07",
+      "family": "明确纠正",
+      "title": "明确纠正城市",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "cache",
+          "target": "a"
+        },
+        {
+          "op": "correct",
+          "target": "a",
+          "as": "updated",
+          "text": "我住在青岛。"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": "我住在青岛。",
+        "stale_allowed": false
+      },
+      "labels": {},
+      "reason": "显式Correction应追加新版本，旧候选立即不可授权。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g08",
+      "family": "明确纠正",
+      "title": "明确纠正角色",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我的角色是测试工程师。",
+          "semantic_key": "role"
+        },
+        {
+          "op": "cache",
+          "target": "a"
+        },
+        {
+          "op": "correct",
+          "target": "a",
+          "as": "updated",
+          "text": "我的角色是后端工程师。"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": "我的角色是后端工程师。",
+        "stale_allowed": false
+      },
+      "labels": {},
+      "reason": "显式Correction应追加新版本，旧候选立即不可授权。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g09",
+      "family": "明确纠正",
+      "title": "明确纠正偏好",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我偏好红茶。",
+          "semantic_key": "drink"
+        },
+        {
+          "op": "cache",
+          "target": "a"
+        },
+        {
+          "op": "correct",
+          "target": "a",
+          "as": "updated",
+          "text": "我偏好麦茶。"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": "我偏好麦茶。",
+        "stale_allowed": false
+      },
+      "labels": {},
+      "reason": "显式Correction应追加新版本，旧候选立即不可授权。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g10",
+      "family": "版本替代",
+      "title": "审核接受切换版本",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我住在青岛。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "review",
+          "target": "b",
+          "outcome": "accept"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": "我住在青岛。"
+      },
+      "labels": {},
+      "reason": "人工接受冲突候选后，新版本替代原版本。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g11",
+      "family": "版本替代",
+      "title": "审核拒绝保留旧版本",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我住在青岛。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "review",
+          "target": "b",
+          "outcome": "reject"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "active",
+        "current_text": "我住在厦门。"
+      },
+      "labels": {},
+      "reason": "拒绝后恢复原事实，不能把被拒候选注入。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g12",
+      "family": "版本替代",
+      "title": "连续显式纠正保留三版历史",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "correct",
+          "target": "a",
+          "as": "updated",
+          "text": "我住在青岛。"
+        },
+        {
+          "op": "correct",
+          "target": "a",
+          "as": "updated",
+          "text": "我住在宁波。"
+        }
+      ],
+      "expected": {
+        "versions": 3,
+        "head_state": "active",
+        "current_text": "我住在宁波。"
+      },
+      "labels": {},
+      "reason": "连续更正不覆盖历史版本。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g13",
+      "family": "来源追溯",
+      "title": "独立重复来源可追溯",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我偏好步行。",
+          "semantic_key": "travel"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我偏好步行。",
+          "semantic_key": "travel"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "active",
+        "current_text": "我偏好步行。",
+        "sources": 2,
+        "source_chain": true
+      },
+      "labels": {},
+      "reason": "两个Source Event经Candidate链关联同一个Version。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g14",
+      "family": "来源追溯",
+      "title": "更正前后来源各自可追溯",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "correct",
+          "target": "a",
+          "as": "updated",
+          "text": "我住在青岛。"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": "我住在青岛。",
+        "sources": 2,
+        "source_chain": true
+      },
+      "labels": {},
+      "reason": "旧版本来源保留，新版本记录更正来源；更正不要求伪造提取Candidate。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g15",
+      "family": "来源追溯",
+      "title": "接受候选保留两版来源",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我住在青岛。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "review",
+          "target": "b",
+          "outcome": "accept"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": "我住在青岛。",
+        "sources": 2,
+        "source_chain": true
+      },
+      "labels": {},
+      "reason": "被接受候选和原事实的来源均应可追溯。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g16",
+      "family": "逻辑遗忘",
+      "title": "遗忘后检索与Context不可见",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "forget",
+          "target": "a"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": null,
+        "visible": false,
+        "retained_history_text": "我住在厦门。"
+      },
+      "labels": {},
+      "reason": "逻辑遗忘保留历史但禁止注入；不要求物理擦除。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g17",
+      "family": "逻辑遗忘",
+      "title": "投影删除前旧缓存也不可见",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "cache",
+          "target": "a"
+        },
+        {
+          "op": "forget",
+          "target": "a",
+          "drain": false
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": null,
+        "visible": false,
+        "stale_allowed": false,
+        "retained_history_text": "我住在厦门。"
+      },
+      "labels": {},
+      "reason": "验证Head闸门不依赖异步投影已清理。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g18",
+      "family": "逻辑遗忘",
+      "title": "遗忘一条不影响另一条",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我偏好步行。",
+          "semantic_key": "travel"
+        },
+        {
+          "op": "forget",
+          "target": "a"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": null,
+        "records": 2,
+        "forgotten_records": 1,
+        "remaining_text": "我偏好步行。"
+      },
+      "labels": {},
+      "reason": "目标事实消失，其他有效事实仍可注入。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g19",
+      "family": "Scope隔离",
+      "title": "另一用户不能读取",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我的办公城市是厦门。",
+          "semantic_key": "home"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "active",
+        "current_text": "我的办公城市是厦门。",
+        "scope_allowed": false
+      },
+      "labels": {
+        "probe": {
+          "user": "other"
+        }
+      },
+      "reason": "同租户其他用户无权读取该用户事实。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g20",
+      "family": "Scope隔离",
+      "title": "无项目成员资格不能读取",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "晨星项目使用PostgreSQL。",
+          "semantic_key": "db",
+          "scope": "project",
+          "scope_id": "quality-alpha",
+          "projects": [
+            "quality-alpha"
+          ],
+          "memory_type": "semantic_fact"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "active",
+        "current_text": "晨星项目使用PostgreSQL。",
+        "scope_allowed": false
+      },
+      "labels": {
+        "probe": {
+          "projects": []
+        }
+      },
+      "reason": "项目成员可见，未授权身份应被拒绝。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g21",
+      "family": "Scope隔离",
+      "title": "不同租户不能读取",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我的办公城市是厦门。",
+          "semantic_key": "home"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "active",
+        "current_text": "我的办公城市是厦门。",
+        "scope_allowed": false
+      },
+      "labels": {
+        "probe": {
+          "other_tenant": true
+        }
+      },
+      "reason": "不同租户即使同一user ID也不得读取。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g22",
+      "family": "旧版本注入",
+      "title": "更新后旧候选和旧Pack均失效",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "cache",
+          "target": "a"
+        },
+        {
+          "op": "correct",
+          "target": "a",
+          "as": "updated",
+          "text": "我住在青岛。"
+        }
+      ],
+      "expected": {
+        "versions": 2,
+        "head_state": "active",
+        "current_text": "我住在青岛。",
+        "stale_allowed": false,
+        "stale_pack_allowed": false
+      },
+      "labels": {},
+      "reason": "新Head生效后，旧候选/预编译Pack不能继续注入。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g23",
+      "family": "旧版本注入",
+      "title": "争议中旧Pack不能继续注入",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "cache",
+          "target": "a"
+        },
+        {
+          "op": "ingest",
+          "as": "b",
+          "text": "我住在青岛。",
+          "semantic_key": "home"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "contested",
+        "current_text": "我住在厦门。",
+        "stale_allowed": false,
+        "stale_pack_allowed": false
+      },
+      "labels": {},
+      "reason": "contested采用fail-closed，不应继续把旧事实作为确定事实。",
+      "human_review": "pending"
+    },
+    {
+      "id": "g24",
+      "family": "旧版本注入",
+      "title": "遗忘后旧Pack不能继续注入",
+      "steps": [
+        {
+          "op": "ingest",
+          "as": "a",
+          "text": "我住在厦门。",
+          "semantic_key": "home"
+        },
+        {
+          "op": "cache",
+          "target": "a"
+        },
+        {
+          "op": "forget",
+          "target": "a"
+        }
+      ],
+      "expected": {
+        "versions": 1,
+        "head_state": "forgotten",
+        "current_text": null,
+        "visible": false,
+        "stale_allowed": false,
+        "stale_pack_allowed": false,
+        "retained_history_text": "我住在厦门。"
+      },
+      "labels": {},
+      "reason": "遗忘后预编译Pack消费必须拒绝。",
+      "human_review": "pending"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "status": "completed",
+  "human_review": "pending",
+  "interpretation": "provisional_engineering_run_not_final_reviewed_scores",
+  "paid_api_calls": 0,
+  "git_head": "9a5a438452502f71a207118ab104da5da5aa2071",
+  "dataset_sha256": {
+    "evals/datasets/context_quality_v1.json": "fa5362ace3d7d9a3ebdff3a30fe13fc844c2640dae192b0cc4c408673665cab0",
+    "evals/datasets/governance_quality_v1.json": "31a71a1ad8a7db408ba20f9087b4e643810c1f7b632c1d9bc936b094b59b39e3",
+    "evals/datasets/holdout_v2.json": "96bbc1ef36262a8c233e62fbb7642526872a148cabaaea6b92faa676948049e1"
+  },
+  "tokenizer": {
+    "model": "deepseek-ai/DeepSeek-V3.2",
+    "revision": "a7e62ac04ecb2c0a54d736dc46601c5606cf10a6",
+    "sha256": "cd050be35cae877f8f0aa847f45aa87e23835a56ca32b29b28545597852784e5",
+    "runtime": "tokenizers==0.22.1",
+    "add_special_tokens": false
+  },
+  "source_sha256": {
+    "evals/memory_eval/quality.py": "f3e9fda9cf76387e0455ef9d5263ee751b2d4c8f0b3bfd3538d31047ccb61f2c",
+    "evals/harness/src/main.rs": "cb6764fe2a522ab5650bdb90dc9f1f525dca1171059bbd6b250b45fb6fa6d351",
+    "evals/memory_eval/runner.py": "ebc182bed77b440e7a3de2f91108a023a67f61071dc2f52d99bb3dcc2ba4b057",
+    "evals/memory_eval/models3.py": "7c6c59956112662d3ad494d7d6ed550270baca9768bc18fc00d5ec47d6912ad6",
+    "crates/memory-postgres/src/repository.rs": "3a008a0c518e5058b08a738959754037c574c403dc2d867144458d952550fbb1"
+  },
+  "semantic_embedding": "not_run_no_tfidf_substitution",
+  "production_http": "not_run_Repository_ports_only",
+  "protocol": {
+    "version": "memory-quality-protocol-v1-20261109",
+    "seed": 20261109,
+    "human_review": "pending",
+    "candidate_budget": 20,
+    "methods": [
+      "bm25",
+      "vector_tfidf",
+      "hybrid",
+      "hybrid_rerank"
+    ],
+    "output_limit": 10,
+    "context_char_budget": 2048,
+    "tokenizer": {
+      "model": "deepseek-ai/DeepSeek-V3.2",
+      "revision": "a7e62ac04ecb2c0a54d736dc46601c5606cf10a6",
+      "sha256": "cd050be35cae877f8f0aa847f45aa87e23835a56ca32b29b28545597852784e5",
+      "runtime": "tokenizers==0.22.1",
+      "add_special_tokens": false
+    },
+    "dataset_sha256": {
+      "evals/datasets/context_quality_v1.json": "fa5362ace3d7d9a3ebdff3a30fe13fc844c2640dae192b0cc4c408673665cab0",
+      "evals/datasets/governance_quality_v1.json": "31a71a1ad8a7db408ba20f9087b4e643810c1f7b632c1d9bc936b094b59b39e3",
+      "evals/datasets/holdout_v2.json": "96bbc1ef36262a8c233e62fbb7642526872a148cabaaea6b92faa676948049e1"
+    },
+    "paid_api_calls_limit": 0,
+    "definitions": {
+      "tokens": "exact tokenizer on rendered memory payload, not provider usage; same renderer for A/B",
+      "full": "all canonical-authorized active memories; no qrel filtering, no retrieval limit",
+      "context": "production compile/consume, 2048 conservative-character budget, output10; current rules unchanged",
+      "positive_denominator": "42 new answerable queries with permitted active evidence in static raw-history corpus",
+      "negative_denominator": "6 unanswerable queries; excluded from Recall/MRR/nDCG and positive empty-context denominator",
+      "stage_loss": "lost all gold candidates compared to preceding stage; conditional denominator reported separately",
+      "failures": "request failures count as quality zero and effective-context failures; literal-empty measurement uses successfully received packs only, denominator and request failures separate; token stats exclude failures with explicit count",
+      "governance": "24 operation fixtures, eight families; duplicate/conflict label accuracy separate from full-state scenario pass",
+      "scope": "correct policy denial is success, not false empty context; unauthorized/forgotten/stale probes separate from static positives",
+      "multi_turn": "literal user/assistant history concat, no query rewriting; not native conversation reasoning",
+      "scope_boundary": "governed Repository and evaluation projection acknowledgments, no Mem0/ES HTTP or production SLO"
+    },
+    "reference_time": "2026-01-01T00:00:00Z",
+    "timezone": "UTC"
+  },
+  "ingestion": {
+    "input_documents": 240,
+    "indexed_documents": 240,
+    "redacted_documents": 0,
+    "rejected": []
+  },
+  "postgres_image_id": "sha256:8dd950fd4ca6d59e4fc748361bfb059f44907cc99577ae227d196adb29ad8913"
+}
